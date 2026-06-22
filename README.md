@@ -34,6 +34,35 @@ R 기반 실습이 필요하면 R 설치 후 다음을 실행합니다.
 Rscript requirements.R
 ```
 
+## Node.js / React / Spring Boot
+
+개발용 언어와 웹/API 실습 환경은 다음 파일과 앱으로 초기 설정되어 있습니다.
+
+- `.nvmrc`: Node.js 24 LTS 기준
+- `.java-version`: Java 21 기준
+- `package.json`: npm workspace와 공통 스크립트
+- `apps/react-js`: Vite + React(JavaScript) 앱
+- `apps/spring-boot`: Java 21 + Spring Boot API 앱
+- `docs/development-stack.md`: 개발 스택 실행 가이드
+
+```bash
+nvm use
+npm install
+npm run dev:react
+```
+
+Spring Boot는 Java 21과 Maven 설치 후 실행합니다.
+
+```bash
+mvn -f apps/spring-boot/pom.xml spring-boot:run
+```
+
+통합 환경 점검:
+
+```bash
+npm run check:env
+```
+
 ## 의존성 파일
 
 - `requirements.txt`: 데이터 분석/시각화/노트북 기본 의존성

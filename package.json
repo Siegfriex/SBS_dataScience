@@ -1,0 +1,21 @@
+{
+  "name": "sbs-datascience-workspace",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Polyglot workspace for SBS data science, React, and Spring Boot practice.",
+  "type": "module",
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "workspaces": [
+    "apps/react-js"
+  ],
+  "scripts": {
+    "check:env": "python3 scripts/check_env.py && python3 scripts/check_dev_env.py",
+    "dev:react": "npm --workspace apps/react-js run dev",
+    "build:react": "npm --workspace apps/react-js run build",
+    "preview:react": "npm --workspace apps/react-js run preview",
+    "dev:spring": "mvn -f apps/spring-boot/pom.xml spring-boot:run",
+    "test:spring": "mvn -f apps/spring-boot/pom.xml test"
+  }
+}
