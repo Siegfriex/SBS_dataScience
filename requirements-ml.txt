@@ -1,0 +1,8 @@
+-r requirements.txt
+
+# Deep learning stack
+torch>=2.4
+torchvision>=0.19
+torchaudio>=2.4
+keras>=3.5
+tensorflow>=2.17
