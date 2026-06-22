@@ -11,8 +11,9 @@
     "apps/react-js"
   ],
   "scripts": {
-    "check:env": "python3 scripts/check_env.py && python3 scripts/check_dev_env.py",
-    "check:gpu": "python3 scripts/check_gpu.py",
+    "check:env": "bash scripts/run_env_check.sh",
+    "check:gpu": "bash scripts/run_gpu_check.sh",
+    "setup:tensorflow-gpu": "bash scripts/configure_tensorflow_gpu.sh",
     "dev:react": "npm --workspace apps/react-js run dev",
     "build:react": "npm --workspace apps/react-js run build",
     "preview:react": "npm --workspace apps/react-js run preview",

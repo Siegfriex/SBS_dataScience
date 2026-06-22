@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 import ctypes
+import os
 import shutil
 import subprocess
+import sys
 from pathlib import Path
 
 
@@ -35,28 +37,61 @@ def libcuda_status(lib_name: str) -> str:
         return f"error: {type(exc).__name__}: {exc}"
 
 
+TENSORFLOW_CHECK = r"""
+import tensorflow as tf
+
+print(f"tensorflow.version\t{tf.__version__}")
+print(f"tensorflow.built_with_cuda\t{tf.test.is_built_with_cuda()}")
+gpus = tf.config.list_physical_devices("GPU")
+print(f"tensorflow.gpus\t{gpus}")
+if gpus:
+    with tf.device("/GPU:0"):
+        a = tf.random.normal((64, 64))
+        b = tf.random.normal((64, 64))
+        c = tf.matmul(a, b)
+    print(f"tensorflow.matmul_device\t{c.device}")
+"""
+
+
+TORCH_CHECK = r"""
+import torch
+
+print(f"torch.version\t{torch.__version__}")
+print(f"torch.cuda_compiled\t{torch.version.cuda}")
+print(f"torch.cuda_available\t{torch.cuda.is_available()}")
+print(f"torch.cuda_device_count\t{torch.cuda.device_count()}")
+if torch.cuda.is_available():
+    print(f"torch.cuda_device_0\t{torch.cuda.get_device_name(0)}")
+    a = torch.randn(64, 64, device="cuda")
+    b = torch.randn(64, 64, device="cuda")
+    c = a @ b
+    torch.cuda.synchronize()
+    print(f"torch.matmul_device\t{c.device}")
+"""
+
+
+def run_python_check(name: str, code: str) -> list[str]:
+    env = os.environ.copy()
+    env.setdefault("TF_CPP_MIN_LOG_LEVEL", "2")
+    result = subprocess.run(
+        [sys.executable, "-c", code],
+        check=False,
+        text=True,
+        capture_output=True,
+        timeout=180,
+        env=env,
+    )
+    lines = [line for line in result.stdout.splitlines() if line.strip()]
+    if result.returncode != 0:
+        stderr_tail = " | ".join(result.stderr.strip().splitlines()[-5:])
+        lines.append(f"{name}\terror: exit={result.returncode}; {stderr_tail}")
+    return lines
+
+
 def python_gpu_status() -> list[str]:
     lines: list[str] = []
-    try:
-        import torch
-
-        lines.append(f"torch.version\t{torch.__version__}")
-        lines.append(f"torch.cuda_compiled\t{torch.version.cuda}")
-        lines.append(f"torch.cuda_available\t{torch.cuda.is_available()}")
-        lines.append(f"torch.cuda_device_count\t{torch.cuda.device_count()}")
-        if torch.cuda.is_available():
-            lines.append(f"torch.cuda_device_0\t{torch.cuda.get_device_name(0)}")
-    except Exception as exc:
-        lines.append(f"torch\terror: {type(exc).__name__}: {exc}")
-
-    try:
-        import tensorflow as tf
-
-        lines.append(f"tensorflow.version\t{tf.__version__}")
-        lines.append(f"tensorflow.built_with_cuda\t{tf.test.is_built_with_cuda()}")
-        lines.append(f"tensorflow.gpus\t{tf.config.list_physical_devices('GPU')}")
-    except Exception as exc:
-        lines.append(f"tensorflow\terror: {type(exc).__name__}: {exc}")
+    lines.extend(run_python_check("tensorflow", TENSORFLOW_CHECK))
+    lines.extend(run_python_check("torch", TORCH_CHECK))
 
     return lines
 

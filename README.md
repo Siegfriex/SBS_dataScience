@@ -18,6 +18,7 @@ PyTorch, Keras, TensorFlow까지 포함한 ML 실습 환경이 필요하면 다�
 
 ```bash
 python -m pip install -r requirements-ml.txt
+npm run setup:tensorflow-gpu
 ```
 
 설치 상태 점검:
