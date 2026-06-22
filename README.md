@@ -61,6 +61,7 @@ mvn -f apps/spring-boot/pom.xml spring-boot:run
 
 ```bash
 npm run check:env
+npm run check:gpu
 ```
 
 ## 의존성 파일

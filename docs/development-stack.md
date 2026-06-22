@@ -54,9 +54,12 @@ GET http://127.0.0.1:8080/actuator/health
 
 ```bash
 npm run check:env
+npm run check:gpu
 ```
 
 Maven이 설치되지 않은 환경에서는 Spring 빌드 명령은 실행되지 않지만, 점검 스크립트가 누락 상태를 표시한다.
+
+GPU/CUDA 점검은 `nvidia-smi`, `nvcc`, WSL GPU 장치(`/dev/dxg`), `libcuda.so.1`, PyTorch, TensorFlow 인식 상태를 함께 출력한다.
 
 ## 기준 문서
 
