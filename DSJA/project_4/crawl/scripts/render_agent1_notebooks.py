@@ -43,15 +43,21 @@ persisted_files = [STAGE_ROOT / name for name in ["resume_state.json", "remainin
         "schema": "crawl-index-v1",
         "input": OBSERVED_HANDOFF,
         "title": "Exercise the registry-owned Linkareer APQ query in fixture dry-run mode",
-        "calls": "audit_input_manifest;run_fixture_apq_query;APQClient.fetch;QueryRegistry.load;write_stage_artifacts",
-        "operation": '''from p4_crawl.observed import run_fixture_apq_query
+        "calls": "audit_input_manifest;run_fixture_apq_query;production_index_plan;APQClient.fetch;QueryRegistry.load;write_stage_artifacts",
+        "operation": '''from p4_crawl.index_orchestrator import production_index_plan
+from p4_crawl.observed import run_fixture_apq_query
+from p4_crawl.storage import atomic_write_json
 
 metrics = run_fixture_apq_query(CRAWL_ROOT, STAGE_ROOT)
+production_plan = production_index_plan([])
+atomic_write_json(STAGE_ROOT / "production_source_policy_plan.json", production_plan)
+metrics["productionSourcePolicyControls"] = len([key for key in production_plan if key.isupper()])
 quality = [
     quality_row("INDEX_FIXTURE_APQ_READY", "REGISTRY_APQ", "ERROR", "PASS" if metrics["transportCalls"] == 1 else "FAIL", metrics["transportCalls"], 1, "fixture_apq_audit.json"),
     quality_row("NO_LIVE_CRAWL_M1", "NETWORK_ZERO", "ERROR", "PASS" if metrics["networkCalls"] == 0 else "FAIL", metrics["networkCalls"], 0, "fixture_apq_audit.json"),
+    quality_row("SOURCE_POLICY_IMPLEMENTATION_READY", "KILL_SWITCH_CONTROLS", "ERROR", "PASS" if metrics["productionSourcePolicyControls"] == 9 else "FAIL", metrics["productionSourcePolicyControls"], 9, "production_source_policy_plan.json"),
 ]
-persisted_files = [STAGE_ROOT / name for name in ["posting_discovery_index.parquet", "posting_discovery_index.csv", "fixture_apq_audit.json"]]''',
+persisted_files = [STAGE_ROOT / name for name in ["posting_discovery_index.parquet", "posting_discovery_index.csv", "fixture_apq_audit.json", "production_source_policy_plan.json"]]''',
         "warning": "Fixture APQ success is not monthly production coverage.",
     },
     {
