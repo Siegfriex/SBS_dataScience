@@ -7,7 +7,7 @@ from p4.parse.sections import parse_sections
 
 def _raw(**overrides):
     row = {
-        "postingRawId": "RAW_1",
+        "rawPostingId": "RAW_1",
         "sourceName": "linkareer",
         "sourcePostingId": "123",
         "sourceUrl": "https://example.test/123",
@@ -66,4 +66,3 @@ def test_explicit_tracks_can_be_split():
     )
     assert [track["trackType"] for track in tracks] == ["entry", "intern"]
     assert len({track["trackId"] for track in tracks}) == 2
-

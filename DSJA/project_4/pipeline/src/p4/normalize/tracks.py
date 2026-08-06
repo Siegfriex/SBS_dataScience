@@ -50,7 +50,7 @@ def split_tracks(posting: dict[str, Any], explicit_tracks: list[dict[str, Any]] 
             track_type = track.get("trackType") or infer_track_type(text)
             rows.append(
                 {
-                    "trackId": make_track_id(posting_id, ordinal, text),
+                    "trackId": make_track_id(posting_id, ordinal),
                     "postingId": posting_id,
                     "trackType": track_type if track_type in TRACK_TYPES else "unknown",
                     "trackOrdinal": ordinal,
@@ -68,7 +68,7 @@ def split_tracks(posting: dict[str, Any], explicit_tracks: list[dict[str, Any]] 
     track_type = "mixedUnresolved" if mixed else inferred
     return [
         {
-            "trackId": make_track_id(posting_id, 0, text),
+            "trackId": make_track_id(posting_id, 0),
             "postingId": posting_id,
             "trackType": track_type,
             "trackOrdinal": 0,
@@ -78,4 +78,3 @@ def split_tracks(posting: dict[str, Any], explicit_tracks: list[dict[str, Any]] 
             "trackText": text,
         }
     ]
-

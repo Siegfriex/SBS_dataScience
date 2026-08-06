@@ -4,6 +4,7 @@ from dataclasses import asdict, dataclass
 from typing import Iterable
 
 from p4.common.keys import make_match_id, normalize
+from p4.common.hashing import sha256_bytes
 
 
 MAPPING_PRIORITY = {
@@ -43,6 +44,7 @@ def validate_match(match: NcsMatch) -> None:
 
 
 def rank_candidates(
+    track_id: str,
     section_id: str,
     candidates: Iterable[dict[str, object]],
     mapping_version: str,
@@ -64,7 +66,12 @@ def rank_candidates(
     results: list[dict[str, object]] = []
     for index, (_, _, code, evidence, basis, score) in enumerate(prepared, start=1):
         match = NcsMatch(
-            matchId=make_match_id(section_id, code, mapping_version),
+            matchId=make_match_id(
+                track_id,
+                code,
+                basis,
+                sha256_bytes(normalize(evidence).encode("utf-8")),
+            ),
             sectionId=section_id,
             ncsUnitCode=code,
             evidenceText=evidence,
@@ -80,6 +87,7 @@ def rank_candidates(
 
 
 def dictionary_candidates(
+    track_id: str,
     section_id: str,
     section_text: str,
     rules: Iterable[dict[str, object]],
@@ -99,5 +107,4 @@ def dictionary_candidates(
                     "matchScore": float(rule.get("matchScore", 0.7)),
                 }
             )
-    return rank_candidates(section_id, candidates, mapping_version) if candidates else []
-
+    return rank_candidates(track_id, section_id, candidates, mapping_version) if candidates else []

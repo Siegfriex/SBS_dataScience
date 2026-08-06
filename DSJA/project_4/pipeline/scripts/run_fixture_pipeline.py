@@ -49,7 +49,7 @@ def run() -> dict[str, object]:
             label_rows.append(label_track(track["trackId"], LabelEvidence(**spec["labelEvidence"])))
             duty_section_id = None
             for ordinal, section_spec in enumerate(spec.get("sections", [])):
-                section_id = make_section_id(track["trackId"], section_spec["sectionType"], ordinal)
+                section_id = make_section_id(track["trackId"], ordinal)
                 section = {
                     "sectionId": section_id,
                     "trackId": track["trackId"],
@@ -64,6 +64,7 @@ def run() -> dict[str, object]:
                     duty_section_id = section_id
             if spec.get("ncsUnitCode") and duty_section_id:
                 ranked = rank_candidates(
+                    track["trackId"],
                     duty_section_id,
                     [
                         {
@@ -111,7 +112,7 @@ def run() -> dict[str, object]:
     database = PIPELINE_ROOT / "data/warehouse/p4.development.duckdb"
     bootstrap_development_warehouse(database)
     raw_columns = [
-        "postingRawId", "sourcePostingId", "sourceUrl", "fetchedAt", "rawSha256",
+        "rawPostingId", "sourcePostingId", "sourceUrl", "fetchedAt", "rawSha256",
         "titleRaw", "companyRaw", "postedAtRaw", "bodyRaw", "postingKind",
     ]
     with connect(database) as connection:
