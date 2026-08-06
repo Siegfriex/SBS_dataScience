@@ -1,0 +1,13 @@
+﻿dependency,requiredBy,installedVersion,declared,status,interpreter,kernelName,lockFile
+python,runtime,3.12.3,True,REQUIRED_PRESENT,/home/sieg/projects-wsl/SBS_dataScience/.venv/bin/python,python3,MISSING
+jupyterlab,execution tooling,4.6.0,True,REQUIRED_PRESENT,/home/sieg/projects-wsl/SBS_dataScience/.venv/bin/python,python3,MISSING
+nbformat,validation,5.10.4,True,REQUIRED_PRESENT,/home/sieg/projects-wsl/SBS_dataScience/.venv/bin/python,python3,MISSING
+nbclient,execution,0.11.0,False,UNDECLARED_DEPENDENCY,/home/sieg/projects-wsl/SBS_dataScience/.venv/bin/python,python3,MISSING
+papermill,documented parameterized execution,,False,REQUIRED_MISSING,/home/sieg/projects-wsl/SBS_dataScience/.venv/bin/python,python3,MISSING
+pandas,stage modules,3.0.3,True,REQUIRED_PRESENT,/home/sieg/projects-wsl/SBS_dataScience/.venv/bin/python,python3,MISSING
+pyarrow,Parquet,24.0.0,True,REQUIRED_PRESENT,/home/sieg/projects-wsl/SBS_dataScience/.venv/bin/python,python3,MISSING
+duckdb,pipeline,1.5.4,True,REQUIRED_PRESENT,/home/sieg/projects-wsl/SBS_dataScience/.venv/bin/python,python3,MISSING
+httpx,live transport candidate,0.28.1,False,UNDECLARED_DEPENDENCY,/home/sieg/projects-wsl/SBS_dataScience/.venv/bin/python,python3,MISSING
+jsonschema,contracts,4.26.0,True,REQUIRED_PRESENT,/home/sieg/projects-wsl/SBS_dataScience/.venv/bin/python,python3,MISSING
+PyYAML,registry,6.0.3,True,REQUIRED_PRESENT,/home/sieg/projects-wsl/SBS_dataScience/.venv/bin/python,python3,MISSING
+beautifulsoup4,SSR parser,4.15.0,False,UNDECLARED_DEPENDENCY,/home/sieg/projects-wsl/SBS_dataScience/.venv/bin/python,python3,MISSING
