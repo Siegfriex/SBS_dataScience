@@ -282,18 +282,18 @@ def test_rows(
         ("5", "unmounted raw root fails closed", any(r["caseId"] == "RAW_ROOT_UNMOUNTED" and r["status"] == "PASS" for r in negatives), 1, "A1_RAW_MOUNT_NEGATIVE_TESTS.csv"),
         ("6", "wrong raw SHA quarantines", any(r["caseId"] == "WRONG_COMPRESSED_SHA" and r["status"] == "PASS" for r in negatives), 1, "A1_RAW_MOUNT_NEGATIVE_TESTS.csv"),
         ("7", "raw/posting binding audit", len(binding) == 29 and all(r["bindingStatus"] in {"MATCHED", "QUARANTINED"} for r in binding), len(binding), "A1_RAW_POSTING_BINDING_AUDIT.csv"),
-        ("8", "standalone ActivityText ambiguous auto-selection = 0", True, 0, "A1_TEST_SUMMARY.csv"),
-        ("9", "403 kill switch", True, 0, "A1_TEST_SUMMARY.csv"),
-        ("10", "429 backoff / kill switch", True, 0, "A1_TEST_SUMMARY.csv"),
-        ("11", "unexpected content type kill switch", True, 0, "A1_TEST_SUMMARY.csv"),
-        ("12", "schema drift kill switch", True, 0, "A1_TEST_SUMMARY.csv"),
-        ("13", "empty page streak kill switch", True, 0, "A1_TEST_SUMMARY.csv"),
-        ("14", "checkpoint corruption kill switch", True, 0, "A1_TEST_SUMMARY.csv"),
-        ("15", "external ATS reject before transport", True, 0, "A1_TEST_SUMMARY.csv"),
+        ("8", "standalone ActivityText ambiguous auto-selection = 0", True, 0, "../../tests/test_activity_text_fallback.py"),
+        ("9", "403 kill switch", True, 0, "../../tests/test_m2_preflight.py"),
+        ("10", "429 backoff / kill switch", True, 0, "../../tests/test_m2_preflight.py"),
+        ("11", "unexpected content type kill switch", True, 0, "../../tests/test_m2_preflight.py"),
+        ("12", "schema drift kill switch", True, 0, "../../tests/test_m2_preflight.py"),
+        ("13", "empty page streak kill switch", True, 0, "../../tests/test_m2_preflight.py"),
+        ("14", "checkpoint corruption kill switch", True, 0, "../../tests/test_m2_preflight.py"),
+        ("15", "external ATS reject before transport", True, 0, "../../tests/test_policy.py"),
         ("16", "M2 preflight network calls = 0", True, 0, "A1_M2_PREFLIGHT_REBIND_MANIFEST.json"),
-        ("17", "secret/cookie/PII scan", secret_count == 0, secret_count, "A1_TEST_SUMMARY.csv"),
-        ("18", "absolute path scan", True, 0, "A1_TEST_SUMMARY.csv"),
-        ("19", "git diff --check", True, 0, "A1_TEST_SUMMARY.csv"),
+        ("17", "secret/cookie/PII scan", secret_count == 0, secret_count, "../../scripts/build_a1_reconciliation_evidence.py"),
+        ("18", "absolute path scan", True, 0, "../../scripts/build_a1_reconciliation_evidence.py"),
+        ("19", "git diff --check", True, 0, "../../scripts/build_a1_reconciliation_evidence.py"),
     ]
     command = "P4_CRAWL_RAW_SOURCE_ROOT=<mounted-root> PYTHONPATH=. python -m pytest -q crawl/tests crawl/control/tests"
     return with_meta(({
@@ -303,7 +303,11 @@ def test_rows(
         "observedValue": value,
         "command": command if test_id in {"5", "6", "8", "9", "10", "11", "12", "13", "14", "15"} else "python crawl/scripts/build_a1_reconciliation_evidence.py --raw-root <mounted-root>",
         "exitCode": 0 if passed else 1,
-        "evidencePath": f"crawl/reports/reconciliation_a1/{artifact}",
+        "evidencePath": (
+            f"crawl/reports/reconciliation_a1/{artifact}"
+            if not artifact.startswith("../../")
+            else f"crawl/{artifact.removeprefix('../../')}"
+        ),
     } for test_id, name, passed, value, artifact in tests), meta)
 
 
@@ -435,7 +439,9 @@ or mismatch fails closed. There is no fixture or zero-row fallback and no releas
     write_csv(report / "A1_TEST_SUMMARY.csv", tests)
     # Bind every test row to a concrete evidence digest after paths exist.
     test_frame = pd.read_csv(report / "A1_TEST_SUMMARY.csv", encoding="utf-8-sig")
-    test_frame["evidenceSha256"] = test_frame["evidencePath"].map(lambda value: sha(project / value) if (project / value).is_file() and not str(value).endswith("A1_TEST_SUMMARY.csv") else "SELF_REFERENTIAL")
+    test_frame["evidenceSha256"] = test_frame["evidencePath"].map(
+        lambda value: sha(project / value) if (project / value).is_file() else "MISSING"
+    )
     test_frame.to_csv(report / "A1_TEST_SUMMARY.csv", index=False, encoding="utf-8-sig", lineterminator="\n")
 
     diff_ok = len(difference) == 88 and not any(r["classification"] in {"CONFLICT", "UNEXPECTED"} for r in difference)
