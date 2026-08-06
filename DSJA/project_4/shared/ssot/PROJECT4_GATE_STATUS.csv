@@ -1,0 +1,10 @@
+﻿gate_id,status,evidence,blocker
+OBSERVED_DEV_CSV_READY,PASS_WITH_FINDINGS,"crawl/data/exports/observed-dev/OBSERVED_DEV_20260806_01; 20/20 checksum, 8/8 semantic pairs, but duplicate bundle ID diverges from pipeline copy",authority freeze and canonical enum remediation
+NOTEBOOK_SOURCE_READY,PASS,24/24 source; 234 cells; 136 code; output/execution 0; module calls 24/24,
+NOTEBOOK_EXECUTION_READY_OBSERVED_DEV,PASS_WITH_FINDINGS,24/24 execution; 136/136 code cells; 0 error; A4-05 meaningfully NOT_EVALUATED,NCS gold is absent
+NOTEBOOK_BUNDLE_READY,PASS_WITH_FINDINGS,388/388 artifact SHA; 24/24 canonical 4-artifact stage sets,76 runtime-only paths and four duplicate manifests need snapshot authority
+SOURCE_POLICY_READY,PARTIAL,"robots allowed, reviewedConditional terms, transparent client verified; no production approval record in canonical DB",human production collection approval
+CRAWL_RELEASE_READY,BLOCKED,"CRAWL_20260806_03 is CRAWL_RELEASE_CANDIDATE; 21/79 months, raw 29/137, assets 0, head_commit blank","58 months, full detail/raw/asset lineage, validator and source-policy closure"
+DATA_READY_RQ1_RQ2A,BLOCKED,canonicalPostedAt and periodMonth 0/137; career resolved 0/137; valid requirementType 0/35,semantic QA and production preprocessing
+DATA_READY_RQ2B,BLOCKED,NCS mapped 27; level/band 0/137; gold 0; evaluator NOT_EVALUATED,"scope decision, gold n=300 and quality gates"
+ANALYSIS_READY,BLOCKED,canonical analysis gate NOT_EVALUATED; empiricalAnalysisAllowed=false throughout observed bundle,all production data gates

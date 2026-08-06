@@ -1,0 +1,13 @@
+﻿layer,producer,canonical_source,current_artifact,rows,status,blocker
+raw,P4-A1-SOURCE,immutable compressed SSR plus SHA manifest,crawl/data/raw/linkareer/detail and raw_detail_manifest.jsonl,29,PARTIAL,full-corpus raw absent
+manifest,P4-A1-SOURCE,Parquet/JSONL manifest,OBSERVED_INPUT_20260806_01 posting manifest,137,PASS_WITH_FINDINGS,hasDetailRawHtml flag differs from actual raw for 18 rows
+normalized,P4-A2-PIPELINE,observed DuckDB/Parquet,posting_normalized.parquet,137,PASS_WITH_FINDINGS,duplicate bundle authority and enum gaps
+track,P4-A2-PIPELINE,observed DuckDB/Parquet,posting_tracks.parquet,137,PARTIAL,one-track observed simplification; 52 mixed/unknown
+section,P4-A2-PIPELINE,observed DuckDB/Parquet,posting_sections.parquet,84,PARTIAL,28/137 tracks only
+requirement,P4-A2-PIPELINE,observed DuckDB/Parquet,requirement_facts.parquet,35,BLOCKED,requirementType canonical enum 0/35
+label,P4-A2-PIPELINE,observed DuckDB/Parquet,career_access_labels.parquet,137,BLOCKED,career/intern/boundary unresolved
+NCS candidate,P4-A4-NCS,Agent4 Parquet handoff,posting_ncs_candidates.parquet,128,PASS_WITH_FINDINGS,development lexical only; dense null
+NCS match,P4-A4-NCS,Agent4 Parquet handoff,posting_ncs_matches.parquet,28,NOT_EVALUATED,"27 mapped, 1 unmapped, gold false"
+preprocessed,P4-A2-PIPELINE,Parquet and observed DuckDB; CSV is inspection only,preprocessed_posting_tracks.parquet,137,PASS_WITH_FINDINGS,not analysis-ready; snapshot authority divergent
+mart,P4-A2-PIPELINE,canonical DuckDB/Parquet,none for observed production authority,0,NOT_STARTED,production data not ready
+analysis,future analysis stage,versioned result manifest,none,0,NOT_STARTED,ANALYSIS_READY blocked
