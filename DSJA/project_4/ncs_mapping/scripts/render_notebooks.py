@@ -18,6 +18,30 @@ STAGES = [
     ("04ExportNcsMappingCsv.ipynb", "A4-04-EXPORT", "NCS Mapping Export", "Build six canonical Parquet and UTF-8-SIG inspection CSV pairs."),
     ("05EvaluateNcsMapping.ipynb", "A4-05-EVALUATE", "Gold Evaluation Structure", "Execute the zero-row gold contract and close as NOT_EVALUATED without performance claims."),
 ]
+SCHEMA_VERSIONS = {
+    "A4-00-NCS-SOURCE": "ncs-base-v1",
+    "A4-01-CODESET": "core-ai-it-v0.1",
+    "A4-02-RETRIEVAL": "ncs-retrieval-v1",
+    "A4-03-MAP-OBSERVED": "posting-ncs-candidates-v1",
+    "A4-04-EXPORT": "ncs-export-v1",
+    "A4-05-EVALUATE": "ncs-evaluation-v1",
+}
+INPUT_MANIFEST_PATHS = {
+    "A4-00-NCS-SOURCE": "ncs_mapping/data/processed/ncsUnit.parquet",
+    "A4-01-CODESET": "ncs_mapping/data/processed/ncsUnit.parquet",
+    "A4-02-RETRIEVAL": "ncs_mapping/configs/ncs_alias_dictionary.yaml",
+    "A4-03-MAP-OBSERVED": "shared/handoffs/AGENT2_TO_AGENT4_DUTY_INPUT_OBSERVED_DEV.json",
+    "A4-04-EXPORT": "ncs_mapping/data/processed/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/posting_ncs_candidates.parquet",
+    "A4-05-EVALUATE": "ncs_mapping/data/gold/ncsMappings/gold_ncs_mapping_v1_TEMPLATE.csv",
+}
+TITLE_DETAILS = {
+    "A4-00-NCS-SOURCE": ("checksum·중복·level·hierarchy·null 감사", "ncs_units canonical source audit", "NCS_BASE_READY", "core AI·IT codeset build"),
+    "A4-01-CODESET": ("core code set deterministic rebuild 및 120/69/51 검증", "core-ai-it-v0.1 review candidate", "NCS_BASE_READY", "lexical retrieval index build"),
+    "A4-02-RETRIEVAL": ("alias 검증·lexical index·same-subcategory 제한", "lexical index manifest", "NCS_CODESET_REVIEW_READY", "observed duty top-5 mapping"),
+    "A4-03-MAP-OBSERVED": ("28 duty schema/SHA 검증·top-5·unmapped·confidence", "posting_ncs_candidates and posting_ncs_matches", "REQUIREMENT_READY_AND_NCS_RETRIEVAL_READY", "NCS CSV export and Agent 2 handoff"),
+    "A4-04-EXPORT": ("6개 canonical Parquet 및 inspection CSV semantic export", "six CSV/Parquet pairs and handoff", "NCS_MAPPING_DEV_READY", "Agent 2 preprocessing integration"),
+    "A4-05-EVALUATE": ("zero-row gold 구조 실행 및 NOT_EVALUATED 종료", "null precision/finalCoverage evaluation artifact", "NCS_GOLD_SAMPLE_READY", "future production gold evaluation only"),
+}
 
 
 def _cell_id(stage_id: str, label: str) -> str:
@@ -27,13 +51,19 @@ def _cell_id(stage_id: str, label: str) -> str:
 def _parameters(stage_id: str) -> nbformat.NotebookNode:
     source = "\n".join([
         'RUN_MODE = "observed-dev"',
+        'AGENT_ID = "P4-A4-NCS"',
+        f'STAGE_ID = "{stage_id}"',
         'CONTRACT_VERSION = "2.1.2"',
-        'CRAWL_RELEASE_ID = "CRAWL_20260806_03"',
+        f'SCHEMA_VERSION = "{SCHEMA_VERSIONS[stage_id]}"',
         'DATA_VERSION = "observed-dev-20260806.1"',
+        'CRAWL_RELEASE_ID = "CRAWL_20260806_03"',
         'AS_OF_DATE = "2026-08-06"',
-        'RANDOM_SEED = 42',
-        'DATA_PROVENANCE = "OBSERVED_DEVELOPMENT_ONLY"',
+        f'INPUT_MANIFEST_PATH = "{INPUT_MANIFEST_PATHS[stage_id]}"',
+        f'OUTPUT_ROOT = "ncs_mapping/data/runs/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/{stage_id}"',
+        'RANDOM_SEED = 20260806',
+        'FAIL_ON_GATE = True',
         'EMPIRICAL_ANALYSIS_ALLOWED = False',
+        'DATA_PROVENANCE = "OBSERVED_DEVELOPMENT_ONLY"',
         'PROMOTION_ALLOWED = False',
         'DUTY_INPUT_PATH = ""',
         'GOLD_INPUT_PATH = ""',
@@ -43,10 +73,19 @@ def _parameters(stage_id: str) -> nbformat.NotebookNode:
 
 
 def _title(stage_id: str, title: str, description: str) -> nbformat.NotebookNode:
+    process, output, prior_gate, downstream = TITLE_DETAILS[stage_id]
     source = (
         f"# P4 Agent 4 · {title}\n\n"
-        f"**Stage:** `{stage_id}` · **Mode:** `observed-dev` · **Contract:** `2.1.2`\n\n"
-        f"{description}\n\n"
+        "| 항목 | 명세 |\n"
+        "|---|---|\n"
+        f"| 목적 | {description} |\n"
+        "| 담당 Agent | `P4-A4-NCS` |\n"
+        f"| Stage ID | `{stage_id}` |\n"
+        f"| 입력 | `{INPUT_MANIFEST_PATHS[stage_id]}` |\n"
+        f"| 처리 | {process} |\n"
+        f"| 출력 | {output} 및 4개 종료 artifact |\n"
+        f"| 선행 Gate | `{prior_gate}` |\n"
+        f"| 후속 활용 | {downstream} |\n\n"
         "> Development-only orchestration. Empirical analysis and production promotion are disabled."
     )
     return nbformat.v4.new_markdown_cell(source, id=_cell_id(stage_id, "title"))
@@ -63,6 +102,8 @@ def _environment(stage_id: str) -> nbformat.NotebookNode:
         "    raise RuntimeError('run this notebook with cwd=ncs_mapping')\n"
         "sys.path.insert(0, str(NCS_ROOT / 'src'))\n"
         "assert RUN_MODE == 'observed-dev'\n"
+        "assert AGENT_ID == 'P4-A4-NCS' and STAGE_ID.startswith('A4-')\n"
+        "assert RANDOM_SEED == 20260806 and FAIL_ON_GATE is True\n"
         "assert DATA_PROVENANCE == 'OBSERVED_DEVELOPMENT_ONLY'\n"
         "assert EMPIRICAL_ANALYSIS_ALLOWED is False and PROMOTION_ALLOWED is False\n"
         "resolved_duty_input = DUTY_INPUT_PATH or os.environ.get('P4_A2_DUTY_HANDOFF', '')\n"
@@ -181,7 +222,7 @@ def _build_notebook(filename: str, stage_id: str, title: str, description: str, 
         id=_cell_id(stage_id, "termination"),
     )
     notebook = nbformat.v4.new_notebook(
-        cells=[_parameters(stage_id), _title(stage_id, title, description), _environment(stage_id), audit, execute, terminate],
+        cells=[_title(stage_id, title, description), _parameters(stage_id), _environment(stage_id), audit, execute, terminate],
         metadata={
             "agentId": "P4-A4-NCS", "branch": branch, "gitHead": git_head,
             "contractVersion": "2.1.2", "crawlReleaseId": "CRAWL_20260806_03",
