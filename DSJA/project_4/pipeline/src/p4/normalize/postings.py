@@ -29,7 +29,8 @@ def normalize_posting(raw: dict[str, Any]) -> dict[str, Any]:
             parsed = parsed.tz_localize("Asia/Seoul")
         posted_at = ensure_seoul_datetime(parsed.to_pydatetime())
     posting_kind = normalize(raw.get("postingKind"))
-    required_source_present = bool(source_url and raw.get("rawSha256") and raw.get("postingRawId"))
+    raw_posting_id = raw.get("rawPostingId") or raw.get("postingRawId")
+    required_source_present = bool(source_url and raw.get("rawSha256") and raw_posting_id)
     job_types_raw_json = raw.get("jobTypesRawJson") or "[]"
     try:
         job_types = json.loads(job_types_raw_json) if isinstance(job_types_raw_json, str) else job_types_raw_json
@@ -73,7 +74,7 @@ def normalize_posting(raw: dict[str, Any]) -> dict[str, Any]:
     posting_id = make_posting_id(source_name, source_posting_id, source_url)
     return {
         "postingId": posting_id,
-        "postingRawId": raw.get("postingRawId"),
+        "rawPostingId": raw_posting_id,
         "canonicalPostingId": posting_id,
         "sourcePostingId": source_posting_id,
         "sourceUrl": source_url,

@@ -30,6 +30,7 @@ def test_ncs_band_rejects_out_of_range():
 
 def test_mapping_priority_precedes_score():
     rows = rank_candidates(
+        "TRK_1",
         "SEC_1",
         [
             {
@@ -55,6 +56,7 @@ def test_mapping_priority_precedes_score():
 def test_tool_name_only_mapping_is_rejected():
     with pytest.raises(ValueError, match="tool-name-only"):
         rank_candidates(
+            "TRK_1",
             "SEC_1",
             [
                 {
@@ -71,6 +73,7 @@ def test_tool_name_only_mapping_is_rejected():
 
 def test_dictionary_mapping_preserves_evidence_and_version():
     rows = dictionary_candidates(
+        "TRK_1",
         "SEC_1",
         "데이터 품질을 점검하고 분석 보고서를 작성한다",
         [
@@ -85,4 +88,3 @@ def test_dictionary_mapping_preserves_evidence_and_version():
     assert rows[0]["mappingBasis"] == "dictionaryRule"
     assert rows[0]["mappingVersion"] == "map-v1"
     assert "데이터 품질" in rows[0]["evidenceText"]
-

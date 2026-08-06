@@ -32,7 +32,7 @@ def extract_requirements(section: dict[str, Any]) -> list[dict[str, Any]]:
         normalized = normalize(text)
         rows.append(
             {
-                "requirementId": make_requirement_id(section_id, ordinal, normalized),
+                "requirementId": make_requirement_id(section_id, section_type, normalized),
                 "sectionId": section_id,
                 "requirementType": section_type,
                 "requirementText": text,
@@ -43,4 +43,3 @@ def extract_requirements(section: dict[str, Any]) -> list[dict[str, Any]]:
             }
         )
     return rows
-

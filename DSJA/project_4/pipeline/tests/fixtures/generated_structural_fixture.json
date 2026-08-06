@@ -4,7 +4,7 @@
   "warning": "Agent 2 generated structural test values only. This is not an Agent 1 fixture or crawl release and must not support empirical claims.",
   "rawPostings": [
     {
-      "postingRawId": "RAW_FIX_101",
+      "rawPostingId": "RAW_FIX_101",
       "sourceName": "linkareer",
       "sourcePostingId": "FIX_101",
       "sourceUrl": "https://fixture.invalid/postings/FIX_101",
@@ -17,7 +17,7 @@
       "postingKind": "recruit"
     },
     {
-      "postingRawId": "RAW_FIX_102",
+      "rawPostingId": "RAW_FIX_102",
       "sourceName": "linkareer",
       "sourcePostingId": "FIX_102",
       "sourceUrl": "https://fixture.invalid/postings/FIX_102",
@@ -30,7 +30,7 @@
       "postingKind": "recruit"
     },
     {
-      "postingRawId": "RAW_FIX_103",
+      "rawPostingId": "RAW_FIX_103",
       "sourceName": "linkareer",
       "sourcePostingId": "FIX_103",
       "sourceUrl": "https://fixture.invalid/postings/FIX_103",
@@ -43,7 +43,7 @@
       "postingKind": "recruit"
     },
     {
-      "postingRawId": "RAW_FIX_104",
+      "rawPostingId": "RAW_FIX_104",
       "sourceName": "linkareer",
       "sourcePostingId": "FIX_104",
       "sourceUrl": "https://fixture.invalid/postings/FIX_104",
@@ -56,7 +56,7 @@
       "postingKind": "recruit"
     },
     {
-      "postingRawId": "RAW_FIX_105",
+      "rawPostingId": "RAW_FIX_105",
       "sourceName": "linkareer",
       "sourcePostingId": "FIX_105",
       "sourceUrl": "https://fixture.invalid/postings/FIX_105",
@@ -69,7 +69,7 @@
       "postingKind": "recruit"
     },
     {
-      "postingRawId": "RAW_FIX_106",
+      "rawPostingId": "RAW_FIX_106",
       "sourceName": "linkareer",
       "sourcePostingId": "FIX_106",
       "sourceUrl": "https://fixture.invalid/postings/FIX_106",

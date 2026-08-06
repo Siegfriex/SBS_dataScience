@@ -64,18 +64,51 @@ class CanonicalContractStrategy(KeyStrategy):
     def __post_init__(self) -> None:
         if not self.contract_version:
             raise ValueError("canonical strategy requires contract_version")
-        if not self.key_contract.get("algorithm") or not self.key_contract.get("rules"):
-            raise ValueError("canonical strategy requires algorithm and rules from the contract")
-        if self.key_contract["algorithm"].casefold() not in {"sha1", "sha256"}:
+        if not self.key_contract.get("algorithm"):
+            raise ValueError("canonical strategy requires algorithm from the contract")
+        if self.key_contract["algorithm"].casefold().replace("-", "") not in {"sha1", "sha256"}:
             raise ValueError("contract key algorithm must be sha1 or sha256")
+        if not self.key_contract.get("rules") and not self.key_contract.get("truncationHexChars"):
+            raise ValueError("canonical strategy requires rules or canonical truncation metadata")
+
+    @classmethod
+    def from_contract(cls, contract: dict[str, Any]) -> "CanonicalContractStrategy":
+        version = str(contract.get("contractVersion") or "")
+        key_contract = contract.get("rules", {}).get("keyContract", {})
+        return cls(contract_version=version, key_contract=key_contract)
 
     def make(self, object_type: str, *parts: Any) -> str:
-        rules = self.key_contract["rules"]
-        if object_type not in rules:
-            raise KeyError(f"contract has no key rule for {object_type}")
-        rule = rules[object_type]
-        algorithm = self.key_contract["algorithm"].casefold()
-        payload = "|".join(normalize(value) for value in parts).encode("utf-8")
+        rules = self.key_contract.get("rules")
+        if rules:
+            if object_type not in rules:
+                raise KeyError(f"contract has no key rule for {object_type}")
+            rule = rules[object_type]
+        else:
+            prefixes = {
+                "postingId": "PST_",
+                "rawPostingId": "RAW_",
+                "trackId": "TRK_",
+                "sectionId": "SEC_",
+                "requirementId": "REQ_",
+                "matchId": "NMT_",
+            }
+            expected_parts = {
+                "postingId": 2,
+                "rawPostingId": 3,
+                "trackId": 2,
+                "sectionId": 2,
+                "requirementId": 3,
+                "matchId": 4,
+            }
+            if object_type not in prefixes:
+                raise KeyError(f"contract has no key rule for {object_type}")
+            if len(parts) != expected_parts[object_type]:
+                raise ValueError(f"{object_type} requires {expected_parts[object_type]} ordered inputs")
+            rule = {"prefix": prefixes[object_type], "length": self.key_contract["truncationHexChars"]}
+        algorithm = self.key_contract["algorithm"].casefold().replace("-", "")
+        separator = str(self.key_contract.get("separator", "|"))
+        encoding = str(self.key_contract.get("encoding", "UTF-8"))
+        payload = separator.join(str(value) for value in parts).encode(encoding)
         digest = getattr(hashlib, algorithm)(payload).hexdigest()
         length = int(rule.get("length", len(digest)))
         prefix = str(rule.get("prefix", ""))
@@ -104,4 +137,3 @@ def build_migration_map(
             }
         )
     return rows
-

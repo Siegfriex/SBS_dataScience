@@ -1,4 +1,6 @@
 import pytest
+import yaml
+from pathlib import Path
 
 from p4.common.key_strategies import (
     CanonicalContractStrategy,
@@ -63,3 +65,11 @@ def test_collision_sample_fails_closed():
             colliding,
         )
 
+
+def test_strategy_loads_exact_v212_key_contract():
+    contract_path = Path(__file__).resolve().parents[3] / "shared/contracts/P4_CONTRACT_v2.1.2/p4_contract.yaml"
+    contract = yaml.safe_load(contract_path.read_text(encoding="utf-8"))
+    strategy = CanonicalContractStrategy.from_contract(contract)
+    assert strategy.make("postingId", "linkareer", "123") == "PST_8a245070a5ece697d6cf"
+    assert strategy.make("rawPostingId", "linkareer", "123", "a" * 64) == "RAW_1ffe6e05045f37a6271f"
+    assert strategy.make("trackId", "PST_demo", 0) == "TRK_7bcc98532a391ab10796"
