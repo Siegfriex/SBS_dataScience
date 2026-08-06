@@ -1,0 +1,2 @@
+"""DuckDB warehouse support."""
+

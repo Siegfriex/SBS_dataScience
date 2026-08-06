@@ -1,0 +1,4 @@
+windowDays: 90
+titleSimilarityThreshold: 0.90
+sameCompanyRequired: true
+

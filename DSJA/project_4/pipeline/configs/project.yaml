@@ -1,0 +1,10 @@
+projectName: SBS_P4_PROJECT4
+timezone: Asia/Seoul
+asOfDate: 2026-08-06
+contractBundle: ../shared/contracts/P4_CONTRACT_v2.1.0
+crawlReleaseGlob: ../crawl/releases/*/HANDOFF.json
+warehousePath: data/warehouse/p4.duckdb
+sourceNames:
+  - linkareer
+  - ncs
+

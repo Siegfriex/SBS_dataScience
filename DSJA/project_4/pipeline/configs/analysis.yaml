@@ -1,0 +1,6 @@
+interventionDate: 2023-01-01
+monthlySeasonality: true
+primaryStandardErrors: HAC
+primaryHacMaxLags: 12
+panelStandardErrors: jobCodeCluster
+

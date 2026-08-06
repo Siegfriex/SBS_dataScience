@@ -1,0 +1,4 @@
+projectRoot: /absolute/path/to/SBS_dataScience/DSJA/project_4
+crawlRoot: /absolute/path/to/SBS_dataScience/DSJA/project_4/crawl
+contractRoot: /absolute/path/to/SBS_dataScience/DSJA/project_4/shared/contracts
+

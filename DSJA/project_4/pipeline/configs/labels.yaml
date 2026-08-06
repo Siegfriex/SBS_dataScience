@@ -1,0 +1,8 @@
+career:
+  e2MinMonths: 12
+  e2MaxMonths: 35
+  e3MinMonths: 36
+intern:
+  portfolioAloneIsPriorExperience: false
+  preferredExperienceIsMandatory: false
+

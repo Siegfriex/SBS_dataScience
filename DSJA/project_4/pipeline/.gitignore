@@ -1,0 +1,13 @@
+paths.local.yaml
+data/warehouse/*.duckdb
+data/interim/**
+data/processed/**
+data/gold/**
+data/marts/**
+!data/**/.gitkeep
+runs/**
+!runs/.gitkeep
+__pycache__/
+.pytest_cache/
+.ipynb_checkpoints/
+
