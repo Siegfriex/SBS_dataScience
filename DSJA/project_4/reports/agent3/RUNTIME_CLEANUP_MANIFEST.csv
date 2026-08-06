@@ -1,0 +1,9 @@
+path,classification,bytes,action,reason
+DSJA/project_4/.env,SECRET_LOCAL,1223,PRESERVED,Deletion forbidden and file remains ignored
+DSJA/project_4/pipeline/data/warehouse/p4.development.duckdb,RUNTIME_IGNORED,11022336,PRESERVED,Agent 2 must decide reproducibility retention
+DSJA/project_4/pipeline/data/warehouse/p4.duckdb,RUNTIME_IGNORED,10760192,PRESERVED,Canonical warehouse deletion forbidden
+DSJA/project_4/pipeline/data/marts/postingAnalysisMart.parquet,RUNTIME_IGNORED,20506,PRESERVED,Synthetic mart retained pending Agent 2 decision
+DSJA/project_4/pipeline/data/marts/timeSeriesMart.parquet,RUNTIME_IGNORED,19909,PRESERVED,Synthetic mart retained pending Agent 2 decision
+DSJA/project_4/pipeline/.pytest_cache/,RUNTIME_IGNORED,7006,PRESERVED,Regenerable but protected Agent 2 worktree was not modified
+DSJA/project_4/pipeline/**/__pycache__/,RUNTIME_IGNORED,0,PRESERVED,Regenerable but protected Agent 2 worktree was not modified
+DSJA/project_4/pipeline/runs/pytest-results.xml,RUNTIME_IGNORED,8965,PRESERVED,Regenerable but protected Agent 2 worktree was not modified
