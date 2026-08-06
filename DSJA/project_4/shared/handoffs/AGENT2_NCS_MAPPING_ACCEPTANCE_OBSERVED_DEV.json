@@ -1,0 +1,20 @@
+{
+  "agentId": "P4-A2-PIPELINE",
+  "sourceAgentId": "P4-A4-NCS",
+  "status": "NCS_MAPPING_DEV_ACCEPTED",
+  "contractVersion": "2.1.2",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "dataVersion": "observed-dev-20260806.1",
+  "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+  "empiricalAnalysisAllowed": false,
+  "promotionAllowed": false,
+  "sourceHandoffSha256": "8f9c0af8fdd3d5f54b68f8ad6361de63f57f6b5badeeefb8b120b1f604e16a56",
+  "candidateRows": 128,
+  "matchRows": 28,
+  "unmappedRows": 1,
+  "mappingMode": "LEXICAL_BASELINE",
+  "codeSetStatus": "REVIEW_REQUIRED",
+  "goldValidatedFlag": false,
+  "denseScore": null,
+  "acceptanceSha256": "f69198deff2bb03caacba2323f170ab8e92a3d0a2dfe81301b0eba117d873561"
+}

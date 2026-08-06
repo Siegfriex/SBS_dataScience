@@ -1,0 +1,131 @@
+{
+  "agentId": "P4-A2-PIPELINE",
+  "agentName": "P4 Contract-Driven Pipeline & Analysis Engineer",
+  "recipientAgentId": "P4-A4-NCS",
+  "recipientAgentName": "P4 NCS Source & Duty-Level Mapping Engineer",
+  "handoffType": "DUTY_INPUT_CONTRACT",
+  "status": "SCHEMA_AND_FIXTURE_ONLY",
+  "contractVersion": "2.1.2",
+  "schemaVersion": "agent2-duty-input-v1",
+  "grain": "one row per core.postingSection where sectionType=duty",
+  "empiricalUseAllowed": false,
+  "fullCrawlRequired": true,
+  "sourceTables": [
+    "raw.linkareerPostingRaw",
+    "core.postingNormalized",
+    "core.postingTrack",
+    "core.postingSection"
+  ],
+  "eligibilityRules": [
+    "sectionType == duty",
+    "ncsEligibleFlag == true",
+    "trackType != mixedUnresolved",
+    "sectionText is non-empty",
+    "sourceMode in html|ocr|merged",
+    "OCR-derived sections with unresolved human review are excluded upstream"
+  ],
+  "lineageRules": [
+    "IDs follow the P4_CONTRACT_v2.1.2 direct SHA-256 formulas",
+    "rawSha256 and sourceUrl preserve record-level source evidence",
+    "production rows require contractVersion, crawlReleaseId, dataVersion and dataProvenance=EMPIRICAL",
+    "fixture rows are structural tests only and cannot support precision, coverage or RQ2-B claims"
+  ],
+  "rowSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "contractVersion",
+      "crawlReleaseId",
+      "dataVersion",
+      "dataProvenance",
+      "rawPostingId",
+      "sourcePostingId",
+      "sourceUrl",
+      "rawSha256",
+      "postingId",
+      "canonicalPostingId",
+      "trackId",
+      "sectionId",
+      "sectionOrder",
+      "sectionType",
+      "sectionText",
+      "sourceMode",
+      "boundaryResolvedFlag",
+      "sectionConfidence",
+      "parseVersion",
+      "trackType",
+      "mixedResolvedFlag",
+      "jobTypeConflictFlag",
+      "ncsEligibleFlag"
+    ],
+    "properties": {
+      "contractVersion": {"type": "string"},
+      "crawlReleaseId": {"type": "string"},
+      "dataVersion": {"type": "string", "minLength": 1},
+      "dataProvenance": {"enum": ["EMPIRICAL", "SYNTHETIC"]},
+      "rawPostingId": {"type": "string", "pattern": "^RAW_[0-9a-f]{20}$"},
+      "sourcePostingId": {"type": "string", "minLength": 1},
+      "sourceUrl": {"type": "string", "format": "uri"},
+      "rawSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+      "postingId": {"type": "string", "pattern": "^PST_[0-9a-f]{20}$"},
+      "canonicalPostingId": {"type": "string", "pattern": "^PST_[0-9a-f]{20}$"},
+      "trackId": {"type": "string", "pattern": "^TRK_[0-9a-f]{20}$"},
+      "sectionId": {"type": "string", "pattern": "^SEC_[0-9a-f]{20}$"},
+      "sectionOrder": {"type": "integer", "minimum": 0},
+      "sectionType": {"const": "duty"},
+      "sectionText": {"type": "string", "minLength": 1},
+      "sourceMode": {"enum": ["html", "ocr", "merged"]},
+      "boundaryResolvedFlag": {"type": "boolean"},
+      "sectionConfidence": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+      "parseVersion": {"type": "string", "minLength": 1},
+      "trackType": {"enum": ["entry", "intern", "experienced", "unknown"]},
+      "mixedResolvedFlag": {"type": "boolean"},
+      "jobTypeConflictFlag": {"type": "boolean"},
+      "ncsEligibleFlag": {"const": true}
+    },
+    "allOf": [
+      {
+        "if": {"properties": {"dataProvenance": {"const": "EMPIRICAL"}}},
+        "then": {
+          "properties": {
+            "contractVersion": {"const": "2.1.2"},
+            "crawlReleaseId": {"pattern": "^CRAWL_"}
+          }
+        }
+      }
+    ]
+  },
+  "fixtureRows": [
+    {
+      "contractVersion": "2.1.2",
+      "crawlReleaseId": "NONE",
+      "dataVersion": "synthetic-fixture-v1",
+      "dataProvenance": "SYNTHETIC",
+      "rawPostingId": "RAW_65300ac3c3a524ff1d1c",
+      "sourcePostingId": "FIX_101",
+      "sourceUrl": "https://fixture.invalid/postings/FIX_101",
+      "rawSha256": "1111111111111111111111111111111111111111111111111111111111111111",
+      "postingId": "PST_d04c185129803be9ab8b",
+      "canonicalPostingId": "PST_d04c185129803be9ab8b",
+      "trackId": "TRK_b70afa93b794091cec9a",
+      "sectionId": "SEC_e47b4ada746790ea7fc9",
+      "sectionOrder": 0,
+      "sectionType": "duty",
+      "sectionText": "데이터 품질 점검과 분석 보고서 작성",
+      "sourceMode": "html",
+      "boundaryResolvedFlag": true,
+      "sectionConfidence": 1.0,
+      "parseVersion": "fixture-parse-v2",
+      "trackType": "intern",
+      "mixedResolvedFlag": true,
+      "jobTypeConflictFlag": false,
+      "ncsEligibleFlag": true
+    }
+  ],
+  "blockedUntil": [
+    "full immutable per-posting crawl lineage",
+    "all accepted analysis-window months meet the pagination coverage contract",
+    "production parser output is materialized with EMPIRICAL provenance"
+  ]
+}

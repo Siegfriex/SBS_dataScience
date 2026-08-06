@@ -1,0 +1,23 @@
+{
+  "agentId": "P4-A1-SOURCE",
+  "agentName": "P4 Source Acquisition & Coverage Engineer",
+  "snapshotAt": "2026-08-06",
+  "contractVersion": "2.1.2",
+  "contractSha256Verified": "f92380cdfc16967f1e363800cd9a575e44532f18a86b2f28f8c3e2404ed675e9",
+  "manifestSplitThisRelease": {
+    "note": "Per this release's instructions, artifact manifest is split into fetch_manifest.jsonl (request-level, 1 row per HTTP request WHERE RAW BYTES WERE PERSISTED) and posting_manifest.parquet/csv (record-level, 1 row per distinct posting WITH SOME CAPTURED DATA). Neither covers the full discovered corpus -- see known_gaps in HANDOFF.json."
+  },
+  "resolvedThisRelease": {
+    "rangeBySemantics": "CalendarScreen_Activities.rangeBy{recruitStartAt,recruitCloseAt} confirmed OR (union), not AND. See docs/audit/APQ_RANGE_SEMANTICS_FINAL.md. AGENT1_TO_AGENT3_ISSUES A1-A3-013 filed as RESOLVED.",
+    "ncsKsaEndpointExistence": "data.go.kr/15157542 -> https://apis.data.go.kr/B490007/ncsSchoolInfo/openapi14 confirmed to exist and accept the provided key (HTTP 200, distinct error code from 'service does not exist'). Required parameter schema beyond pageNo/numOfRows/type still unknown after 15+ guesses. See ncs_manifest.jsonl second row."
+  },
+  "eligibilityRatesUnchanged": {
+    "note": "Per instruction, the n=126 stratified sample was NOT overwritten this release -- same rates as CRAWL_20260806_02 (rq1=1.0, rq2=0.810, ncs=0.214, externalDetailOnly=0.190, imageOcrRouting=0.897, posterFileOcrRouting=0.0)."
+  },
+  "scaleDisclosure": {
+    "monthsComplete": "21/79 target months (2020-01..2026-07) fully pagination-verified",
+    "distinctPostingIdsDiscovered": 40551,
+    "distinctPostingsWithDetailDataCapture": 137,
+    "note": "The gap between 40,551 discovered IDs and 137 detail-captured postings is the single largest scale gap in this release -- full-corpus detail collection (required for CRAWL_RELEASE_READY per the E2E Definition of Done) was not attempted this pass; it would require an estimated 10+ hours of continuous 1req/sec collection even for just the 21 already-discovered months, and the full 79-month corpus is expected to be several times larger still."
+  }
+}

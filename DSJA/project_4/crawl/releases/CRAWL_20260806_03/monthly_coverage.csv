@@ -1,0 +1,86 @@
+﻿periodMonth,sourceName,activityTypeID,discoveredCount,returnedDistinctCount,expectedTotalCount,paginationCompleteFlag,requestCount,firstPostingId,lastPostingId,errorCount,coverageStatus,coverageReason,platformCoverageRegime,note
+2019-01,linkareer,5,,,0,False,1,,,0,insufficient,platformPreLaunch,preStableRecruitService,recruit(activityTypeID=5) category appears effectively unlaunched. Outside primary analysis window.
+2019-03,linkareer,5,,,0,False,1,,,0,insufficient,platformPreLaunch,preStableRecruitService,recruit(activityTypeID=5) category appears effectively unlaunched. Outside primary analysis window.
+2019-06,linkareer,5,,,1,False,1,,,0,insufficient,platformPreLaunch,preStableRecruitService,recruit(activityTypeID=5) category appears effectively unlaunched. Outside primary analysis window.
+2019-09,linkareer,5,,,0,False,1,,,0,insufficient,platformPreLaunch,preStableRecruitService,recruit(activityTypeID=5) category appears effectively unlaunched. Outside primary analysis window.
+2019-12,linkareer,5,,,23,False,1,,,0,insufficient,platformPreLaunch,preStableRecruitService,recruit(activityTypeID=5) category appears effectively unlaunched. Outside primary analysis window.
+2020-01,linkareer,5,254,254,264,True,6,24563,40878,0,complete,complete,operational,"Fully re-paginated, 254/264 distinct ids (dedup across start+end buckets; expected includes legitimate double count of same-month start+close postings), global nodePagination advance verified exhausted per bucket"
+2020-02,linkareer,5,896,896,1234,True,8,29589,38086,0,complete,complete,operational,"Fully re-paginated, 896/1234 distinct ids (dedup across start+end buckets; expected includes legitimate double count of same-month start+close postings), global nodePagination advance verified exhausted per bucket"
+2020-03,linkareer,5,18,,,False,1,,,0,unverified,paginationUnverified,operational,"Single-request sample only (18 ids used for stratified detail sample), NOT a full pagination count"
+2020-04,linkareer,5,1268,1268,1699,True,11,31516,41279,0,complete,complete,operational,"Fully re-paginated, 1268/1699 distinct ids (dedup across start+end buckets; expected includes legitimate double count of same-month start+close postings), global nodePagination advance verified exhausted per bucket"
+2020-05,linkareer,5,1105,1105,1422,True,10,32522,43233,0,complete,complete,operational,"Fully re-paginated, 1105/1422 distinct ids (dedup across start+end buckets; expected includes legitimate double count of same-month start+close postings), global nodePagination advance verified exhausted per bucket"
+2020-06,linkareer,5,1205,1205,1676,True,14,31214,45028,0,complete,complete,operational,"Fully re-paginated, 1205/1676 distinct ids (dedup across start+end buckets; expected includes legitimate double count of same-month start+close postings), global nodePagination advance verified exhausted per bucket"
+2020-07,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2020-08,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2020-09,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2020-10,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2020-11,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2020-12,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2021-01,linkareer,5,918,918,1320,True,11,39342,57062,0,complete,complete,operational,"Fully re-paginated, 918/1320 distinct ids (dedup across start+end buckets; expected includes legitimate double count of same-month start+close postings), global nodePagination advance verified exhausted per bucket"
+2021-02,linkareer,5,815,815,1125,True,10,36536,58563,0,complete,complete,operational,"Fully re-paginated, 815/1125 distinct ids (dedup across start+end buckets; expected includes legitimate double count of same-month start+close postings), global nodePagination advance verified exhausted per bucket"
+2021-03,linkareer,5,949,949,1381,True,12,,,0,complete,complete,operational,"Fully re-paginated, 949/1381 distinct ids (dedup across start+end buckets; expected includes legitimate double count of same-month start+close postings), global nodePagination advance verified exhausted per bucket"
+2021-04,linkareer,5,882,882,1228,True,8,53345,62165,0,complete,complete,operational,"Fully re-paginated, 882/1228 distinct ids (dedup across start+end buckets; expected includes legitimate double count of same-month start+close postings), global nodePagination advance verified exhausted per bucket"
+2021-05,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2021-06,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2021-07,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2021-08,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2021-09,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2021-10,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2021-11,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2021-12,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2022-01,linkareer,5,1592,1592,2103,True,14,40210,89737,0,complete,complete,operational,"Fully re-paginated, 1592/2103 distinct ids (dedup across start+end buckets; expected includes legitimate double count of same-month start+close postings), global nodePagination advance verified exhausted per bucket"
+2022-02,linkareer,5,1941,1941,2552,True,23,72094,151980,0,complete,complete,operational,"Fully re-paginated, 1941/2552 distinct ids (dedup across start+end buckets; expected includes legitimate double count of same-month start+close postings), global nodePagination advance verified exhausted per bucket"
+2022-03,linkareer,5,2337,2337,3216,True,24,71279,95861,0,complete,complete,operational,"Fully re-paginated, 2337/3216 distinct ids (dedup across start+end buckets; expected includes legitimate double count of same-month start+close postings), global nodePagination advance verified exhausted per bucket"
+2022-04,linkareer,5,2611,2611,3477,True,22,69993,97525,0,complete,complete,operational,"Fully re-paginated, 2611/3477 distinct ids (dedup across start+end buckets; expected includes legitimate double count of same-month start+close postings), global nodePagination advance verified exhausted per bucket"
+2022-05,linkareer,5,2915,2915,3848,True,24,76955,205559,0,complete,complete,operational,"Fully re-paginated, 2915/3848 distinct ids (dedup across start+end buckets; expected includes legitimate double count of same-month start+close postings), global nodePagination advance verified exhausted per bucket"
+2022-06,linkareer,5,2819,2819,3728,True,30,62317,98096,0,complete,complete,operational,"Fully re-paginated, 2819/3728 distinct ids (dedup across start+end buckets; expected includes legitimate double count of same-month start+close postings), global nodePagination advance verified exhausted per bucket"
+2022-07,linkareer,5,2921,2921,3988,True,34,51385,133231,0,complete,complete,operational,"Fully re-paginated, 2921/3988 distinct ids (dedup across start+end buckets; expected includes legitimate double count of same-month start+close postings), global nodePagination advance verified exhausted per bucket"
+2022-08,linkareer,5,2930,2930,3992,True,33,62317,205603,0,complete,complete,operational,"Fully re-paginated, 2930/3992 distinct ids (dedup across start+end buckets; expected includes legitimate double count of same-month start+close postings), global nodePagination advance verified exhausted per bucket"
+2022-09,linkareer,5,2868,2868,3780,True,29,55103,115979,0,complete,complete,operational,"Fully re-paginated, 2868/3780 distinct ids (dedup across start+end buckets; expected includes legitimate double count of same-month start+close postings), global nodePagination advance verified exhausted per bucket"
+2022-10,linkareer,5,2932,2932,3925,True,32,79863,149473,0,complete,complete,operational,"Fully re-paginated, 2932/3925 distinct ids (dedup across start+end buckets; expected includes legitimate double count of same-month start+close postings), global nodePagination advance verified exhausted per bucket"
+2022-11,linkareer,5,3119,3119,4265,True,33,74811,117574,0,complete,complete,operational,"Fully re-paginated, 3119/4265 distinct ids (dedup across start+end buckets; expected includes legitimate double count of same-month start+close postings), global nodePagination advance verified exhausted per bucket"
+2022-12,linkareer,5,3274,3274,4416,True,37,77648,164969,0,complete,complete,operational,"Fully re-paginated, 3274/4416 distinct ids (dedup across start+end buckets; expected includes legitimate double count of same-month start+close postings), global nodePagination advance verified exhausted per bucket"
+2023-01,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2023-02,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2023-03,linkareer,5,18,,,False,1,,,0,unverified,paginationUnverified,operational,"Single-request sample only (18 ids used for stratified detail sample), NOT a full pagination count"
+2023-04,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2023-05,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2023-06,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2023-07,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2023-08,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2023-09,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2023-10,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2023-11,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2023-12,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2024-01,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2024-02,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2024-03,linkareer,5,18,,,False,1,,,0,unverified,paginationUnverified,operational,"Single-request sample only (18 ids used for stratified detail sample), NOT a full pagination count"
+2024-04,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2024-05,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2024-06,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2024-07,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2024-08,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2024-09,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2024-10,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2024-11,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2024-12,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2025-01,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2025-02,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2025-03,linkareer,5,18,,,False,1,,,0,unverified,paginationUnverified,operational,"Single-request sample only (18 ids used for stratified detail sample), NOT a full pagination count"
+2025-04,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2025-05,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2025-06,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2025-07,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2025-08,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2025-09,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2025-10,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2025-11,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2025-12,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2026-01,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2026-02,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2026-03,linkareer,5,18,,,False,1,,,0,unverified,paginationUnverified,operational,"Single-request sample only (18 ids used for stratified detail sample), NOT a full pagination count"
+2026-04,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2026-05,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2026-06,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2026-07,linkareer,5,,,,False,0,,,0,unverified,paginationUnverified,operational,Not yet audited -- pending remaining sweep of the 2020-01..2026-07 target range
+2026-08,linkareer,5,1523,1947,1959,False,26,,,0,partial,paginationUnverified,operational,"99.4% recovered, 26-page cap reached; outside primary 79-month target range, kept for reference"
