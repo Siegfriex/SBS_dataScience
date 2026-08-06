@@ -22,20 +22,19 @@ SPECS = (
         "name": "00RecoverSourceState",
         "stage": "A1-00-RECOVER",
         "schema": "source-policy-run-v1",
-        "input": RELEASE_HANDOFF,
+        "input": OBSERVED_HANDOFF,
         "title": "Recover source state and rebuild the reference-only observed package",
-        "calls": "audit_input_manifest;recover_source_state;build_observed_input_package;write_stage_artifacts",
-        "operation": '''from p4_crawl.release import build_observed_input_package, recover_source_state
+        "calls": "audit_input_manifest;recover_observed_input_state;validate_observed_package;write_stage_artifacts",
+        "operation": '''from p4_crawl.observed import recover_observed_input_state, validate_observed_package
 
-recovery = recover_source_state(config, STAGE_ROOT)
-package_root = STAGE_ROOT / "observed_package"
-package = build_observed_input_package(config, package_root)
+recovery = recover_observed_input_state(INPUT_MANIFEST.parent, STAGE_ROOT)
+package = validate_observed_package(INPUT_MANIFEST.parent)
 metrics = {**recovery, "observedPackagePostingRows": package["postingRows"], "observedPackageRawHtmlRows": package["rawHtmlRows"]}
 quality = [
     quality_row("SOURCE_POLICY_READY", "RAW_LINEAGE", "ERROR", "PASS" if recovery["rawHtmlRows"] == 29 else "FAIL", recovery["rawHtmlRows"], 29, "resume_state.json"),
-    quality_row("OBSERVED_PACKAGE_REFERENCE_ONLY", "NO_RAW_COPY", "ERROR", "PASS" if package["rawCopied"] is False else "FAIL", package["rawCopied"], False, "observed_package/HANDOFF.json"),
+    quality_row("OBSERVED_PACKAGE_REFERENCE_ONLY", "NO_RAW_COPY", "ERROR", "PASS" if package["rawCopied"] is False else "FAIL", package["rawCopied"], False, "resume_state.json"),
 ]
-persisted_files = [path for path in STAGE_ROOT.rglob("*") if path.is_file()]''',
+persisted_files = [STAGE_ROOT / name for name in ["resume_state.json", "remaining_months.csv", "detail_frontier.parquet", "detail_frontier.csv", "asset_frontier.parquet", "asset_frontier.csv"]]''',
         "warning": "Observed input is partial and cannot be promoted to empirical analysis.",
     },
     {
@@ -120,7 +119,7 @@ persisted_files = [STAGE_ROOT / "observed_package_validation.json", STAGE_ROOT /
 
 TITLE_DETAILS = {
     "00RecoverSourceState": {
-        "outputs": "resume_state, remaining_months, detail/asset frontier, reference-only observed package",
+        "outputs": "resume_state, remaining_months, detail/asset frontier, observed package validation",
         "prior": "NOT_EVALUATED",
         "next": "A1-01-INDEX의 source-policy 및 입력 기준",
     },

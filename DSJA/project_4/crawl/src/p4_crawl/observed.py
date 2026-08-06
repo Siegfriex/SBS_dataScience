@@ -15,6 +15,7 @@ import pandas as pd
 from .apq import APQClient
 from .assets import build_asset_frontier
 from .detail import extract_detail_record
+from .frontier import build_detail_frontier, persist_frontier
 from .manifests import load_jsonl, verify_checksum_file
 from .policy import PolicyHttpClient, RateLimiter, SourcePolicyBlocked
 from .query_registry import QueryRegistry
@@ -216,6 +217,45 @@ def validate_observed_package(observed_root: Path) -> dict:
         "promotionAllowed": bool(handoff["promotionAllowed"]),
         "observedInputReady": bool(checksum["ok"] and len(raw_rows) == 29 and not handoff["fullCorpus"]),
     }
+
+
+def recover_observed_input_state(observed_root: Path, output_root: Path) -> dict:
+    """Recover the M1 frontier from the self-contained observed handoff."""
+
+    posting = pd.read_parquet(observed_root / "posting_manifest.parquet")
+    raw_rows = load_jsonl(observed_root / "raw_detail_manifest.jsonl")
+    gaps = json.loads((observed_root / "known_gaps.json").read_text(encoding="utf-8"))
+    raw_by_id = {
+        str(row["sourcePostingId"]): {
+            **row,
+            "contentSha256": row["rawSha256"],
+        }
+        for row in raw_rows
+    }
+    output_root.mkdir(parents=True, exist_ok=True)
+    frontier = build_detail_frontier(set(posting["sourcePostingId"].astype(str)), raw_by_id)
+    persist_frontier(frontier, output_root / "detail_frontier.parquet")
+    asset_frontier = pd.DataFrame(columns=["sourcePostingId", "assetUrl", "assetType", "sourceField", "status", "externalAtsAsset"])
+    write_parquet_atomic(asset_frontier, output_root / "asset_frontier.parquet")
+    asset_frontier.to_csv(output_root / "asset_frontier.csv", index=False, encoding="utf-8-sig")
+    remaining = pd.DataFrame([{
+        "coverageStatus": "unverified",
+        "remainingMonthCount": int(gaps["unverifiedMonthCount"]),
+        "detail": "Month identities require the production coverage manifest; count is preserved from known_gaps.json",
+    }])
+    remaining.to_csv(output_root / "remaining_months.csv", index=False, encoding="utf-8-sig")
+    state = {
+        "status": "OBSERVED_INPUT_RECOVERED",
+        "crawlReleaseId": "CRAWL_20260806_03",
+        "postingRows": len(posting),
+        "rawHtmlRows": len(raw_rows),
+        "assetRows": int(gaps["assetRows"]),
+        "remainingMonths": int(gaps["unverifiedMonthCount"]),
+        "detailFrontierStates": frontier["status"].value_counts().to_dict(),
+        "source": "OBSERVED_INPUT_20260806_01",
+    }
+    atomic_write_json(output_root / "resume_state.json", state)
+    return state
 
 
 def invoke_agent2_validator(project_root: Path, release_handoff: Path) -> dict:
