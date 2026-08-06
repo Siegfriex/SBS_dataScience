@@ -9,10 +9,10 @@ The crawl-owned controls and observed replay are independently evidenced, but th
 ## Git identity
 
 - branch: `agent/p4-crawl-m1_5-control-patch-v4`
-- audited code commit: `f1fa16e5d4de097c39a35f89e23ffe29f781c3d8`
+- audited code commit: `23b242da31c63687cc100af0603dacc7b4bafe2c`
 - integration base and merge-base: `b64270bd4ab839ec750a4ceceb08d57957c88782`
 - unrelated `pipeline/**` or `ncs_mapping/**` source modifications: `0`
-- `git diff --check b64270bd4ab839ec750a4ceceb08d57957c88782...f1fa16e5d4de097c39a35f89e23ffe29f781c3d8`: exit `0`
+- `git diff --check b64270bd4ab839ec750a4ceceb08d57957c88782...23b242da31c63687cc100af0603dacc7b4bafe2c`: exit `0`
 
 ## Independent checks
 

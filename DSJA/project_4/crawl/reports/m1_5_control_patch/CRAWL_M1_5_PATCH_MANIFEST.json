@@ -1,8 +1,8 @@
 {
   "agentId": "P4-CRAWL-LOCAL-ORCHESTRATOR",
-  "generatedAtUtc": "2026-08-06T14:29:48.629013Z",
+  "generatedAtUtc": "2026-08-06T14:30:11.278409Z",
   "baseCommit": "b64270bd4ab839ec750a4ceceb08d57957c88782",
-  "headCommit": "f1fa16e5d4de097c39a35f89e23ffe29f781c3d8",
+  "headCommit": "23b242da31c63687cc100af0603dacc7b4bafe2c",
   "branch": "agent/p4-crawl-m1_5-control-patch-v4",
   "dataVersion": "observed-dev-20260806.2",
   "runId": "POST_IMPL_AUDIT_20260806_01",
@@ -92,8 +92,8 @@
     "crawl/tests/test_stage.py": "98fd0247aa1a21d2697045fc0aea37dc8f8b8e367ca56cfb9cb1cda244331eda",
     "crawl/tests/test_validator.py": "81705b462b1e80e9cf3e016fe1f5d826744772f4ceccfa2a82a2ba11d5ec0d2a"
   },
-  "reportSha256": "304103dcc54bac5b072ce43fbd3453723d3a8880e7a4ed9188f6c550f249e591",
-  "testSummarySha256": "533d3f47389c4f82d151a48ad9ad3bd902ef0150052d410c0263770efcc421fb",
+  "reportSha256": "2af4103084550a5ed63887adbc74dd8ccbd0ad18498ee0131ace90f7ba9a155b",
+  "testSummarySha256": "c5370e10b56b38f5dceeb4eb14d189a7172e41c767584ae853a3b4a7c113d6ac",
   "sourceNotebookManifestSha256": "d6ea37b53f9b2028331cae772a98cb5be22e1e380015e83427f524357f626f84",
   "releaseManifestSha256": "404af678f9812678941d3fed5ab913949f364cc38e1f5005940a3aaac9e442eb",
   "validatorArtifactSha256": "bfa5004cd9b5b237f243a2f95dc5a523285b85be2837f77081eace75a9ff2aaa",
