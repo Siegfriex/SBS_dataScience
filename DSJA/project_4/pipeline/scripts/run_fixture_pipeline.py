@@ -135,6 +135,8 @@ def run() -> dict[str, object]:
         artifact_record(time_path, "development-fixture-v1", len(time_series)),
         artifact_record(database, "development-fixture-v1", 0),
     ]
+    for artifact in artifact_manifest:
+        artifact["path"] = str(Path(artifact["path"]).relative_to(PIPELINE_ROOT))
     summary = {
         "status": "FIXTURE_PIPELINE_READY",
         "dataProvenance": payload["fixtureType"],

@@ -5,6 +5,8 @@ from dataclasses import dataclass
 import pandas as pd
 import statsmodels.api as sm
 
+from p4.quality.provenance import ProvenanceContext
+
 
 @dataclass(frozen=True)
 class AnalysisSpec:
@@ -13,9 +15,10 @@ class AnalysisSpec:
     hac_max_lags: int = 12
 
 
-def require_crawl_release_provenance(data_provenance: str) -> None:
-    if data_provenance != "crawl_release":
-        raise ValueError("empirical analysis requires immutable crawl_release provenance")
+def require_crawl_release_provenance(provenance: ProvenanceContext) -> None:
+    if not isinstance(provenance, ProvenanceContext):
+        raise TypeError("empirical analysis requires a ProvenanceContext")
+    provenance.require_empirical()
 
 
 def prepare_segmented_design(frame: pd.DataFrame, intervention_date: str = "2023-01-01") -> pd.DataFrame:
@@ -63,8 +66,8 @@ def coefficient_table(model) -> pd.DataFrame:
     )
 
 
-def fit_monthly_hac(frame: pd.DataFrame, spec: AnalysisSpec, data_provenance: str):
-    require_crawl_release_provenance(data_provenance)
+def fit_monthly_hac(frame: pd.DataFrame, spec: AnalysisSpec, provenance: ProvenanceContext):
+    require_crawl_release_provenance(provenance)
     prepared = prepare_segmented_design(frame, spec.intervention_date).dropna(subset=[spec.outcome])
     if prepared["periodMonth"].nunique() < 24:
         raise ValueError("monthly segmented regression requires at least 24 observed months")
@@ -74,8 +77,8 @@ def fit_monthly_hac(frame: pd.DataFrame, spec: AnalysisSpec, data_provenance: st
     )
 
 
-def fit_job_panel_clustered(frame: pd.DataFrame, spec: AnalysisSpec, data_provenance: str):
-    require_crawl_release_provenance(data_provenance)
+def fit_job_panel_clustered(frame: pd.DataFrame, spec: AnalysisSpec, provenance: ProvenanceContext):
+    require_crawl_release_provenance(provenance)
     prepared = prepare_segmented_design(frame, spec.intervention_date).dropna(subset=[spec.outcome, "jobCode"])
     if prepared["jobCode"].nunique() < 2:
         raise ValueError("clustered panel regression requires at least two jobCode groups")
@@ -83,4 +86,3 @@ def fit_job_panel_clustered(frame: pd.DataFrame, spec: AnalysisSpec, data_proven
     return sm.OLS(prepared[spec.outcome].astype(float), design).fit(
         cov_type="cluster", cov_kwds={"groups": prepared["jobCode"]}
     )
-

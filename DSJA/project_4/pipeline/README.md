@@ -11,6 +11,11 @@ bundle arrives.
 `data/warehouse/p4.development.duckdb` is fixture-only. The canonical
 `data/warehouse/p4.duckdb` is not bootstrapped without an executable contract.
 
+`notebooks/*.ipynb` are production notebooks and intentionally contain no
+executed outputs while the canonical inputs are blocked. Executed structural
+checks live separately under `notebooks/fixture/` and carry an explicit
+`SYNTHETIC_FIXTURE` provenance marker.
+
 Current development commands:
 
 ```bash

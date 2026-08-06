@@ -2,6 +2,7 @@ import pandas as pd
 import pytest
 
 from p4.analysis.segmented import AnalysisSpec, fit_monthly_hac, prepare_segmented_design
+from p4.quality.provenance import DataProvenance, ProvenanceContext
 
 
 def test_segmented_design_uses_2023_level_and_slope_terms():
@@ -24,6 +25,14 @@ def test_empirical_fit_rejects_fixture_provenance():
             "outcome": [0.1] * 36,
         }
     )
-    with pytest.raises(ValueError, match="crawl_release"):
-        fit_monthly_hac(frame, AnalysisSpec("outcome"), data_provenance="synthetic_fixture")
+    provenance = ProvenanceContext(DataProvenance.SYNTHETIC, None, None, "fixture-v1")
+    with pytest.raises(ValueError, match="canonical contract"):
+        fit_monthly_hac(frame, AnalysisSpec("outcome"), provenance=provenance)
 
+
+def test_empirical_fit_rejects_unstructured_provenance_string():
+    frame = pd.DataFrame(
+        {"periodMonth": pd.date_range("2020-01-01", periods=36, freq="MS"), "outcome": [0.1] * 36}
+    )
+    with pytest.raises(TypeError, match="ProvenanceContext"):
+        fit_monthly_hac(frame, AnalysisSpec("outcome"), provenance="crawl_release")

@@ -7,15 +7,16 @@ import pandas as pd
 
 from p4.analysis.segmented import require_crawl_release_provenance
 from p4.common.hashing import sha256_file
+from p4.quality.provenance import ProvenanceContext
 
 
 def build_metric_figure(
     time_series: pd.DataFrame,
     metric: str,
     output_path: str | Path,
-    data_provenance: str,
+    provenance: ProvenanceContext,
 ) -> dict[str, object]:
-    require_crawl_release_provenance(data_provenance)
+    require_crawl_release_provenance(provenance)
     required = {"periodMonth", metric}
     if not required.issubset(time_series.columns):
         raise ValueError(f"figure input missing columns: {sorted(required - set(time_series.columns))}")
@@ -29,4 +30,3 @@ def build_metric_figure(
     figure.savefig(target, dpi=160)
     plt.close(figure)
     return {"path": str(target), "metricId": metric, "sha256": sha256_file(target)}
-
