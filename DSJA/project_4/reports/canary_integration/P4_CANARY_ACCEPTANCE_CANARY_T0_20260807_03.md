@@ -2,7 +2,7 @@
 
 - Verdict: `CANARY_ACCEPTED_FOR_NEXT_DEBUG_SCOPE`
 - Integration branch: `integration/p4-canary-acceptance-v1`
-- Head before report commit: `234f647bf03d36ef19814d4ade6c3ee13548c4da`
+- Head before report commit: `b9b8a0b86a10a08e6f1f06e930100ed8ea6eb54e`
 - Canary run: `CANARY_T0_20260807_03`
 - Approval: `NONE`
 - Network calls evidenced: `0`

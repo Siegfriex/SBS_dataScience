@@ -46,6 +46,63 @@ def complete_policy() -> dict:
             "stopScopeEscalation": True,
             "requireHumanDecision": True,
         },
+        "tier1": {
+            "executionMode": "INDEX_ONLY",
+            "scopeEscalationMode": "CONTROLLER_PROPOSES_USER_APPROVES",
+            "requiresRequestConflictCountZero": True,
+            "requiresCursorLoopCountZero": True,
+            "requiresCheckpointResumePass": True,
+            "requiresTerminalPageEvidenceComplete": True,
+            "requiresKillSwitchPass": True,
+            "requiresExternalAtsCallsZero": True,
+            "a5BeforeRepetitionOrEscalation": "CONDITIONAL",
+        },
+        "tier2": {
+            "detailSampleSize": 10,
+            "sampleFrame": "TIER1_DISCOVERED_UNIQUE_POSTING_IDS",
+            "samplingMethod": "deterministic_random_without_replacement",
+            "samplingSeedMaterial": ["canaryRunId", "approvedScopeHash", "tier1ManifestSha256"],
+            "requireSelectionManifest": True,
+            "selectionManifestName": "detail_canary_sample_manifest.json",
+            "preserveTerminalStatuses": ["NOT_FOUND", "EXPIRED", "RETRY_EXHAUSTED", "PARSER_QUARANTINED"],
+        },
+        "fallback": {
+            "autoPatchLowRisk": True,
+            "autoPatchMediumRisk": True,
+            "autoNetworkRerunMediumRisk": False,
+            "highRiskAction": "QUARANTINE_AND_USER_DECISION",
+            "ambiguousAutoSelectionAllowed": False,
+            "overwriteRawOrTerminalStatusAllowed": False,
+        },
+        "rawStorage": {
+            "immutable": True,
+            "contentAddressed": True,
+            "gitRawBytesAllowed": False,
+            "automatedWriteWithinApprovedScope": True,
+            "automatedDeletionAllowed": False,
+        },
+        "tier3": {
+            "linkareerHostedAssetsOnly": True,
+            "allowedAssetTypes": ["poster", "thumbnail", "activitytext_embedded_image", "attachment"],
+            "externalAssetHostDefaultDeny": True,
+            "agentCanPrepareExceptionPacket": True,
+            "agentCanSelfApproveExternalHost": False,
+            "ocrMode": "COLLECT_QUEUE_QUALITY_ONLY",
+            "acceptedNcsMappingFromOcrAllowed": False,
+            "requiredOcrScenarios": [
+                "poster_layout", "table_layout", "bullet_layout", "mixed_layout",
+                "low_resolution_image", "unsupported_mime", "duplicate_asset_sha",
+                "html_ocr_overlap", "external_host_rejection",
+            ],
+        },
+        "tier4": {
+            "representativeStrata": ["EARLY", "MIDDLE", "RECENT"],
+            "actualPeriodsRequireUserApproval": True,
+            "requestBudgetRequiresUserApproval": True,
+            "checkpointRestartSimulationAllowed": True,
+            "requiresA5Audit": True,
+            "scopeExpansionMode": "CONTROLLER_PROPOSES_USER_APPROVES",
+        },
     }
 
 
@@ -93,6 +150,21 @@ def test_network_and_escalation_safety_flags_are_fail_closed(tmp_path):
     _, errors = validate_automation_policy(path)
     assert "AUTOMATION_POLICY_FALSE_REQUIRED:networkPolicy.allowNetworkWithoutApproval" in errors
     assert "AUTOMATION_POLICY_TRUE_REQUIRED:scopeEscalation.requiresNewApprovalArtifact" in errors
+
+
+def test_tier2_tier3_tier4_policy_cannot_relax_safety_contract(tmp_path):
+    policy = complete_policy()
+    policy["tier2"]["detailSampleSize"] = 11
+    policy["fallback"]["ambiguousAutoSelectionAllowed"] = True
+    policy["tier3"]["agentCanSelfApproveExternalHost"] = True
+    policy["tier4"]["requiresA5Audit"] = False
+    path = tmp_path / "automation_policy.yaml"
+    path.write_text(yaml.safe_dump(policy), encoding="utf-8")
+    _, errors = validate_automation_policy(path)
+    assert any(error.startswith("AUTOMATION_POLICY_SCHEMA_VIOLATION:tier2.detailSampleSize") for error in errors)
+    assert any(error.startswith("AUTOMATION_POLICY_SCHEMA_VIOLATION:fallback.ambiguousAutoSelectionAllowed") for error in errors)
+    assert any(error.startswith("AUTOMATION_POLICY_SCHEMA_VIOLATION:tier3.agentCanSelfApproveExternalHost") for error in errors)
+    assert any(error.startswith("AUTOMATION_POLICY_SCHEMA_VIOLATION:tier4.requiresA5Audit") for error in errors)
 
 
 def test_complete_policy_passes_structure_validation(tmp_path):

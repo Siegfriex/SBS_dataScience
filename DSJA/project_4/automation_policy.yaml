@@ -89,3 +89,79 @@ budgetExhaustionPolicy:
   stopAutomaticPatch: true
   stopScopeEscalation: true
   requireHumanDecision: true
+
+tier1:
+  executionMode: INDEX_ONLY
+  scopeEscalationMode: CONTROLLER_PROPOSES_USER_APPROVES
+  requiresRequestConflictCountZero: true
+  requiresCursorLoopCountZero: true
+  requiresCheckpointResumePass: true
+  requiresTerminalPageEvidenceComplete: true
+  requiresKillSwitchPass: true
+  requiresExternalAtsCallsZero: true
+  a5BeforeRepetitionOrEscalation: CONDITIONAL
+
+tier2:
+  detailSampleSize: 10
+  sampleFrame: TIER1_DISCOVERED_UNIQUE_POSTING_IDS
+  samplingMethod: deterministic_random_without_replacement
+  samplingSeedMaterial:
+    - canaryRunId
+    - approvedScopeHash
+    - tier1ManifestSha256
+  requireSelectionManifest: true
+  selectionManifestName: detail_canary_sample_manifest.json
+  preserveTerminalStatuses:
+    - NOT_FOUND
+    - EXPIRED
+    - RETRY_EXHAUSTED
+    - PARSER_QUARANTINED
+
+fallback:
+  autoPatchLowRisk: true
+  autoPatchMediumRisk: true
+  autoNetworkRerunMediumRisk: false
+  highRiskAction: QUARANTINE_AND_USER_DECISION
+  ambiguousAutoSelectionAllowed: false
+  overwriteRawOrTerminalStatusAllowed: false
+
+rawStorage:
+  immutable: true
+  contentAddressed: true
+  gitRawBytesAllowed: false
+  automatedWriteWithinApprovedScope: true
+  automatedDeletionAllowed: false
+
+tier3:
+  linkareerHostedAssetsOnly: true
+  allowedAssetTypes:
+    - poster
+    - thumbnail
+    - activitytext_embedded_image
+    - attachment
+  externalAssetHostDefaultDeny: true
+  agentCanPrepareExceptionPacket: true
+  agentCanSelfApproveExternalHost: false
+  ocrMode: COLLECT_QUEUE_QUALITY_ONLY
+  acceptedNcsMappingFromOcrAllowed: false
+  requiredOcrScenarios:
+    - poster_layout
+    - table_layout
+    - bullet_layout
+    - mixed_layout
+    - low_resolution_image
+    - unsupported_mime
+    - duplicate_asset_sha
+    - html_ocr_overlap
+    - external_host_rejection
+
+tier4:
+  representativeStrata:
+    - EARLY
+    - MIDDLE
+    - RECENT
+  actualPeriodsRequireUserApproval: true
+  requestBudgetRequiresUserApproval: true
+  checkpointRestartSimulationAllowed: true
+  requiresA5Audit: true
+  scopeExpansionMode: CONTROLLER_PROPOSES_USER_APPROVES

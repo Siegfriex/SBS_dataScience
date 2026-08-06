@@ -18,7 +18,13 @@
     "sourcePolicySchemaVersion",
     "networkPolicy",
     "scopeEscalation",
-    "budgetExhaustionPolicy"
+    "budgetExhaustionPolicy",
+    "tier1",
+    "tier2",
+    "fallback",
+    "rawStorage",
+    "tier3",
+    "tier4"
   ],
   "properties": {
     "schemaVersion": {"const": "p4-canary-automation-v1"},
@@ -77,6 +83,126 @@
         "stopAutomaticPatch": {"const": true},
         "stopScopeEscalation": {"const": true},
         "requireHumanDecision": {"const": true}
+      }
+    },
+    "tier1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "executionMode", "scopeEscalationMode", "requiresRequestConflictCountZero",
+        "requiresCursorLoopCountZero", "requiresCheckpointResumePass",
+        "requiresTerminalPageEvidenceComplete", "requiresKillSwitchPass",
+        "requiresExternalAtsCallsZero", "a5BeforeRepetitionOrEscalation"
+      ],
+      "properties": {
+        "executionMode": {"const": "INDEX_ONLY"},
+        "scopeEscalationMode": {"const": "CONTROLLER_PROPOSES_USER_APPROVES"},
+        "requiresRequestConflictCountZero": {"const": true},
+        "requiresCursorLoopCountZero": {"const": true},
+        "requiresCheckpointResumePass": {"const": true},
+        "requiresTerminalPageEvidenceComplete": {"const": true},
+        "requiresKillSwitchPass": {"const": true},
+        "requiresExternalAtsCallsZero": {"const": true},
+        "a5BeforeRepetitionOrEscalation": {"const": "CONDITIONAL"}
+      }
+    },
+    "tier2": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "detailSampleSize", "sampleFrame", "samplingMethod", "samplingSeedMaterial",
+        "requireSelectionManifest", "selectionManifestName", "preserveTerminalStatuses"
+      ],
+      "properties": {
+        "detailSampleSize": {"const": 10},
+        "sampleFrame": {"const": "TIER1_DISCOVERED_UNIQUE_POSTING_IDS"},
+        "samplingMethod": {"const": "deterministic_random_without_replacement"},
+        "samplingSeedMaterial": {
+          "const": ["canaryRunId", "approvedScopeHash", "tier1ManifestSha256"]
+        },
+        "requireSelectionManifest": {"const": true},
+        "selectionManifestName": {"const": "detail_canary_sample_manifest.json"},
+        "preserveTerminalStatuses": {
+          "type": "array",
+          "minItems": 4,
+          "uniqueItems": true,
+          "contains": {"const": "PARSER_QUARANTINED"},
+          "items": {"enum": ["NOT_FOUND", "EXPIRED", "RETRY_EXHAUSTED", "PARSER_QUARANTINED"]}
+        }
+      }
+    },
+    "fallback": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "autoPatchLowRisk", "autoPatchMediumRisk", "autoNetworkRerunMediumRisk",
+        "highRiskAction", "ambiguousAutoSelectionAllowed", "overwriteRawOrTerminalStatusAllowed"
+      ],
+      "properties": {
+        "autoPatchLowRisk": {"const": true},
+        "autoPatchMediumRisk": {"const": true},
+        "autoNetworkRerunMediumRisk": {"const": false},
+        "highRiskAction": {"const": "QUARANTINE_AND_USER_DECISION"},
+        "ambiguousAutoSelectionAllowed": {"const": false},
+        "overwriteRawOrTerminalStatusAllowed": {"const": false}
+      }
+    },
+    "rawStorage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "immutable", "contentAddressed", "gitRawBytesAllowed",
+        "automatedWriteWithinApprovedScope", "automatedDeletionAllowed"
+      ],
+      "properties": {
+        "immutable": {"const": true},
+        "contentAddressed": {"const": true},
+        "gitRawBytesAllowed": {"const": false},
+        "automatedWriteWithinApprovedScope": {"const": true},
+        "automatedDeletionAllowed": {"const": false}
+      }
+    },
+    "tier3": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "linkareerHostedAssetsOnly", "allowedAssetTypes", "externalAssetHostDefaultDeny",
+        "agentCanPrepareExceptionPacket", "agentCanSelfApproveExternalHost", "ocrMode",
+        "acceptedNcsMappingFromOcrAllowed", "requiredOcrScenarios"
+      ],
+      "properties": {
+        "linkareerHostedAssetsOnly": {"const": true},
+        "allowedAssetTypes": {
+          "const": ["poster", "thumbnail", "activitytext_embedded_image", "attachment"]
+        },
+        "externalAssetHostDefaultDeny": {"const": true},
+        "agentCanPrepareExceptionPacket": {"const": true},
+        "agentCanSelfApproveExternalHost": {"const": false},
+        "ocrMode": {"const": "COLLECT_QUEUE_QUALITY_ONLY"},
+        "acceptedNcsMappingFromOcrAllowed": {"const": false},
+        "requiredOcrScenarios": {
+          "type": "array",
+          "minItems": 9,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "tier4": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "representativeStrata", "actualPeriodsRequireUserApproval",
+        "requestBudgetRequiresUserApproval", "checkpointRestartSimulationAllowed",
+        "requiresA5Audit", "scopeExpansionMode"
+      ],
+      "properties": {
+        "representativeStrata": {"const": ["EARLY", "MIDDLE", "RECENT"]},
+        "actualPeriodsRequireUserApproval": {"const": true},
+        "requestBudgetRequiresUserApproval": {"const": true},
+        "checkpointRestartSimulationAllowed": {"const": true},
+        "requiresA5Audit": {"const": true},
+        "scopeExpansionMode": {"const": "CONTROLLER_PROPOSES_USER_APPROVES"}
       }
     }
   },

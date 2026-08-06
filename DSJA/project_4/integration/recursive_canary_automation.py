@@ -19,6 +19,7 @@ from pathlib import Path
 from typing import Any
 
 import yaml
+from jsonschema import Draft202012Validator
 
 
 AGENT_ID = "P4-RECURSIVE-CANARY-M2-ORCHESTRATOR"
@@ -37,6 +38,12 @@ REQUIRED_POLICY_FIELDS = (
     "networkPolicy",
     "scopeEscalation",
     "budgetExhaustionPolicy",
+    "tier1",
+    "tier2",
+    "fallback",
+    "rawStorage",
+    "tier3",
+    "tier4",
 )
 REQUIRED_TIERS = ("TIER0", "TIER1", "TIER2", "TIER3", "TIER4")
 OUTPUT_NAMES = (
@@ -141,7 +148,16 @@ def validate_automation_policy(path: Path) -> tuple[dict[str, Any] | None, list[
         for field in fields:
             if value.get(field) is not True:
                 errors.append(f"AUTOMATION_POLICY_TRUE_REQUIRED:{section}.{field}")
-    return payload, errors
+    schema_path = Path(__file__).resolve().parents[1] / "shared/contracts/canary_automation/v1/automation_policy.schema.json"
+    try:
+        schema = json.loads(schema_path.read_text(encoding="utf-8"))
+        Draft202012Validator.check_schema(schema)
+        for error in Draft202012Validator(schema).iter_errors(payload):
+            locator = ".".join(str(value) for value in error.absolute_path) or "ROOT"
+            errors.append(f"AUTOMATION_POLICY_SCHEMA_VIOLATION:{locator}:{error.validator}")
+    except (OSError, UnicodeError, json.JSONDecodeError):
+        errors.append("AUTOMATION_POLICY_SCHEMA_UNAVAILABLE")
+    return payload, sorted(set(errors))
 
 
 def write_csv(path: Path, fieldnames: list[str], rows: list[dict[str, Any]]) -> None:
@@ -429,6 +445,8 @@ def write_tier0_accepted_packet(
         "- Kill-switch policy version: `USER_DECISION_REQUIRED`\n"
         "- Source-policy constraints: Linkareer index only; external ATS and browser automation denied.\n"
         "- Expiration: `USER_DECISION_REQUIRED`\n"
+        "- Acceptance prerequisites: request conflicts 0; cursor loops 0; checkpoint resume, "
+        "terminal page evidence, and kill-switch tests pass; external ATS calls 0.\n"
         "- Recommended option: defer until a complete signed approval artifact is supplied.\n"
         "- Impact if approved: only the approved Tier 1 index request scope may run.\n"
         "- Impact if denied or deferred: network calls remain 0 and no scope expands.\n\n"

@@ -12,6 +12,7 @@
 - Kill-switch policy version: `USER_DECISION_REQUIRED`
 - Source-policy constraints: Linkareer index only; external ATS and browser automation denied.
 - Expiration: `USER_DECISION_REQUIRED`
+- Acceptance prerequisites: request conflicts 0; cursor loops 0; checkpoint resume, terminal page evidence, and kill-switch tests pass; external ATS calls 0.
 - Recommended option: defer until a complete signed approval artifact is supplied.
 - Impact if approved: only the approved Tier 1 index request scope may run.
 - Impact if denied or deferred: network calls remain 0 and no scope expands.

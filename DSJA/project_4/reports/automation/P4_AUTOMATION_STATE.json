@@ -3,9 +3,9 @@
   "state": "AWAIT_TIER1_APPROVAL",
   "tier": "TIER1",
   "iterationId": "P4_AUTO_T0_20260807_01",
-  "updatedAtUtc": "2026-08-06T23:01:56.216147Z",
+  "updatedAtUtc": "2026-08-06T23:05:37.507429Z",
   "automationPolicyPath": "automation_policy.yaml",
-  "automationPolicySha256": "98b1d365faf1f8978f8f1f80a46e64a41ff78d6c6264f3509ebf175651842b01",
+  "automationPolicySha256": "7a558e86f47c7799ee32858df370b1e217eefc0088d3109ebf305475b3aabaef",
   "automationPolicyStatus": "PASS",
   "maxAutoRepairIterationsPerTier": 3,
   "maxCanaryRunsPerScope": 2,
@@ -19,7 +19,7 @@
   },
   "a3Acceptance": {
     "branch": "integration/p4-canary-acceptance-v1",
-    "headCommitBeforeAutomationReport": "234f647bf03d36ef19814d4ade6c3ee13548c4da",
+    "headCommitBeforeAutomationReport": "b9b8a0b86a10a08e6f1f06e930100ed8ea6eb54e",
     "status": "CANARY_ACCEPTED_FOR_NEXT_DEBUG_SCOPE"
   },
   "a5Status": "NOT_REQUIRED",
