@@ -1,0 +1,19 @@
+{
+  "automatedDeletionAllowed": false,
+  "externalAtsTransportCalls": 0,
+  "gitRawBytesAllowed": false,
+  "networkCalls": 0,
+  "observedDetailRawMaxBytes": 169284,
+  "observedDetailRawMeanBytes": 159927.5172413793,
+  "observedDetailRawRows": 29,
+  "preAssetKnownUpperEstimateBytes": 10465716,
+  "proposalStatus": "STATIC_ESTIMATE_NOT_QUOTA_RESERVATION",
+  "rawDetailManifestSha256": "f12680f1d598f70df576f0af4743c5e9c49df7caf16eccb1d898bded5eb3dfbe",
+  "rawStorageMode": "IMMUTABLE_CONTENT_ADDRESSED_EXTERNAL_STORAGE",
+  "schemaVersion": "p4-tier1t2-preapproval-v1",
+  "tier1IndexEstimatedStorageBytes": 8772876,
+  "tier2DetailUpperEstimateBytes": 1692840,
+  "tier3AssetStorageBytes": null,
+  "tier3AssetStorageStatus": "NOT_EVALUATED_NO_FETCHED_ASSET_BYTES",
+  "totalStorageReservationStatus": "BLOCKED_UNTIL_ASSET_SIZE_EVIDENCE_OR_USER_QUOTA"
+}

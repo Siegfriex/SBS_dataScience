@@ -1,0 +1,40 @@
+{
+  "assetCalls": 0,
+  "browserAutomationCalls": 0,
+  "combinedPlanningRequestCeiling": 68,
+  "credentialedApiCalls": 0,
+  "detailCalls": 0,
+  "externalAtsTransportCalls": 0,
+  "generatedAtUtc": "2026-08-06T23:41:07.685514Z",
+  "networkCalls": 0,
+  "proposalStatus": "PROPOSED_NOT_APPROVED",
+  "runId": "TIER1T2_PREAPPROVAL_20260807_01",
+  "schemaVersion": "p4-tier1t2-preapproval-v1",
+  "sequentialApprovalRequired": true,
+  "tier0CanonicalHandoffManifestSha256": "6162d3aea6ff3646d4d9cb7ff09d09acf91bbde81a815896096bca82b6f63c42",
+  "tier1": {
+    "candidateScopeId": "T1-INDEX-2026-03-APQ-V1",
+    "periodMonths": [
+      "2026-03"
+    ],
+    "proposedMaxIndexRequests": 28,
+    "queryOperations": [
+      "CalendarScreen_ActivityCalendarEntries",
+      "CalendarScreen_Activities"
+    ],
+    "status": "AWAITING_USER_TIER1_APPROVAL"
+  },
+  "tier1EvidenceManifestSha256": "35395a82a6f3ecd6d8c518ea9138be776ccfe6c720d2345c366cc0ced6a07f66",
+  "tier1ScopeProposalSha256": "23dbc556f9d3b88efa9a42dbff0915a7da457ee355c5999c31ce66ab8425d5cb",
+  "tier1SourceCommit": "c17c7f5bc8c3eb1a9c1d12efb1eeb801f074f61c",
+  "tier2": {
+    "proposedMaxDetailRequests": 10,
+    "sampleSize": 10,
+    "sampleStatus": "NOT_EVALUATED_AWAITING_TIER1_DISCOVERY",
+    "status": "BLOCKED_UNTIL_TIER1_ACCEPTED_AND_NEW_APPROVAL"
+  },
+  "tier3": {
+    "proposedMaxAssetRequests": 30,
+    "status": "BLOCKED_UNTIL_TIER2_ACCEPTED_AND_NEW_APPROVAL"
+  }
+}
