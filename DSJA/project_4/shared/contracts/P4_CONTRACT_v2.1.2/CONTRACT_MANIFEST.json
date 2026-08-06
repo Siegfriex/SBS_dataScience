@@ -1,0 +1,86 @@
+{
+  "agentId": "P4-A3-CONTROL",
+  "agentName": "P4 SSOT Contract & Control Plane Lead",
+  "contractVersion": "2.1.2",
+  "gitCommit": "49e3d09a7a74f1c5ddf984196741d338b77bd1f9",
+  "gitCommitSemantics": "buildSourceCommit; releaseTag target is authoritative because a tracked manifest cannot contain its own commit hash",
+  "releaseTag": "contract-v2.1.2",
+  "generatedAt": "2026-08-06T05:08:58+00:00",
+  "duckdbVersion": "1.5.x",
+  "sourceContractSha256": "f92380cdfc16967f1e363800cd9a575e44532f18a86b2f28f8c3e2404ed675e9",
+  "schemaCount": 5,
+  "tableCount": 26,
+  "viewCount": 6,
+  "machineCanonical": [
+    "p4_contract.yaml",
+    "data_dictionary.csv"
+  ],
+  "xlsxPolicy": "human convenience artifact; compare semanticSha256 instead of ZIP bytes",
+  "files": [
+    {
+      "path": "p4_contract.yaml",
+      "checksumMode": "sha256",
+      "sha256": "f92380cdfc16967f1e363800cd9a575e44532f18a86b2f28f8c3e2404ed675e9",
+      "bytes": 146543
+    },
+    {
+      "path": "p4_contract.schema.json",
+      "checksumMode": "sha256",
+      "sha256": "6f0c54051688fe04b120c551e98c73cc5bd6771b5b95d80ce241b178e0b4a774",
+      "bytes": 3898
+    },
+    {
+      "path": "warehouse_duckdb.sql",
+      "checksumMode": "sha256",
+      "sha256": "956986874eae5686a20a52721dc303f1913c7391b2ee27da6d582a762f73ad58",
+      "bytes": 101209
+    },
+    {
+      "path": "data_dictionary.xlsx",
+      "checksumMode": "semantic",
+      "semanticSha256": "a3438da8f9d00739443e97b4ea07332eb295b3f5bdd84fc2de0c12fad33bf527"
+    },
+    {
+      "path": "data_dictionary.csv",
+      "checksumMode": "sha256",
+      "sha256": "0eac0d20888efd6fd59b944284c3e1460ad1184596120d72f14a5e0461971ffa",
+      "bytes": 152097
+    },
+    {
+      "path": "erd.mmd",
+      "checksumMode": "sha256",
+      "sha256": "1067a6fd096689e3a82866ce95fa9143f748295f2a42b5f1a972f5a337bcb606",
+      "bytes": 14535
+    },
+    {
+      "path": "metrics.yaml",
+      "checksumMode": "sha256",
+      "sha256": "439e4cdc4c916b452fcdd220f895b692721ff2ebef06b06455f5a78e1bb727c7",
+      "bytes": 15018
+    },
+    {
+      "path": "QUALITY_GATES.md",
+      "checksumMode": "sha256",
+      "sha256": "901be8b3163568a41f875918b3168bc1624ef6a55c6f2a691cbe549ebdf9b66a",
+      "bytes": 1994
+    },
+    {
+      "path": "SOURCE_POLICY_GATE.md",
+      "checksumMode": "sha256",
+      "sha256": "a156755951426840685ff26444263ae3e116fbecb5f2fd7aeef59aa4b191467d",
+      "bytes": 1801
+    },
+    {
+      "path": "AGENT3_TO_AGENT1_HANDOFF.json",
+      "checksumMode": "sha256",
+      "sha256": "1f09f3d063d4e61dc625c5c5205dd9c62b6a32980f04168e8964015898af62d6",
+      "bytes": 2724
+    },
+    {
+      "path": "AGENT3_TO_AGENT2_HANDOFF.json",
+      "checksumMode": "sha256",
+      "sha256": "8de351b43626a202be7f19e293710eb5fd0c233b9d4119a275b39ec9692ac5ef",
+      "bytes": 3671
+    }
+  ]
+}

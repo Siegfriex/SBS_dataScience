@@ -1,0 +1,171 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Siegfriex/SBS_P4_PROJECT4/schema/p4_contract.schema.json",
+  "title": "P4 machine-readable schema contract",
+  "type": "object",
+  "required": [
+    "contractVersion",
+    "status",
+    "schemas",
+    "tables",
+    "foreignKeys"
+  ],
+  "properties": {
+    "contractVersion": {
+      "type": "string",
+      "const": "2.1.2"
+    },
+    "status": {
+      "type": "string",
+      "const": "canonical"
+    },
+    "asOfDate": {
+      "type": [
+        "string",
+        "object"
+      ]
+    },
+    "generatorVersion": {
+      "type": "string"
+    },
+    "timezone": {
+      "type": "string"
+    },
+    "authority": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "officialSources": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "removedScope": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "schemas": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "rules": {
+      "type": "object"
+    },
+    "foreignKeys": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "minItems": 4,
+        "maxItems": 4
+      }
+    },
+    "tables": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "description",
+          "primaryKey",
+          "columns"
+        ],
+        "properties": {
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "primaryKey": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          },
+          "unique": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "aliases": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "columns": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "required": [
+                "type",
+                "nullable",
+                "description",
+                "source",
+                "derivation",
+                "qualityRule"
+              ],
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "nullable": {
+                  "type": "boolean"
+                },
+                "description": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "enum": {
+                  "type": "array",
+                  "items": {
+                    "type": [
+                      "string",
+                      "number",
+                      "boolean"
+                    ]
+                  }
+                },
+                "enumRef": {
+                  "type": "string"
+                },
+                "default": {},
+                "check": {
+                  "type": "string"
+                },
+                "source": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "derivation": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "qualityRule": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "unique": {
+                  "type": "boolean"
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

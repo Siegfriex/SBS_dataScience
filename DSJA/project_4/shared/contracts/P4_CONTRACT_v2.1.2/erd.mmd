@@ -1,0 +1,492 @@
+%% GENERATED FILE - DO NOT EDIT
+%% contractVersion: 2.1.2
+%% sourceContractSha256: f92380cdfc16967f1e363800cd9a575e44532f18a86b2f28f8c3e2404ed675e9
+%% generatedAt: 2026-08-06T05:08:58+00:00
+%% generatorVersion: 2.1.2
+erDiagram
+    raw_sourceRegistry ||--o{ raw_crawlRun : references
+    raw_crawlRun ||--o{ raw_linkareerIndexRaw : references
+    raw_linkareerIndexRaw ||--o{ raw_linkareerPostingRaw : references
+    raw_linkareerPostingRaw ||--o{ raw_postingAsset : references
+    raw_postingAsset ||--o{ raw_ocrResult : references
+    raw_linkareerPostingRaw ||--o{ core_postingNormalized : references
+    core_postingNormalized ||--o{ core_postingTrack : references
+    core_postingTrack ||--o{ core_postingSection : references
+    core_postingSection ||--o{ core_requirementFact : references
+    core_postingTrack ||--o{ core_careerLabel : references
+    core_postingNormalized ||--o{ core_postingDedupEdge : references
+    core_postingNormalized ||--o{ core_postingDedupEdge : references
+    ncs_ncsUnit ||--o{ ncs_ncsLearningModule : references
+    core_postingTrack ||--o{ ncs_postingNcsMatch : references
+    ncs_ncsUnit ||--o{ ncs_postingNcsMatch : references
+    raw_sourceRegistry ||--o{ qa_sourcePolicyAudit : references
+    raw_queryRegistry {
+        VARCHAR operationName PK
+        VARCHAR sha256Hash PK
+        VARCHAR transportType
+        VARCHAR httpMethod
+        JSON variablesSchemaJson
+        JSON responseSchemaJson
+        VARCHAR frontendBuildId
+        TIMESTAMPTZ discoveredAt
+        TIMESTAMPTZ lastVerifiedAt
+        BOOLEAN activeFlag
+        VARCHAR verificationStatus
+    }
+    raw_sourceRegistry {
+        VARCHAR sourceName PK
+        VARCHAR sourceType
+        VARCHAR sourceRole
+        VARCHAR baseUrl
+        VARCHAR termsStatus
+        VARCHAR robotsStatus
+        DATE historyStart
+        DATE historyEnd
+        VARCHAR historyStatus
+        VARCHAR paginationType
+        TIMESTAMPTZ verifiedAt
+    }
+    raw_crawlRun {
+        VARCHAR crawlRunId PK
+        VARCHAR sourceName
+        VARCHAR runPhase
+        VARCHAR collectorVersion
+        VARCHAR configSha256
+        TIMESTAMPTZ startedAt
+        TIMESTAMPTZ endedAt
+        VARCHAR status
+        INTEGER requestCount
+        INTEGER successCount
+        INTEGER failCount
+        VARCHAR gitCommitSha
+    }
+    raw_linkareerIndexRaw {
+        VARCHAR indexItemId PK
+        VARCHAR crawlRunId
+        VARCHAR discoveryType
+        VARCHAR sourcePostingId
+        VARCHAR detailUrl
+        VARCHAR titleRaw
+        VARCHAR companyRaw
+        VARCHAR postedAtRaw
+        VARCHAR categoryRaw
+        VARCHAR activityTypeId
+        VARCHAR groupRaw
+        JSON jobTypesRawJson
+        TIMESTAMPTZ recruitStartAt
+        TIMESTAMPTZ recruitCloseAt
+        TIMESTAMPTZ activityStartAt
+        TIMESTAMPTZ activityEndAt
+        TIMESTAMPTZ createdAt
+        VARCHAR rawPath
+        VARCHAR rawSha256
+    }
+    raw_linkareerPostingRaw {
+        VARCHAR rawPostingId PK
+        VARCHAR indexItemId
+        VARCHAR crawlRunId
+        VARCHAR sourcePostingId
+        VARCHAR sourceUrl
+        TIMESTAMPTZ fetchedAt
+        SMALLINT httpStatus
+        VARCHAR contentType
+        VARCHAR rawPath
+        VARCHAR rawSha256
+        BOOLEAN textAvailableFlag
+        SMALLINT assetCount
+        VARCHAR nextDataJsonPath
+        VARCHAR activityJsonPath
+        VARCHAR apolloCacheJsonPath
+        VARCHAR activityTextEntityKey
+        JSON dutiesRawJson
+        VARCHAR activityTextHtml
+        BOOLEAN activityTextAvailableFlag
+        VARCHAR externalApplyUrl
+        BOOLEAN externalApplyFlag
+        VARCHAR externalAtsDomain
+        BOOLEAN externalDetailOnlyFlag
+    }
+    raw_postingAsset {
+        VARCHAR assetId PK
+        VARCHAR rawPostingId
+        VARCHAR assetType
+        VARCHAR assetUrl
+        VARCHAR assetPath
+        VARCHAR assetSha256
+        INTEGER widthPx
+        INTEGER heightPx
+        BIGINT bytes
+    }
+    raw_ocrResult {
+        VARCHAR ocrId PK
+        VARCHAR assetId
+        VARCHAR ocrEngine
+        VARCHAR ocrModel
+        VARCHAR ocrVersion
+        VARCHAR ocrText
+        JSON ocrBlocksJson
+        DOUBLE ocrConfidence
+        BOOLEAN ocrReviewFlag
+        TIMESTAMPTZ producedAt
+    }
+    core_postingNormalized {
+        VARCHAR postingId PK
+        VARCHAR rawPostingId
+        VARCHAR sourcePostingId
+        VARCHAR sourceUrl
+        VARCHAR companyKey
+        VARCHAR companyName
+        VARCHAR industryName
+        VARCHAR jobTitle
+        VARCHAR bodyText
+        TIMESTAMPTZ postedAt
+        TIMESTAMPTZ deadlineAt
+        VARCHAR postingKind
+        VARCHAR recruitmentScope
+        BOOLEAN postingEligibleFlag
+        BOOLEAN rq1EligibleFlag
+        BOOLEAN rq2EligibleFlag
+        BOOLEAN ncsEligibleFlag
+        VARCHAR rq2ExclusionReason
+        VARCHAR invalidReason
+        VARCHAR duplicateGroupId
+        VARCHAR canonicalPostingId
+        TIMESTAMPTZ canonicalPostedAt
+        BOOLEAN canonicalRecordFlag
+        SMALLINT repostCount
+        VARCHAR rawSha256
+        VARCHAR parseVersion
+        VARCHAR dataVersion
+        TIMESTAMPTZ normalizedAt
+    }
+    core_postingTrack {
+        VARCHAR trackId PK
+        VARCHAR postingId
+        SMALLINT trackIndex
+        VARCHAR trackType
+        VARCHAR trackTitle
+        BOOLEAN hasEntryFlag
+        BOOLEAN hasInternFlag
+        BOOLEAN hasExperiencedFlag
+        VARCHAR recruitmentScope
+        BOOLEAN mixedResolvedFlag
+        DOUBLE splitConfidence
+        VARCHAR trackVersion
+        VARCHAR jobTypeSource
+        BOOLEAN jobTypeConflictFlag
+    }
+    core_postingSection {
+        VARCHAR sectionId PK
+        VARCHAR trackId
+        VARCHAR postingId
+        SMALLINT sectionOrder
+        VARCHAR sectionType
+        VARCHAR sectionText
+        VARCHAR sourceMode
+        BOOLEAN boundaryResolvedFlag
+        DOUBLE sectionConfidence
+        VARCHAR parseVersion
+    }
+    core_requirementFact {
+        VARCHAR requirementId PK
+        VARCHAR sectionId
+        VARCHAR trackId
+        VARCHAR postingId
+        VARCHAR requirementType
+        VARCHAR obligation
+        DOUBLE valueNum
+        VARCHAR valueUnit
+        VARCHAR valueText
+        VARCHAR certificateNameRaw
+        VARCHAR certificateClass
+        VARCHAR degreeLevel
+        VARCHAR evidenceText
+        VARCHAR extractorVersion
+        DOUBLE confidence
+        BOOLEAN reviewFlag
+    }
+    core_careerLabel {
+        VARCHAR trackId PK
+        VARCHAR postingId
+        VARCHAR careerClass
+        VARCHAR internAccessClass
+        BOOLEAN nominalEntryFlag
+        BOOLEAN openEntryFlag
+        BOOLEAN restrictedEntryFlag
+        BOOLEAN openInternFlag
+        BOOLEAN restrictedInternFlag
+        BOOLEAN experiencedInternFlag
+        SMALLINT minCareerMonths
+        BOOLEAN requiredExperienceFlag
+        BOOLEAN requiredPriorExperienceFlag
+        BOOLEAN boundaryResolvedFlag
+        BOOLEAN explicitCareerFlag
+        DOUBLE labelConfidence
+        VARCHAR labelVersion
+    }
+    core_postingDedupEdge {
+        VARCHAR edgeId PK
+        VARCHAR leftPostingId
+        VARCHAR rightPostingId
+        INTEGER dayDiff
+        DOUBLE titleSimilarity
+        DOUBLE bodySimilarity
+        VARCHAR decision
+        VARCHAR decisionBasis
+        VARCHAR dedupVersion
+    }
+    ncs_ncsUnit {
+        VARCHAR ncsUnitCode PK
+        VARCHAR ncsUnitName
+        VARCHAR ncsMajorCode
+        VARCHAR ncsMiddleCode
+        VARCHAR ncsMinorCode
+        VARCHAR ncsSubCode
+        SMALLINT ncsLevel
+        VARCHAR ncsBand
+        VARCHAR definitionText
+        VARCHAR performanceCriteriaText
+        VARCHAR knowledgeText
+        VARCHAR skillText
+        VARCHAR attitudeText
+        SMALLINT developmentYear
+        VARCHAR sourceVersion
+        VARCHAR rawSha256
+    }
+    ncs_ncsLearningModule {
+        VARCHAR moduleId PK
+        VARCHAR ncsUnitCode
+        VARCHAR moduleName
+        VARCHAR taskText
+        SMALLINT trainingLevel
+        VARCHAR sourceUrl
+        VARCHAR localFilePath
+        BOOLEAN redistributableFlag
+        VARCHAR sourceVersion
+        VARCHAR rawSha256
+    }
+    ncs_postingNcsMatch {
+        VARCHAR matchId PK
+        VARCHAR postingId
+        VARCHAR trackId
+        VARCHAR sectionId
+        VARCHAR requirementId
+        VARCHAR ncsUnitCode
+        SMALLINT ncsLevel
+        VARCHAR ncsBand
+        VARCHAR mappingBasis
+        DOUBLE matchScore
+        SMALLINT matchRank
+        BOOLEAN selectedFlag
+        VARCHAR ncsConfidenceTier
+        VARCHAR evidenceText
+        VARCHAR mappingVersion
+        TIMESTAMPTZ matchedAt
+    }
+    mart_postingAnalysisMart {
+        VARCHAR trackId PK
+        VARCHAR postingId
+        VARCHAR canonicalPostingId
+        TIMESTAMPTZ canonicalPostedAt
+        DATE periodMonth
+        SMALLINT year
+        SMALLINT month
+        SMALLINT quarterNumber
+        DATE asOfDate
+        VARCHAR sourceName
+        VARCHAR sourceUrl
+        VARCHAR companyKey
+        VARCHAR companyName
+        VARCHAR jobTitle
+        VARCHAR cohortType
+        VARCHAR jobCodeLevel
+        VARCHAR jobCode
+        BOOLEAN coreAiItFlag
+        VARCHAR postingKind
+        BOOLEAN postingEligibleFlag
+        BOOLEAN rq1EligibleFlag
+        BOOLEAN rq2EligibleFlag
+        BOOLEAN ncsEligibleFlag
+        VARCHAR rq2ExclusionReason
+        BOOLEAN canonicalRecordFlag
+        VARCHAR trackType
+        VARCHAR recruitmentScope
+        BOOLEAN hasEntryFlag
+        BOOLEAN hasInternFlag
+        BOOLEAN hasExperiencedFlag
+        BOOLEAN mixedResolvedFlag
+        BOOLEAN activityTextAvailableFlag
+        BOOLEAN externalApplyFlag
+        BOOLEAN externalDetailOnlyFlag
+        BOOLEAN jobTypeConflictFlag
+        VARCHAR careerClass
+        VARCHAR internAccessClass
+        BOOLEAN nominalEntryFlag
+        BOOLEAN restrictedInternFlag
+        BOOLEAN experiencedInternFlag
+        BOOLEAN boundaryResolvedFlag
+        SMALLINT minCareerMonths
+        DOUBLE ncsLevelWeightedMedian
+        VARCHAR ncsBandPrimary
+        DOUBLE ncsMappingCoverage
+        VARCHAR ncsConfidenceTier
+        DOUBLE highDemandScore
+        VARCHAR scoreStatus
+        VARCHAR duplicateGroupId
+        SMALLINT repostCount
+        VARCHAR rawSha256
+        VARCHAR parseVersion
+        VARCHAR labelVersion
+        VARCHAR ncsMapVersion
+        VARCHAR dataVersion
+        TIMESTAMPTZ builtAt
+    }
+    mart_timeSeriesMart {
+        DATE periodMonth PK
+        VARCHAR cohortType PK
+        VARCHAR jobCodeLevel PK
+        VARCHAR jobCode PK
+        BOOLEAN dedupApplied PK
+        INTEGER totalValidPostingCount
+        INTEGER entryPostingCount
+        INTEGER internPostingCount
+        DOUBLE entryPostingRate
+        DOUBLE internPostingRate
+        DOUBLE entryOnlyRate
+        DOUBLE internOnlyRate
+        DOUBLE mixedRate
+        DOUBLE experiencedOnlyRate
+        DOUBLE internRelativeIndex
+        DOUBLE openEntryShare
+        DOUBLE restrictedEntryShare
+        DOUBLE unknownCareerShare
+        DOUBLE restrictedInternShare
+        DOUBLE experiencedInternShare
+        DOUBLE unknownInternShare
+        DOUBLE advancedDutyShare
+        DOUBLE ncsMappingCoverage
+        DOUBLE lowConfidenceNcsShare
+        DOUBLE rq1EligibilityRate
+        DOUBLE rq2EligibilityRate
+        DOUBLE ncsEligibilityRate
+        DOUBLE externalApplyShare
+        DOUBLE externalDetailOnlyShare
+        DOUBLE activityTextAvailabilityRate
+        DOUBLE jobTypeConflictRate
+        VARCHAR coverageStatus
+        BOOLEAN partialMonthFlag
+        DATE asOfDate
+        VARCHAR dataVersion
+        TIMESTAMPTZ builtAt
+    }
+    mart_caseStudyRegistry {
+        VARCHAR caseId PK
+        VARCHAR postingId
+        VARCHAR trackId
+        VARCHAR companyName
+        VARCHAR selectionReason
+        VARCHAR evidenceQuote
+        VARCHAR reviewedBy
+        TIMESTAMPTZ reviewedAt
+    }
+    mart_similarityPair {
+        VARCHAR pairId PK
+        VARCHAR internTrackId
+        VARCHAR comparisonTrackId
+        VARCHAR comparisonType
+        VARCHAR ncsSubCode
+        SMALLINT yearGap
+        DOUBLE qualificationSimilarity
+        DOUBLE dutySimilarity
+        VARCHAR embeddingModel
+        VARCHAR auxVersion
+    }
+    qa_monthlyCoverageAudit {
+        DATE periodMonth PK
+        VARCHAR sourceName PK
+        INTEGER discoveredCount
+        INTEGER fetchedCount
+        INTEGER aliveCount
+        INTEGER deadCount
+        INTEGER parsedCount
+        INTEGER validPostingCount
+        DOUBLE imageOnlyShare
+        INTEGER ocrAttemptCount
+        INTEGER ocrSuccessCount
+        DOUBLE ocrSuccessRate
+        DOUBLE survivalRate
+        VARCHAR coverageStatus
+        VARCHAR coverageReason
+        VARCHAR platformCoverageRegime
+        VARCHAR auditNote
+        VARCHAR auditVersion PK
+        TIMESTAMPTZ auditedAt
+    }
+    qa_sourcePolicyAudit {
+        VARCHAR sourceName PK
+        VARCHAR policyVersion PK
+        VARCHAR robotsStatus
+        VARCHAR termsStatus
+        VARCHAR clientAccessMode
+        BOOLEAN transparentClientVerified
+        BOOLEAN collectionBlocked
+        TIMESTAMPTZ verifiedAt
+        VARCHAR reviewerStatus
+        VARCHAR evidenceSha256
+        VARCHAR policyNote
+    }
+    qa_goldSample {
+        VARCHAR goldId PK
+        VARCHAR goldSetName
+        VARCHAR targetType
+        VARCHAR postingId
+        VARCHAR trackId
+        VARCHAR goldValue
+        VARCHAR annotator
+        BOOLEAN doubleCodedFlag
+        VARCHAR evidenceText
+        VARCHAR goldVersion
+        TIMESTAMPTZ labeledAt
+    }
+    qa_evalRun {
+        VARCHAR evalRunId PK
+        VARCHAR targetType
+        VARCHAR goldSetName
+        VARCHAR predictorVersion
+        INTEGER sampleCount
+        DOUBLE macroF1
+        DOUBLE precisionE0
+        DOUBLE boundaryPrecision
+        DOUBLE mappingPrecision
+        DOUBLE mappingCoverage
+        DOUBLE lowConfidenceShare
+        BOOLEAN passedGate
+        TIMESTAMPTZ ranAt
+    }
+    qa_resultManifest {
+        VARCHAR metricId PK
+        VARCHAR metricName
+        VARCHAR metricScope
+        VARCHAR cohortType
+        VARCHAR periodLabel
+        VARCHAR jobCode
+        DOUBLE metricValue
+        INTEGER denominatorCount
+        BOOLEAN dedupApplied
+        VARCHAR scriptPath
+        VARCHAR scriptGitSha
+        VARCHAR inputMartSha256
+        VARCHAR dataVersion
+        TIMESTAMPTZ computedAt
+    }
+    qa_decisionLog {
+        VARCHAR decisionId PK
+        TIMESTAMPTZ decidedAt
+        VARCHAR phase
+        VARCHAR topic
+        VARCHAR decision
+        VARCHAR rationale
+        VARCHAR supersedes
+        VARCHAR decidedBy
+        VARCHAR ssotSection
+    }
