@@ -1,0 +1,7 @@
+testId,command,exitCode,passed,failed,status,evidencePath,evidenceSha256,productionNetworkCalls,externalAtsTransportCalls,credentialedApiCalls
+A5-A2-ACCESS,python execute_a2_00_access_audit.py --project-root <audit-project> --report-root <audit-report> --kernel project_4_sbs_venv,0,1,0,PASS,A2_00_EXECUTION.log,35c269bdcc347d4d8a3f42e882b5df2cdb1915fd5e100aadca8d7b7dde1b1f69,0,0,0
+A5-RECALC,python run_a5_independent_audit.py --project-root <audit-project> --raw-root <mounted-root> --integration-runtime-root <read-only-runtime>,0,52,0,PASS,A5_RECALCULATION.log,c0e0583e68e96384ff7b7c1cef6a8eb109c7799664e376ce3d676c7a519cbe3a,0,0,0
+A5-CRAWL,PYTHONPATH=crawl/src:. python -m pytest crawl/tests crawl/control/tests -q,0,86,0,PASS,PYTEST_CRAWL.log,d44e9bac85f619d261bf5acff5fd250f7da9dce4949c85f1b79c6eeaa2217d02,0,0,0
+A5-PIPELINE,PYTHONPATH=pipeline/src:ncs_mapping/src python -m pytest pipeline/tests -q,0,120,0,PASS,PYTEST_PIPELINE.log,d7fcfcfc5ab42dc2be40a348b193a8737b6417b21c9b2ab58b736e8dbca02ca0,0,0,0
+A5-NCS,PYTHONPATH=ncs_mapping/src:pipeline/src python -m pytest ncs_mapping/tests -q,0,87,0,PASS,PYTEST_NCS.log,258683db9c441193b60d8f81a19fba7c9ef361e29e8c01a005402b5454e8dede,0,0,0
+A5-INTEGRATION,PYTHONPATH=integration python -m pytest integration/tests -q,0,17,0,PASS,PYTEST_INTEGRATION.log,4d618497135bd04311d2ecbe1efccbbeaa3700354243af0e98fdaae94cae5097,0,0,0
