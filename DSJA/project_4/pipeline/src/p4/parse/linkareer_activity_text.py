@@ -10,6 +10,8 @@ _HEADINGS = {
     "담당업무": "duty",
     "주요업무": "duty",
     "직무내용": "duty",
+    "업무내용": "duty",
+    "직무": "duty",
     "자격요건": "required",
     "필수요건": "required",
     "지원자격": "required",
@@ -52,11 +54,12 @@ def parse_activity_text_html(html: str) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     char_offset = 0
     for ordinal, block in enumerate(parser.blocks):
-        compact = re.sub(r"[\s:：\-]+", "", block["text"])
+        compact = re.sub(r"[\s:：\-\[\]【】()]+", "", block["text"])
         heading = _HEADINGS.get(compact)
         style = str(block["attrs"].get("style") or "").casefold()
         visual_heading = block["tag"].startswith("h") or block["tag"] == "strong" or "font-weight" in style
-        heading_candidate = heading is not None or visual_heading
+        bracket_heading = bool(re.fullmatch(r"\s*\[[^\]]{1,30}\]\s*", block["text"]))
+        heading_candidate = heading is not None or visual_heading or bracket_heading
         if heading:
             current_section = heading
         start = char_offset

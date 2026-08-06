@@ -49,11 +49,23 @@ def _activity_key(cache: dict[str, Any], activity_id: str) -> str:
     raise ValueError(f"activity {activity_id} not found in Apollo cache")
 
 
+def _standalone_activity_text(cache: dict[str, Any]) -> dict[str, Any] | None:
+    """Resolve the old SSR shape only when its ActivityText entity is unambiguous."""
+    candidates = [
+        _resolve(cache, value)
+        for key, value in cache.items()
+        if str(key).startswith("ActivityText:") and isinstance(value, dict)
+    ]
+    return candidates[0] if len(candidates) == 1 else None
+
+
 def extract_activity(cache: dict[str, Any], activity_id: str) -> dict[str, Any]:
     activity = _resolve(cache, cache[_activity_key(cache, activity_id)])
     duties_value = activity.get("duties") or []
     duties = duties_value.get("nodes", []) if isinstance(duties_value, dict) else duties_value
     activity_text = activity.get("activityText") or activity.get("ActivityText")
+    if not activity_text:
+        activity_text = _standalone_activity_text(cache)
     if isinstance(activity_text, list):
         texts = [item.get("text") for item in activity_text if isinstance(item, dict) and item.get("text")]
         activity_text_html = "\n".join(texts) if texts else None
@@ -69,8 +81,12 @@ def extract_activity(cache: dict[str, Any], activity_id: str) -> dict[str, Any]:
     )
     domain = urlparse(external_url).hostname if external_url else None
     ocr_queue = build_ocr_queue_candidates(activity_text_html or "")
+    manager_masked = mask_manager(activity.get("manager"))
+    for field in ("manager", "managerName", "managerPhoneNumber", "managerEmail"):
+        activity.pop(field, None)
     return {
         "activity": activity,
+        "managerMasked": manager_masked,
         "dutiesRawJson": json.dumps(duties, ensure_ascii=False, sort_keys=True),
         "dutiesJobTypesRaw": [duty.get("jobType") for duty in duties if isinstance(duty, dict)],
         "activityTextHtml": activity_text_html,

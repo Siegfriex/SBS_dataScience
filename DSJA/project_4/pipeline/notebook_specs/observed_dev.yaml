@@ -1,0 +1,76 @@
+contractVersion: 2.1.2
+runMode: observed-dev
+dataProvenance: OBSERVED_DEVELOPMENT_ONLY
+stages:
+  - id: 00ContractAndInputAudit
+    stageId: A2-00-CONTRACT-AUDIT
+    schemaVersion: agent2-audit-v1
+    producedGate: CONTRACT_LINKED
+    title: Contract and observed input audit
+    note: Validate the CRAWL_20260806_03 envelope without promoting it as a full corpus.
+  - id: 01LoadCrawlRelease
+    stageId: A2-01-LOAD
+    schemaVersion: p4-contract-2.1.2
+    producedGate: INPUT_LOADED
+    title: Load observed crawl release
+    note: Materialize the isolated observed warehouse from the accepted partial input.
+  - id: 02ParseAndNormalize
+    stageId: A2-02-PARSE
+    schemaVersion: p4-contract-2.1.2
+    producedGate: PARSE_READY
+    title: Parse and normalize observed records
+    note: Parse SSR and preserve derived-only rows with explicit provenance.
+  - id: 03OcrAndSectionRecovery
+    stageId: A2-03-OCR
+    schemaVersion: p4-contract-2.1.2
+    producedGate: OCR_READY
+    title: OCR queue and section recovery
+    note: Preserve ASSET_NOT_FETCHED OCR candidates and recovered section lineage.
+  - id: 04SplitTracks
+    stageId: A2-04-TRACK
+    schemaVersion: p4-contract-2.1.2
+    producedGate: TRACK_READY
+    title: Split observed tracks
+    note: Preserve entry, intern, experienced, mixedUnresolved, and unknown tracks.
+  - id: 05ExtractRequirements
+    stageId: A2-05-REQUIREMENT
+    schemaVersion: p4-contract-2.1.2
+    producedGate: REQUIREMENT_READY
+    title: Extract observed requirements
+    note: Materialize evidence-backed requirement facts and the Agent 4 duty handoff.
+  - id: 06Deduplicate90Days
+    stageId: A2-06-DEDUP
+    schemaVersion: p4-contract-2.1.2
+    producedGate: DEDUP_READY
+    title: Assign observed deduplication fields
+    note: Development export keeps deterministic canonical identifiers without corpus claims.
+  - id: 07LabelCareerAccess
+    stageId: A2-07-LABEL
+    schemaVersion: p4-contract-2.1.2
+    producedGate: LABEL_DEV_READY
+    title: Label observed career access
+    note: Apply development labels while preserving unresolved boundaries.
+  - id: 08LoadAndPrepareNcs
+    stageId: A2-08-NCS-LOAD
+    schemaVersion: ncs-agent4-acceptance-v1
+    producedGate: NCS_BASE_READY
+    title: Accept Agent 4 NCS source handoff
+    note: Thin acceptance stage; Agent 4 owns NCS preparation and may still be pending.
+  - id: 09MapPostingToNcs
+    stageId: A2-09-NCS-MAP
+    schemaVersion: ncs-agent4-acceptance-v1
+    producedGate: NCS_MAPPING_DEV_READY
+    title: Accept Agent 4 lexical mapping handoff
+    note: Thin acceptance stage; dense reranking remains disabled and the handoff may still be pending.
+  - id: 10ExportPreprocessedCsv
+    stageId: A2-10-EXPORT
+    schemaVersion: preprocessing-export-v1
+    producedGate: PREPROCESSED_EXPORT_BUILT
+    title: Export observed preprocessed data
+    note: Write Parquet canonical frames and UTF-8-SIG review CSV files.
+  - id: 11PreprocessedDataQa
+    stageId: A2-11-EXPORT-QA
+    schemaVersion: preprocessing-qa-v1
+    producedGate: PREPROCESSED_CSV_READY
+    title: Validate observed preprocessed exports
+    note: Run structural, lineage, privacy, and CSV-Parquet semantic checks.
