@@ -51,10 +51,12 @@ METADATA = {
     "agentName": "P4 Contract-Driven Pipeline & Analysis Engineer",
     "branch": BRANCH,
     "HEAD": HEAD,
-    "contractVersion": None,
-    "crawlReleaseId": None,
-    "dataVersion": None,
+    "contractVersion": "2.1.2",
+    "crawlReleaseId": "CRAWL_20260806_02",
+    "dataVersion": "CRAWL_20260806_02-partial-conformance",
     "asOfDate": "2026-08-06",
+    "dataProvenance": "PARTIAL_CONFORMANCE_ONLY",
+    "empiricalAnalysisAllowed": False,
 }
 print(json.dumps(METADATA, ensure_ascii=False, indent=2))'''
 
@@ -81,7 +83,7 @@ NOTE = {note!r}
 STATUS = {{
     "stage": STAGE,
     "note": NOTE,
-    "qualityStatus": "BLOCKED_BY_CONTRACT_AND_CRAWL_RELEASE",
+    "qualityStatus": "CONTRACT_LINKED_EMPIRICAL_BLOCKED",
     "empiricalAnalysisAllowed": False,
     "syntheticInputUsed": False,
 }}
@@ -105,7 +107,7 @@ PRODUCTION_LAST_CELL = '''FINAL = {
     "inputRows": 0,
     "outputRows": 0,
     "excludedRows": 0,
-    "qualityStatus": "BLOCKED_BY_CONTRACT_AND_CRAWL_RELEASE",
+    "qualityStatus": "CONTRACT_LINKED_EMPIRICAL_BLOCKED",
     "outputPaths": [],
     "outputSha256": [],
 }
