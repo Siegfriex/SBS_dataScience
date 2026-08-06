@@ -1,0 +1,19 @@
+gateId,status,evidence,finding
+A4_CURRENT_MODULE_AND_RESULT_REEXECUTION,PASS,P4_A5_A4_RUNNER_AUDIT.csv,6/6 current module tree and canonical result SHA match tracked _06 ledger
+A4_SOURCE_NOTEBOOK_SHA_BINDING,PASS,P4_A5_A4_RUNNER_AUDIT.csv,6/6 current source Notebook SHA and Git blob recorded
+A4_FRESH_KERNEL_SUBSTITUTE_CONTRACT,NOT_EVALUATED,P4_A5_A4_RUNNER_AUDIT.csv;P4_A5_CONTRACT_REGISTRY_SEARCH_AUDIT.csv,current Notebook bytes were not executed and portable authority search found explicit authorization count 0
+A1_A2_OBSERVED_INPUT_ISOLATION,PASS,P4_A5_A1_A2_ACCESS_AUDIT.csv,HANDOFF-rooted observed package read; A1 release runtime/output access count 0
+A1_A2_EXPLICIT_STATUS_EXCEPTION_CONTRACT,NOT_EVALUATED,P4_A5_A1_A2_ACCESS_AUDIT.csv;P4_A5_CONTRACT_REGISTRY_SEARCH_AUDIT.csv,registry retains generic dependency and portable authority search found explicit exception count 0
+A5_CONTRACT_REGISTRY_SEARCH_COMPLETED,PASS,P4_A5_CONTRACT_REGISTRY_SEARCH_AUDIT.csv,32 portable authority files bound by corpus SHA and four search assertions recorded
+A5_CSV_SERIALIZATION_LF,PASS,run_a5_independent_audit.py,all A5 audit CSV writers use explicit LF line termination and package contains no CR bytes
+RAW_MOUNT_CONTRACT,PASS,P4_A5_RAW_MOUNT_AUDIT.csv,mounted 29/29; unmounted fail closed; wrong SHA and missing object quarantined
+RAW_POSTING_BINDING,PASS_WITH_FINDINGS,P4_A5_RAW_MOUNT_AUDIT.csv,11 matched and 18 quarantined; no silent correction
+M1_5_RECONCILIATION_DAG_VALID,PASS,P4_A5_DAG_SHA_AUDIT.csv,23/23 exact dependency and producer order
+M1_5_RUNTIME_TIMESTAMP_VALID,PASS,P4_A5_DAG_SHA_AUDIT.csv,23/23 non-reversed timestamps and runtime producer completion ordering
+M1_5_SOURCE_MODULE_IO_SHA_VALID,PASS,P4_A5_DAG_SHA_AUDIT.csv,23/23 source/module/ledger/global manifest binding; 17 native manifests rehashed from read-only runtime
+CANONICAL_UNRESOLVED_POLICY,PASS_WITH_FINDINGS,P4_A5_CANONICAL_POLICY_AUDIT.csv,29/137 recovered and 108 explicit unresolved; silent null 0
+M1_5_A5_INDEPENDENT_AUDIT,PASS_WITH_FINDINGS,P4_A5_INDEPENDENT_AUDIT_REPORT.md,no new P1; two P2 semantic contract findings remain
+M1_5_RECONCILIATION_READY_FOR_M2_PREFLIGHT,NOT_EVALUATED,P4_A5_INDEPENDENT_AUDIT_REPORT.md,A5 permits A3 gate review but does not self-promote
+M2_CRAWL_READY_FOR_USER_APPROVAL,BLOCKED,P4_A5_FINDING_REGISTER.csv,source-policy human approval and production coverage remain absent
+CRAWL_RELEASE_READY,BLOCKED,P4_A5_FINDING_REGISTER.csv,79-month release not available
+ANALYSIS_READY,BLOCKED,P4_A5_FINDING_REGISTER.csv,production and NCS quality gates remain blocked
