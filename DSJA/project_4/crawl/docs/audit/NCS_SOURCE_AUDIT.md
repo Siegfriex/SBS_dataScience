@@ -28,3 +28,15 @@
 ## 다음 단계 (필수)
 
 data.go.kr에서 인증키를 발급받아 #3 API를 1회 실제 호출해 응답에 KSA/능력단위요소/수행준거 필드가 실재하는지 확정하는 것이 NCS 매핑 파이프라인(PROMPT 11/12 상당) 착수 전 반드시 선행돼야 한다. 이 인증키 발급은 사람 계정으로 진행해야 하는 절차라 Agent 1이 자동으로 수행할 수 없다.
+
+## 2026-08-06 추가 진전 — 사람이 API 키 제공, 실호출 시도
+
+사용자가 data.go.kr 일반 인증키를 제공(엔드포인트 `https://apis.data.go.kr/B490007/ncsSchoolInfo`). 실제 호출로 확인한 것:
+
+- 서비스 URL 뒤에 오퍼레이션 번호가 붙는 패턴(`{service}/openapi{N}`)을 다른 한국산업인력공단 NCS API들(예: `ncsEduCource/openapi20`, `ncsStudyModule/openapi21`)에서 역추적으로 발견
+- `openapi1`~`openapi30`을 전수 시도한 결과 **`openapi14`만 유효**(`NO_OPENAPI_SERVICE_ERROR`가 아니라 `필수 파라미터를 확인하여 주십시요`(코드 009) 반환) — **엔드포인트 자체는 실재하고 키도 유효함이 확정**
+- 그러나 `pageNo`/`numOfRows`/`type` 외 필수로 요구되는 추가 파라미터명을 15개 이상 시도(ncsClCd, searchNm, schulCrseCd, schulKndCd, trng2Cd, schulNm, searchWrd, ncsLclasCd, year, trngCourseNm 등)했으나 **전부 동일한 "필수 파라미터 확인" 오류만 반환** — 정확한 파라미터명은 여전히 미확정
+- Swagger UI를 Node/patchright로 직접 로드해 네트워크 요청을 스니핑했으나, 이 데이터셋(게이트웨이형, `_GW`)은 실제로 이미지 8장짜리 가이드만 제공하고 인터랙티브 스펙 자체가 없음을 재확인
+
+**결론**: KSA_SOURCE_STATUS는 여전히 `UNVERIFIED`이나, 상태가 "완전 미확인"에서 **"엔드포인트·키 유효성 확인됨, 요청 스키마만 미확정"으로 좁혀짐**. 다음 중 하나가 필요: (a) 한국산업인력공단 담당자에게 직접 문의, (b) data.go.kr 고객센터에 파라미터 스펙 요청, (c) 이 API를 실제로 사용한 타 개발자 코드/블로그 추가 검색.
+

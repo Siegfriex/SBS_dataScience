@@ -1,0 +1,8 @@
+artifact,piiFieldsChecked,rawPiiFound,maskedPiiFound,fieldsAbsent,verdict
+CRAWL_20260806_01/fixtures/ssr/activity_339673.masked.json,"managerName,managerPhoneNumber,managerEmail",0,1,2,PASS
+CRAWL_20260806_01/fixtures/ssr/activity_339737.masked.json,"managerName,managerPhoneNumber,managerEmail",0,2,1,PASS
+CRAWL_20260806_01/fixtures/ssr/activity_339821.masked.json,"managerName,managerPhoneNumber,managerEmail",0,1,2,PASS
+CRAWL_20260806_01/fixtures/apq/CalendarScreen_ActivityCalendarEntries.2026-03.recruit.sample.json,"managerName,managerPhoneNumber,managerEmail",0,0,3,PASS_NO_PII_FIELD_IN_SOURCE
+CRAWL_20260806_02/stratified_detail_sample_n126.csv,"managerName,managerPhoneNumber,managerEmail",0,0,3,PASS_FIELDS_NOT_EXTRACTED
+CRAWL_20260806_02/stratified_detail_sample_n126.json,"managerName,managerPhoneNumber,managerEmail",0,0,3,PASS_FIELDS_NOT_EXTRACTED
+CRAWL_20260806_03/data/raw/linkareer/detail/2021/03/*.html.gz,"managerName,managerPhoneNumber,managerEmail",UNKNOWN_RAW_CONTAINS_ACTUAL_PII,0,0,NOT_APPLICABLE_GITIGNORED
