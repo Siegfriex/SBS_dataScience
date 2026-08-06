@@ -1,0 +1,37 @@
+{
+  "manifestVersion": "ncs-corpus-candidate-manifest-v4.0",
+  "ncsCorpusVersion": "ncs-candidate-2026-02-20-v4.0",
+  "status": "CANDIDATE",
+  "sourceClass": "OFFICIAL_LOCAL_RELEASE",
+  "sourceDataset": "한국산업인력공단_국가직무능력표준 정보_20251231",
+  "sourceVersion": "2026-02-20",
+  "sourceSha256": "d7033327fbb7756f36706866bb0c0222a6ab6a72aa3b1f314a919b04c2c99e94",
+  "normalizedArtifactSha256": "b5b02ea232295931f245c69c881046a813f04cfbc517a13bc40d9e82994277c1",
+  "rowCounts": {
+    "ncsAbilityUnit": 13442,
+    "ncsNode": 14930,
+    "ncsEdge": 14906,
+    "ncsDutyUnitBridge": 0,
+    "ncsExternalCodeCrosswalk": 0
+  },
+  "nodeTypeCounts": {
+    "LARGE": 24,
+    "MIDDLE": 81,
+    "SMALL": 274,
+    "SUBCATEGORY": 1109,
+    "UNIT": 13442
+  },
+  "officialFieldCoverage": {
+    "unitName": 13442,
+    "unitLevel": 13442,
+    "unitDefinition": 0,
+    "hierarchyOfficialName": 0
+  },
+  "graphSemanticSha256": "1269abc3f1993e9334f3385bc717422558bde53ea908578ecd5bcf4e709cf5fa",
+  "edgeSemanticSha256": "21237918ba5178215f37599ac478334018c60f95e8ee8894d383025732ddd378",
+  "abilityUnitSemanticSha256": "15270bba7e2c09cfda62919c0d4c94ad78f842920aa2705ec523dbc96bd1a9fa",
+  "liveApiContractStatus": "NOT_EVALUATED",
+  "bridgeStatus": "NOT_EVALUATED",
+  "crosswalkStatus": "NOT_EVALUATED",
+  "promotionAllowed": false
+}

@@ -1,0 +1,7 @@
+{
+  "sourceClass": "SYNTHETIC_CONTRACT_FIXTURE",
+  "provider": "WORK24",
+  "probeCase": "AUTH_INVALID",
+  "contentType": "application/json",
+  "body": "{\"resultCode\":\"AUTH_01\",\"resultMsg\":\"AUTH KEY INVALID\",\"items\":[]}"
+}

@@ -1,0 +1,7 @@
+{
+  "sourceClass": "SYNTHETIC_CONTRACT_FIXTURE",
+  "provider": "NCS_OPENAPI",
+  "probeCase": "AUTH_INVALID",
+  "contentType": "application/xml",
+  "body": "<OpenAPI_ServiceResponse><cmmMsgHeader><returnReasonCode>30</returnReasonCode><returnAuthMsg>SERVICE KEY IS NOT REGISTERED ERROR</returnAuthMsg></cmmMsgHeader></OpenAPI_ServiceResponse>"
+}

@@ -1,0 +1,7 @@
+{
+  "sourceClass": "SYNTHETIC_CONTRACT_FIXTURE",
+  "provider": "WORK24",
+  "probeCase": "SUCCESS_MINIMAL",
+  "contentType": "application/json",
+  "body": "{\"resultCode\":\"00\",\"resultMsg\":\"OK\",\"items\":[{\"ablt_unit\":\"2001070101_20v1\",\"ablt_unit_nm\":\"인공지능 플랫폼 구축 계획\"}],\"pageNo\":1,\"totalCount\":1}"
+}

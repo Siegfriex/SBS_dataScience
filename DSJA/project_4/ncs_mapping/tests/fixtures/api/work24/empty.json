@@ -1,0 +1,7 @@
+{
+  "sourceClass": "SYNTHETIC_CONTRACT_FIXTURE",
+  "provider": "WORK24",
+  "probeCase": "EMPTY_VALID",
+  "contentType": "application/json",
+  "body": "{\"resultCode\":\"00\",\"resultMsg\":\"OK\",\"items\":[],\"pageNo\":1,\"totalCount\":0}"
+}

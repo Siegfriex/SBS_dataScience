@@ -1,0 +1,7 @@
+{
+  "sourceClass": "SYNTHETIC_CONTRACT_FIXTURE",
+  "provider": "NCS_OPENAPI",
+  "probeCase": "SUCCESS_MINIMAL",
+  "contentType": "application/xml",
+  "body": "<response><header><resultCode>00</resultCode><resultMsg>OK</resultMsg></header><body><items><item><ncsCompeUnitCd>2001070101_20v1</ncsCompeUnitCd><ncsCompeUnitNm>인공지능 플랫폼 구축 계획</ncsCompeUnitNm><level>5</level></item></items><pageNo>1</pageNo><totalCount>1</totalCount></body></response>"
+}

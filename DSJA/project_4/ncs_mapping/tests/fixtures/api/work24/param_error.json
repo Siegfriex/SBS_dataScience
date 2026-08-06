@@ -1,0 +1,7 @@
+{
+  "sourceClass": "SYNTHETIC_CONTRACT_FIXTURE",
+  "provider": "WORK24",
+  "probeCase": "INVALID_PARAMETER",
+  "contentType": "application/xml",
+  "body": "<response><header><resultCode>10</resultCode><resultMsg>필수 PARAMETER 값을 확인하십시오</resultMsg></header><body/></response>"
+}
