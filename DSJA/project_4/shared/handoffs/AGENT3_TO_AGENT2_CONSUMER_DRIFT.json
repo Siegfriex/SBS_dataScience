@@ -1,0 +1,55 @@
+{
+  "agentId": "P4-A3-CONTROL",
+  "agentName": "P4 SSOT Contract, Repository Hygiene & Control Plane Lead",
+  "status": "CONTRACT_CONSUMER_DRIFT_RESOLVED_IN_INTEGRATION_BRANCH",
+  "contractVersion": "2.1.2",
+  "contractPatchRequired": false,
+  "nextContractVersionRequired": false,
+  "canonicalContractPath": "DSJA/project_4/shared/contracts/P4_CONTRACT_v2.1.2/p4_contract.yaml",
+  "contractSha256": "f92380cdfc16967f1e363800cd9a575e44532f18a86b2f28f8c3e2404ed675e9",
+  "consumerPath": "DSJA/project_4/pipeline/src/p4/common/key_strategies.py",
+  "observedError": "ValueError: canonical strategy requires algorithm and rules from the contract",
+  "decision": {
+    "authority": "canonical contract v2.1.2",
+    "defectLocation": "Agent 2 consumer adapter",
+    "reason": "keyContract directly and completely defines SHA-256, UTF-8 encoding, separator, 20 hexadecimal-character truncation, human-readable prefixes, ordered inputs, and formulas for each identifier"
+  },
+  "requiredChanges": [
+    "Support the direct formula registry in rules.keyContract without requiring a synthetic nested rules object.",
+    "Construct the strategy from the canonical contract without rewriting or shadowing the formula authority.",
+    "Enforce each formula's ordered input count and the canonical separator, encoding, prefix, and truncation.",
+    "Keep Sha1LegacyStrategy migration-only and require explicit selection; it must never be the v2.1.2 default.",
+    "Add exact expected-key tests using the vendored P4_CONTRACT_v2.1.2 YAML."
+  ],
+  "canonicalExpectedKeys": {
+    "postingId(linkareer,123)": "PST_8a245070a5ece697d6cf",
+    "rawPostingId(linkareer,123,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa)": "RAW_1ffe6e05045f37a6271f",
+    "trackId(PST_demo,0)": "TRK_7bcc98532a391ab10796"
+  },
+  "resolutionEvidence": {
+    "status": "IMPLEMENTED_AND_COMMITTED_BY_AGENT2",
+    "agent2Commits": [
+      "98dd7e8 chore(p4): integrate canonical contract v2.1.2",
+      "608c1a1 feat(pipeline): migrate to canonical SHA-256 identifiers",
+      "a92eb91 feat(pipeline): validate Linkareer partial crawl fixtures"
+    ],
+    "integrationCommits": [
+      "f0445d8 chore(p4): integrate canonical contract v2.1.2",
+      "9a6ddfe feat(pipeline): migrate to canonical SHA-256 identifiers",
+      "d3e3deb feat(pipeline): validate Linkareer partial crawl fixtures"
+    ],
+    "observedPaths": [
+      "DSJA/project_4/pipeline/src/p4/common/key_strategies.py",
+      "DSJA/project_4/pipeline/tests/unit/test_key_strategies.py",
+      "DSJA/project_4/pipeline/src/p4/contracts/loader.py"
+    ],
+    "instruction": "Agent 3 did not edit these Agent 2 owned paths; it cherry-picked Agent 2's committed implementation into the isolated cleanup branch."
+  },
+  "acceptanceGates": [
+    "Vendored contract checksum verification passes.",
+    "CanonicalContractStrategy.from_contract loads the exact v2.1.2 YAML.",
+    "Canonical expected-key tests pass.",
+    "No implicit SHA-1 fallback occurs.",
+    "All Agent 2 tests pass from a clean branch commit."
+  ]
+}

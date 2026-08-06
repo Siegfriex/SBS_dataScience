@@ -1,0 +1,56 @@
+{
+  "agentId": "P4-A3-CONTROL",
+  "agentName": "P4 SSOT Contract, Repository Hygiene & Control Plane Lead",
+  "status": "SOURCE_ADAPTER_CONFORMANCE_ACCEPTED_EMPIRICAL_CORPUS_REJECTED",
+  "contractVersion": "2.1.2",
+  "agent1Branch": "agent/p4-crawl-release-v2",
+  "agent1ObservedHead": "825ba03d0a7c46880e9aeba86078eb750a8a36b5",
+  "currentRelease": {
+    "releaseId": "CRAWL_20260806_02",
+    "checksumValidation": "PASS",
+    "checksumFileCount": 14,
+    "contractVersion": "2.1.2",
+    "recordedHeadCommit": "",
+    "actualBranchHead": "825ba03d0a7c46880e9aeba86078eb750a8a36b5",
+    "paginationVerified": false,
+    "paginationCoverage": "11/79 target months complete; 68/79 unverified",
+    "detailSample": "126/126 successful; derived fields retained but per-record raw HTML lineage missing",
+    "classification": "PARTIALLY_READY_EMPIRICAL_CORPUS_REJECTED",
+    "metadataDefects": [
+      "HANDOFF.json head_commit is an empty string rather than the immutable release commit",
+      "reported AGENT1_TO_AGENT3_ISSUES.json was not present in commit 825ba03"
+    ]
+  },
+  "requiredPromotionWork": {
+    "requirements": [
+      "Preserve CRAWL_20260806_02 as immutable and correct metadata in a new release.",
+      "Record an immutable non-empty head_commit in the successor handoff.",
+      "Publish AGENT1_TO_AGENT3_ISSUES.json under the declared shared handoff path.",
+      "Complete or explicitly scope the remaining 68 monthly pagination checks.",
+      "Preserve per-record raw detail lineage before empirical corpus promotion."
+    ]
+  },
+  "untrackedHandoffsObserved": [
+    {
+      "path": "DSJA/project_4/shared/handoffs/AGENT1_TO_AGENT2_HANDOFF.json",
+      "sha256": "b98dac4fb1c6b36776069bb23be49954a3b6d40d94f948ff4ad2a241d3466037",
+      "bytes": 2914,
+      "action": "Agent 1 must republish or supersede this evidence on its owned branch"
+    },
+    {
+      "path": "DSJA/project_4/shared/handoffs/AGENT1_TO_AGENT3_ISSUES.json",
+      "sha256": "465f2b9f22f69c2ecf5b1873032d6f47d9c4383558f12498ffcd16ace9c34aa2",
+      "bytes": 8251,
+      "action": "Agent 1 must republish or supersede this evidence on its owned branch"
+    }
+  ],
+  "uniqueLegacyEvidence": [
+    {
+      "path": "DSJA/project_4/P4_DOCS/SBS_P4_PROJECT4_v2_bootstrap/SBS_P4_PROJECT4_v2_bootstrap/configs/sources.yaml",
+      "sha256": "b574ac1336c962bf40b640cc56dbba3f05bbeb81114ff312653345a2259e711a",
+      "bytes": 1374,
+      "classification": "EVIDENCE_UNREGISTERED",
+      "requestedAction": "Review against current Agent 1 source policy and republish only non-superseded evidence under Agent 1 ownership"
+    }
+  ]
+}
