@@ -1,129 +1,104 @@
 {
   "agentId": "P4-A3-CONTROL",
   "agentName": "P4 SSOT Contract, Repository Hygiene & Control Plane Lead",
+  "auditDate": "2026-08-06",
   "projectStatus": "PARTIALLY_READY",
   "contractVersion": "2.1.2",
-  "contractStatus": "CONTRACT_RELEASED",
-  "contractConsumerStatus": "ALIGNED_ON_INTEGRATION_BRANCH",
-  "empiricalDataStatus": "NOT_READY",
-  "repositories": {
-    "docs": {
-      "path": "/home/sieg/projects-wsl/SBS_P4_PROJECT4_DOCS",
-      "branch": "main",
-      "head": "878386ac233403e75fcdab65574c65a09b5e69fa",
-      "tag": "contract-v2.1.2",
-      "cleanAtReleaseCommitCheck": true,
-      "postPushLiveUntrackedPaths": 4
-    },
-    "cleanup": {
-      "path": "/home/sieg/projects-wsl/worktrees/p4-agent3-cleanup",
-      "branch": "agent/p4-integration-cleanup-v2",
-      "validatedBaseHead": "d3e3deb494c2ba5c99f19495722a322ca4f6c1a9"
-    },
-    "agent1": {
-      "branch": "agent/p4-crawl-release-v2",
-      "head": "825ba03d0a7c46880e9aeba86078eb750a8a36b5",
-      "remoteParity": true,
-      "clean": true
-    },
-    "agent2": {
-      "branch": "agent/p4-pipeline-v2",
-      "head": "a92eb91c2e1661b6eab426b1d92a68a5163a8658",
-      "postPushLiveTrackedChanges": 49,
-      "postPushLiveUntrackedPaths": 75,
-      "protectedWorktreeMutatedByAgent3": false
-    },
-    "monorepoPorcelainCount": 12216,
-    "p4PorcelainCountAtInventory": 110,
-    "p4PorcelainCountPostPush": 124,
-    "postPushObservedAt": "2026-08-06T15:00:58+09:00"
+  "contractPatchRequired": false,
+  "heads": {
+    "agent1": "379fc1fc138fc8e84da2dd431a02ed5fcd866bed",
+    "agent2": "71edc867a8e869b78340e4fe253ced9312894077",
+    "agent3": "3b4e8669f08b719b4f083d2a5e304a76b674610a",
+    "agent4": "0b93d50893f76e51e24ca8328670c5aae59a2327"
   },
-  "inventory": {
-    "physicalFileCount": 289,
-    "gitStatusCounts": {
-      "trackedClean": 106,
-      "trackedModified": 32,
-      "untracked": 74,
-      "ignored": 77
-    },
-    "classificationCounts": {
-      "AGENT2_COMMITTED": 123,
-      "CONTRACT_SNAPSHOT": 13,
-      "HANDOFF_CURRENT": 4,
-      "DUPLICATE_IDENTICAL": 31,
-      "OBSOLETE_SUPERSEDED": 7,
-      "EVIDENCE_UNREGISTERED": 1,
-      "SKELETON_REUSABLE": 32,
-      "RUNTIME_IGNORED": 77,
-      "SECRET_LOCAL": 1
-    }
+  "secretAudit": {
+    "remoteSecretExposure": "NONE",
+    "localRotationRequired": true,
+    "ignoredLocalEnvPresent": true,
+    "trackedFindings": 0,
+    "historyFindings": 0,
+    "stagedFindings": 0,
+    "secretValueReported": false
+  },
+  "ksaDecision": {
+    "status": "PROVISIONAL_DECISION",
+    "policy": "KSA is optional enrichment; DATA_READY_RQ2B is governed by mapping precision, coverage, and low-confidence gates",
+    "contractChangeRequired": false,
+    "dependencyAssessment": "KSA_REQUIREMENT_NOT_EVALUATED"
+  },
+  "sourcePolicy": {
+    "transparentHttpxVerified": true,
+    "researchUserAgentDeclared": true,
+    "maxRequestsPerSecondPolicy": 1,
+    "maxConcurrencyPolicy": 2,
+    "http403KillSwitchPolicy": true,
+    "externalAtsFollowProhibited": true,
+    "concurrencyImplementationEvidence": false,
+    "http403KillSwitchImplementationEvidence": false,
+    "status": "REVIEW_REQUIRED"
+  },
+  "agent2": {
+    "head": "71edc867a8e869b78340e4fe253ced9312894077",
+    "syntheticDbIsolation": "PASS",
+    "canonicalDbContaminationRows": 0,
+    "canonicalDbGate": "NOT_EVALUATED",
+    "productionLoader": "FAIL_CLOSED",
+    "observedDevDb": "MISSING",
+    "observedDutyHandoff": "SCHEMA_AND_FIXTURE_ONLY",
+    "reportedTests": "93 passed"
+  },
+  "agent1": {
+    "releaseId": "CRAWL_20260806_03",
+    "status": "CRAWL_RELEASE_CANDIDATE",
+    "checksumValidation": "PASS_16_OF_16",
+    "completeTargetMonths": 21,
+    "unverifiedTargetMonths": 58,
+    "recordLevelRawHtmlLineage": false,
+    "assetManifestRows": 0,
+    "sourceAdapterConformance": "SOURCE_ADAPTER_CONFORMANCE_ACCEPTED",
+    "empiricalCorpus": "EMPIRICAL_CORPUS_REJECTED"
+  },
+  "agent4": {
+    "head": "0b93d50893f76e51e24ca8328670c5aae59a2327",
+    "ncsUnitRows": 13442,
+    "ncsBaseSourceReady": true,
+    "coreAiItCandidateStatus": "REVIEW_REQUIRED",
+    "coreAiItCandidateCodes": 120,
+    "coreAiItIncludedCodes": 69,
+    "goldLabelCount": 0,
+    "observedMappingPresent": false,
+    "liveKsaResponsePresent": false,
+    "mappingFoundationStatus": "PARTIAL",
+    "tests": "22 passed"
   },
   "quarantine": {
     "mode": "COPY_ONLY_SOURCE_RETAINED",
-    "path": "/home/sieg/projects-wsl/P4_QUARANTINE_20260806",
     "fileCount": 38,
-    "manifestSha256": "319e3850f56220e9c2735657dc7c1110d2f1ea4c8e12b2102bb2f78c8832be8b",
-    "checksumsSha256": "9c60d69d6154071a405ba75dfbf2b79712d24ff78970c91f3d3fbf15f8027c32",
-    "restoreInstructionsSha256": "62edbd8f0205b1138b85c568d5fa66cff68339619e7a7683a8026eeed1305957",
     "checksumValidation": "PASS",
-    "sourceFilesDeleted": 0
+    "physicalDeletionAllowed": false
   },
-  "contractConsumer": {
-    "finding": "CONTRACT_CONSUMER_DRIFT",
-    "contractPatchRequired": false,
-    "targetContractVersion": "2.1.2",
-    "agent2Commits": ["98dd7e8", "608c1a1", "a92eb91"],
-    "integrationCommits": ["f0445d8", "9a6ddfe", "d3e3deb"],
-    "resolution": "PASS"
+  "gates": {
+    "CONTRACT_LINKED": "PASS",
+    "PIPELINE_FOUNDATION": "PASS",
+    "CRAWL_RELEASE_READY": "FAIL",
+    "NCS_BASE_SOURCE_READY": "PASS",
+    "DATA_READY_RQ1_RQ2A": "FAIL",
+    "DATA_READY_RQ2B": "FAIL",
+    "ANALYSIS_READY": "FAIL"
   },
-  "agent1Release": {
-    "releaseId": "CRAWL_20260806_02",
-    "status": "PARTIALLY_READY",
-    "contractVersion": "2.1.2",
-    "checksumCount": 14,
-    "checksumValidation": "PASS",
-    "coverageRows": 85,
-    "completeMonths": 11,
-    "unverifiedTargetMonths": 68,
-    "partialOutOfRangeMonths": 1,
-    "insufficientPreLaunchMonths": 5,
-    "detailSuccessCount": 126,
-    "detailFailureCount": 0,
-    "sourceAdapterConformance": "SOURCE_ADAPTER_CONFORMANCE_ACCEPTED",
-    "empiricalCorpus": "EMPIRICAL_CORPUS_REJECTED",
-    "handoffHeadCommit": "",
-    "agent1ToAgent3IssuesPresent": false
+  "rollingIntegration": {
+    "status": "READY_FOR_CONTROLLED_BUILD",
+    "agent1CorpusDisposition": "EVIDENCE_ONLY_EMPIRICAL_LOAD_PROHIBITED",
+    "planPath": "DSJA/project_4/reports/agent3/ROLLING_INTEGRATION_PLAN.json"
   },
-  "validation": {
-    "contractChecksum": "PASS",
-    "duckdbVersion": "1.5.4",
-    "ddlStatementCount": 39,
-    "ddlFirstBootstrap": "PASS",
-    "ddlSecondBootstrap": "PASS",
-    "schemaCount": 5,
-    "tableCount": 26,
-    "viewCount": 6,
-    "qaViewsExecutable": true,
-    "analysisReadyGateOnEmptyDb": "NOT_EVALUATED",
-    "agent2Tests": "83 passed",
-    "agent3OwnedDiffCheck": "PASS",
-    "fullHistoricalBranchDiffCheck": "P2_INHERITED_EOF_BLANK_LINE_WARNINGS",
-    "productionNotebookOutputs": 0,
-    "fixtureNotebookOutputs": 45,
-    "notebookAbsoluteHomePaths": 0,
-    "secretScan": "PASS"
-  },
-  "remainingBlockers": [
-    {"priority": "P0", "code": "PAGINATION_COVERAGE_INCOMPLETE", "detail": "68/79 target months unverified"},
-    {"priority": "P0", "code": "RAW_DETAIL_LINEAGE_MISSING", "detail": "per-record raw HTML not retained"},
-    {"priority": "P0", "code": "OCR_ROUTING_ASSUMPTION_INVALID", "detail": "embedded ActivityText images observed in 89.7% of n=126"},
-    {"priority": "P1", "code": "HANDOFF_HEAD_EMPTY", "detail": "CRAWL_20260806_02 head_commit is empty"},
-    {"priority": "P1", "code": "AGENT1_ISSUE_HANDOFF_MISSING", "detail": "reported issues file absent from 825ba03"},
-    {"priority": "P1", "code": "SOURCE_POLICY_EVIDENCE_STALE", "detail": "canonical prose predates transparent httpx evidence"},
-    {"priority": "P1", "code": "NCS_KSA_UNVERIFIED", "detail": "human API key required"},
-    {"priority": "P2", "code": "AGENT2_WORKTREE_DIRTY", "detail": "49 tracked changes and 75 untracked paths observed post-push"},
-    {"priority": "P2", "code": "AGENT1_WORKTREE_DIRTY", "detail": "4 untracked range-semantics/report paths observed after release commit"},
-    {"priority": "P2", "code": "INHERITED_WHITESPACE_DRIFT", "detail": "Agent 2 baseline contains EOF blank-line warnings outside Agent 3 ownership"},
-    {"priority": "P2", "code": "DATE_RANGE_SEMANTICS_UNRESOLVED", "detail": "recruitStartAt/recruitCloseAt combination not fixed"}
+  "remainingDefects": [
+    {"priority": "P0", "code": "PAGINATION_COVERAGE_INCOMPLETE", "detail": "58 of 79 target months unverified"},
+    {"priority": "P0", "code": "RAW_DETAIL_LINEAGE_MISSING", "detail": "full-corpus per-record raw HTML lineage absent"},
+    {"priority": "P0", "code": "LOCAL_SECRET_ROTATION_REQUIRED", "detail": "old local key must be revoked or rotated"},
+    {"priority": "P1", "code": "SOURCE_POLICY_IMPLEMENTATION_EVIDENCE_MISSING", "detail": "concurrency cap and 403 kill switch not committed"},
+    {"priority": "P1", "code": "OBSERVED_DUTY_GOLD_MISSING", "detail": "no observed-duty mapping precision or coverage gate"},
+    {"priority": "P1", "code": "ACTIVITY_IMAGE_LINEAGE_MISSING", "detail": "embedded image assets not preserved"},
+    {"priority": "P2", "code": "KSA_UNVERIFIED_OPTIONAL", "detail": "optional enrichment; not yet evaluated as required"},
+    {"priority": "P2", "code": "CORE_AI_IT_CODESET_REVIEW_REQUIRED", "detail": "candidate not frozen"}
   ]
 }

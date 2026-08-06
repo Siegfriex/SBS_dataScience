@@ -2,171 +2,145 @@
 
 - agentId = `P4-A3-CONTROL`
 - agentName = `P4 SSOT Contract, Repository Hygiene & Control Plane Lead`
-- status = `PARTIALLY_READY`
-- contractVersion = `2.1.2`
 - audit date = `2026-08-06`
+- status = `PARTIALLY_READY`
+- canonical contract = `P4_CONTRACT_v2.1.2`
 
 ## Executive verdict
 
-The canonical contract and its Agent 2 consumer are aligned on the isolated
-`agent/p4-integration-cleanup-v2` branch. The documentation repository remains
-clean at `878386ac233403e75fcdab65574c65a09b5e69fa` and tag
-`contract-v2.1.2`. The cleanup branch contains Agent 2 commits through
-`a92eb91` as isolated cherry-picks and passes all contract, DDL, and test gates.
+The contract control plane, contract consumer, pipeline foundation, and isolated
+repository hygiene are ready. The current empirical corpus and both RQ data
+paths are not ready. Contract v2.1.2 remains sufficient; the KSA policy and
+source-policy evidence changes are documentation decisions, not schema changes.
 
-The project is not empirically ready. Agent 1's `CRAWL_20260806_02` is a valid
-partial release with 14/14 checksums passing, but only 11 of 79 target months
-have complete pagination verification. Per-record raw detail lineage is also
-missing. The release handoff has an empty `head_commit`, and the reported
-`AGENT1_TO_AGENT3_ISSUES.json` is absent from commit `825ba03`.
+Latest audited remote heads are:
 
-No Agent 1 or Agent 2 protected worktree file was moved or deleted. The legacy
-quarantine is copy-only, so the dirty Agent 2 worktree remains dirty by design.
+| Agent | Branch | HEAD | Current disposition |
+|---|---|---|---|
+| Agent 1 | `agent/p4-crawl-release-v2` | `379fc1fc138fc8e84da2dd431a02ed5fcd866bed` | crawl candidate, empirical load rejected |
+| Agent 2 | `agent/p4-pipeline-v2` | `71edc867a8e869b78340e4fe253ced9312894077` | pipeline/provenance foundation PASS |
+| Agent 3 | `agent/p4-integration-cleanup-v2` | `3b4e8669f08b719b4f083d2a5e304a76b674610a` | clean integration base |
+| Agent 4 | `agent/p4-ncs-mapping-v2` | `0b93d50893f76e51e24ca8328670c5aae59a2327` | base source ready; mapping foundation partial |
 
-## Repository and worktree state
+## Secret and API-key disposition
 
-- docs repo: clean, `main`, HEAD `878386ac`, tag `contract-v2.1.2`
-- Agent 1: HEAD `825ba03` matches its tracking ref; its live worktree later gained
-  4 untracked range-semantics/report paths
-- Agent 2 branch: HEAD `a92eb91`; its live worktree later reached 49 tracked
-  changes and 75 untracked paths while Agent 2 continued working
-- cleanup branch baseline after controlled cherry-picks: `d3e3deb`
-- monorepo-wide porcelain entries: 12,216; outside-P4 entries were not touched
-- P4 porcelain entries at inventory time: 110; live post-push count at
-  `2026-08-06T15:00:58+09:00`: 124
+The scoped scan found no key material in tracked files, staged files, reachable
+P4 Git history, notebook outputs, logs, fixtures, or manifests on Agent 1 or
+Agent 4. Agent 4 has one ignored local `.env`; it is untracked, unstaged, absent
+from reachable history, mode 0600, and was not modified by Agent 3.
 
-## Dirty inventory
+- `REMOTE_SECRET_EXPOSURE = NONE`
+- `LOCAL_ROTATION_REQUIRED = TRUE`
 
-The inventory contains 289 physical files at the Agent 2 source snapshot:
+The old local key must be revoked or rotated. Authentication bypass, parameter
+brute force, and reuse of the old key remain prohibited. No key value is
+recorded in this report.
 
-| Classification | Count |
-|---|---:|
-| AGENT2_COMMITTED | 123 |
-| CONTRACT_SNAPSHOT | 13 |
-| HANDOFF_CURRENT | 4 |
-| DUPLICATE_IDENTICAL | 31 |
-| OBSOLETE_SUPERSEDED | 7 |
-| EVIDENCE_UNREGISTERED | 1 |
-| SKELETON_REUSABLE | 32 |
-| RUNTIME_IGNORED | 77 |
-| SECRET_LOCAL | 1 |
+## Provisional KSA decision
 
-Git-state counts at the inventory snapshot were 106 tracked-clean files, 32
-tracked-modified files, 74 untracked files, and 77 ignored files. The unique
-legacy evidence is the 1,374-byte `configs/sources.yaml`; Agent 1 must decide
-whether any non-superseded content should be republished under its ownership.
+`DATA_READY_RQ2B` should be decided by mapping precision, mapping coverage, and
+the low-confidence gate, not by KSA existence alone. KSA is optional enrichment
+and becomes a blocker only if the base mapping cannot meet those gates. This is
+`PROVISIONAL_DECISION` pending user approval. It changes no table, field, DDL,
+or metric contract, so v2.1.3 is not required.
+
+Agent 4 has normalized the official 13,442-row NCS unit source and preserved an
+empty gold template. The 120-code core AI/IT candidate contains 69 included
+codes and remains `REVIEW_REQUIRED`. No live 15157547 KSA response, response
+checksum, or observed-duty mapping exists. Its current 22-test suite passes.
+Consequently:
+
+- `NCS_BASE_SOURCE_READY = PASS`
+- `NCS_BASE_MAPPING_FOUNDATION = PARTIAL`
+- KSA dependency assessment = `KSA_REQUIREMENT_NOT_EVALUATED`
+- `DATA_READY_RQ2B = FAIL`
+
+## Source-policy evidence
+
+Agent 1's transparent `httpx` reproduction, explicit research user agent, and
+non-impersonated APQ/SSR request evidence close the former client-transparency
+gap. The documented operating policy is at most one request per second,
+concurrency at most two, stop on HTTP 403, and no external-ATS traversal.
+
+The audited Agent 1 HEAD does not contain collector implementation evidence for
+the concurrency cap or 403 kill switch. Source policy therefore remains
+`REVIEW_REQUIRED`; canonical documentation is refreshed without changing the
+v2.1.2 schema.
+
+## Agent 2 observed-development audit
+
+Agent 2 correctly isolated the previous synthetic warehouse:
+
+- `p4.synthetic.duckdb`: 10,760,192 bytes; before/after SHA-256 and row counts
+  match the quarantine manifest.
+- canonical `p4.duckdb`: 2,895,872 bytes, 26 empty tables and six views;
+  `qa.vAnalysisReadyGate` returns `NOT_EVALUATED`.
+- production loaders fail closed without `contractVersion`, `crawlReleaseId`,
+  `dataVersion`, and `dataProvenance=EMPIRICAL`.
+- the provenance-related audit subset passed 15 tests; Agent 2 reports 93 tests
+  passing at HEAD.
+
+No `p4.observed-dev.duckdb` exists. The current Agent 2-to-Agent 4 duty handoff
+is `SCHEMA_AND_FIXTURE_ONLY`, has one structural fixture row, and prohibits
+empirical use. There is no
+`AGENT2_TO_AGENT4_DUTY_INPUT_OBSERVED_DEV.json`. Canonical DB contamination is
+zero, but observed-development parsing and mapping have not started.
+
+## Crawl release audit
+
+`CRAWL_20260806_03` is an immutable candidate, not a full production corpus.
+Its 16 checksums pass, but 58 of 79 target months remain unverified, full-corpus
+per-record raw HTML lineage is absent, and `asset_manifest.jsonl` is empty. The
+Agent 2 full-release validator still rejects the manifest because required
+source URL, raw path, and raw SHA-256 lineage are missing.
+
+- source adapter = `SOURCE_ADAPTER_CONFORMANCE_ACCEPTED`
+- empirical corpus = `EMPIRICAL_CORPUS_REJECTED`
+- `CRAWL_RELEASE_READY = FAIL`
 
 ## Quarantine
 
-- final path: `/home/sieg/projects-wsl/P4_QUARANTINE_20260806`
-- copied files: 38
-- duplicate-identical: 31
-- obsolete-superseded: 7
-- source disposition: `SOURCE_RETAINED`
-- manifest SHA-256:
-  `319e3850f56220e9c2735657dc7c1110d2f1ea4c8e12b2102bb2f78c8832be8b`
-- checksum file SHA-256:
-  `9c60d69d6154071a405ba75dfbf2b79712d24ff78970c91f3d3fbf15f8027c32`
-- restore instructions SHA-256:
-  `62edbd8f0205b1138b85c568d5fa66cff68339619e7a7683a8026eeed1305957`
+Quarantine remains copy-only at
+`/home/sieg/projects-wsl/P4_QUARANTINE_20260806`. All 38 manifest entries retain
+matching before/after hashes and byte sizes, and all originals remain present.
+Physical deletion remains prohibited until a full crawl release, rolling
+integration build PASS, restore test, key rotation, and canonical replacements
+are all confirmed.
 
-All before/after SHA-256 values and byte sizes match. Two earlier Agent 3-only
-quarantine drafts were retained under `*_SUPERSEDED_DRAFT*`; they contain no
-source deletion. No automatic action was taken on skeletons, runtime files,
-the local secret, or unique evidence.
+## Gate dashboard
 
-## Contract consumer
+| Gate | Status | Basis |
+|---|---|---|
+| `CONTRACT_LINKED` | PASS | Agent 2 consumes canonical v2.1.2 and exact key tests pass |
+| `PIPELINE_FOUNDATION` | PASS | provenance guards, empty canonical DB, reported 93 tests |
+| `CRAWL_RELEASE_READY` | FAIL | 58/79 months unverified and record-level raw lineage missing |
+| `NCS_BASE_SOURCE_READY` | PASS | official 13,442-row unit source normalized |
+| `DATA_READY_RQ1_RQ2A` | FAIL | no accepted empirical parse, labels, dedup, or posting mart |
+| `DATA_READY_RQ2B` | FAIL | no observed duties, gold labels, precision, or coverage gate |
+| `ANALYSIS_READY` | FAIL | upstream empirical gates fail |
 
-The v2.1.2 contract directly defines SHA-256, UTF-8, the `|` separator, 20 hex
-characters, prefixes, input order, and formulas. Therefore the original loader
-failure was `CONTRACT_CONSUMER_DRIFT`; a v2.1.3 contract is not required.
+## Integration disposition
 
-Agent 2 resolved this in commits `98dd7e8`, `608c1a1`, and `a92eb91`; controlled
-integration equivalents are `f0445d8`, `9a6ddfe`, and `d3e3deb`. Exact key
-tests pass, including:
+The rolling integration candidate may include Agent 2 foundation/provenance,
+Agent 4 NCS base foundation, and Agent 3 contract/hygiene. Agent 1 raw-ignore
+policy and APQ range-semantics commits are selective review candidates. The
+current Agent 1 release must remain `EVIDENCE_ONLY` and must not be loaded as a
+production corpus. Exact SHAs and conflict controls are in
+`ROLLING_INTEGRATION_PLAN.md` and `.json`.
 
-- `postingId(linkareer,123) = PST_8a245070a5ece697d6cf`
-- `rawPostingId(linkareer,123,a*64) = RAW_1ffe6e05045f37a6271f`
-- `trackId(PST_demo,0) = TRK_7bcc98532a391ab10796`
+## Remaining defects
 
-## Agent 1 release audit
+- P0: 58/79 target months are unverified; no full crawl release.
+- P0: full-corpus record-level raw HTML lineage is absent.
+- P0: the prior local API key still requires revoke/rotation.
+- P1: source-policy concurrency and HTTP-403 kill-switch implementation evidence
+  is missing.
+- P1: no observed-development duty input, gold mapping, precision, or coverage
+  result exists.
+- P1: ActivityText embedded-image assets are not preserved in the release.
+- P2: KSA source remains unverified, but is non-blocking enrichment unless base
+  mapping fails the approved gates.
+- P2: core AI/IT code set remains `REVIEW_REQUIRED`.
 
-- release: `CRAWL_20260806_02`
-- branch/HEAD: `agent/p4-crawl-release-v2` / `825ba03`
-- contractVersion: `2.1.2`
-- checksums: 14/14 PASS
-- coverage rows: 85
-- complete: 11; unverified: 68; partial out-of-range: 1; insufficient
-  pre-launch: 5
-- target-month pagination: 11/79 complete
-- detail sample: 126/126 successful
-- source adapter: `SOURCE_ADAPTER_CONFORMANCE_ACCEPTED`
-- empirical corpus: `EMPIRICAL_CORPUS_REJECTED`
-
-The new transparent-http evidence makes the current evidence paragraph in
-`SOURCE_POLICY_GATE.md` stale, but the gate rule and schema remain valid. The
-evidence row/document should be refreshed without changing contract v2.1.2.
-
-## Git hygiene and runtime
-
-The scoped `.gitignore` protects `.env`, Python/test caches, notebook runtime
-state, raw/interim/warehouse/runs, and DuckDB files. `.env.example` is explicitly
-trackable and contains placeholders only. Gold and mart outputs are not blanket
-ignored; their release policy remains contract-owned.
-
-The local `.env`, two DuckDB files, two synthetic mart parquet files, pytest
-cache, Python caches, and pytest XML were preserved. Production notebook output
-count is 0; fixture notebook output count is 45; notebook absolute `/home/sieg`
-paths are 0. Secret-pattern scan of Agent 3 additions returned no findings.
-
-## Validation evidence
-
-- contract release checksum: PASS
-- DuckDB version: 1.5.4
-- DDL statements: 39
-- schemas/tables/views: 5/26/6
-- cross-schema physical FK: absent by contract design
-- DDL first and second bootstrap: PASS, identical inventory
-- all six QA views execute
-- empty database gate: `NOT_EVALUATED`, not data-quality PASS
-- Agent 2 tests: 83 passed
-- Agent 3-owned diff check: PASS
-- full historical branch diff check: inherited EOF blank-line warnings remain
-- production notebook outputs: 0
-- absolute user paths in notebooks: 0
-
-## Integration plan
-
-1. Use `agent/p4-integration-cleanup-v2` as the contract-consumer integration
-   base; it includes Agent 2 through `a92eb91` plus the v2.1.2 snapshot.
-2. Integrate Agent 1 source commits `047b453`, `bec745b`, `8864092`, `3330705`,
-   and `825ba03` in order.
-3. Skip Agent 1 commits `f94e8aa` and `8fc16f9` because they are patch-equivalent
-   contract/handoff vendors already present in the cleanup branch.
-4. Do not include the live uncommitted Agent 2 edits until Agent 2
-   publishes a clean logical commit and tests it.
-5. Keep empirical analysis disabled until monthly coverage and raw-detail lineage
-   gates are explicitly satisfied or the analysis scope is reduced by decision.
-
-## Remaining blockers
-
-- P0: 68/79 target months lack pagination verification; empirical corpus rejected.
-- P0: detail release lacks per-record raw HTML lineage; derived-only capture is
-  insufficient for reproducible parse/OCR.
-- P0: embedded ActivityText image routing affects 89.7% of the measured sample;
-  poster-file-only OCR routing is invalid.
-- P1: `CRAWL_20260806_02/HANDOFF.json.head_commit` is empty.
-- P1: reported `AGENT1_TO_AGENT3_ISSUES.json` is absent from Agent 1 HEAD.
-- P1: source-policy evidence prose predates the transparent httpx verification.
-- P1: NCS KSA source requires a human API key and remains unverified.
-- P2: Agent 2 active worktree has 49 tracked changes and 75 untracked paths;
-  these post-snapshot edits were not imported.
-- P2: Agent 1 active worktree has 4 untracked range-semantics/report paths;
-  these post-release edits are not part of `825ba03`.
-- P2: inherited Agent 2 baseline files contain EOF blank-line warnings; Agent 3
-  did not rewrite another owner's paths.
-- P2: recruit start/close range combination semantics remain unresolved.
-
-Final verdict: `PARTIALLY_READY`. The contract control plane and isolated
-integration branch are technically sound; the empirical release and the active
-Agent worktree hygiene are not yet release-ready.
+Final verdict: `PARTIALLY_READY`. A controlled rolling build is plan-ready; an
+empirical integration or analysis release is not.

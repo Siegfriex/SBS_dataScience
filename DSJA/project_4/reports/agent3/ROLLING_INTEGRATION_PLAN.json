@@ -1,0 +1,76 @@
+{
+  "agentId": "P4-A3-CONTROL",
+  "agentName": "P4 SSOT Contract, Repository Hygiene & Control Plane Lead",
+  "auditDate": "2026-08-06",
+  "contractVersion": "2.1.2",
+  "status": "READY_FOR_CONTROLLED_BUILD",
+  "integrationBase": {
+    "branch": "agent/p4-integration-cleanup-v2",
+    "head": "3b4e8669f08b719b4f083d2a5e304a76b674610a"
+  },
+  "sourceHeads": {
+    "agent1": "379fc1fc138fc8e84da2dd431a02ed5fcd866bed",
+    "agent2": "71edc867a8e869b78340e4fe253ced9312894077",
+    "agent3": "3b4e8669f08b719b4f083d2a5e304a76b674610a",
+    "agent4": "0b93d50893f76e51e24ca8328670c5aae59a2327"
+  },
+  "stages": [
+    {
+      "name": "agent2-foundation-provenance",
+      "commits": [
+        "9ca7a43dfd55aea2528ed72e2a3535ef7f10624e",
+        "649d87946d5a04974983adf55676c0becb050b2a",
+        "636653dc911e6cb5ff888f0c0a0a64976dd8e765",
+        "71edc867a8e869b78340e4fe253ced9312894077"
+      ],
+      "disposition": "SELECT"
+    },
+    {
+      "name": "agent4-ncs-base-foundation",
+      "commits": [
+        "c9aca9ff08346dc413c5f3ad245575a2eb2ccfb0",
+        "0e289923c16a21df54fc5038d831a25258cea92c",
+        "cd0feeb9e118bbb461711b219cb2dfd5a4bd726f",
+        "0b93d50893f76e51e24ca8328670c5aae59a2327"
+      ],
+      "disposition": "SELECT"
+    },
+    {
+      "name": "agent1-source-evidence",
+      "commits": [
+        "729734cbc45340a31cccdbc6698b1e580de228c7",
+        "45dbfb2a9ae9f0da510dce2d9afaa34f69cbb6b1"
+      ],
+      "disposition": "SELECTIVE_REVIEW"
+    },
+    {
+      "name": "agent1-crawl-candidate",
+      "commits": ["379fc1fc138fc8e84da2dd431a02ed5fcd866bed"],
+      "disposition": "EVIDENCE_ONLY_EMPIRICAL_LOAD_PROHIBITED"
+    }
+  ],
+  "skippedPatchEquivalentCommits": [
+    "98dd7e8",
+    "608c1a1",
+    "a92eb91",
+    "f94e8aa",
+    "8fc16f9",
+    "fcd0ea7",
+    "5815375"
+  ],
+  "expectedConflictPaths": [
+    "DSJA/project_4/pipeline/README.md",
+    "DSJA/project_4/pipeline/reports/agent2/**",
+    "DSJA/project_4/pipeline/notebooks/**",
+    "DSJA/project_4/shared/contracts/P4_CONTRACT_v2.1.2/**",
+    "DSJA/project_4/shared/handoffs/AGENT3_*",
+    "DSJA/project_4/crawl/**"
+  ],
+  "promotionProhibited": [
+    "CRAWL_RELEASE_READY",
+    "DATA_READY_RQ1_RQ2A",
+    "DATA_READY_RQ2B",
+    "ANALYSIS_READY"
+  ],
+  "changesExecuted": false
+}
