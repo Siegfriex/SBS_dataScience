@@ -1,0 +1,48 @@
+# raw.queryRegistry seed, aligned to P4_CONTRACT_v2.1.2 queryRegistrySchema
+# (primaryKey: operationName+sha256Hash; columns include variablesSchemaJson/responseSchemaJson
+#  per shared/contracts/P4_CONTRACT_v2.1.2/AGENT3_TO_AGENT1_HANDOFF.json)
+
+queries:
+  - operationName: CalendarScreen_ActivityCalendarEntries
+    sha256Hash: b13ef5935c32d80a0cbabc6c9aaf9cbc52c274d34f983a2b06d14056da8bedbf
+    transportType: apq_get
+    httpMethod: GET
+    variablesSchemaJson: >
+      {"filterBy":{"status":"OMIT (see requiredCollectorRules)","activityTypeIDs":["1|5"],"q":"string"},
+       "scrapFilterBy":{"q":"string"},"from":"epoch_ms","to":"epoch_ms",
+       "pagination":{"page":"int (month-window paging)","pageSize":32},
+       "includeStart":true,"includeEnd":true,"includeScrapStart":false,"includeScrapEnd":false,
+       "nodePagination":{"page":"int (GLOBAL across all day-buckets, not per-day)","pageSize":6}}
+    responseSchemaJson: >
+      {"data":{"activityCalendarEntries":{"nodes":[{"date":"epoch_ms",
+       "start":{"nodes":[{"id":"string","group":"string","title":"string","activityTypeID":"int",
+       "organizationName":"string","jobTypes":["string"],"recruitStartAt":"epoch_ms","recruitCloseAt":"epoch_ms",
+       "createdAt":"epoch_ms","manager":{"id":"string"}}],"totalCount":"int"},"end":{"...same shape as start"}}]}}}
+    frontendBuildId: linkareer-client-1785976285032
+    discoveredAt: "2026-08-06"
+    lastVerifiedAt: "2026-08-06"
+    activeFlag: true
+    verificationStatus: verified
+    note: >
+      nodePagination.page advances GLOBALLY across the whole response, not per specific day.
+      Collector must loop pages until every (date,side) bucket's cumulative collected count
+      reaches its own totalCount. Verified complete on 11 months (see monthly_coverage.csv).
+      status key should be OMITTED from filterBy (see requiredCollectorRules).
+
+  - operationName: CalendarScreen_Activities
+    sha256Hash: ea782afe3367f1e785516be02b6bd9dd4fee54f5c356fb6071fa08ffb4b0b78a
+    transportType: apq_get
+    httpMethod: GET
+    variablesSchemaJson: >
+      {"filterBy":{"activityTypeIDs":["1|5"]},"rangeBy":{"recruitStartAt":{"from":"epoch_ms","to":"epoch_ms"},
+       "recruitCloseAt":{"from":"epoch_ms","to":"epoch_ms"}}}
+    responseSchemaJson: '{"data":{"activities":{"totalCount":"int"}}}'
+    frontendBuildId: linkareer-client-1785976285032
+    discoveredAt: "2026-08-06"
+    lastVerifiedAt: "2026-08-06"
+    activeFlag: true
+    verificationStatus: verified
+    note: >
+      totalCount-only aggregate. rangeBy AND/OR combination between recruitStartAt-window and
+      recruitCloseAt-window is still unresolved (see AGENT1_TO_AGENT3_ISSUES) -- do not treat
+      as a reconciled ground truth against the entries-endpoint sum yet.

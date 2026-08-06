@@ -1,0 +1,35 @@
+{
+  "fullCorpus": false,
+  "empiricalAnalysisAllowed": false,
+  "promotionAllowed": false,
+  "unverifiedMonthCount": 58,
+  "verifiedMonthCount": 21,
+  "rawHtmlCoverage": {
+    "postingRows": 137,
+    "rawHtmlRows": 29
+  },
+  "assetRows": 0,
+  "rejectedNonRawDetailReferences": [
+    {
+      "sourceUrl": "https://linkareer.com/activity/339673",
+      "rawPathClass": "NON_RAW_MASKED_FIXTURE_REFERENCE",
+      "reason": "notRealRawDetailPath"
+    },
+    {
+      "sourceUrl": "https://linkareer.com/activity/339737",
+      "rawPathClass": "NON_RAW_MASKED_FIXTURE_REFERENCE",
+      "reason": "notRealRawDetailPath"
+    },
+    {
+      "sourceUrl": "https://linkareer.com/activity/339821",
+      "rawPathClass": "NON_RAW_MASKED_FIXTURE_REFERENCE",
+      "reason": "notRealRawDetailPath"
+    }
+  ],
+  "notes": [
+    "Observed-development input is not the full Linkareer population.",
+    "Raw HTML is referenced by crawl-root-relative path and checksum; it is not copied into this package.",
+    "Three masked fixture references in the source fetch manifest are excluded from rawHtmlRows.",
+    "NCS core code set and mapping remain review-required development inputs."
+  ]
+}

@@ -1,0 +1,13 @@
+﻿defectId,priority,phase,component,baselineEvidence,targetAcceptance,owner,status
+P1-CRAWL-001,P1,1,validator,Execution failure could be labeled PASS,nonzero or mismatched validator evidence cannot promote,P4-CRAWL-LOCAL-ORCHESTRATOR,OPEN
+P1-CRAWL-002,P1,1,master order,A2-08 and A2-09 precede A4 producers,all current-run consumers follow every registered upstream,P4-CRAWL-LOCAL-ORCHESTRATOR,OPEN
+P1-CRAWL-003,P1,1,current-run manifest,28 manifests for 24 stage IDs with one stale FAILED,exactly one validated binding per planned current-run stage,P4-CRAWL-LOCAL-ORCHESTRATOR,OPEN
+P1-CRAWL-004,P1,1,Notebook provenance,Master records one HEAD only,per-source file SHA and Git blob identity coverage 100 percent,P4-CRAWL-LOCAL-ORCHESTRATOR,OPEN
+P1-CRAWL-005,P1,2,index source policy,fixture only and incomplete kill switches,production path exists but remains approval-blocked with negative tests,P4-CRAWL-LOCAL-ORCHESTRATOR,OPEN
+P1-CRAWL-006,P1,2,ActivityText fallback,crawl lacks safe standalone fallback,unambiguous selection only and 29 fixture regression,P4-CRAWL-LOCAL-ORCHESTRATOR,OPEN
+P2-CRAWL-001,P2,2,raw lineage,11 flags versus 29 verified raw rows,reconciled audit artifact or explicit unresolved handoff,P4-CRAWL-LOCAL-ORCHESTRATOR,OPEN
+P2-CRAWL-002,P2,2,month frontier,remaining months exported as one summary row,58 month-grain target rows,P4-CRAWL-LOCAL-ORCHESTRATOR,OPEN
+P2-CRAWL-003,P2,2,asset lineage,period fallback hardcoded and sourceField collapsed,actual period and source field preserved,P4-CRAWL-LOCAL-ORCHESTRATOR,OPEN
+P2-CRAWL-004,P2,2,path portability,absolute runtime paths leak into evidence,release and portable evidence contain repository-relative paths only,P4-CRAWL-LOCAL-ORCHESTRATOR,OPEN
+P2-CRAWL-005,P2,2,runtime dependencies,installed packages undeclared and unlocked,crawl runtime manifest records exact versions,P4-CRAWL-LOCAL-ORCHESTRATOR,OPEN
+P2-CRAWL-006,P2,2,idempotency,frontier content embeds current timestamps,equal logical input yields equal content artifacts,P4-CRAWL-LOCAL-ORCHESTRATOR,OPEN

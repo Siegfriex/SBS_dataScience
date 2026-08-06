@@ -1,0 +1,45 @@
+{
+  "endpoint": "https://api.linkareer.com/graphql",
+  "method": "GET",
+  "transport": "Apollo Automatic Persisted Query (APQ) — GET with operationName/variables/extensions.persistedQuery.sha256Hash, no query body needed",
+  "note": "Reproduced successfully via plain curl_cffi (impersonate=chrome, Referer=https://linkareer.com/) with no browser/Playwright required. Confirmed on 2026-08-06.",
+  "operations": {
+    "CalendarScreen_ActivityCalendarEntries": {
+      "purpose": "Returns actual posting entries (id, title, org, dates) for a date range. This is the primary listing source.",
+      "sha256Hash": "b13ef5935c32d80a0cbabc6c9aaf9cbc52c274d34f983a2b06d14056da8bedbf",
+      "variables_template": {
+        "filterBy": {"status": "OPEN", "activityTypeIDs": ["1"], "q": ""},
+        "scrapFilterBy": {"q": ""},
+        "from": "epoch_ms_range_start",
+        "to": "epoch_ms_range_end",
+        "pagination": {"page": 1, "pageSize": 32},
+        "includeStart": true,
+        "includeEnd": true,
+        "includeScrapStart": false,
+        "includeScrapEnd": false,
+        "nodePagination": {"page": 1, "pageSize": 6}
+      },
+      "confirmed_findings": [
+        "activityTypeIDs=['1'] corresponds to the 'activity' tab (contest/extracurricular/etc); recruitDiscovery URL uses activityType=recruit — separate activityTypeID value TBD, needs a second sniff pass",
+        "status='OPEN' does NOT restrict to currently-open recruitment — verified 2020-03 range still returns postings whose recruitCloseAt is long past (e.g. recruitCloseAt=1584284399000 for a query issued in 2026). Historical/closed postings ARE retrievable through this endpoint.",
+        "Omitting 'status' from filterBy produced an identical response to status='OPEN' in the one test run — needs more samples before concluding it's a no-op filter.",
+        "response ids for 2020-03 range were in the ~34000-35000 range vs ~339000 range for 2026-08, consistent with roughly-monotonic sequential id growth (PROMPT 0 C.7 candidate answer: likely yes, needs the full 30+ sample anchor set to confirm)."
+      ],
+      "response_fields": [
+        "id", "group", "title", "activityTypeID", "activityStartAt", "activityEndAt",
+        "organizationName", "jobTypes", "recruitStartAt", "recruitCloseAt", "isScrapped",
+        "scrapCount", "createdAt", "manager.id", "manager.channel.id", "manager.channel.url"
+      ]
+    },
+    "CalendarScreen_Activities": {
+      "purpose": "Returns only totalCount for the current filter/date range (used for pagination UI, e.g. 'N results')",
+      "sha256Hash": "ea782afe3367f1e785516be02b6bd9dd4fee54f5c356fb6071fa08ffb4b0b78a",
+      "response_fields": ["activities.totalCount"]
+    }
+  },
+  "unresolved": [
+    "activityTypeID value for the recruit (채용) tab — only 'activity' tab (ID=1) sniffed so far",
+    "detail page access method — pending",
+    "pagination beyond page 1 not yet tested (does pageSize cap responses, is there a hasNextPage/pageInfo field truncated in preview?)"
+  ]
+}

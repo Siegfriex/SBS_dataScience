@@ -1,0 +1,62 @@
+{
+  "agent_id": "P4-A1-SOURCE",
+  "agent_name": "P4 Source Acquisition & Coverage Engineer",
+  "release_id": "CRAWL_20260806_03",
+  "contract_version": "2.1.2",
+  "branch": "agent/p4-crawl-release-v2",
+  "head_commit": "",
+  "created_at": "2026-08-06T17:10:00+09:00",
+  "source_start": "2020-01-01",
+  "source_end": "2026-07-31",
+  "manifest_paths": [
+    "fetch_manifest.jsonl",
+    "posting_manifest.parquet",
+    "asset_manifest.jsonl",
+    "ncs_manifest.jsonl"
+  ],
+  "coverage_path": "monthly_coverage.parquet",
+  "checksum_path": "CHECKSUMS.sha256",
+  "query_registry_path": "query_registry.yaml",
+  "schema_snapshot_path": "schema_snapshot.json",
+  "pagination_verified": false,
+  "pagination_verified_note": "21/79 target months fully verified (up from 11/79 in CRAWL_20260806_02). 2022 is now a fully complete year (12/12 months). 58 months remain unverified, explicitly listed in monthly_coverage.csv with coverageReason=paginationUnverified.",
+  "monthly_total_count_verified": false,
+  "monthly_total_count_verified_note": "APQ rangeBy AND/OR semantics now resolved (OR/union confirmed, see docs/audit/APQ_RANGE_SEMANTICS_FINAL.md) -- this removes a prior blocker for cross-checking, but the 58 remaining months still need the per-bucket exhaustion pagination run, which is the actual completeness gate (not the totalCount cross-check).",
+  "terms_status": "reviewedConditional",
+  "robots_status": "allowed",
+  "transparent_client_verified": true,
+  "rq1_eligibility_rate": 1.0,
+  "rq2_eligibility_rate": 0.810,
+  "ncs_eligibility_rate": 0.214,
+  "status": "CRAWL_RELEASE_CANDIDATE",
+  "known_gaps": [
+    "58/79 target months not yet pagination-audited (monthly_coverage.csv, coverageReason=paginationUnverified)",
+    "Of 40,551 distinct posting IDs discovered across the 21 complete months, only 137 have any captured detail data (126 derived-field samples + 29 real raw HTML captures with 8 overlapping) -- full-corpus detail collection was NOT attempted this pass (estimated 10+ hours minimum just for the 21 already-discovered months)",
+    "fetch_manifest.jsonl covers only requests where raw bytes were actually persisted to disk (33 rows) -- the several hundred pagination-audit list requests used to build monthly_coverage.csv were not persisted as raw artifacts, only their extracted id/count summaries were kept",
+    "No asset (image) collection performed this pass -- asset_manifest.jsonl is empty",
+    "Agent 2's actual validator/loader was NOT executed against this release (read-only verification step from the operating charter was not performed -- Agent 1 does not have located access to Agent 2's validator script this pass)",
+    "NCS KSA source (data.go.kr/15157542): endpoint and API key now CONFIRMED valid (openapi14, HTTP 200/code009), but the required request parameter schema remains unknown after 15+ attempts -- needs official documentation or HRD Korea support contact",
+    "2019 recruit(activityTypeID=5) confirmed effectively unlaunched -- excluded from primary analysis window, retained as platformPreLaunch rows"
+  ],
+  "known_missing_fields": [
+    "postingId/rawPostingId/trackId etc. (contract keyContract) not applied at Agent 1 layer -- Agent 2 pipeline responsibility"
+  ],
+  "artifact_manifest": [
+    "fetch_manifest.jsonl",
+    "posting_manifest.parquet",
+    "posting_manifest.csv",
+    "asset_manifest.jsonl",
+    "ncs_manifest.jsonl",
+    "monthly_coverage.csv",
+    "monthly_coverage.parquet",
+    "wayback_survival_audit.csv",
+    "stratified_detail_sample_n126.csv",
+    "stratified_detail_sample_n126.json",
+    "schema_snapshot.json",
+    "query_registry.yaml",
+    "data/ncs/ncsUnit_20260806.csv",
+    "data/ncs/ncsUnit_20260806.utf8.csv",
+    "README.md",
+    "CHECKSUMS.sha256"
+  ]
+}

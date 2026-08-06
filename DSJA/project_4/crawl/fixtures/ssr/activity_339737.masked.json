@@ -1,0 +1,539 @@
+{
+  "sourceUrl": "https://linkareer.com/activity/339737",
+  "httpStatus": 200,
+  "piiMasked": true,
+  "maskedFields": [
+    "managerName",
+    "managerPhoneNumber",
+    "managerEmail"
+  ],
+  "activityData": {
+    "__typename": "Activity",
+    "id": "339737",
+    "title": "[제일약품] [제일파마홀딩스] 8월 인재모집",
+    "thumbnailImage": {
+      "__typename": "ActivityFile",
+      "id": "1432509",
+      "url": "https://media-cdn.linkareer.com/activity_manager/logos/901452"
+    },
+    "organizationName": "제일약품",
+    "company": {
+      "__typename": "Company",
+      "id": "106863",
+      "name": "제일약품",
+      "ceoName": "성석제, 한상철 (공동대표)",
+      "establishedAt": 1496188800000,
+      "detailedIndustry": "의약품 제조업",
+      "companyInformation": null
+    },
+    "schoolTargeting": null,
+    "simpleApplyDetail": null,
+    "seminarDetail": null,
+    "type": 5,
+    "applyTypes": [
+      {
+        "__typename": "ApplyType",
+        "id": "3",
+        "name": "접수페이지"
+      }
+    ],
+    "applyDetail": "https://jeil.recruiter.co.kr/career/jobs/123622",
+    "activityTypeID": 5,
+    "manager": {
+      "__typename": "User",
+      "id": "195646",
+      "isStaff": false
+    },
+    "integers": [],
+    "teamRecruitPostCount": 0,
+    "group": "NORMAL",
+    "interests": [],
+    "categories": [
+      {
+        "__typename": "Category",
+        "id": "101008",
+        "name": "사무/문서관리"
+      },
+      {
+        "__typename": "Category",
+        "id": "102000",
+        "name": "전체"
+      },
+      {
+        "__typename": "Category",
+        "id": "103000",
+        "name": "전체"
+      },
+      {
+        "__typename": "Category",
+        "id": "105000",
+        "name": "전체"
+      },
+      {
+        "__typename": "Category",
+        "id": "106000",
+        "name": "전체"
+      },
+      {
+        "__typename": "Category",
+        "id": "106002",
+        "name": "품질관리(QC/QA)"
+      },
+      {
+        "__typename": "Category",
+        "id": "106006",
+        "name": "설비/기계유지보수"
+      },
+      {
+        "__typename": "Category",
+        "id": "107000",
+        "name": "전체"
+      },
+      {
+        "__typename": "Category",
+        "id": "112000",
+        "name": "전체"
+      }
+    ],
+    "duties": {
+      "__typename": "DutyConnection",
+      "totalCount": 39,
+      "nodes": [
+        {
+          "__typename": "Duty",
+          "id": "261562",
+          "title": "준법 감시팀",
+          "jobType": "NEW",
+          "categories": [
+            {
+              "__typename": "Category",
+              "id": "101008",
+              "name": "사무/문서관리",
+              "parent": {
+                "__typename": "Category",
+                "id": "100001",
+                "name": "기획/경영",
+                "parent": null
+              }
+            }
+          ],
+          "questionTemplates": [
+            {
+              "__typename": "QuestionTemplate",
+              "id": "421655",
+              "charSize": "CHAR",
+              "charMaxSize": 800,
+              "blankType": "WITH_BLANK",
+              "content": "1. 제일약품을 선택한 이유와 지원 직무에 관심을 갖게 된 계기를 구체적으로 작성해 주세요."
+            },
+            {
+              "__typename": "QuestionTemplate",
+              "id": "421656",
+              "charSize": "CHAR",
+              "charMaxSize": 800,
+              "blankType": "WITH_BLANK",
+              "content": "2. 지원 직무 수행에 필요한 핵심 역량은 무엇이라 생각하며, 이를 위해 노력했던 경험을 작성해 주세요."
+            },
+            {
+              "__typename": "QuestionTemplate",
+              "id": "421657",
+              "charSize": "CHAR",
+              "charMaxSize": 500,
+              "blankType": "WITH_BLANK",
+              "content": "3. 입사 후 이루고자 하는 목표와 이를 위한 계획을 작성해 주세요."
+            }
+          ],
+          "activity": {
+            "__typename": "Activity",
+            "id": "339737",
+            "logoImage": {
+              "__typename": "ActivityFile",
+              "id": "1432510",
+              "url": "https://media-cdn.linkareer.com/activity_manager/logos/901452"
+            },
+            "organizationName": "제일약품",
+            "title": "[제일약품] [제일파마홀딩스] 8월 인재모집",
+            "recruitType": "NORMAL",
+            "recruitCloseAt": 1786287599999
+          },
+          "selfIntroductionCount": 0
+        },
+        {
+          "__typename": "Duty",
+          "id": "261561",
+          "title": "고형제 포장",
+          "jobType": "NEW",
+          "categories": [
+            {
+              "__typename": "Category",
+              "id": "106006",
+              "name": "설비/기계유지보수",
+              "parent": {
+                "__typename": "Category",
+                "id": "100006",
+                "name": "생산/제조",
+                "parent": null
+              }
+            }
+          ],
+          "questionTemplates": [
+            {
+              "__typename": "QuestionTemplate",
+              "id": "421643",
+              "charSize": "CHAR",
+              "charMaxSize": 800,
+              "blankType": "WITH_BLANK",
+              "content": "1. 제일약품을 선택한 이유와 지원 직무에 관심을 갖게 된 계기를 구체적으로 작성해 주세요."
+            },
+            {
+              "__typename": "QuestionTemplate",
+              "id": "421644",
+              "charSize": "CHAR",
+              "charMaxSize": 800,
+              "blankType": "WITH_BLANK",
+              "content": "2. 지원 직무 수행에 필요한 핵심 역량은 무엇이라 생각하며, 이를 위해 노력했던 경험을 작성해 주세요."
+            },
+            {
+              "__typename": "QuestionTemplate",
+              "id": "421645",
+              "charSize": "CHAR",
+              "charMaxSize": 500,
+              "blankType": "WITH_BLANK",
+              "content": "3. 입사 후 이루고자 하는 목표와 이를 위한 계획을 작성해 주세요."
+            }
+          ],
+          "activity": {
+            "__typename": "Activity",
+            "id": "339737",
+            "logoImage": {
+              "__typename": "ActivityFile",
+              "id": "1432510",
+              "url": "https://media-cdn.linkareer.com/activity_manager/logos/901452"
+            },
+            "organizationName": "제일약품",
+            "title": "[제일약품] [제일파마홀딩스] 8월 인재모집",
+            "recruitType": "NORMAL",
+            "recruitCloseAt": 1786287599999
+          },
+          "selfIntroductionCount": 0
+        },
+        {
+          "__typename": "Duty",
+          "id": "261560",
+          "title": "고형제 생산",
+          "jobType": "NEW",
+          "categories": [
+            {
+              "__typename": "Category",
+              "id": "106000",
+              "name": "전체",
+              "parent": {
+                "__typename": "Category",
+                "id": "100006",
+                "name": "생산/제조",
+                "parent": null
+              }
+            }
+          ],
+          "questionTemplates": [
+            {
+              "__typename": "QuestionTemplate",
+              "id": "421664",
+              "charSize": "CHAR",
+              "charMaxSize": 800,
+              "blankType": "WITH_BLANK",
+              "content": "1. 제일약품을 선택한 이유와 지원 직무에 관심을 갖게 된 계기를 구체적으로 작성해 주세요."
+            },
+            {
+              "__typename": "QuestionTemplate",
+              "id": "421665",
+              "charSize": "CHAR",
+              "charMaxSize": 800,
+              "blankType": "WITH_BLANK",
+              "content": "2. 지원 직무 수행에 필요한 핵심 역량은 무엇이라 생각하며, 이를 위해 노력했던 경험을 작성해 주세요."
+            },
+            {
+              "__typename": "QuestionTemplate",
+              "id": "421666",
+              "charSize": "CHAR",
+              "charMaxSize": 500,
+              "blankType": "WITH_BLANK",
+              "content": "3. 입사 후 이루고자 하는 목표와 이를 위한 계획을 작성해 주세요."
+            }
+          ],
+          "activity": {
+            "__typename": "Activity",
+            "id": "339737",
+            "logoImage": {
+              "__typename": "ActivityFile",
+              "id": "1432510",
+              "url": "https://media-cdn.linkareer.com/activity_manager/logos/901452"
+            },
+            "organizationName": "제일약품",
+            "title": "[제일약품] [제일파마홀딩스] 8월 인재모집",
+            "recruitType": "NORMAL",
+            "recruitCloseAt": 1786287599999
+          },
+          "selfIntroductionCount": 0
+        }
+      ]
+    },
+    "chatRoom": {
+      "__typename": "ChatRoom",
+      "id": "15766",
+      "name": "제일약품",
+      "memberCount": 319
+    },
+    "educationTypes": [],
+    "recruitCloseAt": 1786287599999,
+    "isAppliedByCurrentUser": false,
+    "createdAt": 1785587404000,
+    "managerName": "MASKED_84ac52fd",
+    "managerPhoneNumber": null,
+    "managerEmail": "MASKED_1708e14a",
+    "files": [
+      {
+        "__typename": "ActivityFile",
+        "id": "1432509",
+        "filename": "image.png",
+        "url": "https://media-cdn.linkareer.com/activity_manager/logos/901452",
+        "type": {
+          "__typename": "ActivityFileType",
+          "id": "4",
+          "name": "썸네일"
+        }
+      },
+      {
+        "__typename": "ActivityFile",
+        "id": "1432510",
+        "filename": "image.png",
+        "url": "https://media-cdn.linkareer.com/activity_manager/logos/901452",
+        "type": {
+          "__typename": "ActivityFileType",
+          "id": "5",
+          "name": "로고"
+        }
+      }
+    ],
+    "reportCount": 0,
+    "youtubeURL": null,
+    "recruitType": "NORMAL",
+    "jobTypes": [
+      "EXPERIENCED",
+      "NEW",
+      "CONTRACT"
+    ],
+    "logoImage": {
+      "__typename": "ActivityFile",
+      "id": "1432510",
+      "url": "https://media-cdn.linkareer.com/activity_manager/logos/901452"
+    },
+    "activityStartAt": null,
+    "activityEndAt": null,
+    "dateRepresentation": "DAY",
+    "recruitScale": "0",
+    "additionalBenefit": null,
+    "benefits": [],
+    "facetimePeriod": null,
+    "facetimeWeekday": null,
+    "facetimeDay": null,
+    "facetimeTime": null,
+    "homepageURL": "https://www.jeilpharm.co.kr/jeilpharm/?direct=Y",
+    "distinctInternTypes": null,
+    "organizationType": "대기업",
+    "rootCategories": [
+      {
+        "__typename": "Category",
+        "id": "100001",
+        "name": "기획/경영"
+      },
+      {
+        "__typename": "Category",
+        "id": "100002",
+        "name": "마케팅/광고"
+      },
+      {
+        "__typename": "Category",
+        "id": "100003",
+        "name": "IT/개발"
+      },
+      {
+        "__typename": "Category",
+        "id": "100005",
+        "name": "영업/CS"
+      },
+      {
+        "__typename": "Category",
+        "id": "100006",
+        "name": "생산/제조"
+      },
+      {
+        "__typename": "Category",
+        "id": "100007",
+        "name": "연구/R&D"
+      },
+      {
+        "__typename": "Category",
+        "id": "100012",
+        "name": "의료/바이오"
+      }
+    ],
+    "recruitStartAt": 1785510000000,
+    "regions": [
+      {
+        "__typename": "Region",
+        "id": "2",
+        "name": "서울"
+      },
+      {
+        "__typename": "Region",
+        "id": "9",
+        "name": "경기"
+      }
+    ],
+    "regionDistricts": [
+      {
+        "__typename": "RegionDistrict",
+        "id": "17",
+        "name": "서초구",
+        "region": {
+          "__typename": "Region",
+          "id": "2",
+          "name": "서울"
+        }
+      },
+      {
+        "__typename": "RegionDistrict",
+        "id": "128",
+        "name": "처인구",
+        "region": {
+          "__typename": "Region",
+          "id": "9",
+          "name": "경기"
+        }
+      }
+    ],
+    "addresses": [
+      {
+        "__typename": "ActivityAddress",
+        "address": "서울 서초구 사평대로 343",
+        "bcode": "1165010700",
+        "bname": "반포동",
+        "detailAddress": "제일약품",
+        "id": "121121",
+        "isAbroad": false,
+        "isPossibleWorkingFromHome": false,
+        "sido": "서울",
+        "sigungu": "서초구",
+        "sigunguCode": "11650",
+        "zoneCode": "06543"
+      },
+      {
+        "__typename": "ActivityAddress",
+        "address": "경기 용인시 처인구 백암면 청강가창로 7",
+        "bcode": "4146135031",
+        "bname": "근곡리",
+        "detailAddress": "제일약품",
+        "id": "121122",
+        "isAbroad": false,
+        "isPossibleWorkingFromHome": false,
+        "sido": "경기",
+        "sigungu": "용인시 처인구",
+        "sigunguCode": "41461",
+        "zoneCode": "17172"
+      }
+    ],
+    "tenThousandUnitOfReward": null,
+    "skills": [],
+    "targets": [],
+    "salaryType": "YEARLY",
+    "isSalaryDecidedAfterInterview": false,
+    "isSalaryDecidedByCompanyPolicy": true,
+    "maxSalary": null,
+    "minSalary": null,
+    "cost": null,
+    "isSponsored": null,
+    "onoffline": null
+  },
+  "apolloStateKeys": [
+    "Activity:337586",
+    "Activity:338146",
+    "Activity:338249",
+    "Activity:339737",
+    "Activity:339997",
+    "ActivityAddress:121121",
+    "ActivityAddress:121122",
+    "ActivityFile:1426373",
+    "ActivityFile:1426374",
+    "ActivityFile:1430193",
+    "ActivityFile:1430194",
+    "ActivityFile:1432509",
+    "ActivityFile:1432510",
+    "ActivityFile:1432908",
+    "ActivityFile:1432909",
+    "ActivityFile:1433557",
+    "ActivityFile:1433558",
+    "ActivityFileType:4",
+    "ActivityFileType:5",
+    "ActivityText:526465",
+    "ApplyType:3",
+    "Category:100001",
+    "Category:100002",
+    "Category:100003",
+    "Category:100005",
+    "Category:100006",
+    "Category:100007",
+    "Category:100012",
+    "Category:101008",
+    "Category:102000",
+    "Category:103000",
+    "Category:105000",
+    "Category:106000",
+    "Category:106002",
+    "Category:106006",
+    "Category:107000",
+    "Category:112000",
+    "ChatRoom:15766",
+    "ChatRoom:178",
+    "ChatRoom:1972",
+    "ChatRoom:1977",
+    "ChatRoom:48",
+    "Company:106863",
+    "Duty:261550",
+    "Duty:261551",
+    "Duty:261552",
+    "Duty:261553",
+    "Duty:261554",
+    "Duty:261555",
+    "Duty:261556",
+    "Duty:261557",
+    "Duty:261558",
+    "Duty:261559",
+    "Duty:261560",
+    "Duty:261561",
+    "Duty:261562",
+    "QuestionTemplate:421643",
+    "QuestionTemplate:421644",
+    "QuestionTemplate:421645",
+    "QuestionTemplate:421655",
+    "QuestionTemplate:421656",
+    "QuestionTemplate:421657",
+    "QuestionTemplate:421664",
+    "QuestionTemplate:421665",
+    "QuestionTemplate:421666",
+    "ROOT_QUERY",
+    "Region:2",
+    "Region:9",
+    "RegionDistrict:128",
+    "RegionDistrict:17",
+    "User:195646",
+    "User:6350"
+  ],
+  "apolloState_ActivityText_sample": {
+    "ActivityText:526465": {
+      "__typename": "ActivityText",
+      "id": "526465",
+      "text": "<p><b><span style=\"font-size: 14pt; background-color: rgb(217, 238, 236);\">[제일약품] [제일파마홀딩스] 8월 인재모집</span></b></p><p><br></p><p><b><span style=\"font-size: 11pt;\">[모집분야]</span></b></p><p><span style=\"font-size: 11pt;\">ETC영업</span></p><p><span style=\"font-size: 11pt;\">PM</span></p><p><span style=\"font-size: 11pt;\">RA팀</span></p><p><span style=\"font-size: 11pt;\">PV팀 (Project Leader)</span></p><p><span style=\"font-size: 11pt;\">임상팀 CPL</span></p><p><span style=\"font-size: 11pt;\">임상팀 MSL</span></p><p><span style=\"font-size: 11pt;\">임상팀 임상QA</span></p><p><span style=\"font-size: 11pt;\">QC</span></p><p><span style=\"font-size: 11pt;\">QA (계약직)</span></p><p><span style=\"font-size: 11pt;\">공무 (정비)</span></p><p><span style=\"font-size: 11pt;\">고형제 생산</span></p><p><span style=\"font-size: 11pt;\">고형제 포장</span></p><p><span style=\"font-size: 11pt;\">준법 감시팀</span></p><p><br></p><p><b><span style=\"font-size: 11pt;\">[접수기간]</span></b></p><p><span style=\"font-size: 11pt;\">08월 01일 ~ 08월 09일</span></p><p><br></p><p><b><span style=\"font-size: 11pt;\">[채용공고]</span></b></p><p><img src=\"https://media-cdn.linkareer.com/se2editor/image/901451\" title=\"CaptureX_2026-08-01_213157_jeil.recruiter.co.kr.jpg\"><br style=\"clear:both;\"><br></p>"
+    }
+  }
+}
