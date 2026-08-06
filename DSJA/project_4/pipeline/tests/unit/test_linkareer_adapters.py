@@ -36,7 +36,7 @@ def test_apq_entry_parsing_preserves_job_types_masks_manager_and_is_idempotent()
     first = parse_apq_entries(payload)
     second = parse_apq_entries(payload)
     assert first == second
-    assert first[0]["jobTypesRaw"] == [{"id": "JT1", "name": "인턴"}]
+    assert json.loads(first[0]["jobTypesRawJson"]) == [{"id": "JT1", "name": "인턴"}]
     assert first[0]["activityTypeId"] == 7
     assert first[0]["managerMasked"] == {"email": "[MASKED]", "name": "[MASKED]"}
     assert "개인정보" not in json.dumps(first, ensure_ascii=False)
@@ -76,11 +76,16 @@ def test_external_ats_only_eligibility():
     flags = eligibility_flags(
         posting_kind="recruit",
         posted_at_available=True,
+        source_integrity_available=True,
         job_types_resolved=True,
+        activity_text_available=False,
         required_or_preferred_text_available=False,
-        track_or_boundary_resolved=False,
+        boundary_resolved=False,
+        track_resolved=True,
+        text_minimum_met=False,
         duty_text_available=False,
         mappable_task_sentence_available=False,
+        external_apply=True,
         external_detail_only=True,
     )
     assert flags["rq1EligibleFlag"] is True
@@ -129,6 +134,29 @@ def test_source_adapter_emits_split_eligibility_and_raw_lineage():
     assert adapted["rq1EligibleFlag"] is True
     assert adapted["rq2EligibleFlag"] is True
     assert adapted["ncsEligibleFlag"] is True
-    assert adapted["jobTypesRaw"].startswith("[")
+    assert adapted["jobTypesRawJson"].startswith("[")
     assert adapted["dutiesRawJson"].startswith("[")
     assert adapted["activityTextBlocks"][1]["sectionAssignment"] == "duty"
+    assert adapted["externalApplyFlag"] is True
+    assert adapted["externalDetailOnlyFlag"] is False
+
+
+def test_external_apply_does_not_exclude_when_activity_text_is_usable():
+    flags = eligibility_flags(
+        posting_kind="recruit",
+        posted_at_available=True,
+        source_integrity_available=True,
+        job_types_resolved=True,
+        activity_text_available=True,
+        required_or_preferred_text_available=True,
+        boundary_resolved=True,
+        track_resolved=True,
+        text_minimum_met=True,
+        duty_text_available=True,
+        mappable_task_sentence_available=True,
+        external_apply=True,
+        external_detail_only=False,
+    )
+    assert flags["rq2EligibleFlag"] is True
+    assert flags["ncsEligibleFlag"] is True
+    assert json.loads(flags["rq2ExclusionReasonsJson"]) == []

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from copy import deepcopy
+import json
 from typing import Any, Iterable
 
 
@@ -59,8 +60,8 @@ def parse_apq_entries(payload: dict[str, Any]) -> list[dict[str, Any]]:
     for source in entries:
         row = {field: deepcopy(source.get(field)) for field in APQ_ENTRY_FIELDS if field != "manager"}
         row["activityTypeId"] = source.get("activityTypeID")
-        row["jobTypesRaw"] = deepcopy(source.get("jobTypes") or [])
+        job_types = deepcopy(source.get("jobTypes") or [])
+        row["jobTypesRawJson"] = json.dumps(job_types, ensure_ascii=False, sort_keys=True)
         row["managerMasked"] = mask_manager(source.get("manager"))
         parsed.append(row)
     return parsed
-

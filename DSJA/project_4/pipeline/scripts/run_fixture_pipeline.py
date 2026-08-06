@@ -87,7 +87,18 @@ def run() -> dict[str, object]:
     labels = pd.DataFrame(label_rows)
     matches = pd.DataFrame(match_rows)
     units = pd.DataFrame(payload["ncsUnits"])
-    posting_mart = build_posting_analysis_mart(postings, tracks, labels, matches, units)
+    lineage = {
+        "contractVersion": "UNCONTRACTED",
+        "crawlReleaseId": "NONE",
+        "dataVersion": payload["fixtureVersion"],
+        "parseVersion": "fixture-parse-v2",
+        "labelVersion": "fixture-label-v2",
+        "ncsMapVersion": "fixture-ncs-v2",
+        "dedupVersion": "fixture-dedup-v2",
+    }
+    posting_mart = build_posting_analysis_mart(
+        postings, tracks, labels, matches, units, lineage=lineage
+    )
     time_series = build_time_series_mart(posting_mart)
 
     marts_dir = PIPELINE_ROOT / "data/marts"
@@ -97,7 +108,7 @@ def run() -> dict[str, object]:
     posting_mart.to_parquet(posting_path, index=False)
     time_series.to_parquet(time_path, index=False)
 
-    database = PIPELINE_ROOT / "data/warehouse/p4.duckdb"
+    database = PIPELINE_ROOT / "data/warehouse/p4.development.duckdb"
     bootstrap_development_warehouse(database)
     raw_columns = [
         "postingRawId", "sourcePostingId", "sourceUrl", "fetchedAt", "rawSha256",
@@ -129,7 +140,7 @@ def run() -> dict[str, object]:
         "dataProvenance": payload["fixtureType"],
         "dataVersion": payload["fixtureVersion"],
         "empiricalAnalysisAllowed": False,
-        "contract": contract_bundle_status(PIPELINE_ROOT.parent / "shared/contracts/P4_CONTRACT_v2.1.0"),
+        "contract": contract_bundle_status(PIPELINE_ROOT.parent / "shared/contracts/P4_CONTRACT_v2.1.2"),
         "crawlReleaseCount": len(find_crawl_releases(PIPELINE_ROOT.parent)),
         "rows": {
             "raw": len(raw),

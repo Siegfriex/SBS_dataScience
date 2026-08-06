@@ -23,7 +23,7 @@ def test_fixture_pipeline_builds_valid_local_artifacts():
     assert posting["trackId"].duplicated().sum() == 0
     assert time_series["metricId"].duplicated().sum() == 0
     assert posting["highDemandScore"].isna().all()
-    connection = duckdb.connect(str(PIPELINE_ROOT / "data/warehouse/p4.duckdb"), read_only=True)
+    connection = duckdb.connect(str(PIPELINE_ROOT / "data/warehouse/p4.development.duckdb"), read_only=True)
     try:
         assert connection.execute("SELECT COUNT(*) FROM mart.posting_analysis").fetchone()[0] == len(posting)
     finally:

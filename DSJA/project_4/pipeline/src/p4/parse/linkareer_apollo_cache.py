@@ -72,6 +72,6 @@ def extract_activity(cache: dict[str, Any], activity_id: str) -> dict[str, Any]:
         "activityTextAvailableFlag": bool(activity_text_html and activity_text_html.strip()),
         "externalApplyUrl": external_url,
         "externalAtsDomain": domain,
+        "externalApplyFlag": bool(external_url),
         "externalDetailOnlyFlag": bool(external_url and not activity_text_html),
     }
-

@@ -40,12 +40,13 @@ CREATE TABLE IF NOT EXISTS core.posting_normalized (
     bodyText VARCHAR,
     postingKind VARCHAR,
     activityTypeId VARCHAR,
-    jobTypesRaw JSON,
+    jobTypesRawJson JSON,
     dutiesRawJson JSON,
     activityTextHtml VARCHAR,
     activityTextAvailableFlag BOOLEAN NOT NULL,
     externalApplyUrl VARCHAR,
     externalAtsDomain VARCHAR,
+    externalApplyFlag BOOLEAN NOT NULL,
     externalDetailOnlyFlag BOOLEAN NOT NULL,
     jobTypeConflictFlag BOOLEAN NOT NULL,
     reviewFlag BOOLEAN NOT NULL,
@@ -56,6 +57,7 @@ CREATE TABLE IF NOT EXISTS core.posting_normalized (
     rq2EligibleFlag BOOLEAN NOT NULL,
     ncsEligibleFlag BOOLEAN NOT NULL,
     rq2ExclusionReason VARCHAR,
+    rq2ExclusionReasonsJson JSON,
     canonicalRecordFlag BOOLEAN NOT NULL,
     duplicateGroupId VARCHAR
 );
@@ -126,6 +128,13 @@ CREATE TABLE IF NOT EXISTS ncs.posting_ncs_match (
 
 CREATE TABLE IF NOT EXISTS mart.posting_analysis (
     trackId VARCHAR PRIMARY KEY,
+    contractVersion VARCHAR NOT NULL,
+    crawlReleaseId VARCHAR NOT NULL,
+    dataVersion VARCHAR NOT NULL,
+    parseVersion VARCHAR NOT NULL,
+    labelVersion VARCHAR NOT NULL,
+    ncsMapVersion VARCHAR NOT NULL,
+    dedupVersion VARCHAR NOT NULL,
     postingId VARCHAR NOT NULL,
     canonicalPostingId VARCHAR NOT NULL,
     periodMonth DATE NOT NULL,
@@ -138,9 +147,11 @@ CREATE TABLE IF NOT EXISTS mart.posting_analysis (
     ncsEligibleFlag BOOLEAN NOT NULL,
     canonicalRecordFlag BOOLEAN NOT NULL,
     activityTextAvailableFlag BOOLEAN NOT NULL,
+    externalApplyFlag BOOLEAN NOT NULL,
     externalDetailOnlyFlag BOOLEAN NOT NULL,
     jobTypeConflictFlag BOOLEAN NOT NULL,
     rq2ExclusionReason VARCHAR,
+    rq2ExclusionReasonsJson JSON,
     trackType VARCHAR NOT NULL,
     careerClass VARCHAR,
     internAccessClass VARCHAR,
@@ -179,8 +190,10 @@ CREATE TABLE IF NOT EXISTS mart.time_series (
     ,rq1EligibilityRate DOUBLE
     ,rq2EligibilityRate DOUBLE
     ,ncsEligibilityRate DOUBLE
-    ,externalAtsOnlyShare DOUBLE
+    ,externalApplyShare DOUBLE
+    ,externalDetailOnlyShare DOUBLE
     ,activityTextAvailabilityRate DOUBLE
+    ,jobTypeConflictRate DOUBLE
 );
 
 CREATE TABLE IF NOT EXISTS qa.check_result (
@@ -194,12 +207,13 @@ CREATE TABLE IF NOT EXISTS qa.check_result (
 );
 
 ALTER TABLE core.posting_normalized ADD COLUMN IF NOT EXISTS activityTypeId VARCHAR;
-ALTER TABLE core.posting_normalized ADD COLUMN IF NOT EXISTS jobTypesRaw JSON;
+ALTER TABLE core.posting_normalized ADD COLUMN IF NOT EXISTS jobTypesRawJson JSON;
 ALTER TABLE core.posting_normalized ADD COLUMN IF NOT EXISTS dutiesRawJson JSON;
 ALTER TABLE core.posting_normalized ADD COLUMN IF NOT EXISTS activityTextHtml VARCHAR;
 ALTER TABLE core.posting_normalized ADD COLUMN IF NOT EXISTS activityTextAvailableFlag BOOLEAN DEFAULT FALSE;
 ALTER TABLE core.posting_normalized ADD COLUMN IF NOT EXISTS externalApplyUrl VARCHAR;
 ALTER TABLE core.posting_normalized ADD COLUMN IF NOT EXISTS externalAtsDomain VARCHAR;
+ALTER TABLE core.posting_normalized ADD COLUMN IF NOT EXISTS externalApplyFlag BOOLEAN DEFAULT FALSE;
 ALTER TABLE core.posting_normalized ADD COLUMN IF NOT EXISTS externalDetailOnlyFlag BOOLEAN DEFAULT FALSE;
 ALTER TABLE core.posting_normalized ADD COLUMN IF NOT EXISTS jobTypeConflictFlag BOOLEAN DEFAULT FALSE;
 ALTER TABLE core.posting_normalized ADD COLUMN IF NOT EXISTS reviewFlag BOOLEAN DEFAULT FALSE;
@@ -209,20 +223,32 @@ ALTER TABLE core.posting_normalized ADD COLUMN IF NOT EXISTS rq1EligibleFlag BOO
 ALTER TABLE core.posting_normalized ADD COLUMN IF NOT EXISTS rq2EligibleFlag BOOLEAN DEFAULT FALSE;
 ALTER TABLE core.posting_normalized ADD COLUMN IF NOT EXISTS ncsEligibleFlag BOOLEAN DEFAULT FALSE;
 ALTER TABLE core.posting_normalized ADD COLUMN IF NOT EXISTS rq2ExclusionReason VARCHAR;
+ALTER TABLE core.posting_normalized ADD COLUMN IF NOT EXISTS rq2ExclusionReasonsJson JSON;
 
+ALTER TABLE mart.posting_analysis ADD COLUMN IF NOT EXISTS contractVersion VARCHAR DEFAULT 'UNCONTRACTED';
+ALTER TABLE mart.posting_analysis ADD COLUMN IF NOT EXISTS crawlReleaseId VARCHAR DEFAULT 'NONE';
+ALTER TABLE mart.posting_analysis ADD COLUMN IF NOT EXISTS dataVersion VARCHAR DEFAULT 'generated-structural-fixture-v2';
+ALTER TABLE mart.posting_analysis ADD COLUMN IF NOT EXISTS parseVersion VARCHAR DEFAULT 'fixture-parse-v2';
+ALTER TABLE mart.posting_analysis ADD COLUMN IF NOT EXISTS labelVersion VARCHAR DEFAULT 'fixture-label-v2';
+ALTER TABLE mart.posting_analysis ADD COLUMN IF NOT EXISTS ncsMapVersion VARCHAR DEFAULT 'fixture-ncs-v2';
+ALTER TABLE mart.posting_analysis ADD COLUMN IF NOT EXISTS dedupVersion VARCHAR DEFAULT 'fixture-dedup-v2';
 ALTER TABLE mart.posting_analysis ADD COLUMN IF NOT EXISTS rq1EligibleFlag BOOLEAN DEFAULT FALSE;
 ALTER TABLE mart.posting_analysis ADD COLUMN IF NOT EXISTS rq2EligibleFlag BOOLEAN DEFAULT FALSE;
 ALTER TABLE mart.posting_analysis ADD COLUMN IF NOT EXISTS ncsEligibleFlag BOOLEAN DEFAULT FALSE;
 ALTER TABLE mart.posting_analysis ADD COLUMN IF NOT EXISTS activityTextAvailableFlag BOOLEAN DEFAULT FALSE;
+ALTER TABLE mart.posting_analysis ADD COLUMN IF NOT EXISTS externalApplyFlag BOOLEAN DEFAULT FALSE;
 ALTER TABLE mart.posting_analysis ADD COLUMN IF NOT EXISTS externalDetailOnlyFlag BOOLEAN DEFAULT FALSE;
 ALTER TABLE mart.posting_analysis ADD COLUMN IF NOT EXISTS jobTypeConflictFlag BOOLEAN DEFAULT FALSE;
 ALTER TABLE mart.posting_analysis ADD COLUMN IF NOT EXISTS rq2ExclusionReason VARCHAR;
+ALTER TABLE mart.posting_analysis ADD COLUMN IF NOT EXISTS rq2ExclusionReasonsJson JSON;
 
 ALTER TABLE mart.time_series ADD COLUMN IF NOT EXISTS rq1EligibilityRate DOUBLE;
 ALTER TABLE mart.time_series ADD COLUMN IF NOT EXISTS rq2EligibilityRate DOUBLE;
 ALTER TABLE mart.time_series ADD COLUMN IF NOT EXISTS ncsEligibilityRate DOUBLE;
-ALTER TABLE mart.time_series ADD COLUMN IF NOT EXISTS externalAtsOnlyShare DOUBLE;
+ALTER TABLE mart.time_series ADD COLUMN IF NOT EXISTS externalApplyShare DOUBLE;
+ALTER TABLE mart.time_series ADD COLUMN IF NOT EXISTS externalDetailOnlyShare DOUBLE;
 ALTER TABLE mart.time_series ADD COLUMN IF NOT EXISTS activityTextAvailabilityRate DOUBLE;
+ALTER TABLE mart.time_series ADD COLUMN IF NOT EXISTS jobTypeConflictRate DOUBLE;
 """
 
 

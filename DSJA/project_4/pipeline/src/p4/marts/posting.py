@@ -5,6 +5,13 @@ import pandas as pd
 
 POSTING_MART_COLUMNS = [
     "trackId",
+    "contractVersion",
+    "crawlReleaseId",
+    "dataVersion",
+    "parseVersion",
+    "labelVersion",
+    "ncsMapVersion",
+    "dedupVersion",
     "postingId",
     "canonicalPostingId",
     "periodMonth",
@@ -17,9 +24,11 @@ POSTING_MART_COLUMNS = [
     "ncsEligibleFlag",
     "canonicalRecordFlag",
     "activityTextAvailableFlag",
+    "externalApplyFlag",
     "externalDetailOnlyFlag",
     "jobTypeConflictFlag",
     "rq2ExclusionReason",
+    "rq2ExclusionReasonsJson",
     "trackType",
     "careerClass",
     "internAccessClass",
@@ -39,7 +48,19 @@ def build_posting_analysis_mart(
     matches: pd.DataFrame | None = None,
     ncs_units: pd.DataFrame | None = None,
     cohort_type: str = "coreAiIt",
+    lineage: dict[str, str] | None = None,
 ) -> pd.DataFrame:
+    required_lineage = {
+        "contractVersion",
+        "crawlReleaseId",
+        "dataVersion",
+        "parseVersion",
+        "labelVersion",
+        "ncsMapVersion",
+        "dedupVersion",
+    }
+    if lineage is None or any(not lineage.get(field) for field in required_lineage):
+        raise ValueError(f"posting mart requires lineage fields: {sorted(required_lineage)}")
     if tracks["trackId"].duplicated().any():
         raise ValueError("postingTrack grain violation: duplicate trackId")
     merged = tracks.merge(
@@ -54,9 +75,11 @@ def build_posting_analysis_mart(
                 "ncsEligibleFlag",
                 "canonicalRecordFlag",
                 "activityTextAvailableFlag",
+                "externalApplyFlag",
                 "externalDetailOnlyFlag",
                 "jobTypeConflictFlag",
                 "rq2ExclusionReason",
+                "rq2ExclusionReasonsJson",
             ]
         ],
         on="postingId",
@@ -94,6 +117,8 @@ def build_posting_analysis_mart(
         merged["ncsMatchScore"] = pd.NA
 
     merged["cohortType"] = cohort_type
+    for field in required_lineage:
+        merged[field] = lineage[field]
     merged["jobCodeLevel"] = merged["jobCodeLevel"].fillna("unknown")
     merged["jobCode"] = merged["jobCode"].fillna("unknown")
     merged["highDemandScore"] = pd.NA

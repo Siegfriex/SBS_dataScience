@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime
 from typing import Any
+import json
 
 import pandas as pd
 
@@ -29,25 +30,37 @@ def normalize_posting(raw: dict[str, Any]) -> dict[str, Any]:
         posted_at = ensure_seoul_datetime(parsed.to_pydatetime())
     posting_kind = normalize(raw.get("postingKind"))
     required_source_present = bool(source_url and raw.get("rawSha256") and raw.get("postingRawId"))
+    job_types_raw_json = raw.get("jobTypesRawJson") or "[]"
+    try:
+        job_types = json.loads(job_types_raw_json) if isinstance(job_types_raw_json, str) else job_types_raw_json
+    except json.JSONDecodeError:
+        job_types = []
     job_type_resolution = resolve_job_types(
-        raw.get("jobTypesRaw") or [],
+        job_types or [],
         raw.get("dutiesJobTypesRaw") or [],
         raw.get("detailTags") or [],
         title,
         body,
     )
+    external_apply = bool(raw.get("externalApplyFlag", raw.get("externalApplyUrl")))
     external_detail_only = bool(raw.get("externalDetailOnlyFlag"))
+    activity_text_available = bool(raw.get("activityTextAvailableFlag", body))
     boundary_resolved = any(token in body for token in ("자격요건", "필수요건", "우대사항", "우대요건"))
     requirement_text = any(token in body for token in ("자격요건", "필수요건", "지원자격", "우대사항", "우대요건"))
     duty_text = any(token in body for token in ("담당업무", "주요업무", "직무내용", "수행업무"))
     eligibility = eligibility_flags(
         posting_kind=posting_kind,
         posted_at_available=posted_at is not None,
+        source_integrity_available=required_source_present,
         job_types_resolved=bool(job_type_resolution["resolvedJobTypes"]),
+        activity_text_available=activity_text_available,
         required_or_preferred_text_available=requirement_text,
-        track_or_boundary_resolved=boundary_resolved,
+        boundary_resolved=boundary_resolved,
+        track_resolved=bool(job_type_resolution["resolvedJobTypes"]),
+        text_minimum_met=len(body) >= MIN_BODY_LENGTH,
         duty_text_available=duty_text,
         mappable_task_sentence_available=duty_text and len(body) >= MIN_BODY_LENGTH,
+        external_apply=external_apply,
         external_detail_only=external_detail_only,
     )
     eligibility["postingEligibleFlag"] = bool(
@@ -72,12 +85,13 @@ def normalize_posting(raw: dict[str, Any]) -> dict[str, Any]:
         "bodyText": body,
         "postingKind": posting_kind,
         "activityTypeId": raw.get("activityTypeId", raw.get("activityTypeID")),
-        "jobTypesRaw": raw.get("jobTypesRaw"),
+        "jobTypesRawJson": job_types_raw_json,
         "dutiesRawJson": raw.get("dutiesRawJson"),
         "activityTextHtml": raw.get("activityTextHtml"),
-        "activityTextAvailableFlag": bool(raw.get("activityTextAvailableFlag", body)),
+        "activityTextAvailableFlag": activity_text_available,
         "externalApplyUrl": raw.get("externalApplyUrl"),
         "externalAtsDomain": raw.get("externalAtsDomain"),
+        "externalApplyFlag": external_apply,
         "externalDetailOnlyFlag": external_detail_only,
         "jobTypeConflictFlag": bool(raw.get("jobTypeConflictFlag", job_type_resolution["jobTypeConflictFlag"])),
         "reviewFlag": bool(raw.get("reviewFlag", job_type_resolution["reviewFlag"])),

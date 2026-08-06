@@ -1,15 +1,40 @@
 import pandas as pd
+import pytest
 
 from p4.marts.posting import build_posting_analysis_mart, validate_posting_analysis_mart
 from p4.marts.time_series import build_time_series_mart
 
 
+def lineage():
+    return {
+        "contractVersion": "UNCONTRACTED",
+        "crawlReleaseId": "NONE",
+        "dataVersion": "fixture-v2",
+        "parseVersion": "parse-v2",
+        "labelVersion": "label-v2",
+        "ncsMapVersion": "ncs-v2",
+        "dedupVersion": "dedup-v2",
+    }
+
+
 def fixture_frames():
+    base = {
+        "periodMonth": pd.Timestamp("2026-01-01").date(),
+        "postingEligibleFlag": True,
+        "rq1EligibleFlag": True,
+        "rq2EligibleFlag": True,
+        "ncsEligibleFlag": True,
+        "activityTextAvailableFlag": True,
+        "externalDetailOnlyFlag": False,
+        "jobTypeConflictFlag": False,
+        "rq2ExclusionReason": None,
+        "rq2ExclusionReasonsJson": "[]",
+    }
     postings = pd.DataFrame(
         [
-            {"postingId": "P1", "canonicalPostingId": "P1", "periodMonth": pd.Timestamp("2026-01-01").date(), "postingEligibleFlag": True, "rq1EligibleFlag": True, "rq2EligibleFlag": True, "ncsEligibleFlag": True, "canonicalRecordFlag": True, "activityTextAvailableFlag": True, "externalDetailOnlyFlag": False, "jobTypeConflictFlag": False, "rq2ExclusionReason": None},
-            {"postingId": "P2", "canonicalPostingId": "P1", "periodMonth": pd.Timestamp("2026-01-01").date(), "postingEligibleFlag": True, "rq1EligibleFlag": True, "rq2EligibleFlag": True, "ncsEligibleFlag": True, "canonicalRecordFlag": False, "activityTextAvailableFlag": True, "externalDetailOnlyFlag": False, "jobTypeConflictFlag": False, "rq2ExclusionReason": None},
-            {"postingId": "P3", "canonicalPostingId": "P3", "periodMonth": pd.Timestamp("2026-01-01").date(), "postingEligibleFlag": True, "rq1EligibleFlag": True, "rq2EligibleFlag": True, "ncsEligibleFlag": True, "canonicalRecordFlag": True, "activityTextAvailableFlag": True, "externalDetailOnlyFlag": False, "jobTypeConflictFlag": False, "rq2ExclusionReason": None},
+            {**base, "postingId": "P1", "canonicalPostingId": "P1", "canonicalRecordFlag": True, "externalApplyFlag": True},
+            {**base, "postingId": "P2", "canonicalPostingId": "P1", "canonicalRecordFlag": False, "externalApplyFlag": True},
+            {**base, "postingId": "P3", "canonicalPostingId": "P3", "canonicalRecordFlag": True, "externalApplyFlag": False},
         ]
     )
     tracks = pd.DataFrame(
@@ -36,23 +61,30 @@ def fixture_frames():
     return postings, tracks, labels, matches, units
 
 
-def test_posting_mart_grain_and_reserved_score():
-    mart = build_posting_analysis_mart(*fixture_frames())
+def test_posting_mart_grain_reserved_score_and_lineage():
+    mart = build_posting_analysis_mart(*fixture_frames(), lineage=lineage())
     check = validate_posting_analysis_mart(mart)
     assert check["passed"] is True
     assert len(mart) == 3
     assert mart["highDemandScore"].isna().all()
+    assert set(mart["contractVersion"]) == {"UNCONTRACTED"}
+    assert set(mart["crawlReleaseId"]) == {"NONE"}
+
+
+def test_posting_mart_requires_complete_lineage():
+    with pytest.raises(ValueError, match="lineage fields"):
+        build_posting_analysis_mart(*fixture_frames())
 
 
 def test_time_series_dedup_branches_from_same_eligible_base():
-    mart = build_posting_analysis_mart(*fixture_frames())
+    mart = build_posting_analysis_mart(*fixture_frames(), lineage=lineage())
     result = build_time_series_mart(mart).set_index("dedupApplied")
     assert result.loc[False, "totalValidPostingCount"] == 3
     assert result.loc[True, "totalValidPostingCount"] == 2
 
 
-def test_experienced_intern_denominator_is_all_resolved_interns_not_ncs_mapped():
-    mart = build_posting_analysis_mart(*fixture_frames())
+def test_experienced_intern_denominator_and_coverage_metrics():
+    mart = build_posting_analysis_mart(*fixture_frames(), lineage=lineage())
     result = build_time_series_mart(mart).set_index("dedupApplied")
     assert result.loc[False, "experiencedInternShare"] == 0.5
     assert result.loc[False, "restrictedInternShare"] == 0.5
@@ -60,3 +92,7 @@ def test_experienced_intern_denominator_is_all_resolved_interns_not_ncs_mapped()
     assert result.loc[False, "rq1EligibilityRate"] == 1.0
     assert result.loc[False, "rq2EligibilityRate"] == 1.0
     assert result.loc[False, "activityTextAvailabilityRate"] == 1.0
+    assert result.loc[False, "externalApplyShare"] == 2 / 3
+    assert result.loc[False, "externalDetailOnlyShare"] == 0.0
+    assert result.loc[False, "jobTypeConflictRate"] == 0.0
+

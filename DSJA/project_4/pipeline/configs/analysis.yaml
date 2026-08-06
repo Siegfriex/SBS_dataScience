@@ -1,6 +1,15 @@
-interventionDate: 2023-01-01
+primaryWindow:
+  start: 2020-01-01
+  end: 2026-07-31
+robustnessWindow:
+  start: 2021-01-01
+  end: 2026-07-31
+excludedPrimaryYears: [2019]
+interventionDates:
+  - 2022-12-01
+  - 2023-01-01
+  - 2023-04-01
 monthlySeasonality: true
 primaryStandardErrors: HAC
 primaryHacMaxLags: 12
 panelStandardErrors: jobCodeCluster
-

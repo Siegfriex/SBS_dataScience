@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-import math
-
 import pandas as pd
 
 from p4.common.keys import make_metric_id
@@ -64,8 +62,10 @@ def _metrics(group: pd.DataFrame, dedup_applied: bool, low_confidence_threshold:
 
     base_posting_count = base_eligible[posting_key].nunique()
     rq1_posting_count = rq1_eligible[posting_key].nunique()
-    external_posting_count = base_eligible.loc[base_eligible["externalDetailOnlyFlag"].astype(bool), posting_key].nunique()
+    external_apply_count = base_eligible.loc[base_eligible["externalApplyFlag"].astype(bool), posting_key].nunique()
+    external_detail_only_count = base_eligible.loc[base_eligible["externalDetailOnlyFlag"].astype(bool), posting_key].nunique()
     activity_text_count = base_eligible.loc[base_eligible["activityTextAvailableFlag"].astype(bool), posting_key].nunique()
+    job_type_conflict_count = base_eligible.loc[base_eligible["jobTypeConflictFlag"].astype(bool), posting_key].nunique()
 
     return {
         "totalValidPostingCount": total,
@@ -88,8 +88,10 @@ def _metrics(group: pd.DataFrame, dedup_applied: bool, low_confidence_threshold:
         "rq1EligibilityRate": _safe_rate(rq1_posting_count, base_posting_count),
         "rq2EligibilityRate": _safe_rate(rq2_tracks["trackId"].nunique(), base_eligible["trackId"].nunique()),
         "ncsEligibilityRate": _safe_rate(ncs_tracks["trackId"].nunique(), base_eligible["trackId"].nunique()),
-        "externalAtsOnlyShare": _safe_rate(external_posting_count, base_posting_count),
+        "externalApplyShare": _safe_rate(external_apply_count, base_posting_count),
+        "externalDetailOnlyShare": _safe_rate(external_detail_only_count, base_posting_count),
         "activityTextAvailabilityRate": _safe_rate(activity_text_count, base_posting_count),
+        "jobTypeConflictRate": _safe_rate(job_type_conflict_count, base_posting_count),
     }
 
 

@@ -1,9 +1,20 @@
 from __future__ import annotations
 
+import json
 from typing import Any, Iterable
 
 from p4.common.keys import normalize
 
+
+RQ2_EXCLUSION_REASONS = {
+    "activityTextMissing",
+    "externalAtsBodyUnavailable",
+    "boundaryUnresolved",
+    "trackUnresolved",
+    "textTooShort",
+    "nonRecruitPosting",
+    "other",
+}
 
 JOB_TYPE_TERMS = {
     "entry": ("신입", "경력무관"),
@@ -55,39 +66,59 @@ def eligibility_flags(
     *,
     posting_kind: str,
     posted_at_available: bool,
+    source_integrity_available: bool = True,
     job_types_resolved: bool,
+    activity_text_available: bool,
     required_or_preferred_text_available: bool,
-    track_or_boundary_resolved: bool,
+    boundary_resolved: bool,
+    track_resolved: bool,
+    text_minimum_met: bool,
     duty_text_available: bool,
     mappable_task_sentence_available: bool,
+    external_apply: bool,
     external_detail_only: bool,
 ) -> dict[str, Any]:
-    posting_eligible = normalize(posting_kind) == "recruit" and posted_at_available
+    del external_apply  # external application alone is not an exclusion condition.
+    is_recruit = normalize(posting_kind) == "recruit"
+    posting_eligible = is_recruit and posted_at_available and source_integrity_available
     rq1 = posting_eligible and job_types_resolved
     rq2 = bool(
         posting_eligible
+        and activity_text_available
         and required_or_preferred_text_available
-        and track_or_boundary_resolved
+        and boundary_resolved
+        and track_resolved
+        and text_minimum_met
         and not external_detail_only
     )
     ncs = bool(
         posting_eligible
+        and activity_text_available
         and duty_text_available
         and mappable_task_sentence_available
         and not external_detail_only
     )
-    reason = None
-    if external_detail_only:
-        reason = "externalAtsBodyUnavailable"
-    elif posting_eligible and not required_or_preferred_text_available:
-        reason = "requirementTextUnavailable"
-    elif posting_eligible and not track_or_boundary_resolved:
-        reason = "trackOrBoundaryUnresolved"
+
+    reasons: list[str] = []
+    if not is_recruit:
+        reasons.append("nonRecruitPosting")
+    if posting_eligible:
+        if external_detail_only:
+            reasons.append("externalAtsBodyUnavailable")
+        if not activity_text_available:
+            reasons.append("activityTextMissing")
+        if not boundary_resolved:
+            reasons.append("boundaryUnresolved")
+        if not track_resolved:
+            reasons.append("trackUnresolved")
+        if not text_minimum_met:
+            reasons.append("textTooShort")
+    reasons = list(dict.fromkeys(reason for reason in reasons if reason in RQ2_EXCLUSION_REASONS))
     return {
         "postingEligibleFlag": posting_eligible,
         "rq1EligibleFlag": rq1,
         "rq2EligibleFlag": rq2,
         "ncsEligibleFlag": ncs,
-        "rq2ExclusionReason": reason,
+        "rq2ExclusionReason": reasons[0] if reasons else None,
+        "rq2ExclusionReasonsJson": json.dumps(reasons, ensure_ascii=False),
     }
-
