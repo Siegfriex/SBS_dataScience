@@ -1,0 +1,2 @@
+defectId,severity,family,status,evidence,requiredAction
+AUTOMATION-P1-POLICY-INCOMPLETE,P1,AUTOMATION_POLICY,OPEN,AUTOMATION_POLICY_FILE_MISSING,Provide a complete automation_policy.yaml; do not infer budgets or scopes

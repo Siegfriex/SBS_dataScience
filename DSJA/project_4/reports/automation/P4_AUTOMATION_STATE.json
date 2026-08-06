@@ -1,0 +1,47 @@
+{
+  "agentId": "P4-RECURSIVE-CANARY-M2-ORCHESTRATOR",
+  "state": "BLOCKED_BY_EVIDENCE",
+  "tier": "TIER0",
+  "iterationId": "P4_AUTO_BOOTSTRAP_20260807_01",
+  "updatedAtUtc": "2026-08-06T22:30:50.273324Z",
+  "automationPolicyPath": "automation_policy.yaml",
+  "automationPolicyStatus": "INCOMPLETE",
+  "automationPolicyErrors": [
+    "AUTOMATION_POLICY_FILE_MISSING"
+  ],
+  "blockedReason": "AUTOMATION_POLICY_INCOMPLETE",
+  "latestAcceptedBaseSha": "e32e3e21a9e03869980f16721c67fccf42a96160",
+  "a1CanonicalHandoff": {
+    "branch": "agent/p4-a1-canary-crawl-v1",
+    "headCommit": "13205c11e7de3dfc7b005b0fde16197281eb857f",
+    "runId": "CANARY_T0_20260807_03",
+    "artifactCount": 16,
+    "status": "EVIDENCE_AVAILABLE_NOT_CONSUMED_BY_AUTOMATION_LOOP"
+  },
+  "a3ExistingAcceptance": {
+    "branch": "integration/p4-canary-acceptance-v1",
+    "headCommit": "e32e3e21a9e03869980f16721c67fccf42a96160",
+    "status": "EXISTING_REACCEPTANCE_AVAILABLE"
+  },
+  "a5Status": "NOT_REQUIRED",
+  "approvalStatus": "NOT_EVALUATED",
+  "networkCalls": 0,
+  "externalAtsTransportCalls": 0,
+  "credentialedApiCalls": 0,
+  "acceptedScope": null,
+  "nextRequiredAction": "PROVIDE_COMPLETE_AUTOMATION_POLICY",
+  "fixedDefects": [
+    "CANARY-P1-EVIDENCE-BUNDLE"
+  ],
+  "openDefects": [
+    "AUTOMATION-P1-POLICY-INCOMPLETE",
+    "P1-UNIFIED-001",
+    "P1-UNIFIED-002",
+    "P1-UNIFIED-003",
+    "P1-UNIFIED-004",
+    "P1-UNIFIED-005"
+  ],
+  "m2FullCrawlEligible": false,
+  "crawlReleaseEligible": false,
+  "analysisEligible": false
+}

@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:p4:canary-automation:automation-policy:v1",
+  "title": "P4 Recursive Canary Automation Policy",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "maxAutoRepairIterationsPerTier",
+    "maxCanaryRunsPerScope",
+    "allowedBranchPrefixes",
+    "allowedWriteRoots",
+    "requiredA1HandoffArtifacts",
+    "requiredA3AcceptanceArtifacts",
+    "requiredA5AuditArtifacts",
+    "canaryTierDefinitions",
+    "approvalSchemaVersion",
+    "sourcePolicySchemaVersion"
+  ],
+  "properties": {
+    "maxAutoRepairIterationsPerTier": {"type": "integer", "minimum": 1},
+    "maxCanaryRunsPerScope": {"type": "integer", "minimum": 1},
+    "allowedBranchPrefixes": {"$ref": "#/$defs/nonEmptyStringArray"},
+    "allowedWriteRoots": {"$ref": "#/$defs/nonEmptyStringArray"},
+    "requiredA1HandoffArtifacts": {"$ref": "#/$defs/nonEmptyStringArray"},
+    "requiredA3AcceptanceArtifacts": {"$ref": "#/$defs/nonEmptyStringArray"},
+    "requiredA5AuditArtifacts": {"$ref": "#/$defs/nonEmptyStringArray"},
+    "canaryTierDefinitions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["TIER0", "TIER1", "TIER2", "TIER3", "TIER4"],
+      "properties": {
+        "TIER0": {"type": "object", "minProperties": 1},
+        "TIER1": {"type": "object", "minProperties": 1},
+        "TIER2": {"type": "object", "minProperties": 1},
+        "TIER3": {"type": "object", "minProperties": 1},
+        "TIER4": {"type": "object", "minProperties": 1}
+      }
+    },
+    "approvalSchemaVersion": {"type": "string", "minLength": 1},
+    "sourcePolicySchemaVersion": {"type": "string", "minLength": 1}
+  },
+  "$defs": {
+    "nonEmptyStringArray": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    }
+  }
+}
