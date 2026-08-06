@@ -1,0 +1,14 @@
+﻿category,committedHeadTestCount,workingTreeAdditionalCount,testPaths,status,gap
+contract,30,4,tests/integration/test_fixture_pipeline.py|tests/unit/test_common.py|tests/unit/test_contracts.py|tests/unit/test_duty_input_handoff.py|tests/unit/test_key_strategies.py|tests/unit/test_provenance.py,PASS,
+warehouse,4,1,tests/integration/test_warehouse.py,PASS,
+parser,7,1,tests/unit/test_linkareer_adapters.py,PASS,
+eligibility,3,0,tests/unit/test_linkareer_adapters.py|tests/unit/test_parse_normalize.py,PASS,
+OCR routing,2,0,tests/unit/test_common.py|tests/unit/test_linkareer_adapters.py,PASS,
+track split,3,0,tests/unit/test_common.py|tests/unit/test_parse_normalize.py,PASS,
+requirement,3,1,tests/unit/test_parse_normalize.py|tests/unit/test_requirements_labels.py,PASS,
+dedup,4,0,tests/unit/test_dedup.py|tests/unit/test_linkareer_adapters.py|tests/unit/test_parse_normalize.py,PASS,
+labels,9,0,tests/unit/test_requirements_labels.py,PASS,
+NCS,12,0,tests/unit/test_ncs.py,PASS,
+mart,4,0,tests/unit/test_marts.py,PASS,
+provenance,12,0,tests/unit/test_analysis.py|tests/unit/test_provenance.py,PASS,
+Notebook,0,0,NO_TEST,MISSING,production notebooks have no functional-call tests
