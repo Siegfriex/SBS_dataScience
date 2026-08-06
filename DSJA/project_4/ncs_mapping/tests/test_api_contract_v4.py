@@ -11,7 +11,7 @@ from p4_ncs.api.registry import load_api_registry
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-FIXTURE_ROOT = Path(__file__).parent / "fixtures" / "api"
+FIXTURE_ROOT = PROJECT_ROOT / "ncs_mapping" / "data" / "raw" / "api_fixtures"
 SCHEMA_ROOT = PROJECT_ROOT / "shared" / "contracts" / "semantic_ncs_reference" / "v4.0" / "schemas"
 
 

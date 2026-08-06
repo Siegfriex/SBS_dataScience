@@ -41,6 +41,9 @@ out/
 
 # Data and generated outputs
 data/raw/
+!DSJA/project_4/ncs_mapping/data/raw/
+!DSJA/project_4/ncs_mapping/data/raw/api_fixtures/
+!DSJA/project_4/ncs_mapping/data/raw/api_fixtures/**
 data/interim/
 data/processed/
 outputs/
