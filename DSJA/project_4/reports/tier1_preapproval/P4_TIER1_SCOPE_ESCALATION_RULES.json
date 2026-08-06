@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "p4-tier1-scope-escalation-v1",
+  "currentState": "AWAIT_TIER1_APPROVAL",
+  "scopeEscalationAutomatic": false,
+  "nextApprovalPacketMayBeProposedOnlyWhen": {
+    "requestResponseConflictCount": 0,
+    "cursorLoopCount": 0,
+    "checkpointResume": "PASS",
+    "terminalPageEvidence": "COMPLETE",
+    "killSwitchBehavior": "PASS",
+    "externalAtsTransportCalls": 0
+  },
+  "tier2PolicyBinding": {
+    "detailSampleSize": 10,
+    "samplingMethod": "deterministic_random_without_replacement",
+    "requiresSeparateUserApproval": true
+  },
+  "networkCalls": 0,
+  "externalAtsTransportCalls": 0
+}

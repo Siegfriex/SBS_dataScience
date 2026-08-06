@@ -1,0 +1,6 @@
+a1Branch,a1Head,candidateScopeId,networkCalls,externalAtsTransportCalls,checkId,expected,observed,status
+agent/p4-a1-canary-tier1-preapproval-v1,c17c7f5bc8c3eb1a9c1d12efb1eeb801f074f61c,T1-INDEX-2026-03-APQ-V1,0,0,INDEX_ONLY,INDEX,INDEX,PASS
+agent/p4-a1-canary-tier1-preapproval-v1,c17c7f5bc8c3eb1a9c1d12efb1eeb801f074f61c,T1-INDEX-2026-03-APQ-V1,0,0,SMALLEST_VIABLE_SCOPE_PROPOSED,"one exact proposal, not approval","{""periodMonths"": [""2026-03""], ""queryOperations"": [""CalendarScreen_ActivityCalendarEntries"", ""CalendarScreen_Activities""]}",PASS
+agent/p4-a1-canary-tier1-preapproval-v1,c17c7f5bc8c3eb1a9c1d12efb1eeb801f074f61c,T1-INDEX-2026-03-APQ-V1,0,0,REQUEST_BUDGET_PROPOSED,>= estimated and not approved,28,PASS
+agent/p4-a1-canary-tier1-preapproval-v1,c17c7f5bc8c3eb1a9c1d12efb1eeb801f074f61c,T1-INDEX-2026-03-APQ-V1,0,0,DETAIL_ASSET_DENY,0/0,0/0,PASS
+agent/p4-a1-canary-tier1-preapproval-v1,c17c7f5bc8c3eb1a9c1d12efb1eeb801f074f61c,T1-INDEX-2026-03-APQ-V1,0,0,NO_NETWORK_DRY_RUN,0,0,PASS

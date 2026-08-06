@@ -6,3 +6,4 @@ P1-UNIFIED-004,P1,INHERITED_M1_5,OPEN,M1.5 reconciliation finding; not repaired 
 P1-UNIFIED-005,P1,INHERITED_M1_5,OPEN,M1.5 reconciliation finding; not repaired by Tier 0 automation,"Keep downstream production, NCS-quality, M3, or analysis gate blocked as applicable"
 AUTOMATION-P1-POLICY-INCOMPLETE,P1,AUTOMATION_POLICY,FIXED,automation_policy.yaml SHA-256 7a558e86f47c7799ee32858df370b1e217eefc0088d3109ebf305475b3aabaef,NONE
 CANARY-P1-EVIDENCE-BUNDLE,P1,LINEAGE,FIXED,16/16 canonical handoff; manifest 6162d3aea6ff3646d4d9cb7ff09d09acf91bbde81a815896096bca82b6f63c42,NONE
+P2-TIER1-PREEXISTING-ABSOLUTE-PATH-LITERALS,P2,PATH_PORTABILITY,OPEN_FINDING,7 historical audit/negative-test absolute-path literals outside new Tier 1 packet tree,Do not consume literals as runtime authority; clean in a separately scoped hygiene change

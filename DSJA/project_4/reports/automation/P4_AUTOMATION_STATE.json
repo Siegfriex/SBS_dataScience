@@ -2,8 +2,8 @@
   "agentId": "P4-RECURSIVE-CANARY-M2-ORCHESTRATOR",
   "state": "AWAIT_TIER1_APPROVAL",
   "tier": "TIER1",
-  "iterationId": "P4_AUTO_T0_20260807_01",
-  "updatedAtUtc": "2026-08-06T23:05:37.507429Z",
+  "iterationId": "P4_AUTO_T1_PREAPPROVAL_20260807_01",
+  "updatedAtUtc": "2026-08-06T23:28:37.895562Z",
   "automationPolicyPath": "automation_policy.yaml",
   "automationPolicySha256": "7a558e86f47c7799ee32858df370b1e217eefc0088d3109ebf305475b3aabaef",
   "automationPolicyStatus": "PASS",
@@ -38,9 +38,32 @@
     "P1-UNIFIED-002",
     "P1-UNIFIED-003",
     "P1-UNIFIED-004",
-    "P1-UNIFIED-005"
+    "P1-UNIFIED-005",
+    "P2-TIER1-PREEXISTING-ABSOLUTE-PATH-LITERALS"
   ],
   "m2FullCrawlEligible": false,
   "crawlReleaseEligible": false,
-  "analysisEligible": false
+  "analysisEligible": false,
+  "a1Status": "TIER1_APPROVAL_PACKET_READY",
+  "a3Status": "TIER1_CANARY_ACCEPTANCE_READY",
+  "tier1Proposal": {
+    "proposalStatus": "PROPOSED_NOT_APPROVED",
+    "candidateScopeId": "T1-INDEX-2026-03-APQ-V1",
+    "candidatePeriodOrQuery": {
+      "periodMonths": [
+        "2026-03"
+      ],
+      "queryOperations": [
+        "CalendarScreen_ActivityCalendarEntries",
+        "CalendarScreen_Activities"
+      ]
+    },
+    "proposedMaxIndexRequests": 28,
+    "estimatedStorageBytes": 8772876,
+    "approvalExpiryRecommendation": "PT2H_AFTER_APPROVAL",
+    "a1Branch": "agent/p4-a1-canary-tier1-preapproval-v1",
+    "a1Head": "c17c7f5bc8c3eb1a9c1d12efb1eeb801f074f61c",
+    "a3HeadBeforeReportCommit": "92c2849b405f99e2003d433c4f78c53fd4e55d62",
+    "a3EvidenceManifestSha256": "c6ab359c80535b221679cff21413caae3cd45cae39933797f88760fd7aa5750b"
+  }
 }
