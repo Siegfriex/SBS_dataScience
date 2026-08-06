@@ -1,0 +1,609 @@
+{
+  "ledgerVersion": "p4-unified-runtime-ledger-v1",
+  "runId": "M1_5_RECONCILIATION_20260807_06",
+  "dataVersion": "reconciliation-20260807.6",
+  "executionHostOrRunnerId": "LOCAL_PROJECT4_SBS_VENV",
+  "productionNetworkCalls": 0,
+  "externalAtsTransportCalls": 0,
+  "credentialedApiCalls": 0,
+  "stageCount": 23,
+  "stages": [
+    {
+      "stageId": "A1-00-RECOVER",
+      "owner": "A1",
+      "runId": "M1_5_RECONCILIATION_20260807_06",
+      "dataVersion": "reconciliation-20260807.6",
+      "executionOrder": 0,
+      "dependencyStageIds": [],
+      "startedAtUtc": "2026-08-06T16:40:29.533212Z",
+      "completedAtUtc": "2026-08-06T16:40:31.231390Z",
+      "executionHostOrRunnerId": "LOCAL_PROJECT4_SBS_VENV",
+      "executionCommandSha256": "55db1082699cf1d83b643d43e2e9214fd14e01cde277ad62b9d3266748b84c59",
+      "sourceNotebookSha256": "c3fe68cf946e432df7610ba78452898c0fe62dfd5f9df8296d314a7990d1a257",
+      "moduleBlobSha256": "eeaef929d65067bd8fc9bc5bd35c79e92a9e0354a9fef458772977fe6dce31f4",
+      "inputManifestSha256": "f58810b38bde7c7e1c69bf1f7000b3931cadf9d4d544f64b9c9c0d27a63bce8e",
+      "outputManifestSha256": "4803f778d38928c0bba5c7afd766d6114a1de05c622becfc658c59371e51e8d8",
+      "status": "SUCCEEDED",
+      "timestampSource": "EXECUTION_WRAPPER_CAPTURED",
+      "nativeEvidencePath": "crawl/runs/notebooks/observed-dev/M1_5_RECONCILIATION_20260807_06_A1/A1-00-RECOVER/stage_manifest.json",
+      "nativeEvidenceSha256": "4803f778d38928c0bba5c7afd766d6114a1de05c622becfc658c59371e51e8d8",
+      "metrics": {
+        "executedStatus": "PASS"
+      }
+    },
+    {
+      "stageId": "A1-01-INDEX",
+      "owner": "A1",
+      "runId": "M1_5_RECONCILIATION_20260807_06",
+      "dataVersion": "reconciliation-20260807.6",
+      "executionOrder": 1,
+      "dependencyStageIds": [
+        "A1-00-RECOVER"
+      ],
+      "startedAtUtc": "2026-08-06T16:40:31.235068Z",
+      "completedAtUtc": "2026-08-06T16:40:32.767359Z",
+      "executionHostOrRunnerId": "LOCAL_PROJECT4_SBS_VENV",
+      "executionCommandSha256": "ee7453c928641148052ce8d76ce4dda2b77ca72c37fb143c4c5a71ba63129b44",
+      "sourceNotebookSha256": "ea3454cca50c8e50b3d18406006f1f4fc83a705ba84134009cd3b42a2e3a95a2",
+      "moduleBlobSha256": "eeaef929d65067bd8fc9bc5bd35c79e92a9e0354a9fef458772977fe6dce31f4",
+      "inputManifestSha256": "f58810b38bde7c7e1c69bf1f7000b3931cadf9d4d544f64b9c9c0d27a63bce8e",
+      "outputManifestSha256": "e5007982377a6bf19a8177d6257f7e99dcf0169f8db023ff1d24cc7ca2e0bbf0",
+      "status": "SUCCEEDED",
+      "timestampSource": "EXECUTION_WRAPPER_CAPTURED",
+      "nativeEvidencePath": "crawl/runs/notebooks/observed-dev/M1_5_RECONCILIATION_20260807_06_A1/A1-01-INDEX/stage_manifest.json",
+      "nativeEvidenceSha256": "e5007982377a6bf19a8177d6257f7e99dcf0169f8db023ff1d24cc7ca2e0bbf0",
+      "metrics": {
+        "executedStatus": "PASS"
+      }
+    },
+    {
+      "stageId": "A1-02-DETAIL",
+      "owner": "A1",
+      "runId": "M1_5_RECONCILIATION_20260807_06",
+      "dataVersion": "reconciliation-20260807.6",
+      "executionOrder": 2,
+      "dependencyStageIds": [
+        "A1-01-INDEX"
+      ],
+      "startedAtUtc": "2026-08-06T16:40:32.770880Z",
+      "completedAtUtc": "2026-08-06T16:40:34.877992Z",
+      "executionHostOrRunnerId": "LOCAL_PROJECT4_SBS_VENV",
+      "executionCommandSha256": "cdcf32b04431b318b94bd9e0ccf24e6e7809e82461e2b65b1fceb93a2fded9e6",
+      "sourceNotebookSha256": "ca713dc03c421ba9ea900fa72062ceba6ef32ac2d7642789c59194a8e8be3de3",
+      "moduleBlobSha256": "eeaef929d65067bd8fc9bc5bd35c79e92a9e0354a9fef458772977fe6dce31f4",
+      "inputManifestSha256": "f58810b38bde7c7e1c69bf1f7000b3931cadf9d4d544f64b9c9c0d27a63bce8e",
+      "outputManifestSha256": "23efc66189de3b6fb63eb414d29e60a71065e1794ae874029773fac085de5759",
+      "status": "SUCCEEDED",
+      "timestampSource": "EXECUTION_WRAPPER_CAPTURED",
+      "nativeEvidencePath": "crawl/runs/notebooks/observed-dev/M1_5_RECONCILIATION_20260807_06_A1/A1-02-DETAIL/stage_manifest.json",
+      "nativeEvidenceSha256": "23efc66189de3b6fb63eb414d29e60a71065e1794ae874029773fac085de5759",
+      "metrics": {
+        "executedStatus": "PASS"
+      }
+    },
+    {
+      "stageId": "A1-03-ASSET",
+      "owner": "A1",
+      "runId": "M1_5_RECONCILIATION_20260807_06",
+      "dataVersion": "reconciliation-20260807.6",
+      "executionOrder": 3,
+      "dependencyStageIds": [
+        "A1-02-DETAIL"
+      ],
+      "startedAtUtc": "2026-08-06T16:40:34.882455Z",
+      "completedAtUtc": "2026-08-06T16:40:36.386533Z",
+      "executionHostOrRunnerId": "LOCAL_PROJECT4_SBS_VENV",
+      "executionCommandSha256": "e0e1391c00377158da1d49809b5e7635a1996db9437a2c775d7884ed7beb1a24",
+      "sourceNotebookSha256": "6baf34bb0daefeb455b0da86e0eba3624a7016d11fb893ecaf46fabd8c2181f2",
+      "moduleBlobSha256": "eeaef929d65067bd8fc9bc5bd35c79e92a9e0354a9fef458772977fe6dce31f4",
+      "inputManifestSha256": "f58810b38bde7c7e1c69bf1f7000b3931cadf9d4d544f64b9c9c0d27a63bce8e",
+      "outputManifestSha256": "82a2e2d31a06055c7d9d575bfbc8b05fdf9cdbb71d257bb9169fe8fc4b1c68a3",
+      "status": "SUCCEEDED",
+      "timestampSource": "EXECUTION_WRAPPER_CAPTURED",
+      "nativeEvidencePath": "crawl/runs/notebooks/observed-dev/M1_5_RECONCILIATION_20260807_06_A1/A1-03-ASSET/stage_manifest.json",
+      "nativeEvidenceSha256": "82a2e2d31a06055c7d9d575bfbc8b05fdf9cdbb71d257bb9169fe8fc4b1c68a3",
+      "metrics": {
+        "executedStatus": "PASS"
+      }
+    },
+    {
+      "stageId": "A1-04-RELEASE",
+      "owner": "A1",
+      "runId": "M1_5_RECONCILIATION_20260807_06",
+      "dataVersion": "reconciliation-20260807.6",
+      "executionOrder": 4,
+      "dependencyStageIds": [
+        "A1-03-ASSET"
+      ],
+      "startedAtUtc": "2026-08-06T16:40:36.389389Z",
+      "completedAtUtc": "2026-08-06T16:40:38.032212Z",
+      "executionHostOrRunnerId": "LOCAL_PROJECT4_SBS_VENV",
+      "executionCommandSha256": "f3ead7d739c1e8e911beef2158a90739439267ccb8c4d1b10940d06d496de6cd",
+      "sourceNotebookSha256": "18b786aae98ceed86b1313bff143af7ea5d2ad023514fe9f5d0ab0159a04718c",
+      "moduleBlobSha256": "eeaef929d65067bd8fc9bc5bd35c79e92a9e0354a9fef458772977fe6dce31f4",
+      "inputManifestSha256": "f58810b38bde7c7e1c69bf1f7000b3931cadf9d4d544f64b9c9c0d27a63bce8e",
+      "outputManifestSha256": "c9804487137d14a7998456990bd629bc0a0ba129ef53506afaadb3164a432b23",
+      "status": "NOT_EVALUATED",
+      "timestampSource": "EXECUTION_WRAPPER_CAPTURED",
+      "nativeEvidencePath": "crawl/runs/notebooks/observed-dev/M1_5_RECONCILIATION_20260807_06_A1/A1-04-RELEASE/stage_manifest.json",
+      "nativeEvidenceSha256": "c9804487137d14a7998456990bd629bc0a0ba129ef53506afaadb3164a432b23",
+      "metrics": {
+        "executedStatus": "EXPECTED_BLOCKED"
+      }
+    },
+    {
+      "stageId": "A2-00-CONTRACT",
+      "owner": "A2",
+      "runId": "M1_5_RECONCILIATION_20260807_06",
+      "dataVersion": "reconciliation-20260807.6",
+      "executionOrder": 5,
+      "dependencyStageIds": [
+        "A1-04-RELEASE"
+      ],
+      "startedAtUtc": "2026-08-06T16:40:38.275081Z",
+      "completedAtUtc": "2026-08-06T16:40:42.455471Z",
+      "executionHostOrRunnerId": "LOCAL_PROJECT4_SBS_VENV",
+      "executionCommandSha256": "4a8f64343715d3853fcd78c773c9f0eb43df2bd0b734f70e53ca7a9f9931d1a4",
+      "sourceNotebookSha256": "86e599f6c822f0cb5da4a149443ea94393aefc29416ec965a3f5e443862e479d",
+      "moduleBlobSha256": "dd80cb5e66e74bba9a5f0994047601313fd7cd87d8438bb7a1bb2f563cb7df4f",
+      "inputManifestSha256": "f58810b38bde7c7e1c69bf1f7000b3931cadf9d4d544f64b9c9c0d27a63bce8e",
+      "outputManifestSha256": "b1573b0b53cf29832a665b5d345f331d7b8d20cca07736227c013333286463b5",
+      "status": "SUCCEEDED",
+      "timestampSource": "EXECUTION_WRAPPER_CAPTURED",
+      "nativeEvidencePath": "pipeline/runs/notebooks/observed-dev/M1_5_RECONCILIATION_20260807_06/artifacts/00ContractAndInputAudit/stage_manifest.json",
+      "nativeEvidenceSha256": "b1573b0b53cf29832a665b5d345f331d7b8d20cca07736227c013333286463b5",
+      "metrics": {
+        "nativeStageId": "00ContractAndInputAudit"
+      }
+    },
+    {
+      "stageId": "A2-01-LOAD",
+      "owner": "A2",
+      "runId": "M1_5_RECONCILIATION_20260807_06",
+      "dataVersion": "reconciliation-20260807.6",
+      "executionOrder": 6,
+      "dependencyStageIds": [
+        "A2-00-CONTRACT"
+      ],
+      "startedAtUtc": "2026-08-06T16:40:42.456480Z",
+      "completedAtUtc": "2026-08-06T16:40:48.545744Z",
+      "executionHostOrRunnerId": "LOCAL_PROJECT4_SBS_VENV",
+      "executionCommandSha256": "4e5e5071f159f7892ce4612da061e2d106121cc39115cf1af1f1a7d0e93e65e6",
+      "sourceNotebookSha256": "5fa8f23840d769cab3980665276b74f3aaa42306b58e299ac7eacac0d718221d",
+      "moduleBlobSha256": "dd80cb5e66e74bba9a5f0994047601313fd7cd87d8438bb7a1bb2f563cb7df4f",
+      "inputManifestSha256": "f58810b38bde7c7e1c69bf1f7000b3931cadf9d4d544f64b9c9c0d27a63bce8e",
+      "outputManifestSha256": "599f9119ab6a074f68827c43fe0337ddfb8d55ec3d424aaeba6a122c5942fd52",
+      "status": "SUCCEEDED",
+      "timestampSource": "EXECUTION_WRAPPER_CAPTURED",
+      "nativeEvidencePath": "pipeline/runs/notebooks/observed-dev/M1_5_RECONCILIATION_20260807_06/artifacts/01LoadCrawlRelease/stage_manifest.json",
+      "nativeEvidenceSha256": "599f9119ab6a074f68827c43fe0337ddfb8d55ec3d424aaeba6a122c5942fd52",
+      "metrics": {
+        "nativeStageId": "01LoadCrawlRelease"
+      }
+    },
+    {
+      "stageId": "A2-02-NORMALIZE",
+      "owner": "A2",
+      "runId": "M1_5_RECONCILIATION_20260807_06",
+      "dataVersion": "reconciliation-20260807.6",
+      "executionOrder": 7,
+      "dependencyStageIds": [
+        "A2-01-LOAD"
+      ],
+      "startedAtUtc": "2026-08-06T16:40:48.547121Z",
+      "completedAtUtc": "2026-08-06T16:40:52.742664Z",
+      "executionHostOrRunnerId": "LOCAL_PROJECT4_SBS_VENV",
+      "executionCommandSha256": "480bc935d9d991206cfe4e0aaab5b16bef96f318ec63f0c193cdd1f715f04ac7",
+      "sourceNotebookSha256": "b1cf625b99252b41fa808973ccfec38a53669c14fda3444ad0ee64512820ce31",
+      "moduleBlobSha256": "dd80cb5e66e74bba9a5f0994047601313fd7cd87d8438bb7a1bb2f563cb7df4f",
+      "inputManifestSha256": "f58810b38bde7c7e1c69bf1f7000b3931cadf9d4d544f64b9c9c0d27a63bce8e",
+      "outputManifestSha256": "894693877ece73737541963e278340fdcd49988ae7d730b248491dd7a556c59c",
+      "status": "SUCCEEDED",
+      "timestampSource": "EXECUTION_WRAPPER_CAPTURED",
+      "nativeEvidencePath": "pipeline/runs/notebooks/observed-dev/M1_5_RECONCILIATION_20260807_06/artifacts/02ParseAndNormalize/stage_manifest.json",
+      "nativeEvidenceSha256": "894693877ece73737541963e278340fdcd49988ae7d730b248491dd7a556c59c",
+      "metrics": {
+        "nativeStageId": "02ParseAndNormalize"
+      }
+    },
+    {
+      "stageId": "A4-00-NCS-SOURCE",
+      "owner": "A4",
+      "runId": "M1_5_RECONCILIATION_20260807_06",
+      "dataVersion": "reconciliation-20260807.6",
+      "executionOrder": 8,
+      "dependencyStageIds": [
+        "A2-00-CONTRACT"
+      ],
+      "startedAtUtc": "2026-08-06T16:40:52.743982Z",
+      "completedAtUtc": "2026-08-06T16:40:52.784772Z",
+      "executionHostOrRunnerId": "LOCAL_PROJECT4_SBS_VENV",
+      "executionCommandSha256": "c4378084334f618fc5619a23b8dd135bee4911f7a43627c2049f39722ef4a691",
+      "sourceNotebookSha256": "0186e062fb88c04bd5966a98b486eb9a0bd7963cd395b3f52c13533a82057ae2",
+      "moduleBlobSha256": "6a2b0eed448675fbf898dd5a852744481adc04a86f3b0526fafb1af65daeb6e6",
+      "inputManifestSha256": "b5b02ea232295931f245c69c881046a813f04cfbc517a13bc40d9e82994277c1",
+      "outputManifestSha256": "7583ee982e32e9423cfedd609a05544fd37f331eca714ec263d0bf2bb8479090",
+      "status": "SUCCEEDED",
+      "timestampSource": "EXECUTION_WRAPPER_CAPTURED",
+      "nativeEvidencePath": "ncs_mapping/reports/reconciliation_a4/A4_STAGE_AUTHORITY_MANIFEST.csv",
+      "nativeEvidenceSha256": "63681e3e6b157046f6d964ff869be69f02ac341c1d69ad098d5d662a97a900eb",
+      "metrics": {
+        "input": "b5b02ea232295931f245c69c881046a813f04cfbc517a13bc40d9e82994277c1",
+        "rows": 13442,
+        "status": "SUCCEEDED"
+      }
+    },
+    {
+      "stageId": "A4-01-CODESET",
+      "owner": "A4",
+      "runId": "M1_5_RECONCILIATION_20260807_06",
+      "dataVersion": "reconciliation-20260807.6",
+      "executionOrder": 9,
+      "dependencyStageIds": [
+        "A4-00-NCS-SOURCE"
+      ],
+      "startedAtUtc": "2026-08-06T16:40:52.785509Z",
+      "completedAtUtc": "2026-08-06T16:40:52.818056Z",
+      "executionHostOrRunnerId": "LOCAL_PROJECT4_SBS_VENV",
+      "executionCommandSha256": "cdb827acc8c81a8c969329aeea62a2fee8f8eea0d8323d1d5980cf3cd93cb7e0",
+      "sourceNotebookSha256": "6ce52c351f5f2e60f4b4226989d9ab48ae0fd157e83d7f987e08dc045c250816",
+      "moduleBlobSha256": "6a2b0eed448675fbf898dd5a852744481adc04a86f3b0526fafb1af65daeb6e6",
+      "inputManifestSha256": "bf94b2bd17dd60dea6305b431c482ba47dcc2383c551e34729ad18a7fafc2f71",
+      "outputManifestSha256": "34f21094f70307da86af2f483558def68b47b8931251243a11116052fd337584",
+      "status": "SUCCEEDED",
+      "timestampSource": "EXECUTION_WRAPPER_CAPTURED",
+      "nativeEvidencePath": "ncs_mapping/reports/reconciliation_a4/A4_STAGE_AUTHORITY_MANIFEST.csv",
+      "nativeEvidenceSha256": "63681e3e6b157046f6d964ff869be69f02ac341c1d69ad098d5d662a97a900eb",
+      "metrics": {
+        "input": "bf94b2bd17dd60dea6305b431c482ba47dcc2383c551e34729ad18a7fafc2f71",
+        "rows": 120,
+        "included": 69,
+        "status": "SUCCEEDED"
+      }
+    },
+    {
+      "stageId": "A4-02-RETRIEVAL",
+      "owner": "A4",
+      "runId": "M1_5_RECONCILIATION_20260807_06",
+      "dataVersion": "reconciliation-20260807.6",
+      "executionOrder": 10,
+      "dependencyStageIds": [
+        "A4-01-CODESET"
+      ],
+      "startedAtUtc": "2026-08-06T16:40:52.818701Z",
+      "completedAtUtc": "2026-08-06T16:40:52.882849Z",
+      "executionHostOrRunnerId": "LOCAL_PROJECT4_SBS_VENV",
+      "executionCommandSha256": "9680d6548779928aab2ecb3a15246cd4269b2708a534ea7b064afc272901460c",
+      "sourceNotebookSha256": "743d5cb7939697e1dd504d5f77c40f8f7b3093de71966d6abe56cfd51cabe22a",
+      "moduleBlobSha256": "6a2b0eed448675fbf898dd5a852744481adc04a86f3b0526fafb1af65daeb6e6",
+      "inputManifestSha256": "0cf43c7fe5670ff14a987c7ddd4037a04aecb0ffa7fe0afce0accd99cac7d5ea",
+      "outputManifestSha256": "9c05fb5466af705a8e0e53085e692f3b1698ba8789c2e01d57fcd0a5378e97dc",
+      "status": "SUCCEEDED",
+      "timestampSource": "EXECUTION_WRAPPER_CAPTURED",
+      "nativeEvidencePath": "ncs_mapping/reports/reconciliation_a4/A4_STAGE_AUTHORITY_MANIFEST.csv",
+      "nativeEvidenceSha256": "63681e3e6b157046f6d964ff869be69f02ac341c1d69ad098d5d662a97a900eb",
+      "metrics": {
+        "input": "0cf43c7fe5670ff14a987c7ddd4037a04aecb0ffa7fe0afce0accd99cac7d5ea",
+        "rows": 691,
+        "aliasRows": 10,
+        "status": "SUCCEEDED"
+      }
+    },
+    {
+      "stageId": "A2-03-OCR",
+      "owner": "A2",
+      "runId": "M1_5_RECONCILIATION_20260807_06",
+      "dataVersion": "reconciliation-20260807.6",
+      "executionOrder": 11,
+      "dependencyStageIds": [
+        "A2-02-NORMALIZE"
+      ],
+      "startedAtUtc": "2026-08-06T16:40:52.883673Z",
+      "completedAtUtc": "2026-08-06T16:40:56.956454Z",
+      "executionHostOrRunnerId": "LOCAL_PROJECT4_SBS_VENV",
+      "executionCommandSha256": "fd025d8f5c0dde7e1c518a0214ced122ca00d7a3a4a951ff6d4660aeb32cb6ae",
+      "sourceNotebookSha256": "db5ca86e37c73f09097f7f740bcef633643439d24eb20a1bcfd24171d78f518a",
+      "moduleBlobSha256": "dd80cb5e66e74bba9a5f0994047601313fd7cd87d8438bb7a1bb2f563cb7df4f",
+      "inputManifestSha256": "f58810b38bde7c7e1c69bf1f7000b3931cadf9d4d544f64b9c9c0d27a63bce8e",
+      "outputManifestSha256": "e367503d5f222985f7f96c99ca6a6da6d0f53215d85d3afc6bac04c4cfb61efc",
+      "status": "SUCCEEDED",
+      "timestampSource": "EXECUTION_WRAPPER_CAPTURED",
+      "nativeEvidencePath": "pipeline/runs/notebooks/observed-dev/M1_5_RECONCILIATION_20260807_06/artifacts/03OcrAndSectionRecovery/stage_manifest.json",
+      "nativeEvidenceSha256": "e367503d5f222985f7f96c99ca6a6da6d0f53215d85d3afc6bac04c4cfb61efc",
+      "metrics": {
+        "nativeStageId": "03OcrAndSectionRecovery"
+      }
+    },
+    {
+      "stageId": "A2-04-TRACK",
+      "owner": "A2",
+      "runId": "M1_5_RECONCILIATION_20260807_06",
+      "dataVersion": "reconciliation-20260807.6",
+      "executionOrder": 12,
+      "dependencyStageIds": [
+        "A2-03-OCR"
+      ],
+      "startedAtUtc": "2026-08-06T16:40:56.957615Z",
+      "completedAtUtc": "2026-08-06T16:41:01.176796Z",
+      "executionHostOrRunnerId": "LOCAL_PROJECT4_SBS_VENV",
+      "executionCommandSha256": "268490ff14a90b4fdbaa03789436f7eb60bbe9b68fef959b20844747ba076c45",
+      "sourceNotebookSha256": "3892d341ca93b999d459e4faabd250f622ae8d626e994d9ee11a563b3a0f6aca",
+      "moduleBlobSha256": "dd80cb5e66e74bba9a5f0994047601313fd7cd87d8438bb7a1bb2f563cb7df4f",
+      "inputManifestSha256": "f58810b38bde7c7e1c69bf1f7000b3931cadf9d4d544f64b9c9c0d27a63bce8e",
+      "outputManifestSha256": "5b2672f8c9ed166cd28348e92d1232df3dd7b3fabbaad4d8914744935b0e47ca",
+      "status": "SUCCEEDED",
+      "timestampSource": "EXECUTION_WRAPPER_CAPTURED",
+      "nativeEvidencePath": "pipeline/runs/notebooks/observed-dev/M1_5_RECONCILIATION_20260807_06/artifacts/04SplitTracks/stage_manifest.json",
+      "nativeEvidenceSha256": "5b2672f8c9ed166cd28348e92d1232df3dd7b3fabbaad4d8914744935b0e47ca",
+      "metrics": {
+        "nativeStageId": "04SplitTracks"
+      }
+    },
+    {
+      "stageId": "A2-05-REQUIREMENT",
+      "owner": "A2",
+      "runId": "M1_5_RECONCILIATION_20260807_06",
+      "dataVersion": "reconciliation-20260807.6",
+      "executionOrder": 13,
+      "dependencyStageIds": [
+        "A2-04-TRACK"
+      ],
+      "startedAtUtc": "2026-08-06T16:41:01.177694Z",
+      "completedAtUtc": "2026-08-06T16:41:05.351015Z",
+      "executionHostOrRunnerId": "LOCAL_PROJECT4_SBS_VENV",
+      "executionCommandSha256": "a1f3746309419e8f2641879961931d4ea01a545773e236a4c51376c4934504db",
+      "sourceNotebookSha256": "1a00c129bc3957ca878fcc75c17a71059b78a56fb34d3e38efc7ce8f341c012b",
+      "moduleBlobSha256": "dd80cb5e66e74bba9a5f0994047601313fd7cd87d8438bb7a1bb2f563cb7df4f",
+      "inputManifestSha256": "f58810b38bde7c7e1c69bf1f7000b3931cadf9d4d544f64b9c9c0d27a63bce8e",
+      "outputManifestSha256": "9689fcf5c33e6f0dcb805ac76bc907a05d9a5ea29bbcd74406a0744c6198307d",
+      "status": "SUCCEEDED",
+      "timestampSource": "EXECUTION_WRAPPER_CAPTURED",
+      "nativeEvidencePath": "pipeline/runs/notebooks/observed-dev/M1_5_RECONCILIATION_20260807_06/artifacts/05ExtractRequirements/stage_manifest.json",
+      "nativeEvidenceSha256": "9689fcf5c33e6f0dcb805ac76bc907a05d9a5ea29bbcd74406a0744c6198307d",
+      "metrics": {
+        "nativeStageId": "05ExtractRequirements"
+      }
+    },
+    {
+      "stageId": "A2-06-DEDUP",
+      "owner": "A2",
+      "runId": "M1_5_RECONCILIATION_20260807_06",
+      "dataVersion": "reconciliation-20260807.6",
+      "executionOrder": 14,
+      "dependencyStageIds": [
+        "A2-02-NORMALIZE"
+      ],
+      "startedAtUtc": "2026-08-06T16:41:05.352173Z",
+      "completedAtUtc": "2026-08-06T16:41:09.360074Z",
+      "executionHostOrRunnerId": "LOCAL_PROJECT4_SBS_VENV",
+      "executionCommandSha256": "130463e9733b6e3b552edbe2d839bafec75491054df7bce57992b630b9b61968",
+      "sourceNotebookSha256": "2516eb89f685e936ec4463dce6a541d53f0f3e2cd116c5b223e90e44977ebe18",
+      "moduleBlobSha256": "dd80cb5e66e74bba9a5f0994047601313fd7cd87d8438bb7a1bb2f563cb7df4f",
+      "inputManifestSha256": "f58810b38bde7c7e1c69bf1f7000b3931cadf9d4d544f64b9c9c0d27a63bce8e",
+      "outputManifestSha256": "8b028438f322baf8ec0381fd04a12c1254ad6fc8352f8392458d6571f41ada4d",
+      "status": "SUCCEEDED",
+      "timestampSource": "EXECUTION_WRAPPER_CAPTURED",
+      "nativeEvidencePath": "pipeline/runs/notebooks/observed-dev/M1_5_RECONCILIATION_20260807_06/artifacts/06Deduplicate90Days/stage_manifest.json",
+      "nativeEvidenceSha256": "8b028438f322baf8ec0381fd04a12c1254ad6fc8352f8392458d6571f41ada4d",
+      "metrics": {
+        "nativeStageId": "06Deduplicate90Days"
+      }
+    },
+    {
+      "stageId": "A2-07-LABEL",
+      "owner": "A2",
+      "runId": "M1_5_RECONCILIATION_20260807_06",
+      "dataVersion": "reconciliation-20260807.6",
+      "executionOrder": 15,
+      "dependencyStageIds": [
+        "A2-05-REQUIREMENT"
+      ],
+      "startedAtUtc": "2026-08-06T16:41:09.361109Z",
+      "completedAtUtc": "2026-08-06T16:41:13.842690Z",
+      "executionHostOrRunnerId": "LOCAL_PROJECT4_SBS_VENV",
+      "executionCommandSha256": "0cfc3bfec78bc3557166f0fedb560be73d6d4a61ebe00dc76ce0686761375536",
+      "sourceNotebookSha256": "59eff99c960b89385ba19ccb6a0fb684c27524c976cfa5a0448975104e1ee7f2",
+      "moduleBlobSha256": "dd80cb5e66e74bba9a5f0994047601313fd7cd87d8438bb7a1bb2f563cb7df4f",
+      "inputManifestSha256": "f58810b38bde7c7e1c69bf1f7000b3931cadf9d4d544f64b9c9c0d27a63bce8e",
+      "outputManifestSha256": "526f1a70a3b2d9e4f07a52b71051a16b6435cf60200b75f39b1fd01a15419bf9",
+      "status": "SUCCEEDED",
+      "timestampSource": "EXECUTION_WRAPPER_CAPTURED",
+      "nativeEvidencePath": "pipeline/runs/notebooks/observed-dev/M1_5_RECONCILIATION_20260807_06/artifacts/07LabelCareerAccess/stage_manifest.json",
+      "nativeEvidenceSha256": "526f1a70a3b2d9e4f07a52b71051a16b6435cf60200b75f39b1fd01a15419bf9",
+      "metrics": {
+        "nativeStageId": "07LabelCareerAccess"
+      }
+    },
+    {
+      "stageId": "A4-03-MAP-OBSERVED",
+      "owner": "A4",
+      "runId": "M1_5_RECONCILIATION_20260807_06",
+      "dataVersion": "reconciliation-20260807.6",
+      "executionOrder": 16,
+      "dependencyStageIds": [
+        "A2-05-REQUIREMENT",
+        "A4-02-RETRIEVAL"
+      ],
+      "startedAtUtc": "2026-08-06T16:41:13.843989Z",
+      "completedAtUtc": "2026-08-06T16:41:14.017157Z",
+      "executionHostOrRunnerId": "LOCAL_PROJECT4_SBS_VENV",
+      "executionCommandSha256": "65e80b9106aee00ad03edfb70526e291b488aef0d18691704fbd8abf9d6dbf8f",
+      "sourceNotebookSha256": "69a5e625b98833909dc7e7c46a0ffa00c8ce34f81711b4e5f3997bcad6c3f893",
+      "moduleBlobSha256": "6a2b0eed448675fbf898dd5a852744481adc04a86f3b0526fafb1af65daeb6e6",
+      "inputManifestSha256": "59a134c6b54d7ba95cebaee585f403fb0d33284ef36b883192703cf2944c3c93",
+      "outputManifestSha256": "a35ffc53852a1998e6d512f058bb7055aeebe61385123bb3e7d0857089907a1e",
+      "status": "SUCCEEDED",
+      "timestampSource": "EXECUTION_WRAPPER_CAPTURED",
+      "nativeEvidencePath": "ncs_mapping/reports/reconciliation_a4/A4_STAGE_AUTHORITY_MANIFEST.csv",
+      "nativeEvidenceSha256": "63681e3e6b157046f6d964ff869be69f02ac341c1d69ad098d5d662a97a900eb",
+      "metrics": {
+        "input": "59a134c6b54d7ba95cebaee585f403fb0d33284ef36b883192703cf2944c3c93",
+        "rows": 28,
+        "candidateRows": 128,
+        "status": "SUCCEEDED"
+      }
+    },
+    {
+      "stageId": "A4-04-EXPORT",
+      "owner": "A4",
+      "runId": "M1_5_RECONCILIATION_20260807_06",
+      "dataVersion": "reconciliation-20260807.6",
+      "executionOrder": 17,
+      "dependencyStageIds": [
+        "A4-03-MAP-OBSERVED"
+      ],
+      "startedAtUtc": "2026-08-06T16:41:14.017890Z",
+      "completedAtUtc": "2026-08-06T16:41:14.021769Z",
+      "executionHostOrRunnerId": "LOCAL_PROJECT4_SBS_VENV",
+      "executionCommandSha256": "cd018305c45fe925527fcd36fd38b1465ae4737e17e2312ad53e73e74a88d519",
+      "sourceNotebookSha256": "352257e1e3338059eacd32360ef215066c2e2ac6eb474613f5e3151aac4546f2",
+      "moduleBlobSha256": "6a2b0eed448675fbf898dd5a852744481adc04a86f3b0526fafb1af65daeb6e6",
+      "inputManifestSha256": "2ce6e8c4a9157303813512729ee9874c2c059f28ec558dd33578eabfdde39a05",
+      "outputManifestSha256": "72df9a76c9daeec3b3013be333746359a3d3910bd5053dcf682f1266a17d613d",
+      "status": "SUCCEEDED",
+      "timestampSource": "EXECUTION_WRAPPER_CAPTURED",
+      "nativeEvidencePath": "ncs_mapping/reports/reconciliation_a4/A4_STAGE_AUTHORITY_MANIFEST.csv",
+      "nativeEvidenceSha256": "63681e3e6b157046f6d964ff869be69f02ac341c1d69ad098d5d662a97a900eb",
+      "metrics": {
+        "input": "2ce6e8c4a9157303813512729ee9874c2c059f28ec558dd33578eabfdde39a05",
+        "rows": 28,
+        "structuralRows": 27,
+        "status": "SUCCEEDED"
+      }
+    },
+    {
+      "stageId": "A2-08-NCS-LOAD",
+      "owner": "A2",
+      "runId": "M1_5_RECONCILIATION_20260807_06",
+      "dataVersion": "reconciliation-20260807.6",
+      "executionOrder": 18,
+      "dependencyStageIds": [
+        "A4-00-NCS-SOURCE",
+        "A4-01-CODESET"
+      ],
+      "startedAtUtc": "2026-08-06T16:41:14.022500Z",
+      "completedAtUtc": "2026-08-06T16:41:17.852464Z",
+      "executionHostOrRunnerId": "LOCAL_PROJECT4_SBS_VENV",
+      "executionCommandSha256": "3a6c81c0b10a4535cbafc9ca459ccd072c60b0929dbdee5ff6219b27a6cf43b1",
+      "sourceNotebookSha256": "a35971022aca8232e4d0d0e6511ea48e1736baf71599155e81fb33add9476768",
+      "moduleBlobSha256": "dd80cb5e66e74bba9a5f0994047601313fd7cd87d8438bb7a1bb2f563cb7df4f",
+      "inputManifestSha256": "f58810b38bde7c7e1c69bf1f7000b3931cadf9d4d544f64b9c9c0d27a63bce8e",
+      "outputManifestSha256": "e379805a40c13b025515b9de78406c36a4f370f6faa977efc2622f412350ea3e",
+      "status": "SUCCEEDED",
+      "timestampSource": "EXECUTION_WRAPPER_CAPTURED",
+      "nativeEvidencePath": "pipeline/runs/notebooks/observed-dev/M1_5_RECONCILIATION_20260807_06/artifacts/08LoadAndPrepareNcs/stage_manifest.json",
+      "nativeEvidenceSha256": "e379805a40c13b025515b9de78406c36a4f370f6faa977efc2622f412350ea3e",
+      "metrics": {
+        "nativeStageId": "08LoadAndPrepareNcs"
+      }
+    },
+    {
+      "stageId": "A2-09-NCS-MAP",
+      "owner": "A2",
+      "runId": "M1_5_RECONCILIATION_20260807_06",
+      "dataVersion": "reconciliation-20260807.6",
+      "executionOrder": 19,
+      "dependencyStageIds": [
+        "A2-08-NCS-LOAD",
+        "A4-03-MAP-OBSERVED",
+        "A4-04-EXPORT"
+      ],
+      "startedAtUtc": "2026-08-06T16:41:17.853872Z",
+      "completedAtUtc": "2026-08-06T16:41:23.589272Z",
+      "executionHostOrRunnerId": "LOCAL_PROJECT4_SBS_VENV",
+      "executionCommandSha256": "2bfcc822be3bb82d1fd5c1d2eb30e24d5e9d19d0a9b5af457c060addc144746b",
+      "sourceNotebookSha256": "cf635979e88a12ccdddccad433bdfd990aac5fc098689549296948ab085dd46e",
+      "moduleBlobSha256": "dd80cb5e66e74bba9a5f0994047601313fd7cd87d8438bb7a1bb2f563cb7df4f",
+      "inputManifestSha256": "f58810b38bde7c7e1c69bf1f7000b3931cadf9d4d544f64b9c9c0d27a63bce8e",
+      "outputManifestSha256": "26f7cf0af00224d6a8c1f142a8bae4f0da08bd7a83159704b515d5a9ac2f8d08",
+      "status": "SUCCEEDED",
+      "timestampSource": "EXECUTION_WRAPPER_CAPTURED",
+      "nativeEvidencePath": "pipeline/runs/notebooks/observed-dev/M1_5_RECONCILIATION_20260807_06/artifacts/09MapPostingToNcs/stage_manifest.json",
+      "nativeEvidenceSha256": "26f7cf0af00224d6a8c1f142a8bae4f0da08bd7a83159704b515d5a9ac2f8d08",
+      "metrics": {
+        "nativeStageId": "09MapPostingToNcs"
+      }
+    },
+    {
+      "stageId": "A4-05-EVALUATE",
+      "owner": "A4",
+      "runId": "M1_5_RECONCILIATION_20260807_06",
+      "dataVersion": "reconciliation-20260807.6",
+      "executionOrder": 20,
+      "dependencyStageIds": [
+        "A4-04-EXPORT"
+      ],
+      "startedAtUtc": "2026-08-06T16:41:23.590513Z",
+      "completedAtUtc": "2026-08-06T16:41:23.595005Z",
+      "executionHostOrRunnerId": "LOCAL_PROJECT4_SBS_VENV",
+      "executionCommandSha256": "543d1fbec5d7b1ab202abe05bb9ae95cc7ef278e6ccca4483856e69fd4bff9d0",
+      "sourceNotebookSha256": "75b32a6207569c86b0901080b567f62db7a26605ebc13c50ad70c054a3068d86",
+      "moduleBlobSha256": "6a2b0eed448675fbf898dd5a852744481adc04a86f3b0526fafb1af65daeb6e6",
+      "inputManifestSha256": "c72ef16f5b80f38a1fb979e4b9720805034a8380538bddcd75b63331bbed0f2a",
+      "outputManifestSha256": "3278c506587390626db93fa6e767522d34d37662a4cd6007c48dec47c9621ae6",
+      "status": "NOT_EVALUATED",
+      "timestampSource": "EXECUTION_WRAPPER_CAPTURED",
+      "nativeEvidencePath": "ncs_mapping/reports/reconciliation_a4/A4_STAGE_AUTHORITY_MANIFEST.csv",
+      "nativeEvidenceSha256": "63681e3e6b157046f6d964ff869be69f02ac341c1d69ad098d5d662a97a900eb",
+      "metrics": {
+        "input": "c72ef16f5b80f38a1fb979e4b9720805034a8380538bddcd75b63331bbed0f2a",
+        "rows": 0,
+        "goldAuthority": "NONE",
+        "status": "NOT_EVALUATED"
+      }
+    },
+    {
+      "stageId": "A2-10-EXPORT",
+      "owner": "A2",
+      "runId": "M1_5_RECONCILIATION_20260807_06",
+      "dataVersion": "reconciliation-20260807.6",
+      "executionOrder": 21,
+      "dependencyStageIds": [
+        "A2-05-REQUIREMENT",
+        "A2-06-DEDUP",
+        "A2-07-LABEL",
+        "A2-09-NCS-MAP"
+      ],
+      "startedAtUtc": "2026-08-06T16:41:23.595743Z",
+      "completedAtUtc": "2026-08-06T16:41:28.473190Z",
+      "executionHostOrRunnerId": "LOCAL_PROJECT4_SBS_VENV",
+      "executionCommandSha256": "e85a8b83e2cfb24c34a406cb3752f981e8c6b88655320722a2e9af29a7c7bca5",
+      "sourceNotebookSha256": "c6d408361411d05bcc56f3611fbb19af365513f8cc7417189d11158955bcdee8",
+      "moduleBlobSha256": "dd80cb5e66e74bba9a5f0994047601313fd7cd87d8438bb7a1bb2f563cb7df4f",
+      "inputManifestSha256": "f58810b38bde7c7e1c69bf1f7000b3931cadf9d4d544f64b9c9c0d27a63bce8e",
+      "outputManifestSha256": "10986b54442be527328661aae6fc54efbd5bb2d911a1faeb48b10e0275e1ac8d",
+      "status": "SUCCEEDED",
+      "timestampSource": "EXECUTION_WRAPPER_CAPTURED",
+      "nativeEvidencePath": "pipeline/runs/notebooks/observed-dev/M1_5_RECONCILIATION_20260807_06/artifacts/10ExportPreprocessedCsv/stage_manifest.json",
+      "nativeEvidenceSha256": "10986b54442be527328661aae6fc54efbd5bb2d911a1faeb48b10e0275e1ac8d",
+      "metrics": {
+        "nativeStageId": "10ExportPreprocessedCsv"
+      }
+    },
+    {
+      "stageId": "A2-11-QA",
+      "owner": "A2",
+      "runId": "M1_5_RECONCILIATION_20260807_06",
+      "dataVersion": "reconciliation-20260807.6",
+      "executionOrder": 22,
+      "dependencyStageIds": [
+        "A2-10-EXPORT"
+      ],
+      "startedAtUtc": "2026-08-06T16:41:28.474903Z",
+      "completedAtUtc": "2026-08-06T16:41:33.189473Z",
+      "executionHostOrRunnerId": "LOCAL_PROJECT4_SBS_VENV",
+      "executionCommandSha256": "390221c1d1fa0962e276d00541ee1b00961e56c633e239274854436b604c227a",
+      "sourceNotebookSha256": "e83d52cc529a57b035ceae859f5d9d65171d867fc2e0016d620d09715d51a850",
+      "moduleBlobSha256": "dd80cb5e66e74bba9a5f0994047601313fd7cd87d8438bb7a1bb2f563cb7df4f",
+      "inputManifestSha256": "f58810b38bde7c7e1c69bf1f7000b3931cadf9d4d544f64b9c9c0d27a63bce8e",
+      "outputManifestSha256": "1ee0967accd9679c9c7476c0ab9834b0a52e725bb5ec0241f9052e33ad4e0afe",
+      "status": "SUCCEEDED",
+      "timestampSource": "EXECUTION_WRAPPER_CAPTURED",
+      "nativeEvidencePath": "pipeline/runs/notebooks/observed-dev/M1_5_RECONCILIATION_20260807_06/artifacts/11PreprocessedDataQa/stage_manifest.json",
+      "nativeEvidenceSha256": "1ee0967accd9679c9c7476c0ab9834b0a52e725bb5ec0241f9052e33ad4e0afe",
+      "metrics": {
+        "nativeStageId": "11PreprocessedDataQa"
+      }
+    }
+  ]
+}

@@ -1,12 +1,12 @@
 {
-  "validatorVersion": "p4-strict-unified-reconciliation-v1",
+  "validatorVersion": "p4-strict-unified-reconciliation-v2",
   "validatorInvoked": true,
   "validatorProcessExitCode": 0,
   "validatorStatus": "SUCCEEDED",
-  "validatorInputRunId": "M1_5_RECONCILIATION_20260807_03",
-  "validatorInputManifestSha256": "2ce704da57c338a3c2067d84fa9d3722e8c66ff89b24253edcd80092eca80f23",
-  "dataVersion": "reconciliation-20260807.3",
-  "generatedAtUtc": "2026-08-06T16:13:08.495681Z",
+  "validatorInputRunId": "M1_5_RECONCILIATION_20260807_06",
+  "validatorInputManifestSha256": "9c9f5f3f7a54a412740577d55d7eca175f1e206bba7538b2082535dffb384063",
+  "dataVersion": "reconciliation-20260807.6",
+  "generatedAtUtc": "2026-08-06T16:41:47.999822Z",
   "plannedStages": 23,
   "executedStages": 23,
   "exactOneManifests": 23,
@@ -22,6 +22,37 @@
       "observed": 23,
       "threshold": 23,
       "evidence": "P4_CURRENT_RUN_MANIFEST_AUDIT.csv"
+    },
+    {
+      "checkId": "TOPOLOGICAL_DEPENDENCY_ORDER",
+      "status": "PASS",
+      "observed": {
+        "registry": [],
+        "runtime": []
+      },
+      "threshold": [],
+      "evidence": "P4_23_STAGE_REGISTRY.yaml + stage manifests"
+    },
+    {
+      "checkId": "NO_FIXED_TIMESTAMP",
+      "status": "PASS",
+      "observed": [],
+      "threshold": [],
+      "evidence": "P4_RUNTIME_EXECUTION_LEDGER.json + stage manifests"
+    },
+    {
+      "checkId": "NCS_CONSUMER_PRODUCER_BOUND",
+      "status": "PASS",
+      "observed": [],
+      "threshold": [],
+      "evidence": "A2-08/A2-09 dependencyStageIds"
+    },
+    {
+      "checkId": "RUNTIME_LEDGER_BINDING",
+      "status": "PASS",
+      "observed": [],
+      "threshold": [],
+      "evidence": "P4_RUNTIME_EXECUTION_LEDGER.json"
     },
     {
       "checkId": "CSV_PARQUET_EQUALITY",

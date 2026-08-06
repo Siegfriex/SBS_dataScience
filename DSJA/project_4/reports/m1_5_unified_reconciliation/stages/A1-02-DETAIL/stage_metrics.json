@@ -1,8 +1,8 @@
 {
   "metricsVersion": "p4-unified-current-run-metrics-v1",
   "stageId": "A1-02-DETAIL",
-  "runId": "M1_5_RECONCILIATION_20260807_03",
-  "dataVersion": "reconciliation-20260807.3",
+  "runId": "M1_5_RECONCILIATION_20260807_06",
+  "dataVersion": "reconciliation-20260807.6",
   "status": "SUCCEEDED",
   "executionMode": "FRESH_KERNEL_NOTEBOOK",
   "metrics": {

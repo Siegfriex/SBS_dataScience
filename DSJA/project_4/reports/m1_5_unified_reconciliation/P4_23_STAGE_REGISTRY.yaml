@@ -1,8 +1,8 @@
-registryVersion: p4-unified-23-stage-v1
+registryVersion: p4-unified-23-stage-v2
 baseCommit: 5508fce02ba5396b5d5a55870f1f879c1f32e8e0
-headCommitAtExecution: cb4f119fe447d151ecd70b6af534bda1a163d2ab
-runId: M1_5_RECONCILIATION_20260807_03
-dataVersion: reconciliation-20260807.3
+headCommitAtExecution: d65a4f0b5883348989e9f9fa0b85c88f1bd9dab4
+runId: M1_5_RECONCILIATION_20260807_06
+dataVersion: reconciliation-20260807.6
 contractVersion: 2.1.2
 productionNetworkCalls: 0
 externalAtsTransportCalls: 0
@@ -15,8 +15,9 @@ stages:
   inputContract: current-run SHA-bound input
   outputContract: four termination artifacts
   dependencyStageIds: []
-  currentRunManifestSchema: p4-unified-current-run-v1
-  validatorGate: STRICT_CURRENT_RUN_BINDING
+  executionOrder: 0
+  currentRunManifestSchema: p4-unified-current-run-v2
+  validatorGate: STRICT_CURRENT_RUN_TOPOLOGY_AND_TIMESTAMP_BINDING
 - stageId: A1-01-INDEX
   owner: A1
   sourceNotebookPath: crawl/notebooks/01CollectLinkareerIndex.ipynb
@@ -26,8 +27,9 @@ stages:
   outputContract: four termination artifacts
   dependencyStageIds:
   - A1-00-RECOVER
-  currentRunManifestSchema: p4-unified-current-run-v1
-  validatorGate: STRICT_CURRENT_RUN_BINDING
+  executionOrder: 1
+  currentRunManifestSchema: p4-unified-current-run-v2
+  validatorGate: STRICT_CURRENT_RUN_TOPOLOGY_AND_TIMESTAMP_BINDING
 - stageId: A1-02-DETAIL
   owner: A1
   sourceNotebookPath: crawl/notebooks/02CollectPostingDetail.ipynb
@@ -37,8 +39,9 @@ stages:
   outputContract: four termination artifacts
   dependencyStageIds:
   - A1-01-INDEX
-  currentRunManifestSchema: p4-unified-current-run-v1
-  validatorGate: STRICT_CURRENT_RUN_BINDING
+  executionOrder: 2
+  currentRunManifestSchema: p4-unified-current-run-v2
+  validatorGate: STRICT_CURRENT_RUN_TOPOLOGY_AND_TIMESTAMP_BINDING
 - stageId: A1-03-ASSET
   owner: A1
   sourceNotebookPath: crawl/notebooks/03CollectPostingAssets.ipynb
@@ -48,8 +51,9 @@ stages:
   outputContract: four termination artifacts
   dependencyStageIds:
   - A1-02-DETAIL
-  currentRunManifestSchema: p4-unified-current-run-v1
-  validatorGate: STRICT_CURRENT_RUN_BINDING
+  executionOrder: 3
+  currentRunManifestSchema: p4-unified-current-run-v2
+  validatorGate: STRICT_CURRENT_RUN_TOPOLOGY_AND_TIMESTAMP_BINDING
 - stageId: A1-04-RELEASE
   owner: A1
   sourceNotebookPath: crawl/notebooks/04BuildCrawlRelease.ipynb
@@ -59,140 +63,45 @@ stages:
   outputContract: four termination artifacts
   dependencyStageIds:
   - A1-03-ASSET
-  currentRunManifestSchema: p4-unified-current-run-v1
-  validatorGate: STRICT_CURRENT_RUN_BINDING
+  executionOrder: 4
+  currentRunManifestSchema: p4-unified-current-run-v2
+  validatorGate: STRICT_CURRENT_RUN_TOPOLOGY_AND_TIMESTAMP_BINDING
 - stageId: A2-00-CONTRACT
   owner: A2
   sourceNotebookPath: pipeline/notebooks/00ContractAndInputAudit.ipynb
   sourceNotebookBlobSha256: 86e599f6c822f0cb5da4a149443ea94393aefc29416ec965a3f5e443862e479d
-  moduleBlobSha256: 3f023bee45b92ff3db2c6ca499c01339be6a2779c95795dc35905cecd1a8f93b
+  moduleBlobSha256: dd80cb5e66e74bba9a5f0994047601313fd7cd87d8438bb7a1bb2f563cb7df4f
   inputContract: current-run SHA-bound input
   outputContract: four termination artifacts
   dependencyStageIds:
   - A1-04-RELEASE
-  currentRunManifestSchema: p4-unified-current-run-v1
-  validatorGate: STRICT_CURRENT_RUN_BINDING
+  executionOrder: 5
+  currentRunManifestSchema: p4-unified-current-run-v2
+  validatorGate: STRICT_CURRENT_RUN_TOPOLOGY_AND_TIMESTAMP_BINDING
 - stageId: A2-01-LOAD
   owner: A2
   sourceNotebookPath: pipeline/notebooks/01LoadCrawlRelease.ipynb
   sourceNotebookBlobSha256: 5fa8f23840d769cab3980665276b74f3aaa42306b58e299ac7eacac0d718221d
-  moduleBlobSha256: 3f023bee45b92ff3db2c6ca499c01339be6a2779c95795dc35905cecd1a8f93b
+  moduleBlobSha256: dd80cb5e66e74bba9a5f0994047601313fd7cd87d8438bb7a1bb2f563cb7df4f
   inputContract: current-run SHA-bound input
   outputContract: four termination artifacts
   dependencyStageIds:
   - A2-00-CONTRACT
-  currentRunManifestSchema: p4-unified-current-run-v1
-  validatorGate: STRICT_CURRENT_RUN_BINDING
+  executionOrder: 6
+  currentRunManifestSchema: p4-unified-current-run-v2
+  validatorGate: STRICT_CURRENT_RUN_TOPOLOGY_AND_TIMESTAMP_BINDING
 - stageId: A2-02-NORMALIZE
   owner: A2
   sourceNotebookPath: pipeline/notebooks/02ParseAndNormalize.ipynb
   sourceNotebookBlobSha256: b1cf625b99252b41fa808973ccfec38a53669c14fda3444ad0ee64512820ce31
-  moduleBlobSha256: 3f023bee45b92ff3db2c6ca499c01339be6a2779c95795dc35905cecd1a8f93b
+  moduleBlobSha256: dd80cb5e66e74bba9a5f0994047601313fd7cd87d8438bb7a1bb2f563cb7df4f
   inputContract: current-run SHA-bound input
   outputContract: four termination artifacts
   dependencyStageIds:
   - A2-01-LOAD
-  currentRunManifestSchema: p4-unified-current-run-v1
-  validatorGate: STRICT_CURRENT_RUN_BINDING
-- stageId: A2-03-OCR
-  owner: A2
-  sourceNotebookPath: pipeline/notebooks/03OcrAndSectionRecovery.ipynb
-  sourceNotebookBlobSha256: db5ca86e37c73f09097f7f740bcef633643439d24eb20a1bcfd24171d78f518a
-  moduleBlobSha256: 3f023bee45b92ff3db2c6ca499c01339be6a2779c95795dc35905cecd1a8f93b
-  inputContract: current-run SHA-bound input
-  outputContract: four termination artifacts
-  dependencyStageIds:
-  - A2-02-NORMALIZE
-  currentRunManifestSchema: p4-unified-current-run-v1
-  validatorGate: STRICT_CURRENT_RUN_BINDING
-- stageId: A2-04-TRACK
-  owner: A2
-  sourceNotebookPath: pipeline/notebooks/04SplitTracks.ipynb
-  sourceNotebookBlobSha256: 3892d341ca93b999d459e4faabd250f622ae8d626e994d9ee11a563b3a0f6aca
-  moduleBlobSha256: 3f023bee45b92ff3db2c6ca499c01339be6a2779c95795dc35905cecd1a8f93b
-  inputContract: current-run SHA-bound input
-  outputContract: four termination artifacts
-  dependencyStageIds:
-  - A2-03-OCR
-  currentRunManifestSchema: p4-unified-current-run-v1
-  validatorGate: STRICT_CURRENT_RUN_BINDING
-- stageId: A2-05-REQUIREMENT
-  owner: A2
-  sourceNotebookPath: pipeline/notebooks/05ExtractRequirements.ipynb
-  sourceNotebookBlobSha256: 1a00c129bc3957ca878fcc75c17a71059b78a56fb34d3e38efc7ce8f341c012b
-  moduleBlobSha256: 3f023bee45b92ff3db2c6ca499c01339be6a2779c95795dc35905cecd1a8f93b
-  inputContract: current-run SHA-bound input
-  outputContract: four termination artifacts
-  dependencyStageIds:
-  - A2-04-TRACK
-  currentRunManifestSchema: p4-unified-current-run-v1
-  validatorGate: STRICT_CURRENT_RUN_BINDING
-- stageId: A2-06-DEDUP
-  owner: A2
-  sourceNotebookPath: pipeline/notebooks/06Deduplicate90Days.ipynb
-  sourceNotebookBlobSha256: 2516eb89f685e936ec4463dce6a541d53f0f3e2cd116c5b223e90e44977ebe18
-  moduleBlobSha256: 3f023bee45b92ff3db2c6ca499c01339be6a2779c95795dc35905cecd1a8f93b
-  inputContract: current-run SHA-bound input
-  outputContract: four termination artifacts
-  dependencyStageIds:
-  - A2-05-REQUIREMENT
-  currentRunManifestSchema: p4-unified-current-run-v1
-  validatorGate: STRICT_CURRENT_RUN_BINDING
-- stageId: A2-07-LABEL
-  owner: A2
-  sourceNotebookPath: pipeline/notebooks/07LabelCareerAccess.ipynb
-  sourceNotebookBlobSha256: 59eff99c960b89385ba19ccb6a0fb684c27524c976cfa5a0448975104e1ee7f2
-  moduleBlobSha256: 3f023bee45b92ff3db2c6ca499c01339be6a2779c95795dc35905cecd1a8f93b
-  inputContract: current-run SHA-bound input
-  outputContract: four termination artifacts
-  dependencyStageIds:
-  - A2-06-DEDUP
-  currentRunManifestSchema: p4-unified-current-run-v1
-  validatorGate: STRICT_CURRENT_RUN_BINDING
-- stageId: A2-08-NCS-LOAD
-  owner: A2
-  sourceNotebookPath: pipeline/notebooks/08LoadAndPrepareNcs.ipynb
-  sourceNotebookBlobSha256: a35971022aca8232e4d0d0e6511ea48e1736baf71599155e81fb33add9476768
-  moduleBlobSha256: 3f023bee45b92ff3db2c6ca499c01339be6a2779c95795dc35905cecd1a8f93b
-  inputContract: current-run SHA-bound input
-  outputContract: four termination artifacts
-  dependencyStageIds:
-  - A2-07-LABEL
-  currentRunManifestSchema: p4-unified-current-run-v1
-  validatorGate: STRICT_CURRENT_RUN_BINDING
-- stageId: A2-09-NCS-MAP
-  owner: A2
-  sourceNotebookPath: pipeline/notebooks/09MapPostingToNcs.ipynb
-  sourceNotebookBlobSha256: cf635979e88a12ccdddccad433bdfd990aac5fc098689549296948ab085dd46e
-  moduleBlobSha256: 3f023bee45b92ff3db2c6ca499c01339be6a2779c95795dc35905cecd1a8f93b
-  inputContract: current-run SHA-bound input
-  outputContract: four termination artifacts
-  dependencyStageIds:
-  - A2-08-NCS-LOAD
-  currentRunManifestSchema: p4-unified-current-run-v1
-  validatorGate: STRICT_CURRENT_RUN_BINDING
-- stageId: A2-10-EXPORT
-  owner: A2
-  sourceNotebookPath: pipeline/notebooks/10ExportPreprocessedCsv.ipynb
-  sourceNotebookBlobSha256: c6d408361411d05bcc56f3611fbb19af365513f8cc7417189d11158955bcdee8
-  moduleBlobSha256: 3f023bee45b92ff3db2c6ca499c01339be6a2779c95795dc35905cecd1a8f93b
-  inputContract: current-run SHA-bound input
-  outputContract: four termination artifacts
-  dependencyStageIds:
-  - A2-09-NCS-MAP
-  currentRunManifestSchema: p4-unified-current-run-v1
-  validatorGate: STRICT_CURRENT_RUN_BINDING
-- stageId: A2-11-QA
-  owner: A2
-  sourceNotebookPath: pipeline/notebooks/11PreprocessedDataQa.ipynb
-  sourceNotebookBlobSha256: e83d52cc529a57b035ceae859f5d9d65171d867fc2e0016d620d09715d51a850
-  moduleBlobSha256: 3f023bee45b92ff3db2c6ca499c01339be6a2779c95795dc35905cecd1a8f93b
-  inputContract: current-run SHA-bound input
-  outputContract: four termination artifacts
-  dependencyStageIds:
-  - A2-10-EXPORT
-  currentRunManifestSchema: p4-unified-current-run-v1
-  validatorGate: STRICT_CURRENT_RUN_BINDING
+  executionOrder: 7
+  currentRunManifestSchema: p4-unified-current-run-v2
+  validatorGate: STRICT_CURRENT_RUN_TOPOLOGY_AND_TIMESTAMP_BINDING
 - stageId: A4-00-NCS-SOURCE
   owner: A4
   sourceNotebookPath: ncs_mapping/notebooks/00NcsSourceAudit.ipynb
@@ -201,9 +110,10 @@ stages:
   inputContract: current-run SHA-bound input
   outputContract: four termination artifacts
   dependencyStageIds:
-  - A2-11-QA
-  currentRunManifestSchema: p4-unified-current-run-v1
-  validatorGate: STRICT_CURRENT_RUN_BINDING
+  - A2-00-CONTRACT
+  executionOrder: 8
+  currentRunManifestSchema: p4-unified-current-run-v2
+  validatorGate: STRICT_CURRENT_RUN_TOPOLOGY_AND_TIMESTAMP_BINDING
 - stageId: A4-01-CODESET
   owner: A4
   sourceNotebookPath: ncs_mapping/notebooks/01BuildCoreAiItCodeSet.ipynb
@@ -213,8 +123,9 @@ stages:
   outputContract: four termination artifacts
   dependencyStageIds:
   - A4-00-NCS-SOURCE
-  currentRunManifestSchema: p4-unified-current-run-v1
-  validatorGate: STRICT_CURRENT_RUN_BINDING
+  executionOrder: 9
+  currentRunManifestSchema: p4-unified-current-run-v2
+  validatorGate: STRICT_CURRENT_RUN_TOPOLOGY_AND_TIMESTAMP_BINDING
 - stageId: A4-02-RETRIEVAL
   owner: A4
   sourceNotebookPath: ncs_mapping/notebooks/02BuildNcsRetrievalIndex.ipynb
@@ -224,8 +135,69 @@ stages:
   outputContract: four termination artifacts
   dependencyStageIds:
   - A4-01-CODESET
-  currentRunManifestSchema: p4-unified-current-run-v1
-  validatorGate: STRICT_CURRENT_RUN_BINDING
+  executionOrder: 10
+  currentRunManifestSchema: p4-unified-current-run-v2
+  validatorGate: STRICT_CURRENT_RUN_TOPOLOGY_AND_TIMESTAMP_BINDING
+- stageId: A2-03-OCR
+  owner: A2
+  sourceNotebookPath: pipeline/notebooks/03OcrAndSectionRecovery.ipynb
+  sourceNotebookBlobSha256: db5ca86e37c73f09097f7f740bcef633643439d24eb20a1bcfd24171d78f518a
+  moduleBlobSha256: dd80cb5e66e74bba9a5f0994047601313fd7cd87d8438bb7a1bb2f563cb7df4f
+  inputContract: current-run SHA-bound input
+  outputContract: four termination artifacts
+  dependencyStageIds:
+  - A2-02-NORMALIZE
+  executionOrder: 11
+  currentRunManifestSchema: p4-unified-current-run-v2
+  validatorGate: STRICT_CURRENT_RUN_TOPOLOGY_AND_TIMESTAMP_BINDING
+- stageId: A2-04-TRACK
+  owner: A2
+  sourceNotebookPath: pipeline/notebooks/04SplitTracks.ipynb
+  sourceNotebookBlobSha256: 3892d341ca93b999d459e4faabd250f622ae8d626e994d9ee11a563b3a0f6aca
+  moduleBlobSha256: dd80cb5e66e74bba9a5f0994047601313fd7cd87d8438bb7a1bb2f563cb7df4f
+  inputContract: current-run SHA-bound input
+  outputContract: four termination artifacts
+  dependencyStageIds:
+  - A2-03-OCR
+  executionOrder: 12
+  currentRunManifestSchema: p4-unified-current-run-v2
+  validatorGate: STRICT_CURRENT_RUN_TOPOLOGY_AND_TIMESTAMP_BINDING
+- stageId: A2-05-REQUIREMENT
+  owner: A2
+  sourceNotebookPath: pipeline/notebooks/05ExtractRequirements.ipynb
+  sourceNotebookBlobSha256: 1a00c129bc3957ca878fcc75c17a71059b78a56fb34d3e38efc7ce8f341c012b
+  moduleBlobSha256: dd80cb5e66e74bba9a5f0994047601313fd7cd87d8438bb7a1bb2f563cb7df4f
+  inputContract: current-run SHA-bound input
+  outputContract: four termination artifacts
+  dependencyStageIds:
+  - A2-04-TRACK
+  executionOrder: 13
+  currentRunManifestSchema: p4-unified-current-run-v2
+  validatorGate: STRICT_CURRENT_RUN_TOPOLOGY_AND_TIMESTAMP_BINDING
+- stageId: A2-06-DEDUP
+  owner: A2
+  sourceNotebookPath: pipeline/notebooks/06Deduplicate90Days.ipynb
+  sourceNotebookBlobSha256: 2516eb89f685e936ec4463dce6a541d53f0f3e2cd116c5b223e90e44977ebe18
+  moduleBlobSha256: dd80cb5e66e74bba9a5f0994047601313fd7cd87d8438bb7a1bb2f563cb7df4f
+  inputContract: current-run SHA-bound input
+  outputContract: four termination artifacts
+  dependencyStageIds:
+  - A2-02-NORMALIZE
+  executionOrder: 14
+  currentRunManifestSchema: p4-unified-current-run-v2
+  validatorGate: STRICT_CURRENT_RUN_TOPOLOGY_AND_TIMESTAMP_BINDING
+- stageId: A2-07-LABEL
+  owner: A2
+  sourceNotebookPath: pipeline/notebooks/07LabelCareerAccess.ipynb
+  sourceNotebookBlobSha256: 59eff99c960b89385ba19ccb6a0fb684c27524c976cfa5a0448975104e1ee7f2
+  moduleBlobSha256: dd80cb5e66e74bba9a5f0994047601313fd7cd87d8438bb7a1bb2f563cb7df4f
+  inputContract: current-run SHA-bound input
+  outputContract: four termination artifacts
+  dependencyStageIds:
+  - A2-05-REQUIREMENT
+  executionOrder: 15
+  currentRunManifestSchema: p4-unified-current-run-v2
+  validatorGate: STRICT_CURRENT_RUN_TOPOLOGY_AND_TIMESTAMP_BINDING
 - stageId: A4-03-MAP-OBSERVED
   owner: A4
   sourceNotebookPath: ncs_mapping/notebooks/03MapObservedDuties.ipynb
@@ -234,9 +206,11 @@ stages:
   inputContract: current-run SHA-bound input
   outputContract: four termination artifacts
   dependencyStageIds:
+  - A2-05-REQUIREMENT
   - A4-02-RETRIEVAL
-  currentRunManifestSchema: p4-unified-current-run-v1
-  validatorGate: STRICT_CURRENT_RUN_BINDING
+  executionOrder: 16
+  currentRunManifestSchema: p4-unified-current-run-v2
+  validatorGate: STRICT_CURRENT_RUN_TOPOLOGY_AND_TIMESTAMP_BINDING
 - stageId: A4-04-EXPORT
   owner: A4
   sourceNotebookPath: ncs_mapping/notebooks/04ExportNcsMappingCsv.ipynb
@@ -246,8 +220,36 @@ stages:
   outputContract: four termination artifacts
   dependencyStageIds:
   - A4-03-MAP-OBSERVED
-  currentRunManifestSchema: p4-unified-current-run-v1
-  validatorGate: STRICT_CURRENT_RUN_BINDING
+  executionOrder: 17
+  currentRunManifestSchema: p4-unified-current-run-v2
+  validatorGate: STRICT_CURRENT_RUN_TOPOLOGY_AND_TIMESTAMP_BINDING
+- stageId: A2-08-NCS-LOAD
+  owner: A2
+  sourceNotebookPath: pipeline/notebooks/08LoadAndPrepareNcs.ipynb
+  sourceNotebookBlobSha256: a35971022aca8232e4d0d0e6511ea48e1736baf71599155e81fb33add9476768
+  moduleBlobSha256: dd80cb5e66e74bba9a5f0994047601313fd7cd87d8438bb7a1bb2f563cb7df4f
+  inputContract: current-run SHA-bound input
+  outputContract: four termination artifacts
+  dependencyStageIds:
+  - A4-00-NCS-SOURCE
+  - A4-01-CODESET
+  executionOrder: 18
+  currentRunManifestSchema: p4-unified-current-run-v2
+  validatorGate: STRICT_CURRENT_RUN_TOPOLOGY_AND_TIMESTAMP_BINDING
+- stageId: A2-09-NCS-MAP
+  owner: A2
+  sourceNotebookPath: pipeline/notebooks/09MapPostingToNcs.ipynb
+  sourceNotebookBlobSha256: cf635979e88a12ccdddccad433bdfd990aac5fc098689549296948ab085dd46e
+  moduleBlobSha256: dd80cb5e66e74bba9a5f0994047601313fd7cd87d8438bb7a1bb2f563cb7df4f
+  inputContract: current-run SHA-bound input
+  outputContract: four termination artifacts
+  dependencyStageIds:
+  - A2-08-NCS-LOAD
+  - A4-03-MAP-OBSERVED
+  - A4-04-EXPORT
+  executionOrder: 19
+  currentRunManifestSchema: p4-unified-current-run-v2
+  validatorGate: STRICT_CURRENT_RUN_TOPOLOGY_AND_TIMESTAMP_BINDING
 - stageId: A4-05-EVALUATE
   owner: A4
   sourceNotebookPath: ncs_mapping/notebooks/05EvaluateNcsMapping.ipynb
@@ -257,5 +259,33 @@ stages:
   outputContract: four termination artifacts
   dependencyStageIds:
   - A4-04-EXPORT
-  currentRunManifestSchema: p4-unified-current-run-v1
-  validatorGate: STRICT_CURRENT_RUN_BINDING
+  executionOrder: 20
+  currentRunManifestSchema: p4-unified-current-run-v2
+  validatorGate: STRICT_CURRENT_RUN_TOPOLOGY_AND_TIMESTAMP_BINDING
+- stageId: A2-10-EXPORT
+  owner: A2
+  sourceNotebookPath: pipeline/notebooks/10ExportPreprocessedCsv.ipynb
+  sourceNotebookBlobSha256: c6d408361411d05bcc56f3611fbb19af365513f8cc7417189d11158955bcdee8
+  moduleBlobSha256: dd80cb5e66e74bba9a5f0994047601313fd7cd87d8438bb7a1bb2f563cb7df4f
+  inputContract: current-run SHA-bound input
+  outputContract: four termination artifacts
+  dependencyStageIds:
+  - A2-05-REQUIREMENT
+  - A2-06-DEDUP
+  - A2-07-LABEL
+  - A2-09-NCS-MAP
+  executionOrder: 21
+  currentRunManifestSchema: p4-unified-current-run-v2
+  validatorGate: STRICT_CURRENT_RUN_TOPOLOGY_AND_TIMESTAMP_BINDING
+- stageId: A2-11-QA
+  owner: A2
+  sourceNotebookPath: pipeline/notebooks/11PreprocessedDataQa.ipynb
+  sourceNotebookBlobSha256: e83d52cc529a57b035ceae859f5d9d65171d867fc2e0016d620d09715d51a850
+  moduleBlobSha256: dd80cb5e66e74bba9a5f0994047601313fd7cd87d8438bb7a1bb2f563cb7df4f
+  inputContract: current-run SHA-bound input
+  outputContract: four termination artifacts
+  dependencyStageIds:
+  - A2-10-EXPORT
+  executionOrder: 22
+  currentRunManifestSchema: p4-unified-current-run-v2
+  validatorGate: STRICT_CURRENT_RUN_TOPOLOGY_AND_TIMESTAMP_BINDING

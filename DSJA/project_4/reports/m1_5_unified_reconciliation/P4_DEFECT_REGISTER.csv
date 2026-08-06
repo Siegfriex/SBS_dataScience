@@ -4,4 +4,6 @@ P1-UNIFIED-002,P1,OPEN,canonicalPostedAt/periodMonth/companyKey remain unresolve
 P1-UNIFIED-003,P1,OPEN,production 79-month crawl and human source-policy approval are absent,M2 production crawl,retain fail-closed
 P1-UNIFIED-004,P1,OPEN,NCS duty-unit bridge and Work24 crosswalk are unprobed/unpromoted,NCS corpus promotion,retain fail-closed
 P1-UNIFIED-005,P1,OPEN,"HUMAN_GOLD, dual coding and adjudication are all 0",NCS quality/M3,retain fail-closed
+P1-UNIFIED-006,P1,RESOLVED,NCS-aware 23-stage DAG and producer-before-consumer runtime order,A5 promotion audit,verified by fresh replay
+P1-UNIFIED-007,P1,RESOLVED,execution-wrapper timestamps and command/source/module/input/output bindings,A5 promotion audit,verified by fresh replay
 P2-UNIFIED-001,P2,OPEN,A1 release Notebook remains intentionally NOT_EVALUATED for production,CRAWL_RELEASE_READY,retain fail-closed
