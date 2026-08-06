@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 from pathlib import Path
 from typing import Any
@@ -434,7 +435,14 @@ def run_observed_stage(
     pipeline = project / "pipeline"
     release = Path(release_root).resolve()
     crawl = Path(crawl_root).resolve()
-    database = pipeline / "data/warehouse/p4.observed-dev.duckdb"
+    database = Path(
+        os.environ.get(
+            "P4_OBSERVED_DATABASE_PATH",
+            str(pipeline / "data/warehouse/p4.observed-dev.duckdb"),
+        )
+    ).resolve()
+    if database.name != "p4.observed-dev.duckdb":
+        raise ValueError("isolated observed warehouse must be named p4.observed-dev.duckdb")
     output = Path(output_root).resolve() if output_root else pipeline / "data/exports/observed-dev/OBSERVED_DEV_20260806_01"
     control = Path(control_root).resolve() if control_root else project / "crawl/control"
     ncs_handoff = Path(ncs_handoff_path).resolve() if ncs_handoff_path else project / "shared/handoffs/AGENT4_TO_AGENT2_NCS_MAPPING_OBSERVED_DEV.json"
