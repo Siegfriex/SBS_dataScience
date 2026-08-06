@@ -17,7 +17,7 @@
     "empiricalAnalysisAllowed": false,
     "parseVersion": "observed-dev-parse-20260806.1",
     "path": "pipeline/data/warehouse/p4.observed-dev.duckdb",
-    "bytes": 2895872,
+    "bytes": 3420160,
     "semanticSha256": "63532e2b8fd04ef1fad7b996510757a297c5a7b2b971bc6815bfcf09442999a6",
     "physicalChecksumStable": false,
     "physicalChecksumNote": "DuckDB storage layout is not byte-reproducible; semantic table fingerprint is authoritative.",
@@ -26,6 +26,8 @@
       "eligibility": 137,
       "manifest_cursor": 29,
       "ocr_queue": 30,
+      "posting_ncs_candidates": 128,
+      "posting_ncs_matches": 28,
       "posting_normalized": 137,
       "posting_section": 84,
       "posting_track": 137,
@@ -65,8 +67,8 @@
     "path": "pipeline/data/exports/observed-dev/OBSERVED_DEV_20260806_01",
     "quality": {
       "status": "PASS",
-      "checks": 17,
-      "passed": 17,
+      "checks": 24,
+      "passed": 24,
       "failed": 0,
       "generatedAt": "2026-08-06T00:00:00+09:00",
       "empiricalAnalysisAllowed": false,
@@ -75,8 +77,9 @@
     "finalReviewCsv": "pipeline/data/exports/observed-dev/OBSERVED_DEV_20260806_01/preprocessed_posting_tracks.csv"
   },
   "ncsIntegration": {
-    "status": "AWAITING_AGENT4_HANDOFF",
-    "postingNcsCandidateRows": 0,
+    "status": "AGENT4_HANDOFF_INTEGRATED",
+    "postingNcsCandidateRows": 128,
+    "postingNcsMatchRows": 28,
     "mappingMode": "LEXICAL_BASELINE",
     "codeSetStatus": "REVIEW_REQUIRED",
     "goldValidatedFlag": false,
@@ -97,11 +100,13 @@
     ]
   },
   "verification": {
-    "pytest": "102 passed",
+    "pytest": "focused Agent4 integration suite passed",
     "notebookRenderCheck": "PASS",
     "sourceNotebookOutputCount": 0,
     "nbclientSmoke": [
-      "00ContractAndInputAudit.ipynb",
+      "08LoadAndPrepareNcs.ipynb",
+      "09MapPostingToNcs.ipynb",
+      "10ExportPreprocessedCsv.ipynb",
       "11PreprocessedDataQa.ipynb"
     ],
     "canonicalP4DuckdbContamination": 0
@@ -154,6 +159,20 @@
       "stageMetrics": "runs/observed-dev/07LabelCareerAccess/stage_metrics.json",
       "stageQuality": "runs/observed-dev/07LabelCareerAccess/stage_quality.csv",
       "checksums": "runs/observed-dev/07LabelCareerAccess/CHECKSUMS.sha256",
+      "qualityStatus": "PASS"
+    },
+    "08LoadAndPrepareNcs": {
+      "stageManifest": "runs/observed-dev/08LoadAndPrepareNcs/stage_manifest.json",
+      "stageMetrics": "runs/observed-dev/08LoadAndPrepareNcs/stage_metrics.json",
+      "stageQuality": "runs/observed-dev/08LoadAndPrepareNcs/stage_quality.csv",
+      "checksums": "runs/observed-dev/08LoadAndPrepareNcs/CHECKSUMS.sha256",
+      "qualityStatus": "PASS"
+    },
+    "09MapPostingToNcs": {
+      "stageManifest": "runs/observed-dev/09MapPostingToNcs/stage_manifest.json",
+      "stageMetrics": "runs/observed-dev/09MapPostingToNcs/stage_metrics.json",
+      "stageQuality": "runs/observed-dev/09MapPostingToNcs/stage_quality.csv",
+      "checksums": "runs/observed-dev/09MapPostingToNcs/CHECKSUMS.sha256",
       "qualityStatus": "PASS"
     },
     "10ExportPreprocessedCsv": {

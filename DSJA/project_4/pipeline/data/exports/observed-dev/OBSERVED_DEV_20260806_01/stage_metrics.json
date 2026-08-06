@@ -13,7 +13,7 @@
   "metrics": [
     {
       "metricId": "checks",
-      "value": 17,
+      "value": 24,
       "numerator": null,
       "denominator": null,
       "unit": "count",
@@ -53,7 +53,7 @@
     },
     {
       "metricId": "passed",
-      "value": 17,
+      "value": 24,
       "numerator": null,
       "denominator": null,
       "unit": "count",
@@ -83,7 +83,17 @@
     },
     {
       "metricId": "rowCounts.posting_ncs_candidates",
-      "value": 0,
+      "value": 128,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "rowCounts.posting_ncs_matches",
+      "value": 28,
       "numerator": null,
       "denominator": null,
       "unit": "count",

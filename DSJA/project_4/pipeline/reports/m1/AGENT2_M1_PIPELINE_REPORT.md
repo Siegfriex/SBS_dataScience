@@ -8,9 +8,9 @@ Status: `PREPROCESSED_EXPORT_BUILT`
 - Promotion allowed: `false`
 - Observed warehouse: `pipeline/data/warehouse/p4.observed-dev.duckdb`
 - Final review CSV: `pipeline/data/exports/observed-dev/OBSERVED_DEV_20260806_01/preprocessed_posting_tracks.csv`
-- QA: `17/17 PASS`
+- QA: `24/24 PASS`
 - Agent 3 termination schemas: `PASS`
-- NCS candidates: `0` (`AWAITING_AGENT4_HANDOFF`)
+- NCS candidates / matches: `128` / `28` (`AGENT4_HANDOFF_INTEGRATED`)
 - Recomputed posting rows: `137`
 - Recomputed usable raw SSR rows: `29`
 - Recomputed sections / requirements / duty handoff: `84` / `35` / `28`
