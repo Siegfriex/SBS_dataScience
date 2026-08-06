@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "contractVersion": "4.0",
+  "registryAuthority": "integration/API_CONTRACT_REGISTRY.yaml",
+  "endpointSchema": "shared/contracts/semantic_ncs_reference/v4.0/schemas/api_endpoint_contract.schema.json",
+  "probeRunSchema": "shared/contracts/semantic_ncs_reference/v4.0/schemas/api_probe_run.schema.json",
+  "fixtureAuthority": "ncs_mapping/data/raw/api_fixtures",
+  "liveProbeStatus": "NOT_EVALUATED",
+  "reason": "NCS_API_SERVICE_KEY and WORK24_API_AUTH_KEY were not available; no network calls were made"
+}

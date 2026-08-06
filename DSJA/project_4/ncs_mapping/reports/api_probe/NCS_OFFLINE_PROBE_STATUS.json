@@ -1,0 +1,12 @@
+{
+  "provider": "NCS_OPENAPI",
+  "endpointCount": 5,
+  "fixtureClass": "SYNTHETIC_CONTRACT_FIXTURE",
+  "fixtureCases": ["SUCCESS", "EMPTY_VALID", "AUTH_ERROR", "PARAM_ERROR"],
+  "fixtureRoot": "ncs_mapping/data/raw/api_fixtures/ncs",
+  "parserFixtureTestStatus": "PASS",
+  "liveProbeStatus": "NOT_EVALUATED",
+  "credentialPresent": false,
+  "networkCallCount": 0,
+  "secretExposureCount": 0
+}
