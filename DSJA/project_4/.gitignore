@@ -1,0 +1,26 @@
+# Local secrets and environment
+.env
+.env.*
+!.env.example
+.venv/
+
+# Python and tests
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Notebook and local IDE state
+.ipynb_checkpoints/
+.jupyter/
+.vscode/
+
+# P4 local runtime data
+pipeline/data/raw/
+pipeline/data/interim/
+pipeline/data/warehouse/
+pipeline/runs/
+*.duckdb
+*.duckdb.wal
+
+# Gold and mart policy is intentionally delegated to the owning pipeline
+# contract. Do not add blanket data/gold or data/marts rules here.
