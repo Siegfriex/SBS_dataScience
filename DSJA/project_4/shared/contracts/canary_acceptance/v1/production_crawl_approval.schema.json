@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://p4.local/contracts/canary_acceptance/v1/production_crawl_approval.schema.json",
+  "title": "P4 Canary Production Crawl Approval",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "approvalId", "approvedBy", "approvedAtUtc", "expiresAtUtc", "approvalStatus",
+    "approvedSource", "approvedCanaryScope", "approvedMaxRequests",
+    "approvedMaxDetailRequests", "approvedMaxAssetRequests", "linkareerHostedAssetAllowed",
+    "externalAtsTransportAllowed", "browserAutomationAllowed", "rateLimitPolicyVersion",
+    "killSwitchPolicyVersion", "queryRegistrySha256", "sourcePolicyAuditSha256", "storagePlanSha256"
+  ],
+  "properties": {
+    "approvalId": {"type": "string", "minLength": 1},
+    "approvedBy": {"type": "string", "minLength": 1},
+    "approvedAtUtc": {"type": "string", "format": "date-time"},
+    "expiresAtUtc": {"type": "string", "format": "date-time"},
+    "approvalStatus": {"const": "APPROVED"},
+    "approvedSource": {"const": "LINKAREER"},
+    "approvedCanaryScope": {"type": "object"},
+    "approvedMaxRequests": {"type": "integer", "minimum": 0},
+    "approvedMaxDetailRequests": {"type": "integer", "minimum": 0},
+    "approvedMaxAssetRequests": {"type": "integer", "minimum": 0},
+    "linkareerHostedAssetAllowed": {"const": true},
+    "externalAtsTransportAllowed": {"const": false},
+    "browserAutomationAllowed": {"const": false},
+    "rateLimitPolicyVersion": {"type": "string", "minLength": 1},
+    "killSwitchPolicyVersion": {"type": "string", "minLength": 1},
+    "queryRegistrySha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "sourcePolicyAuditSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "storagePlanSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}
