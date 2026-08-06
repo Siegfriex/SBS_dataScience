@@ -9,6 +9,7 @@ from p4_ncs.dictionary.alias_dictionary import load_alias_dictionary
 from p4_ncs.evaluation.gold_evaluation import GOLD_COLUMNS, evaluate_gold_mapping, load_gold_structure
 from p4_ncs.mapping.observed_baseline import map_observed_duties
 from p4_ncs.retrieval.lexical_index import LexicalIndex, restrict_units_to_subcategories
+from p4_ncs.quality import stage_artifacts
 
 NCS_ROOT = Path(__file__).resolve().parents[1]
 
@@ -143,3 +144,24 @@ def test_nonempty_gold_is_rejected_in_observed_development():
     row["goldSampleId"] = "GOLD_1"
     with pytest.raises(ValueError, match="cannot evaluate non-empty gold"):
         evaluate_gold_mapping(pd.DataFrame([row], columns=GOLD_COLUMNS))
+
+
+def test_stage_manifest_uses_detached_head_fallback(tmp_path, monkeypatch):
+    def fake_git_value(_root, *args):
+        return "" if args == ("branch", "--show-current") else "a" * 40
+
+    monkeypatch.setattr(stage_artifacts, "_git_value", fake_git_value)
+    context = stage_artifacts.StageContext(
+        ncs_root=tmp_path,
+        stage_id="A4-00-NCS-SOURCE",
+        schema_version="ncs-base-v1",
+    )
+    manifest = stage_artifacts.write_stage_artifacts(
+        context=context,
+        input_manifest_sha256="b" * 64,
+        row_counts={},
+        metrics=[],
+        quality_rows=[],
+        business_files=[],
+    )
+    assert manifest["branch"] == "DETACHED_HEAD"

@@ -133,7 +133,7 @@ def write_stage_artifacts(
         "stageId": context.stage_id,
         "status": resolved_status,
         "agentId": "P4-A4-NCS",
-        "branch": _git_value(context.ncs_root, "branch", "--show-current"),
+        "branch": _git_value(context.ncs_root, "branch", "--show-current") or "DETACHED_HEAD",
         "gitHead": _git_value(context.ncs_root, "rev-parse", "HEAD"),
         "contractVersion": context.contract_version,
         "schemaVersion": context.schema_version,
