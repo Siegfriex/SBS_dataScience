@@ -24,7 +24,7 @@ CRAWL_RELEASE_ID = "CRAWL_20260806_03"
 DATA_PROVENANCE = "OBSERVED_DEVELOPMENT_ONLY"
 MASTER_RUN_ID = "MASTER_20260806_01"
 
-NOTEBOOKS: tuple[tuple[str, str, str], ...] = (
+NOTEBOOK_INDEX: tuple[tuple[str, str, str], ...] = (
     ("P4-A1-SOURCE", "A1-00-RECOVER", "crawl/notebooks/00RecoverSourceState.ipynb"),
     ("P4-A1-SOURCE", "A1-01-INDEX", "crawl/notebooks/01CollectLinkareerIndex.ipynb"),
     ("P4-A1-SOURCE", "A1-02-DETAIL", "crawl/notebooks/02CollectPostingDetail.ipynb"),
@@ -38,18 +38,22 @@ NOTEBOOKS: tuple[tuple[str, str, str], ...] = (
     ("P4-A2-PIPELINE", "A2-05-REQUIREMENT", "pipeline/notebooks/05ExtractRequirements.ipynb"),
     ("P4-A2-PIPELINE", "A2-06-DEDUP", "pipeline/notebooks/06Deduplicate90Days.ipynb"),
     ("P4-A2-PIPELINE", "A2-07-LABEL", "pipeline/notebooks/07LabelCareerAccess.ipynb"),
-    ("P4-A2-PIPELINE", "A2-08-NCS-LOAD", "pipeline/notebooks/08LoadAndPrepareNcs.ipynb"),
-    ("P4-A2-PIPELINE", "A2-09-NCS-MAP", "pipeline/notebooks/09MapPostingToNcs.ipynb"),
-    ("P4-A2-PIPELINE", "A2-10-EXPORT", "pipeline/notebooks/10ExportPreprocessedCsv.ipynb"),
-    ("P4-A2-PIPELINE", "A2-11-EXPORT-QA", "pipeline/notebooks/11PreprocessedDataQa.ipynb"),
     ("P4-A4-NCS", "A4-00-NCS-SOURCE", "ncs_mapping/notebooks/00NcsSourceAudit.ipynb"),
     ("P4-A4-NCS", "A4-01-CODESET", "ncs_mapping/notebooks/01BuildCoreAiItCodeSet.ipynb"),
     ("P4-A4-NCS", "A4-02-RETRIEVAL", "ncs_mapping/notebooks/02BuildNcsRetrievalIndex.ipynb"),
     ("P4-A4-NCS", "A4-03-MAP-OBSERVED", "ncs_mapping/notebooks/03MapObservedDuties.ipynb"),
     ("P4-A4-NCS", "A4-04-EXPORT", "ncs_mapping/notebooks/04ExportNcsMappingCsv.ipynb"),
     ("P4-A4-NCS", "A4-05-EVALUATE", "ncs_mapping/notebooks/05EvaluateNcsMapping.ipynb"),
+    ("P4-A2-PIPELINE", "A2-08-NCS-LOAD", "pipeline/notebooks/08LoadAndPrepareNcs.ipynb"),
+    ("P4-A2-PIPELINE", "A2-09-NCS-MAP", "pipeline/notebooks/09MapPostingToNcs.ipynb"),
+    ("P4-A2-PIPELINE", "A2-10-EXPORT", "pipeline/notebooks/10ExportPreprocessedCsv.ipynb"),
+    ("P4-A2-PIPELINE", "A2-11-EXPORT-QA", "pipeline/notebooks/11PreprocessedDataQa.ipynb"),
     ("P4-A3-CONTROL", "A3-MASTER", "crawl/notebooks/P4_Notebook_First_Master.ipynb"),
 )
+
+# Public compatibility name. Execution order is validated against the registry
+# by ``notebook_plan`` before any child kernel starts.
+NOTEBOOKS = NOTEBOOK_INDEX
 
 PARAMETER_NAMES = (
     "RUN_MODE", "AGENT_ID", "STAGE_ID", "CONTRACT_VERSION", "SCHEMA_VERSION",
@@ -98,10 +102,85 @@ def load_stage_registry(project_root: str | Path) -> dict[str, Any]:
     return yaml.safe_load(path.read_text(encoding="utf-8"))
 
 
+def notebook_plan(
+    project_root: str | Path,
+    *,
+    include_master: bool = False,
+) -> tuple[tuple[str, str, str], ...]:
+    """Return a stable topological plan for the implemented Notebook bundle."""
+
+    registry = load_stage_registry(project_root)
+    selected = {
+        stage_id: (owner, stage_id, path)
+        for owner, stage_id, path in NOTEBOOK_INDEX
+        if include_master or stage_id != "A3-MASTER"
+    }
+    registered = {stage["stageId"]: stage for stage in registry["stages"]}
+    missing = sorted(set(selected).difference(registered).difference({"A3-MASTER"}))
+    if missing:
+        raise ValueError(f"planned stages absent from registry: {missing}")
+
+    dependencies: dict[str, set[str]] = {}
+    for stage_id in selected:
+        if stage_id == "A3-MASTER":
+            dependencies[stage_id] = set(selected).difference({stage_id})
+        else:
+            dependencies[stage_id] = {
+                upstream
+                for upstream in registered[stage_id].get("upstreamStages", [])
+                if upstream in selected
+            }
+
+    rank = {stage_id: index for index, (_, stage_id, _) in enumerate(NOTEBOOK_INDEX)}
+    ordered: list[tuple[str, str, str]] = []
+    remaining = set(selected)
+    completed: set[str] = set()
+    while remaining:
+        ready = sorted(
+            (stage_id for stage_id in remaining if dependencies[stage_id] <= completed),
+            key=lambda stage_id: (rank[stage_id], stage_id),
+        )
+        if not ready:
+            unresolved = {stage_id: sorted(dependencies[stage_id] - completed) for stage_id in sorted(remaining)}
+            raise ValueError(f"cyclic or unresolved Notebook dependencies: {unresolved}")
+        for stage_id in ready:
+            ordered.append(selected[stage_id])
+            completed.add(stage_id)
+            remaining.remove(stage_id)
+    return tuple(ordered)
+
+
+def dependency_order_audit(
+    project_root: str | Path,
+    plan: Sequence[tuple[str, str, str]] | None = None,
+) -> list[dict[str, Any]]:
+    """Report every current plan edge and whether producer precedes consumer."""
+
+    actual = tuple(plan or notebook_plan(project_root))
+    positions = {stage_id: index for index, (_, stage_id, _) in enumerate(actual)}
+    registry = load_stage_registry(project_root)
+    rows: list[dict[str, Any]] = []
+    for stage in registry["stages"]:
+        consumer = stage["stageId"]
+        if consumer not in positions:
+            continue
+        for producer in stage.get("upstreamStages", []):
+            if producer not in positions:
+                continue
+            rows.append({
+                "producerStageId": producer,
+                "consumerStageId": consumer,
+                "producerOrder": positions[producer],
+                "consumerOrder": positions[consumer],
+                "status": "PASS" if positions[producer] < positions[consumer] else "FAIL",
+            })
+    return rows
+
+
 def repository_architecture(project_root: str | Path) -> list[dict[str, Any]]:
     root = Path(project_root)
     rows = []
-    for owner, stage_id, relative in NOTEBOOKS:
+    for owner, stage_id, relative in NOTEBOOK_INDEX:
         path = root / relative
         rows.append({
             "agentId": owner,
@@ -269,7 +348,7 @@ def audit_notebook(path: str | Path, project_root: str | Path) -> dict[str, Any]
 
 def audit_source_bundle(project_root: str | Path) -> list[dict[str, Any]]:
     root = Path(project_root)
-    metadata = {(relative): (owner, stage) for owner, stage, relative in NOTEBOOKS}
+    metadata = {(relative): (owner, stage) for owner, stage, relative in NOTEBOOK_INDEX}
     rows = []
     for relative, (owner, stage) in metadata.items():
         row = audit_notebook(root / relative, root)
@@ -302,9 +381,9 @@ def execute_notebook(
     relative = source.relative_to(root)
     destination = Path(run_root).resolve() / "executed" / relative
     shared_run = Path(run_root).resolve()
-    stage_lookup = {item[2]: item[1] for item in NOTEBOOKS}
+    stage_lookup = {item[2]: item[1] for item in NOTEBOOK_INDEX}
     stage_id = stage_lookup[relative.as_posix()]
-    owner = next(item[0] for item in NOTEBOOKS if item[2] == relative.as_posix())
+    owner = next(item[0] for item in NOTEBOOK_INDEX if item[2] == relative.as_posix())
     parameter_output: Path | None
     kernel_cwd = root
     child_env: dict[str, str] = {}
@@ -397,7 +476,10 @@ def execute_notebook_plan(
     root = Path(project_root).resolve()
     run = Path(run_root).resolve()
     rows: list[dict[str, Any]] = []
-    plan = NOTEBOOKS if include_master else NOTEBOOKS[:-1]
+    plan = notebook_plan(root, include_master=include_master)
+    order_audit = dependency_order_audit(root, plan)
+    if any(row["status"] != "PASS" for row in order_audit):
+        raise ValueError(f"Notebook dependency order violation: {order_audit}")
     for owner, stage, relative in plan:
         row = execute_notebook(root / relative, root, run)
         row.update({"agentId": owner, "stageId": stage})
