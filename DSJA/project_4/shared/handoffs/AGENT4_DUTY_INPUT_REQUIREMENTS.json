@@ -1,0 +1,47 @@
+{
+  "agentId": "P4-A4-NCS",
+  "agentName": "P4 NCS Source & Duty-Level Mapping Engineer",
+  "toAgent": "P4-A2",
+  "status": "AWAITING_AGENT2_INPUT",
+  "purpose": "Defines the minimum contract Agent 2's posting/track/section pipeline output must satisfy before Agent 4 will run real (non-fixture) NCS mapping.",
+  "contractVersion": "2.1.2",
+  "requiredTopLevelFields": {
+    "contractVersion": "must equal 2.1.2",
+    "crawlReleaseId": "e.g. CRAWL_20260806_02 -- the Agent 1 release this pipeline run was built from",
+    "dataVersion": "Agent 2 pipeline output version tag",
+    "parseVersion": "parser version used to produce postingTrack/postingSection/requirementFact",
+    "postingTrackPath": "path to the track-level output file",
+    "postingSectionPath": "path to the section-level output file",
+    "requirementFactPath": "path to the requirement-fact-level output file",
+    "inputSha256": "sha256 of each of the three files above, keyed by filename",
+    "rowCounts": "row counts for each of the three files, keyed by filename",
+    "eligibleDutyCount": "count of rows where ncsEligibleFlag=true across the input"
+  },
+  "requiredRowFields": {
+    "trackId": "canonical SHA-256 id per AGENT3_TO_AGENT2_HANDOFF.json keyMigration (TRK_ + sha256(postingId|trackIndex)[:20])",
+    "postingId": "canonical SHA-256 id (PST_ + sha256(sourceName|sourcePostingId)[:20])",
+    "canonicalPostingId": "postingId of the dedup-selected representative posting this track belongs to",
+    "sectionId": "canonical SHA-256 id (SEC_ + sha256(trackId|sectionOrder)[:20])",
+    "sectionType": "enum, e.g. dutyDescription/qualification/preferred/other -- must distinguish duty text from qualification/preferred text",
+    "evidenceText": "the raw duty/task text Agent 4 will run retrieval+mapping against",
+    "jobTitle": "posting-level job title string",
+    "jobCode": "Agent 2's own job-type classification code, if any (separate from ncsUnitCode)",
+    "trackType": "e.g. NEW/EXPERIENCED/CONTRACT/INTERN, from jobTypes",
+    "ncsEligibleFlag": "per AGENT3_TO_AGENT2_HANDOFF.json definition: RQ2-eligible track with defensible duty/task context",
+    "canonicalPostedAt": "canonical posting date for temporal analysis",
+    "canonicalRecordFlag": "dedup-selected representative flag, independent of source/text eligibility"
+  },
+  "explicitNonRequirements": [
+    "Agent 4 does NOT need externalApplyUrl/externalAtsDomain -- those are RQ2 eligibility inputs already resolved upstream into ncsEligibleFlag",
+    "Agent 4 does NOT need full posting body text, only the duty/task-scoped evidenceText per section"
+  ],
+  "untilThisArrives": {
+    "behavior": "Agent 4 mapping code runs only against local fixtures under ncs_mapping/tests/fixtures/, never against production duty data",
+    "fixtureFlag": "any report referencing mapping precision/coverage before this handoff is satisfied must be marked NOT_EVALUATED, not a real score"
+  },
+  "createdAt": "2026-08-06",
+  "relatedFiles": [
+    "DSJA/project_4/shared/handoffs/AGENT3_TO_AGENT2_HANDOFF.json",
+    "DSJA/project_4/ncs_mapping/docs/NCS_MAPPING_ANNOTATION_GUIDE.md"
+  ]
+}
