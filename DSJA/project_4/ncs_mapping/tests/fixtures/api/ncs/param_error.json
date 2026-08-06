@@ -1,0 +1,7 @@
+{
+  "sourceClass": "SYNTHETIC_CONTRACT_FIXTURE",
+  "provider": "NCS_OPENAPI",
+  "probeCase": "INVALID_PARAMETER",
+  "contentType": "application/xml",
+  "body": "<response><header><resultCode>10</resultCode><resultMsg>INVALID PARAMETER ERROR</resultMsg></header><body/></response>"
+}

@@ -1,0 +1,7 @@
+{
+  "sourceClass": "SYNTHETIC_CONTRACT_FIXTURE",
+  "provider": "NCS_OPENAPI",
+  "probeCase": "EMPTY_VALID",
+  "contentType": "application/xml",
+  "body": "<response><header><resultCode>00</resultCode><resultMsg>OK</resultMsg></header><body><items/><pageNo>1</pageNo><totalCount>0</totalCount></body></response>"
+}
