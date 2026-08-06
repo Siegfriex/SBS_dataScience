@@ -12,12 +12,13 @@ from pathlib import Path
 from typing import Any
 
 import pandas as pd
+import pyarrow.parquet as pq
 
 from canary_acceptance_contract import (
-    REQUIRED_ARTIFACTS, file_sha256, read_jsonl, validate_approval,
+    REQUIRED_ARTIFACTS, file_sha256, read_jsonl, read_jsonl_artifact, validate_approval,
     validate_checkpoint_chain, validate_checksum_manifest, validate_coverage,
     validate_kill_switch, validate_plan_and_stage, validate_raw_objects, validate_request_ledger,
-    validate_response_manifest,
+    validate_redacted_handoff, validate_response_manifest,
 )
 
 
@@ -62,9 +63,26 @@ def validate_component_parquets(root: Path, run_id: str, data_version: str) -> t
         "RETRY_EXHAUSTED", "PARSER_QUARANTINED", "DUPLICATE_CONTENT", "UNSUPPORTED_MIME",
     }
     for name in ("index_results.parquet", "detail_results.parquet", "asset_results.parquet"):
+        parquet = pq.ParquetFile(root / name)
         frame = pd.read_parquet(root / name)
         counts[name] = len(frame)
         if frame.empty:
+            required = {"canaryRunId", "canaryDataVersion", "terminalStatus", "schemaVersion", "emptyReason"}
+            missing = required - set(frame.columns)
+            if missing:
+                errors.append(f"CANARY_PARQUET_COLUMNS_MISSING:{name}:{','.join(sorted(missing))}")
+            metadata = {key.decode(): value.decode() for key, value in (parquet.schema_arrow.metadata or {}).items()}
+            expected_metadata = {
+                "p4.runId": run_id,
+                "p4.dataVersion": data_version,
+                "p4.schemaVersion": "p4-canary-handoff-v1",
+                "p4.rowCount": "0",
+            }
+            for field, expected in expected_metadata.items():
+                if metadata.get(field) != expected:
+                    errors.append(f"CANARY_PARQUET_METADATA_MISMATCH:{name}:{field}")
+            if not metadata.get("p4.emptyReason"):
+                errors.append(f"CANARY_PARQUET_EMPTY_REASON_MISSING:{name}")
             continue
         required = {"canaryRunId", "canaryDataVersion", "terminalStatus"}
         missing = required - set(frame.columns)
@@ -220,12 +238,15 @@ def main() -> int:
     network_calls = 0
     errors: list[str] = []
     policy_errors: list[str] = []
-    request_rows: list[dict[str, Any]] = read_jsonl(handoff / "request_attempt.jsonl")
+    request_rows, request_artifact_errors, request_envelope = read_jsonl_artifact(
+        handoff / "request_attempt.jsonl", "REQUEST_ATTEMPT", run_id
+    )
     raw_rows: list[dict[str, Any]] = []
     raw_stats = {"rows": 0, "resolved": 0, "quarantined": 0}
     conflict_count = 0
     component_counts: dict[str, int] = {}
     contamination_hits: list[str] = ["CONTAMINATION_NOT_EVALUATED_NO_HANDOFF"]
+    errors.extend(request_artifact_errors)
 
     network_calls = len(request_rows)
     if network_calls:
@@ -252,9 +273,17 @@ def main() -> int:
         errors.extend(git_errors)
         if plan.get("branch") != detected_a1_branch:
             errors.append("A1_HANDOFF_BRANCH_BINDING_MISMATCH")
-        if plan.get("headCommit") != detected_a1_commit:
-            errors.append("A1_HANDOFF_COMMIT_BINDING_MISMATCH")
+        if args.a1_commit != detected_a1_commit:
+            errors.append("A1_SUBMITTED_COMMIT_MISMATCH")
+        source_commit = str(plan.get("sourceCommit") or "")
+        source_binding = subprocess.run(
+            ["git", "merge-base", "--is-ancestor", source_commit, detected_a1_commit],
+            cwd=handoff, capture_output=True,
+        ) if re.fullmatch(r"[0-9a-f]{40}", source_commit) else None
+        if source_binding is None or source_binding.returncode != 0:
+            errors.append("A1_HANDOFF_SOURCE_COMMIT_NOT_ANCESTOR")
         errors.extend(validate_checksum_manifest(handoff))
+        errors.extend(validate_redacted_handoff(handoff))
         stage = json.loads((handoff / "stage_manifest.json").read_text(encoding="utf-8"))
         metrics = json.loads((handoff / "stage_metrics.json").read_text(encoding="utf-8"))
         errors.extend(validate_plan_and_stage(plan, stage, metrics))
@@ -267,8 +296,19 @@ def main() -> int:
             errors.append("DECLARED_NETWORK_CALL_COUNT_MISMATCH")
         request_errors, conflict_count = validate_request_ledger(request_rows)
         errors.extend(request_errors)
-        raw_rows = read_jsonl(handoff / "raw_object_manifest.jsonl")
-        response_rows = read_jsonl(handoff / "request_response_manifest.jsonl")
+        raw_rows, raw_artifact_errors, raw_envelope = read_jsonl_artifact(
+            handoff / "raw_object_manifest.jsonl", "RAW_OBJECT", run_id
+        )
+        response_rows, response_artifact_errors, response_envelope = read_jsonl_artifact(
+            handoff / "request_response_manifest.jsonl", "REQUEST_RESPONSE", run_id
+        )
+        kill_switch_rows, kill_artifact_errors, kill_envelope = read_jsonl_artifact(
+            handoff / "kill_switch_events.jsonl", "KILL_SWITCH_EVENT", run_id
+        )
+        quarantine_rows, quarantine_artifact_errors, quarantine_envelope = read_jsonl_artifact(
+            handoff / "quarantine_manifest.jsonl", "QUARANTINE_RECORD", run_id
+        )
+        errors.extend(raw_artifact_errors + response_artifact_errors + kill_artifact_errors + quarantine_artifact_errors)
         errors.extend(validate_response_manifest(request_rows, response_rows, raw_rows))
         raw_errors, raw_stats = validate_raw_objects(raw_rows, args.raw_root.resolve() if args.raw_root else None)
         errors.extend(raw_errors)
@@ -277,16 +317,18 @@ def main() -> int:
         raw_manifest_sha = file_sha256(handoff / "raw_object_manifest.jsonl")
         checkpoint = json.loads((handoff / "checkpoint_manifest.json").read_text(encoding="utf-8"))
         errors.extend(validate_checkpoint_chain(checkpoint, raw_manifest_sha))
-        errors.extend(validate_kill_switch(request_rows, read_jsonl(handoff / "kill_switch_events.jsonl")))
+        errors.extend(validate_kill_switch(request_rows, kill_switch_rows))
         coverage_errors, coverage_by_layer = validate_coverage(handoff / "canary_coverage.csv")
         errors.extend(coverage_errors)
         effective_plan = dict(plan)
         effective_plan["networkCalls"] = network_calls
         effective_plan["detailRequestCount"] = sum(row.get("logicalRequestType") == "DETAIL" for row in request_rows)
         effective_plan["assetRequestCount"] = sum(row.get("logicalRequestType") == "ASSET" for row in request_rows)
-        policy_errors = validate_approval(handoff, effective_plan, network_calls, now)
         binding = json.loads((handoff / "approval_binding.json").read_text(encoding="utf-8"))
         approval_id = str(binding.get("approvalId") or "NONE")
+        policy_errors = validate_approval(handoff, effective_plan, network_calls, now)
+        if binding.get("status") == "CANARY_APPROVAL_MISSING":
+            policy_errors.append("CANARY_APPROVAL_MISSING")
         if policy_errors:
             status = "CANARY_BLOCKED_BY_POLICY"
         elif errors:
@@ -340,15 +382,15 @@ def main() -> int:
     defect_path = report / f"P4_CANARY_DEFECT_TAXONOMY_{run_id}.csv"
     write_csv(defect_path, list(defect_rows[0]) if defect_rows else [*common, "defectId", "taxonomy", "severity", "description", "status"], defect_rows)
 
-    request_audit = [{**common, "checkId": "REQUEST_LEDGER", "rows": len(request_rows), "conflicts": conflict_count, "status": "NOT_EVALUATED" if missing else ("FAIL" if any(e.startswith("REQUEST") or e.startswith("TERMINAL") for e in errors) else "PASS")}]
-    raw_audit = [{**common, "checkId": "RAW_AUTHORITY", **raw_stats, "status": "NOT_EVALUATED" if missing else ("FAIL" if any(e.startswith("RAW") for e in errors) else "PASS")}]
+    request_audit = [{**common, "checkId": "REQUEST_LEDGER", "rows": len(request_rows), "conflicts": conflict_count, "emptyReason": request_envelope.get("emptyReason") if request_envelope else "", "status": "NOT_EVALUATED" if missing or request_envelope else ("FAIL" if any(e.startswith("REQUEST") or e.startswith("TERMINAL") for e in errors) else "PASS")}]
+    raw_audit = [{**common, "checkId": "RAW_AUTHORITY", **raw_stats, "emptyReason": raw_envelope.get("emptyReason") if not missing and raw_envelope else "", "status": "NOT_EVALUATED" if missing or (not missing and raw_envelope) else ("FAIL" if any(e.startswith("RAW") for e in errors) else "PASS")}]
     coverage_audit = []
     for layer in ("MONTH", "PAGE", "POSTING", "ASSET"):
         source = coverage_by_layer.get(layer, {}) if not missing else {}
         coverage_audit.append({
             **common, "coverageLayer": layer, "plannedCount": source.get("plannedCount", 0),
             "terminalCount": source.get("terminalCount", 0), "coverage": source.get("coverage", "NOT_EVALUATED"),
-            "status": "NOT_EVALUATED" if missing else ("FAIL" if any(error.endswith(f":{layer}") for error in errors) else "PASS"),
+            "status": "NOT_EVALUATED" if missing or source.get("coverage") == "NOT_EVALUATED" else ("FAIL" if any(error.endswith(f":{layer}") for error in errors) else "PASS"),
         })
     write_csv(report / f"P4_CANARY_REQUEST_AUDIT_{run_id}.csv", list(request_audit[0]), request_audit)
     write_csv(report / f"P4_CANARY_RAW_AUDIT_{run_id}.csv", list(raw_audit[0]), raw_audit)
@@ -372,11 +414,14 @@ def main() -> int:
         "a5AuditCommit": args.a5_commit, "a5AuditStatus": args.a5_status,
         "a1CandidateBranch": args.a1_branch, "a1CandidateCommit": args.a1_commit,
         "a1CandidateDirtyPathCount": args.a1_dirty_path_count,
+        "canonicalHandoffStatus": "PASS" if not missing and not errors else "FAIL",
+        "canonicalHandoffArtifactCount": len(REQUIRED_ARTIFACTS) - len(missing),
+        "canonicalHandoffManifestSha256": common["manifestSha256"],
         "legacyTier0EvidenceStatus": "PASS" if legacy and not legacy_errors else "NOT_EVALUATED" if not legacy else "FAIL",
         "legacyTier0EvidenceManifestSha256": legacy.get("evidenceManifestSha256"),
         "legacyTier0Checks": legacy.get("tier0Checks", 0),
         "legacyTier0ChecksPassed": legacy.get("tier0ChecksPassed", 0),
-        "a1HeadCommitAtRun": legacy.get("headCommitAtRun"),
+        "a1HeadCommitAtRun": plan.get("sourceCommitAtRun") or legacy.get("headCommitAtRun"),
         "missingArtifacts": missing, "errors": errors, "policyErrors": policy_errors,
         "generatedAtUtc": now.isoformat().replace("+00:00", "Z"),
     }
@@ -391,9 +436,9 @@ def main() -> int:
         f"- Required artifacts present: `{len(REQUIRED_ARTIFACTS) - len(missing)}/{len(REQUIRED_ARTIFACTS)}`\n"
         f"- A5 audit: `{args.a5_status}` at `{args.a5_commit}`\n\n"
         f"- A1 candidate: `{args.a1_branch}` at `{args.a1_commit}`; dirty paths `{args.a1_dirty_path_count}`\n\n"
-        f"- A1 Tier 0 legacy packet: `{'PASS' if legacy and not legacy_errors else 'NOT_EVALUATED'}`; "
-        f"fixture checks `{legacy.get('tier0ChecksPassed', 0)}/{legacy.get('tier0Checks', 0)}`\n\n"
-        "## Decision\n\nNo canary scope is accepted or escalated without a complete Git-tracked, checksum-bound A1 handoff. "
+        f"- Canonical handoff: `{'PASS' if not missing and not errors else 'FAIL'}`; "
+        f"artifacts `{len(REQUIRED_ARTIFACTS) - len(missing)}/{len(REQUIRED_ARTIFACTS)}`\n\n"
+        "## Decision\n\nNo canary scope is accepted or escalated without both a complete Git-tracked handoff and a valid approval. "
         "No production release, canonical database, RQ mart, Gold/reference, or article promotion is permitted.\n\n"
         "`CANARY_ACCEPTED_FOR_NEXT_DEBUG_SCOPE` is not equivalent to any M2, crawl-release, production-data, or analysis gate.\n",
         encoding="utf-8",

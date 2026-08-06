@@ -11,9 +11,9 @@ INTEGRATION_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(INTEGRATION_ROOT))
 
 from canary_acceptance_contract import (  # noqa: E402
-    canonical_json_sha256, request_key_for, validate_approval,
+    canonical_json_sha256, read_jsonl_artifact, request_key_for, validate_approval,
     validate_checkpoint_chain, validate_coverage, validate_kill_switch,
-    validate_plan_and_stage, validate_raw_objects, validate_request_ledger,
+    validate_plan_and_stage, validate_raw_objects, validate_redacted_handoff, validate_request_ledger,
     validate_response_manifest,
 )
 
@@ -154,3 +154,36 @@ def test_canary_plan_prevents_promotion_and_contamination():
     assert validate_plan_and_stage(plan, stage, metrics) == []
     plan["outputRootRelative"] = "pipeline/data/exports/observed-dev/CANARY-FIXTURE-1"
     assert "CANARY_OUTPUT_ROOT_INVALID" in validate_plan_and_stage(plan, stage, metrics)
+
+
+def test_empty_jsonl_envelope_is_valid_data_zero(tmp_path):
+    path = tmp_path / "request_attempt.jsonl"
+    path.write_text(
+        json.dumps({
+            "recordType": "EMPTY_ARTIFACT", "artifactType": "REQUEST_ATTEMPT",
+            "runId": "CANARY-0", "schemaVersion": "p4-canary-handoff-v1",
+            "emptyReason": "NETWORK_NOT_AUTHORIZED", "rowCount": 0,
+        }) + "\n",
+        encoding="utf-8",
+    )
+    rows, errors, envelope = read_jsonl_artifact(path, "REQUEST_ATTEMPT", "CANARY-0")
+    assert rows == [] and errors == [] and envelope["emptyReason"] == "NETWORK_NOT_AUTHORIZED"
+
+
+def test_not_evaluated_coverage_requires_explicit_empty_reason(tmp_path):
+    path = tmp_path / "coverage.csv"
+    path.write_text(
+        "coverageLayer,plannedCount,terminalCount,coverage,unknownTerminalStatusCount,nullTerminalStatusCount,quarantineIncluded,emptyReason\n"
+        + "".join(f"{layer},0,0,NOT_EVALUATED,0,0,true,NETWORK_NOT_AUTHORIZED\n" for layer in ("MONTH", "PAGE", "POSTING", "ASSET")),
+        encoding="utf-8",
+    )
+    errors, _ = validate_coverage(path)
+    assert errors == []
+
+
+def test_redacted_handoff_rejects_zero_byte(tmp_path):
+    from canary_acceptance_contract import REQUIRED_ARTIFACTS
+    for name in REQUIRED_ARTIFACTS:
+        (tmp_path / name).write_text("safe\n", encoding="utf-8")
+    (tmp_path / "raw_object_manifest.jsonl").write_bytes(b"")
+    assert "HANDOFF_ZERO_BYTE:raw_object_manifest.jsonl" in validate_redacted_handoff(tmp_path)

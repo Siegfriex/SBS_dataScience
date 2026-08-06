@@ -51,6 +51,12 @@ REQUIRED_RAW_FIELDS = (
     "requestFingerprintSha256", "sourceUrlFingerprint", "contentSha256",
     "byteCount", "mime", "retrievedAtUtc", "terminalStatus",
 )
+EMPTY_RECORD_TYPE = "EMPTY_ARTIFACT"
+EMPTY_SCHEMA_VERSION = "p4-canary-handoff-v1"
+ABSOLUTE_PATH_RE = re.compile(r"(?:/home/|/mnt/|[A-Za-z]:\\\\)")
+SECRET_RE = re.compile(
+    r"(?i)(?:api[_-]?key|access[_-]?token|session[_-]?cookie|authorization)\s*[:=]\s*[^,;\s]{8,}"
+)
 
 
 def canonical_json_sha256(value: Any) -> str:
@@ -70,6 +76,50 @@ def read_jsonl(path: Path) -> list[dict[str, Any]]:
     if not path.is_file():
         return []
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+
+
+def read_jsonl_artifact(
+    path: Path, expected_type: str, run_id: str
+) -> tuple[list[dict[str, Any]], list[str], dict[str, Any] | None]:
+    rows = read_jsonl(path)
+    empty_rows = [row for row in rows if row.get("recordType") == EMPTY_RECORD_TYPE]
+    if not empty_rows:
+        return rows, [], None
+    errors: list[str] = []
+    if len(rows) != 1:
+        errors.append(f"EMPTY_ARTIFACT_MIXED_WITH_DATA:{path.name}")
+    envelope = empty_rows[0]
+    expected = {
+        "artifactType": expected_type,
+        "runId": run_id,
+        "schemaVersion": EMPTY_SCHEMA_VERSION,
+        "rowCount": 0,
+    }
+    for field, value in expected.items():
+        if envelope.get(field) != value:
+            errors.append(f"EMPTY_ARTIFACT_FIELD_MISMATCH:{path.name}:{field}")
+    if not envelope.get("emptyReason"):
+        errors.append(f"EMPTY_ARTIFACT_REASON_MISSING:{path.name}")
+    return [], errors, envelope
+
+
+def validate_redacted_handoff(root: Path) -> list[str]:
+    errors: list[str] = []
+    actual = {path.name for path in root.iterdir() if path.is_file()}
+    if actual != set(REQUIRED_ARTIFACTS):
+        errors.append("HANDOFF_FILE_SET_MISMATCH")
+    for path in root.iterdir():
+        if not path.is_file():
+            continue
+        if path.stat().st_size == 0:
+            errors.append(f"HANDOFF_ZERO_BYTE:{path.name}")
+        if path.suffix in {".json", ".jsonl", ".csv", ".sha256"}:
+            text = path.read_text(encoding="utf-8-sig", errors="strict")
+            if ABSOLUTE_PATH_RE.search(text):
+                errors.append(f"HANDOFF_ABSOLUTE_PATH:{path.name}")
+            if SECRET_RE.search(text):
+                errors.append(f"HANDOFF_SECRET_OR_COOKIE:{path.name}")
+    return errors
 
 
 def parse_utc(value: Any) -> datetime:
@@ -131,6 +181,8 @@ def validate_checksum_manifest(root: Path) -> list[str]:
     expected_names = set(REQUIRED_ARTIFACTS) - {"CHECKSUMS.sha256"}
     for missing in sorted(expected_names - declared):
         errors.append(f"CHECKSUM_DECLARATION_MISSING:{missing}")
+    for extra in sorted(declared - expected_names):
+        errors.append(f"CHECKSUM_DECLARATION_EXTRA:{extra}")
     return errors
 
 
@@ -403,13 +455,22 @@ def validate_coverage(path: Path) -> tuple[list[str], dict[str, dict[str, Any]]]
         try:
             planned = int(row.get("plannedCount", ""))
             terminal = int(row.get("terminalCount", ""))
-            reported = float(row.get("coverage", ""))
         except ValueError:
             errors.append(f"COVERAGE_VALUE_INVALID:{layer}")
             continue
-        expected = 1.0 if planned == 0 and terminal == 0 else terminal / planned if planned else -1.0
-        if terminal > planned or abs(reported - expected) > 1e-12:
-            errors.append(f"COVERAGE_DENOMINATOR_MISMATCH:{layer}")
+        reported_value = row.get("coverage", "")
+        if reported_value == "NOT_EVALUATED":
+            if planned != 0 or terminal != 0 or not row.get("emptyReason"):
+                errors.append(f"COVERAGE_NOT_EVALUATED_INVALID:{layer}")
+        else:
+            try:
+                reported = float(reported_value)
+            except ValueError:
+                errors.append(f"COVERAGE_VALUE_INVALID:{layer}")
+                continue
+            expected = 1.0 if planned == 0 and terminal == 0 else terminal / planned if planned else -1.0
+            if terminal > planned or abs(reported - expected) > 1e-12:
+                errors.append(f"COVERAGE_DENOMINATOR_MISMATCH:{layer}")
         if int(row.get("unknownTerminalStatusCount", 0)) != 0 or int(row.get("nullTerminalStatusCount", 0)) != 0:
             errors.append(f"COVERAGE_TERMINAL_STATUS_INCOMPLETE:{layer}")
         if str(row.get("quarantineIncluded", "")).casefold() != "true":
