@@ -1,0 +1,77 @@
+{
+  "agentId": "P4-A3-CONTROL",
+  "agentName": "P4 SSOT Contract & Control Plane Lead",
+  "status": "CONTRACT_RELEASED_DATA_NOT_READY",
+  "branch": "main",
+  "headCommit": "49e3d09a7a74f1c5ddf984196741d338b77bd1f9",
+  "contractVersion": "2.1.2",
+  "releasePath": "releases/contracts/P4_CONTRACT_v2.1.2",
+  "contractSha256": "f92380cdfc16967f1e363800cd9a575e44532f18a86b2f28f8c3e2404ed675e9",
+  "handoffSchema": "P4 Agent 3 handoff v1",
+  "requiredReleaseFields": [
+    "contractVersion",
+    "dataVersion",
+    "manifest",
+    "paths",
+    "sha256",
+    "rowCounts",
+    "schemaVersion",
+    "coverage",
+    "blockers"
+  ],
+  "queryRegistrySchema": {
+    "primaryKey": [
+      "operationName",
+      "sha256Hash"
+    ],
+    "columns": [
+      "operationName",
+      "sha256Hash",
+      "transportType",
+      "httpMethod",
+      "variablesSchemaJson",
+      "responseSchemaJson",
+      "frontendBuildId",
+      "discoveredAt",
+      "lastVerifiedAt",
+      "activeFlag",
+      "verificationStatus"
+    ],
+    "compatibilityNote": "Agent 1 responseSchemaVersion is represented inside responseSchemaJson using an explicit schema id/version; operation identity is operationName+sha256Hash and frontendBuildId."
+  },
+  "coverageSchema": {
+    "fields": [
+      "coverageStatus",
+      "coverageReason",
+      "platformCoverageRegime"
+    ],
+    "provisional2019": {
+      "coverageStatus": "insufficient",
+      "coverageReason": "platformPreLaunch",
+      "platformCoverageRegime": "preStableRecruitService"
+    }
+  },
+  "keyContract": {
+    "algorithm": "SHA-256",
+    "encoding": "UTF-8",
+    "separator": "|",
+    "truncationHexChars": 20,
+    "postingId": "PST_ + sha256(sourceName|sourcePostingId)[:20]",
+    "rawPostingId": "RAW_ + sha256(sourceName|sourcePostingId|rawSha256)[:20]",
+    "trackId": "TRK_ + sha256(postingId|trackIndex)[:20]",
+    "sectionId": "SEC_ + sha256(trackId|sectionOrder)[:20]",
+    "requirementId": "REQ_ + sha256(sectionId|requirementType|normalizedEvidence)[:20]",
+    "matchId": "NMT_ + sha256(trackId|ncsUnitCode|mappingBasis|evidenceHash)[:20]"
+  },
+  "sourcePolicyGate": "Collection requires qa.vSourcePolicyGate=PASS; robots permission alone is insufficient.",
+  "requiredCollectorRules": [
+    "Omit the status filter from historical collection.",
+    "Advance global nodePagination until every day-side bucket reaches its own totalCount.",
+    "Scan activityTextHtml for embedded images and route them through postingAsset and OCR lineage."
+  ],
+  "blockers": [
+    "pagination and monthly coverage remain crawl-release gates",
+    "source policy evidence is not yet approved",
+    "NCS KSA source data.go.kr/15157542 remains unverified and may require local-only PDF extraction"
+  ]
+}
