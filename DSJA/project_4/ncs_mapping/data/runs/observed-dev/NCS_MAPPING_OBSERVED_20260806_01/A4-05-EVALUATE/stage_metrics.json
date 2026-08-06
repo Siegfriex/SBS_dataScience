@@ -1,0 +1,45 @@
+{
+  "metricsVersion": "stage-metrics-v1",
+  "runId": "NCS_MAPPING_OBSERVED_20260806_01",
+  "runMode": "observed-dev",
+  "stageId": "A4-05-EVALUATE",
+  "contractVersion": "2.1.2",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "dataVersion": "observed-dev-20260806.1",
+  "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+  "empiricalAnalysisAllowed": false,
+  "promotionAllowed": false,
+  "generatedAt": "2026-08-06T08:38:49.634973Z",
+  "metrics": [
+    {
+      "metricId": "precision",
+      "value": null,
+      "numerator": null,
+      "denominator": 0,
+      "unit": "ratio",
+      "grain": "gold mapping",
+      "unknownHandling": "empty gold input -> NOT_EVALUATED",
+      "status": "NOT_EVALUATED"
+    },
+    {
+      "metricId": "finalCoverage",
+      "value": null,
+      "numerator": null,
+      "denominator": 0,
+      "unit": "ratio",
+      "grain": "gold mapping",
+      "unknownHandling": "empty gold input -> NOT_EVALUATED",
+      "status": "NOT_EVALUATED"
+    },
+    {
+      "metricId": "goldRows",
+      "value": 0,
+      "numerator": 0,
+      "denominator": 0,
+      "unit": "count",
+      "grain": "gold row",
+      "unknownHandling": "empty gold input retained",
+      "status": "NOT_EVALUATED"
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+﻿gateId,ruleId,severity,status,observedValue,threshold,evidencePath
+NCS_MAPPING_GOLD_READY,GOLD_ROWS_PRESENT,INFO,NOT_EVALUATED,0,>0,ncs_mapping/data/gold/ncsMappings/gold_ncs_mapping_v1_TEMPLATE.csv
+NCS_MAPPING_GOLD_READY,FINAL_METRICS,INFO,NOT_EVALUATED,NOT_EVALUATED,adjudicated gold required,ncs_mapping/data/processed/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/ncs_gold_evaluation.json

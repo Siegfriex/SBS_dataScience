@@ -1,0 +1,4 @@
+﻿gateId,ruleId,severity,status,observedValue,threshold,evidencePath
+NCS_RETRIEVAL_READY,INDEX_NONEMPTY,INFO,PASS,691,>0,ncs_mapping/data/interim/observed-dev/lexical_index_manifest.json
+NCS_RETRIEVAL_READY,ALIAS_REFERENCES,INFO,PASS,0,0,ncs_mapping/configs/ncs_alias_dictionary.yaml
+NCS_RETRIEVAL_READY,DENSE_DISABLED,INFO,PASS,False,False,ncs_mapping/data/interim/observed-dev/lexical_index_manifest.json

@@ -6,7 +6,7 @@
 NCS_MAPPING_DEV_READY
 ```
 
-Execution source Git HEAD: `25552b4ddde414a91d037a6b1ecc4e3fa65f4e31`.
+Final Notebook execution source Git HEAD: `cce6067e578cb8dc99aacaeb465439cb1ef0faa1`.
 
 This status is limited to observed development. It is not a production code-set freeze, gold validation, final precision/coverage result, RQ2-B result, or `DATA_READY_RQ2B` declaration.
 
@@ -36,7 +36,7 @@ KSA = optional enrichment (D-023 provisional)
 - Batch top-5 materialization, bare-tool-only exclusion, explicit unmapped reason, and development-only confidence category.
 - Six canonical Parquet plus UTF-8-SIG inspection CSV exports and semantic round-trip equality checks.
 - Agent 2 handoff with relative paths, file SHA-256 values, observed-only policy, and prohibited-claim list.
-- Five thin source notebooks with deterministic cell IDs, a first parameter cell, no stored outputs, and calls into `src/p4_ncs` only.
+- Six executable source notebooks with deterministic cell IDs, a first 12-variable parameter cell, no stored outputs, stage-specific `src/p4_ncs` calls, input audits, and termination checks.
 - Four termination artifacts for each stage, matching the Agent 3 manifest and metrics schemas. `stage_quality.csv` uses `gateId,ruleId,severity,status,observedValue,threshold,evidencePath`.
 
 ## Recomputed observed results
@@ -53,6 +53,7 @@ KSA = optional enrichment (D-023 provisional)
 | Candidate rows | 128 |
 | Match/unmapped rows | 28 |
 | Explicit unmapped rows | 1 |
+| Gold rows | 0 |
 
 The current Agent 2 handoff supplies `rowsSha256`; the recomputed digest matched. These counts are pipeline-development observations only and are not mapping performance metrics.
 
@@ -88,10 +89,10 @@ ncs_mapping/data/runs/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/<stageId>/
 
 ## Validation evidence
 
-- `python3 -m pytest -q`: 32 passed (22 pre-existing plus 10 M1 tests).
-- Five notebooks executed in separate fresh kernels: all passed.
+- `python3 -m pytest -q`: 34 passed (22 pre-existing plus 12 M1 tests).
+- Six notebooks executed in separate fresh kernels: 00~04 `SUCCEEDED`, 05 `NOT_EVALUATED` as required for zero gold rows.
 - `nbformat.validate`, per-cell `ast.parse`, source outputs=0, and parameter-cell-first: passed.
-- All five `stage_manifest.json` and `stage_metrics.json` files validated against the current Agent 3 schemas.
+- All six `stage_manifest.json` and `stage_metrics.json` files validated against the current Agent 3 schemas.
 - Each stage directory contains exactly the four termination artifacts.
 - CSV-to-Parquet semantic equality: passed for all six exports.
 - Top-5 cap, unmapped preservation, same-subcategory unit prefix, bare-tool exclusion, null dense score, and observed provenance: passed.
@@ -104,3 +105,9 @@ ncs_mapping/data/runs/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/<stageId>/
 - Development confidence labels are operational triage categories, not calibrated probabilities.
 - No final precision, final coverage, or low-confidence quality-gate result is claimed.
 - Gold annotation/evaluation and any RQ2-B use remain blocked.
+
+Final executed copies and their four-artifact stage bundles are stored under:
+
+```text
+ncs_mapping/runs/notebooks/observed-dev/AGENT4_20260806_01/
+```

@@ -9,6 +9,7 @@ from pathlib import Path
 import nbformat
 
 ROOT = Path(__file__).resolve().parents[1]
+EXECUTION_SOURCE_GIT_HEAD = "cce6067e578cb8dc99aacaeb465439cb1ef0faa1"
 STAGES = [
     ("00NcsSourceAudit.ipynb", "A4-00-NCS-SOURCE", "NCS Source Audit", "Audit 13,442 NCS units, checksum lineage, duplicates, levels, hierarchy codes, and documented name nulls."),
     ("01BuildCoreAiItCodeSet.ipynb", "A4-01-CODESET", "Core AI·IT Code Set", "Deterministically rebuild and review the 120-code set: 69 included and 51 excluded."),
@@ -197,10 +198,9 @@ def _build_notebook(filename: str, stage_id: str, title: str, description: str, 
 
 
 def rendered() -> dict[str, str]:
-    git_head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
     branch = subprocess.check_output(["git", "branch", "--show-current"], cwd=ROOT, text=True).strip()
     return {
-        filename: nbformat.writes(_build_notebook(filename, stage_id, title, description, git_head, branch))
+        filename: nbformat.writes(_build_notebook(filename, stage_id, title, description, EXECUTION_SOURCE_GIT_HEAD, branch))
         for filename, stage_id, title, description in STAGES
     }
 

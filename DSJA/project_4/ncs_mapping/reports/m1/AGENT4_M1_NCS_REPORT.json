@@ -2,7 +2,7 @@
   "agentId": "P4-A4-NCS",
   "status": "NCS_MAPPING_DEV_READY",
   "runId": "NCS_MAPPING_OBSERVED_20260806_01",
-  "executionSourceGitHead": "25552b4ddde414a91d037a6b1ecc4e3fa65f4e31",
+  "executionSourceGitHead": "cce6067e578cb8dc99aacaeb465439cb1ef0faa1",
   "runMode": "observed-dev",
   "contractVersion": "2.1.2",
   "crawlReleaseId": "CRAWL_20260806_03",
@@ -31,10 +31,10 @@
     "explicitUnmapped": 1
   },
   "validation": {
-    "testsPassed": 32,
+    "testsPassed": 34,
     "preExistingTests": 22,
-    "newM1Tests": 10,
-    "freshKernelNotebooksPassed": 5,
+    "newM1Tests": 12,
+    "freshKernelNotebooksPassed": 6,
     "nbformatValid": true,
     "cellAstValid": true,
     "sourceNotebookOutputCount": 0,
@@ -48,7 +48,8 @@
   "outputs": {
     "exportRoot": "ncs_mapping/data/exports/observed-dev/NCS_MAPPING_OBSERVED_20260806_01",
     "runArtifactRoot": "ncs_mapping/data/runs/observed-dev/NCS_MAPPING_OBSERVED_20260806_01",
-    "handoff": "shared/handoffs/AGENT4_TO_AGENT2_NCS_MAPPING_OBSERVED_DEV.json"
+    "handoff": "shared/handoffs/AGENT4_TO_AGENT2_NCS_MAPPING_OBSERVED_DEV.json",
+    "notebookRunRoot": "ncs_mapping/runs/notebooks/observed-dev/AGENT4_20260806_01"
   },
   "prohibitedClaims": [
     "FINAL_PRECISION",

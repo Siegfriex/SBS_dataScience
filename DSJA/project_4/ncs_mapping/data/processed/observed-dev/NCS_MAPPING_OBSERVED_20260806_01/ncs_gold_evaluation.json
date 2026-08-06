@@ -1,0 +1,17 @@
+{
+  "goldRows": 0,
+  "adjudicatedRows": 0,
+  "precision": null,
+  "finalCoverage": null,
+  "lowConfidenceRate": null,
+  "gateStatus": "NOT_EVALUATED",
+  "reason": "EMPTY_GOLD_INPUT",
+  "goldValidatedFlag": false,
+  "empiricalAnalysisAllowed": false,
+  "promotionAllowed": false,
+  "runMode": "observed-dev",
+  "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+  "mappingMode": "LEXICAL_BASELINE",
+  "codeSetStatus": "REVIEW_REQUIRED",
+  "denseScore": null
+}
