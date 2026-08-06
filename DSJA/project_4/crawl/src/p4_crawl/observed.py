@@ -20,6 +20,7 @@ from .manifests import load_jsonl, verify_checksum_file
 from .policy import PolicyHttpClient, RateLimiter, SourcePolicyBlocked
 from .query_registry import QueryRegistry
 from .storage import atomic_write_json, sha256_bytes, write_parquet_atomic
+from .validator import evaluate_validator_artifact, file_sha256
 
 
 def _safe_url(url: str | None) -> str | None:
@@ -258,33 +259,69 @@ def recover_observed_input_state(observed_root: Path, output_root: Path) -> dict
     return state
 
 
-def invoke_agent2_validator(project_root: Path, release_handoff: Path) -> dict:
-    """Call Agent 2's validator when integrated; never infer release readiness."""
+def invoke_agent2_validator(
+    project_root: Path,
+    release_handoff: Path,
+    *,
+    run_id: str,
+) -> dict:
+    """Call Agent 2's validator and validate its complete evidence envelope."""
 
     pipeline_src = project_root / "pipeline" / "src"
+    input_sha256 = file_sha256(release_handoff)
     if not (pipeline_src / "p4" / "contracts" / "release_validation.py").is_file():
+        evaluation = evaluate_validator_artifact(
+            None, expected_run_id=run_id, expected_input_sha256=input_sha256,
+        )
         return {
             "validator": "p4.contracts.release_validation.validate_release_gates",
-            "status": "NOT_AVAILABLE_IN_AGENT1_BRANCH",
+            "status": "NOT_EVALUATED",
             "executed": False,
-            "crawlReleaseReady": False,
+            "processExitCode": None,
+            "runId": run_id,
+            "inputSha256": input_sha256,
+            **evaluation,
         }
     sys.path.insert(0, str(pipeline_src))
     try:
         module = importlib.import_module("p4.contracts.release_validation")
         validation = module.validate_release_gates(release_handoff, expected_contract_version="2.1.2")
-        return {
-            "validator": "p4.contracts.release_validation.validate_release_gates",
-            "status": "EXECUTED",
-            "executed": True,
-            "crawlReleaseReady": bool(validation.get("fullCorpusAcceptance", {}).get("status") == "PASS"),
+        full_status = validation.get("fullCorpusAcceptance")
+        if isinstance(full_status, dict):
+            full_status = full_status.get("status")
+        artifact = {
+            "processExitCode": 0,
+            "status": "PASS" if full_status == "PASS" else "FAIL",
+            "runId": run_id,
+            "inputSha256": input_sha256,
             "validation": validation,
         }
-    except Exception as exc:
+        evaluation = evaluate_validator_artifact(
+            artifact, expected_run_id=run_id, expected_input_sha256=input_sha256,
+        )
         return {
             "validator": "p4.contracts.release_validation.validate_release_gates",
-            "status": "EXECUTION_FAILED",
+            "status": artifact["status"],
             "executed": True,
-            "crawlReleaseReady": False,
+            **artifact,
+            **evaluation,
+        }
+    except Exception as exc:
+        artifact = {
+            "processExitCode": 1,
+            "status": "FAIL",
+            "runId": run_id,
+            "inputSha256": input_sha256,
+            "validation": {},
+        }
+        evaluation = evaluate_validator_artifact(
+            artifact, expected_run_id=run_id, expected_input_sha256=input_sha256,
+        )
+        return {
+            "validator": "p4.contracts.release_validation.validate_release_gates",
+            "status": "FAIL",
+            "executed": True,
+            **artifact,
+            **evaluation,
             "error": f"{type(exc).__name__}: {exc}",
         }
