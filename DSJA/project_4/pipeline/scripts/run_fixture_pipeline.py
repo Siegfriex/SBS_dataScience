@@ -120,7 +120,25 @@ def run() -> dict[str, object]:
         replace_from_frame(connection, "core.posting_normalized", postings)
         replace_from_frame(connection, "core.posting_track", tracks.drop(columns=["trackText"]))
         replace_from_frame(connection, "core.posting_section", sections)
-        replace_from_frame(connection, "core.requirement_fact", requirements)
+        # The development fixture warehouse keeps the legacy v2.1.2 physical
+        # projection. Semantic v4.0 fields remain in the in-memory/output frame
+        # and are materialized by the addendum pipeline, not silently added to
+        # the legacy table.
+        legacy_requirement_columns = [
+            "requirementId",
+            "sectionId",
+            "requirementType",
+            "requirementText",
+            "mandatoryFlag",
+            "minExperienceMonths",
+            "priorExperienceFlag",
+            "portfolioFlag",
+        ]
+        replace_from_frame(
+            connection,
+            "core.requirement_fact",
+            requirements[legacy_requirement_columns],
+        )
         replace_from_frame(connection, "core.career_label", labels)
         replace_from_frame(connection, "ncs.ncs_unit", units)
         replace_from_frame(connection, "ncs.posting_ncs_match", matches.drop(columns=["trackId"]))
