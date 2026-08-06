@@ -1,0 +1,44 @@
+{
+  "agentId": "P4-A1-SOURCE",
+  "agentName": "P4 Source Acquisition & Coverage Engineer",
+  "snapshotAt": "2026-08-06",
+  "note": "This is an OBSERVATIONAL snapshot of the raw-layer fields Agent 1 has empirically confirmed exist at the source and needs the canonical warehouse schema to carry. It is NOT a canonical schema and does not modify docs/ssot/**. Field adoption is requested via AGENT1_TO_AGENT3_ISSUES.json.",
+  "confirmedSourceFields": {
+    "listing_apq_CalendarScreen_ActivityCalendarEntries": [
+      "id", "group", "title", "activityTypeID", "activityStartAt", "activityEndAt",
+      "organizationName", "jobTypes", "recruitStartAt", "recruitCloseAt", "isScrapped",
+      "scrapCount", "createdAt", "manager.id", "manager.channel.id", "manager.channel.url"
+    ],
+    "detail_ssr_activityData_activity": [
+      "id", "title", "organizationName", "company", "jobTypes", "duties[].id", "duties[].title",
+      "duties[].jobType", "duties[].categories", "recruitStartAt", "recruitCloseAt", "createdAt",
+      "applyDetail", "applyTypes", "managerName", "managerPhoneNumber", "managerEmail",
+      "files[].url", "files[].type.name", "regions[].name", "salaryType", "minSalary", "maxSalary",
+      "educationTypes", "skills", "targets", "benefits"
+    ],
+    "detail_ssr_apollo_ActivityText": [
+      "id", "text (raw HTML, non-semantic <div>label</div><p>content</p> pattern; may embed <img> screenshots of external ATS pages -- see AGENT1_TO_AGENT3_ISSUES A1-A3-009)"
+    ]
+  },
+  "proposedWarehouseFieldsAwaitingContract": {
+    "core.postingNormalized / mart.postingAnalysisMart": [
+      "postingEligibleFlag", "rq1EligibleFlag", "rq2EligibleFlag", "ncsEligibleFlag",
+      "canonicalRecordFlag", "rq2ExclusionReason",
+      "externalApplyUrl", "externalAtsDomain", "externalDetailOnlyFlag", "linkareerBodyAvailableFlag",
+      "activityTypeId", "jobTypesRaw", "jobTypeConflictFlag",
+      "dutiesRawJson", "activityTextHtml", "activityTextAvailableFlag"
+    ],
+    "raw.queryRegistry": [
+      "operationName", "sha256Hash", "transportType", "httpMethod", "frontendBuildId",
+      "discoveredAt", "lastVerifiedAt", "responseSchemaVersion", "activeFlag", "verificationStatus"
+    ],
+    "qa.monthlyCoverageAudit_additions": [
+      "coverageReason (enum: complete|paginationUnverified|sourceUnavailable|historicalDeletion|platformPreLaunch|platformRampUp|partialMonth|requestFailure|unknown)",
+      "platformCoverageRegime (e.g. preLaunch|rampUp|operational)"
+    ]
+  },
+  "crossValidatedWithAgent2": {
+    "note": "Agent 2's independent issue file (AGENT2_TO_AGENT3_ISSUES.json, issues A2-A3-001..004) requests nearly identical fields from its pipeline-side vantage point. Both agents converge on the same contract need without coordinating on field names in advance -- treat as corroborating signal for Agent 3."
+  },
+  "queryRegistrySeedPath": "query_registry.yaml"
+}

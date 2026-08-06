@@ -1,0 +1,60 @@
+{
+  "agent_id": "P4-A1-SOURCE",
+  "agent_name": "P4 Source Acquisition & Coverage Engineer",
+  "release_id": "CRAWL_20260806_01",
+  "contract_version": null,
+  "branch": "agent/p4-crawl-release-v2",
+  "head_commit": "047b453ff9830fe094e5ba487bf2d9f6f7ee04f9",
+  "created_at": "2026-08-06T14:15:00+09:00",
+  "source_start": "2020-01",
+  "source_end": "2026-07",
+  "manifest_paths": [
+    "crawl_manifest.jsonl",
+    "asset_manifest.jsonl",
+    "ncs_manifest.jsonl"
+  ],
+  "coverage_path": "monthly_coverage.csv",
+  "checksum_path": "CHECKSUMS.sha256",
+  "query_registry_path": "query_registry.yaml",
+  "schema_snapshot_path": "schema_snapshot.json",
+  "monthly_total_count_verified": false,
+  "pagination_verified": false,
+  "pagination_verified_note": "Mechanism proven correct and 1/79 months (2021-03) fully verified (1381/1381). 2026-08 partially verified (99.4%, capped at 26 pages). Remaining 77 months explicitly marked coverageReason=paginationUnverified in monthly_coverage.csv -- not silently omitted.",
+  "terms_status": "reviewed_conditional",
+  "robots_status": "allowed",
+  "transparent_client_verified": true,
+  "transparent_client_note": "httpx with an explicit research User-Agent (no TLS impersonation) reproduces both APQ list and SSR detail endpoints with identical HTTP 200 responses. Production client = httpx.",
+  "rq1_eligibility_rate": 1.0,
+  "rq2_eligibility_rate": 0.857,
+  "ncs_eligibility_rate": null,
+  "known_gaps": [
+    "78/79 target months (2020-01..2026-07) not yet pagination-audited",
+    "2019 recruit(activityTypeID=5) category appears effectively unlaunched (totalCount ~0 Jan-Sep, 23 in Dec) -- analysis start-year decision pending",
+    "Wayback CDX survival-bias audit not started",
+    "NCS source (data.go.kr) verification not started",
+    "Formal stratified sample (n>=100) not run -- current eligibility rates are from a pilot n=35 sample only",
+    "recruitStartAt/recruitCloseAt rangeBy AND/OR combination semantics unresolved",
+    "ActivityText may embed external-ATS screenshots as <img> rather than prose text -- OCR routing needs to account for this (see AGENT1_TO_AGENT3_ISSUES A1-A3-009)"
+  ],
+  "known_missing_fields": [
+    "postingEligibleFlag/rq1EligibleFlag/rq2EligibleFlag/ncsEligibleFlag not yet in canonical DDL (awaiting P4_CONTRACT_v2.1.2)",
+    "raw.queryRegistry not yet in canonical DDL",
+    "externalApplyUrl/externalAtsDomain/externalDetailOnlyFlag/linkareerBodyAvailableFlag not yet in canonical DDL"
+  ],
+  "artifact_manifest": [
+    "crawl_manifest.jsonl",
+    "asset_manifest.jsonl",
+    "ncs_manifest.jsonl",
+    "monthly_coverage.parquet",
+    "monthly_coverage.csv",
+    "schema_snapshot.json",
+    "query_registry.yaml",
+    "fixtures/apq/CalendarScreen_ActivityCalendarEntries.2026-03.recruit.sample.json",
+    "fixtures/ssr/activity_339673.masked.json",
+    "fixtures/ssr/activity_339737.masked.json",
+    "fixtures/ssr/activity_339821.masked.json",
+    "README.md",
+    "CHECKSUMS.sha256"
+  ],
+  "status": "PARTIALLY_READY"
+}

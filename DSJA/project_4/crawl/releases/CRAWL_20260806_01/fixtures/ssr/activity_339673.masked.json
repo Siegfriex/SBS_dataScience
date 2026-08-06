@@ -1,0 +1,245 @@
+{
+  "sourceUrl": "https://linkareer.com/activity/339673",
+  "httpStatus": 200,
+  "piiMasked": true,
+  "maskedFields": [
+    "managerName",
+    "managerPhoneNumber",
+    "managerEmail"
+  ],
+  "activityData": {
+    "__typename": "Activity",
+    "id": "339673",
+    "title": "[에피소든] 대학생 글로벌 영어 멘토 1기 모집 (~9/30)",
+    "thumbnailImage": {
+      "__typename": "ActivityFile",
+      "id": "1432374",
+      "url": "https://api.linkareer.com/attachments/901132"
+    },
+    "organizationName": "주식회사 에피소든",
+    "company": null,
+    "schoolTargeting": null,
+    "simpleApplyDetail": null,
+    "seminarDetail": null,
+    "type": 1,
+    "applyTypes": [
+      {
+        "__typename": "ApplyType",
+        "id": "3",
+        "name": "접수페이지"
+      }
+    ],
+    "applyDetail": "https://forms.gle/qiCN8R9mF2j4k2cC8",
+    "activityTypeID": 1,
+    "manager": {
+      "__typename": "User",
+      "id": "229667",
+      "isStaff": false
+    },
+    "integers": [
+      {
+        "__typename": "ActivityInteger",
+        "id": "420360",
+        "integer": "00",
+        "type": {
+          "__typename": "ActivityIntegerType",
+          "id": "2",
+          "name": "모집 인원",
+          "unit": "명"
+        }
+      }
+    ],
+    "teamRecruitPostCount": 0,
+    "group": "NORMAL",
+    "interests": [
+      {
+        "__typename": "Interest",
+        "id": "17",
+        "name": "콘텐츠"
+      },
+      {
+        "__typename": "Interest",
+        "id": "21",
+        "name": "사회공헌/교류"
+      }
+    ],
+    "categories": [
+      {
+        "__typename": "Category",
+        "id": "10",
+        "name": "멘토링"
+      },
+      {
+        "__typename": "Category",
+        "id": "1",
+        "name": "서포터즈"
+      }
+    ],
+    "duties": {
+      "__typename": "DutyConnection",
+      "totalCount": 0,
+      "nodes": []
+    },
+    "chatRoom": {
+      "__typename": "ChatRoom",
+      "id": "184517",
+      "name": "[에피소든] 대학생 글로벌 영어 멘토 1기 모집 (~9/30)",
+      "memberCount": 40
+    },
+    "educationTypes": [],
+    "recruitCloseAt": 1790780399999,
+    "isAppliedByCurrentUser": false,
+    "createdAt": 1785497994000,
+    "managerName": "MASKED_dd9372d6",
+    "managerPhoneNumber": null,
+    "managerEmail": null,
+    "files": [
+      {
+        "__typename": "ActivityFile",
+        "id": "1432373",
+        "filename": "멘토 프로그램 포스터(최종).png",
+        "url": "https://api.linkareer.com/attachments/901130",
+        "type": {
+          "__typename": "ActivityFileType",
+          "id": "2",
+          "name": "포스터"
+        }
+      },
+      {
+        "__typename": "ActivityFile",
+        "id": "1432374",
+        "filename": "멘토 프로그램 포스터(최종).png",
+        "url": "https://api.linkareer.com/attachments/901132",
+        "type": {
+          "__typename": "ActivityFileType",
+          "id": "4",
+          "name": "썸네일"
+        }
+      }
+    ],
+    "reportCount": 0,
+    "youtubeURL": null,
+    "recruitType": "NORMAL",
+    "jobTypes": [],
+    "logoImage": null,
+    "activityStartAt": 1785510000000,
+    "activityEndAt": 1796050799000,
+    "dateRepresentation": "MONTH",
+    "recruitScale": "00",
+    "additionalBenefit": "",
+    "benefits": [
+      {
+        "__typename": "Benefit",
+        "id": "7",
+        "name": "수료증 및 인증서"
+      },
+      {
+        "__typename": "Benefit",
+        "id": "8",
+        "name": "입사시 혜택"
+      }
+    ],
+    "facetimePeriod": null,
+    "facetimeWeekday": null,
+    "facetimeDay": null,
+    "facetimeTime": null,
+    "homepageURL": "https://www.episoden.com/",
+    "distinctInternTypes": null,
+    "organizationType": "스타트업",
+    "rootCategories": [
+      {
+        "__typename": "Category",
+        "id": "10",
+        "name": "멘토링"
+      },
+      {
+        "__typename": "Category",
+        "id": "1",
+        "name": "서포터즈"
+      }
+    ],
+    "recruitStartAt": 1785510000000,
+    "regions": [
+      {
+        "__typename": "Region",
+        "id": "1",
+        "name": "지역 제한없음"
+      }
+    ],
+    "regionDistricts": [],
+    "addresses": [],
+    "tenThousandUnitOfReward": null,
+    "skills": [
+      {
+        "__typename": "Skill",
+        "id": "8",
+        "name": "리더십"
+      }
+    ],
+    "targets": [
+      {
+        "__typename": "ActivityTarget",
+        "id": "2",
+        "name": "대학생"
+      }
+    ],
+    "salaryType": null,
+    "isSalaryDecidedAfterInterview": null,
+    "isSalaryDecidedByCompanyPolicy": null,
+    "maxSalary": null,
+    "minSalary": null,
+    "cost": null,
+    "isSponsored": null,
+    "onoffline": null
+  },
+  "apolloStateKeys": [
+    "Activity:334965",
+    "Activity:338226",
+    "Activity:338287",
+    "Activity:338797",
+    "Activity:339673",
+    "ActivityFile:1418505",
+    "ActivityFile:1428112",
+    "ActivityFile:1428719",
+    "ActivityFile:1429842",
+    "ActivityFile:1432373",
+    "ActivityFile:1432374",
+    "ActivityFileType:2",
+    "ActivityFileType:4",
+    "ActivityInteger:420360",
+    "ActivityIntegerType:2",
+    "ActivityTarget:2",
+    "ActivityText:526372",
+    "ApplyType:3",
+    "Benefit:7",
+    "Benefit:8",
+    "Category:1",
+    "Category:10",
+    "Channel:12323",
+    "Channel:13205",
+    "Channel:3215",
+    "Channel:977",
+    "ChatRoom:180000",
+    "ChatRoom:183133",
+    "ChatRoom:183834",
+    "ChatRoom:183840",
+    "ChatRoom:184517",
+    "Interest:17",
+    "Interest:21",
+    "ROOT_QUERY",
+    "Region:1",
+    "Skill:8",
+    "User:123668",
+    "User:129795",
+    "User:229667",
+    "User:555012",
+    "User:94068"
+  ],
+  "apolloState_ActivityText_sample": {
+    "ActivityText:526372": {
+      "__typename": "ActivityText",
+      "id": "526372",
+      "text": "<p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:0pt;margin-bottom:2pt;\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">[에피소든] 대학생 글로벌 영어 멘토 1기 모집 (~9/30)</span></p><p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:0pt;margin-bottom:2pt;\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">(Episoden Global English Mentoring)</span></p><p><b style=\"font-weight:normal;\" id=\"docs-internal-guid-03015160-7fff-991a-1c3f-a8e6a0bbcf02\"><br></b></p><p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:12pt;margin-bottom:12pt;\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">📢 이력서에 단순 영어 점수만 쓰실 건가요?</span><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\"><br></span><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">스펙과 영어 실력을 한 번에 챙기는 가장 쉬운 대외활동 등장!</span></p><p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:12pt;margin-bottom:12pt;\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">전 세계 사람들과 영어로 소통하고 글로벌 기업 공식 멘토 수료증 받아가세요!</span></p><p><b style=\"font-weight:normal;\"><br></b></p><p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:12pt;margin-bottom:12pt;\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">면접 ❌, 공인 점수 제출 필수 ❌</span></p><p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:12pt;margin-bottom:12pt;\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">⏰ 스케줄은 100% 내 맘대로! 언제 어디서든, 내가 원할 때 참여 ⏰</span></p><p><b style=\"font-weight:normal;\"><br></b></p><p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:0pt;margin-bottom:5pt;\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">🔥 이런 분이라면 망설이지 말고 지원하세요! 🔥&nbsp;</span></p><ul style=\"margin-top:0;margin-bottom:0;padding-inline-start:48px;\"><li dir=\"ltr\" style=\"list-style-type:disc;font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;\" aria-level=\"1\"><p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:0pt;margin-bottom:0pt;\" role=\"presentation\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">영어 회화, 외국인 친구 사귀기, 대외활동 스펙까지 몽땅 챙기고 싶은 분</span></p></li></ul><ul style=\"margin-top:0;margin-bottom:0;padding-inline-start:48px;\"><li dir=\"ltr\" style=\"list-style-type:disc;font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;\" aria-level=\"1\"><p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:0pt;margin-bottom:0pt;\" role=\"presentation\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">토익/오픽 점수 외에 “실제 영어 활용 경험”을 자소서/이력서에 녹여내고 싶은 분</span></p></li><li dir=\"ltr\" style=\"list-style-type:disc;font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;\" aria-level=\"1\"><p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:0pt;margin-bottom:12pt;\" role=\"presentation\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">AI가 아닌 “실제 사람”과 영어로 대화해 보고 싶은 분</span></p></li></ul><p><b style=\"font-weight:normal;\"><br></b></p><p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:0pt;margin-bottom:5pt;\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">👉 구글 폼 링크: </span><a href=\"https://forms.gle/qiCN8R9mF2j4k2cC8\" style=\"text-decoration:none;\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#1155cc;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:underline;-webkit-text-decoration-skip:none;text-decoration-skip-ink:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">https://forms.gle/qiCN8R9mF2j4k2cC8</span></a><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">&nbsp;</span></p><p><b style=\"font-weight:normal;\"><br></b></p><p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:0pt;margin-bottom:5pt;\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">🌏 쿠팡을 포함한 한·미·일 글로벌 투자사가 선택한 170개국 화상 대화 플랫폼 '에피소든'에서 대학생 글로벌 영어 멘토를 모집합니다!</span></p><p><b style=\"font-weight:normal;\"><br></b></p><p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:0pt;margin-bottom:5pt;\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">전 세계 사람들과 영어로 대화하고, 자신보다 영어가 익숙지 않은 사용자가 편하게 말하도록 돕는 글로벌 멘토 역할을 하게 됩니다.</span></p><p><b style=\"font-weight:normal;\"><br></b></p><p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:0pt;margin-bottom:5pt;\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">📌 모집 및 활동 안내</span></p><ul style=\"margin-top:0;margin-bottom:0;padding-inline-start:48px;\"><li dir=\"ltr\" style=\"list-style-type:disc;font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;\" aria-level=\"1\"><p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:0pt;margin-bottom:0pt;\" role=\"presentation\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">모집기간: 2026년 8월 1일 ~ 2026년 9월 30일</span></p></li><li dir=\"ltr\" style=\"list-style-type:disc;font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;\" aria-level=\"1\"><p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:0pt;margin-bottom:0pt;\" role=\"presentation\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">모집대상: 영어에 관심 있는 대학생 누구나 (휴학생, 졸업예정자, 졸업유예생 모두 환영!)</span></p></li><li dir=\"ltr\" style=\"list-style-type:disc;font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;\" aria-level=\"1\"><p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:0pt;margin-bottom:0pt;\" role=\"presentation\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">활동기간: 합격일로부터 3개월 이내</span></p></li><li dir=\"ltr\" style=\"list-style-type:disc;font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;\" aria-level=\"1\"><p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:0pt;margin-bottom:0pt;\" role=\"presentation\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">활동내용:</span></p></li><ul style=\"margin-top:0;margin-bottom:0;padding-inline-start:48px;\"><li dir=\"ltr\" style=\"list-style-type:circle;font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;\" aria-level=\"2\"><p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:0pt;margin-bottom:0pt;\" role=\"presentation\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">전 세계 학습자들과 영어로 대화하며 매끄러운 소통을 이끄는 멘토링 진행 (비대면)</span></p></li><li dir=\"ltr\" style=\"list-style-type:circle;font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;\" aria-level=\"2\"><p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:0pt;margin-bottom:5pt;\" role=\"presentation\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">주 2회, 딱 30분씩!</span></p></li></ul></ul><p><b style=\"font-weight:normal;\"><br></b></p><p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:0pt;margin-bottom:5pt;\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">🎁 활동 혜택:</span></p><ul style=\"margin-top:0;margin-bottom:0;padding-inline-start:48px;\"><li dir=\"ltr\" style=\"list-style-type:disc;font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;\" aria-level=\"1\"><p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:0pt;margin-bottom:0pt;\" role=\"presentation\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">이력서 공란 킬러! 글로벌 기업의 공식 수료증 발급</span></p></li><li dir=\"ltr\" style=\"list-style-type:disc;font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;\" aria-level=\"1\"><p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:0pt;margin-bottom:0pt;\" role=\"presentation\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">화상영어 30만원 상당 프라임 멤버십 제공 (무제한 영어 대화 가능)</span></p></li><li dir=\"ltr\" style=\"list-style-type:disc;font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;\" aria-level=\"1\"><p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:0pt;margin-bottom:0pt;\" role=\"presentation\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">다양한 국적의 외국인들과 글로벌 네트워킹</span></p></li><li dir=\"ltr\" style=\"list-style-type:disc;font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;\" aria-level=\"1\"><p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:0pt;margin-bottom:5pt;\" role=\"presentation\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">영어 회화 실력 상승</span></p></li></ul><p><b style=\"font-weight:normal;\"><br></b></p><p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:0pt;margin-bottom:5pt;\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">[최우수 멘토 - 1명]</span></p><ul style=\"margin-top:0;margin-bottom:0;padding-inline-start:48px;\"><li dir=\"ltr\" style=\"list-style-type:disc;font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;\" aria-level=\"1\"><p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:0pt;margin-bottom:5pt;\" role=\"presentation\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">배달의민족 2만원 상품권</span></p></li></ul><p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:0pt;margin-bottom:5pt;\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">[우수 멘토 - 5명]</span></p><ul style=\"margin-top:0;margin-bottom:0;padding-inline-start:48px;\"><li dir=\"ltr\" style=\"list-style-type:disc;font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;\" aria-level=\"1\"><p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:0pt;margin-bottom:5pt;\" role=\"presentation\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">네이버페이 5천원 상품권</span></p></li></ul><p><b style=\"font-weight:normal;\"><br></b></p><p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:0pt;margin-bottom:5pt;\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">※ 최우수/우수자 선정 가점 요인:</span><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\"><br></span><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">세션 초과 수 / 에피소든 및 활동 후기 네이버 블로그 포스팅 or 숏폼 발행</span></p><p><b style=\"font-weight:normal;\"><br></b></p><p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:0pt;margin-bottom:5pt;\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">✅ 지원 방법</span></p><p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:0pt;margin-bottom:5pt;\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">1. 아래 구글 폼 작성 후 제출</span></p><p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:0pt;margin-bottom:5pt;\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">2. 합격자에 한해 개별 메일로 「활동 가이드라인」 발송</span></p><p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:0pt;margin-bottom:5pt;\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">👉 구글 폼 링크: </span><a href=\"https://forms.gle/qiCN8R9mF2j4k2cC8\" style=\"text-decoration:none;\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#1155cc;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:underline;-webkit-text-decoration-skip:none;text-decoration-skip-ink:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">https://forms.gle/qiCN8R9mF2j4k2cC8</span></a><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">&nbsp;</span></p><p><b style=\"font-weight:normal;\"><br></b></p><p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:0pt;margin-bottom:5pt;\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">그냥 영어 공부하는 대학생에서, 전 세계 영어 학습자를 돕는 글로벌 멘토로!</span><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\"><br></span><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">지금 바로 여러분의 이력서에 특별한 스펙을 더해보세요! ⚡️</span></p><p><b style=\"font-weight:normal;\"><br></b></p><p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:0pt;margin-bottom:5pt;\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">📩 문의: </span><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#1155cc;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:underline;-webkit-text-decoration-skip:none;text-decoration-skip-ink:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">marketing</span><a href=\"mailto:soomin528@episoden.com\" style=\"text-decoration:none;\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#1155cc;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:underline;-webkit-text-decoration-skip:none;text-decoration-skip-ink:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">@episoden.com</span></a></p><p></p><p dir=\"ltr\" style=\"line-height:1.3800000000000001;margin-top:0pt;margin-bottom:2pt;\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#000000;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">🌐 공식 홈페이지: </span><a href=\"https://www.episoden.com\" style=\"text-decoration:none;\"><span style=\"font-size:10pt;font-family:'Malgun Gothic';color:#1155cc;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:underline;-webkit-text-decoration-skip:none;text-decoration-skip-ink:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">https://www.episoden.com</span></a></p>"
+    }
+  }
+}

@@ -1,0 +1,86 @@
+﻿periodMonth,sourceName,activityTypeID,discoveredCount,returnedDistinctCount,expectedTotalCount,paginationCompleteFlag,detailSuccessCount,detailFailureCount,activityTextAvailableCount,rq1EligibleEstimatedCount,rq2EligibleEstimatedCount,ncsEligibleEstimatedCount,coverageStatus,coverageReason,platformCoverageRegime,note
+2019-01,linkareer,5,,,0,False,,,,,,,insufficient,platformPreLaunch,preLaunch,Single-request totalCount spot-check only (RECON_20260806_01). recruit(activityTypeID=5) category appears unlaunched.
+2019-03,linkareer,5,,,0,False,,,,,,,insufficient,platformPreLaunch,preLaunch,Single-request totalCount spot-check only (RECON_20260806_01). recruit(activityTypeID=5) category appears unlaunched.
+2019-06,linkareer,5,,,1,False,,,,,,,insufficient,platformPreLaunch,preLaunch,Single-request totalCount spot-check only (RECON_20260806_01). recruit(activityTypeID=5) category appears unlaunched.
+2019-09,linkareer,5,,,0,False,,,,,,,insufficient,platformPreLaunch,preLaunch,Single-request totalCount spot-check only (RECON_20260806_01). recruit(activityTypeID=5) category appears unlaunched.
+2019-12,linkareer,5,,,23,False,,,,,,,insufficient,platformPreLaunch,preLaunch,Single-request totalCount spot-check only (RECON_20260806_01). recruit(activityTypeID=5) category appears unlaunched.
+2020-01,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2020-02,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2020-03,linkareer,5,5,,,False,,,,,,,unverified,paginationUnverified,operational,"Only a naive single-request sample (5 ids) taken in RECON_20260806_01 for stratified fixture purposes -- NOT a coverage count, full day-pagination not run"
+2020-04,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2020-05,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2020-06,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2020-07,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2020-08,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2020-09,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2020-10,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2020-11,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2020-12,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2021-01,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2021-02,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2021-03,linkareer,5,949,949,1381,True,,,,,,,complete,complete,operational,"Fully re-paginated (global nodePagination advance), 12 requests, 1381==1381 sum(totalCount)==sum(collected)"
+2021-04,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2021-05,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2021-06,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2021-07,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2021-08,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2021-09,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2021-10,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2021-11,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2021-12,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2022-01,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2022-02,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2022-03,linkareer,5,5,,,False,,,,,,,unverified,paginationUnverified,operational,"Only a naive single-request sample (5 ids) taken in RECON_20260806_01 for stratified fixture purposes -- NOT a coverage count, full day-pagination not run"
+2022-04,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2022-05,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2022-06,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2022-07,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2022-08,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2022-09,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2022-10,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2022-11,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2022-12,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2023-01,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2023-02,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2023-03,linkareer,5,5,,,False,,,,,,,unverified,paginationUnverified,operational,"Only a naive single-request sample (5 ids) taken in RECON_20260806_01 for stratified fixture purposes -- NOT a coverage count, full day-pagination not run"
+2023-04,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2023-05,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2023-06,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2023-07,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2023-08,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2023-09,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2023-10,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2023-11,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2023-12,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2024-01,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2024-02,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2024-03,linkareer,5,5,,,False,,,,,,,unverified,paginationUnverified,operational,"Only a naive single-request sample (5 ids) taken in RECON_20260806_01 for stratified fixture purposes -- NOT a coverage count, full day-pagination not run"
+2024-04,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2024-05,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2024-06,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2024-07,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2024-08,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2024-09,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2024-10,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2024-11,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2024-12,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2025-01,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2025-02,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2025-03,linkareer,5,5,,,False,,,,,,,unverified,paginationUnverified,operational,"Only a naive single-request sample (5 ids) taken in RECON_20260806_01 for stratified fixture purposes -- NOT a coverage count, full day-pagination not run"
+2025-04,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2025-05,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2025-06,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2025-07,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2025-08,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2025-09,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2025-10,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2025-11,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2025-12,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2026-01,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2026-02,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2026-03,linkareer,5,5,,,False,,,,,,,unverified,paginationUnverified,operational,"Only a naive single-request sample (5 ids) taken in RECON_20260806_01 for stratified fixture purposes -- NOT a coverage count, full day-pagination not run"
+2026-04,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2026-05,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2026-06,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2026-07,linkareer,5,,,,False,,,,,,,unverified,paginationUnverified,operational,Not yet audited this pass -- pending full 2020-01..2026-07 sweep
+2026-08,linkareer,5,1523,1947,1959,False,,,,,,,partial,paginationUnverified,operational,Hit 26-page cap before exhausting busiest day-side; 1947/1959 (99.4%) recovered but NOT declared complete per no-estimate-PASS rule
