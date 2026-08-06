@@ -89,7 +89,7 @@ def run() -> dict[str, object]:
     matches = pd.DataFrame(match_rows)
     units = pd.DataFrame(payload["ncsUnits"])
     lineage = {
-        "contractVersion": "UNCONTRACTED",
+        "contractVersion": "2.1.2",
         "crawlReleaseId": "NONE",
         "dataVersion": payload["fixtureVersion"],
         "parseVersion": "fixture-parse-v2",

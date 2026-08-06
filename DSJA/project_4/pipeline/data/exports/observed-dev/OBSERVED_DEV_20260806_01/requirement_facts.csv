@@ -1,0 +1,36 @@
+﻿requirementId,sectionId,requirementType,requirementText,mandatoryFlag,minExperienceMonths,priorExperienceFlag,portfolioFlag,dataVersion,contractVersion,crawlReleaseId,dataProvenance,empiricalAnalysisAllowed,promotionAllowed
+REQ_96d760f96b4e362e14bf,SEC_c646bd6836221ed03763,required,4년제 대졸 이상 또는 9월 졸업예정자,True,48.0,False,False,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+REQ_5ab0e09ff0b811d671ac,SEC_c646bd6836221ed03763,required,전공무관 등,True,,False,False,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+REQ_39e81136f28c97e7e798,SEC_6c210c38fb4e74abbb99,required,4년제 대학교 졸업자 및 2월 졸업예정자,True,48.0,False,False,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+REQ_7384beda085c0f920069,SEC_6c210c38fb4e74abbb99,required,각 직무별 관련학과 전공 및 관련 자격증 소지자,True,,False,False,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+REQ_6accd46b2f6fd135f140,SEC_43f47449164033cebc1a,required,4년제 대학 졸업 또는 2월 졸업자,True,48.0,False,False,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+REQ_49be24162c6b2659bf31,SEC_fcd191cf037a6573baff,required,공고참조,True,,False,False,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+REQ_709a41eea9345a504e88,SEC_41d2173751f8f4f622c3,required,직무별 상이,True,,False,False,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+REQ_7e21341d2b10db08d462,SEC_2d717ac94ccc64b620c5,required,공고참조,True,,False,False,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+REQ_699f8b82331d8e1b7ea7,SEC_aaf7855617f162661a3e,required,4년제 대학 졸업예정 또는 졸업자,True,48.0,False,False,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+REQ_e0c8fe7b5453a06ec4b9,SEC_a5a9c994ec6705ca8140,required,공고참조,True,,False,False,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+REQ_4d5488dcbe366c7ab21a,SEC_33c114a8072397b2adfd,required,공고참조,True,,False,False,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+REQ_848e855dde7ba54b7302,SEC_1753062d8751c098b8f6,required,대졸 또는 8월 졸업예정자 등,True,,False,False,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+REQ_4b4785c915e101e54d26,SEC_9b0f5cd7bc679d484fe6,required,초대졸,True,,False,False,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+REQ_e9e23e11d058b743be8e,SEC_f1b6df863cff7450cc5b,required,초대졸 이상,True,,False,False,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+REQ_cd2f46f9ff6480952893,SEC_bb787d85d61510fa980c,required,국내외 4년제 대학교(원) 졸업자,True,48.0,False,False,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+REQ_556360e5f4b31f937d7e,SEC_bd60fad7fdff98c0aec4,required,초대졸 이상,True,,False,False,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+REQ_cdb611449505107cda32,SEC_ae85abdad34cf37b3b22,required,기졸업자 및 졸업예정자 지원 가능,True,,False,False,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+REQ_86d9053a488d9a1a1d80,SEC_bdeb3330864cdcc2c698,required,운전가능자,True,,False,False,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+REQ_7e8824bb234ff213b619,SEC_69d2942a3b681d042141,required,정규 4년제 대학졸업 이상 학력 소지자,True,48.0,False,False,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+REQ_10be3efb5a773aec0f64,SEC_2114946a1b601c085bd6,required,학력무관,True,,False,False,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+REQ_422e3a9f6ba480c06f37,SEC_2114946a1b601c085bd6,required,스케줄 근무 가능자,True,,False,False,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+REQ_54aa96b07af99d31ce79,SEC_343ba5b27d73c4d2bc58,required,만 19세 이상 만 34세 이하,True,,False,False,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+REQ_796a8b953b6d41b4c791,SEC_343ba5b27d73c4d2bc58,required,공인영어성적,True,,False,False,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+REQ_568d598da6772c3e6c64,SEC_8247b93cf6166c67dcd7,required,18세 이상인 자,True,,False,False,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+REQ_8763dabc2f23f61b8f26,SEC_7087eff46bb577d1b6a4,required,공고참조,True,,False,False,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+REQ_7352cc71a469226c4f12,SEC_96a65da635a05c6e61f6,required,나이/학력 제한 없음,True,,False,False,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+REQ_fc04526c1990b0694460,SEC_96a65da635a05c6e61f6,required,공인 영어성적,True,,False,False,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+REQ_e745d326d3f5d79c5cb6,SEC_96a65da635a05c6e61f6,required,공인 국어성적,True,,False,False,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+REQ_34c0c657998fc402c062,SEC_52fabb709209eba1d34d,required,공고참조,True,,False,False,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+REQ_408958c3fcbe03c8afcd,SEC_74734b66d27e60f31446,required,직무별 상이,True,,False,False,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+REQ_b346d1e6b0b87a303b6b,SEC_adc5846fb631a8b2cca7,required,컴퓨터/전산관력학과 전공자,True,,False,False,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+REQ_9d64079d9550a36977c3,SEC_adc5846fb631a8b2cca7,required,정보처리기사 자격증,True,,False,False,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+REQ_988f7236d1e7ef5d60d5,SEC_cd38b76ee04c2e2c2add,required,직무기술서 상의 능력을 보유한 자,True,,False,False,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+REQ_17129d66bc32633e866f,SEC_b1ff57102769e3ea9fd5,required,전공무관,True,,False,False,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+REQ_5b0bf0dbb5c06b24343f,SEC_46c1ffc038723b98c44a,required,금융투자업 전반에 대한 이해가 풍부한 자,True,,False,False,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False

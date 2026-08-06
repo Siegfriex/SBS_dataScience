@@ -1,226 +1,254 @@
 [
   {
     "path": "DSJA/project_4/pipeline/data/marts/postingAnalysisMart.parquet",
-    "sha256": "8b9fe4b2e80fd08a369951989f0ecca827c71b799ddf618b9d792616e43e81b2",
-    "bytes": 20506,
+    "sha256": "9aaa4fc91bdf135cfcb2f570dd3924cd09b4d13af83463bfe3e82a2f762d5b22",
+    "bytes": 20355,
     "rows": 6,
-    "schemaVersion": "development-fixture-v2"
+    "schemaVersion": "2.1.2"
   },
   {
     "path": "DSJA/project_4/pipeline/data/marts/timeSeriesMart.parquet",
     "sha256": "a2686b6aee76eab15d8b8b706f0121967e2c3ecaf9f55723543dab20b215a48b",
     "bytes": 19909,
     "rows": 10,
-    "schemaVersion": "development-fixture-v2"
+    "schemaVersion": "2.1.2"
+  },
+  {
+    "path": "DSJA/project_4/pipeline/data/warehouse/p4.duckdb",
+    "sha256": "d1e33086ccbd10249d90e9cea5fce58a3205db92a078a1d198920a6d87a8d9a0",
+    "bytes": 2895872,
+    "rows": 0,
+    "schemaVersion": "2.1.2"
+  },
+  {
+    "path": "DSJA/project_4/pipeline/reports/agent2/PARTIAL_CRAWL_CONFORMANCE.json",
+    "sha256": "642675bedc525faa1e8eef1852152c3e0022f858864e6e9f2e1c8ad7febc7260",
+    "bytes": 4070,
+    "rows": 0,
+    "schemaVersion": "2.1.2"
+  },
+  {
+    "path": "DSJA/project_4/pipeline/reports/agent2/SYNTHETIC_DB_QUARANTINE.json",
+    "sha256": "f79bee321414bf246f06d6d0ae60d583e400aaf7acda19b331f2a84056c7a9b0",
+    "bytes": 2651,
+    "rows": 0,
+    "schemaVersion": "2.1.2"
+  },
+  {
+    "path": "DSJA/project_4/shared/handoffs/AGENT2_TO_AGENT4_DUTY_INPUT.json",
+    "sha256": "b5d3305977614fc08c0c8664b584e7d6ed7012807531bd37685db066982d9536",
+    "bytes": 4878,
+    "rows": 0,
+    "schemaVersion": "2.1.2"
   },
   {
     "path": "DSJA/project_4/pipeline/notebooks/00ContractAndInputAudit.ipynb",
-    "sha256": "43fac162973020988680dfbd3b621c25c7d5ec7b5452f8b75775171effd61c1d",
-    "bytes": 2915,
+    "sha256": "d293b8ba10fac52967d1c6a615072be17b6580a226c2287b2aedcc4fc0f64191",
+    "bytes": 3079,
     "rows": 0,
-    "schemaVersion": "notebook-v2"
+    "schemaVersion": "2.1.2"
   },
   {
     "path": "DSJA/project_4/pipeline/notebooks/01LoadCrawlRelease.ipynb",
-    "sha256": "9e44e495cc105e025a2b49a8530bd9e79f4ce2b224b5596cc9221eb5b0e34f2d",
-    "bytes": 2896,
+    "sha256": "ee637208cfec0107a9c15c2ca8709bb37aa23cb30dcb54c9e20c9583ebdfc8a2",
+    "bytes": 3060,
     "rows": 0,
-    "schemaVersion": "notebook-v2"
+    "schemaVersion": "2.1.2"
   },
   {
     "path": "DSJA/project_4/pipeline/notebooks/02ParseAndNormalize.ipynb",
-    "sha256": "53d8dccd338b078885c54d7018f2d1e9174367f400bb5e03e1d975bf220e20a8",
-    "bytes": 2897,
+    "sha256": "dc6801fc3b3ed7fe63dcabe94c4390bae240bdf1dc6f42c39e562b64b5240f2c",
+    "bytes": 3061,
     "rows": 0,
-    "schemaVersion": "notebook-v2"
+    "schemaVersion": "2.1.2"
   },
   {
     "path": "DSJA/project_4/pipeline/notebooks/03OcrAndSectionRecovery.ipynb",
-    "sha256": "d332d0df8738b6b94d818033f12d17278ae07bf027c93c986a67b1a55b003dcb",
-    "bytes": 2907,
+    "sha256": "04ed40b2a3c46903211a21e60e04de00bd22bf2c02193fb7334e2088876394ff",
+    "bytes": 3071,
     "rows": 0,
-    "schemaVersion": "notebook-v2"
+    "schemaVersion": "2.1.2"
   },
   {
     "path": "DSJA/project_4/pipeline/notebooks/04SplitTracks.ipynb",
-    "sha256": "3e12f08dbc0373e6833f93265934d56931298dfede6eb1912a5dbdc10ba55b5b",
-    "bytes": 2895,
+    "sha256": "6e1b3375456cf806ea0f1dd3f85c40919384041237b3e8370210ac7f8cdddecc",
+    "bytes": 3059,
     "rows": 0,
-    "schemaVersion": "notebook-v2"
+    "schemaVersion": "2.1.2"
   },
   {
     "path": "DSJA/project_4/pipeline/notebooks/05ExtractRequirements.ipynb",
-    "sha256": "9c5255fcdaa7c4f2ccdf7fb958fb2b01c6399249c2fb6335cc090183bee4d906",
-    "bytes": 2906,
+    "sha256": "f3a5b425d175b8eba4f70dd43177192876eaec530c944f3d2003c604c7bdb92a",
+    "bytes": 3070,
     "rows": 0,
-    "schemaVersion": "notebook-v2"
+    "schemaVersion": "2.1.2"
   },
   {
     "path": "DSJA/project_4/pipeline/notebooks/06Deduplicate90Days.ipynb",
-    "sha256": "e55c1eeb04ef210cee6718eb8a55684764482104ef3c9c110570f6d559941ad7",
-    "bytes": 2910,
+    "sha256": "54454994ab48e0ffe98a84d6f833e7516a979843ace27f69182f490b083a53ef",
+    "bytes": 3074,
     "rows": 0,
-    "schemaVersion": "notebook-v2"
+    "schemaVersion": "2.1.2"
   },
   {
     "path": "DSJA/project_4/pipeline/notebooks/07LabelCareerAccess.ipynb",
-    "sha256": "d3db30150dc2d836f3aa5565b169d8b1fcb2ed05978835670110ebbcfbbc4161",
-    "bytes": 2890,
+    "sha256": "1b3b542d9943eecf7e9cd57165297f2e4100a8c4069f27e44a38c5f603c04670",
+    "bytes": 3054,
     "rows": 0,
-    "schemaVersion": "notebook-v2"
+    "schemaVersion": "2.1.2"
   },
   {
     "path": "DSJA/project_4/pipeline/notebooks/08LoadAndPrepareNcs.ipynb",
-    "sha256": "43d409882a60f6cdcf873b3e38f55954bf085217c09afbce4abb436d797ef26a",
-    "bytes": 2901,
+    "sha256": "41d940eb593633f95fb6b162eda9faa3c2128eecdea86d081bbf207cfba35034",
+    "bytes": 3065,
     "rows": 0,
-    "schemaVersion": "notebook-v2"
+    "schemaVersion": "2.1.2"
   },
   {
     "path": "DSJA/project_4/pipeline/notebooks/09MapPostingToNcs.ipynb",
-    "sha256": "d6e491846698d9d6d3b726c016a1d477d49e6cc220bdd284e506cbd379246df3",
-    "bytes": 2894,
+    "sha256": "a32d8fb04a4b5fdbdda76ba7d6b394a2095af6ad7856162053aef7d96ee4aaec",
+    "bytes": 3058,
     "rows": 0,
-    "schemaVersion": "notebook-v2"
+    "schemaVersion": "2.1.2"
   },
   {
     "path": "DSJA/project_4/pipeline/notebooks/10BuildPostingMart.ipynb",
-    "sha256": "e4984053a64837adfc047f6b1d6c5c5e0371564a8671498acd350d8c3cb9a6cc",
-    "bytes": 2894,
+    "sha256": "432370016c51a2755aa6bd27c608715b4836bc059933565a22e49b44a195019d",
+    "bytes": 3058,
     "rows": 0,
-    "schemaVersion": "notebook-v2"
+    "schemaVersion": "2.1.2"
   },
   {
     "path": "DSJA/project_4/pipeline/notebooks/11BuildTimeSeriesMart.ipynb",
-    "sha256": "2a74e4556f76c887259db5cd312bde5a8871ff27dc5a831445d0a3961fb9bb0a",
-    "bytes": 2905,
+    "sha256": "ef1f36b6fdf9f830be83a16134572e6e174c1953f21cb083534227cccb9a5f36",
+    "bytes": 3069,
     "rows": 0,
-    "schemaVersion": "notebook-v2"
+    "schemaVersion": "2.1.2"
   },
   {
     "path": "DSJA/project_4/pipeline/notebooks/12AnalyzeRq1Rq2.ipynb",
-    "sha256": "f1128ed8c617acf1c4dd5fed9134894fd5a50cdb38d9adcde1246151cf609e13",
-    "bytes": 2901,
+    "sha256": "ddaea0028863446c2df1c27c0c34a446bcd5711a951e3cff6f21a35caf9e120c",
+    "bytes": 3065,
     "rows": 0,
-    "schemaVersion": "notebook-v2"
+    "schemaVersion": "2.1.2"
   },
   {
     "path": "DSJA/project_4/pipeline/notebooks/13BuildArticleFigures.ipynb",
-    "sha256": "6d88da0f09b4c73b66902240f25c7253d85bccf8afe90a52e52e01c3c1d94fdb",
-    "bytes": 2894,
+    "sha256": "2d76274d6d0817620b112c2be9c4c5a639be1be37c7bc12f63c0f355effdf3a8",
+    "bytes": 3058,
     "rows": 0,
-    "schemaVersion": "notebook-v2"
+    "schemaVersion": "2.1.2"
   },
   {
     "path": "DSJA/project_4/pipeline/notebooks/90AuxSimilarity.ipynb",
-    "sha256": "dfe42a5b2a5400f802dabbfa248a853dddca236f45f5b7a596d5538f9f41a8a0",
-    "bytes": 2901,
+    "sha256": "d260b7c8c8dc90871399088d0c184f2222b1c809629e1c26523ce5d42b2ee2f9",
+    "bytes": 3065,
     "rows": 0,
-    "schemaVersion": "notebook-v2"
+    "schemaVersion": "2.1.2"
   },
   {
     "path": "DSJA/project_4/pipeline/notebooks/fixture/00ContractAndInputAudit.ipynb",
-    "sha256": "f139a3444580b90193f2f405564cd8ea7f2cf5418e26ce012df558cf30a68fac",
-    "bytes": 6905,
+    "sha256": "0b451341f34a0d750d46b8d86404fbdf38b1c3d35a95452552d3274f7dbb6d51",
+    "bytes": 6904,
     "rows": 0,
-    "schemaVersion": "notebook-v2"
+    "schemaVersion": "2.1.2"
   },
   {
     "path": "DSJA/project_4/pipeline/notebooks/fixture/01LoadCrawlRelease.ipynb",
-    "sha256": "1cca0b69fcd03dd944a9e1b7aa5c8a8d169f5a31eb6b39afd3919dfe300b7bf5",
-    "bytes": 6873,
+    "sha256": "6cd7fa23e352eb90c41f997dfed31342356c5de34d8021cdf3b53ff36af262c0",
+    "bytes": 6872,
     "rows": 0,
-    "schemaVersion": "notebook-v2"
+    "schemaVersion": "2.1.2"
   },
   {
     "path": "DSJA/project_4/pipeline/notebooks/fixture/02ParseAndNormalize.ipynb",
-    "sha256": "735515a792be019d1bbd470c08c4fef820428536d87f5ffeb0c3c85b56ad4658",
-    "bytes": 6874,
+    "sha256": "f8a3f9470322a22d8405b421abba04e554b8f98bf08dcb493a4219d2260e9793",
+    "bytes": 6873,
     "rows": 0,
-    "schemaVersion": "notebook-v2"
+    "schemaVersion": "2.1.2"
   },
   {
     "path": "DSJA/project_4/pipeline/notebooks/fixture/03OcrAndSectionRecovery.ipynb",
-    "sha256": "684fcebd8409eb5da37e4aba0a53bf1cc326a38254f6ada1d44038bbb28e66d7",
-    "bytes": 6889,
+    "sha256": "343bfb54e852ebc4172755442c6866c3c837fab5509ac2530d85ce8bc2a88b76",
+    "bytes": 6888,
     "rows": 0,
-    "schemaVersion": "notebook-v2"
+    "schemaVersion": "2.1.2"
   },
   {
     "path": "DSJA/project_4/pipeline/notebooks/fixture/04SplitTracks.ipynb",
-    "sha256": "2dc9693af5d6f2448ced0b7059a7af9d23f6a518e93fda9fd3b0cc8a4ffc096c",
-    "bytes": 6877,
+    "sha256": "b27e4e09103264681daecf76bceddc5769c9f10347fc3ca6f70743e34c3bd5dd",
+    "bytes": 6876,
     "rows": 0,
-    "schemaVersion": "notebook-v2"
+    "schemaVersion": "2.1.2"
   },
   {
     "path": "DSJA/project_4/pipeline/notebooks/fixture/05ExtractRequirements.ipynb",
-    "sha256": "cc7162edc0fd4698f70a0629be9bb36578b30daefe8df9489605667d74f97bd9",
-    "bytes": 6891,
+    "sha256": "22e27d2d13a41b66d96d34b40a33392d429ac01c390205624e5c1a46996d8a39",
+    "bytes": 6890,
     "rows": 0,
-    "schemaVersion": "notebook-v2"
+    "schemaVersion": "2.1.2"
   },
   {
     "path": "DSJA/project_4/pipeline/notebooks/fixture/06Deduplicate90Days.ipynb",
-    "sha256": "c58c37cedeef83ac5e82a93e6d4842407c0824f142dddc800270efe351c21c86",
-    "bytes": 6900,
+    "sha256": "64509b3a671b60f9d0c0937d02d773d5f60a19a9bc9a48d6a00e6c5e3a683595",
+    "bytes": 6899,
     "rows": 0,
-    "schemaVersion": "notebook-v2"
+    "schemaVersion": "2.1.2"
   },
   {
     "path": "DSJA/project_4/pipeline/notebooks/fixture/07LabelCareerAccess.ipynb",
-    "sha256": "200eb9b6d1b921b65e9075c78e0db1f55259c3a877b1f9b0cce72f6674b72df7",
-    "bytes": 6860,
+    "sha256": "967b267983a86217d584112a265e2ddf2f486026279605fe2e83786bd7bff95b",
+    "bytes": 6859,
     "rows": 0,
-    "schemaVersion": "notebook-v2"
+    "schemaVersion": "2.1.2"
   },
   {
     "path": "DSJA/project_4/pipeline/notebooks/fixture/08LoadAndPrepareNcs.ipynb",
-    "sha256": "b25c1c65a41d08d7c5419534cc1a5dcd4b034b43fde0998d89e3fcf957a83eec",
-    "bytes": 6881,
+    "sha256": "b1962d06a32f1b815de3201c8d70d83a364e4786c5b3f73e025c1d5a2d0d4e73",
+    "bytes": 6880,
     "rows": 0,
-    "schemaVersion": "notebook-v2"
+    "schemaVersion": "2.1.2"
   },
   {
     "path": "DSJA/project_4/pipeline/notebooks/fixture/09MapPostingToNcs.ipynb",
-    "sha256": "8b5e60bad285293f0ca61ea373b64908af741fae6dc0d66808c398cc0fcbb22c",
-    "bytes": 6868,
+    "sha256": "33a2e0ae8d5a303153a92d282d74aa70c41a89ff7d6f134bdf4c7b80c918b88a",
+    "bytes": 6867,
     "rows": 0,
-    "schemaVersion": "notebook-v2"
+    "schemaVersion": "2.1.2"
   },
   {
     "path": "DSJA/project_4/pipeline/notebooks/fixture/10BuildPostingMart.ipynb",
-    "sha256": "10da498630da6998917ba17fefc37965bd0eaef78d89739f641f60527651f1a0",
-    "bytes": 6869,
+    "sha256": "f1fd38d85c2ea66c0a8d19aea3952537070d933d15227206efa22028aa90fa60",
+    "bytes": 6868,
     "rows": 0,
-    "schemaVersion": "notebook-v2"
+    "schemaVersion": "2.1.2"
   },
   {
     "path": "DSJA/project_4/pipeline/notebooks/fixture/11BuildTimeSeriesMart.ipynb",
-    "sha256": "5347f3f1dd088208738e3d30b6bc7a3fa12045755e1e15a21dd7ce3c037276bc",
-    "bytes": 6887,
+    "sha256": "2168e87419598e6d984a811b7807ebc11dc513e4f2e40a1364623ba5c4f5c102",
+    "bytes": 6886,
     "rows": 0,
-    "schemaVersion": "notebook-v2"
+    "schemaVersion": "2.1.2"
   },
   {
     "path": "DSJA/project_4/pipeline/notebooks/fixture/12AnalyzeRq1Rq2.ipynb",
-    "sha256": "edc9dc35f21c2d0f4902acc4625d9e7a04fd79c9827ae4f1588053c0a56c7dbf",
-    "bytes": 6882,
+    "sha256": "dda9d493bb6cfea6f196715f760304cf40d476b30a4369ca5c3de6a7d86343d2",
+    "bytes": 6881,
     "rows": 0,
-    "schemaVersion": "notebook-v2"
+    "schemaVersion": "2.1.2"
   },
   {
     "path": "DSJA/project_4/pipeline/notebooks/fixture/13BuildArticleFigures.ipynb",
-    "sha256": "bb62a2aed72f50171e699bc58a41dc5a0aab07d3964a0064b2c865de433fa94d",
-    "bytes": 6866,
+    "sha256": "cdfbde262d5f5eb31df7e06910efb9b24e2f39fe70b91fa7ceaf90681eb5b7d4",
+    "bytes": 6865,
     "rows": 0,
-    "schemaVersion": "notebook-v2"
+    "schemaVersion": "2.1.2"
   },
   {
     "path": "DSJA/project_4/pipeline/notebooks/fixture/90AuxSimilarity.ipynb",
-    "sha256": "0c4699485c3770eaaaf26ec30a959312af2c3a618b37a9c6b963852002bce873",
-    "bytes": 6881,
+    "sha256": "7aed969e391b9ead8883fe5895138ce4b3e9a4099212a3ce0d0c709a09fe567c",
+    "bytes": 6880,
     "rows": 0,
-    "schemaVersion": "notebook-v2"
+    "schemaVersion": "2.1.2"
   }
 ]

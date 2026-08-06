@@ -1,0 +1,200 @@
+{
+  "agentId": "P4-A2-PIPELINE",
+  "status": "PREPROCESSED_EXPORT_BUILT",
+  "generatedAt": "2026-08-06T00:00:00+09:00",
+  "contractVersion": "2.1.2",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "dataVersion": "observed-dev-20260806.1",
+  "runMode": "observed-dev",
+  "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+  "empiricalAnalysisAllowed": false,
+  "promotionAllowed": false,
+  "warehouse": {
+    "contractVersion": "2.1.2",
+    "crawlReleaseId": "CRAWL_20260806_03",
+    "dataVersion": "observed-dev-20260806.1",
+    "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+    "empiricalAnalysisAllowed": false,
+    "parseVersion": "observed-dev-parse-20260806.1",
+    "path": "pipeline/data/warehouse/p4.observed-dev.duckdb",
+    "bytes": 3420160,
+    "semanticSha256": "63532e2b8fd04ef1fad7b996510757a297c5a7b2b971bc6815bfcf09442999a6",
+    "physicalChecksumStable": false,
+    "physicalChecksumNote": "DuckDB storage layout is not byte-reproducible; semantic table fingerprint is authoritative.",
+    "inventory": {
+      "batch_metadata": 1,
+      "eligibility": 137,
+      "manifest_cursor": 29,
+      "ocr_queue": 30,
+      "posting_ncs_candidates": 128,
+      "posting_ncs_matches": 28,
+      "posting_normalized": 137,
+      "posting_section": 84,
+      "posting_track": 137,
+      "raw_posting": 137,
+      "requirement_fact": 35
+    }
+  },
+  "observedParse": {
+    "inputPostings": 137,
+    "parseSuccess": 137,
+    "parseFailure": 0,
+    "realSsrRaw": 29,
+    "realSsrParseSuccess": 29,
+    "derivedObservedAccepted": 108,
+    "activityTextRecovered": 29,
+    "embeddedImageRouted": 30,
+    "trackCount": 137,
+    "trackSplitSuccess": 85,
+    "mixedUnresolved": 43,
+    "unknownTrack": 9,
+    "sectionCount": 84,
+    "requirementCount": 35,
+    "rq1Eligible": 137,
+    "rq2Eligible": 113,
+    "ncsEligible": 55,
+    "ocrQueueRows": 30,
+    "ocrAssetsFetched": 0
+  },
+  "agent4DutyHandoff": {
+    "path": "shared/handoffs/AGENT2_TO_AGENT4_DUTY_INPUT_OBSERVED_DEV.json",
+    "rows": 28,
+    "rowsSha256": "a305d2354a7437860dc947f4e537be76c6233cd26fe658da650d3bb07437bc30",
+    "fileSha256": "59a134c6b54d7ba95cebaee585f403fb0d33284ef36b883192703cf2944c3c93",
+    "status": "OBSERVED_DEVELOPMENT_ONLY"
+  },
+  "export": {
+    "path": "pipeline/data/exports/observed-dev/OBSERVED_DEV_20260806_01",
+    "quality": {
+      "status": "PASS",
+      "checks": 24,
+      "passed": 24,
+      "failed": 0,
+      "generatedAt": "2026-08-06T00:00:00+09:00",
+      "empiricalAnalysisAllowed": false,
+      "promotionAllowed": false
+    },
+    "finalReviewCsv": "pipeline/data/exports/observed-dev/OBSERVED_DEV_20260806_01/preprocessed_posting_tracks.csv"
+  },
+  "ncsIntegration": {
+    "status": "AGENT4_HANDOFF_INTEGRATED",
+    "postingNcsCandidateRows": 128,
+    "postingNcsMatchRows": 28,
+    "mappingMode": "LEXICAL_BASELINE",
+    "codeSetStatus": "REVIEW_REQUIRED",
+    "goldValidatedFlag": false,
+    "denseScore": null
+  },
+  "controlArtifactValidation": {
+    "status": "PASS",
+    "manifestSchema": "crawl/control/STAGE_MANIFEST.schema.json",
+    "metricsSchema": "crawl/control/STAGE_METRICS.schema.json",
+    "qualityColumns": [
+      "gateId",
+      "ruleId",
+      "severity",
+      "status",
+      "observedValue",
+      "threshold",
+      "evidencePath"
+    ]
+  },
+  "verification": {
+    "pytest": "focused Agent4 integration suite passed",
+    "notebookRenderCheck": "PASS",
+    "sourceNotebookOutputCount": 0,
+    "nbclientSmoke": [
+      "08LoadAndPrepareNcs.ipynb",
+      "09MapPostingToNcs.ipynb",
+      "10ExportPreprocessedCsv.ipynb",
+      "11PreprocessedDataQa.ipynb"
+    ],
+    "canonicalP4DuckdbContamination": 0
+  },
+  "stageResults": {
+    "00ContractAndInputAudit": {
+      "stageManifest": "runs/observed-dev/00ContractAndInputAudit/stage_manifest.json",
+      "stageMetrics": "runs/observed-dev/00ContractAndInputAudit/stage_metrics.json",
+      "stageQuality": "runs/observed-dev/00ContractAndInputAudit/stage_quality.csv",
+      "checksums": "runs/observed-dev/00ContractAndInputAudit/CHECKSUMS.sha256",
+      "qualityStatus": "PASS"
+    },
+    "02ParseAndNormalize": {
+      "stageManifest": "runs/observed-dev/02ParseAndNormalize/stage_manifest.json",
+      "stageMetrics": "runs/observed-dev/02ParseAndNormalize/stage_metrics.json",
+      "stageQuality": "runs/observed-dev/02ParseAndNormalize/stage_quality.csv",
+      "checksums": "runs/observed-dev/02ParseAndNormalize/CHECKSUMS.sha256",
+      "qualityStatus": "PASS"
+    },
+    "03OcrAndSectionRecovery": {
+      "stageManifest": "runs/observed-dev/03OcrAndSectionRecovery/stage_manifest.json",
+      "stageMetrics": "runs/observed-dev/03OcrAndSectionRecovery/stage_metrics.json",
+      "stageQuality": "runs/observed-dev/03OcrAndSectionRecovery/stage_quality.csv",
+      "checksums": "runs/observed-dev/03OcrAndSectionRecovery/CHECKSUMS.sha256",
+      "qualityStatus": "PASS"
+    },
+    "04SplitTracks": {
+      "stageManifest": "runs/observed-dev/04SplitTracks/stage_manifest.json",
+      "stageMetrics": "runs/observed-dev/04SplitTracks/stage_metrics.json",
+      "stageQuality": "runs/observed-dev/04SplitTracks/stage_quality.csv",
+      "checksums": "runs/observed-dev/04SplitTracks/CHECKSUMS.sha256",
+      "qualityStatus": "PASS"
+    },
+    "05ExtractRequirements": {
+      "stageManifest": "runs/observed-dev/05ExtractRequirements/stage_manifest.json",
+      "stageMetrics": "runs/observed-dev/05ExtractRequirements/stage_metrics.json",
+      "stageQuality": "runs/observed-dev/05ExtractRequirements/stage_quality.csv",
+      "checksums": "runs/observed-dev/05ExtractRequirements/CHECKSUMS.sha256",
+      "qualityStatus": "PASS"
+    },
+    "06Deduplicate90Days": {
+      "stageManifest": "runs/observed-dev/06Deduplicate90Days/stage_manifest.json",
+      "stageMetrics": "runs/observed-dev/06Deduplicate90Days/stage_metrics.json",
+      "stageQuality": "runs/observed-dev/06Deduplicate90Days/stage_quality.csv",
+      "checksums": "runs/observed-dev/06Deduplicate90Days/CHECKSUMS.sha256",
+      "qualityStatus": "PASS"
+    },
+    "07LabelCareerAccess": {
+      "stageManifest": "runs/observed-dev/07LabelCareerAccess/stage_manifest.json",
+      "stageMetrics": "runs/observed-dev/07LabelCareerAccess/stage_metrics.json",
+      "stageQuality": "runs/observed-dev/07LabelCareerAccess/stage_quality.csv",
+      "checksums": "runs/observed-dev/07LabelCareerAccess/CHECKSUMS.sha256",
+      "qualityStatus": "PASS"
+    },
+    "08LoadAndPrepareNcs": {
+      "stageManifest": "runs/observed-dev/08LoadAndPrepareNcs/stage_manifest.json",
+      "stageMetrics": "runs/observed-dev/08LoadAndPrepareNcs/stage_metrics.json",
+      "stageQuality": "runs/observed-dev/08LoadAndPrepareNcs/stage_quality.csv",
+      "checksums": "runs/observed-dev/08LoadAndPrepareNcs/CHECKSUMS.sha256",
+      "qualityStatus": "PASS"
+    },
+    "09MapPostingToNcs": {
+      "stageManifest": "runs/observed-dev/09MapPostingToNcs/stage_manifest.json",
+      "stageMetrics": "runs/observed-dev/09MapPostingToNcs/stage_metrics.json",
+      "stageQuality": "runs/observed-dev/09MapPostingToNcs/stage_quality.csv",
+      "checksums": "runs/observed-dev/09MapPostingToNcs/CHECKSUMS.sha256",
+      "qualityStatus": "PASS"
+    },
+    "10ExportPreprocessedCsv": {
+      "stageManifest": "runs/observed-dev/10ExportPreprocessedCsv/stage_manifest.json",
+      "stageMetrics": "runs/observed-dev/10ExportPreprocessedCsv/stage_metrics.json",
+      "stageQuality": "runs/observed-dev/10ExportPreprocessedCsv/stage_quality.csv",
+      "checksums": "runs/observed-dev/10ExportPreprocessedCsv/CHECKSUMS.sha256",
+      "qualityStatus": "PASS"
+    },
+    "11PreprocessedDataQa": {
+      "stageManifest": "runs/observed-dev/11PreprocessedDataQa/stage_manifest.json",
+      "stageMetrics": "runs/observed-dev/11PreprocessedDataQa/stage_metrics.json",
+      "stageQuality": "runs/observed-dev/11PreprocessedDataQa/stage_quality.csv",
+      "checksums": "runs/observed-dev/11PreprocessedDataQa/CHECKSUMS.sha256",
+      "qualityStatus": "PASS"
+    }
+  },
+  "integrationBoundary": "Agent2 emits under pipeline/data/exports; root integration may copy to crawl/data/exports only after Agent1 and Agent3 checksum validation.",
+  "forbiddenStatusDeclarations": [
+    "CRAWL_RELEASE_READY",
+    "DATA_READY_RQ1_RQ2A",
+    "DATA_READY_RQ2B",
+    "ANALYSIS_READY"
+  ]
+}

@@ -1,0 +1,72 @@
+﻿dataset,name,type,nullable,grain,source,derivation,qualityRule
+posting_normalized.csv,postingId,VARCHAR,False,one row per postingId,sourceName+sourcePostingId,contract SHA-256 key,unique/non-null
+posting_normalized.csv,rawPostingId,VARCHAR,True,one row per postingId,rawSha256,contract SHA-256 raw key,required when raw exists
+posting_normalized.csv,sourceName,VARCHAR,False,one row per postingId,manifest,copy,Linkareer
+posting_normalized.csv,sourcePostingId,VARCHAR,False,one row per postingId,manifest,copy,unique with sourceName
+posting_normalized.csv,title,VARCHAR,True,one row per postingId,Apollo/manifest,PII-masked copy,no manager PII
+posting_normalized.csv,organizationName,VARCHAR,True,one row per postingId,Apollo/manifest,copy,nullable preserved
+posting_normalized.csv,postedAt,TIMESTAMPTZ,True,one row per postingId,createdAt,timezone normalize,Asia/Seoul
+posting_normalized.csv,jobTypesJson,JSON,True,one row per postingId,jobTypes list,canonical JSON serialization,valid JSON; list order preserved
+posting_normalized.csv,bodyText,VARCHAR,True,one row per postingId,ActivityText.text,HTML-to-text normalized,raw HTML not embedded
+posting_normalized.csv,bodyTextSha256,VARCHAR,True,one row per postingId,ActivityText.text,SHA-256,64 hex
+posting_normalized.csv,postingKind,VARCHAR,False,one row per postingId,jobTypes/title,classifier,contract enum
+posting_normalized.csv,postingEligibleFlag,BOOLEAN,False,one row per postingId,source/type/date,eligibility rule,non-null
+posting_normalized.csv,rq1EligibleFlag,BOOLEAN,False,one row per postingId,posting kind,eligibility rule,non-null
+posting_normalized.csv,rq2EligibleFlag,BOOLEAN,False,one row per postingId,boundary/track,eligibility rule,non-null
+posting_normalized.csv,ncsEligibleFlag,BOOLEAN,False,one row per postingId,duty evidence,eligibility rule,non-null
+posting_normalized.csv,externalApplyUrl,VARCHAR,True,one row per postingId,applyDetail,copy; query retained in restricted output,never fetched
+posting_normalized.csv,parseVersion,VARCHAR,False,one row per postingId,pipeline constant,copy,non-empty
+posting_tracks.csv,trackId,VARCHAR,False,one row per trackId,postingId+trackIndex,contract key,unique
+posting_tracks.csv,postingId,VARCHAR,False,one row per trackId,posting_normalized,foreign key value,must exist
+posting_tracks.csv,trackIndex,INTEGER,False,one row per trackId,split order,0-based order,>=0
+posting_tracks.csv,trackTitle,VARCHAR,True,one row per trackId,body/title,splitter output,nullable
+posting_tracks.csv,trackText,VARCHAR,True,one row per trackId,bodyText,splitter slice,source hash retained
+posting_tracks.csv,jobType,VARCHAR,False,one row per trackId,jobTypes/track text,normalized enum,contract enum
+posting_tracks.csv,trackSplitStatus,VARCHAR,False,one row per trackId,splitter,explicit/mixedUnresolved/unknown,never force mixed
+posting_tracks.csv,sourceTextSha256,VARCHAR,True,one row per trackId,bodyText,SHA-256,64 hex
+posting_sections.csv,sectionId,VARCHAR,False,one row per sectionId,trackId+sectionOrder,contract key,unique
+posting_sections.csv,trackId,VARCHAR,False,one row per sectionId,posting_tracks,copy,must exist
+posting_sections.csv,sectionOrder,INTEGER,False,one row per sectionId,section sequence,0-based order,>=0
+posting_sections.csv,sectionType,VARCHAR,False,one row per sectionId,heading/content,section classifier,contract enum
+posting_sections.csv,sectionText,VARCHAR,False,one row per sectionId,trackText,normalized slice,non-empty
+posting_sections.csv,evidenceHash,VARCHAR,False,one row per sectionId,sectionText,SHA-256,64 hex
+posting_sections.csv,boundaryResolvedFlag,BOOLEAN,False,one row per sectionId,split result,boundary rule,non-null
+requirement_facts.csv,requirementId,VARCHAR,False,one row per requirementId,section+type+evidence,contract key,unique
+requirement_facts.csv,sectionId,VARCHAR,False,one row per requirementId,posting_sections,copy,must exist
+requirement_facts.csv,trackId,VARCHAR,False,one row per requirementId,posting_sections,copy,must exist
+requirement_facts.csv,postingId,VARCHAR,False,one row per requirementId,posting_tracks,copy,must exist
+requirement_facts.csv,requirementType,VARCHAR,False,one row per requirementId,section/evidence,required/preferred/duty,enum
+requirement_facts.csv,normalizedEvidence,VARCHAR,False,one row per requirementId,sectionText,normalizer,non-empty
+requirement_facts.csv,minCareerMonths,INTEGER,True,one row per requirementId,evidence,experience parser,>=0 or null
+requirement_facts.csv,degreeLevel,VARCHAR,True,one row per requirementId,evidence,degree parser,enum or null
+requirement_facts.csv,toolNamesJson,JSON,True,one row per requirementId,evidence,canonical JSON list,valid JSON
+requirement_facts.csv,extractVersion,VARCHAR,False,one row per requirementId,pipeline constant,copy,non-empty
+career_access_labels.csv,trackId,VARCHAR,False,one row per trackId,posting_tracks,copy,unique
+career_access_labels.csv,postingId,VARCHAR,False,one row per trackId,posting_tracks,copy,must exist
+career_access_labels.csv,careerClass,VARCHAR,False,one row per trackId,requirements,E1/E2/E3/EU labeler,enum
+career_access_labels.csv,internAccessClass,VARCHAR,False,one row per trackId,requirements,I1/I2/IU labeler,enum
+career_access_labels.csv,labelEvidenceJson,JSON,False,one row per trackId,requirement facts,canonical JSON,valid JSON
+career_access_labels.csv,labelVersion,VARCHAR,False,one row per trackId,pipeline constant,copy,non-empty
+preprocessed_posting_tracks.csv,postingId,VARCHAR,False,one row per trackId,posting_normalized,join,non-null
+preprocessed_posting_tracks.csv,trackId,VARCHAR,False,one row per trackId,posting_tracks,join,unique
+preprocessed_posting_tracks.csv,sourcePostingId,VARCHAR,False,one row per trackId,posting_normalized,join,non-null
+preprocessed_posting_tracks.csv,periodMonth,VARCHAR,False,one row per trackId,postedAt,YYYY-MM,valid month
+preprocessed_posting_tracks.csv,postingKind,VARCHAR,False,one row per trackId,posting_normalized,join,enum
+preprocessed_posting_tracks.csv,jobType,VARCHAR,False,one row per trackId,posting_tracks,join,enum
+preprocessed_posting_tracks.csv,careerClass,VARCHAR,False,one row per trackId,career_access_labels,join,enum
+preprocessed_posting_tracks.csv,internAccessClass,VARCHAR,False,one row per trackId,career_access_labels,join,enum
+preprocessed_posting_tracks.csv,requiredEvidenceJson,JSON,True,one row per trackId,requirement_facts,canonical JSON aggregation,valid JSON
+preprocessed_posting_tracks.csv,preferredEvidenceJson,JSON,True,one row per trackId,requirement_facts,canonical JSON aggregation,valid JSON
+preprocessed_posting_tracks.csv,rq1EligibleFlag,BOOLEAN,False,one row per trackId,posting_normalized,join,non-null
+preprocessed_posting_tracks.csv,rq2EligibleFlag,BOOLEAN,False,one row per trackId,posting_normalized,join,non-null
+preprocessed_posting_tracks.csv,ncsEligibleFlag,BOOLEAN,False,one row per trackId,posting_normalized,join,non-null
+preprocessed_posting_tracks.csv,rawSha256,VARCHAR,True,one row per trackId,raw lineage,join,64 hex or null
+preprocessed_posting_tracks.csv,parseVersion,VARCHAR,False,one row per trackId,posting_normalized,join,non-empty
+data_quality_summary.csv,periodMonth,VARCHAR,True,one row per metricName × periodMonth,coverage/data,group key,YYYY-MM or null for global
+data_quality_summary.csv,metricName,VARCHAR,False,one row per metricName × periodMonth,QA definition,copy,non-empty
+data_quality_summary.csv,numerator,BIGINT,True,one row per metricName × periodMonth,preprocessed tables,aggregate,>=0
+data_quality_summary.csv,denominator,BIGINT,True,one row per metricName × periodMonth,preprocessed tables,aggregate,>=0
+data_quality_summary.csv,metricValue,DOUBLE,True,one row per metricName × periodMonth,numerator/denominator,safe division,0..1 where rate
+data_quality_summary.csv,qualityStatus,VARCHAR,False,one row per metricName × periodMonth,gate,PASS/WARN/FAIL/NOT_EVALUATED,enum
+data_quality_summary.csv,evidencePath,VARCHAR,False,one row per metricName × periodMonth,artifact lineage,copy,non-empty
+data_quality_summary.csv,auditVersion,VARCHAR,False,one row per metricName × periodMonth,pipeline constant,copy,non-empty

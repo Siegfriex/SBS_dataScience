@@ -1,0 +1,2 @@
+﻿gateId,ruleId,severity,status,observedValue,threshold,evidencePath
+PREPROCESSED_EXPORT_BUILT,preprocessed_export,INFO,PASS,137,PASS,stage_quality.csv

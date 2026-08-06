@@ -12,6 +12,7 @@ dependencies = [
   "jsonschema>=4.20",
   "matplotlib>=3.8",
   "nbformat>=5.10",
+  "nbclient>=0.10",
   "pandas>=2.2",
   "pyarrow>=17",
   "PyYAML>=6.0",
@@ -28,4 +29,3 @@ where = ["src"]
 pythonpath = ["src"]
 testpaths = ["tests"]
 addopts = "-ra"
-

@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-from p4.contracts.validators import assert_duckdb_executable_ddl
+from p4.contracts.validators import assert_duckdb_executable_ddl, find_cross_schema_foreign_keys
 from p4.warehouse.connection import connect
 
 
@@ -289,9 +289,45 @@ def bootstrap_contract_warehouse(path: str | Path, ddl_path: str | Path) -> list
     return [row[0] for row in rows]
 
 
+def _assert_existing_canonical_path_is_safe(path: Path) -> None:
+    if not path.exists() or path.stat().st_size == 0:
+        return
+    with connect(path, read_only=True) as connection:
+        objects = connection.execute(
+            """
+            SELECT table_schema, table_name, table_type
+            FROM information_schema.tables
+            WHERE table_schema IN ('raw', 'core', 'ncs', 'mart', 'qa')
+            """
+        ).fetchall()
+        if not objects:
+            return
+        canonical_gate = connection.execute(
+            """
+            SELECT COUNT(*)
+            FROM information_schema.tables
+            WHERE table_schema = 'qa'
+              AND table_name = 'vAnalysisReadyGate'
+              AND table_type = 'VIEW'
+            """
+        ).fetchone()[0]
+        table_count = sum(kind == "BASE TABLE" for _, _, kind in objects)
+        view_count = sum(kind == "VIEW" for _, _, kind in objects)
+    if not canonical_gate or (table_count, view_count) != (26, 6):
+        raise ValueError(
+            "canonical warehouse path contains noncanonical or incomplete objects; "
+            "quarantine the existing DB before bootstrap"
+        )
+
+
 def bootstrap_canonical_warehouse(path: str | Path, ddl_path: str | Path) -> dict[str, Any]:
+    database_path = Path(path)
+    _assert_existing_canonical_path_is_safe(database_path)
     ddl = Path(ddl_path).read_text(encoding="utf-8")
     assert_duckdb_executable_ddl(ddl)
+    cross_schema_foreign_keys = find_cross_schema_foreign_keys(ddl)
+    if cross_schema_foreign_keys:
+        raise ValueError(f"canonical DDL contains cross-schema foreign keys: {cross_schema_foreign_keys}")
     statement_count = len([statement for statement in ddl.split(";") if statement.strip()])
     if statement_count < 36:
         raise ValueError(f"canonical DDL requires at least 36 statements, found {statement_count}")
@@ -347,6 +383,7 @@ def bootstrap_canonical_warehouse(path: str | Path, ddl_path: str | Path) -> dic
         "tableCount": len(tables),
         "views": views,
         "viewCount": len(views),
+        "crossSchemaForeignKeyCount": len(cross_schema_foreign_keys),
         "qaViews": qa_view_results,
         "analysisReadyGate": gate,
         "emptyDatabasePass": False,

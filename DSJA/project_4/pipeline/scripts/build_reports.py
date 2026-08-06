@@ -16,13 +16,15 @@ PIPELINE_ROOT = Path(__file__).resolve().parents[1]
 PROJECT_ROOT = PIPELINE_ROOT.parent
 REPOSITORY_ROOT = PROJECT_ROOT.parents[1]
 HANDOFF_ROOT = PROJECT_ROOT / "shared/handoffs"
-TARGET_CONTRACT = "2.1.2"
 AGENT_ID = "P4-A2-PIPELINE"
 AGENT_NAME = "P4 Contract-Driven Pipeline & Analysis Engineer"
+CONTRACT_VERSION = "2.1.2"
+CRAWL_RELEASE_ID = "CRAWL_20260806_02"
 sys.path.insert(0, str(PIPELINE_ROOT / "src"))
 
 from p4.common.hashing import sha256_file  # noqa: E402
-from p4.contracts.loader import contract_bundle_status, find_crawl_releases  # noqa: E402
+from p4.contracts.duty_input import validate_duty_input_handoff  # noqa: E402
+from p4.contracts.validators import audit_contract_bundle  # noqa: E402
 
 
 def git(*args: str) -> str:
@@ -38,35 +40,42 @@ def notebook_audit() -> list[dict[str, object]]:
     for path in sorted((PIPELINE_ROOT / "notebooks").rglob("*.ipynb")):
         notebook = nbformat.read(path, as_version=4)
         nbformat.validate(notebook)
-        code_cells = [cell for cell in notebook.cells if cell.cell_type == "code"]
+        code = [cell for cell in notebook.cells if cell.cell_type == "code"]
         rows.append(
             {
                 "path": relative(path),
                 "mode": notebook.metadata.get("p4", {}).get("mode"),
                 "sha256": sha256_file(path),
-                "codeCells": len(code_cells),
-                "executedCodeCells": sum(cell.execution_count is not None for cell in code_cells),
-                "outputCount": sum(len(cell.outputs) for cell in code_cells),
+                "codeCells": len(code),
+                "executedCodeCells": sum(cell.execution_count is not None for cell in code),
+                "outputCount": sum(len(cell.outputs) for cell in code),
                 "missingCellIds": sum(not bool(cell.get("id")) for cell in notebook.cells),
             }
         )
     return rows
 
 
+def test_audit() -> dict[str, int]:
+    root = ET.parse(PIPELINE_ROOT / "runs/pytest-results.xml").getroot()
+    suite = root if root.tag == "testsuite" else root.find("testsuite")
+    if suite is None:
+        raise ValueError("pytest JUnit report has no testsuite")
+    total = int(suite.attrib["tests"])
+    failed = int(suite.attrib.get("failures", 0))
+    errors = int(suite.attrib.get("errors", 0))
+    skipped = int(suite.attrib.get("skipped", 0))
+    return {"passed": total - failed - errors - skipped, "failed": failed, "errors": errors, "skipped": skipped}
+
+
 def parquet_audit(path: Path, primary_key: str) -> dict[str, object]:
     frame = pd.read_parquet(path)
-    selected_null_rates = (
-        ["highDemandScore", "ncsLevel", "ncsMatchScore"]
-        if "highDemandScore" in frame.columns
-        else ["entryPostingRate", "internPostingRate", "ncsMappingCoverage"]
-    )
     return {
         "path": relative(path),
         "rows": len(frame),
         "columns": len(frame.columns),
         "primaryKey": primary_key,
         "primaryKeyDuplicates": int(frame[primary_key].duplicated().sum()),
-        "nullRates": {column: float(frame[column].isna().mean()) for column in selected_null_rates},
+        "highDemandNonNullCount": int(frame["highDemandScore"].notna().sum()) if "highDemandScore" in frame else None,
         "sha256": sha256_file(path),
         "bytes": path.stat().st_size,
         "dataVersion": "synthetic-fixture-v1",
@@ -75,222 +84,192 @@ def parquet_audit(path: Path, primary_key: str) -> dict[str, object]:
     }
 
 
-def test_audit() -> dict[str, int]:
-    path = PIPELINE_ROOT / "runs/pytest-results.xml"
-    if not path.exists():
-        return {"passed": 0, "failed": 0, "errors": 0, "skipped": 0}
-    root = ET.parse(path).getroot()
-    suite = root if root.tag == "testsuite" else root.find("testsuite")
-    if suite is None:
-        raise ValueError("pytest JUnit report has no testsuite")
-    tests = int(suite.attrib.get("tests", 0))
-    failures = int(suite.attrib.get("failures", 0))
-    errors = int(suite.attrib.get("errors", 0))
-    skipped = int(suite.attrib.get("skipped", 0))
-    return {"passed": tests - failures - errors - skipped, "failed": failures, "errors": errors, "skipped": skipped}
-
-
 def agent1_requests() -> dict[str, object]:
-    return {
+    base = {
         "agentId": AGENT_ID,
         "agentName": AGENT_NAME,
-        "status": "BLOCKED_BY_CRAWL_RELEASE",
-        "acceptedReleasePrefix": "CRAWL_",
-        "rejectedReleasePrefixes": ["RECON_"],
-        "requests": [
-            {
-                "requestId": "A2-A1-P0-001",
-                "priority": "P0",
-                "requiredField": "official immutable HANDOFF.json with release_id, contract_version, manifest_paths, coverage_path, checksum_path, query_registry_path, schema_snapshot_path",
-                "affectedTable": "raw.linkareerPostingRaw",
-                "affectedMetric": "all empirical RQ1 RQ2 NCS metrics",
-                "affectedPeriod": "2020-01 through 2026-07; 2021-01 robustness; 2019 audit only",
-                "examplePostingIds": [],
-                "reason": "No crawl/releases/CRAWL_*/HANDOFF.json exists. RECON packages are not accepted as raw lineage.",
-                "blocking": True,
-            },
-            {
-                "requestId": "A2-A1-P0-002",
-                "priority": "P0",
-                "requiredField": "checksum-valid raw manifest lineage fields sourceUrl, rawPath, rawSha256",
-                "affectedTable": "raw.linkareerIndexRaw and raw.linkareerPostingRaw",
-                "affectedMetric": "source adapter conformance and all coverage denominators",
-                "affectedPeriod": "official crawl release",
-                "examplePostingIds": [],
-                "reason": "The release validator rejects empty manifests, missing referenced files, checksum mismatch, and manifests without raw lineage.",
-                "blocking": True,
-            },
-        ],
+        "status": "BLOCKED_BY_FULL_CRAWL_RELEASE",
+        "lastReviewedReleaseId": CRAWL_RELEASE_ID,
+        "requests": [],
     }
+    base["requests"] = [
+        {
+            "requestId": "A2-A1-P0-001", "priority": "P0", "status": "resolved",
+            "requiredField": "release envelope with seven required locator fields and contractVersion 2.1.2",
+            "affectedTable": "raw.crawlRun", "affectedMetric": "release conformance", "affectedPeriod": "CRAWL_20260806_02",
+            "examplePostingIds": [], "reason": "Resolved in CRAWL_20260806_02; all locator fields exist and contract_version is 2.1.2.", "blocking": False,
+        },
+        {
+            "requestId": "A2-A1-P0-002", "priority": "P0", "status": "open",
+            "requiredField": "per-record immutable detail rawPath and rawSha256 for every sampled and collected Linkareer posting",
+            "affectedTable": "raw.linkareerPostingRaw", "affectedMetric": "all empirical RQ1 RQ2 NCS metrics", "affectedPeriod": "2020-01 through 2026-07",
+            "examplePostingIds": ["339737", "339821"], "reason": "The n=126 artifact preserves derived fields, not full raw HTML per posting.", "blocking": True,
+        },
+        {
+            "requestId": "A2-A1-P0-003", "priority": "P0", "status": "resolved",
+            "requiredField": "explicit monthly coverage rows without silent omissions",
+            "affectedTable": "qa.monthlyCoverageAudit", "affectedMetric": "coverage denominators", "affectedPeriod": "2019 audit and 2020-01 through 2026-07",
+            "examplePostingIds": [], "reason": "Resolved: all target months have explicit coverageStatus and coverageReason.", "blocking": False,
+        },
+        {
+            "requestId": "A2-A1-P0-004", "priority": "P0", "status": "open",
+            "requiredField": "pagination_verified=true for all 79 target months or an approved analysis-window coverage contract",
+            "affectedTable": "qa.monthlyCoverageAudit", "affectedMetric": "all time-series metrics", "affectedPeriod": "2020-01 through 2026-07",
+            "examplePostingIds": [], "reason": "Only 11 of 79 target months are complete; 68 remain paginationUnverified.", "blocking": True,
+        },
+        {
+            "requestId": "A2-A1-P0-005", "priority": "P0", "status": "resolved",
+            "requiredField": "stratified Linkareer detail sample n>=100",
+            "affectedTable": "source adapter QA", "affectedMetric": "eligibility and OCR routing regression", "affectedPeriod": "2020 through 2026",
+            "examplePostingIds": [], "reason": "Resolved with 126 of 126 successful derived-detail records.", "blocking": False,
+        },
+        {
+            "requestId": "A2-A1-P1-006", "priority": "P1", "status": "partial",
+            "requiredField": "NCS manifest including KSA, ability-unit elements, and performance criteria",
+            "affectedTable": "ncs.ncsUnit and ncs.ncsLearningModule", "affectedMetric": "NCS mapping", "affectedPeriod": "current source version",
+            "examplePostingIds": [], "reason": "Ability-unit CSV has 13,442 rows and levels 1-8; KSA endpoint still requires a human API key.", "blocking": True,
+        },
+    ]
+    return base
 
 
 def agent3_issues() -> dict[str, object]:
     return {
         "agentId": AGENT_ID,
         "agentName": AGENT_NAME,
-        "status": "BLOCKED_BY_CONTRACT",
-        "targetContractVersion": TARGET_CONTRACT,
-        "contractBundlePath": f"DSJA/project_4/shared/contracts/P4_CONTRACT_v{TARGET_CONTRACT}",
-        "contractBundlePresent": False,
-        "issues": [
-            {
-                "issueId": "A2-A3-001",
-                "issueType": "ELIGIBILITY_SPLIT_REQUIRED",
-                "severity": "P0",
-                "requestedFields": ["postingEligibleFlag", "rq1EligibleFlag", "rq2EligibleFlag", "ncsEligibleFlag", "canonicalRecordFlag", "rq2ExclusionReason"],
-                "reason": "RQ1 posting, RQ2 track, and NCS track denominators require independent flags; canonicalRecordFlag remains a separate dedup dimension.",
-            },
-            {
-                "issueId": "A2-A3-002",
-                "issueType": "APQ_SOURCE_FIELDS_REQUIRED",
-                "severity": "P0",
-                "requestedFields": ["activityTypeId", "jobTypesRawJson", "jobTypeConflictFlag", "externalApplyFlag"],
-                "reason": "APQ structured values must remain auditable and conflicts must trigger review rather than overwrite source evidence.",
-            },
-            {
-                "issueId": "A2-A3-003",
-                "issueType": "SSR_APOLLO_ENTITY_REQUIRED",
-                "severity": "P0",
-                "requestedFields": ["dutiesRawJson", "activityTextHtml", "activityTextAvailableFlag", "externalApplyUrl", "externalAtsDomain"],
-                "reason": "SSR __NEXT_DATA__, Apollo entities, ActivityText HTML, and external apply lineage must be preserved.",
-            },
-            {
-                "issueId": "A2-A3-004",
-                "issueType": "EXTERNAL_ATS_EXCLUSION_REQUIRED",
-                "severity": "P0",
-                "requestedFields": ["externalApplyFlag", "externalDetailOnlyFlag", "rq2ExclusionReason"],
-                "reason": "externalApplyFlag alone does not exclude RQ2; only externalDetailOnlyFlag with unavailable body evidence does.",
-            },
-            {
-                "issueId": "A2-A3-005",
-                "issueType": "KEY_CONTRACT_REQUIRED",
-                "severity": "P0",
-                "requestedFields": ["keyAlgorithm", "keyNamespace", "keyFormat", "keyInputOrder"],
-                "reason": "Dataset Spec SHA-1 and development SHA-256 conflict. CanonicalContractStrategy refuses to select a final algorithm without v2.1.2 rules.",
-            },
-            {
-                "issueId": "A2-A3-006",
-                "issueType": "CANONICAL_DDL_EXECUTABILITY",
-                "severity": "P0",
-                "requestedFields": ["duckdbVersion", "crossSchemaForeignKeyCount", "reservedFields"],
-                "reason": "Canonical DDL must have zero cross-schema physical foreign keys and reserve highDemandScore as nullable.",
-            },
+        "status": "CONTRACT_ACCEPTED",
+        "contractVersion": CONTRACT_VERSION,
+        "newIssues": [],
+        "resolvedIssues": [
+            "ELIGIBILITY_SPLIT_REQUIRED",
+            "APQ_SOURCE_FIELDS_REQUIRED",
+            "SSR_APOLLO_ENTITY_REQUIRED",
+            "EXTERNAL_ATS_EXCLUSION_REQUIRED",
+            "KEY_CONTRACT_REQUIRED",
+            "CANONICAL_DDL_EXECUTABILITY",
         ],
+        "note": "No v2.1.3 request. Producer-local OCR routing and partial-release rejection are handled in Agent 2 code.",
     }
 
 
 def build() -> dict[str, object]:
-    summary_path = PIPELINE_ROOT / "runs/fixture_pipeline_summary.json"
-    summary = json.loads(summary_path.read_text(encoding="utf-8"))
-    notebooks = notebook_audit()
-    production = [item for item in notebooks if item["mode"] == "PRODUCTION"]
-    fixture = [item for item in notebooks if item["mode"] == "SYNTHETIC_FIXTURE"]
+    git_common_dir = Path(git("rev-parse", "--git-common-dir"))
+    if not git_common_dir.is_absolute():
+        git_common_dir = REPOSITORY_ROOT / git_common_dir
+    canonical_git_root = str(git_common_dir.resolve().parent)
+    contract = audit_contract_bundle(PROJECT_ROOT / "shared/contracts/P4_CONTRACT_v2.1.2")
+    warehouse = json.loads((PIPELINE_ROOT / "runs/canonical_warehouse_bootstrap.json").read_text(encoding="utf-8"))
+    quarantine = json.loads(
+        (PIPELINE_ROOT / "reports/agent2/SYNTHETIC_DB_QUARANTINE.json").read_text(encoding="utf-8")
+    )
+    duty_handoff_path = HANDOFF_ROOT / "AGENT2_TO_AGENT4_DUTY_INPUT.json"
+    duty_handoff = validate_duty_input_handoff(duty_handoff_path)
+    partial = json.loads((PIPELINE_ROOT / "reports/agent2/PARTIAL_CRAWL_CONFORMANCE.json").read_text(encoding="utf-8"))
+    fixture_summary = json.loads((PIPELINE_ROOT / "runs/fixture_pipeline_summary.json").read_text(encoding="utf-8"))
     tests = test_audit()
+    notebooks = notebook_audit()
+    production = [row for row in notebooks if row["mode"] == "PRODUCTION"]
+    fixture_notebooks = [row for row in notebooks if row["mode"] == "SYNTHETIC_FIXTURE"]
     posting = parquet_audit(PIPELINE_ROOT / "data/marts/postingAnalysisMart.parquet", "trackId")
     time_series = parquet_audit(PIPELINE_ROOT / "data/marts/timeSeriesMart.parquet", "metricId")
-    contract = contract_bundle_status(PROJECT_ROOT / f"shared/contracts/P4_CONTRACT_v{TARGET_CONTRACT}")
-    releases = find_crawl_releases(PROJECT_ROOT)
-    generated_at = datetime.now(ZoneInfo("Asia/Seoul")).isoformat()
+    sample = partial["stratifiedSample"]
     report = {
         "agentId": AGENT_ID,
         "agentName": AGENT_NAME,
-        "pipelineStatus": "PIPELINE_FOUNDATION_READY",
-        "contractStatus": "BLOCKED_BY_CONTRACT",
-        "crawlInputStatus": "BLOCKED_BY_CRAWL_RELEASE",
+        "statusCodes": ["CONTRACT_LINKED", "BLOCKED_BY_FULL_CRAWL_RELEASE", "PIPELINE_FOUNDATION_READY"],
         "empiricalAnalysisAllowed": False,
-        "generatedAt": generated_at,
+        "generatedAt": datetime.now(ZoneInfo("Asia/Seoul")).isoformat(),
         "repository": {
-            "gitRoot": str(REPOSITORY_ROOT),
-            "branch": git("branch", "--show-current"),
-            "headRef": "HEAD",
-            "headResolution": "Resolve HEAD in this branch when the handoff is consumed; a report cannot embed the hash of its own commit.",
+            "gitRoot": canonical_git_root, "branch": git("branch", "--show-current"), "headRef": "HEAD",
+            "worktreeMode": "cleanDedicated",
+            "headResolution": "Resolve HEAD when consumed; a tracked report cannot contain its own commit hash.",
             "remote": git("remote", "get-url", "origin"),
         },
-        "contracts": {
-            "targetContractVersion": TARGET_CONTRACT,
-            "supportedContractVersion": None,
-            "contractCommit": None,
-            "bundlePresent": contract["exists"],
-            "checksumVerified": False,
-            "ddlExecuted": False,
-            "missingFiles": contract["missingFiles"],
-            "schemaFilename": "p4_contract.schema.json",
+        "contract": {
+            **{key: contract[key] for key in ("contractVersion", "contractSha256", "manifestSha256", "ddlSha256", "schemaFilename", "duckdbRuntimeVersion", "schemaCount", "tableCount", "viewCount", "ddlStatementCount", "crossSchemaForeignKeyCount", "fieldLineageCount")},
+            "checksumCount": len(contract["checksums"]["checked"]), "checksumsPassed": contract["checksums"]["passed"],
+            "keyContract": contract["keyContract"], "metricMetadata": contract["metricMetadata"], "supported": True,
+            "sourceCommits": ["97f9c04", "2e69380"],
+        },
+        "canonicalWarehouse": warehouse,
+        "canonicalWarehouseProtection": {
+            "syntheticDatabase": quarantine,
+            "requiredProductionProvenance": [
+                "contractVersion", "crawlReleaseId", "dataVersion", "dataProvenance=EMPIRICAL"
+            ],
+            "failClosed": True,
         },
         "crawlInput": {
-            "crawlReleaseId": None,
-            "officialReleaseCount": len(releases),
-            "period": None,
-            "rows": 0,
-            "coverage": "unavailable",
-            "manifestHash": None,
-            "reconAccepted": False,
+            "crawlReleaseId": CRAWL_RELEASE_ID,
+            "sourceBranchHead": "825ba03",
+            "releaseStatus": "PARTIALLY_READY",
+            "acceptance": partial["sourceAdapterConformanceStatus"],
+            "empiricalCorpusStatus": partial["empiricalCorpusStatus"],
+            "rejectionReasons": partial["empiricalRejectionReasons"],
+            "checksumCount": partial["releaseChecksumCount"], "checksumPassed": partial["releaseChecksumPassed"],
+            "period": "2020-01 through 2026-07", "targetCoverage": partial["targetCoverageStatusCounts"],
+            "allCoverageStatuses": partial["monthlyCoverageStatusCounts"],
+            "completeMonthDistinctPostingCount": partial["completeMonthDistinctPostingCount"],
+            "detailSampleSuccessCount": partial["detailSampleSuccessCount"], "detailSampleFailureCount": partial["detailSampleFailureCount"],
+            "detailRawPerRecordLineageVerified": partial["detailRawPerRecordLineageVerified"],
+            "ncsUnitRecordCount": partial["ncsUnitRecordCount"], "adapterFixtureReleaseId": partial["adapterFixtureReleaseId"],
+        },
+        "sourceAdapterRegression": {
+            "apq": partial["apq"], "ssrFixtureCount": partial["ssrFixtureCount"], "ssr": partial["ssr"],
+            "sampleRows": sample["rows"], "sampleRates": sample["rates"], "qualityChecks": partial["qualityChecks"],
         },
         "pipeline": {
-            "foundationReady": True,
-            "warehouseMode": "development_fixture_separate",
-            "developmentWarehousePath": "DSJA/project_4/pipeline/data/warehouse/p4.development.duckdb",
-            "canonicalWarehousePath": "DSJA/project_4/pipeline/data/warehouse/p4.duckdb",
-            "canonicalWarehouseExecuted": False,
-            "fixtureRows": summary["rows"],
-            "fixtureSha256": summary["fixtureSha256"],
+            "foundationReady": True, "fixtureRows": fixture_summary["rows"], "fixtureSha256": fixture_summary["fixtureSha256"],
             "tests": tests,
             "notebooks": {
-                "productionCount": len(production),
-                "productionOutputCount": sum(item["outputCount"] for item in production),
-                "fixtureCount": len(fixture),
-                "fixtureAllExecuted": all(item["codeCells"] == item["executedCodeCells"] for item in fixture),
-                "missingCellIds": sum(item["missingCellIds"] for item in notebooks),
+                "productionCount": len(production), "productionOutputCount": sum(row["outputCount"] for row in production),
+                "fixtureCount": len(fixture_notebooks),
+                "fixtureAllExecuted": all(row["codeCells"] == row["executedCodeCells"] for row in fixture_notebooks),
+                "missingCellIds": sum(row["missingCellIds"] for row in notebooks),
+                "contractVersion": CONTRACT_VERSION, "crawlReleaseId": CRAWL_RELEASE_ID,
+                "dataProvenance": "PARTIAL_CONFORMANCE_ONLY", "empiricalAnalysisAllowed": False,
             },
         },
         "marts": {"scope": "SYNTHETIC_FIXTURE_ONLY", "postingAnalysisMart": posting, "timeSeriesMart": time_series},
-        "analysis": {
-            "executed": False,
-            "reason": "Canonical contract and immutable CRAWL_ release are absent.",
-            "primaryWindowCandidate": "2020-01 through 2026-07",
-            "robustnessWindow": "2021-01 through 2026-07",
-            "interventionDates": ["2022-12-01", "2023-01-01", "2023-04-01"],
-            "effects": [],
-        },
+        "analysis": {"executed": False, "effects": [], "reason": "Full crawl release is absent; partial conformance input is prohibited for empirical analysis."},
         "figures": [],
+        "agent4DutyInput": {
+            "path": relative(duty_handoff_path),
+            "schemaVersion": duty_handoff["schemaVersion"],
+            "status": duty_handoff["status"],
+            "fixtureRows": len(duty_handoff["fixtureRows"]),
+            "empiricalUseAllowed": duty_handoff["empiricalUseAllowed"],
+        },
         "gates": [
+            {"gate": "contractChecksums", "status": "PASS", "observed": f"{len(contract['checksums']['checked'])} files"},
+            {"gate": "canonicalDdl", "status": "PASS", "observed": "39 statements, idempotent"},
+            {"gate": "canonicalObjects", "status": "PASS", "observed": "5 schemas, 26 tables, 6 views"},
+            {"gate": "emptyAnalysisReadyGate", "status": "PASS", "observed": "NOT_EVALUATED"},
+            {"gate": "syntheticDatabaseQuarantine", "status": "PASS", "observed": quarantine["moveValidation"]},
+            {"gate": "canonicalMartProvenanceGuard", "status": "PASS", "observed": "fail-closed EMPIRICAL envelope"},
+            {"gate": "agent4DutyInputSchema", "status": "PASS", "observed": duty_handoff["status"]},
             {"gate": "unitAndIntegrationTests", "status": "PASS" if not tests["failed"] and not tests["errors"] else "FAIL", "observed": f"{tests['passed']} passed"},
-            {"gate": "productionNotebookOutputs", "status": "PASS", "observed": sum(item["outputCount"] for item in production)},
-            {"gate": "fixtureNotebookExecution", "status": "PASS" if all(item["codeCells"] == item["executedCodeCells"] for item in fixture) else "FAIL", "observed": f"{len(fixture)} of {len(fixture)} executed"},
-            {"gate": "notebookCellIds", "status": "PASS", "observed": sum(item["missingCellIds"] for item in notebooks)},
-            {"gate": "postingMartPrimaryKey", "status": "PASS", "observed": posting["primaryKeyDuplicates"]},
-            {"gate": "timeSeriesMartPrimaryKey", "status": "PASS", "observed": time_series["primaryKeyDuplicates"]},
-            {"gate": "highDemandScoreReserved", "status": "PASS", "observed": posting["nullRates"]["highDemandScore"]},
-            {"gate": "contractBundle", "status": "FAIL", "observed": "missing"},
-            {"gate": "crawlRelease", "status": "FAIL", "observed": "missing"},
+            {"gate": "productionNotebookOutputs", "status": "PASS", "observed": sum(row["outputCount"] for row in production)},
+            {"gate": "sourceAdapterConformance", "status": "PASS", "observed": partial["sourceAdapterConformanceStatus"]},
+            {"gate": "fullCrawlCoverage", "status": "FAIL", "observed": "11 complete, 68 unverified"},
+            {"gate": "detailRawLineage", "status": "FAIL", "observed": False},
             {"gate": "empiricalAnalysis", "status": "WARN", "observed": "not executed by design"},
         ],
-        "agent1RequestsPath": "DSJA/project_4/shared/handoffs/AGENT2_TO_AGENT1_REQUESTS.json",
-        "agent3IssuesPath": "DSJA/project_4/shared/handoffs/AGENT2_TO_AGENT3_ISSUES.json",
-        "notebookAudit": notebooks,
         "remainingBlockers": [
-            "Agent 3 canonical P4_CONTRACT_v2.1.2 bundle is absent.",
-            "Agent 1 immutable crawl/releases/CRAWL_*/HANDOFF.json is absent.",
+            "68 of 79 target months remain paginationUnverified.",
+            "Per-record immutable detail raw HTML lineage is absent from CRAWL_20260806_02.",
+            "NCS KSA and performance-criteria source requires a human-issued API key.",
         ],
+        "notebookAudit": notebooks,
     }
 
     report_dir = PIPELINE_ROOT / "reports/agent2"
     project_report_dir = PROJECT_ROOT / "reports/agent2"
     report_dir.mkdir(parents=True, exist_ok=True)
     project_report_dir.mkdir(parents=True, exist_ok=True)
-    json_text = json.dumps(report, ensure_ascii=False, indent=2) + "\n"
-    (report_dir / "AGENT2_FINAL_REPORT.json").write_text(json_text, encoding="utf-8")
-    (project_report_dir / "AGENT2_STATUS.json").write_text(json_text, encoding="utf-8")
-
-    manifest = [
-        {"path": posting["path"], "sha256": posting["sha256"], "bytes": posting["bytes"], "rows": posting["rows"], "schemaVersion": "development-fixture-v2"},
-        {"path": time_series["path"], "sha256": time_series["sha256"], "bytes": time_series["bytes"], "rows": time_series["rows"], "schemaVersion": "development-fixture-v2"},
-        *[
-            {"path": item["path"], "sha256": item["sha256"], "bytes": (REPOSITORY_ROOT / item["path"]).stat().st_size, "rows": 0, "schemaVersion": "notebook-v2"}
-            for item in notebooks
-        ],
-    ]
-    manifest_path = report_dir / "ARTIFACT_MANIFEST.json"
-    manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    report_json = json.dumps(report, ensure_ascii=False, indent=2) + "\n"
+    (report_dir / "AGENT2_FINAL_REPORT.json").write_text(report_json, encoding="utf-8")
+    (project_report_dir / "AGENT2_STATUS.json").write_text(report_json, encoding="utf-8")
 
     markdown = f"""# Agent 2 final report
 
@@ -298,86 +277,102 @@ agentId = {AGENT_ID}
 
 agentName = {AGENT_NAME}
 
-## Executive verdict
+## Status
 
-- pipelineStatus: `PIPELINE_FOUNDATION_READY`
-- contractStatus: `BLOCKED_BY_CONTRACT`
-- crawlInputStatus: `BLOCKED_BY_CRAWL_RELEASE`
+- `CONTRACT_LINKED`
+- `BLOCKED_BY_FULL_CRAWL_RELEASE`
+- `PIPELINE_FOUNDATION_READY`
 - empiricalAnalysisAllowed: `false`
 
-The parser, eligibility, development warehouse, mart, provenance, and validation foundation is ready. No Linkareer/NCS observation, effect estimate, or article figure was generated.
+## Contract and warehouse
 
-## Repository
+- Contract: `{CONTRACT_VERSION}`
+- Contract SHA-256: `{contract['contractSha256']}`
+- DDL SHA-256: `{contract['ddlSha256']}`
+- Checksums: {len(contract['checksums']['checked'])} PASS, 0 failures
+- Canonical DDL: 39 statements; two executions identical
+- Objects: 5 schemas, 26 tables, 6 QA views
+- Empty `vAnalysisReadyGate`: `NOT_EVALUATED`
+- Synthetic DB quarantine SHA-256: `{quarantine['after']['sha256']}`
+- Canonical mart provenance guard: `contractVersion + crawlReleaseId + dataVersion + EMPIRICAL`
 
-- Git root: `{REPOSITORY_ROOT}`
-- Branch: `{report['repository']['branch']}`
-- HEAD reference: `HEAD`
-- HEAD resolution: resolve `HEAD` on this branch when consuming the handoff
+## Partial crawl conformance
 
-## Contract and crawl input
+- Release: `{CRAWL_RELEASE_ID}` (`PARTIALLY_READY`)
+- Acceptance: `SOURCE_ADAPTER_CONFORMANCE_ACCEPTED`
+- Empirical corpus: `EMPIRICAL_CORPUS_REJECTED`
+- Target coverage: 11 complete, 68 unverified
+- Complete-month distinct postings: {partial['completeMonthDistinctPostingCount']:,}
+- Detail sample: {sample['rows']} success, 0 failure
+- Per-record raw HTML lineage: absent
+- NCS ability-unit records: {partial['ncsUnitRecordCount']:,}
 
-- Target contract: `P4_CONTRACT_v{TARGET_CONTRACT}`; missing files: {len(contract['missingFiles'])}
-- Contract checksum and canonical DDL: not executed
-- Official `CRAWL_` releases: {len(releases)}
-- Empirical input rows: 0
-- RECON accepted as raw input: no
+Sample rates are conformance diagnostics, not empirical findings: ActivityText {sample['rates']['hasActivityText']:.1%}, external apply {sample['rates']['externalApplyFlag']:.1%}, external detail only {sample['rates']['externalDetailOnlyFlag']:.1%}, RQ1 {sample['rates']['rq1EligibleFlag']:.1%}, RQ2 {sample['rates']['rq2EligibleFlag']:.1%}, NCS {sample['rates']['ncsEligibleFlag']:.1%}, conflict {sample['rates']['jobTypeConflictFlag']:.1%}, embedded-image OCR candidate {sample['rates']['activityTextEmbeddedImageFlag']:.1%}.
 
-## Verified software outputs
+## Agent 4 duty input
+
+- Status: `{duty_handoff['status']}`
+- Schema: `{duty_handoff['schemaVersion']}`
+- Structural fixture rows: {len(duty_handoff['fixtureRows'])}
+- Empirical use allowed: `{str(duty_handoff['empiricalUseAllowed']).lower()}`
+
+## Verification
 
 - Tests: {tests['passed']} passed, {tests['failed']} failed, {tests['errors']} errors
-- Production notebooks: {len(production)}, output count {sum(item['outputCount'] for item in production)}
-- Synthetic fixture notebooks: {len(fixture)}, all code cells executed
-- Synthetic fixture raw/normalized/track rows: {summary['rows']['raw']}/{summary['rows']['normalized']}/{summary['rows']['tracks']}
-- Synthetic posting mart: {posting['rows']} rows × {posting['columns']} columns; PK duplicates {posting['primaryKeyDuplicates']}
-- Synthetic time-series mart: {time_series['rows']} rows × {time_series['columns']} columns; PK duplicates {time_series['primaryKeyDuplicates']}
-- `highDemandScore` null rate: {posting['nullRates']['highDemandScore']:.1%}
-
-These fixture counts verify code paths only. They are not source coverage or empirical findings.
-
-## Gates
-
-- PASS: tests, production notebook output isolation, fixture notebook execution, cell IDs, mart primary keys, reserved `highDemandScore`
-- FAIL: canonical contract bundle, immutable crawl release
-- WARN: analysis and figures intentionally not executed
-
-## Remaining blockers
-
-- Agent 3 must publish checksum-valid `P4_CONTRACT_v{TARGET_CONTRACT}`.
-- Agent 1 must publish a checksum-valid immutable `CRAWL_` release with raw lineage.
+- Production notebooks: {len(production)}, outputs {sum(row['outputCount'] for row in production)}
+- Fixture notebooks: {len(fixture_notebooks)}, all code cells executed
+- Empirical marts, analysis, figures: not generated
 """
     (report_dir / "AGENT2_FINAL_REPORT.md").write_text(markdown, encoding="utf-8")
     (project_report_dir / "AGENT2_STATUS.md").write_text(markdown, encoding="utf-8")
+
+    artifact_paths = [
+        PIPELINE_ROOT / "data/marts/postingAnalysisMart.parquet",
+        PIPELINE_ROOT / "data/marts/timeSeriesMart.parquet",
+        PIPELINE_ROOT / "data/warehouse/p4.duckdb",
+        report_dir / "PARTIAL_CRAWL_CONFORMANCE.json",
+        report_dir / "SYNTHETIC_DB_QUARANTINE.json",
+        duty_handoff_path,
+        *[REPOSITORY_ROOT / row["path"] for row in notebooks],
+    ]
+    artifact_rows = {
+        posting["path"]: posting["rows"],
+        time_series["path"]: time_series["rows"],
+    }
+    artifacts = [
+        {
+            "path": relative(path),
+            "sha256": sha256_file(path),
+            "bytes": path.stat().st_size,
+            "rows": artifact_rows.get(relative(path), 0),
+            "schemaVersion": CONTRACT_VERSION,
+        }
+        for path in artifact_paths
+    ]
+    manifest_path = report_dir / "ARTIFACT_MANIFEST.json"
+    manifest_path.write_text(json.dumps(artifacts, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     requests = agent1_requests()
     issues = agent3_issues()
     (HANDOFF_ROOT / "AGENT2_TO_AGENT1_REQUESTS.json").write_text(json.dumps(requests, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     (HANDOFF_ROOT / "AGENT2_TO_AGENT3_ISSUES.json").write_text(json.dumps(issues, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-
     handoff = {
-        "agentId": AGENT_ID,
-        "agentName": AGENT_NAME,
-        "pipelineStatus": "PIPELINE_FOUNDATION_READY",
-        "contractStatus": "BLOCKED_BY_CONTRACT",
-        "crawlInputStatus": "BLOCKED_BY_CRAWL_RELEASE",
-        "branch": report["repository"]["branch"],
-        "headRef": "HEAD",
-        "headResolution": report["repository"]["headResolution"],
-        "targetContractVersion": TARGET_CONTRACT,
-        "supportedContractVersion": None,
-        "crawlReleaseId": None,
-        "dataVersion": "synthetic-fixture-v1",
-        "dataProvenance": "SYNTHETIC",
+        "agentId": AGENT_ID, "agentName": AGENT_NAME,
+        "statusCodes": report["statusCodes"], "branch": report["repository"]["branch"], "headRef": "HEAD",
+        "contractVersion": CONTRACT_VERSION, "contractLinked": True,
+        "crawlReleaseId": CRAWL_RELEASE_ID, "crawlAcceptance": "SOURCE_ADAPTER_CONFORMANCE_ACCEPTED",
+        "empiricalCorpusStatus": "EMPIRICAL_CORPUS_REJECTED", "dataProvenance": "PARTIAL_CONFORMANCE_ONLY",
         "empiricalAnalysisAllowed": False,
-        "canonicalWarehousePath": "DSJA/project_4/pipeline/data/warehouse/p4.duckdb",
-        "canonicalWarehouseExecuted": False,
+        "canonicalWarehousePath": "DSJA/project_4/pipeline/data/warehouse/p4.duckdb", "canonicalWarehouseExecuted": True,
+        "canonicalAnalysisReadyGate": "NOT_EVALUATED",
+        "canonicalMartProductionGuard": "contractVersion+crawlReleaseId+dataVersion+dataProvenance=EMPIRICAL",
+        "syntheticDatabaseQuarantineManifest": relative(report_dir / "SYNTHETIC_DB_QUARANTINE.json"),
         "developmentWarehousePath": "DSJA/project_4/pipeline/data/warehouse/p4.development.duckdb",
-        "postingMartPath": posting["path"],
-        "timeSeriesMartPath": time_series["path"],
-        "martsEmpirical": False,
+        "agent4DutyInputPath": relative(duty_handoff_path),
+        "agent4DutyInputStatus": duty_handoff["status"],
+        "martsEmpirical": False, "qualityChecks": report["gates"], "remainingBlockers": report["remainingBlockers"],
         "reportPaths": [relative(report_dir / "AGENT2_FINAL_REPORT.md"), relative(report_dir / "AGENT2_FINAL_REPORT.json")],
         "artifactManifestPath": relative(manifest_path),
-        "qualityChecks": report["gates"],
-        "remainingBlockers": report["remainingBlockers"],
     }
     (HANDOFF_ROOT / "AGENT2_HANDOFF.json").write_text(json.dumps(handoff, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     return report

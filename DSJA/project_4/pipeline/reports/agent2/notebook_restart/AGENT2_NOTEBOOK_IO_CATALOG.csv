@@ -1,0 +1,16 @@
+﻿notebook,input,output,parameters,safeToExecute,implementationStatus,cellCount,codeCellCount,outputCount
+pipeline/notebooks/00ContractAndInputAudit.ipynb,none; metadata literals only,stdout JSON only; no persisted output,[],True,PLACEHOLDER_BLOCKED,4,3,0
+pipeline/notebooks/01LoadCrawlRelease.ipynb,none; metadata literals only,stdout JSON only; no persisted output,[],True,PLACEHOLDER_BLOCKED,4,3,0
+pipeline/notebooks/02ParseAndNormalize.ipynb,none; metadata literals only,stdout JSON only; no persisted output,[],True,PLACEHOLDER_BLOCKED,4,3,0
+pipeline/notebooks/03OcrAndSectionRecovery.ipynb,none; metadata literals only,stdout JSON only; no persisted output,[],True,PLACEHOLDER_BLOCKED,4,3,0
+pipeline/notebooks/04SplitTracks.ipynb,none; metadata literals only,stdout JSON only; no persisted output,[],True,PLACEHOLDER_BLOCKED,4,3,0
+pipeline/notebooks/05ExtractRequirements.ipynb,none; metadata literals only,stdout JSON only; no persisted output,[],True,PLACEHOLDER_BLOCKED,4,3,0
+pipeline/notebooks/06Deduplicate90Days.ipynb,none; metadata literals only,stdout JSON only; no persisted output,[],True,PLACEHOLDER_BLOCKED,4,3,0
+pipeline/notebooks/07LabelCareerAccess.ipynb,none; metadata literals only,stdout JSON only; no persisted output,[],True,PLACEHOLDER_BLOCKED,4,3,0
+pipeline/notebooks/08LoadAndPrepareNcs.ipynb,none; metadata literals only,stdout JSON only; no persisted output,[],True,PLACEHOLDER_BLOCKED,4,3,0
+pipeline/notebooks/09MapPostingToNcs.ipynb,none; metadata literals only,stdout JSON only; no persisted output,[],True,PLACEHOLDER_BLOCKED,4,3,0
+pipeline/notebooks/10BuildPostingMart.ipynb,none; metadata literals only,stdout JSON only; no persisted output,[],True,PLACEHOLDER_BLOCKED,4,3,0
+pipeline/notebooks/11BuildTimeSeriesMart.ipynb,none; metadata literals only,stdout JSON only; no persisted output,[],True,PLACEHOLDER_BLOCKED,4,3,0
+pipeline/notebooks/12AnalyzeRq1Rq2.ipynb,none; metadata literals only,stdout JSON only; no persisted output,[],True,PLACEHOLDER_BLOCKED,4,3,0
+pipeline/notebooks/13BuildArticleFigures.ipynb,none; metadata literals only,stdout JSON only; no persisted output,[],True,PLACEHOLDER_BLOCKED,4,3,0
+pipeline/notebooks/90AuxSimilarity.ipynb,none; metadata literals only,stdout JSON only; no persisted output,[],True,PLACEHOLDER_BLOCKED,4,3,0

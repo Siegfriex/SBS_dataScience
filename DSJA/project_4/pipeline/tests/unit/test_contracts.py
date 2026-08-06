@@ -137,7 +137,15 @@ def _assessment_release(tmp_path: Path, *, contract_version, status: str, pagina
     root = tmp_path / "CRAWL_TEST"
     root.mkdir()
     files = {
-        "manifest.jsonl": json.dumps({"sourceUrl": "https://fixture.invalid/1", "rawPath": "raw/1", "rawSha256": "a" * 64}) + "\n",
+        "manifest.jsonl": json.dumps(
+            {
+                "sourceUrl": "https://linkareer.com/activity/1",
+                "rawPath": "raw/1.html",
+                "rawSha256": "a" * 64,
+                "entityType": "detail",
+                "note": "immutable raw HTML",
+            }
+        ) + "\n",
         "coverage.csv": "periodMonth,coverageStatus\n2026-01,partial\n",
         "query.yaml": "query: fixture\n",
         "schema.json": "{}\n",

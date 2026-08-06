@@ -271,6 +271,25 @@ def assess_crawl_release(path: str | Path, expected_contract_version: str = "2.1
     contract_version = payload.get("contract_version", payload.get("contractVersion"))
     pagination_verified = bool(payload.get("pagination_verified", payload.get("paginationVerified", False)))
     release_status = str(payload.get("status") or "")
+    manifest_rows = [
+        row
+        for relative in locators["manifest_paths"]
+        for row in _manifest_rows(_resolve_release_path(release_root, relative))
+    ]
+    detail_rows = [
+        row
+        for row in manifest_rows
+        if str(row.get("entityType") or "").casefold() == "detail"
+        or "linkareer.com/activity" in str(row.get("sourceUrl") or "")
+    ]
+    detail_raw_lineage_verified = bool(detail_rows) and all(
+        row.get("rawPath")
+        and row.get("rawSha256")
+        and "derived" not in str(row.get("note") or "").casefold()
+        and "not raw" not in str(row.get("note") or "").casefold()
+        and "stratified_detail_sample" not in str(row.get("rawPath") or "").casefold()
+        for row in detail_rows
+    )
     empirical_reasons = []
     if contract_version != expected_contract_version:
         empirical_reasons.append("contractVersionMismatchOrMissing")
@@ -278,6 +297,8 @@ def assess_crawl_release(path: str | Path, expected_contract_version: str = "2.1
         empirical_reasons.append("paginationUnverified")
     if release_status not in {"CRAWL_READY", "READY"}:
         empirical_reasons.append("releaseStatusNotReady")
+    if not detail_raw_lineage_verified:
+        empirical_reasons.append("detailRawPerRecordLineageMissing")
     empirical_accepted = not empirical_reasons
     if empirical_accepted:
         validate_crawl_release(handoff_path, expected_contract_version=expected_contract_version)
@@ -288,6 +309,7 @@ def assess_crawl_release(path: str | Path, expected_contract_version: str = "2.1
         "checksumCount": checksum_count,
         "checksumPassed": True,
         "paginationVerified": pagination_verified,
+        "detailRawPerRecordLineageVerified": detail_raw_lineage_verified,
         "sourceAdapterConformanceStatus": "SOURCE_ADAPTER_CONFORMANCE_ACCEPTED",
         "empiricalCorpusStatus": "EMPIRICAL_CORPUS_ACCEPTED" if empirical_accepted else "EMPIRICAL_CORPUS_REJECTED",
         "empiricalRejectionReasons": empirical_reasons,

@@ -1,0 +1,136 @@
+contractVersion: 2.1.2
+runMode: observed-dev
+dataProvenance: OBSERVED_DEVELOPMENT_ONLY
+stages:
+  - id: 00ContractAndInputAudit
+    stageId: A2-00-CONTRACT-AUDIT
+    schemaVersion: agent2-audit-v1
+    producedGate: CONTRACT_LINKED
+    title: Contract and observed input audit
+    note: Validate the CRAWL_20260806_03 envelope without promoting it as a full corpus.
+    inputs: [NOTEBOOK execution contract, observed HANDOFF, raw SHA lineage, canonical warehouse]
+    outputs: [contract audit metrics, canonical zero-object evidence, four termination artifacts]
+    inputManifestPath: crawl/observed_inputs/OBSERVED_INPUT_20260806_01/HANDOFF.json
+    requiredGate: M1_CONTROL_READY
+    nextUse: observed input load gate
+  - id: 01LoadCrawlRelease
+    stageId: A2-01-LOAD
+    schemaVersion: p4-contract-2.1.2
+    producedGate: INPUT_LOADED
+    title: Load observed crawl release
+    note: Materialize the isolated observed warehouse from the accepted partial input.
+    inputs: [137-row posting manifest, 29 raw SSR references]
+    outputs: [observed.raw_posting, isolated p4.observed-dev.duckdb, four termination artifacts]
+    inputManifestPath: crawl/observed_inputs/OBSERVED_INPUT_20260806_01/HANDOFF.json
+    requiredGate: CONTRACT_LINKED
+    nextUse: SSR parse and normalization
+  - id: 02ParseAndNormalize
+    stageId: A2-02-PARSE
+    schemaVersion: p4-contract-2.1.2
+    producedGate: PARSE_READY
+    title: Parse and normalize observed records
+    note: Parse SSR, Apollo cache, and ActivityText while preserving derived-only rows with explicit provenance.
+    inputs: [observed raw posting table, SSR HTML, Apollo cache, ActivityText]
+    outputs: [observed.posting_normalized, observed.manifest_cursor, observed.eligibility, four termination artifacts]
+    inputManifestPath: crawl/observed_inputs/OBSERVED_INPUT_20260806_01/HANDOFF.json
+    requiredGate: INPUT_LOADED
+    nextUse: section recovery and downstream track processing
+  - id: 03OcrAndSectionRecovery
+    stageId: A2-03-OCR
+    schemaVersion: p4-contract-2.1.2
+    producedGate: OCR_READY
+    title: OCR queue and section recovery
+    note: ROUTING_ONLY; preserve ASSET_NOT_FETCHED candidates and recovered HTML section lineage without claiming OCR execution.
+    inputs: [ActivityText blocks, embedded image routes]
+    outputs: [observed.posting_section, observed.ocr_queue, ROUTING_ONLY evidence, four termination artifacts]
+    inputManifestPath: pipeline/runs/notebooks/observed-dev/AGENT2_20260806_01/artifacts/02ParseAndNormalize/stage_manifest.json
+    requiredGate: PARSE_READY
+    nextUse: track splitting and OCR acquisition planning
+  - id: 04SplitTracks
+    stageId: A2-04-TRACK
+    schemaVersion: p4-contract-2.1.2
+    producedGate: TRACK_READY
+    title: Split observed tracks
+    note: Preserve entry, intern, experienced, mixedUnresolved, and unknown tracks.
+    inputs: [normalized job types, recovered sections]
+    outputs: [observed.posting_track, track type summary, four termination artifacts]
+    inputManifestPath: pipeline/runs/notebooks/observed-dev/AGENT2_20260806_01/artifacts/03OcrAndSectionRecovery/stage_manifest.json
+    requiredGate: OCR_READY
+    nextUse: requirement extraction and labels
+  - id: 05ExtractRequirements
+    stageId: A2-05-REQUIREMENT
+    schemaVersion: p4-contract-2.1.2
+    producedGate: REQUIREMENT_READY
+    title: Extract observed requirements
+    note: Materialize evidence-backed requirement facts and the Agent 4 duty handoff.
+    inputs: [posting tracks, required and preferred sections]
+    outputs: [observed.requirement_fact, Agent2 to Agent4 duty handoff, four termination artifacts]
+    inputManifestPath: pipeline/runs/notebooks/observed-dev/AGENT2_20260806_01/artifacts/04SplitTracks/stage_manifest.json
+    requiredGate: TRACK_READY
+    nextUse: career labels and NCS duty mapping
+  - id: 06Deduplicate90Days
+    stageId: A2-06-DEDUP
+    schemaVersion: p4-contract-2.1.2
+    producedGate: DEDUP_READY
+    title: Assign observed deduplication fields
+    note: Development export keeps deterministic singleton canonical identifiers without inferring 90-day corpus edges.
+    inputs: [observed posting tracks]
+    outputs: [observed.posting_dedup, zero inferred repost edges, four termination artifacts]
+    inputManifestPath: pipeline/runs/notebooks/observed-dev/AGENT2_20260806_01/artifacts/02ParseAndNormalize/stage_manifest.json
+    requiredGate: PARSE_READY
+    nextUse: canonical record fields in export
+  - id: 07LabelCareerAccess
+    stageId: A2-07-LABEL
+    schemaVersion: p4-contract-2.1.2
+    producedGate: LABEL_DEV_READY
+    title: Label observed career access
+    note: Apply development labels while preserving unresolved boundaries.
+    inputs: [posting tracks, requirement facts, section boundaries]
+    outputs: [observed.career_access_label, E and I development labels, four termination artifacts]
+    inputManifestPath: pipeline/runs/notebooks/observed-dev/AGENT2_20260806_01/artifacts/05ExtractRequirements/stage_manifest.json
+    requiredGate: REQUIREMENT_READY
+    nextUse: career_access_labels export
+  - id: 08LoadAndPrepareNcs
+    stageId: A2-08-NCS-LOAD
+    schemaVersion: ncs-agent4-acceptance-v1
+    producedGate: NCS_BASE_READY
+    title: Accept Agent 4 NCS source handoff
+    note: Validate the Agent 4 source handoff, 13,442 NCS units, and the 120-row review-required code set.
+    inputs: [Agent4 NCS handoff, ncs_units, core-ai-it-v0.1, alias dictionary]
+    outputs: [NCS source acceptance metrics, checksum evidence, four termination artifacts]
+    inputManifestPath: shared/handoffs/AGENT4_TO_AGENT2_NCS_MAPPING_OBSERVED_DEV.json
+    requiredGate: NCS_MAPPING_DEV_READY
+    nextUse: lexical candidate and match loading
+  - id: 09MapPostingToNcs
+    stageId: A2-09-NCS-MAP
+    schemaVersion: ncs-agent4-acceptance-v1
+    producedGate: NCS_MAPPING_DEV_READY
+    title: Accept Agent 4 lexical mapping handoff
+    note: Validate and load lexical top-5 candidates, matches, and the preserved unmapped row; dense reranking remains disabled.
+    inputs: [Agent2 duty handoff, Agent4 candidates and matches]
+    outputs: [observed.posting_ncs_candidates, observed.posting_ncs_matches, acceptance handoff, four termination artifacts]
+    inputManifestPath: shared/handoffs/AGENT4_TO_AGENT2_NCS_MAPPING_OBSERVED_DEV.json
+    requiredGate: REQUIREMENT_READY_AND_NCS_MAPPING_DEV_READY
+    nextUse: preprocessed track export enrichment
+  - id: 10ExportPreprocessedCsv
+    stageId: A2-10-EXPORT
+    schemaVersion: preprocessing-export-v1
+    producedGate: PREPROCESSED_EXPORT_BUILT
+    title: Export observed preprocessed data
+    note: Write Parquet canonical frames and UTF-8-SIG review CSV files.
+    inputs: [normalized postings, tracks, sections, requirements, dedup, labels, NCS matches]
+    outputs: [canonical Parquet bundle, UTF-8-SIG CSV bundle, preprocessed_posting_tracks, four termination artifacts]
+    inputManifestPath: pipeline/runs/notebooks/observed-dev/AGENT2_20260806_01/artifacts/09MapPostingToNcs/stage_manifest.json
+    requiredGate: DEDUP_READY_AND_REQUIREMENT_READY
+    nextUse: structural and semantic export QA
+  - id: 11PreprocessedDataQa
+    stageId: A2-11-EXPORT-QA
+    schemaVersion: preprocessing-qa-v1
+    producedGate: PREPROCESSED_CSV_READY
+    title: Validate observed preprocessed exports
+    note: Run structural, lineage, privacy, and CSV-Parquet semantic checks.
+    inputs: [canonical Parquet bundle, review CSV bundle, export checksums]
+    outputs: [data_quality_summary.csv, stage quality, bundle manifest, bundle checksums]
+    inputManifestPath: pipeline/data/exports/observed-dev/OBSERVED_DEV_20260806_01/stage_manifest.json
+    requiredGate: PREPROCESSED_EXPORT_BUILT
+    nextUse: Agent 3 observed-development promotion audit

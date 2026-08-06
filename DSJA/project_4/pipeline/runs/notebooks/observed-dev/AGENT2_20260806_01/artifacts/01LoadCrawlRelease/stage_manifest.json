@@ -1,0 +1,54 @@
+{
+  "manifestVersion": "stage-manifest-v1",
+  "runId": "OBSERVED_DEV_20260806_01-A2-01-LOAD",
+  "runMode": "observed-dev",
+  "stageId": "A2-01-LOAD",
+  "status": "SUCCEEDED",
+  "agentId": "P4-A2-PIPELINE",
+  "branch": "agent/p4-pipeline-v2",
+  "gitHead": "17a905514e28ee762c46a9e8410a15cab02c7560",
+  "contractVersion": "2.1.2",
+  "schemaVersion": "p4-contract-2.1.2",
+  "dataVersion": "observed-dev-20260806.1",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+  "startedAt": "2026-08-06T00:00:00+09:00",
+  "completedAt": "2026-08-06T00:00:00+09:00",
+  "empiricalAnalysisAllowed": false,
+  "promotionAllowed": false,
+  "inputManifestSha256": "1ac072923722cb61d6ea011aba2d824774710bae677bc10a1a9427b1df842bf1",
+  "parameterSha256": "73e22567632bdc5cf8ad985f8dd014d19196dcaa5562578d81c7aa9d43fa4148",
+  "rowCounts": {
+    "inputPostings": 137,
+    "rawPostingRows": 137,
+    "realSsrRaw": 29,
+    "derivedObservedAccepted": 108
+  },
+  "gateResults": [
+    {
+      "gateId": "INPUT_LOADED",
+      "status": "PASS",
+      "evidencePath": "stage_quality.csv"
+    }
+  ],
+  "warnings": [],
+  "errors": [],
+  "files": [],
+  "terminationArtifacts": [
+    "stage_manifest.json",
+    "stage_metrics.json",
+    "stage_quality.csv",
+    "CHECKSUMS.sha256"
+  ],
+  "dataPolicies": {
+    "canonicalStorage": "DUCKDB_PARQUET",
+    "csvPurpose": "HUMAN_INSPECTION_EXPORT",
+    "eligibilityColumns": [
+      "postingEligibleFlag",
+      "rq1EligibleFlag",
+      "rq2EligibleFlag",
+      "ncsEligibleFlag"
+    ],
+    "highDemandScore": "ALL_NULL"
+  }
+}

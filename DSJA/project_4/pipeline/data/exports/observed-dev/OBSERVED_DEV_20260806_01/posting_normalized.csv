@@ -1,0 +1,387 @@
+﻿postingId,rawPostingId,sourcePostingId,sourceUrl,titleText,companyName,bodyText,activityTypeId,jobTypesRawJson,resolvedJobTypesJson,activityTextAvailableFlag,externalApplyFlag,externalDetailOnlyFlag,jobTypeConflictFlag,postingEligibleFlag,rq1EligibleFlag,rq2EligibleFlag,ncsEligibleFlag,eligibilitySource,inputSha256,parseVersion,dataVersion,contractVersion,crawlReleaseId,dataProvenance,empiricalAnalysisAllowed,promotionAllowed,postingKind
+PST_337d47f3cdd6c782273a,RAW_60a0bd1d515124b35a9d,36491,https://linkareer.com/activity/36491,,,,5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,f1e636d122b8ef629ae07a15d09b13da7703540c8a39444369ad703ca0fb8136,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_e44e0140b1d344be3cd7,RAW_4ef57a50df554c84a3c1,34617,https://linkareer.com/activity/34617,,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,b7693cd29af3a2c00dbfa105f3c792d5d9768b2004b17c7b9f147d13d50132b3,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_748d8c011b32c7444320,RAW_5d9497edbacec54ade78,34460,https://linkareer.com/activity/34460,,,,5,"[""NEW"", ""EXPERIENCED"", ""CONTRACT""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,bfab23189f5f0de219b61dfdf2532d939c353617bf828733e45ca0d4fad2cec2,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_02987f96cc211cf90206,RAW_19b32d5f06ab0a9fd8ca,34465,https://linkareer.com/activity/34465,,,,5,"[""INTERN"", ""NEW"", ""CONTRACT""]","[""entry"", ""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,68219d816df8ab79f86e441fa48322b7739d60bb7e15484600c5a4b1de25f3c5,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_de28e7deb92f8c192cd2,RAW_54d06a4c00a13a0fe6ea,34469,https://linkareer.com/activity/34469,,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,e08f238ff219f734383a15f4dfca47e9012e7640f1eaa22f5f098988a7993423,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_d27ceb8f47713bd57932,RAW_ee100f3a40dc6ee9bcd5,34376,https://linkareer.com/activity/34376,,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,b912992660f7885db91a52ffda117ae96dbc00794ff0192b7c7b3165cc0a3c16,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_4349286822ebaf6e23e5,RAW_73fc1cecefab372bf231,34379,https://linkareer.com/activity/34379,,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,1f091ef918547a6c7d20e7788ccd27d7b365e988568d5c2a5423648e15c617d9,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_2d123bf05a9dc0235aaa,RAW_08763a6488ad9d82224b,34380,https://linkareer.com/activity/34380,,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,a00e415106189c49a5d4fc2ae45cb5a7c247f5c0da476af4ba68a61f07f2ab3e,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_5f19416f06284a2fbd3d,RAW_9f95c0b2d5696e79a62d,34644,https://linkareer.com/activity/34644,,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,50ef60ad655845d37e4cecf41d11b98322058bcefca5867a78224a1a0382b244,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_e0017da897a76fb040dc,RAW_5290ecca72296eabea65,34827,https://linkareer.com/activity/34827,,,,5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,51f58c8a846d0499d715be8f16943b594da050812fe0799b19220bc603b67b56,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_593f7dcf167e7771237c,RAW_d4b9245a862bc2aa0b6f,34548,https://linkareer.com/activity/34548,,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,ad92361a92c72558300d38be402511547a9d720d241cd575a91d9021bc8b3385,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_b2af92d111d2d82c5b2f,RAW_6e3ab78756267f57a6a4,34736,https://linkareer.com/activity/34736,,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,40d2b48a85a8b158ddcb5c970d68ff7a451204b7c5cb1f708ba3661eb1eb9f48,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_514373e6a25300a3551f,RAW_54913a29906e3676c3c8,34552,https://linkareer.com/activity/34552,,,,5,"[""INTERN"", ""EXPERIENCED""]","[""experienced"", ""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,22e3ba12a3947499d3dd7a4b2d0e9829a40d46ed595fbe6f195d596362192484,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_4f1d554169abe7793390,RAW_433a11a29269095ec0fe,34738,https://linkareer.com/activity/34738,,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,c49d86787ecc71fb9a8d7668006c567c8536a589ec3eab50bde8e528dfdd186f,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_c5c217e3af9fb266a718,RAW_267e2ab4b5cc0e840a73,34741,https://linkareer.com/activity/34741,,,,5,"[""INTERN"", ""NEW""]","[""entry"", ""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,3c8c73dc589947ddf331beedfcd82a9250085697a9c673dbfe8ed6d5bffe26a2,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_9309a1d8c7cc853504fd,RAW_aa625fba7157695286c8,34661,https://linkareer.com/activity/34661,,,,5,"[""NEW"", ""CONTRACT""]","[""entry""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,a5dec31f0dd39212a38faed67040dd045d7cb8197a1610fb8378b587aaafe058,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_637fea34dd4dbcd676ee,RAW_2e031e15bead0b2d4903,34631,https://linkareer.com/activity/34631,,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,669863b864079b0495d3914375b0942932e289fdb643c79363bc921b72e64c8f,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_b7eda358564d27ff1523,RAW_4bd015a324863c4b3dd7,34639,https://linkareer.com/activity/34639,,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,6113a39f0a1c079891224a49b202aa1fe30f011123a432b21d22084fa58f6aea,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_da406f2484cf78d595ff,RAW_9aa06bbc1001bb3dc324,57020,https://linkareer.com/activity/57020,월 200만원! 채용조건부 인턴 채용,케이아이디비채권중개,"[케이아이디비채권중개] 월 200만원! 채용조건부 인턴 채용(~3/14)
+​
+- 서류전형 > 1차면접 > 2차면접 > 최종합격
+- 채권시장 중개
+- 태양관 발전사업 영업
+- 금융기관 간 채권 중개
+- 4년제 대졸 이상 또는 9월 졸업예정자
+- 전공무관 등",5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,a0f7f6bfcd41b03c22c084e088cef880c070e50b43202e5825fe0df2c1ed44f5,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_ab3ac38f124940380eba,RAW_281354fc5603af4cc5c0,57035,https://linkareer.com/activity/57035,총 00명! 각 부문 신입 및 경력 채용,금강주택,"[금강주택] 총 00명! 각 부문 신입 및 경력 채용(~3/14)
+​
+- 서류전형 > 인적성검사 > 1차면접 > 2차면접 > 채용검진 > 최종합격
+- 건축
+- 전기
+- 안전/보건
+- 개발사업
+- 인사총무
+- 법무
+- 자재 등
+- 건축시공,품질관리 및 하도급 관리
+- 건축현장 설비 시공 및 관리
+- 프로젝트별 설계 및 공법 적용 검토
+- 인사/교육/총무/홍보/전산
+- 건설 관련 자재 구매 및 관리 등
+- 4년제 대학교 졸업자 및 2월 졸업예정자
+- 각 직무별 관련학과 전공 및 관련 자격증 소지자",5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,8ff4fe824127a32632db38de0ca0d70133a47688dafab770fabacc49266f1dc2,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_617452578aac6fdfa98a,RAW_acf5aadb4f222a52424c,57144,https://linkareer.com/activity/57144,2021년 상반기 대졸 신입사원 채용,동부엔지니어링,"[동부엔지니어링] 2021년 상반기 대졸 신입사원 채용(~3/10)
+​
+- 서류전형 > 면접전형 > 최종합격
+- 도로공항설계
+- 구조설계
+- 지반설계
+- 교통설계
+- GIS S/W개발
+- 4년제 대학 졸업 또는 2월 졸업자",5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,ce884e1d66cb468009f39e1abc88965ff7b027789ba8f56722201c7deb2be441,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_4929fbbc810b91347270,RAW_6ad9861cc00472c53352,57076,https://linkareer.com/activity/57076,금연정책 시행기업! 각 부문별 신입 및 경력 채용,비상교육,"[비상교육] 금연정책 시행기업! 각 부문별 신입 및 경력 채용(~3/10)
+​
+- 서류전형 및 1차면접 > 인적성검사 > 2차면접 > 최종합격
+- IT
+- 마케팅
+- 기획
+- 교과서/교재개발 등
+- 웹/앱 개발 및 기획
+- 브랜드 마케팅
+- 회계
+- 물류관리
+- 교과서 개발 등
+- 공고참조",5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,ee961629b7cb1352379fb838b0c8923da1edc3fe21f116fa96bb852d1371ef58,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_8be4d7ea13dbb88c9849,RAW_228390d75740551dbe06,58387,https://linkareer.com/activity/58387,야근강요 없음! 각 부문별 신입 및 경력 채용,아이디어키,"[아이디어키] 야근강요 없음! 각 부문별 신입 및 경력 채용(~3/31)
+​
+- 서류전형 > 1차면접 > 2차면접 > 최종합격
+- 브랜드 마케팅
+- 이커머스 영업AE
+- 광고영업AE
+- 마케팅
+- 브랜드 바이럴 마케팅 기획 및 실행
+- 광고주 광고 연구 및 솔루션 분석
+- 디지털광고 제안 및 수주
+- 광고효과 분석 및 관리 등
+- 직무별 상이",5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,66556ee2be76f35e9e8fc26e6b80160f38ea1dd8d15da21ffd6e90db29904030,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_8d81a23c9ae9f4117f63,RAW_672daa63a3335d1d2c2b,58388,https://linkareer.com/activity/58388,자녀학자금 지원! 2021년 신입사원 채용,신코,"[신코] 자녀학자금 지원! 2021년 신입사원 채용(~4/30)
+​
+- 서류전형 > 인성검사 > 면접전형 > 최종합격
+- 기술지원
+- 영업지원
+- 기술영업
+- 과학/분석 기기 엔지니어 업무
+- 입/출고 및 납품 등 영업지원 업무
+- 연구기자재 기술영업 업무 등
+- 공고참조",5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,e0d1a377e43a3b198ea384d2221fd318dc2af5bb659434b08f953cc3d7283232,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_76616932d1f2d20dc518,RAW_4e22b9e9d294a59efb4c,57112,https://linkareer.com/activity/57112,생산본부 환경안전팀(관리직) 신입 채용,SH에너지화학,"[SH에너지화학] 생산본부 환경안전팀(관리직) 신입 채용(~3/9)
+​
+- 서류전형 > 인성검사/필기시험 > 1차면접 > 2차면접 > 최종합격
+- 환경안전
+- 공장 내 점검활동을 통해 유해위험요소의 발굴에 따른 개선
+- 보완업무 진행 및 각종 공사관련 사항에 대한 검토 및 관리업무
+- 4년제 대학 졸업예정 또는 졸업자",5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,7db73da84d23a74e52678c65d425473d9cc20ef2cf61c450034dbb0d56e5e23a,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_7e8cd135230f013dffce,RAW_d92d34b2086d81b18226,57113,https://linkareer.com/activity/57113,"초봉 3,600만원! 신입/경력 채용",CS홀딩스,"[CS홀딩스] 초봉 3,600만원! 신입/경력 채용(~3/15)
+​
+- 서류전형 > 인적성검사(온라인) > 실무진 면접 > 심층(PT)면접 > 임원진면접 > 채용검진 > 최종합격
+- 경영관리
+- 해외영업
+- 기술연구소
+- 사업계획 수립 및 KPI관리
+- 제품 해외영업
+- 용접재료 개발/개선 등
+- 공고참조",5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,d08c890ca45f916f6a478e8e18b7aa99734b06056bf3e3c4ec3f55ee2dabf79a,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_4110b3e7191a4276286a,RAW_79c1c4cf4cb53c495ff0,57191,https://linkareer.com/activity/57191,다양한 복리후생! DNA 상반기 공개 채용,대원제약,"[대원제약] 다양한 복리후생! DNA 상반기 공개 채용(~3/14)
+​
+- 서류전형 > 인적성검사 > 1차면접 > 2차면접 > 최종합격
+- 영업
+- OTC
+- 컨슈어 헬스케어
+- 해외 사업
+- 마케팅
+- 연구 등
+- ETC MR
+- 온라인 영업
+- 제품개발
+- 연구기획
+- 디지털 마케팅 등
+- 공고참조",5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,8217c0cb258250ceb09e6d832b2dfaa9d6a179da984b0ee3f77b7ba680111219,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_38610d26f66ea5e672ce,RAW_68e30c2681907d7e551b,57115,https://linkareer.com/activity/57115,월 250만원! 자사몰 MD 인턴 채용,APR,"[APR] 월 250만원! 자사몰 MD 인턴 채용(~3/11)
+​
+- 서류전형 > 인성검사 > 1차면접 > 인턴십
+- 자사몰 MD
+- 자사몰 판매 분석에 따른 주차별 판매 프로모션 기획 및 분석
+- 상품관리
+- 고객관리
+- 자사몰 UI/UX 관리 및 개선 등
+- 대졸 또는 8월 졸업예정자 등",5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,e3f52a11f77022683614769c0324bfa12cf1da362e3d981d329069a5c39a9586,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_9f20db26e566977eba4e,RAW_2a42e7174c12cd3e71d1,57188,https://linkareer.com/activity/57188,현대백화점 계열사! 생산팀 사무행정 직원 채용,한섬,"[한섬] 현대백화점 계열사! 생산팀 사무행정 직원 채용(~채용시 마감)
+​
+- 서류전형 > 인적성 검사 > 면접 전형 > 최종 입사
+- 타임생산/악세사리 생산
+- 작업지시서 입력/원가입력/수정사항 및 행정 업무
+- 택/라벨 및 포장 부자재 발주 및 수불업무
+- 마감 업무 등
+- 초대졸",5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,9729485d93c130d3d69d3000dd665cafb0351553afce27affc1aba099ed9da2c,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_389b366916928ce059a1,RAW_8347b74715562b04405a,57189,https://linkareer.com/activity/57189,현대백화점 계열사! 기계설비 생산전문직 채용,현대리바트,"[현대리바트] 현대백화점 계열사! 기계설비 생산전문직 채용(~3/9)
+​
+- 서류전형 > 면접전형 > 신체검사 > 최종합격
+- 기계설비
+- 자동화 기계
+- 초대졸 이상",5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,81c58897baaa45ac4d54f1f5bd8461f520cf987eb6e4b65b4ddef50e06af00ae,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_293b7ed0870eeca06d1e,RAW_0c378addd25ff4f2118e,57118,https://linkareer.com/activity/57118,주거지원! 생산기술/품질부문 신입 채용,현대제철,"[현대제철] 주거지원! 생산기술/품질부문 신입 채용(~3/16)
+​
+- 서류전형/온라인 AI 역량검사 > 온라인 인성검사 > 1차면접 > 2차면접/신체검사 > 최종합격
+- 생산기술
+- 수요산업 및 제품/기술동향 조사
+- 소재/강관제품 개발 및 시생산/평가 등
+- 국내외 4년제 대학교(원) 졸업자",5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,c2299f7e64e79925acf706cfbb45fb02e26a58a42f89d9b5608c6e11cd019a5c,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_6b9fb7923e6b71c2db08,RAW_16ff7db80d0fe9de0bf9,57199,https://linkareer.com/activity/57199,재경부(재무팀 및 회계팀) 신입 및 경력 채용,ABC마트코리아,"[ABC마트코리아] 재경부(재무팀 및 회계팀) 신입 및 경력 채용(~3/10)
+​
+- 온라인접수 > 면접전형 > 최종합격
+- 회계
+- 재무
+- 전표입력 및 계정명세 작성
+- 기타 서류 및 증빙 정리
+- 수수료 정산업무
+- 입출금 관리 및 은행업무 등
+- 초대졸 이상",5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,da0b99ea90071cd7b506bc6ee3da0aeaf5050ff318927c31de1892217550ff97,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_e0d677971f5f82c7437a,RAW_f00bf56c83f7900ce45b,57201,https://linkareer.com/activity/57201,유연근무제 시행! 2021년 수시 채용,종근당,"[종근당] 유연근무제 시행! 2021년 수시 채용(~3/14)
+​
+- 서류전형 및 AI면접 > 1차면접 > 2차면접 > 채용검진 > 최종합격
+- 의약품 관리약사
+- 의약품 생산
+- 회의약품 제조관리, 생상공정관리 및 변경관리 업무
+- 내용고형제 포장공정설비 운영지원
+- 의약품 생산 업무 등
+- 기졸업자 및 졸업예정자 지원 가능",5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,48bfccdccf17ae2e62d7148a276de80d02ed4543a959a293e0a9561bc722a109,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_6ce18a38beccb829de31,RAW_6e4d07d621ddbb05e1e5,57306,https://linkareer.com/activity/57306,Audi 공식딜러! AS본부 직무별 신입/경력 채용,코오롱아우토,"[코오롱아우토] Audi 공식딜러! AS본부 직무별 신입/경력 채용(~채용시 마감)
+​
+- 서류전형 > 1차면접 > 최종면접 > 채용검진 > 최종합격
+- 일반정비
+- 어드바이저
+- 차량점검 및 수리
+- 정비차량 접수/견적
+- 고객관리
+- 운전가능자",5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,024b8ce6b7b2eb9d8c05f4aa05b95af611d8f1ab8732ce01cdd0d2ea31d7f842,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_2d356c0b33a06780988c,RAW_7996adea669acd5f1f86,57185,https://linkareer.com/activity/57185,(주)담아 기역이미음 2021 인턴 모집,주식회사 담아,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,False,False,AGENT2_SSR_PARSE,d0fd7ac43a7dc7136bb6868b97a6db5d2d80efed0a18dd5d94e4eab902a2496e,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_2d8b2c511b01ca35b4ae,RAW_925269e1133d6fd38cae,57465,https://linkareer.com/activity/57465,농심그룹 계열사! 각 부문별 신입 및 경력 채용,태경농산,"[태경농산] 농심그룹 계열사! 각 부문별 신입 및 경력 채용(~3/21)
+​
+- 서류전형 > 인적성검사 > 실무면접 > 임원면접 > 최종합격
+- 경영관리
+- 연구개발
+- 생산기획
+- 생산관리
+- 기계/설비관리
+- 산업안전 관리
+- 기획업무
+- 식품가공기술연구
+- 공장관리업무
+- 포장관련 설비 관리
+- 사업장 안전 관리 등
+- 정규 4년제 대학졸업 이상 학력 소지자",5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,1c85f79dca27d8560c9a93913b8a9cde3fdadd6c0087e1e53c152b3261d0da87,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_c8a566b18d17545c5fb4,RAW_f5f7af08abc8606a1489,82542,https://linkareer.com/activity/82542,,,,5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,bbde641ab4b288f31a2c32d07de6af1d0ec58813733c86d881bfbccad0b657ac,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_11057336995fd9231b01,RAW_5cf50976a47920ab91d4,80565,https://linkareer.com/activity/80565,,,,5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,a5408b080db9746ea092117fa9e1cf85f2ac5be652fcd11fdae1dd5f095e6e3a,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_b56a5f7dc13be1a34b1c,RAW_804d9edd7b03eb0aeb36,80750,https://linkareer.com/activity/80750,,,,5,"[""EXPERIENCED"", ""NEW""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,c6a2131414a0e49772fa2e9efc9b11a9024e6d2b77139d8a3582573de9e574a9,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_4331212fee4dfc1c8765,RAW_aa0595f29cd113861313,80262,https://linkareer.com/activity/80262,,,,5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,e6f55c33f16e4e29396307a88eb9d6c86ba622084c660b2e8eed600b8ea7f5d8,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_ab9439933fa616bbd355,RAW_564a16ee63a568716a67,80274,https://linkareer.com/activity/80274,,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,6f53d18041af8d76c00558a48ee1591667fb4fe5e376652ce1f2671d31be4a68,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_e7f5b72b23d984dd4dda,RAW_8a7b8e708cbb0832cb69,80437,https://linkareer.com/activity/80437,,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,6d3ba228f5aea2a93f1225e6273b8e34fe16e8a5a89e1a60f72fdb20247b3dcc,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_2a222b3f083b4c73f603,RAW_78016203eba733bbef57,80566,https://linkareer.com/activity/80566,,,,5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,cb0947f33f92162e50234f8a9e5a32a49fed71b18ca36632ae73a630e3426b1d,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_6c487d19a96304b12260,RAW_a3adb82353f85176d07d,80746,https://linkareer.com/activity/80746,,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,739be92affe18c6264b333b1228fa1c71a414824fd61a405f26ddf5d39a58141,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_01cc7805765408c3a4ba,RAW_388adbc58208d3a31a90,80406,https://linkareer.com/activity/80406,,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,213a233a8e22ccb09a9febe65008d773b4d5e1142051a3abaec035e35c74e899,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_d10b376b808a15d6e9c7,RAW_3250168a3afe11bbc009,80747,https://linkareer.com/activity/80747,,,,5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,bcecc0f95851bafad464c0509236044fbcf22e421ccc7052a8f15b7e5504daca,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_4111ea8734cae8fd85a0,RAW_58fb2fe5c02eee0be9b1,80570,https://linkareer.com/activity/80570,,,,5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,3984182baf53a35142d90ff86fb68d4fc48098e53d041137c3f972ce895815af,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_ffc3a5b9d30a46be49bc,RAW_30898b034fe3caa0bea3,80412,https://linkareer.com/activity/80412,,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,998668a4144a0d1ffd95c6ed10496496cf70000fb10425daef564cc8feaf9524,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_1172fd251556c30ea959,RAW_b82768330e029eabc6a5,80907,https://linkareer.com/activity/80907,,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,3c402bf4bdcbb37703eb03976fccdea77e09121c8d70e72609a1bb789d57b605,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_9a1a48b604496cd6a436,RAW_07ff3d652482e5596125,80744,https://linkareer.com/activity/80744,,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,17c32c6476e335a62dfb6b939ed55e64545a8314de398a4988a77525125bf11d,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_ac460548aa695c46c57f,RAW_3b0ddc32fb851fc43367,81223,https://linkareer.com/activity/81223,,,,5,"[""EXPERIENCED"", ""NEW""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,15fa5e902bfe120d4034f11225c364ecb072011d87d95c24aa2bbf2929ead550,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_08683b5d8391428fa252,RAW_3872768b5e69256821e0,80568,https://linkareer.com/activity/80568,,,,5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,69e2269a61cf0dd380636b04b8390fb0df9df5e95460b0b51d71d3e69c9e8de8,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_4101bcdf93a4d33804a8,RAW_6985cdb432ebc8ced7c9,81225,https://linkareer.com/activity/81225,,,,5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,3333c02e099b7a938222a1bde04dd74d7d3a004a52dd1496ba1a69a68af10290,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_df6311716d4cbdd80a9f,RAW_0852b74026de112dcbe9,80571,https://linkareer.com/activity/80571,,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,b8232e5aca371cba2189353e0268b6b332072ef07ca9483e95c8c27c8b0a557f,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_d5c21023aea97fe8ef3d,RAW_242feae7ba8ae8ae9d2a,122078,https://linkareer.com/activity/122078,,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,3971163a92f72ea4150a983321ff5410a461c121a2a77f91a32675d545579d0f,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_ad07840e0add4fd6e516,RAW_99f69b422ee94073b6cb,123336,https://linkareer.com/activity/123336,,,,5,"[""NEW""]","[""entry""]",True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,f5e5b16d65f27a0e54647b8dfcc90511a7a9c9a8d2c39e4bfca586a5de5d9c7a,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_4cb8be9ae2b2b254ffa8,RAW_aff0a533c474cd0183a3,118646,https://linkareer.com/activity/118646,,,,5,"[""NEW""]","[""entry""]",True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,8e8ea98c12d784eb5f09c3926da64065b23e60db6af1052c9a9d1792bc31c973,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_444c7d651cf6aa45c1c3,RAW_5caf7286d359917970b9,123696,https://linkareer.com/activity/123696,,,,5,"[""EXPERIENCED"", ""NEW""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,0984968edcda11250e4bb7b59eb0c22eeb84af5aeaa3a318f12a51e66d1a68a4,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_bb935aecf5a2162e371d,RAW_ed0c661d2ccb50f60e38,123401,https://linkareer.com/activity/123401,,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,0fe8813a91ea095616de3c0b752dca4067dbf5699cc00b59fe24c086db363409,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_0e4076b2a4a4a2776ea8,RAW_ca4e35d97a0880e56dec,124317,https://linkareer.com/activity/124317,,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,ec429f7c2f7d7b9f078f36d4c7a550d66ce903c23d01a74dc0fd6ffedc97f4b2,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_db0ca0346a0ed24353f0,RAW_4912a2ee6aa121951be1,123760,https://linkareer.com/activity/123760,,,,5,"[""CONTRACT""]",[],True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,002a5d9067314419a6ed1137befcf8f42dffb791063936ae29e9783a0cc87aab,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_6b2c41efce3ed0c9c19a,RAW_72b8c7e800f2cd30cf37,120172,https://linkareer.com/activity/120172,,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,f87e85ca8b25400a5c8aea40c4a0956a9e2bcedf521a3ee45607df2c1485f72f,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_5c8bd29452b13cfdf53f,RAW_5effaed40f29b5d36979,127714,https://linkareer.com/activity/127714,,,,5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,b1b4a2c0638477b58094de460355499240a50d1a610ebac48270399e5067f056,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_95914e80af4c733a93c4,RAW_e6363e50323d276df3fe,123708,https://linkareer.com/activity/123708,,,,5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,953f6ef77f802473bd947cc39d3b4df4302b32cdd5a78d6eff17d6b2bae535fa,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_2b77d01b3c03b73a0fa5,RAW_558aa9b775bec10e0244,123709,https://linkareer.com/activity/123709,,,,5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,2ba9168459233188c8696c258895f21fd5efd28c76aa20291d314a79e62d2731,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_e6f1cc2b87c839df043e,RAW_e015acd881dc2d159a28,123710,https://linkareer.com/activity/123710,,,,5,"[""CONTRACT""]",[],True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,cf543d3a6792abda0a2aeb3eda036adae00eb6c5870f984c5b807a1168198b23,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_786df9f60ffcb8982010,RAW_3b818dbb2ddf7990ed57,123711,https://linkareer.com/activity/123711,,,,5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,e1cc0147cb795a0ebaf2b784d4df5a4ac1a97819634141b4df1c0ff2caa9bfd5,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_d77344253c9ec7bc68ed,RAW_9aed9a487c8b95e13bca,123910,https://linkareer.com/activity/123910,,,,5,"[""NEW""]","[""entry""]",True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,1213bdce57c58c4429b7402a34813db4841acd35166b463bfdf64c07571d6d78,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_4a90f8d3cd80f1ff7927,RAW_ad20bb988c9199a79775,123911,https://linkareer.com/activity/123911,,,,5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,8d0a103bf92a40f523ba6166f1ad255d03c83c3aaa817437cbf4aa3a4e6159ef,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_75dabdfa1067a3876525,RAW_99c6bba192807860ed4c,123912,https://linkareer.com/activity/123912,,,,5,"[""NEW"", ""EXPERIENCED"", ""CONTRACT""]","[""entry"", ""experienced""]",True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,da70c506c51a107b17b7d2302e8fdb9a45d491e3f233ac8cc47dcfb15b7b7f12,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_06a91e40853eab00bfd2,RAW_41937336c7ba3367666c,123915,https://linkareer.com/activity/123915,,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,2ce99d5a3a23f8a92a3e011c907668ba92d5efff046dc7bdc7802a2d240f1a40,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_3fca77cae93ba6cef491,RAW_27e01252c607c2989512,123917,https://linkareer.com/activity/123917,,,,5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,d13c54c4852dfacb7c1b904533b751b767af4146cf6d8a3c467d45294882f531,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_48e2816d92570d291b6d,RAW_c0812bfce72988b90ece,171820,https://linkareer.com/activity/171820,,,,5,"[""NEW""]","[""entry""]",True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,435c1a08b6697c794b8f228a1f9061a6f4b97b1df89f76559868587b05d96773,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_b8b41eadc4e9efb0254e,RAW_2abf04b5753fa4518a42,171480,https://linkareer.com/activity/171480,,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,7ab2f4a77b300b44e0a5ffa853f772a2dc98046068644bcd8a449eebdc84bb73,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_24f5ad313e567d585519,RAW_c6f931814419cc587b3b,171491,https://linkareer.com/activity/171491,,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,6dee729b2ce6129178cc1e46bcbce0c0009144f3db73723a1032cf311d26e2df,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_2be603b4f208c4e4684b,RAW_801ab0801355c1c58781,171492,https://linkareer.com/activity/171492,,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,e3bf15d24e72f8a3992825cecd321bfa31cb101dabd524a268f47a3ad11973bd,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_676ec8eaad58e24f5814,RAW_0b834e0b6e0736ff302f,171493,https://linkareer.com/activity/171493,,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,60868ae4a89305fa46a753a1cbd4adb0dbf09dee5ee3180506df60ea44cc847f,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_6484ec604f901c57deb2,RAW_15eb4c7ce097a327100a,171494,https://linkareer.com/activity/171494,,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,1aaded4098998280bff2fd0a78d15d578283e6e36e42f7cae8774ca86d2157a0,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_be53ad0cedacda539573,RAW_1228e5001e9a01670643,171898,https://linkareer.com/activity/171898,,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,346fafc95e7a504d1869d24ca906066e6377123af439b55eb18171719ed48f7d,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_35c9d5bbf17c54db9db1,RAW_24e83b3b8e6543149753,171900,https://linkareer.com/activity/171900,,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,2f3e3ff1622d85243b192f349edd588235557df925ec5dd559a8a74eda1f7516,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_14a0627263f1bc907543,RAW_9259e87bc6e8955f37a8,173928,https://linkareer.com/activity/173928,,,,5,"[""NEW""]","[""entry""]",True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,18342b21e449676b23fb4e304556d7a0647201f7e42840713bf87a6141c8821e,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_e3f4b6248d311797a8b5,RAW_ec6ab4000822457213f5,173173,https://linkareer.com/activity/173173,,,,5,"[""CONTRACT""]",[],True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,12acbb0a20988ece343f6fee2629c1d36903eaf2ca719c410e691b4163c06d04,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_a1108a384e8915f2d256,RAW_f4ea702b2c850ec08736,173174,https://linkareer.com/activity/173174,,,,5,"[""CONTRACT""]",[],True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,da8420c769e4fe438eef04b3b3de7b16aa03b8ecad51ff40e360440248d9021c,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_a608553d1888204a4a4c,RAW_a3bd7db63c459a6270fa,171907,https://linkareer.com/activity/171907,,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,b69ad91e252e35eb2ead191af2b5bcc0438a7a378141b82ce985e8b8be6b3508,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_3af6cc7781e8fa06a7ba,RAW_587209b70a5e4d3c78e7,171909,https://linkareer.com/activity/171909,,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,fe6e6b5cdb679ba8aef64a956faaa093a2eea3c819c23c7bb459b954039dcee8,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_e503e4ccc0feea412e14,RAW_85cfa1649b32ac3528c1,171910,https://linkareer.com/activity/171910,,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,d4d86e1a7fa5af12fe160ec1fc83c0b9eeadd28559f168b3f78a3a7168071983,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_7d8c3288344f9470adb2,RAW_860164e538118a8c65cc,172119,https://linkareer.com/activity/172119,,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,c22de9a72532ff901e0cce527e1a0416692c89fe35048df090dc2af46328b210,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_3e7dc55704fa78cb1827,RAW_0259f2290dadae30989f,172557,https://linkareer.com/activity/172557,,,,5,"[""INTERN""]","[""intern""]",True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,4d57f76de91414c4a95861bb077e973f253826ce6a73011989daef2025fe9bf0,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_d6a0776b64f6415609dc,RAW_c7ef9426f2ea94dbf0c7,172558,https://linkareer.com/activity/172558,,,,5,"[""INTERN""]","[""intern""]",True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,e22cde29614232352f3e8761090daee0d8c5cd3901cdaef3d1884e5fa7ffd13d,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_5b60e8972101f0fd5e32,RAW_6e40e0dcd9f745e08885,172417,https://linkareer.com/activity/172417,,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,a892721ef4aa80c5d0a1eb9a66700d897bfc518baadcca5403e4bca9be0a1965,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_994bc31da5ace724cbdf,RAW_b2905c7dc2fcc475393a,227063,https://linkareer.com/activity/227063,,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,d31c9e1a4f3688f2354809f6fed78a918a359e2932c27d48d5c09d7a71f66a16,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_bd95eeddbd7a7f3fc24f,RAW_45b51d7872a025d353ef,226892,https://linkareer.com/activity/226892,,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,725811703e8230b1b4129486db748941ada9f351314629233990826feb10def1,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_68959769468216223815,RAW_cbafc699cfce2f96244c,226921,https://linkareer.com/activity/226921,,,,5,"[""CONTRACT""]",[],True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,2806a01d75963e8e0ec9902cbf7e75daed299a13071b5e35a359d34343eb0ed8,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_7d4b089af820fa443077,RAW_7e133c38c20903305b3b,227039,https://linkareer.com/activity/227039,,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,b20c5405a00136cd31cbff65d38d54e104e2c499cc18fdbcdc9e1ed0580be324,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_873d722830da6482b370,RAW_5e1d53a6fde228c681cb,227042,https://linkareer.com/activity/227042,,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,316ec6e72540d1679f63bb85ca6ca3cac67397ab21acb8170d6569f8778c46e8,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_1fdf7b3bbe41fe3bc4d0,RAW_af296d1629ba963aa7af,227044,https://linkareer.com/activity/227044,,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,36bde99a8d2daf99bed1e8ae158eee116e62979e1a994c9c7e5c44e2a60da97c,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_42db1f5abfe18d4d94ac,RAW_d479b65f3cef877a16a8,228165,https://linkareer.com/activity/228165,,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,d93a287359ae8439f9a0549b149ab6f3c3e962221ef3764c0f554df4d0819d08,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_b4140bfd1d7c7c34a413,RAW_676f168131427b761549,228845,https://linkareer.com/activity/228845,,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,45aa780c9f4f4c46db4cfb7f20ebd2c070c5107a8eca08120ba29c0465b0f559,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_552ace8d2db0ccd21ba0,RAW_ec3056d9fae572f62dd9,227698,https://linkareer.com/activity/227698,,,,5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,a368f3530691c0f846e9ad06594196c4677a3e0c4e83266015302cdbe46f54fb,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_a61585fede0d1ee2ffb0,RAW_0aa4725896f3af67aac0,227773,https://linkareer.com/activity/227773,,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,1911908dea1d01d58ebc45406f68cfbcb492425ff40b869eeebec16769a0ca25,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_f76f1216f6fc4e97f828,RAW_9ef078aed291e62ab6da,227783,https://linkareer.com/activity/227783,,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,874f3f6fb8acc9be9b34984ddfb4126aa89b059b484e018dc88023e13e551016,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_407e77bcbcda0f14d240,RAW_c1d702ee3d40a4623e6d,227791,https://linkareer.com/activity/227791,,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,f58f6023fbd7cb1a0d84c7111d067e08d707caf42b687fa765e365894ad200d9,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_5ea262aa359ec3d0e402,RAW_f65875ede1270777b9a9,226927,https://linkareer.com/activity/226927,,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,bd8ddd027552544aa69977bd4f877060b3c2b107cf4a853e6dc4ea4ff77d7c31,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_bebc7ae5bee7c23f6322,RAW_091c629821f607b02af8,226932,https://linkareer.com/activity/226932,,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,b8c4fc5e0e904b47b1a31ee7e15ae2a5e13c524b0e6dfd2cd365b151c77c6b8c,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_ab7923321075fcc3aba1,RAW_4e3c8ca4d072ac0f9df0,227721,https://linkareer.com/activity/227721,,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,d54f04f80d0d7e4d2d87722591153384c7a926360fb5c8efd942af4c6aefce0d,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_3cb213ad911ef61d3b89,RAW_6e892daecbbcfd7d7f6e,225762,https://linkareer.com/activity/225762,,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,1e8d7bcc72fd3d0b14bae6fa285bc4ad4e91a8ed9fbd24da89adefe8205e0d0f,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_1b56fda1e1a0c4860b51,RAW_65168330466950db656c,229384,https://linkareer.com/activity/229384,,,,5,"[""NEW""]","[""entry""]",True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,c0638ded22223a975682ae22954ac089ff370a0eb0729c44c38fd8187651a1c4,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_ccfd5e05eebb16681c3f,RAW_a4e15084c90c2c3edf14,228141,https://linkareer.com/activity/228141,,,,5,"[""CONTRACT""]",[],True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,3d509d13f300a8d6a49f5cb583f1174b5c17ad13be83f1a619b25d310707ded2,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_cd646fd0c83ef2fc26c0,RAW_0e113e246f20b22bfaff,306146,https://linkareer.com/activity/306146,,,,5,"[""CONTRACT""]",[],True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,e78ebad878c147e248d2c977df78b834fe08c27807229e59758149350f6d4a18,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_93504a735c96aeb20d66,RAW_9a54df96dd9be80ecafb,305952,https://linkareer.com/activity/305952,,,,5,"[""EXPERIENCED""]","[""experienced""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,8a05a9ff694ba43a2d6275454ae619c88a05608b51a50b6753d07e11db46a22f,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_ff6a896a3244f8d71fe8,RAW_c8597234f5811dda0a2e,305955,https://linkareer.com/activity/305955,,,,5,"[""EXPERIENCED""]","[""experienced""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,d79c5a35241781c712a4016b1c353c6a475b1d7af86506012edaa85d5e32d125,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_7249b78a6fe20845be71,RAW_383ffec2d0168e81a8cf,306256,https://linkareer.com/activity/306256,,,,5,"[""CONTRACT""]",[],True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,04281b71a53446fe0d7db4dd56a1670e87fa8ccc37109ac1565726780c83ab86,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_0dd789fdc06382147469,RAW_5daf02e7e482b8e02f87,306761,https://linkareer.com/activity/306761,,,,5,"[""NEW""]","[""entry""]",True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,7ce22a243c309eb74eb7ef21eae22fe8881c5f970cec6720ac042515c98bb29d,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_4ab729b498dfe82ad000,RAW_111cfc3d65dfaa00ac6a,308198,https://linkareer.com/activity/308198,,,,5,"[""EXPERIENCED""]","[""experienced""]",True,False,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,c16e6cea157f4bc59e9f5f41e91d93c10a48ba65db38e4d1df056c2c1bf6432e,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_a9633992767e9b71850b,RAW_4d12b6a9f7cf2ec4e734,305407,https://linkareer.com/activity/305407,,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,5b1e4e72c82d9b5900eb17b7e11e5fecb7dd0924dcd781f38ee5b665911bb33d,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_5ee85e000c07f3827d75,RAW_c3801bcca6e8651223d7,305516,https://linkareer.com/activity/305516,,,,5,"[""CONTRACT""]",[],True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,b9597b7d0387b39ffefa07e822bae80b9107eecf031a357716a3d806559d9157,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_81ea977cc1f175447664,RAW_e364cb62126ebb942881,305469,https://linkareer.com/activity/305469,,,,5,"[""EXPERIENCED""]","[""experienced""]",True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,c81322b898583efcacb6a002289cb8374109e04b0b4b4ad5a85d8bcfe52c4c49,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_3797f6dbdc9f196d699f,RAW_318d997f61757ca7b3dd,305874,https://linkareer.com/activity/305874,,,,5,"[""INTERN""]","[""intern""]",True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,34bd2388dd73fda8e54365dd00abdaa1566f9809d63e9b58f576b669253cae69,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_9ee624bd36ce4ccc9c42,RAW_4bd020e9b45adfee195a,303219,https://linkareer.com/activity/303219,,,,5,"[""INTERN""]","[""intern""]",True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,7066192a93e39f7ac854d57ba021df69d55d89addca6a6c16072353e9898b340,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_f9a0102e564039702b21,RAW_fcc73b6564aeb495f230,303567,https://linkareer.com/activity/303567,,,,5,"[""INTERN""]","[""intern""]",True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,e197eeac8d355b57f61ba521d5aa7be74297684a34195bc04245a6599fa9f93c,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_26c192c7f1eecb16ec91,RAW_29bcba178fb5b024f394,303635,https://linkareer.com/activity/303635,,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,9118a5618934360c2ff5bbb7e6a79bdbc8d97e4dcc7477647db114b1b0602468,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_c8499a5873ca964ac1c9,RAW_3aae08ce09b7e4019c29,303636,https://linkareer.com/activity/303636,,,,5,"[""INTERN""]","[""intern""]",True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,cdd0b1c78c4d9b929f3f032d619607490de0a1eb8aee50d2cdf71dc8b6cc2403,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_d6eccbb3a1aa37db812e,RAW_51265277620461271db4,303699,https://linkareer.com/activity/303699,,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,a91ebca74fb00ff01f9780b3ca883f82e3d8fd6a5a0aab06f2b0555b72dbb639,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_958ad66442b377c3d0b1,RAW_914f63a7f9f4a72818e5,303739,https://linkareer.com/activity/303739,,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,200210609e5570f693a684d07cc94fafaa8ef6015a0150b5163bc6328202393a,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_c10ae7550b8b3255f586,RAW_d0ac71c318a7a99b5716,279836,https://linkareer.com/activity/279836,,,,5,"[""INTERN""]","[""intern""]",True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,c446f50abfb6bd28ba39a12d0fd148a5cf07a25d9891f705ae3266a745ab3a8c,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_4443180e85a01abc76ba,RAW_9c51ebb95f6399234b97,305747,https://linkareer.com/activity/305747,,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,c5466aac84c6eaaabf27bb8ed09a53077b9e0936c7f928b6f7592300de849bc1,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_7fe1ea5eea01fa31d636,RAW_475013aa52d4a59f6a3d,57190,https://linkareer.com/activity/57190,현대백화점 계열사! 방송FD 전문직 채용,현대홈쇼핑,"[현대홈쇼핑] 현대백화점 계열사! 방송FD 전문직 채용(~3/11)
+​
+- 서류전형 > AI역량검사 > 실무면접 > 건강검진 > 최종합격
+- 방송FD
+- Live 방송 진행보조
+- 방송관련 업무지원
+-학력무관
+- 스케줄 근무 가능자",5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,99f405607ec50d6c024257f59aec7fbcd1b590dabb26efb833a1ec0fd79e8709,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_84b7cda3e95e48adceb0,RAW_f79d9c43a86542602139,57192,https://linkareer.com/activity/57192,KOICA 해외사무소/재외공관 영프로페셔널(인턴) 채용,한국국제협력단,"[한국국제협력단] KOICA 해외사무소/재외공관 영프로페셔널(청년인턴) 채용(~3/18)
+​
+- 서류전형 > 적합도검사, 면접전형 > 최종합격
+- ODA사업
+- 공고참조
+- 만 19세 이상 만 34세 이하
+- 공인영어성적",5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,c4d68db9d9cce3e798276d64c22765f5bfa71b5acf665740661e525f32a2490d,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_249007188d9e248139d3,RAW_eceea4e5038258513ec2,57295,https://linkareer.com/activity/57295,신입 및 경력 직원 정기 채용,울산문화재단,"[울산문화재단] 신입 및 경력 직원 정기 채용(~3/10)
+​
+- 서류전형 > 필기심사 > 면접심사 > 최종합격
+- 일반직
+- 재단 행정 업무 전반
+- 예술지원팀 사업 운영
+- 18세 이상인 자",5,"[""NEW"", ""EXPERIENCED"", ""CONTRACT""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,2a61d0d2fa856c8d1a53d3858581e08c01c6d4411f77c304469b1eafccd9ef8e,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_11dcd85fd4fd1bf1511c,RAW_9fc2c439e367eed8f8cc,57296,https://linkareer.com/activity/57296,각 부문별 신입 및 경력 채용,한국임업진흥원,"[한국임업진흥원] 각 부문별 신입 및 경력 채용(~3/14)
+​
+- 서류전형 > 필기전형 > 면접전형 > 최종합격
+- 일반직
+- 공무직
+- 임업소득지원
+- 산림자원보호
+- 기관 정보화 업무
+- IT인프라
+- 일반사무 사업수행지원 등
+- 공고참조",5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,252071e38ccf4dc50b8b8f870adb8c90a47c1aa85261b92e0d02f1869adf0706,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_bd774f58cc33ba2b7644,RAW_13562d87bb6d53003ac5,57298,https://linkareer.com/activity/57298,나이/학력제한 없음! 57기 수습기자 채용,경향신문사,"[경향신문사] 나이/학력제한 없음! 57기 수습기자 채용(~3/8)
+​
+- 서류전형 > 필기시험(종합교양, 논술) > 실무능력평가/실무면접 > 최종면접
+- 수습기자
+- 취재
+- 지역주재
+- 사진
+- 나이/학력 제한 없음
+- 공인 영어성적
+- 공인 국어성적",5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,3aa417eef672a56fcce159a0176393dc4df1cafbb86b5d5a9e827ad8a3e15c3c,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_7404b3b92cd76bc70a0f,RAW_be08d539bcd7486bdac9,57405,https://linkareer.com/activity/57405,다양한 복리후생! 2021년 상반기 수시 채용,NICE정보통신,"[NICE정보통신] 다양한 복리후생! 2021년 상반기 수시 채용(~3/15)
+​
+- 서류전형 > 실무면접 > 임원면접 > 신체검사 > 최종합격
+- 원가 기획 및 전략
+- 인사/총무
+- 영업/마케팅
+- 서비스 개발
+- 정보보호
+- 시스템 개발
+- 네트워크
+- 정산
+- 인바운드
+- 원가분석,관리회계,손익 및 정산관리
+- 고정자산/비품/계약 관리
+- 지역화폐 신규영업 및 고객사 관리
+- 입찰 제안서 작성
+- 정보보호시스템 구축 및 운영
+- 중계시스템 개발/운영
+- 네트워크 관련 업무 등
+- 공고참조",5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,3920d98d42e92c2f8a3065c652f5c6aa0af998c44cb1eea704ed4b0c4f76e029,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_985496360bec63bea5c4,RAW_23e7471aebfcd49a7603,57408,https://linkareer.com/activity/57408,자녀학자금 지원! 각 부문 신입/경력사원 채용,귀뚜라미그룹,"[귀뚜라미그룹] 자녀학자금 지원! 각 부문 신입/경력사원 채용(~3/13)
+​
+- 서류전형 > 면접전형 > 신체검사 > 최종합격
+- 기술영업
+- 웹디자인
+- 전산개발
+- 경영기획
+- 구매/회계
+- 공고참조
+- 직무별 상이",5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,12e0924a97fe7285d589855275772931a5ffca47c569b633d19fae18953ebb74,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_d781b57bb3519796f126,RAW_9f276c93524b80a4567b,57409,https://linkareer.com/activity/57409,기숙사 운영! 경영정보팀 신입사원 채용,태양금속공업,"[태양금속공업] 기숙사 운영! 경영정보팀 신입사원 채용(~3/17)
+​
+- 서류전형 > 면접 > 심층면접 > 신체검사 > 최종합격
+- 경영정보
+- ERP프로그램 개발/운영
+- 컴퓨터/전산관력학과 전공자
+- 정보처리기사 자격증",5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,1076179905311c9952bf529fdea2218707afe5f0154573423c981492cbd077e3,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_e6edebcc42bcfd107433,RAW_ef43e59924c13d7e535b,57464,https://linkareer.com/activity/57464,총 7명! 아리랑국제방송 신입 및 경력 채용,국제방송교류재단,"[국제방송교류재단] 총 7명! 아리랑국제방송 신입 및 경력 채용(~3/21)
+​
+- 서류전형 > 필기시험 > 카메라테스트 및 실무면접 > 종합면접 > 최종합격
+- 보도기자
+- TV제작PD
+- 재무회계
+- 산업안전보건
+- 정보화
+- 공고참조
+- 직무기술서 상의 능력을 보유한 자",5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,62ec91d3ebd44086bc1a1fe18d28f96e6e7637c3e5ede7f736058126db4ff836,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_3d446f5f6ba04b3b58a4,RAW_b66ac732f3714cf8b4b6,57470,https://linkareer.com/activity/57470,"창원센터 환경/안전 관리자(기능직, 사무직) 채용",판토스,"[판토스] 창원센터 환경/안전 관리자(기능직, 사무직) 채용(~3/15)
+​
+- 서류전형 > 1차면접 > 2차면접 > 건강검진 > 최종합격
+- 안전환경
+- 관리 계획 수립 및 활동 지원
+- 인원 육성 및 교육 관리
+- 센터 내 안전 관련 정기 점검 등
+- 전공무관",5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,9c8a94dc686d9d0037d302eca6e393627e7b1979ead256a246d357bca39bedf8,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_cc9007db559c58121210,RAW_17636a91434950772c27,57585,https://linkareer.com/activity/57585,자녀학자금 지원! 채권영업 인턴 채용,이베스트투자증권,"[이베스트투자증권] 자녀학자금 지원! 채권영업 인턴 채용(~3/14)
+​
+- 서류전형 > 1차면접 > 2차면접 > 신체검사 > 최종합격
+- 채권영업
+- 금융투자업 전반에 대한 이해가 풍부한 자",5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,21f527cc8400414969d11addc767ca96fb751fb6bdeb968e4935c05a130cf1c9,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
