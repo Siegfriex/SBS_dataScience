@@ -1,50 +1,272 @@
 {
   "agentId": "P4-A2-PIPELINE",
   "agentName": "P4 Contract-Driven Pipeline & Analysis Engineer",
-  "pipelineStatus": "PIPELINE_FOUNDATION_READY",
-  "contractStatus": "BLOCKED_BY_CONTRACT",
-  "crawlInputStatus": "BLOCKED_BY_CRAWL_RELEASE",
+  "statusCodes": [
+    "CONTRACT_LINKED",
+    "BLOCKED_BY_FULL_CRAWL_RELEASE",
+    "PIPELINE_FOUNDATION_READY"
+  ],
   "empiricalAnalysisAllowed": false,
-  "generatedAt": "2026-08-06T14:11:01.396073+09:00",
+  "generatedAt": "2026-08-06T15:03:09.968254+09:00",
   "repository": {
     "gitRoot": "/home/sieg/projects-wsl/SBS_dataScience",
     "branch": "agent/p4-pipeline-v2",
     "headRef": "HEAD",
-    "headResolution": "Resolve HEAD in this branch when the handoff is consumed; a report cannot embed the hash of its own commit.",
+    "headResolution": "Resolve HEAD when consumed; a tracked report cannot contain its own commit hash.",
     "remote": "https://github.com/Siegfriex/SBS_dataScience.git"
   },
-  "contracts": {
-    "targetContractVersion": "2.1.2",
-    "supportedContractVersion": null,
-    "contractCommit": null,
-    "bundlePresent": false,
-    "checksumVerified": false,
-    "ddlExecuted": false,
-    "missingFiles": [
-      "p4_contract.yaml",
-      "p4_contract.schema.json",
-      "warehouse_duckdb.sql",
-      "CONTRACT_MANIFEST.json",
-      "CHECKSUMS.sha256",
-      "AGENT3_TO_AGENT2_HANDOFF.json"
-    ],
-    "schemaFilename": "p4_contract.schema.json"
+  "contract": {
+    "contractVersion": "2.1.2",
+    "contractSha256": "f92380cdfc16967f1e363800cd9a575e44532f18a86b2f28f8c3e2404ed675e9",
+    "manifestSha256": "3d7a91480a7bb75122ce582e200293830411806f942628ec6180a666e9ed2b41",
+    "ddlSha256": "956986874eae5686a20a52721dc303f1913c7391b2ee27da6d582a762f73ad58",
+    "schemaFilename": "p4_contract.schema.json",
+    "duckdbRuntimeVersion": "1.5.4",
+    "schemaCount": 5,
+    "tableCount": 26,
+    "viewCount": 6,
+    "ddlStatementCount": 39,
+    "crossSchemaForeignKeyCount": 0,
+    "fieldLineageCount": 418,
+    "checksumCount": 11,
+    "checksumsPassed": true,
+    "keyContract": {
+      "algorithm": "SHA-256",
+      "encoding": "UTF-8",
+      "separator": "|",
+      "truncationHexChars": 20,
+      "postingId": "PST_ + sha256(sourceName|sourcePostingId)[:20]",
+      "rawPostingId": "RAW_ + sha256(sourceName|sourcePostingId|rawSha256)[:20]",
+      "trackId": "TRK_ + sha256(postingId|trackIndex)[:20]",
+      "sectionId": "SEC_ + sha256(trackId|sectionOrder)[:20]",
+      "requirementId": "REQ_ + sha256(sectionId|requirementType|normalizedEvidence)[:20]",
+      "matchId": "NMT_ + sha256(trackId|ncsUnitCode|mappingBasis|evidenceHash)[:20]"
+    },
+    "metricMetadata": {
+      "metricCount": 24,
+      "requiredMetadata": [
+        "dedupApplied",
+        "denominator",
+        "eligiblePopulation",
+        "grain",
+        "interpretation",
+        "numerator",
+        "prohibitedInterpretation",
+        "unit",
+        "unknownHandling"
+      ]
+    },
+    "supported": true,
+    "sourceCommits": [
+      "97f9c04",
+      "2e69380"
+    ]
+  },
+  "canonicalWarehouse": {
+    "agentId": "P4-A2-PIPELINE",
+    "agentName": "P4 Contract-Driven Pipeline & Analysis Engineer",
+    "status": "CONTRACT_LINKED",
+    "contractVersion": "2.1.2",
+    "contractSha256": "f92380cdfc16967f1e363800cd9a575e44532f18a86b2f28f8c3e2404ed675e9",
+    "ddlSha256": "956986874eae5686a20a52721dc303f1913c7391b2ee27da6d582a762f73ad58",
+    "databasePath": "data/warehouse/p4.duckdb",
+    "databaseSha256": "12d993d385abcf91104810be3767e0de9d7bd82651b3d9578a33f6c8ca4247de",
+    "warehouse": {
+      "ddlStatementCount": 39,
+      "firstRunSucceeded": true,
+      "secondRunSucceeded": true,
+      "idempotent": true,
+      "schemas": [
+        "core",
+        "mart",
+        "ncs",
+        "qa",
+        "raw"
+      ],
+      "schemaCount": 5,
+      "tables": [
+        "core.careerLabel",
+        "core.postingDedupEdge",
+        "core.postingNormalized",
+        "core.postingSection",
+        "core.postingTrack",
+        "core.requirementFact",
+        "mart.caseStudyRegistry",
+        "mart.postingAnalysisMart",
+        "mart.similarityPair",
+        "mart.timeSeriesMart",
+        "ncs.ncsLearningModule",
+        "ncs.ncsUnit",
+        "ncs.postingNcsMatch",
+        "qa.decisionLog",
+        "qa.evalRun",
+        "qa.goldSample",
+        "qa.monthlyCoverageAudit",
+        "qa.resultManifest",
+        "qa.sourcePolicyAudit",
+        "raw.crawlRun",
+        "raw.linkareerIndexRaw",
+        "raw.linkareerPostingRaw",
+        "raw.ocrResult",
+        "raw.postingAsset",
+        "raw.queryRegistry",
+        "raw.sourceRegistry"
+      ],
+      "tableCount": 26,
+      "views": [
+        "qa.vAnalysisReadyGate",
+        "qa.vEnumViolations",
+        "qa.vForeignKeyViolations",
+        "qa.vNullabilityViolations",
+        "qa.vPrimaryKeyViolations",
+        "qa.vSourcePolicyGate"
+      ],
+      "viewCount": 6,
+      "qaViews": {
+        "qa.vAnalysisReadyGate": "EXECUTED",
+        "qa.vEnumViolations": "EXECUTED",
+        "qa.vForeignKeyViolations": "EXECUTED",
+        "qa.vNullabilityViolations": "EXECUTED",
+        "qa.vPrimaryKeyViolations": "EXECUTED",
+        "qa.vSourcePolicyGate": "EXECUTED"
+      },
+      "analysisReadyGate": "NOT_EVALUATED",
+      "emptyDatabasePass": false
+    }
   },
   "crawlInput": {
-    "crawlReleaseId": null,
-    "officialReleaseCount": 0,
-    "period": null,
-    "rows": 0,
-    "coverage": "unavailable",
-    "manifestHash": null,
-    "reconAccepted": false
+    "crawlReleaseId": "CRAWL_20260806_02",
+    "sourceBranchHead": "825ba03",
+    "releaseStatus": "PARTIALLY_READY",
+    "acceptance": "SOURCE_ADAPTER_CONFORMANCE_ACCEPTED",
+    "empiricalCorpusStatus": "EMPIRICAL_CORPUS_REJECTED",
+    "rejectionReasons": [
+      "paginationUnverified",
+      "releaseStatusNotReady",
+      "detailRawPerRecordLineageMissing"
+    ],
+    "checksumCount": 14,
+    "checksumPassed": true,
+    "period": "2020-01 through 2026-07",
+    "targetCoverage": {
+      "complete": 11,
+      "unverified": 68
+    },
+    "allCoverageStatuses": {
+      "insufficient": 5,
+      "complete": 11,
+      "unverified": 68,
+      "partial": 1
+    },
+    "completeMonthDistinctPostingCount": 11825,
+    "detailSampleSuccessCount": 126,
+    "detailSampleFailureCount": 0,
+    "detailRawPerRecordLineageVerified": false,
+    "ncsUnitRecordCount": 13442,
+    "adapterFixtureReleaseId": "CRAWL_20260806_01"
+  },
+  "sourceAdapterRegression": {
+    "apq": {
+      "fixtureCount": 1,
+      "entryCount": 297,
+      "activityTypeIdPresent": true,
+      "jobTypesRawJsonPresent": true,
+      "managerPiiMasked": true
+    },
+    "ssrFixtureCount": 3,
+    "ssr": [
+      {
+        "sourcePostingId": "339673",
+        "activityTypeId": 1,
+        "jobTypesRawJsonPresent": true,
+        "dutiesRawJsonPresent": true,
+        "dutiesCount": 0,
+        "activityTextExtracted": true,
+        "activityTextAvailableFlag": true,
+        "externalApplyFlag": true,
+        "externalDetailOnlyFlag": false,
+        "externalAtsDomain": "forms.gle",
+        "jobTypeConflictFlag": false,
+        "reviewFlag": false,
+        "managerPiiMasked": true,
+        "embeddedImageCount": 0,
+        "ocrRoutingRequiredFlag": false,
+        "ocrQueueCount": 0,
+        "postingEligibleFlag": false,
+        "rq1EligibleFlag": false,
+        "rq2EligibleFlag": false,
+        "ncsEligibleFlag": false,
+        "rq2ExclusionReason": "nonRecruitPosting"
+      },
+      {
+        "sourcePostingId": "339737",
+        "activityTypeId": 5,
+        "jobTypesRawJsonPresent": true,
+        "dutiesRawJsonPresent": true,
+        "dutiesCount": 3,
+        "activityTextExtracted": true,
+        "activityTextAvailableFlag": true,
+        "externalApplyFlag": true,
+        "externalDetailOnlyFlag": false,
+        "externalAtsDomain": "jeil.recruiter.co.kr",
+        "jobTypeConflictFlag": false,
+        "reviewFlag": false,
+        "managerPiiMasked": true,
+        "embeddedImageCount": 1,
+        "ocrRoutingRequiredFlag": true,
+        "ocrQueueCount": 1,
+        "postingEligibleFlag": true,
+        "rq1EligibleFlag": true,
+        "rq2EligibleFlag": false,
+        "ncsEligibleFlag": false,
+        "rq2ExclusionReason": "boundaryUnresolved"
+      },
+      {
+        "sourcePostingId": "339821",
+        "activityTypeId": 5,
+        "jobTypesRawJsonPresent": true,
+        "dutiesRawJsonPresent": true,
+        "dutiesCount": 0,
+        "activityTextExtracted": true,
+        "activityTextAvailableFlag": true,
+        "externalApplyFlag": true,
+        "externalDetailOnlyFlag": false,
+        "externalAtsDomain": "docs.google.com",
+        "jobTypeConflictFlag": true,
+        "reviewFlag": true,
+        "managerPiiMasked": true,
+        "embeddedImageCount": 1,
+        "ocrRoutingRequiredFlag": false,
+        "ocrQueueCount": 0,
+        "postingEligibleFlag": true,
+        "rq1EligibleFlag": true,
+        "rq2EligibleFlag": true,
+        "ncsEligibleFlag": true,
+        "rq2ExclusionReason": null
+      }
+    ],
+    "sampleRows": 126,
+    "sampleRates": {
+      "hasActivityText": 1.0,
+      "externalApplyFlag": 0.9920634920634921,
+      "externalDetailOnlyFlag": 0.19047619047619047,
+      "rq1EligibleFlag": 1.0,
+      "rq2EligibleFlag": 0.8095238095238095,
+      "ncsEligibleFlag": 0.21428571428571427,
+      "jobTypeConflictFlag": 0.007936507936507936,
+      "activityTextEmbeddedImageFlag": 0.8968253968253969,
+      "hasPosterFile": 0.0
+    },
+    "qualityChecks": {
+      "allManagersMasked": true,
+      "allActivityTextExtracted": true,
+      "embeddedImageObserved": true,
+      "ocrRouteObserved": true,
+      "nonRecruitExcluded": true
+    }
   },
   "pipeline": {
     "foundationReady": true,
-    "warehouseMode": "development_fixture_separate",
-    "developmentWarehousePath": "DSJA/project_4/pipeline/data/warehouse/p4.development.duckdb",
-    "canonicalWarehousePath": "DSJA/project_4/pipeline/data/warehouse/p4.duckdb",
-    "canonicalWarehouseExecuted": false,
     "fixtureRows": {
       "raw": 6,
       "normalized": 6,
@@ -58,9 +280,9 @@
       "timeSeriesMart": 10,
       "excludedPostings": 1
     },
-    "fixtureSha256": "5458bdc87f6b3eb4d2b50e811616a7b196484eea33ca1a99151e0b446300bbaa",
+    "fixtureSha256": "50b12d711676646181d9fa6023638ec6a7e1d627486e1c8f3b4b9937fc43ae35",
     "tests": {
-      "passed": 74,
+      "passed": 83,
       "failed": 0,
       "errors": 0,
       "skipped": 0
@@ -70,7 +292,11 @@
       "productionOutputCount": 0,
       "fixtureCount": 15,
       "fixtureAllExecuted": true,
-      "missingCellIds": 0
+      "missingCellIds": 0,
+      "contractVersion": "2.1.2",
+      "crawlReleaseId": "CRAWL_20260806_02",
+      "dataProvenance": "PARTIAL_CONFORMANCE_ONLY",
+      "empiricalAnalysisAllowed": false
     }
   },
   "marts": {
@@ -81,13 +307,9 @@
       "columns": 34,
       "primaryKey": "trackId",
       "primaryKeyDuplicates": 0,
-      "nullRates": {
-        "highDemandScore": 1.0,
-        "ncsLevel": 0.3333333333333333,
-        "ncsMatchScore": 0.3333333333333333
-      },
-      "sha256": "8b9fe4b2e80fd08a369951989f0ecca827c71b799ddf618b9d792616e43e81b2",
-      "bytes": 20506,
+      "highDemandNonNullCount": 0,
+      "sha256": "9aaa4fc91bdf135cfcb2f570dd3924cd09b4d13af83463bfe3e82a2f762d5b22",
+      "bytes": 20355,
       "dataVersion": "synthetic-fixture-v1",
       "dataProvenance": "SYNTHETIC",
       "empirical": false
@@ -98,11 +320,7 @@
       "columns": 30,
       "primaryKey": "metricId",
       "primaryKeyDuplicates": 0,
-      "nullRates": {
-        "entryPostingRate": 0.1,
-        "internPostingRate": 0.1,
-        "ncsMappingCoverage": 0.3
-      },
+      "highDemandNonNullCount": null,
       "sha256": "a2686b6aee76eab15d8b8b706f0121967e2c3ecaf9f55723543dab20b215a48b",
       "bytes": 19909,
       "dataVersion": "synthetic-fixture-v1",
@@ -112,22 +330,35 @@
   },
   "analysis": {
     "executed": false,
-    "reason": "Canonical contract and immutable CRAWL_ release are absent.",
-    "primaryWindowCandidate": "2020-01 through 2026-07",
-    "robustnessWindow": "2021-01 through 2026-07",
-    "interventionDates": [
-      "2022-12-01",
-      "2023-01-01",
-      "2023-04-01"
-    ],
-    "effects": []
+    "effects": [],
+    "reason": "Full crawl release is absent; partial conformance input is prohibited for empirical analysis."
   },
   "figures": [],
   "gates": [
     {
+      "gate": "contractChecksums",
+      "status": "PASS",
+      "observed": "11 files"
+    },
+    {
+      "gate": "canonicalDdl",
+      "status": "PASS",
+      "observed": "39 statements, idempotent"
+    },
+    {
+      "gate": "canonicalObjects",
+      "status": "PASS",
+      "observed": "5 schemas, 26 tables, 6 views"
+    },
+    {
+      "gate": "emptyAnalysisReadyGate",
+      "status": "PASS",
+      "observed": "NOT_EVALUATED"
+    },
+    {
       "gate": "unitAndIntegrationTests",
       "status": "PASS",
-      "observed": "74 passed"
+      "observed": "83 passed"
     },
     {
       "gate": "productionNotebookOutputs",
@@ -135,39 +366,19 @@
       "observed": 0
     },
     {
-      "gate": "fixtureNotebookExecution",
+      "gate": "sourceAdapterConformance",
       "status": "PASS",
-      "observed": "15 of 15 executed"
+      "observed": "SOURCE_ADAPTER_CONFORMANCE_ACCEPTED"
     },
     {
-      "gate": "notebookCellIds",
-      "status": "PASS",
-      "observed": 0
-    },
-    {
-      "gate": "postingMartPrimaryKey",
-      "status": "PASS",
-      "observed": 0
-    },
-    {
-      "gate": "timeSeriesMartPrimaryKey",
-      "status": "PASS",
-      "observed": 0
-    },
-    {
-      "gate": "highDemandScoreReserved",
-      "status": "PASS",
-      "observed": 1.0
-    },
-    {
-      "gate": "contractBundle",
+      "gate": "fullCrawlCoverage",
       "status": "FAIL",
-      "observed": "missing"
+      "observed": "11 complete, 68 unverified"
     },
     {
-      "gate": "crawlRelease",
+      "gate": "detailRawLineage",
       "status": "FAIL",
-      "observed": "missing"
+      "observed": false
     },
     {
       "gate": "empiricalAnalysis",
@@ -175,13 +386,16 @@
       "observed": "not executed by design"
     }
   ],
-  "agent1RequestsPath": "DSJA/project_4/shared/handoffs/AGENT2_TO_AGENT1_REQUESTS.json",
-  "agent3IssuesPath": "DSJA/project_4/shared/handoffs/AGENT2_TO_AGENT3_ISSUES.json",
+  "remainingBlockers": [
+    "68 of 79 target months remain paginationUnverified.",
+    "Per-record immutable detail raw HTML lineage is absent from CRAWL_20260806_02.",
+    "NCS KSA and performance-criteria source requires a human-issued API key."
+  ],
   "notebookAudit": [
     {
       "path": "DSJA/project_4/pipeline/notebooks/00ContractAndInputAudit.ipynb",
       "mode": "PRODUCTION",
-      "sha256": "43fac162973020988680dfbd3b621c25c7d5ec7b5452f8b75775171effd61c1d",
+      "sha256": "d293b8ba10fac52967d1c6a615072be17b6580a226c2287b2aedcc4fc0f64191",
       "codeCells": 3,
       "executedCodeCells": 0,
       "outputCount": 0,
@@ -190,7 +404,7 @@
     {
       "path": "DSJA/project_4/pipeline/notebooks/01LoadCrawlRelease.ipynb",
       "mode": "PRODUCTION",
-      "sha256": "9e44e495cc105e025a2b49a8530bd9e79f4ce2b224b5596cc9221eb5b0e34f2d",
+      "sha256": "ee637208cfec0107a9c15c2ca8709bb37aa23cb30dcb54c9e20c9583ebdfc8a2",
       "codeCells": 3,
       "executedCodeCells": 0,
       "outputCount": 0,
@@ -199,7 +413,7 @@
     {
       "path": "DSJA/project_4/pipeline/notebooks/02ParseAndNormalize.ipynb",
       "mode": "PRODUCTION",
-      "sha256": "53d8dccd338b078885c54d7018f2d1e9174367f400bb5e03e1d975bf220e20a8",
+      "sha256": "dc6801fc3b3ed7fe63dcabe94c4390bae240bdf1dc6f42c39e562b64b5240f2c",
       "codeCells": 3,
       "executedCodeCells": 0,
       "outputCount": 0,
@@ -208,7 +422,7 @@
     {
       "path": "DSJA/project_4/pipeline/notebooks/03OcrAndSectionRecovery.ipynb",
       "mode": "PRODUCTION",
-      "sha256": "d332d0df8738b6b94d818033f12d17278ae07bf027c93c986a67b1a55b003dcb",
+      "sha256": "04ed40b2a3c46903211a21e60e04de00bd22bf2c02193fb7334e2088876394ff",
       "codeCells": 3,
       "executedCodeCells": 0,
       "outputCount": 0,
@@ -217,7 +431,7 @@
     {
       "path": "DSJA/project_4/pipeline/notebooks/04SplitTracks.ipynb",
       "mode": "PRODUCTION",
-      "sha256": "3e12f08dbc0373e6833f93265934d56931298dfede6eb1912a5dbdc10ba55b5b",
+      "sha256": "6e1b3375456cf806ea0f1dd3f85c40919384041237b3e8370210ac7f8cdddecc",
       "codeCells": 3,
       "executedCodeCells": 0,
       "outputCount": 0,
@@ -226,7 +440,7 @@
     {
       "path": "DSJA/project_4/pipeline/notebooks/05ExtractRequirements.ipynb",
       "mode": "PRODUCTION",
-      "sha256": "9c5255fcdaa7c4f2ccdf7fb958fb2b01c6399249c2fb6335cc090183bee4d906",
+      "sha256": "f3a5b425d175b8eba4f70dd43177192876eaec530c944f3d2003c604c7bdb92a",
       "codeCells": 3,
       "executedCodeCells": 0,
       "outputCount": 0,
@@ -235,7 +449,7 @@
     {
       "path": "DSJA/project_4/pipeline/notebooks/06Deduplicate90Days.ipynb",
       "mode": "PRODUCTION",
-      "sha256": "e55c1eeb04ef210cee6718eb8a55684764482104ef3c9c110570f6d559941ad7",
+      "sha256": "54454994ab48e0ffe98a84d6f833e7516a979843ace27f69182f490b083a53ef",
       "codeCells": 3,
       "executedCodeCells": 0,
       "outputCount": 0,
@@ -244,7 +458,7 @@
     {
       "path": "DSJA/project_4/pipeline/notebooks/07LabelCareerAccess.ipynb",
       "mode": "PRODUCTION",
-      "sha256": "d3db30150dc2d836f3aa5565b169d8b1fcb2ed05978835670110ebbcfbbc4161",
+      "sha256": "1b3b542d9943eecf7e9cd57165297f2e4100a8c4069f27e44a38c5f603c04670",
       "codeCells": 3,
       "executedCodeCells": 0,
       "outputCount": 0,
@@ -253,7 +467,7 @@
     {
       "path": "DSJA/project_4/pipeline/notebooks/08LoadAndPrepareNcs.ipynb",
       "mode": "PRODUCTION",
-      "sha256": "43d409882a60f6cdcf873b3e38f55954bf085217c09afbce4abb436d797ef26a",
+      "sha256": "41d940eb593633f95fb6b162eda9faa3c2128eecdea86d081bbf207cfba35034",
       "codeCells": 3,
       "executedCodeCells": 0,
       "outputCount": 0,
@@ -262,7 +476,7 @@
     {
       "path": "DSJA/project_4/pipeline/notebooks/09MapPostingToNcs.ipynb",
       "mode": "PRODUCTION",
-      "sha256": "d6e491846698d9d6d3b726c016a1d477d49e6cc220bdd284e506cbd379246df3",
+      "sha256": "a32d8fb04a4b5fdbdda76ba7d6b394a2095af6ad7856162053aef7d96ee4aaec",
       "codeCells": 3,
       "executedCodeCells": 0,
       "outputCount": 0,
@@ -271,7 +485,7 @@
     {
       "path": "DSJA/project_4/pipeline/notebooks/10BuildPostingMart.ipynb",
       "mode": "PRODUCTION",
-      "sha256": "e4984053a64837adfc047f6b1d6c5c5e0371564a8671498acd350d8c3cb9a6cc",
+      "sha256": "432370016c51a2755aa6bd27c608715b4836bc059933565a22e49b44a195019d",
       "codeCells": 3,
       "executedCodeCells": 0,
       "outputCount": 0,
@@ -280,7 +494,7 @@
     {
       "path": "DSJA/project_4/pipeline/notebooks/11BuildTimeSeriesMart.ipynb",
       "mode": "PRODUCTION",
-      "sha256": "2a74e4556f76c887259db5cd312bde5a8871ff27dc5a831445d0a3961fb9bb0a",
+      "sha256": "ef1f36b6fdf9f830be83a16134572e6e174c1953f21cb083534227cccb9a5f36",
       "codeCells": 3,
       "executedCodeCells": 0,
       "outputCount": 0,
@@ -289,7 +503,7 @@
     {
       "path": "DSJA/project_4/pipeline/notebooks/12AnalyzeRq1Rq2.ipynb",
       "mode": "PRODUCTION",
-      "sha256": "f1128ed8c617acf1c4dd5fed9134894fd5a50cdb38d9adcde1246151cf609e13",
+      "sha256": "ddaea0028863446c2df1c27c0c34a446bcd5711a951e3cff6f21a35caf9e120c",
       "codeCells": 3,
       "executedCodeCells": 0,
       "outputCount": 0,
@@ -298,7 +512,7 @@
     {
       "path": "DSJA/project_4/pipeline/notebooks/13BuildArticleFigures.ipynb",
       "mode": "PRODUCTION",
-      "sha256": "6d88da0f09b4c73b66902240f25c7253d85bccf8afe90a52e52e01c3c1d94fdb",
+      "sha256": "2d76274d6d0817620b112c2be9c4c5a639be1be37c7bc12f63c0f355effdf3a8",
       "codeCells": 3,
       "executedCodeCells": 0,
       "outputCount": 0,
@@ -307,7 +521,7 @@
     {
       "path": "DSJA/project_4/pipeline/notebooks/90AuxSimilarity.ipynb",
       "mode": "PRODUCTION",
-      "sha256": "dfe42a5b2a5400f802dabbfa248a853dddca236f45f5b7a596d5538f9f41a8a0",
+      "sha256": "d260b7c8c8dc90871399088d0c184f2222b1c809629e1c26523ce5d42b2ee2f9",
       "codeCells": 3,
       "executedCodeCells": 0,
       "outputCount": 0,
@@ -316,7 +530,7 @@
     {
       "path": "DSJA/project_4/pipeline/notebooks/fixture/00ContractAndInputAudit.ipynb",
       "mode": "SYNTHETIC_FIXTURE",
-      "sha256": "f139a3444580b90193f2f405564cd8ea7f2cf5418e26ce012df558cf30a68fac",
+      "sha256": "0b451341f34a0d750d46b8d86404fbdf38b1c3d35a95452552d3274f7dbb6d51",
       "codeCells": 3,
       "executedCodeCells": 3,
       "outputCount": 3,
@@ -325,7 +539,7 @@
     {
       "path": "DSJA/project_4/pipeline/notebooks/fixture/01LoadCrawlRelease.ipynb",
       "mode": "SYNTHETIC_FIXTURE",
-      "sha256": "1cca0b69fcd03dd944a9e1b7aa5c8a8d169f5a31eb6b39afd3919dfe300b7bf5",
+      "sha256": "6cd7fa23e352eb90c41f997dfed31342356c5de34d8021cdf3b53ff36af262c0",
       "codeCells": 3,
       "executedCodeCells": 3,
       "outputCount": 3,
@@ -334,7 +548,7 @@
     {
       "path": "DSJA/project_4/pipeline/notebooks/fixture/02ParseAndNormalize.ipynb",
       "mode": "SYNTHETIC_FIXTURE",
-      "sha256": "735515a792be019d1bbd470c08c4fef820428536d87f5ffeb0c3c85b56ad4658",
+      "sha256": "f8a3f9470322a22d8405b421abba04e554b8f98bf08dcb493a4219d2260e9793",
       "codeCells": 3,
       "executedCodeCells": 3,
       "outputCount": 3,
@@ -343,7 +557,7 @@
     {
       "path": "DSJA/project_4/pipeline/notebooks/fixture/03OcrAndSectionRecovery.ipynb",
       "mode": "SYNTHETIC_FIXTURE",
-      "sha256": "684fcebd8409eb5da37e4aba0a53bf1cc326a38254f6ada1d44038bbb28e66d7",
+      "sha256": "343bfb54e852ebc4172755442c6866c3c837fab5509ac2530d85ce8bc2a88b76",
       "codeCells": 3,
       "executedCodeCells": 3,
       "outputCount": 3,
@@ -352,7 +566,7 @@
     {
       "path": "DSJA/project_4/pipeline/notebooks/fixture/04SplitTracks.ipynb",
       "mode": "SYNTHETIC_FIXTURE",
-      "sha256": "2dc9693af5d6f2448ced0b7059a7af9d23f6a518e93fda9fd3b0cc8a4ffc096c",
+      "sha256": "b27e4e09103264681daecf76bceddc5769c9f10347fc3ca6f70743e34c3bd5dd",
       "codeCells": 3,
       "executedCodeCells": 3,
       "outputCount": 3,
@@ -361,7 +575,7 @@
     {
       "path": "DSJA/project_4/pipeline/notebooks/fixture/05ExtractRequirements.ipynb",
       "mode": "SYNTHETIC_FIXTURE",
-      "sha256": "cc7162edc0fd4698f70a0629be9bb36578b30daefe8df9489605667d74f97bd9",
+      "sha256": "22e27d2d13a41b66d96d34b40a33392d429ac01c390205624e5c1a46996d8a39",
       "codeCells": 3,
       "executedCodeCells": 3,
       "outputCount": 3,
@@ -370,7 +584,7 @@
     {
       "path": "DSJA/project_4/pipeline/notebooks/fixture/06Deduplicate90Days.ipynb",
       "mode": "SYNTHETIC_FIXTURE",
-      "sha256": "c58c37cedeef83ac5e82a93e6d4842407c0824f142dddc800270efe351c21c86",
+      "sha256": "64509b3a671b60f9d0c0937d02d773d5f60a19a9bc9a48d6a00e6c5e3a683595",
       "codeCells": 3,
       "executedCodeCells": 3,
       "outputCount": 3,
@@ -379,7 +593,7 @@
     {
       "path": "DSJA/project_4/pipeline/notebooks/fixture/07LabelCareerAccess.ipynb",
       "mode": "SYNTHETIC_FIXTURE",
-      "sha256": "200eb9b6d1b921b65e9075c78e0db1f55259c3a877b1f9b0cce72f6674b72df7",
+      "sha256": "967b267983a86217d584112a265e2ddf2f486026279605fe2e83786bd7bff95b",
       "codeCells": 3,
       "executedCodeCells": 3,
       "outputCount": 3,
@@ -388,7 +602,7 @@
     {
       "path": "DSJA/project_4/pipeline/notebooks/fixture/08LoadAndPrepareNcs.ipynb",
       "mode": "SYNTHETIC_FIXTURE",
-      "sha256": "b25c1c65a41d08d7c5419534cc1a5dcd4b034b43fde0998d89e3fcf957a83eec",
+      "sha256": "b1962d06a32f1b815de3201c8d70d83a364e4786c5b3f73e025c1d5a2d0d4e73",
       "codeCells": 3,
       "executedCodeCells": 3,
       "outputCount": 3,
@@ -397,7 +611,7 @@
     {
       "path": "DSJA/project_4/pipeline/notebooks/fixture/09MapPostingToNcs.ipynb",
       "mode": "SYNTHETIC_FIXTURE",
-      "sha256": "8b5e60bad285293f0ca61ea373b64908af741fae6dc0d66808c398cc0fcbb22c",
+      "sha256": "33a2e0ae8d5a303153a92d282d74aa70c41a89ff7d6f134bdf4c7b80c918b88a",
       "codeCells": 3,
       "executedCodeCells": 3,
       "outputCount": 3,
@@ -406,7 +620,7 @@
     {
       "path": "DSJA/project_4/pipeline/notebooks/fixture/10BuildPostingMart.ipynb",
       "mode": "SYNTHETIC_FIXTURE",
-      "sha256": "10da498630da6998917ba17fefc37965bd0eaef78d89739f641f60527651f1a0",
+      "sha256": "f1fd38d85c2ea66c0a8d19aea3952537070d933d15227206efa22028aa90fa60",
       "codeCells": 3,
       "executedCodeCells": 3,
       "outputCount": 3,
@@ -415,7 +629,7 @@
     {
       "path": "DSJA/project_4/pipeline/notebooks/fixture/11BuildTimeSeriesMart.ipynb",
       "mode": "SYNTHETIC_FIXTURE",
-      "sha256": "5347f3f1dd088208738e3d30b6bc7a3fa12045755e1e15a21dd7ce3c037276bc",
+      "sha256": "2168e87419598e6d984a811b7807ebc11dc513e4f2e40a1364623ba5c4f5c102",
       "codeCells": 3,
       "executedCodeCells": 3,
       "outputCount": 3,
@@ -424,7 +638,7 @@
     {
       "path": "DSJA/project_4/pipeline/notebooks/fixture/12AnalyzeRq1Rq2.ipynb",
       "mode": "SYNTHETIC_FIXTURE",
-      "sha256": "edc9dc35f21c2d0f4902acc4625d9e7a04fd79c9827ae4f1588053c0a56c7dbf",
+      "sha256": "dda9d493bb6cfea6f196715f760304cf40d476b30a4369ca5c3de6a7d86343d2",
       "codeCells": 3,
       "executedCodeCells": 3,
       "outputCount": 3,
@@ -433,7 +647,7 @@
     {
       "path": "DSJA/project_4/pipeline/notebooks/fixture/13BuildArticleFigures.ipynb",
       "mode": "SYNTHETIC_FIXTURE",
-      "sha256": "bb62a2aed72f50171e699bc58a41dc5a0aab07d3964a0064b2c865de433fa94d",
+      "sha256": "cdfbde262d5f5eb31df7e06910efb9b24e2f39fe70b91fa7ceaf90681eb5b7d4",
       "codeCells": 3,
       "executedCodeCells": 3,
       "outputCount": 3,
@@ -442,15 +656,11 @@
     {
       "path": "DSJA/project_4/pipeline/notebooks/fixture/90AuxSimilarity.ipynb",
       "mode": "SYNTHETIC_FIXTURE",
-      "sha256": "0c4699485c3770eaaaf26ec30a959312af2c3a618b37a9c6b963852002bce873",
+      "sha256": "7aed969e391b9ead8883fe5895138ce4b3e9a4099212a3ce0d0c709a09fe567c",
       "codeCells": 3,
       "executedCodeCells": 3,
       "outputCount": 3,
       "missingCellIds": 0
     }
-  ],
-  "remainingBlockers": [
-    "Agent 3 canonical P4_CONTRACT_v2.1.2 bundle is absent.",
-    "Agent 1 immutable crawl/releases/CRAWL_*/HANDOFF.json is absent."
   ]
 }

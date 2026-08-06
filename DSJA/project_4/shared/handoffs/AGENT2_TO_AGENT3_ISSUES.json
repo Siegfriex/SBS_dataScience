@@ -1,83 +1,16 @@
 {
   "agentId": "P4-A2-PIPELINE",
   "agentName": "P4 Contract-Driven Pipeline & Analysis Engineer",
-  "status": "BLOCKED_BY_CONTRACT",
-  "targetContractVersion": "2.1.2",
-  "contractBundlePath": "DSJA/project_4/shared/contracts/P4_CONTRACT_v2.1.2",
-  "contractBundlePresent": false,
-  "issues": [
-    {
-      "issueId": "A2-A3-001",
-      "issueType": "ELIGIBILITY_SPLIT_REQUIRED",
-      "severity": "P0",
-      "requestedFields": [
-        "postingEligibleFlag",
-        "rq1EligibleFlag",
-        "rq2EligibleFlag",
-        "ncsEligibleFlag",
-        "canonicalRecordFlag",
-        "rq2ExclusionReason"
-      ],
-      "reason": "RQ1 posting, RQ2 track, and NCS track denominators require independent flags; canonicalRecordFlag remains a separate dedup dimension."
-    },
-    {
-      "issueId": "A2-A3-002",
-      "issueType": "APQ_SOURCE_FIELDS_REQUIRED",
-      "severity": "P0",
-      "requestedFields": [
-        "activityTypeId",
-        "jobTypesRawJson",
-        "jobTypeConflictFlag",
-        "externalApplyFlag"
-      ],
-      "reason": "APQ structured values must remain auditable and conflicts must trigger review rather than overwrite source evidence."
-    },
-    {
-      "issueId": "A2-A3-003",
-      "issueType": "SSR_APOLLO_ENTITY_REQUIRED",
-      "severity": "P0",
-      "requestedFields": [
-        "dutiesRawJson",
-        "activityTextHtml",
-        "activityTextAvailableFlag",
-        "externalApplyUrl",
-        "externalAtsDomain"
-      ],
-      "reason": "SSR __NEXT_DATA__, Apollo entities, ActivityText HTML, and external apply lineage must be preserved."
-    },
-    {
-      "issueId": "A2-A3-004",
-      "issueType": "EXTERNAL_ATS_EXCLUSION_REQUIRED",
-      "severity": "P0",
-      "requestedFields": [
-        "externalApplyFlag",
-        "externalDetailOnlyFlag",
-        "rq2ExclusionReason"
-      ],
-      "reason": "externalApplyFlag alone does not exclude RQ2; only externalDetailOnlyFlag with unavailable body evidence does."
-    },
-    {
-      "issueId": "A2-A3-005",
-      "issueType": "KEY_CONTRACT_REQUIRED",
-      "severity": "P0",
-      "requestedFields": [
-        "keyAlgorithm",
-        "keyNamespace",
-        "keyFormat",
-        "keyInputOrder"
-      ],
-      "reason": "Dataset Spec SHA-1 and development SHA-256 conflict. CanonicalContractStrategy refuses to select a final algorithm without v2.1.2 rules."
-    },
-    {
-      "issueId": "A2-A3-006",
-      "issueType": "CANONICAL_DDL_EXECUTABILITY",
-      "severity": "P0",
-      "requestedFields": [
-        "duckdbVersion",
-        "crossSchemaForeignKeyCount",
-        "reservedFields"
-      ],
-      "reason": "Canonical DDL must have zero cross-schema physical foreign keys and reserve highDemandScore as nullable."
-    }
-  ]
+  "status": "CONTRACT_ACCEPTED",
+  "contractVersion": "2.1.2",
+  "newIssues": [],
+  "resolvedIssues": [
+    "ELIGIBILITY_SPLIT_REQUIRED",
+    "APQ_SOURCE_FIELDS_REQUIRED",
+    "SSR_APOLLO_ENTITY_REQUIRED",
+    "EXTERNAL_ATS_EXCLUSION_REQUIRED",
+    "KEY_CONTRACT_REQUIRED",
+    "CANONICAL_DDL_EXECUTABILITY"
+  ],
+  "note": "No v2.1.3 request. Producer-local OCR routing and partial-release rejection are handled in Agent 2 code."
 }

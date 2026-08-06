@@ -1,34 +1,50 @@
 {
   "agentId": "P4-A2-PIPELINE",
   "agentName": "P4 Contract-Driven Pipeline & Analysis Engineer",
-  "pipelineStatus": "PIPELINE_FOUNDATION_READY",
-  "contractStatus": "BLOCKED_BY_CONTRACT",
-  "crawlInputStatus": "BLOCKED_BY_CRAWL_RELEASE",
+  "statusCodes": [
+    "CONTRACT_LINKED",
+    "BLOCKED_BY_FULL_CRAWL_RELEASE",
+    "PIPELINE_FOUNDATION_READY"
+  ],
   "branch": "agent/p4-pipeline-v2",
   "headRef": "HEAD",
-  "headResolution": "Resolve HEAD in this branch when the handoff is consumed; a report cannot embed the hash of its own commit.",
-  "targetContractVersion": "2.1.2",
-  "supportedContractVersion": null,
-  "crawlReleaseId": null,
-  "dataVersion": "synthetic-fixture-v1",
-  "dataProvenance": "SYNTHETIC",
+  "contractVersion": "2.1.2",
+  "contractLinked": true,
+  "crawlReleaseId": "CRAWL_20260806_02",
+  "crawlAcceptance": "SOURCE_ADAPTER_CONFORMANCE_ACCEPTED",
+  "empiricalCorpusStatus": "EMPIRICAL_CORPUS_REJECTED",
+  "dataProvenance": "PARTIAL_CONFORMANCE_ONLY",
   "empiricalAnalysisAllowed": false,
   "canonicalWarehousePath": "DSJA/project_4/pipeline/data/warehouse/p4.duckdb",
-  "canonicalWarehouseExecuted": false,
+  "canonicalWarehouseExecuted": true,
+  "canonicalAnalysisReadyGate": "NOT_EVALUATED",
   "developmentWarehousePath": "DSJA/project_4/pipeline/data/warehouse/p4.development.duckdb",
-  "postingMartPath": "DSJA/project_4/pipeline/data/marts/postingAnalysisMart.parquet",
-  "timeSeriesMartPath": "DSJA/project_4/pipeline/data/marts/timeSeriesMart.parquet",
   "martsEmpirical": false,
-  "reportPaths": [
-    "DSJA/project_4/pipeline/reports/agent2/AGENT2_FINAL_REPORT.md",
-    "DSJA/project_4/pipeline/reports/agent2/AGENT2_FINAL_REPORT.json"
-  ],
-  "artifactManifestPath": "DSJA/project_4/pipeline/reports/agent2/ARTIFACT_MANIFEST.json",
   "qualityChecks": [
+    {
+      "gate": "contractChecksums",
+      "status": "PASS",
+      "observed": "11 files"
+    },
+    {
+      "gate": "canonicalDdl",
+      "status": "PASS",
+      "observed": "39 statements, idempotent"
+    },
+    {
+      "gate": "canonicalObjects",
+      "status": "PASS",
+      "observed": "5 schemas, 26 tables, 6 views"
+    },
+    {
+      "gate": "emptyAnalysisReadyGate",
+      "status": "PASS",
+      "observed": "NOT_EVALUATED"
+    },
     {
       "gate": "unitAndIntegrationTests",
       "status": "PASS",
-      "observed": "74 passed"
+      "observed": "83 passed"
     },
     {
       "gate": "productionNotebookOutputs",
@@ -36,39 +52,19 @@
       "observed": 0
     },
     {
-      "gate": "fixtureNotebookExecution",
+      "gate": "sourceAdapterConformance",
       "status": "PASS",
-      "observed": "15 of 15 executed"
+      "observed": "SOURCE_ADAPTER_CONFORMANCE_ACCEPTED"
     },
     {
-      "gate": "notebookCellIds",
-      "status": "PASS",
-      "observed": 0
-    },
-    {
-      "gate": "postingMartPrimaryKey",
-      "status": "PASS",
-      "observed": 0
-    },
-    {
-      "gate": "timeSeriesMartPrimaryKey",
-      "status": "PASS",
-      "observed": 0
-    },
-    {
-      "gate": "highDemandScoreReserved",
-      "status": "PASS",
-      "observed": 1.0
-    },
-    {
-      "gate": "contractBundle",
+      "gate": "fullCrawlCoverage",
       "status": "FAIL",
-      "observed": "missing"
+      "observed": "11 complete, 68 unverified"
     },
     {
-      "gate": "crawlRelease",
+      "gate": "detailRawLineage",
       "status": "FAIL",
-      "observed": "missing"
+      "observed": false
     },
     {
       "gate": "empiricalAnalysis",
@@ -77,7 +73,13 @@
     }
   ],
   "remainingBlockers": [
-    "Agent 3 canonical P4_CONTRACT_v2.1.2 bundle is absent.",
-    "Agent 1 immutable crawl/releases/CRAWL_*/HANDOFF.json is absent."
-  ]
+    "68 of 79 target months remain paginationUnverified.",
+    "Per-record immutable detail raw HTML lineage is absent from CRAWL_20260806_02.",
+    "NCS KSA and performance-criteria source requires a human-issued API key."
+  ],
+  "reportPaths": [
+    "DSJA/project_4/pipeline/reports/agent2/AGENT2_FINAL_REPORT.md",
+    "DSJA/project_4/pipeline/reports/agent2/AGENT2_FINAL_REPORT.json"
+  ],
+  "artifactManifestPath": "DSJA/project_4/pipeline/reports/agent2/ARTIFACT_MANIFEST.json"
 }

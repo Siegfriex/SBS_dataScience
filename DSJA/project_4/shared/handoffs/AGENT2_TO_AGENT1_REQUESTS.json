@@ -1,32 +1,82 @@
 {
   "agentId": "P4-A2-PIPELINE",
   "agentName": "P4 Contract-Driven Pipeline & Analysis Engineer",
-  "status": "BLOCKED_BY_CRAWL_RELEASE",
-  "acceptedReleasePrefix": "CRAWL_",
-  "rejectedReleasePrefixes": [
-    "RECON_"
-  ],
+  "status": "BLOCKED_BY_FULL_CRAWL_RELEASE",
+  "lastReviewedReleaseId": "CRAWL_20260806_02",
   "requests": [
     {
       "requestId": "A2-A1-P0-001",
       "priority": "P0",
-      "requiredField": "official immutable HANDOFF.json with release_id, contract_version, manifest_paths, coverage_path, checksum_path, query_registry_path, schema_snapshot_path",
-      "affectedTable": "raw.linkareerPostingRaw",
-      "affectedMetric": "all empirical RQ1 RQ2 NCS metrics",
-      "affectedPeriod": "2020-01 through 2026-07; 2021-01 robustness; 2019 audit only",
+      "status": "resolved",
+      "requiredField": "release envelope with seven required locator fields and contractVersion 2.1.2",
+      "affectedTable": "raw.crawlRun",
+      "affectedMetric": "release conformance",
+      "affectedPeriod": "CRAWL_20260806_02",
       "examplePostingIds": [],
-      "reason": "No crawl/releases/CRAWL_*/HANDOFF.json exists. RECON packages are not accepted as raw lineage.",
-      "blocking": true
+      "reason": "Resolved in CRAWL_20260806_02; all locator fields exist and contract_version is 2.1.2.",
+      "blocking": false
     },
     {
       "requestId": "A2-A1-P0-002",
       "priority": "P0",
-      "requiredField": "checksum-valid raw manifest lineage fields sourceUrl, rawPath, rawSha256",
-      "affectedTable": "raw.linkareerIndexRaw and raw.linkareerPostingRaw",
-      "affectedMetric": "source adapter conformance and all coverage denominators",
-      "affectedPeriod": "official crawl release",
+      "status": "open",
+      "requiredField": "per-record immutable detail rawPath and rawSha256 for every sampled and collected Linkareer posting",
+      "affectedTable": "raw.linkareerPostingRaw",
+      "affectedMetric": "all empirical RQ1 RQ2 NCS metrics",
+      "affectedPeriod": "2020-01 through 2026-07",
+      "examplePostingIds": [
+        "339737",
+        "339821"
+      ],
+      "reason": "The n=126 artifact preserves derived fields, not full raw HTML per posting.",
+      "blocking": true
+    },
+    {
+      "requestId": "A2-A1-P0-003",
+      "priority": "P0",
+      "status": "resolved",
+      "requiredField": "explicit monthly coverage rows without silent omissions",
+      "affectedTable": "qa.monthlyCoverageAudit",
+      "affectedMetric": "coverage denominators",
+      "affectedPeriod": "2019 audit and 2020-01 through 2026-07",
       "examplePostingIds": [],
-      "reason": "The release validator rejects empty manifests, missing referenced files, checksum mismatch, and manifests without raw lineage.",
+      "reason": "Resolved: all target months have explicit coverageStatus and coverageReason.",
+      "blocking": false
+    },
+    {
+      "requestId": "A2-A1-P0-004",
+      "priority": "P0",
+      "status": "open",
+      "requiredField": "pagination_verified=true for all 79 target months or an approved analysis-window coverage contract",
+      "affectedTable": "qa.monthlyCoverageAudit",
+      "affectedMetric": "all time-series metrics",
+      "affectedPeriod": "2020-01 through 2026-07",
+      "examplePostingIds": [],
+      "reason": "Only 11 of 79 target months are complete; 68 remain paginationUnverified.",
+      "blocking": true
+    },
+    {
+      "requestId": "A2-A1-P0-005",
+      "priority": "P0",
+      "status": "resolved",
+      "requiredField": "stratified Linkareer detail sample n>=100",
+      "affectedTable": "source adapter QA",
+      "affectedMetric": "eligibility and OCR routing regression",
+      "affectedPeriod": "2020 through 2026",
+      "examplePostingIds": [],
+      "reason": "Resolved with 126 of 126 successful derived-detail records.",
+      "blocking": false
+    },
+    {
+      "requestId": "A2-A1-P1-006",
+      "priority": "P1",
+      "status": "partial",
+      "requiredField": "NCS manifest including KSA, ability-unit elements, and performance criteria",
+      "affectedTable": "ncs.ncsUnit and ncs.ncsLearningModule",
+      "affectedMetric": "NCS mapping",
+      "affectedPeriod": "current source version",
+      "examplePostingIds": [],
+      "reason": "Ability-unit CSV has 13,442 rows and levels 1-8; KSA endpoint still requires a human API key.",
       "blocking": true
     }
   ]

@@ -4,49 +4,39 @@ agentId = P4-A2-PIPELINE
 
 agentName = P4 Contract-Driven Pipeline & Analysis Engineer
 
-## Executive verdict
+## Status
 
-- pipelineStatus: `PIPELINE_FOUNDATION_READY`
-- contractStatus: `BLOCKED_BY_CONTRACT`
-- crawlInputStatus: `BLOCKED_BY_CRAWL_RELEASE`
+- `CONTRACT_LINKED`
+- `BLOCKED_BY_FULL_CRAWL_RELEASE`
+- `PIPELINE_FOUNDATION_READY`
 - empiricalAnalysisAllowed: `false`
 
-The parser, eligibility, development warehouse, mart, provenance, and validation foundation is ready. No Linkareer/NCS observation, effect estimate, or article figure was generated.
+## Contract and warehouse
 
-## Repository
+- Contract: `2.1.2`
+- Contract SHA-256: `f92380cdfc16967f1e363800cd9a575e44532f18a86b2f28f8c3e2404ed675e9`
+- DDL SHA-256: `956986874eae5686a20a52721dc303f1913c7391b2ee27da6d582a762f73ad58`
+- Checksums: 11 PASS, 0 failures
+- Canonical DDL: 39 statements; two executions identical
+- Objects: 5 schemas, 26 tables, 6 QA views
+- Empty `vAnalysisReadyGate`: `NOT_EVALUATED`
 
-- Git root: `/home/sieg/projects-wsl/SBS_dataScience`
-- Branch: `agent/p4-pipeline-v2`
-- HEAD reference: `HEAD`
-- HEAD resolution: resolve `HEAD` on this branch when consuming the handoff
+## Partial crawl conformance
 
-## Contract and crawl input
+- Release: `CRAWL_20260806_02` (`PARTIALLY_READY`)
+- Acceptance: `SOURCE_ADAPTER_CONFORMANCE_ACCEPTED`
+- Empirical corpus: `EMPIRICAL_CORPUS_REJECTED`
+- Target coverage: 11 complete, 68 unverified
+- Complete-month distinct postings: 11,825
+- Detail sample: 126 success, 0 failure
+- Per-record raw HTML lineage: absent
+- NCS ability-unit records: 13,442
 
-- Target contract: `P4_CONTRACT_v2.1.2`; missing files: 6
-- Contract checksum and canonical DDL: not executed
-- Official `CRAWL_` releases: 0
-- Empirical input rows: 0
-- RECON accepted as raw input: no
+Sample rates are conformance diagnostics, not empirical findings: ActivityText 100.0%, external apply 99.2%, external detail only 19.0%, RQ1 100.0%, RQ2 81.0%, NCS 21.4%, conflict 0.8%, embedded-image OCR candidate 89.7%.
 
-## Verified software outputs
+## Verification
 
-- Tests: 74 passed, 0 failed, 0 errors
-- Production notebooks: 15, output count 0
-- Synthetic fixture notebooks: 15, all code cells executed
-- Synthetic fixture raw/normalized/track rows: 6/6/6
-- Synthetic posting mart: 6 rows × 34 columns; PK duplicates 0
-- Synthetic time-series mart: 10 rows × 30 columns; PK duplicates 0
-- `highDemandScore` null rate: 100.0%
-
-These fixture counts verify code paths only. They are not source coverage or empirical findings.
-
-## Gates
-
-- PASS: tests, production notebook output isolation, fixture notebook execution, cell IDs, mart primary keys, reserved `highDemandScore`
-- FAIL: canonical contract bundle, immutable crawl release
-- WARN: analysis and figures intentionally not executed
-
-## Remaining blockers
-
-- Agent 3 must publish checksum-valid `P4_CONTRACT_v2.1.2`.
-- Agent 1 must publish a checksum-valid immutable `CRAWL_` release with raw lineage.
+- Tests: 83 passed, 0 failed, 0 errors
+- Production notebooks: 15, outputs 0
+- Fixture notebooks: 15, all code cells executed
+- Empirical marts, analysis, figures: not generated
