@@ -1,0 +1,31 @@
+{
+  "agentId": "P4-A1-SOURCE",
+  "agentName": "P4 Source Acquisition & Coverage Engineer",
+  "snapshotAt": "2026-08-06",
+  "contractVersion": "2.1.2",
+  "contractSha256Verified": "f92380cdfc16967f1e363800cd9a575e44532f18a86b2f28f8c3e2404ed675e9",
+  "note": "This release now vendors P4_CONTRACT_v2.1.2 (shared/contracts/P4_CONTRACT_v2.1.2/, all 11 files sha256-verified locally). This snapshot records conformance/gaps against the canonical contract, not a competing proposal.",
+  "conformance": {
+    "queryRegistrySchema": "query_registry.yaml in this release follows the contract's primaryKey (operationName+sha256Hash) and columns (variablesSchemaJson/responseSchemaJson in place of the earlier informal responseSchemaVersion field).",
+    "coverageSchema": "monthly_coverage.csv carries coverageStatus/coverageReason/platformCoverageRegime per contract. 2019 rows use the contract's exact provisional values (insufficient/platformPreLaunch/preStableRecruitService).",
+    "keyContract": "Not yet applied by Agent 1 -- postingId/rawPostingId/trackId etc. generation is Agent 2's pipeline responsibility. Recorded here for reference: PST_/RAW_/TRK_/SEC_/REQ_/NMT_ prefixes, SHA-256, '|' separator, 20 hex chars.",
+    "sourcePolicyGate": "IMPORTANT UPDATE FOR AGENT 3 -- SOURCE_POLICY_GATE.md condition 3/5 (transparentClientVerified=true, clientAccessMode not impersonatedOnly) were evaluated against RECON_20260806_01 evidence (curl_cffi impersonate=chrome only). CRAWL_20260806_01 (commit bec745b, prior to this release) already established httpx-with-honest-UA reproduces identical 200 responses with NO impersonation for both APQ list and SSR detail. This should allow qa.vSourcePolicyGate to move from REVIEW_REQUIRED toward PASS -- filed as AGENT1_TO_AGENT3_ISSUES A1-A3-012."
+  },
+  "requiredCollectorRulesStatus": {
+    "Omit the status filter from historical collection.": "IMPLEMENTED -- all pagination-audit and detail collection in this release omits status from filterBy.",
+    "Advance global nodePagination until every day-side bucket reaches its own totalCount.": "IMPLEMENTED and empirically verified complete on 11/79 target months (monthly_coverage.csv).",
+    "Scan activityTextHtml for embedded images and route them through postingAsset and OCR lineage.": "IMPLEMENTED in the stratified sample measurement -- and the result is a MAJOR correction to the prior working assumption: activityTextEmbeddedImageFlag=true in 89.7% of n=126 sampled postings, while hasPosterFile (files[].type='포스터') matched 0/126. An OCR router keyed only on the poster-file signal would miss essentially the entire image-bearing corpus. See AGENT1_TO_AGENT3_ISSUES A1-A3-009 (now elevated to P0)."
+  },
+  "eligibilityRatesThisRelease": {
+    "sampleN": 126,
+    "externalApplyShare": 0.992,
+    "externalDetailOnlyShare": 0.190,
+    "activityTextAvailabilityRate": 1.0,
+    "rq1EligibilityRate": 1.0,
+    "rq2EligibilityRate": 0.810,
+    "ncsEligibilityRate": 0.214,
+    "jobTypeConflictRate": 0.008,
+    "imageOcrRoutingRate": 0.897,
+    "note": "n=126 is a year-stratified (18/year x 7 years, 2020-2026) but NOT fully cross-stratified sample (jobTypes/textLen/domain strata are reported post-hoc, not pre-designed). Treat as a strong pilot signal, not the final formal sample."
+  }
+}

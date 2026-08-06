@@ -1,0 +1,70 @@
+{
+  "agent_id": "P4-A1-SOURCE",
+  "agent_name": "P4 Source Acquisition & Coverage Engineer",
+  "release_id": "CRAWL_20260806_02",
+  "contract_version": "2.1.2",
+  "branch": "agent/p4-crawl-release-v2",
+  "head_commit": "",
+  "created_at": "2026-08-06T15:40:00+09:00",
+  "source_start": "2020-01-01",
+  "source_end": "2026-07-31",
+  "manifest_paths": [
+    "crawl_manifest.jsonl",
+    "asset_manifest.jsonl",
+    "ncs_manifest.jsonl"
+  ],
+  "coverage_path": "monthly_coverage.csv",
+  "checksum_path": "CHECKSUMS.sha256",
+  "query_registry_path": "query_registry.yaml",
+  "schema_snapshot_path": "schema_snapshot.json",
+  "pagination_verified": false,
+  "pagination_verified_note": "11/79 target months (2020-01..2026-07) fully verified complete (returnedDistinctCount==expectedTotalCount). 68 months remain unverified, explicitly listed (not silently omitted) in monthly_coverage.csv with coverageReason=paginationUnverified.",
+  "terms_status": "reviewedConditional",
+  "robots_status": "allowed",
+  "transparent_client_verified": true,
+  "transparent_client_note": "httpx with explicit research User-Agent, no TLS impersonation, used for ALL requests in this release (list, detail, NCS download, Wayback CDX). Identical 200 responses to impersonated curl_cffi established in CRAWL_20260806_01. Flagged to Agent 3 (A1-A3-012) that SOURCE_POLICY_GATE.md's REVIEW_REQUIRED status predates this evidence.",
+  "rq1_eligibility_rate": 1.0,
+  "rq2_eligibility_rate": 0.810,
+  "ncs_eligibility_rate": 0.214,
+  "additional_metrics": {
+    "sampleN": 126,
+    "externalApplyShare": 0.992,
+    "externalDetailOnlyShare": 0.190,
+    "activityTextAvailabilityRate": 1.0,
+    "jobTypeConflictRate": 0.008,
+    "imageOcrRoutingRate": 0.897,
+    "posterFileOcrRoutingRate": 0.0,
+    "waybackSurvivalRate2020": 1.0,
+    "waybackSurvivalRate2021": 1.0,
+    "waybackSurvivalRate2022": 1.0,
+    "ncsUnitRecordCount": 13442
+  },
+  "known_gaps": [
+    "68/79 target months not yet pagination-audited (see monthly_coverage.csv coverageReason=paginationUnverified rows)",
+    "Detail collection for this release used derived-field capture only, not full raw HTML per-posting lineage (stratified_detail_sample_n126.json is the closest available lineage artifact)",
+    "NCS KSA source (data.go.kr/15157542) unverified -- requires a human-registered API key before RQ2-B/NCS-mapping pipeline design",
+    "recruitStartAt/recruitCloseAt rangeBy AND/OR combination semantics still unresolved",
+    "Wayback survival sample is small (15/year, 3 years) -- 100% survival observed but not yet a statistically robust estimate",
+    "2019 recruit(activityTypeID=5) confirmed effectively unlaunched -- excluded from primary analysis window per confirmed decision, retained as platformPreLaunch coverage rows"
+  ],
+  "known_missing_fields": [
+    "postingId/rawPostingId/trackId etc. (contract keyContract) not applied at Agent 1 layer -- Agent 2 pipeline responsibility"
+  ],
+  "artifact_manifest": [
+    "crawl_manifest.jsonl",
+    "asset_manifest.jsonl",
+    "ncs_manifest.jsonl",
+    "monthly_coverage.csv",
+    "monthly_coverage.parquet",
+    "wayback_survival_audit.csv",
+    "stratified_detail_sample_n126.csv",
+    "stratified_detail_sample_n126.json",
+    "schema_snapshot.json",
+    "query_registry.yaml",
+    "data/ncs/ncsUnit_20260806.csv",
+    "data/ncs/ncsUnit_20260806.utf8.csv",
+    "README.md",
+    "CHECKSUMS.sha256"
+  ],
+  "status": "PARTIALLY_READY"
+}
