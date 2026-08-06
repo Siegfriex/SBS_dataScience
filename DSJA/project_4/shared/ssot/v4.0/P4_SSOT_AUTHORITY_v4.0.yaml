@@ -1,0 +1,33 @@
+ssotId: P4_FINAL_DESIGN_V4_0
+title: P4 final design v4.0
+status: CANONICAL_IMPLEMENTATION_BASELINE
+effectiveAt: '2026-08-06'
+projectRoot: /home/sieg/projects-wsl/SBS_dataScience/DSJA/project_4
+canonicalRepositoryPath: DSJA/project_4/shared/ssot/v4.0/P4_final_design_v4.0.md
+sourceDocument:
+  path: P4_DOCS/SBS_P4_PROJECT4_v2_bootstrap/SBS_P4_PROJECT4_v2_bootstrap/docs/ssot/P4_final_design_v4.0.md
+  sha256: 409866c166ce3874ce587ad3b1230bc530c036e9682be01bf3466aa1fd37a05a
+  byteIdenticalCopyRequired: true
+authorityOrder:
+  - raw bytes and SHA-256
+  - immutable release manifest
+  - Git commit and Notebook blob SHA
+  - current-run stage artifacts
+  - test evidence
+  - audit reports
+  - agent summaries
+compatibleContract:
+  id: P4_CONTRACT_v2.1.2
+  mutationAllowed: false
+implementationAddendum: P4_SEMANTIC_NCS_REFERENCE_ADDENDUM_v4.0
+forbiddenPromotions:
+  - CRAWL_RELEASE_READY
+  - PRODUCTION_PREPROCESSED_DATA_READY
+  - DATA_READY_RQ1_RQ2A
+  - DATA_READY_RQ2B
+  - ANALYSIS_READY
+  - RELEASE_READY
+networkPolicy:
+  productionLinkareerCallsAllowed: false
+  externalAtsTransportAllowed: false
+  minimalNcsWork24ContractProbeAllowed: true
