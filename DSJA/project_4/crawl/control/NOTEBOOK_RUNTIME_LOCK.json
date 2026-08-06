@@ -1,0 +1,20 @@
+{
+  "lockVersion": "p4-notebook-runtime-lock-v1",
+  "python": "==3.12.3",
+  "executionEngine": "nbclient",
+  "packages": {
+    "beautifulsoup4": "==4.15.0",
+    "ipykernel": "==7.3.0",
+    "jsonschema": "==4.10.3",
+    "jupyter_client": "==8.9.1",
+    "nbclient": "==0.11.0",
+    "nbformat": "==5.10.4",
+    "pandas": "==3.0.3",
+    "pyarrow": "==25.0.0",
+    "PyYAML": "==6.0.3"
+  },
+  "papermill": {
+    "status": "NOT_REQUIRED",
+    "reason": "execution-engine-is-nbclient"
+  }
+}

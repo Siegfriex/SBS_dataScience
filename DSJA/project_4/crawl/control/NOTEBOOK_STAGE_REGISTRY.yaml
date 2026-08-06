@@ -40,6 +40,7 @@ ncsM1Policy:
 
 notebookGeneration:
   registryDriven: true
+  topologicalOrderFromUpstream: true
   deterministicCellIds: true
   parameterCellFirst: true
   sourceOutputCount: 0
