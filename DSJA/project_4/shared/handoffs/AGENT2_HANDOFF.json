@@ -1,0 +1,64 @@
+{
+  "agentId": "AGENT_2",
+  "status": "BLOCKED_BY_CONTRACT",
+  "secondaryBlockers": [
+    "BLOCKED_BY_CRAWL_RELEASE"
+  ],
+  "branch": "agent/p4-pipeline-v2",
+  "headAtGeneration": "cbd8b848a28201bac506a96797fc04cdb20b35e9",
+  "contractVersion": null,
+  "crawlReleaseId": null,
+  "dataVersion": "synthetic-fixture-v1",
+  "dataProvenance": "generated_structural_fixture",
+  "empiricalAnalysisAllowed": false,
+  "warehousePath": "DSJA/project_4/pipeline/data/warehouse/p4.duckdb",
+  "postingMartPath": "DSJA/project_4/pipeline/data/marts/postingAnalysisMart.parquet",
+  "timeSeriesMartPath": "DSJA/project_4/pipeline/data/marts/timeSeriesMart.parquet",
+  "reportPaths": [
+    "DSJA/project_4/pipeline/reports/agent2/AGENT2_FINAL_REPORT.md",
+    "DSJA/project_4/pipeline/reports/agent2/AGENT2_FINAL_REPORT.json"
+  ],
+  "artifactManifestPath": "DSJA/project_4/pipeline/reports/agent2/ARTIFACT_MANIFEST.json",
+  "qualityChecks": [
+    {
+      "gate": "unitAndIntegrationTests",
+      "status": "PASS",
+      "observed": "61 passed"
+    },
+    {
+      "gate": "notebookExecution",
+      "status": "PASS",
+      "observed": "15 of 15 executed"
+    },
+    {
+      "gate": "postingMartPrimaryKey",
+      "status": "PASS",
+      "observed": 0
+    },
+    {
+      "gate": "timeSeriesMartPrimaryKey",
+      "status": "PASS",
+      "observed": 0
+    },
+    {
+      "gate": "highDemandScoreReserved",
+      "status": "PASS",
+      "observed": 1.0
+    },
+    {
+      "gate": "contractBundle",
+      "status": "FAIL",
+      "observed": "missing"
+    },
+    {
+      "gate": "crawlRelease",
+      "status": "FAIL",
+      "observed": "missing"
+    },
+    {
+      "gate": "empiricalAnalysis",
+      "status": "WARN",
+      "observed": "not executed by design"
+    }
+  ]
+}

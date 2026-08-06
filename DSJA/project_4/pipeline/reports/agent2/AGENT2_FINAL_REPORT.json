@@ -1,0 +1,269 @@
+{
+  "agentId": "AGENT_2",
+  "executiveVerdict": "BLOCKED_BY_CONTRACT",
+  "secondaryBlockers": [
+    "BLOCKED_BY_CRAWL_RELEASE"
+  ],
+  "generatedAt": "2026-08-06T13:35:34.797685+09:00",
+  "repository": {
+    "gitRoot": "/home/sieg/projects-wsl/SBS_dataScience",
+    "branch": "agent/p4-pipeline-v2",
+    "headAtGeneration": "cbd8b848a28201bac506a96797fc04cdb20b35e9",
+    "remote": "https://github.com/Siegfriex/SBS_dataScience.git",
+    "createdCommits": [
+      "cbd8b848a28201bac506a96797fc04cdb20b35e9 feat: adapt Linkareer APQ and SSR source contracts",
+      "53dda11e11e6ab46160c809e375a8c7328b89481 feat: add RQ1 RQ2 analysis",
+      "02efd5568c11eef3d6538915b79e8c9663ef2e04 feat: build canonical marts",
+      "d3c4bba483083372e87aa93f1346f919b3d95114 feat: add NCS preparation and mapping",
+      "ebbc94c11b3fc2dd7330848c40bc877c27b9a92d feat: add 90-day deduplication",
+      "537b4ca244a57e6d0250524b60340ee3bb856547 feat: add requirement extraction and career labels",
+      "1af7c244e73975694224aae3de002660464ffd52 feat: add parse normalize and track split",
+      "5cc6bdefc390029b70fd8eb9eeba6a3cd2b7175b feat: add duckdb warehouse bootstrap",
+      "4f2778866e98b9cc35161173815c90081e01d25f feat: add deterministic keys and contract loader",
+      "f978bbc4d8f118f015d26d0a4bc123be18339877 chore: scaffold p4 pipeline module"
+    ]
+  },
+  "contracts": {
+    "contractVersion": null,
+    "contractCommit": null,
+    "bundlePresent": false,
+    "checksumVerified": false,
+    "ddlExecuted": false,
+    "missingFiles": [
+      "p4_contract.yaml",
+      "warehouse_duckdb.sql",
+      "contract.schema.json",
+      "CONTRACT_MANIFEST.json",
+      "CHECKSUMS.sha256"
+    ]
+  },
+  "crawlInput": {
+    "crawlReleaseId": null,
+    "period": null,
+    "rows": 0,
+    "coverage": "unavailable",
+    "manifestHash": null
+  },
+  "pipeline": {
+    "foundationReady": true,
+    "warehouseMode": "development_fixture",
+    "empiricalAnalysisAllowed": false,
+    "fixtureRows": {
+      "raw": 6,
+      "normalized": 6,
+      "tracks": 6,
+      "sections": 10,
+      "requirements": 10,
+      "labels": 6,
+      "ncsUnits": 3,
+      "ncsMatches": 4,
+      "postingAnalysisMart": 6,
+      "timeSeriesMart": 10,
+      "excludedPostings": 1
+    },
+    "fixtureSha256": "5458bdc87f6b3eb4d2b50e811616a7b196484eea33ca1a99151e0b446300bbaa",
+    "tests": {
+      "passed": 61,
+      "failed": 0
+    },
+    "notebooks": {
+      "count": 15,
+      "allExecuted": true
+    }
+  },
+  "marts": {
+    "postingAnalysisMart": {
+      "path": "DSJA/project_4/pipeline/data/marts/postingAnalysisMart.parquet",
+      "rows": 6,
+      "columns": 25,
+      "primaryKey": "trackId",
+      "primaryKeyDuplicates": 0,
+      "nullRates": {
+        "highDemandScore": 1.0,
+        "ncsLevel": 0.3333333333333333,
+        "ncsMatchScore": 0.3333333333333333
+      },
+      "sha256": "5447233502a4e3f8cf32de71f3a2d18674c1e7d3027f8d78c8c11244476a2dbd",
+      "bytes": 15169,
+      "dataVersion": "synthetic-fixture-v1",
+      "dataProvenance": "generated_structural_fixture"
+    },
+    "timeSeriesMart": {
+      "path": "DSJA/project_4/pipeline/data/marts/timeSeriesMart.parquet",
+      "rows": 10,
+      "columns": 28,
+      "primaryKey": "metricId",
+      "primaryKeyDuplicates": 0,
+      "nullRates": {
+        "entryPostingRate": 0.1,
+        "internPostingRate": 0.1,
+        "ncsMappingCoverage": 0.3
+      },
+      "sha256": "d617a58bc786df58b102479074eed60b9b074eb59fba8a33a8ff6b3d6e383129",
+      "bytes": 18595,
+      "dataVersion": "synthetic-fixture-v1",
+      "dataProvenance": "generated_structural_fixture"
+    }
+  },
+  "analysis": {
+    "executed": false,
+    "reason": "No immutable crawl release. Synthetic fixture values are not observations.",
+    "effects": []
+  },
+  "figures": [],
+  "gates": [
+    {
+      "gate": "unitAndIntegrationTests",
+      "status": "PASS",
+      "observed": "61 passed"
+    },
+    {
+      "gate": "notebookExecution",
+      "status": "PASS",
+      "observed": "15 of 15 executed"
+    },
+    {
+      "gate": "postingMartPrimaryKey",
+      "status": "PASS",
+      "observed": 0
+    },
+    {
+      "gate": "timeSeriesMartPrimaryKey",
+      "status": "PASS",
+      "observed": 0
+    },
+    {
+      "gate": "highDemandScoreReserved",
+      "status": "PASS",
+      "observed": 1.0
+    },
+    {
+      "gate": "contractBundle",
+      "status": "FAIL",
+      "observed": "missing"
+    },
+    {
+      "gate": "crawlRelease",
+      "status": "FAIL",
+      "observed": "missing"
+    },
+    {
+      "gate": "empiricalAnalysis",
+      "status": "WARN",
+      "observed": "not executed by design"
+    }
+  ],
+  "agent1RequestsPath": "DSJA/project_4/shared/handoffs/AGENT2_TO_AGENT1_REQUESTS.json",
+  "agent3IssuesPath": "DSJA/project_4/shared/handoffs/AGENT2_TO_AGENT3_ISSUES.json",
+  "notebookAudit": [
+    {
+      "path": "DSJA/project_4/pipeline/notebooks/00ContractAndInputAudit.ipynb",
+      "sha256": "146c7d88287bcb01374c35c8120b33f4f023cc0223c54ad289bdd49e95bf8a4d",
+      "codeCells": 3,
+      "executedCodeCells": 3,
+      "outputCount": 3
+    },
+    {
+      "path": "DSJA/project_4/pipeline/notebooks/01LoadCrawlRelease.ipynb",
+      "sha256": "24f9933a83d4802cedb9e5fd7e2e2ac7b20b7bf5d7710e390daa323718d83a99",
+      "codeCells": 3,
+      "executedCodeCells": 3,
+      "outputCount": 3
+    },
+    {
+      "path": "DSJA/project_4/pipeline/notebooks/02ParseAndNormalize.ipynb",
+      "sha256": "06bbec4cf9c9dea9b9d748016c0bd06681848fd4714b0f30c37ed6a34971b075",
+      "codeCells": 3,
+      "executedCodeCells": 3,
+      "outputCount": 3
+    },
+    {
+      "path": "DSJA/project_4/pipeline/notebooks/03OcrAndSectionRecovery.ipynb",
+      "sha256": "34d27d4dcd56599d36bedfd33c05c3704876a4e2e76abdcddc785d3c685b642d",
+      "codeCells": 3,
+      "executedCodeCells": 3,
+      "outputCount": 3
+    },
+    {
+      "path": "DSJA/project_4/pipeline/notebooks/04SplitTracks.ipynb",
+      "sha256": "cd84ad4c765f8575dc7026356e1804a7d9333cd624d551739262436f426a3bd1",
+      "codeCells": 3,
+      "executedCodeCells": 3,
+      "outputCount": 3
+    },
+    {
+      "path": "DSJA/project_4/pipeline/notebooks/05ExtractRequirements.ipynb",
+      "sha256": "df74ae781c3b38c169f317f940dbfe6a87dc6ce12bc0e6e2e0930185a7f2ade7",
+      "codeCells": 3,
+      "executedCodeCells": 3,
+      "outputCount": 3
+    },
+    {
+      "path": "DSJA/project_4/pipeline/notebooks/06Deduplicate90Days.ipynb",
+      "sha256": "52e4b1e159933e82956757ff330f90633780a18740b85d5a1f319b93f8b42454",
+      "codeCells": 3,
+      "executedCodeCells": 3,
+      "outputCount": 3
+    },
+    {
+      "path": "DSJA/project_4/pipeline/notebooks/07LabelCareerAccess.ipynb",
+      "sha256": "a804d53f4286d4e135694822134125839b01a18065f399fde75157ee88f1f870",
+      "codeCells": 3,
+      "executedCodeCells": 3,
+      "outputCount": 3
+    },
+    {
+      "path": "DSJA/project_4/pipeline/notebooks/08LoadAndPrepareNcs.ipynb",
+      "sha256": "90bd211f99e40ba4c4d0dca085d0e8fe752b315af5e22286134cd5bb8f41ee58",
+      "codeCells": 3,
+      "executedCodeCells": 3,
+      "outputCount": 3
+    },
+    {
+      "path": "DSJA/project_4/pipeline/notebooks/09MapPostingToNcs.ipynb",
+      "sha256": "5165420fb3069aa7e05983943b2fbb229eb925d879d96e1c12ff7df830972f4a",
+      "codeCells": 3,
+      "executedCodeCells": 3,
+      "outputCount": 3
+    },
+    {
+      "path": "DSJA/project_4/pipeline/notebooks/10BuildPostingMart.ipynb",
+      "sha256": "f6b87d2da8b5b46d0fdb34c43858ea85097ecf23a43248a28c207624e878dded",
+      "codeCells": 3,
+      "executedCodeCells": 3,
+      "outputCount": 3
+    },
+    {
+      "path": "DSJA/project_4/pipeline/notebooks/11BuildTimeSeriesMart.ipynb",
+      "sha256": "1cdac39799a3b7d5bb7258d780ab146b702fd4a3644270340eb0622c7b659958",
+      "codeCells": 3,
+      "executedCodeCells": 3,
+      "outputCount": 3
+    },
+    {
+      "path": "DSJA/project_4/pipeline/notebooks/12AnalyzeRq1Rq2.ipynb",
+      "sha256": "2029aa91213412f0cd6a6e018aca16b31f2d3601f9517adf2e4cbf9cfa92a388",
+      "codeCells": 3,
+      "executedCodeCells": 3,
+      "outputCount": 3
+    },
+    {
+      "path": "DSJA/project_4/pipeline/notebooks/13BuildArticleFigures.ipynb",
+      "sha256": "85163505b7017b45ce0decdf1b03b1229d5106837c631acacec29828fc031662",
+      "codeCells": 3,
+      "executedCodeCells": 3,
+      "outputCount": 3
+    },
+    {
+      "path": "DSJA/project_4/pipeline/notebooks/90AuxSimilarity.ipynb",
+      "sha256": "40d1c395d538aa39e84c784d5747a89738f8941319073d8f528d6fbce2a6a2b2",
+      "codeCells": 3,
+      "executedCodeCells": 3,
+      "outputCount": 3
+    }
+  ],
+  "userDecisionsRequired": [
+    "Publish P4_CONTRACT_v2.1.0 bundle before contract warehouse execution.",
+    "Publish Agent 1 immutable HANDOFF.json and masked APQ/SSR fixtures before source-backed processing."
+  ]
+}

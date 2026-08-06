@@ -1,0 +1,98 @@
+{
+  "fixtureType": "generated_structural_fixture",
+  "fixtureVersion": "synthetic-fixture-v1",
+  "warning": "Agent 2 generated structural test values only. This is not an Agent 1 fixture or crawl release and must not support empirical claims.",
+  "rawPostings": [
+    {
+      "postingRawId": "RAW_FIX_101",
+      "sourceName": "linkareer",
+      "sourcePostingId": "FIX_101",
+      "sourceUrl": "https://fixture.invalid/postings/FIX_101",
+      "fetchedAt": "2026-08-06T12:00:00+09:00",
+      "rawSha256": "1111111111111111111111111111111111111111111111111111111111111111",
+      "titleRaw": "데이터 분석 인턴 채용",
+      "companyRaw": "(주) 예시데이터",
+      "postedAtRaw": "2022-12-05T09:00:00+09:00",
+      "bodyRaw": "담당업무\n데이터 품질 점검과 분석 보고서 작성\n자격요건\n관련 프로젝트 경험 2년 필수",
+      "postingKind": "recruit"
+    },
+    {
+      "postingRawId": "RAW_FIX_102",
+      "sourceName": "linkareer",
+      "sourcePostingId": "FIX_102",
+      "sourceUrl": "https://fixture.invalid/postings/FIX_102",
+      "fetchedAt": "2026-08-06T12:01:00+09:00",
+      "rawSha256": "2222222222222222222222222222222222222222222222222222222222222222",
+      "titleRaw": "데이터 분석 인턴 채용",
+      "companyRaw": "예시데이터 주식회사",
+      "postedAtRaw": "2023-01-10T09:00:00+09:00",
+      "bodyRaw": "담당업무\n데이터 품질 점검과 분석 보고서 작성\n자격요건\n전공 무관 지원 가능",
+      "postingKind": "recruit"
+    },
+    {
+      "postingRawId": "RAW_FIX_103",
+      "sourceName": "linkareer",
+      "sourcePostingId": "FIX_103",
+      "sourceUrl": "https://fixture.invalid/postings/FIX_103",
+      "fetchedAt": "2026-08-06T12:02:00+09:00",
+      "rawSha256": "3333333333333333333333333333333333333333333333333333333333333333",
+      "titleRaw": "AI 서비스 신입 채용",
+      "companyRaw": "샘플AI",
+      "postedAtRaw": "2023-01-15T09:00:00+09:00",
+      "bodyRaw": "담당업무\nAI 서비스 운영과 모델 결과 검증\n자격요건\n신입 또는 경력무관",
+      "postingKind": "recruit"
+    },
+    {
+      "postingRawId": "RAW_FIX_104",
+      "sourceName": "linkareer",
+      "sourcePostingId": "FIX_104",
+      "sourceUrl": "https://fixture.invalid/postings/FIX_104",
+      "fetchedAt": "2026-08-06T12:03:00+09:00",
+      "rawSha256": "4444444444444444444444444444444444444444444444444444444444444444",
+      "titleRaw": "데이터 엔지니어 경력 채용",
+      "companyRaw": "샘플플랫폼",
+      "postedAtRaw": "2023-02-01T09:00:00+09:00",
+      "bodyRaw": "담당업무\n데이터 파이프라인 설계와 운영\n자격요건\n관련 경력 3년 이상 필수",
+      "postingKind": "recruit"
+    },
+    {
+      "postingRawId": "RAW_FIX_105",
+      "sourceName": "linkareer",
+      "sourcePostingId": "FIX_105",
+      "sourceUrl": "https://fixture.invalid/postings/FIX_105",
+      "fetchedAt": "2026-08-06T12:04:00+09:00",
+      "rawSha256": "5555555555555555555555555555555555555555555555555555555555555555",
+      "titleRaw": "신입 및 인턴 통합 채용",
+      "companyRaw": "샘플랩",
+      "postedAtRaw": "2023-03-01T09:00:00+09:00",
+      "bodyRaw": "모집부문별 지원자격이 이미지에 혼합되어 분리할 수 없는 합성 테스트 공고",
+      "postingKind": "recruit"
+    },
+    {
+      "postingRawId": "RAW_FIX_106",
+      "sourceName": "linkareer",
+      "sourcePostingId": "FIX_106",
+      "sourceUrl": "https://fixture.invalid/postings/FIX_106",
+      "fetchedAt": "2026-08-06T12:05:00+09:00",
+      "rawSha256": "6666666666666666666666666666666666666666666666666666666666666666",
+      "titleRaw": "데이터 교육 대외활동",
+      "companyRaw": "샘플교육",
+      "postedAtRaw": "2023-03-05T09:00:00+09:00",
+      "bodyRaw": "채용공고가 아닌 대외활동을 제외하는 합성 테스트 레코드입니다.",
+      "postingKind": "activity"
+    }
+  ],
+  "tracks": {
+    "FIX_101": [{"trackType": "intern", "text": "데이터 분석 인턴", "jobCodeLevel": "ncsSub", "jobCode": "200101", "sections": [{"sectionType": "duty", "text": "데이터 품질 점검과 분석 보고서 작성"}, {"sectionType": "required", "text": "관련 프로젝트 경험 2년 필수"}], "labelEvidence": {"is_intern": true, "nominal_entry": false, "explicit_experienced": false, "min_experience_months": 24, "mandatory_prior_experience": true, "portfolio_required": false, "boundary_resolved": true}, "ncsUnitCode": "20010101", "mappingBasis": "ncsPerformanceCriteria", "matchScore": 0.88}],
+    "FIX_102": [{"trackType": "intern", "text": "데이터 분석 인턴", "jobCodeLevel": "ncsSub", "jobCode": "200101", "sections": [{"sectionType": "duty", "text": "데이터 품질 점검과 분석 보고서 작성"}, {"sectionType": "required", "text": "전공 무관 지원 가능"}], "labelEvidence": {"is_intern": true, "nominal_entry": false, "explicit_experienced": false, "min_experience_months": null, "mandatory_prior_experience": false, "portfolio_required": false, "boundary_resolved": true}, "ncsUnitCode": "20010101", "mappingBasis": "ncsPerformanceCriteria", "matchScore": 0.88}],
+    "FIX_103": [{"trackType": "entry", "text": "AI 서비스 신입", "jobCodeLevel": "ncsSub", "jobCode": "200102", "sections": [{"sectionType": "duty", "text": "AI 서비스 운영과 모델 결과 검증"}, {"sectionType": "required", "text": "신입 또는 경력무관"}], "labelEvidence": {"is_intern": false, "nominal_entry": true, "explicit_experienced": false, "min_experience_months": null, "mandatory_prior_experience": false, "portfolio_required": false, "boundary_resolved": true}, "ncsUnitCode": "20010201", "mappingBasis": "dictionaryRule", "matchScore": 0.66}],
+    "FIX_104": [{"trackType": "experienced", "text": "데이터 엔지니어 경력", "jobCodeLevel": "ncsSub", "jobCode": "200103", "sections": [{"sectionType": "duty", "text": "데이터 파이프라인 설계와 운영"}, {"sectionType": "required", "text": "관련 경력 3년 이상 필수"}], "labelEvidence": {"is_intern": false, "nominal_entry": false, "explicit_experienced": true, "min_experience_months": 36, "mandatory_prior_experience": true, "portfolio_required": false, "boundary_resolved": true}, "ncsUnitCode": "20010301", "mappingBasis": "ncsLearningModule", "matchScore": 0.82}],
+    "FIX_105": [{"trackType": "mixedUnresolved", "text": "신입 및 인턴 통합 채용", "jobCodeLevel": "unknown", "jobCode": "unknown", "sections": [{"sectionType": "other", "text": "모집부문별 지원자격 분리 불가"}], "labelEvidence": {"is_intern": false, "nominal_entry": false, "explicit_experienced": false, "min_experience_months": null, "mandatory_prior_experience": false, "portfolio_required": false, "boundary_resolved": false}}],
+    "FIX_106": [{"trackType": "unknown", "text": "대외활동", "jobCodeLevel": "unknown", "jobCode": "unknown", "sections": [{"sectionType": "other", "text": "채용공고 아님"}], "labelEvidence": {"is_intern": false, "nominal_entry": false, "explicit_experienced": false, "min_experience_months": null, "mandatory_prior_experience": false, "portfolio_required": false, "boundary_resolved": false}}]
+  },
+  "ncsUnits": [
+    {"ncsUnitCode": "20010101", "ncsUnitName": "데이터 분석", "ncsLevel": 5, "ncsBand": "level5to6", "performanceCriteriaText": "데이터 품질을 점검하고 분석 보고서를 작성한다", "knowledgeText": "통계 분석", "skillText": "데이터 품질 점검", "attitudeText": "정확성", "sourceUrl": "https://fixture.invalid/ncs/20010101", "rawSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+    {"ncsUnitCode": "20010201", "ncsUnitName": "AI 서비스 운영", "ncsLevel": 4, "ncsBand": "level3to4", "performanceCriteriaText": "모델 결과를 검증한다", "knowledgeText": "AI 기초", "skillText": "서비스 운영", "attitudeText": "책임성", "sourceUrl": "https://fixture.invalid/ncs/20010201", "rawSha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"},
+    {"ncsUnitCode": "20010301", "ncsUnitName": "데이터 파이프라인 설계", "ncsLevel": 6, "ncsBand": "level5to6", "performanceCriteriaText": "데이터 파이프라인을 설계하고 운영한다", "knowledgeText": "분산 시스템", "skillText": "파이프라인 설계", "attitudeText": "안정성", "sourceUrl": "https://fixture.invalid/ncs/20010301", "rawSha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"}
+  ]
+}

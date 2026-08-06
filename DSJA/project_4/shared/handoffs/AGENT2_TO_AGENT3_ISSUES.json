@@ -1,0 +1,57 @@
+{
+  "agentId": "AGENT_2",
+  "status": "BLOCKED_BY_CONTRACT",
+  "contractBundlePath": "DSJA/project_4/shared/contracts/P4_CONTRACT_v2.1.0",
+  "contractBundlePresent": false,
+  "issues": [
+    {
+      "issueId": "A2-A3-001",
+      "issueType": "ELIGIBILITY_SPLIT_REQUIRED",
+      "severity": "P0",
+      "requestedFields": [
+        "postingEligibleFlag",
+        "rq1EligibleFlag",
+        "rq2EligibleFlag",
+        "ncsEligibleFlag",
+        "canonicalRecordFlag",
+        "rq2ExclusionReason"
+      ],
+      "reason": "RQ1 posting, RQ2 track, and NCS track denominators require independent eligibility flags. canonicalRecordFlag remains a separate dedup dimension."
+    },
+    {
+      "issueId": "A2-A3-002",
+      "issueType": "APQ_SOURCE_FIELDS_REQUIRED",
+      "severity": "P0",
+      "requestedFields": [
+        "activityTypeId",
+        "jobTypesRaw",
+        "jobTypeConflictFlag"
+      ],
+      "reason": "CalendarScreen_ActivityCalendarEntries structured job types have priority over text inference and must remain auditable without overwriting conflicts."
+    },
+    {
+      "issueId": "A2-A3-003",
+      "issueType": "SSR_APOLLO_ENTITY_REQUIRED",
+      "severity": "P0",
+      "requestedFields": [
+        "dutiesRawJson",
+        "activityTextHtml",
+        "activityTextAvailableFlag"
+      ],
+      "reason": "activity/{id} SSR __NEXT_DATA__ and Apollo normalized entities must preserve duties jobType and raw ActivityText HTML lineage."
+    },
+    {
+      "issueId": "A2-A3-004",
+      "issueType": "EXTERNAL_ATS_EXCLUSION_REQUIRED",
+      "severity": "P0",
+      "requestedFields": [
+        "externalApplyUrl",
+        "externalAtsDomain",
+        "externalDetailOnlyFlag",
+        "rq2ExclusionReason"
+      ],
+      "reason": "External ATS-only postings may enter RQ1 when structured conditions are known but must be excluded from RQ2 and NCS denominators."
+    }
+  ]
+}
+

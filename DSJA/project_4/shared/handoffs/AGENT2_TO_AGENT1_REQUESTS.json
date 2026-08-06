@@ -1,0 +1,29 @@
+{
+  "agentId": "AGENT_2",
+  "status": "BLOCKED_BY_CRAWL_RELEASE",
+  "requests": [
+    {
+      "requestId": "A2-A1-P0-001",
+      "priority": "P0",
+      "requiredField": "HANDOFF.json immutable crawl release",
+      "affectedTable": "raw.linkareerPostingRaw",
+      "affectedMetric": "all empirical RQ1 RQ2 NCS metrics",
+      "affectedPeriod": "2019-01 through 2026-08",
+      "examplePostingIds": [],
+      "reason": "No DSJA/project_4/crawl/releases/*/HANDOFF.json exists, so actual raw input and coverage cannot be validated.",
+      "blocking": true
+    },
+    {
+      "requestId": "A2-A1-P0-002",
+      "priority": "P0",
+      "requiredField": "masked APQ and SSR Apollo parser fixtures",
+      "affectedTable": "raw.linkareerIndexRaw and raw.linkareerPostingRaw",
+      "affectedMetric": "source adapter conformance",
+      "affectedPeriod": "pilot",
+      "examplePostingIds": [],
+      "reason": "The announced Agent 1 masked fixture is not present under the crawl ownership path. Agent 2 used only generated structural unit-test values and made no source observations.",
+      "blocking": true
+    }
+  ]
+}
+
