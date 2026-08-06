@@ -344,6 +344,7 @@ def main() -> int:
     common = {
         "a1Branch": args.a1_branch,
         "a1Head": args.a1_head,
+        "a3HeadBeforeReportCommit": args.a3_head,
         "candidateScopeId": proposal["candidateScopeId"],
         "networkCalls": 0,
         "externalAtsTransportCalls": 0,
@@ -405,6 +406,8 @@ def main() -> int:
 
     rules = {
         "schemaVersion": "p4-tier1-scope-escalation-v1",
+        "a1Head": args.a1_head,
+        "a3HeadBeforeReportCommit": args.a3_head,
         "currentState": "AWAIT_TIER1_APPROVAL",
         "scopeEscalationAutomatic": False,
         "nextApprovalPacketMayBeProposedOnlyWhen": {

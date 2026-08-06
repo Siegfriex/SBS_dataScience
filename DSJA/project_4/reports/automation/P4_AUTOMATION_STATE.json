@@ -3,7 +3,7 @@
   "state": "AWAIT_TIER1_APPROVAL",
   "tier": "TIER1",
   "iterationId": "P4_AUTO_T1_PREAPPROVAL_20260807_01",
-  "updatedAtUtc": "2026-08-06T23:28:37.895562Z",
+  "updatedAtUtc": "2026-08-06T23:30:29.777320Z",
   "automationPolicyPath": "automation_policy.yaml",
   "automationPolicySha256": "7a558e86f47c7799ee32858df370b1e217eefc0088d3109ebf305475b3aabaef",
   "automationPolicyStatus": "PASS",
@@ -63,7 +63,7 @@
     "approvalExpiryRecommendation": "PT2H_AFTER_APPROVAL",
     "a1Branch": "agent/p4-a1-canary-tier1-preapproval-v1",
     "a1Head": "c17c7f5bc8c3eb1a9c1d12efb1eeb801f074f61c",
-    "a3HeadBeforeReportCommit": "92c2849b405f99e2003d433c4f78c53fd4e55d62",
-    "a3EvidenceManifestSha256": "c6ab359c80535b221679cff21413caae3cd45cae39933797f88760fd7aa5750b"
+    "a3HeadBeforeReportCommit": "f9a4c7e7125671e765359f27d237bc284e3fccae",
+    "a3EvidenceManifestSha256": "e8f49d9b72b4f9168da4e7a3c085cbe65130584a5e32c40f6c9941a994312532"
   }
 }
