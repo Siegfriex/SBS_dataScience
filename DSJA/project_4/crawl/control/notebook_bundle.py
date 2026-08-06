@@ -671,7 +671,7 @@ def _normalized_code_cells(path: str | Path, *, executed: bool) -> list[tuple[st
         source = cell.source
         if executed and marker in source:
             source = source.split(marker, 1)[0].rstrip() + "\n"
-        rows.append((cell.get("id", ""), source))
+        rows.append((cell.get("id", ""), source.rstrip() + "\n"))
     return rows
 
 
