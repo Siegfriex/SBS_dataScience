@@ -1,0 +1,7 @@
+test,recruitStartAt_from,recruitStartAt_to,recruitCloseAt_from,recruitCloseAt_to,totalCount,interpretation
+recruitStartAt_only,2021-03-01,2021-03-31,,,692,baseline_start_window
+recruitCloseAt_only,,,2021-03-01,2021-03-31,689,baseline_close_window
+both_same_window,2021-03-01,2021-03-31,2021-03-01,2021-03-31,949,union_gt_either_individual_confirms_OR
+recruitStartAt_narrow_recruitCloseAt_wide,2021-03-01,2021-03-31,2019-01-01,2027-01-01,126902,wide_clause_dominates_confirms_OR_not_AND
+recruitStartAt_wide_recruitCloseAt_narrow,2019-01-01,2027-01-01,2021-03-01,2021-03-31,126910,symmetric_confirmation
+both_wide,2019-01-01,2027-01-01,2019-01-01,2027-01-01,126914,approx_all_time_recruit_total
