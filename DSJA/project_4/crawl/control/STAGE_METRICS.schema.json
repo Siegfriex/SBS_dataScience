@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://p4.local/schemas/stage-metrics-v1.json",
+  "title": "P4 Notebook stage metrics",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "metricsVersion",
+    "runId",
+    "runMode",
+    "stageId",
+    "contractVersion",
+    "crawlReleaseId",
+    "dataVersion",
+    "dataProvenance",
+    "empiricalAnalysisAllowed",
+    "promotionAllowed",
+    "generatedAt",
+    "metrics"
+  ],
+  "properties": {
+    "metricsVersion": {"const": "stage-metrics-v1"},
+    "runId": {"type": "string", "minLength": 1},
+    "runMode": {"enum": ["fixture", "observed-dev", "production"]},
+    "stageId": {"type": "string", "pattern": "^A[1234]-[A-Z0-9-]+$"},
+    "contractVersion": {"const": "2.1.2"},
+    "crawlReleaseId": {"type": "string", "minLength": 1},
+    "dataVersion": {"type": "string", "minLength": 1},
+    "dataProvenance": {
+      "enum": ["SYNTHETIC_FIXTURE_ONLY", "OBSERVED_DEVELOPMENT_ONLY", "PRODUCTION_RELEASE"]
+    },
+    "empiricalAnalysisAllowed": {"type": "boolean"},
+    "promotionAllowed": {"type": "boolean"},
+    "generatedAt": {"type": "string", "format": "date-time"},
+    "metrics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["metricId", "value", "numerator", "denominator", "unit", "grain", "unknownHandling", "status"],
+        "properties": {
+          "metricId": {"type": "string", "minLength": 1},
+          "value": {"type": ["number", "integer", "string", "boolean", "null"]},
+          "numerator": {"type": ["number", "integer", "null"]},
+          "denominator": {"type": ["number", "integer", "null"], "minimum": 0},
+          "unit": {"type": "string", "minLength": 1},
+          "grain": {"type": "string", "minLength": 1},
+          "unknownHandling": {"type": "string", "minLength": 1},
+          "status": {"enum": ["PASS", "FAIL", "NOT_EVALUATED", "INFORMATIONAL"]},
+          "evidencePath": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^(?!/)(?!~)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+          }
+        },
+        "allOf": [
+          {
+            "if": {"properties": {"denominator": {"const": 0}}, "required": ["denominator"]},
+            "then": {"properties": {"status": {"const": "NOT_EVALUATED"}}}
+          }
+        ]
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"runMode": {"const": "observed-dev"}}, "required": ["runMode"]},
+      "then": {
+        "properties": {
+          "crawlReleaseId": {"const": "CRAWL_20260806_03"},
+          "dataProvenance": {"const": "OBSERVED_DEVELOPMENT_ONLY"},
+          "empiricalAnalysisAllowed": {"const": false},
+          "promotionAllowed": {"const": false}
+        }
+      }
+    }
+  ]
+}

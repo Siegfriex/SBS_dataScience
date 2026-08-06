@@ -1,0 +1,3 @@
+﻿gateId,ruleId,severity,status,observedValue,threshold,evidencePath
+INDEX_FIXTURE_APQ_READY,REGISTRY_APQ,ERROR,PASS,1,1,crawl/runs/notebooks/observed-dev/MASTER_20260806_01/stages/crawl/notebooks/children/stages/crawl/notebooks/01CollectLinkareerIndex/A1-01-INDEX/fixture_apq_audit.json
+NO_LIVE_CRAWL_M1,NETWORK_ZERO,ERROR,PASS,0,0,crawl/runs/notebooks/observed-dev/MASTER_20260806_01/stages/crawl/notebooks/children/stages/crawl/notebooks/01CollectLinkareerIndex/A1-01-INDEX/fixture_apq_audit.json

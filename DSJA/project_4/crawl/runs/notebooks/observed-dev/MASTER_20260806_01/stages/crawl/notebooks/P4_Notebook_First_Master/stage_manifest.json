@@ -1,0 +1,63 @@
+{
+  "manifestVersion": "stage-manifest-v1",
+  "runId": "MASTER_20260806_01",
+  "runMode": "observed-dev",
+  "stageId": "A3-MASTER",
+  "status": "SUCCEEDED",
+  "agentId": "P4-A3-CONTROL",
+  "branch": "agent/p4-integration-cleanup-v2",
+  "gitHead": "71edc867a8e869b78340e4fe253ced9312894077",
+  "contractVersion": "2.1.2",
+  "schemaVersion": "notebook-bundle-v1",
+  "dataVersion": "observed-dev-20260806.1",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+  "startedAt": "2026-08-06T09:17:01.671698Z",
+  "completedAt": "2026-08-06T09:17:01.675519Z",
+  "empiricalAnalysisAllowed": false,
+  "promotionAllowed": false,
+  "inputManifestSha256": "b9a983b0eb88118353e540311efcd56eb1d590643259fbf0440a6f25a5daa8b0",
+  "parameterSha256": "a1cf816984f52fcfba19e6b8ffb6af0a2c8935fbf3f70939a4e99623e58c9daa",
+  "rowCounts": {
+    "sourceNotebooks": 24,
+    "executedChildren": 23,
+    "stageManifests": 27
+  },
+  "gateResults": [
+    {
+      "gateId": "NOTEBOOK_SOURCE_READY",
+      "status": "PASS",
+      "evidencePath": "NOTEBOOK_FILE_INVENTORY.csv"
+    },
+    {
+      "gateId": "NOTEBOOK_EXECUTION_READY_OBSERVED_DEV",
+      "status": "PASS",
+      "evidencePath": "NOTEBOOK_EXECUTION_RESULTS.csv"
+    },
+    {
+      "gateId": "NO_EMPIRICAL_PROMOTION",
+      "status": "PASS",
+      "evidencePath": "stage_manifest.json"
+    }
+  ],
+  "warnings": [],
+  "errors": [],
+  "files": [],
+  "terminationArtifacts": [
+    "stage_manifest.json",
+    "stage_metrics.json",
+    "stage_quality.csv",
+    "CHECKSUMS.sha256"
+  ],
+  "dataPolicies": {
+    "canonicalStorage": "DUCKDB_PARQUET",
+    "csvPurpose": "HUMAN_INSPECTION_EXPORT",
+    "eligibilityColumns": [
+      "postingEligibleFlag",
+      "rq1EligibleFlag",
+      "rq2EligibleFlag",
+      "ncsEligibleFlag"
+    ],
+    "highDemandScore": "ALL_NULL"
+  }
+}

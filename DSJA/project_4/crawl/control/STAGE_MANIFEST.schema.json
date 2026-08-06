@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://p4.local/schemas/stage-manifest-v1.json",
+  "title": "P4 Notebook stage manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "manifestVersion",
+    "runId",
+    "runMode",
+    "stageId",
+    "status",
+    "agentId",
+    "branch",
+    "gitHead",
+    "contractVersion",
+    "schemaVersion",
+    "dataVersion",
+    "crawlReleaseId",
+    "dataProvenance",
+    "startedAt",
+    "completedAt",
+    "empiricalAnalysisAllowed",
+    "promotionAllowed",
+    "inputManifestSha256",
+    "parameterSha256",
+    "rowCounts",
+    "gateResults",
+    "warnings",
+    "errors",
+    "files",
+    "terminationArtifacts",
+    "dataPolicies"
+  ],
+  "properties": {
+    "manifestVersion": {"const": "stage-manifest-v1"},
+    "runId": {"type": "string", "minLength": 1},
+    "runMode": {"enum": ["fixture", "observed-dev", "production"]},
+    "stageId": {"type": "string", "pattern": "^A[1234]-[A-Z0-9-]+$"},
+    "status": {"enum": ["SUCCEEDED", "FAILED", "NOT_EVALUATED"]},
+    "agentId": {"type": "string", "pattern": "^P4-A[1234]-[A-Z0-9-]+$"},
+    "branch": {"type": "string", "minLength": 1},
+    "gitHead": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "contractVersion": {"const": "2.1.2"},
+    "schemaVersion": {"type": "string", "minLength": 1},
+    "dataVersion": {"type": "string", "minLength": 1},
+    "crawlReleaseId": {"type": "string", "minLength": 1},
+    "dataProvenance": {
+      "enum": ["SYNTHETIC_FIXTURE_ONLY", "OBSERVED_DEVELOPMENT_ONLY", "PRODUCTION_RELEASE"]
+    },
+    "startedAt": {"type": "string", "format": "date-time"},
+    "completedAt": {"type": "string", "format": "date-time"},
+    "empiricalAnalysisAllowed": {"type": "boolean"},
+    "promotionAllowed": {"type": "boolean"},
+    "inputManifestSha256": {"$ref": "#/$defs/sha256"},
+    "parameterSha256": {"$ref": "#/$defs/sha256"},
+    "rowCounts": {
+      "type": "object",
+      "additionalProperties": {"type": "integer", "minimum": 0}
+    },
+    "gateResults": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["gateId", "status"],
+        "properties": {
+          "gateId": {"type": "string", "minLength": 1},
+          "status": {"enum": ["PASS", "FAIL", "NOT_EVALUATED", "REVIEW_REQUIRED"]},
+          "evidencePath": {"$ref": "#/$defs/relativePath"}
+        }
+      }
+    },
+    "warnings": {"type": "array", "items": {"type": "string"}},
+    "errors": {"type": "array", "items": {"type": "string"}},
+    "files": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/fileRecord"}
+    },
+    "terminationArtifacts": {
+      "const": ["stage_manifest.json", "stage_metrics.json", "stage_quality.csv", "CHECKSUMS.sha256"]
+    },
+    "dataPolicies": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["canonicalStorage", "csvPurpose", "eligibilityColumns", "highDemandScore"],
+      "properties": {
+        "canonicalStorage": {"const": "DUCKDB_PARQUET"},
+        "csvPurpose": {"const": "HUMAN_INSPECTION_EXPORT"},
+        "eligibilityColumns": {
+          "const": ["postingEligibleFlag", "rq1EligibleFlag", "rq2EligibleFlag", "ncsEligibleFlag"]
+        },
+        "highDemandScore": {"const": "ALL_NULL"}
+      }
+    },
+    "mappingPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mappingMode", "codeSetStatus", "goldValidatedFlag", "denseScore"],
+      "properties": {
+        "mappingMode": {"const": "LEXICAL_BASELINE"},
+        "codeSetStatus": {"const": "REVIEW_REQUIRED"},
+        "goldValidatedFlag": {"const": false},
+        "denseScore": {"type": "null"}
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"runMode": {"const": "observed-dev"}}, "required": ["runMode"]},
+      "then": {
+        "properties": {
+          "crawlReleaseId": {"const": "CRAWL_20260806_03"},
+          "dataProvenance": {"const": "OBSERVED_DEVELOPMENT_ONLY"},
+          "empiricalAnalysisAllowed": {"const": false},
+          "promotionAllowed": {"const": false}
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "relativePath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!~)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+    },
+    "fileRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "bytes", "rows", "columns", "format", "grain", "nullablePolicy", "sourceStage"],
+      "properties": {
+        "path": {"$ref": "#/$defs/relativePath"},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "bytes": {"type": "integer", "minimum": 0},
+        "rows": {"type": ["integer", "null"], "minimum": 0},
+        "columns": {"type": ["integer", "null"], "minimum": 0},
+        "format": {"type": "string", "minLength": 1},
+        "grain": {"type": "string", "minLength": 1},
+        "nullablePolicy": {"type": "string", "minLength": 1},
+        "sourceStage": {"type": "string", "pattern": "^A[1234]-[A-Z0-9-]+$"},
+        "dataProvenance": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

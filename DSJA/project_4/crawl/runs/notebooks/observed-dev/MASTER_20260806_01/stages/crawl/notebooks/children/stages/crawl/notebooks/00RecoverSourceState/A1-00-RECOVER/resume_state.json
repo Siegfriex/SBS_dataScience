@@ -1,0 +1,13 @@
+{
+  "status": "OBSERVED_INPUT_RECOVERED",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "postingRows": 137,
+  "rawHtmlRows": 29,
+  "assetRows": 0,
+  "remainingMonths": 58,
+  "detailFrontierStates": {
+    "PENDING": 108,
+    "FETCHED": 29
+  },
+  "source": "OBSERVED_INPUT_20260806_01"
+}

@@ -1,0 +1,45 @@
+{
+  "metricsVersion": "stage-metrics-v1",
+  "runId": "MASTER_20260806_01",
+  "runMode": "observed-dev",
+  "stageId": "A3-MASTER",
+  "contractVersion": "2.1.2",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "dataVersion": "observed-dev-20260806.1",
+  "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+  "empiricalAnalysisAllowed": false,
+  "promotionAllowed": false,
+  "generatedAt": "2026-08-06T09:17:01.672560Z",
+  "metrics": [
+    {
+      "metricId": "sourceNotebookCount",
+      "value": 24,
+      "numerator": 24,
+      "denominator": 24,
+      "unit": "notebook",
+      "grain": "bundle",
+      "unknownHandling": "FAIL",
+      "status": "PASS"
+    },
+    {
+      "metricId": "executedChildNotebookCount",
+      "value": 23,
+      "numerator": 23,
+      "denominator": 23,
+      "unit": "notebook",
+      "grain": "bundle",
+      "unknownHandling": "FAIL",
+      "status": "PASS"
+    },
+    {
+      "metricId": "collectedStageManifestCount",
+      "value": 27,
+      "numerator": 27,
+      "denominator": null,
+      "unit": "manifest",
+      "grain": "stage",
+      "unknownHandling": "INFORMATIONAL",
+      "status": "INFORMATIONAL"
+    }
+  ]
+}

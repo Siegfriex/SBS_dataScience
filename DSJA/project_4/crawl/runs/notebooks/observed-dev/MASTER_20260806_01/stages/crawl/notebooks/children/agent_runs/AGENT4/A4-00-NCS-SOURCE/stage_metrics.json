@@ -1,0 +1,65 @@
+{
+  "metricsVersion": "stage-metrics-v1",
+  "runId": "NCS_MAPPING_OBSERVED_20260806_01",
+  "runMode": "observed-dev",
+  "stageId": "A4-00-NCS-SOURCE",
+  "contractVersion": "2.1.2",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "dataVersion": "observed-dev-20260806.1",
+  "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+  "empiricalAnalysisAllowed": false,
+  "promotionAllowed": false,
+  "generatedAt": "2026-08-06T09:16:45.516825Z",
+  "metrics": [
+    {
+      "metricId": "ncsUnitRows",
+      "value": 13442,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "ncsUnitCode",
+      "unknownHandling": "unknown retained; no empirical inference",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "ncsLevelValues",
+      "value": "[1, 2, 3, 4, 5, 6, 7, 8]",
+      "numerator": null,
+      "denominator": null,
+      "unit": "value",
+      "grain": "ncsLevel",
+      "unknownHandling": "unknown retained; no empirical inference",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "hierarchyCodeNulls",
+      "value": 0,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "cell",
+      "unknownHandling": "unknown retained; no empirical inference",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "hierarchyNameNulls",
+      "value": 53768,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "cell",
+      "unknownHandling": "unknown retained; no empirical inference",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "rawSha256Distinct",
+      "value": 1,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "rawSha256",
+      "unknownHandling": "unknown retained; no empirical inference",
+      "status": "INFORMATIONAL"
+    }
+  ]
+}

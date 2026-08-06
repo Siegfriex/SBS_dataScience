@@ -1,0 +1,5 @@
+﻿gateId,ruleId,severity,status,observedValue,threshold,evidencePath
+NCS_CODESET_REVIEW_READY,CODESET_TOTAL,INFO,PASS,120,120,ncs_mapping/data/processed/coreAiItCodeSet.parquet
+NCS_CODESET_REVIEW_READY,CODESET_INCLUDED,INFO,PASS,69,69,ncs_mapping/data/processed/coreAiItCodeSet.parquet
+NCS_CODESET_REVIEW_READY,CODESET_DETERMINISTIC_REBUILD,INFO,PASS,True,True,ncs_mapping/data/processed/coreAiItCodeSet.parquet
+NCS_CODESET_REVIEW_READY,CODESET_STATUS,WARNING,REVIEW_REQUIRED,REVIEW_REQUIRED,production freeze prohibited,ncs_mapping/configs/core_ai_it_codes.yaml

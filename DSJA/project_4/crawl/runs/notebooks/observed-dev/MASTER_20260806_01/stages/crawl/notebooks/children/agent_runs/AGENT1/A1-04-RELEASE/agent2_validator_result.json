@@ -1,0 +1,7 @@
+{
+  "validator": "p4.contracts.release_validation.validate_release_gates",
+  "status": "EXECUTION_FAILED",
+  "executed": true,
+  "crawlReleaseReady": false,
+  "error": "AttributeError: 'str' object has no attribute 'get'"
+}

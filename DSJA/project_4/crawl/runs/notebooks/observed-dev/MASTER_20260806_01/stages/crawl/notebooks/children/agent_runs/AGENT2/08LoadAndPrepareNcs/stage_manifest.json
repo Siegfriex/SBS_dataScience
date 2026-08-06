@@ -1,0 +1,56 @@
+{
+  "manifestVersion": "stage-manifest-v1",
+  "runId": "OBSERVED_DEV_20260806_01-A2-08-NCS-LOAD",
+  "runMode": "observed-dev",
+  "stageId": "A2-08-NCS-LOAD",
+  "status": "SUCCEEDED",
+  "agentId": "P4-A2-PIPELINE",
+  "branch": "DETACHED_HEAD",
+  "gitHead": "71edc867a8e869b78340e4fe253ced9312894077",
+  "contractVersion": "2.1.2",
+  "schemaVersion": "ncs-agent4-acceptance-v1",
+  "dataVersion": "observed-dev-20260806.1",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+  "startedAt": "2026-08-06T00:00:00+09:00",
+  "completedAt": "2026-08-06T00:00:00+09:00",
+  "empiricalAnalysisAllowed": false,
+  "promotionAllowed": false,
+  "inputManifestSha256": "f58810b38bde7c7e1c69bf1f7000b3931cadf9d4d544f64b9c9c0d27a63bce8e",
+  "parameterSha256": "db1b9bbfe573decf1ea6b59c5fac3fd854b3d7958168b148e131719478b51bef",
+  "rowCounts": {
+    "ncsUnitRows": 13442,
+    "coreCodeRows": 120,
+    "coreIncludedRows": 69,
+    "candidateRows": 128,
+    "matchRows": 28,
+    "unmappedRows": 1
+  },
+  "gateResults": [
+    {
+      "gateId": "NCS_BASE_READY",
+      "status": "PASS",
+      "evidencePath": "stage_quality.csv"
+    }
+  ],
+  "warnings": [],
+  "errors": [],
+  "files": [],
+  "terminationArtifacts": [
+    "stage_manifest.json",
+    "stage_metrics.json",
+    "stage_quality.csv",
+    "CHECKSUMS.sha256"
+  ],
+  "dataPolicies": {
+    "canonicalStorage": "DUCKDB_PARQUET",
+    "csvPurpose": "HUMAN_INSPECTION_EXPORT",
+    "eligibilityColumns": [
+      "postingEligibleFlag",
+      "rq1EligibleFlag",
+      "rq2EligibleFlag",
+      "ncsEligibleFlag"
+    ],
+    "highDemandScore": "ALL_NULL"
+  }
+}

@@ -1,0 +1,3 @@
+﻿gateId,ruleId,severity,status,observedValue,threshold,evidencePath
+INPUT_LOADED,raw_posting_loaded,INFO,PASS,137,PASS,stage_quality.csv
+INPUT_LOADED,observed_warehouse_isolated,INFO,PASS,p4.observed-dev.duckdb,PASS,stage_quality.csv

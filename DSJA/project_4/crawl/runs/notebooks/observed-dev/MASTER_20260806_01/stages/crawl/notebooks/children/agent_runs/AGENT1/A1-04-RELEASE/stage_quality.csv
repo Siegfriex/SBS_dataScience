@@ -1,0 +1,4 @@
+﻿gateId,ruleId,severity,status,observedValue,threshold,evidencePath
+CRAWL_OBSERVED_INPUT_READY,OBSERVED_PACKAGE,ERROR,PASS,True,True,crawl/runs/notebooks/observed-dev/MASTER_20260806_01/stages/crawl/notebooks/children/agent_runs/AGENT1/A1-04-RELEASE/observed_package_validation.json
+AGENT2_VALIDATOR,CROSS_AGENT_VALIDATION,WARNING,PASS,EXECUTION_FAILED,integrated validator,crawl/runs/notebooks/observed-dev/MASTER_20260806_01/stages/crawl/notebooks/children/agent_runs/AGENT1/A1-04-RELEASE/agent2_validator_result.json
+CRAWL_RELEASE_READY,PRODUCTION_PROMOTION,ERROR,NOT_EVALUATED,False,full production corpus,crawl/runs/notebooks/observed-dev/MASTER_20260806_01/stages/crawl/notebooks/children/agent_runs/AGENT1/A1-04-RELEASE/observed_package_validation.json

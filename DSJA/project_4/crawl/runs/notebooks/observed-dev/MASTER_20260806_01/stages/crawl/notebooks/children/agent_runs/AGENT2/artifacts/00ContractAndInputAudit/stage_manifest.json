@@ -1,0 +1,54 @@
+{
+  "manifestVersion": "stage-manifest-v1",
+  "runId": "OBSERVED_DEV_20260806_01-A2-00-CONTRACT-AUDIT",
+  "runMode": "observed-dev",
+  "stageId": "A2-00-CONTRACT-AUDIT",
+  "status": "FAILED",
+  "agentId": "P4-A2-PIPELINE",
+  "branch": "DETACHED_HEAD",
+  "gitHead": "71edc867a8e869b78340e4fe253ced9312894077",
+  "contractVersion": "2.1.2",
+  "schemaVersion": "agent2-audit-v1",
+  "dataVersion": "observed-dev-20260806.1",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+  "startedAt": "2026-08-06T00:00:00+09:00",
+  "completedAt": "2026-08-06T00:00:00+09:00",
+  "empiricalAnalysisAllowed": false,
+  "promotionAllowed": false,
+  "inputManifestSha256": "f58810b38bde7c7e1c69bf1f7000b3931cadf9d4d544f64b9c9c0d27a63bce8e",
+  "parameterSha256": "65f2a5e178c8d7a43e48da1912a59db68a40c23fc9791ee37a3457b4dabd9754",
+  "rowCounts": {
+    "checksumCount": 6,
+    "canonicalDatabaseObjectCount": 32
+  },
+  "gateResults": [
+    {
+      "gateId": "CONTRACT_LINKED",
+      "status": "FAIL",
+      "evidencePath": "stage_quality.csv"
+    }
+  ],
+  "warnings": [],
+  "errors": [
+    "canonical_database_zero"
+  ],
+  "files": [],
+  "terminationArtifacts": [
+    "stage_manifest.json",
+    "stage_metrics.json",
+    "stage_quality.csv",
+    "CHECKSUMS.sha256"
+  ],
+  "dataPolicies": {
+    "canonicalStorage": "DUCKDB_PARQUET",
+    "csvPurpose": "HUMAN_INSPECTION_EXPORT",
+    "eligibilityColumns": [
+      "postingEligibleFlag",
+      "rq1EligibleFlag",
+      "rq2EligibleFlag",
+      "ncsEligibleFlag"
+    ],
+    "highDemandScore": "ALL_NULL"
+  }
+}

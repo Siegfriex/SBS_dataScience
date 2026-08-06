@@ -1,0 +1,85 @@
+{
+  "manifestVersion": "stage-manifest-v1",
+  "runId": "NCS_MAPPING_OBSERVED_20260806_01",
+  "runMode": "observed-dev",
+  "stageId": "A4-00-NCS-SOURCE",
+  "status": "SUCCEEDED",
+  "agentId": "P4-A4-NCS",
+  "branch": "DETACHED_HEAD",
+  "gitHead": "71edc867a8e869b78340e4fe253ced9312894077",
+  "contractVersion": "2.1.2",
+  "schemaVersion": "ncs-base-v1",
+  "dataVersion": "observed-dev-20260806.1",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+  "startedAt": "2026-08-06T09:16:45.513249Z",
+  "completedAt": "2026-08-06T09:16:45.516825Z",
+  "empiricalAnalysisAllowed": false,
+  "promotionAllowed": false,
+  "inputManifestSha256": "b5b02ea232295931f245c69c881046a813f04cfbc517a13bc40d9e82994277c1",
+  "parameterSha256": "ee2a95b4cf722fbc15def7f7c955eba2248f681ec2a54ffef33e1869c3836e36",
+  "rowCounts": {
+    "ncsUnit": 13442,
+    "uniqueNcsUnitCode": 13442,
+    "hierarchyCodeNulls": 0,
+    "hierarchyNameNulls": 53768
+  },
+  "gateResults": [
+    {
+      "gateId": "NCS_BASE_READY",
+      "status": "PASS",
+      "evidencePath": "ncs_mapping/data/processed/ncsUnit.parquet"
+    },
+    {
+      "gateId": "NCS_BASE_READY",
+      "status": "PASS",
+      "evidencePath": "ncs_mapping/data/processed/ncsUnit.parquet"
+    },
+    {
+      "gateId": "NCS_BASE_READY",
+      "status": "PASS",
+      "evidencePath": "ncs_mapping/data/processed/ncsUnit.parquet"
+    },
+    {
+      "gateId": "NCS_BASE_READY",
+      "status": "PASS",
+      "evidencePath": "ncs_mapping/data/processed/ncsUnit.parquet"
+    },
+    {
+      "gateId": "NCS_BASE_READY",
+      "status": "PASS",
+      "evidencePath": "ncs_mapping/data/processed/ncsUnit.parquet"
+    },
+    {
+      "gateId": "NCS_BASE_READY",
+      "status": "REVIEW_REQUIRED",
+      "evidencePath": "ncs_mapping/docs/CORE_AI_IT_CODESET_DECISION.md"
+    }
+  ],
+  "warnings": [],
+  "errors": [],
+  "files": [],
+  "terminationArtifacts": [
+    "stage_manifest.json",
+    "stage_metrics.json",
+    "stage_quality.csv",
+    "CHECKSUMS.sha256"
+  ],
+  "dataPolicies": {
+    "canonicalStorage": "DUCKDB_PARQUET",
+    "csvPurpose": "HUMAN_INSPECTION_EXPORT",
+    "eligibilityColumns": [
+      "postingEligibleFlag",
+      "rq1EligibleFlag",
+      "rq2EligibleFlag",
+      "ncsEligibleFlag"
+    ],
+    "highDemandScore": "ALL_NULL"
+  },
+  "mappingPolicy": {
+    "mappingMode": "LEXICAL_BASELINE",
+    "codeSetStatus": "REVIEW_REQUIRED",
+    "goldValidatedFlag": false,
+    "denseScore": null
+  }
+}

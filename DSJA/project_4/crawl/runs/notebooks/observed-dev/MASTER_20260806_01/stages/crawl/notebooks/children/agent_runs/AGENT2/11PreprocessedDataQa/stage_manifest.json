@@ -1,0 +1,120 @@
+{
+  "manifestVersion": "stage-manifest-v1",
+  "runId": "OBSERVED_DEV_20260806_01-A2-11-EXPORT-QA",
+  "runMode": "observed-dev",
+  "stageId": "A2-11-EXPORT-QA",
+  "status": "SUCCEEDED",
+  "agentId": "P4-A2-PIPELINE",
+  "branch": "DETACHED_HEAD",
+  "gitHead": "71edc867a8e869b78340e4fe253ced9312894077",
+  "contractVersion": "2.1.2",
+  "schemaVersion": "preprocessing-qa-v1",
+  "dataVersion": "observed-dev-20260806.1",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+  "startedAt": "2026-08-06T00:00:00+09:00",
+  "completedAt": "2026-08-06T00:00:00+09:00",
+  "empiricalAnalysisAllowed": false,
+  "promotionAllowed": false,
+  "inputManifestSha256": "f58810b38bde7c7e1c69bf1f7000b3931cadf9d4d544f64b9c9c0d27a63bce8e",
+  "parameterSha256": "6dd8b820f43161cca4c161a4e6c9bbed28d2c7e572921a9b232b8336e8fa532b",
+  "rowCounts": {
+    "checks": 24,
+    "passed": 24,
+    "failed": 0
+  },
+  "gateResults": [
+    {
+      "gateId": "PREPROCESSED_CSV_READY",
+      "status": "PASS",
+      "evidencePath": "stage_quality.csv"
+    }
+  ],
+  "warnings": [],
+  "errors": [],
+  "files": [
+    {
+      "path": "data/exports/observed-dev/OBSERVED_DEV_20260806_01/stage_quality.csv",
+      "sha256": "966a92d09bad2bf8e63375fb55adae2b819f95506860c323369fc35bda10773c",
+      "bytes": 3343,
+      "rows": 24,
+      "columns": 7,
+      "format": "csv",
+      "grain": "stage_quality",
+      "nullablePolicy": "schema-defined nulls preserved",
+      "sourceStage": "A2-11-EXPORT-QA",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "data/exports/observed-dev/OBSERVED_DEV_20260806_01/data_quality_summary.csv",
+      "sha256": "701805c11132ebe37a88a1837a13a8a5a7e77ac157146b10f851ef204f94ba59",
+      "bytes": 136,
+      "rows": 1,
+      "columns": 7,
+      "format": "csv",
+      "grain": "data_quality_summary",
+      "nullablePolicy": "schema-defined nulls preserved",
+      "sourceStage": "A2-11-EXPORT-QA",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "data/exports/observed-dev/OBSERVED_DEV_20260806_01/stage_metrics.json",
+      "sha256": "875d1ded8f2776d535ead7fff0bb98e7704996518d961b7954323c27a50c1a27",
+      "bytes": 4744,
+      "rows": null,
+      "columns": null,
+      "format": "json",
+      "grain": "stage_metrics",
+      "nullablePolicy": "schema-defined nulls preserved",
+      "sourceStage": "A2-11-EXPORT-QA",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "data/exports/observed-dev/OBSERVED_DEV_20260806_01/stage_manifest.json",
+      "sha256": "502c010de9637b41e31d99da27308db4518f8419d59347cbcc0828f34e63ee36",
+      "bytes": 8940,
+      "rows": null,
+      "columns": null,
+      "format": "json",
+      "grain": "stage_manifest",
+      "nullablePolicy": "schema-defined nulls preserved",
+      "sourceStage": "A2-11-EXPORT-QA",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "data/exports/observed-dev/OBSERVED_DEV_20260806_01/CHECKSUMS.sha256",
+      "sha256": "cbde9006a2c5862cf96770f0db5fff1e268956877f69bdad0149433c1124b9f1",
+      "bytes": 1820,
+      "rows": null,
+      "columns": null,
+      "format": "sha256",
+      "grain": "CHECKSUMS",
+      "nullablePolicy": "schema-defined nulls preserved",
+      "sourceStage": "A2-11-EXPORT-QA",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    }
+  ],
+  "terminationArtifacts": [
+    "stage_manifest.json",
+    "stage_metrics.json",
+    "stage_quality.csv",
+    "CHECKSUMS.sha256"
+  ],
+  "dataPolicies": {
+    "canonicalStorage": "DUCKDB_PARQUET",
+    "csvPurpose": "HUMAN_INSPECTION_EXPORT",
+    "eligibilityColumns": [
+      "postingEligibleFlag",
+      "rq1EligibleFlag",
+      "rq2EligibleFlag",
+      "ncsEligibleFlag"
+    ],
+    "highDemandScore": "ALL_NULL"
+  },
+  "mappingPolicy": {
+    "mappingMode": "LEXICAL_BASELINE",
+    "codeSetStatus": "REVIEW_REQUIRED",
+    "goldValidatedFlag": false,
+    "denseScore": null
+  }
+}

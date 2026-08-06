@@ -1,0 +1,4 @@
+﻿gateId,ruleId,severity,status,observedValue,threshold,evidencePath
+CRAWL_OBSERVED_INPUT_READY,RAW_REPLAY,ERROR,PASS,29,29,crawl/runs/notebooks/observed-dev/MASTER_20260806_01/stages/crawl/notebooks/children/agent_runs/AGENT1/A1-02-DETAIL/raw_replay_metrics.json
+ACTIVITY_TEXT_RECOVERED,SSR_APOLLO_PARSE,ERROR,PASS,29,29,crawl/runs/notebooks/observed-dev/MASTER_20260806_01/stages/crawl/notebooks/children/agent_runs/AGENT1/A1-02-DETAIL/posting_detail_replay.parquet
+RAW_PII_NOT_PERSISTED,PII_POLICY,ERROR,PASS,False,False,crawl/runs/notebooks/observed-dev/MASTER_20260806_01/stages/crawl/notebooks/children/agent_runs/AGENT1/A1-02-DETAIL/raw_replay_metrics.json

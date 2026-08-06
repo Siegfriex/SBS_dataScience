@@ -1,0 +1,19 @@
+gateId,producer,requiredEvidence,fixture,observed-dev,production,failureMeaning
+SOURCE_POLICY_READY,A1-00-RECOVER,"transparent client; rate, concurrency, 403 kill-switch, external ATS controls",NOT_EVALUATED,REVIEW_REQUIRED,PASS_REQUIRED,collector cannot run production
+CRAWL_OBSERVED_INPUT_READY,A1-02-DETAIL,checksummed partial manifest and explicit limitations,FAIL,PASS_ALLOWED,INSUFFICIENT,observed input unavailable
+CRAWL_RELEASE_READY,A1-04-RELEASE,all accepted months plus immutable raw lineage and validator,FAIL,FAIL,PASS_REQUIRED,production corpus rejected
+PARSE_READY,A2-02-PARSE,parsed rows schema and raw lineage,FIXTURE_ONLY,DEVELOPMENT_ONLY,PASS_REQUIRED,normalized posting unavailable
+TRACK_READY,A2-04-TRACK,track split mixed handling and conflict QA,FIXTURE_ONLY,DEVELOPMENT_ONLY,PASS_REQUIRED,track grain unavailable
+REQUIREMENT_READY,A2-05-REQUIREMENT,duty section boundaries and requirement facts,FIXTURE_ONLY,DEVELOPMENT_ONLY,PASS_REQUIRED,duty input unavailable
+DEDUP_READY,A2-06-DEDUP,canonical representative and duplicate QA,FIXTURE_ONLY,DEVELOPMENT_ONLY,PASS_REQUIRED,canonical counts invalid
+LABEL_DEV_READY,A2-07-LABEL,development labels with provenance,PASS,PASS,NOT_FINAL,development labeling unavailable
+LABEL_GOLD_READY,A2-07-LABEL,approved gold and unknown gates,FAIL,FAIL,PASS_REQUIRED,final access metrics prohibited
+NCS_BASE_READY,A4-00-NCS-SOURCE,"13442 unique units, checksum, hierarchy-code QA",PASS,PASS,PASS,base NCS unavailable
+NCS_MAPPING_DEV_READY,A4-03-MAP-OBSERVED,observed duty candidates and unmapped preservation,FAIL,PASS,NOT_FINAL,development mapping unavailable
+NCS_GOLD_SAMPLE_READY,CONTROLLED-MANUAL-A4-GOLD,approved n=300 sample with 30 percent independent double coding,FAIL,FAIL,PASS_REQUIRED,evaluation input unavailable
+NCS_MAPPING_GOLD_READY,A4-05-EVALUATE,"adjudicated gold; precision, coverage, low-confidence gates",FAIL,FAIL,PASS_REQUIRED,RQ2-B prohibited
+PREPROCESSED_CSV_READY,A2-11-EXPORT-QA,canonical Parquet and semantic CSV export manifest,FIXTURE_ONLY,DEVELOPMENT_ONLY,PASS_REQUIRED,analysis input unavailable
+ANALYSIS_READY,A2-13-TIME-SERIES,all upstream production gates and complete mart,FAIL,FAIL,PASS_REQUIRED,analysis and figures prohibited
+NOTEBOOK_SOURCE_READY,A3-MASTER,24 valid source notebooks with parameter cell real module call and zero outputs,FAIL,PASS,REQUIRED,source notebook bundle invalid
+NOTEBOOK_EXECUTION_READY_OBSERVED_DEV,A3-MASTER,at least 19 observed notebooks executed with separate executed copies and stage artifacts,FAIL,PASS,NOT_APPLICABLE,observed notebook execution unavailable
+NOTEBOOK_BUNDLE_READY,A3-MASTER,source execution artifact and provenance gates all pass,FAIL,PASS,NOT_APPLICABLE,reviewable notebook bundle unavailable

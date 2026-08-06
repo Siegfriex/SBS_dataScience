@@ -1,0 +1,86 @@
+{
+  "manifestVersion": "stage-manifest-v1",
+  "runId": "observed-dev-20260806.1",
+  "runMode": "observed-dev",
+  "stageId": "A1-04-RELEASE",
+  "status": "SUCCEEDED",
+  "agentId": "P4-A1-SOURCE",
+  "branch": "agent/p4-crawl-release-v2",
+  "gitHead": "71edc867a8e869b78340e4fe253ced9312894077",
+  "contractVersion": "2.1.2",
+  "schemaVersion": "crawl-release-v1",
+  "dataVersion": "observed-dev-20260806.1",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+  "startedAt": "2026-08-06T00:00:00+09:00",
+  "completedAt": "2026-08-06T00:00:00+09:00",
+  "empiricalAnalysisAllowed": false,
+  "promotionAllowed": false,
+  "inputManifestSha256": "f58810b38bde7c7e1c69bf1f7000b3931cadf9d4d544f64b9c9c0d27a63bce8e",
+  "parameterSha256": "2d0cda0deb485e928fd351b3ca3af3df7237803c212648624b02e0b6a57b26d5",
+  "rowCounts": {},
+  "gateResults": [
+    {
+      "gateId": "CRAWL_OBSERVED_INPUT_READY",
+      "status": "PASS",
+      "evidencePath": "crawl/runs/notebooks/observed-dev/MASTER_20260806_01/stages/crawl/notebooks/children/agent_runs/AGENT1/A1-04-RELEASE/observed_package_validation.json"
+    },
+    {
+      "gateId": "AGENT2_VALIDATOR",
+      "status": "PASS",
+      "evidencePath": "crawl/runs/notebooks/observed-dev/MASTER_20260806_01/stages/crawl/notebooks/children/agent_runs/AGENT1/A1-04-RELEASE/agent2_validator_result.json"
+    },
+    {
+      "gateId": "CRAWL_RELEASE_READY",
+      "status": "NOT_EVALUATED",
+      "evidencePath": "crawl/runs/notebooks/observed-dev/MASTER_20260806_01/stages/crawl/notebooks/children/agent_runs/AGENT1/A1-04-RELEASE/observed_package_validation.json"
+    }
+  ],
+  "warnings": [
+    "CRAWL_RELEASE_READY remains NOT_EVALUATED; observed validation cannot promote a production release."
+  ],
+  "errors": [],
+  "files": [
+    {
+      "path": "crawl/runs/notebooks/observed-dev/MASTER_20260806_01/stages/crawl/notebooks/children/agent_runs/AGENT1/A1-04-RELEASE/agent2_validator_result.json",
+      "sha256": "70e95d677d24a83feb79cecb837ac866428f93162ac4ade323c118dffe1982b6",
+      "bytes": 224,
+      "rows": null,
+      "columns": null,
+      "format": "json",
+      "grain": "A1-04-RELEASE",
+      "nullablePolicy": "schema_defined",
+      "sourceStage": "A1-04-RELEASE",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "crawl/runs/notebooks/observed-dev/MASTER_20260806_01/stages/crawl/notebooks/children/agent_runs/AGENT1/A1-04-RELEASE/observed_package_validation.json",
+      "sha256": "a82733bcf64e0fa88c4aec0ee16d8bcbda7ff784fcce683c91b3da58c59f7270",
+      "bytes": 277,
+      "rows": null,
+      "columns": null,
+      "format": "json",
+      "grain": "A1-04-RELEASE",
+      "nullablePolicy": "schema_defined",
+      "sourceStage": "A1-04-RELEASE",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    }
+  ],
+  "terminationArtifacts": [
+    "stage_manifest.json",
+    "stage_metrics.json",
+    "stage_quality.csv",
+    "CHECKSUMS.sha256"
+  ],
+  "dataPolicies": {
+    "canonicalStorage": "DUCKDB_PARQUET",
+    "csvPurpose": "HUMAN_INSPECTION_EXPORT",
+    "eligibilityColumns": [
+      "postingEligibleFlag",
+      "rq1EligibleFlag",
+      "rq2EligibleFlag",
+      "ncsEligibleFlag"
+    ],
+    "highDemandScore": "ALL_NULL"
+  }
+}

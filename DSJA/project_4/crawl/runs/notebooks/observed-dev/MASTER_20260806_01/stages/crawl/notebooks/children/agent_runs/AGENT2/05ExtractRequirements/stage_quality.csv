@@ -1,0 +1,3 @@
+﻿gateId,ruleId,severity,status,observedValue,threshold,evidencePath
+REQUIREMENT_READY,requirement_evidence,INFO,PASS,35,PASS,stage_quality.csv
+REQUIREMENT_READY,duty_handoff,INFO,PASS,28,PASS,stage_quality.csv

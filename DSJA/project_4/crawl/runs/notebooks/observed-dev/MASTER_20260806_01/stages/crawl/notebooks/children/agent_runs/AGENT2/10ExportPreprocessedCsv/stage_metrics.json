@@ -1,0 +1,45 @@
+{
+  "metricsVersion": "stage-metrics-v1",
+  "runId": "OBSERVED_DEV_20260806_01-A2-10-EXPORT",
+  "runMode": "observed-dev",
+  "stageId": "A2-10-EXPORT",
+  "contractVersion": "2.1.2",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "dataVersion": "observed-dev-20260806.1",
+  "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+  "empiricalAnalysisAllowed": false,
+  "promotionAllowed": false,
+  "generatedAt": "2026-08-06T00:00:00+09:00",
+  "metrics": [
+    {
+      "metricId": "artifacts",
+      "value": "[{\"bytes\": 43083, \"path\": \"posting_normalized.parquet\", \"rows\": 137, \"sha256\": \"86fb1f78310aa9951b3a1d07cc3bc32d4a1f05d93ab30f95de8c9ee539395bcb\"}, {\"bytes\": 65423, \"path\": \"posting_normalized.csv\", \"rows\": 137, \"sha256\": \"803a634fe92e049c505b6e86f94a1c119039c0b8c1aba3be321b2fdc88991125\"}, {\"bytes\": 33680, \"path\": \"posting_tracks.parquet\", \"rows\": 137, \"sha256\": \"bd155e178b55dfef5e50cf8539fd9ba438874d3079b21ff8644a455c667f8a33\"}, {\"bytes\": 42744, \"path\": \"posting_tracks.csv\", \"rows\": 137, \"sha256\": \"89d09e3ab13e6b519e3897bfbcbad91520d972d0251bfa1e5b6101348ae9114f\"}, {\"bytes\": 17056, \"path\": \"posting_sections.parquet\", \"rows\": 84, \"sha256\": \"3a2e9b2bd8acbd1495c5de944f6122d32efe98a07837bc8eb723d9e725fa63d0\"}, {\"bytes\": 24142, \"path\": \"posting_sections.csv\", \"rows\": 84, \"sha256\": \"8c4a12d7d8bbaace155c1a667172616f0e2cf3d2171b1a1d6bfb089d85fcf2ac\"}, {\"bytes\": 10928, \"path\": \"requirement_facts.parquet\", \"rows\": 35, \"sha256\": \"984d1b888da19f9ab85081ef2baa005159e61fb062eb29591757bb11364f6fdc\"}, {\"bytes\": 6949, \"path\": \"requirement_facts.csv\", \"rows\": 35, \"sha256\": \"88e0b66feffe41865415ad69600ca2bf520ef0d674d89f878ffdb80186cc65ef\"}, {\"bytes\": 17942, \"path\": \"career_access_labels.parquet\", \"rows\": 137, \"sha256\": \"f62732d4a5dc4bf4f7de4780f111f93e9a445eec71d15c6c30fb927984bdd586\"}, {\"bytes\": 30564, \"path\": \"career_access_labels.csv\", \"rows\": 137, \"sha256\": \"583f5954c70646256c462fa2d1b2ca151ce030be4064ede4cb9fd3bab6532e5a\"}, {\"bytes\": 24236, \"path\": \"posting_ncs_candidates.parquet\", \"rows\": 128, \"sha256\": \"34cd70219e3d58136841b88185ed470f598d86b8d5227fce8ec6e9817c53a3fd\"}, {\"bytes\": 55897, \"path\": \"posting_ncs_candidates.csv\", \"rows\": 128, \"sha256\": \"2bc16807081403a48a239c899173c788aa6ff9e887a47e083c90fa676cabf1bb\"}, {\"bytes\": 21215, \"path\": \"posting_ncs_matches.parquet\", \"rows\": 28, \"sha256\": \"f3d479ad5164b6bdeaf7fcf85ed03f2e834ae1f0a1f182a75d2badbb0274cc92\"}, {\"bytes\": 12480, \"path\": \"posting_ncs_matches.csv\", \"rows\": 28, \"sha256\": \"927387e90b14d81ae35b6cc8df7a235402967bcf1a5f9fb37e3d3c3a32a9dd5a\"}, {\"bytes\": 57374, \"path\": \"preprocessed_posting_tracks.parquet\", \"rows\": 137, \"sha256\": \"81fb01bd99114269b9f355b108087d5b58c28aa4a852fcb8c9fd11c3b8a5d9ea\"}, {\"bytes\": 80891, \"path\": \"preprocessed_posting_tracks.csv\", \"rows\": 137, \"sha256\": \"7ef9bc583d018d153cf176d6e14e9544f4b689febdc4fce0c6f2ac05a4055a10\"}]",
+      "numerator": null,
+      "denominator": null,
+      "unit": "value",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "checksumsPath",
+      "value": "CHECKSUMS.sha256",
+      "numerator": null,
+      "denominator": null,
+      "unit": "value",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "stage",
+      "value": "10ExportPreprocessedCsv",
+      "numerator": null,
+      "denominator": null,
+      "unit": "value",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    }
+  ]
+}

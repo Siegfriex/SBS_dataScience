@@ -1,0 +1,133 @@
+{
+  "manifestVersion": "stage-manifest-v1",
+  "runId": "observed-dev-20260806.1",
+  "runMode": "observed-dev",
+  "stageId": "A1-00-RECOVER",
+  "status": "SUCCEEDED",
+  "agentId": "P4-A1-SOURCE",
+  "branch": "agent/p4-crawl-release-v2",
+  "gitHead": "71edc867a8e869b78340e4fe253ced9312894077",
+  "contractVersion": "2.1.2",
+  "schemaVersion": "source-policy-run-v1",
+  "dataVersion": "observed-dev-20260806.1",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+  "startedAt": "2026-08-06T00:00:00+09:00",
+  "completedAt": "2026-08-06T00:00:00+09:00",
+  "empiricalAnalysisAllowed": false,
+  "promotionAllowed": false,
+  "inputManifestSha256": "f58810b38bde7c7e1c69bf1f7000b3931cadf9d4d544f64b9c9c0d27a63bce8e",
+  "parameterSha256": "bf4871832fb20bd91a6a860b3b65ce4521487360aa5ee08e7a1ca2f4c92385a1",
+  "rowCounts": {
+    "asset_frontier": 0,
+    "detail_frontier": 137,
+    "remaining_months": 1
+  },
+  "gateResults": [
+    {
+      "gateId": "SOURCE_POLICY_READY",
+      "status": "PASS",
+      "evidencePath": "crawl/runs/notebooks/observed-dev/MASTER_20260806_01/stages/crawl/notebooks/children/stages/crawl/notebooks/00RecoverSourceState/A1-00-RECOVER/resume_state.json"
+    },
+    {
+      "gateId": "OBSERVED_PACKAGE_REFERENCE_ONLY",
+      "status": "PASS",
+      "evidencePath": "crawl/runs/notebooks/observed-dev/MASTER_20260806_01/stages/crawl/notebooks/children/stages/crawl/notebooks/00RecoverSourceState/A1-00-RECOVER/resume_state.json"
+    }
+  ],
+  "warnings": [
+    "Observed input is partial and cannot be promoted to empirical analysis."
+  ],
+  "errors": [],
+  "files": [
+    {
+      "path": "crawl/runs/notebooks/observed-dev/MASTER_20260806_01/stages/crawl/notebooks/children/stages/crawl/notebooks/00RecoverSourceState/A1-00-RECOVER/asset_frontier.csv",
+      "sha256": "0a1819c234d28b9b17f15cfcc990df75305f99320959782448486e4fbfa986f0",
+      "bytes": 74,
+      "rows": 0,
+      "columns": 6,
+      "format": "csv",
+      "grain": "A1-00-RECOVER",
+      "nullablePolicy": "schema_defined",
+      "sourceStage": "A1-00-RECOVER",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "crawl/runs/notebooks/observed-dev/MASTER_20260806_01/stages/crawl/notebooks/children/stages/crawl/notebooks/00RecoverSourceState/A1-00-RECOVER/asset_frontier.parquet",
+      "sha256": "34c005769efd344e56ae713725df05b757e46ba0bd0a511f7aa08de7e249f917",
+      "bytes": 3246,
+      "rows": 0,
+      "columns": 6,
+      "format": "parquet",
+      "grain": "A1-00-RECOVER",
+      "nullablePolicy": "schema_defined",
+      "sourceStage": "A1-00-RECOVER",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "crawl/runs/notebooks/observed-dev/MASTER_20260806_01/stages/crawl/notebooks/children/stages/crawl/notebooks/00RecoverSourceState/A1-00-RECOVER/detail_frontier.csv",
+      "sha256": "f1d4d7c2f781cb335bb588a91ee13a80c37e1d4ffdf5cf2e6ecc9bc246604e52",
+      "bytes": 13019,
+      "rows": 137,
+      "columns": 10,
+      "format": "csv",
+      "grain": "A1-00-RECOVER",
+      "nullablePolicy": "schema_defined",
+      "sourceStage": "A1-00-RECOVER",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "crawl/runs/notebooks/observed-dev/MASTER_20260806_01/stages/crawl/notebooks/children/stages/crawl/notebooks/00RecoverSourceState/A1-00-RECOVER/detail_frontier.parquet",
+      "sha256": "790e38db1f03546336b1f8bc0848fdb18ce2556a81d965c6bd8d609229bda2ff",
+      "bytes": 12795,
+      "rows": 137,
+      "columns": 10,
+      "format": "parquet",
+      "grain": "A1-00-RECOVER",
+      "nullablePolicy": "schema_defined",
+      "sourceStage": "A1-00-RECOVER",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "crawl/runs/notebooks/observed-dev/MASTER_20260806_01/stages/crawl/notebooks/children/stages/crawl/notebooks/00RecoverSourceState/A1-00-RECOVER/remaining_months.csv",
+      "sha256": "ba5c51d1b96cb7136b4c5d4d8531cd355c0cfcd81b4056c3ff54c8540e6bddf1",
+      "bytes": 158,
+      "rows": 1,
+      "columns": 3,
+      "format": "csv",
+      "grain": "A1-00-RECOVER",
+      "nullablePolicy": "schema_defined",
+      "sourceStage": "A1-00-RECOVER",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "crawl/runs/notebooks/observed-dev/MASTER_20260806_01/stages/crawl/notebooks/children/stages/crawl/notebooks/00RecoverSourceState/A1-00-RECOVER/resume_state.json",
+      "sha256": "c9908491b8ae1d11b149f220ad601eb6c66b008d032d82369926e4e760c7181a",
+      "bytes": 283,
+      "rows": null,
+      "columns": null,
+      "format": "json",
+      "grain": "A1-00-RECOVER",
+      "nullablePolicy": "schema_defined",
+      "sourceStage": "A1-00-RECOVER",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    }
+  ],
+  "terminationArtifacts": [
+    "stage_manifest.json",
+    "stage_metrics.json",
+    "stage_quality.csv",
+    "CHECKSUMS.sha256"
+  ],
+  "dataPolicies": {
+    "canonicalStorage": "DUCKDB_PARQUET",
+    "csvPurpose": "HUMAN_INSPECTION_EXPORT",
+    "eligibilityColumns": [
+      "postingEligibleFlag",
+      "rq1EligibleFlag",
+      "rq2EligibleFlag",
+      "ncsEligibleFlag"
+    ],
+    "highDemandScore": "ALL_NULL"
+  }
+}

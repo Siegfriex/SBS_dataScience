@@ -1,0 +1,95 @@
+{
+  "metricsVersion": "stage-metrics-v1",
+  "runId": "observed-dev-20260806.1",
+  "runMode": "observed-dev",
+  "stageId": "A1-01-INDEX",
+  "contractVersion": "2.1.2",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "dataVersion": "observed-dev-20260806.1",
+  "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+  "empiricalAnalysisAllowed": false,
+  "promotionAllowed": false,
+  "generatedAt": "2026-08-06T00:00:00+09:00",
+  "metrics": [
+    {
+      "metricId": "mode",
+      "value": "DRY_RUN_FIXTURE",
+      "numerator": null,
+      "denominator": null,
+      "unit": "value",
+      "grain": "A1-01-INDEX",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "operationName",
+      "value": "CalendarScreen_ActivityCalendarEntries",
+      "numerator": null,
+      "denominator": null,
+      "unit": "value",
+      "grain": "A1-01-INDEX",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "queryHash",
+      "value": "b13ef5935c32d80a0cbabc6c9aaf9cbc52c274d34f983a2b06d14056da8bedbf",
+      "numerator": null,
+      "denominator": null,
+      "unit": "value",
+      "grain": "A1-01-INDEX",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "transportCalls",
+      "value": 1,
+      "numerator": 1,
+      "denominator": null,
+      "unit": "count",
+      "grain": "A1-01-INDEX",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "networkCalls",
+      "value": 0,
+      "numerator": 0,
+      "denominator": null,
+      "unit": "count",
+      "grain": "A1-01-INDEX",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "fixtureDays",
+      "value": 28,
+      "numerator": 28,
+      "denominator": null,
+      "unit": "count",
+      "grain": "A1-01-INDEX",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "discoveryRelations",
+      "value": 302,
+      "numerator": 302,
+      "denominator": null,
+      "unit": "count",
+      "grain": "A1-01-INDEX",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "distinctPostingIds",
+      "value": 297,
+      "numerator": 297,
+      "denominator": null,
+      "unit": "count",
+      "grain": "A1-01-INDEX",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    }
+  ]
+}

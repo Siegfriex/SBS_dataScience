@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://p4.local/schemas/notebook-execution-contract-v1.json",
+  "title": "P4 Notebook execution parameters and metadata",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "agentId",
+    "branch",
+    "gitHead",
+    "contractVersion",
+    "crawlReleaseId",
+    "dataVersion",
+    "runMode",
+    "dataProvenance",
+    "asOfDate",
+    "randomSeed",
+    "startedAt",
+    "inputManifestPath",
+    "outputRoot",
+    "empiricalAnalysisAllowed",
+    "promotionAllowed",
+    "storagePolicy",
+    "eligibilityColumns",
+    "highDemandScorePolicy",
+    "ksaPolicy"
+  ],
+  "properties": {
+    "agentId": {"type": "string", "pattern": "^P4-A[1234]-[A-Z0-9-]+$"},
+    "branch": {"type": "string", "minLength": 1},
+    "gitHead": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "contractVersion": {"const": "2.1.2"},
+    "crawlReleaseId": {"type": "string", "minLength": 1},
+    "dataVersion": {"type": "string", "minLength": 1},
+    "runMode": {"enum": ["fixture", "observed-dev", "production"]},
+    "dataProvenance": {
+      "enum": ["SYNTHETIC_FIXTURE_ONLY", "OBSERVED_DEVELOPMENT_ONLY", "PRODUCTION_RELEASE"]
+    },
+    "asOfDate": {"type": "string", "format": "date"},
+    "randomSeed": {"type": "integer", "minimum": 0},
+    "startedAt": {"type": "string", "format": "date-time"},
+    "inputManifestPath": {"$ref": "#/$defs/relativePath"},
+    "outputRoot": {"$ref": "#/$defs/relativePath"},
+    "empiricalAnalysisAllowed": {"type": "boolean"},
+    "promotionAllowed": {"type": "boolean"},
+    "storagePolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["canonical", "inspectionExport"],
+      "properties": {
+        "canonical": {"const": "DUCKDB_PARQUET"},
+        "inspectionExport": {"const": "CSV_UTF8_SIG"}
+      }
+    },
+    "eligibilityColumns": {
+      "const": ["postingEligibleFlag", "rq1EligibleFlag", "rq2EligibleFlag", "ncsEligibleFlag"]
+    },
+    "highDemandScorePolicy": {"const": "ALL_NULL"},
+    "ksaPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["decisionId", "status", "mode", "blocksM1"],
+      "properties": {
+        "decisionId": {"const": "D-023"},
+        "status": {"const": "PROVISIONAL"},
+        "mode": {"const": "OPTIONAL_ENRICHMENT"},
+        "blocksM1": {"const": false}
+      }
+    },
+    "mappingPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mappingMode", "codeSetStatus", "goldValidatedFlag", "denseScore"],
+      "properties": {
+        "mappingMode": {"const": "LEXICAL_BASELINE"},
+        "codeSetStatus": {"const": "REVIEW_REQUIRED"},
+        "goldValidatedFlag": {"const": false},
+        "denseScore": {"type": "null"}
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"runMode": {"const": "observed-dev"}}, "required": ["runMode"]},
+      "then": {
+        "properties": {
+          "crawlReleaseId": {"const": "CRAWL_20260806_03"},
+          "dataProvenance": {"const": "OBSERVED_DEVELOPMENT_ONLY"},
+          "randomSeed": {"const": 20260806},
+          "empiricalAnalysisAllowed": {"const": false},
+          "promotionAllowed": {"const": false},
+          "outputRoot": {"pattern": "(^|/)observed-dev(/|$)"}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"runMode": {"const": "fixture"}}, "required": ["runMode"]},
+      "then": {
+        "properties": {
+          "dataProvenance": {"const": "SYNTHETIC_FIXTURE_ONLY"},
+          "empiricalAnalysisAllowed": {"const": false},
+          "promotionAllowed": {"const": false}
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "relativePath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!~)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+    }
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "manifestVersion": "stage-manifest-v1",
+  "runId": "observed-dev-20260806.1",
+  "runMode": "observed-dev",
+  "stageId": "A1-02-DETAIL",
+  "status": "SUCCEEDED",
+  "agentId": "P4-A1-SOURCE",
+  "branch": "agent/p4-crawl-release-v2",
+  "gitHead": "71edc867a8e869b78340e4fe253ced9312894077",
+  "contractVersion": "2.1.2",
+  "schemaVersion": "posting-manifest-v1",
+  "dataVersion": "observed-dev-20260806.1",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+  "startedAt": "2026-08-06T00:00:00+09:00",
+  "completedAt": "2026-08-06T00:00:00+09:00",
+  "empiricalAnalysisAllowed": false,
+  "promotionAllowed": false,
+  "inputManifestSha256": "f58810b38bde7c7e1c69bf1f7000b3931cadf9d4d544f64b9c9c0d27a63bce8e",
+  "parameterSha256": "66617f5e1da74db4f23f3fa5afe3ae3d7c38a05eb3c78cbc9070d3512f38bd21",
+  "rowCounts": {
+    "posting_detail_replay": 29
+  },
+  "gateResults": [
+    {
+      "gateId": "CRAWL_OBSERVED_INPUT_READY",
+      "status": "PASS",
+      "evidencePath": "crawl/runs/notebooks/observed-dev/MASTER_20260806_01/stages/crawl/notebooks/children/stages/crawl/notebooks/02CollectPostingDetail/A1-02-DETAIL/raw_replay_metrics.json"
+    },
+    {
+      "gateId": "ACTIVITY_TEXT_RECOVERED",
+      "status": "PASS",
+      "evidencePath": "crawl/runs/notebooks/observed-dev/MASTER_20260806_01/stages/crawl/notebooks/children/stages/crawl/notebooks/02CollectPostingDetail/A1-02-DETAIL/posting_detail_replay.parquet"
+    },
+    {
+      "gateId": "RAW_PII_NOT_PERSISTED",
+      "status": "PASS",
+      "evidencePath": "crawl/runs/notebooks/observed-dev/MASTER_20260806_01/stages/crawl/notebooks/children/stages/crawl/notebooks/02CollectPostingDetail/A1-02-DETAIL/raw_replay_metrics.json"
+    }
+  ],
+  "warnings": [
+    "Only the 29 observed raw pages are replayed; this is not full-corpus detail coverage."
+  ],
+  "errors": [],
+  "files": [
+    {
+      "path": "crawl/runs/notebooks/observed-dev/MASTER_20260806_01/stages/crawl/notebooks/children/stages/crawl/notebooks/02CollectPostingDetail/A1-02-DETAIL/posting_detail_replay.csv",
+      "sha256": "44983fcd3f825d9b2b7e5b4f38b0406607f5875c838071ec5b342a16962fd76a",
+      "bytes": 24725,
+      "rows": 29,
+      "columns": 24,
+      "format": "csv",
+      "grain": "A1-02-DETAIL",
+      "nullablePolicy": "schema_defined",
+      "sourceStage": "A1-02-DETAIL",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "crawl/runs/notebooks/observed-dev/MASTER_20260806_01/stages/crawl/notebooks/children/stages/crawl/notebooks/02CollectPostingDetail/A1-02-DETAIL/posting_detail_replay.parquet",
+      "sha256": "86f7a054e45899e91f3f8de63ff091e38175d09f28dae0ccac00525cacf2007f",
+      "bytes": 27468,
+      "rows": 29,
+      "columns": 24,
+      "format": "parquet",
+      "grain": "A1-02-DETAIL",
+      "nullablePolicy": "schema_defined",
+      "sourceStage": "A1-02-DETAIL",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "crawl/runs/notebooks/observed-dev/MASTER_20260806_01/stages/crawl/notebooks/children/stages/crawl/notebooks/02CollectPostingDetail/A1-02-DETAIL/raw_replay_failures.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "bytes": 3,
+      "rows": null,
+      "columns": null,
+      "format": "json",
+      "grain": "A1-02-DETAIL",
+      "nullablePolicy": "schema_defined",
+      "sourceStage": "A1-02-DETAIL",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "crawl/runs/notebooks/observed-dev/MASTER_20260806_01/stages/crawl/notebooks/children/stages/crawl/notebooks/02CollectPostingDetail/A1-02-DETAIL/raw_replay_metrics.json",
+      "sha256": "ff8d2bd9d0ae5a3745b95b50094519ac4e28f4f9b0b5a9f2ff319c32580ab649",
+      "bytes": 197,
+      "rows": null,
+      "columns": null,
+      "format": "json",
+      "grain": "A1-02-DETAIL",
+      "nullablePolicy": "schema_defined",
+      "sourceStage": "A1-02-DETAIL",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    }
+  ],
+  "terminationArtifacts": [
+    "stage_manifest.json",
+    "stage_metrics.json",
+    "stage_quality.csv",
+    "CHECKSUMS.sha256"
+  ],
+  "dataPolicies": {
+    "canonicalStorage": "DUCKDB_PARQUET",
+    "csvPurpose": "HUMAN_INSPECTION_EXPORT",
+    "eligibilityColumns": [
+      "postingEligibleFlag",
+      "rq1EligibleFlag",
+      "rq2EligibleFlag",
+      "ncsEligibleFlag"
+    ],
+    "highDemandScore": "ALL_NULL"
+  }
+}

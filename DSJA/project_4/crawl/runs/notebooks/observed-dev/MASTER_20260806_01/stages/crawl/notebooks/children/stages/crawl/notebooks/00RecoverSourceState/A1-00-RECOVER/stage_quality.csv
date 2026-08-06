@@ -1,0 +1,3 @@
+﻿gateId,ruleId,severity,status,observedValue,threshold,evidencePath
+SOURCE_POLICY_READY,RAW_LINEAGE,ERROR,PASS,29,29,crawl/runs/notebooks/observed-dev/MASTER_20260806_01/stages/crawl/notebooks/children/stages/crawl/notebooks/00RecoverSourceState/A1-00-RECOVER/resume_state.json
+OBSERVED_PACKAGE_REFERENCE_ONLY,NO_RAW_COPY,ERROR,PASS,False,False,crawl/runs/notebooks/observed-dev/MASTER_20260806_01/stages/crawl/notebooks/children/stages/crawl/notebooks/00RecoverSourceState/A1-00-RECOVER/resume_state.json

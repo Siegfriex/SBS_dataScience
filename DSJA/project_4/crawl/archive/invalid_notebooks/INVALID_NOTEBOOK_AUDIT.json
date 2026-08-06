@@ -1,0 +1,9 @@
+{
+  "auditedAt": "2026-08-06",
+  "originalPath": "crawl/P4 Notebook-First.ipynb",
+  "bytes": 0,
+  "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reason": "ZERO_BYTE_INVALID_NOTEBOOK",
+  "archivedPath": "crawl/archive/invalid_notebooks/P4 Notebook-First.ipynb.zero-byte.invalid",
+  "replacementPath": "crawl/notebooks/P4_Notebook_First_Master.ipynb"
+}

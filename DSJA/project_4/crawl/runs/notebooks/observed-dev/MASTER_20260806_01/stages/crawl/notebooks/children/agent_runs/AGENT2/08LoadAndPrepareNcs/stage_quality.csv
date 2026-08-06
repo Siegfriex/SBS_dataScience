@@ -1,0 +1,5 @@
+﻿gateId,ruleId,severity,status,observedValue,threshold,evidencePath
+NCS_BASE_READY,agent4_handoff_self_sha,INFO,PASS,8f9c0af8fdd3d5f54b68f8ad6361de63f57f6b5badeeefb8b120b1f604e16a56,PASS,stage_quality.csv
+NCS_BASE_READY,agent4_input_rows_sha,INFO,PASS,a305d2354a7437860dc947f4e537be76c6233cd26fe658da650d3bb07437bc30,PASS,stage_quality.csv
+NCS_BASE_READY,ncs_source_rows,INFO,PASS,13442,PASS,stage_quality.csv
+NCS_BASE_READY,core_code_review_set,INFO,PASS,120,PASS,stage_quality.csv

@@ -1,0 +1,76 @@
+{
+  "manifestVersion": "stage-manifest-v1",
+  "runId": "NCS_MAPPING_OBSERVED_20260806_01",
+  "runMode": "observed-dev",
+  "stageId": "A4-05-EVALUATE",
+  "status": "NOT_EVALUATED",
+  "agentId": "P4-A4-NCS",
+  "branch": "DETACHED_HEAD",
+  "gitHead": "71edc867a8e869b78340e4fe253ced9312894077",
+  "contractVersion": "2.1.2",
+  "schemaVersion": "ncs-evaluation-v1",
+  "dataVersion": "observed-dev-20260806.1",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+  "startedAt": "2026-08-06T09:17:00.097352Z",
+  "completedAt": "2026-08-06T09:17:00.099940Z",
+  "empiricalAnalysisAllowed": false,
+  "promotionAllowed": false,
+  "inputManifestSha256": "c72ef16f5b80f38a1fb979e4b9720805034a8380538bddcd75b63331bbed0f2a",
+  "parameterSha256": "ee2a95b4cf722fbc15def7f7c955eba2248f681ec2a54ffef33e1869c3836e36",
+  "rowCounts": {
+    "goldInput": 0,
+    "adjudicatedGold": 0
+  },
+  "gateResults": [
+    {
+      "gateId": "NCS_MAPPING_GOLD_READY",
+      "status": "NOT_EVALUATED",
+      "evidencePath": "ncs_mapping/data/gold/ncsMappings/gold_ncs_mapping_v1_TEMPLATE.csv"
+    },
+    {
+      "gateId": "NCS_MAPPING_GOLD_READY",
+      "status": "NOT_EVALUATED",
+      "evidencePath": "ncs_mapping/data/processed/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/ncs_gold_evaluation.json"
+    }
+  ],
+  "warnings": [],
+  "errors": [],
+  "files": [
+    {
+      "path": "ncs_mapping/data/processed/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/ncs_gold_evaluation.json",
+      "sha256": "62b9aaf8a93222bbaf4a56b15a9785735db6f4da58d0a8748f73eac1d2242023",
+      "bytes": 455,
+      "rows": 1,
+      "columns": 15,
+      "format": "json",
+      "grain": "evaluation run",
+      "nullablePolicy": "schema-defined nullable values preserved",
+      "sourceStage": "A4-05-EVALUATE",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    }
+  ],
+  "terminationArtifacts": [
+    "stage_manifest.json",
+    "stage_metrics.json",
+    "stage_quality.csv",
+    "CHECKSUMS.sha256"
+  ],
+  "dataPolicies": {
+    "canonicalStorage": "DUCKDB_PARQUET",
+    "csvPurpose": "HUMAN_INSPECTION_EXPORT",
+    "eligibilityColumns": [
+      "postingEligibleFlag",
+      "rq1EligibleFlag",
+      "rq2EligibleFlag",
+      "ncsEligibleFlag"
+    ],
+    "highDemandScore": "ALL_NULL"
+  },
+  "mappingPolicy": {
+    "mappingMode": "LEXICAL_BASELINE",
+    "codeSetStatus": "REVIEW_REQUIRED",
+    "goldValidatedFlag": false,
+    "denseScore": null
+  }
+}

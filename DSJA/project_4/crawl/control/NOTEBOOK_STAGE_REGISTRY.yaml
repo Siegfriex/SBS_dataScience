@@ -1,0 +1,360 @@
+registryVersion: notebook-stage-registry-v1
+contractVersion: 2.1.2
+
+m1ObservedDefaults:
+  runMode: observed-dev
+  crawlReleaseId: CRAWL_20260806_03
+  dataProvenance: OBSERVED_DEVELOPMENT_ONLY
+  empiricalAnalysisAllowed: false
+  promotionAllowed: false
+  randomSeed: 20260806
+
+requiredTerminationArtifacts:
+  - stage_manifest.json
+  - stage_metrics.json
+  - stage_quality.csv
+  - CHECKSUMS.sha256
+
+dataPolicy:
+  canonicalStorage: DUCKDB_PARQUET
+  csvPurpose: HUMAN_INSPECTION_EXPORT
+  csvEncoding: utf-8-sig
+  csvDelimiter: comma
+  eligibilityColumns:
+    - postingEligibleFlag
+    - rq1EligibleFlag
+    - rq2EligibleFlag
+    - ncsEligibleFlag
+  highDemandScore: ALL_NULL
+
+ncsM1Policy:
+  mappingMode: LEXICAL_BASELINE
+  codeSetStatus: REVIEW_REQUIRED
+  goldValidatedFlag: false
+  denseScore: null
+  ksaDecision:
+    decisionId: D-023
+    status: PROVISIONAL
+    mode: OPTIONAL_ENRICHMENT
+    blocksM1: false
+
+notebookGeneration:
+  registryDriven: true
+  deterministicCellIds: true
+  parameterCellFirst: true
+  sourceOutputCount: 0
+  modes:
+    check: READ_ONLY
+    render: DIFF_REQUIRED
+    force: EXPLICIT_OVERWRITE
+  excludedNotebooks:
+    - crawl/archive/invalid_notebooks/P4 Notebook-First.ipynb.zero-byte.invalid
+
+stages:
+  - stageId: A1-00-RECOVER
+    notebookPath: crawl/notebooks/00RecoverSourceState.ipynb
+    ownerAgent: P4-A1-SOURCE
+    inputArtifacts: [source-policy evidence, baseline release, checkpoints]
+    outputArtifacts: [resume_state.json, remaining_months.csv, detail_frontier.csv, asset_frontier.csv]
+    requiredGate: NOT_EVALUATED
+    producedGate: SOURCE_POLICY_READY
+    allowedRunModes: [observed-dev, production]
+    upstreamStages: []
+    schemaVersion: source-policy-run-v1
+
+  - stageId: A1-01-INDEX
+    notebookPath: crawl/notebooks/01CollectLinkareerIndex.ipynb
+    ownerAgent: P4-A1-SOURCE
+    inputArtifacts: [queryRegistry, coverage plan]
+    outputArtifacts: [posting_discovery_index, monthly_coverage, index_fetch_manifest]
+    requiredGate: SOURCE_POLICY_READY
+    producedGate: CRAWL_INDEX_OBSERVED_READY
+    allowedRunModes: [observed-dev, production]
+    upstreamStages: [A1-00-RECOVER]
+    schemaVersion: crawl-index-v1
+
+  - stageId: A1-02-DETAIL
+    notebookPath: crawl/notebooks/02CollectPostingDetail.ipynb
+    ownerAgent: P4-A1-SOURCE
+    inputArtifacts: [index raw, detail frontier]
+    outputArtifacts: [raw SSR, posting manifest, detail_fetch_manifest]
+    requiredGate: CRAWL_INDEX_OBSERVED_READY
+    producedGate: CRAWL_OBSERVED_INPUT_READY
+    allowedRunModes: [observed-dev, production]
+    upstreamStages: [A1-01-INDEX]
+    schemaVersion: posting-manifest-v1
+
+  - stageId: A1-03-ASSET
+    notebookPath: crawl/notebooks/03CollectPostingAssets.ipynb
+    ownerAgent: P4-A1-SOURCE
+    inputArtifacts: [posting manifest, asset candidates]
+    outputArtifacts: [raw assets, asset manifest, ocr candidate manifest]
+    requiredGate: CRAWL_OBSERVED_INPUT_READY
+    producedGate: CRAWL_ASSET_LINEAGE_READY
+    allowedRunModes: [observed-dev, production]
+    upstreamStages: [A1-02-DETAIL]
+    schemaVersion: asset-manifest-v1
+
+  - stageId: A1-04-RELEASE
+    notebookPath: crawl/notebooks/04BuildCrawlRelease.ipynb
+    ownerAgent: P4-A1-SOURCE
+    inputArtifacts: [record raw lineage, asset lineage, monthly coverage]
+    outputArtifacts: [immutable crawl release]
+    requiredGate: CRAWL_ASSET_LINEAGE_READY
+    producedGate: CRAWL_RELEASE_READY
+    allowedRunModes: [observed-dev, production]
+    upstreamStages: [A1-03-ASSET]
+    schemaVersion: crawl-release-v1
+
+  - stageId: A2-00-CONTRACT-AUDIT
+    notebookPath: pipeline/notebooks/00ContractAndInputAudit.ipynb
+    ownerAgent: P4-A2-PIPELINE
+    inputArtifacts: [contract bundle, input manifest]
+    outputArtifacts: [contract audit]
+    requiredGate: NOT_EVALUATED
+    producedGate: CONTRACT_LINKED
+    allowedRunModes: [fixture, observed-dev, production]
+    upstreamStages: []
+    schemaVersion: agent2-audit-v1
+
+  - stageId: A2-01-LOAD
+    notebookPath: pipeline/notebooks/01LoadCrawlRelease.ipynb
+    ownerAgent: P4-A2-PIPELINE
+    inputArtifacts: [crawl manifest]
+    outputArtifacts: [raw staging tables]
+    requiredGate: CRAWL_OBSERVED_INPUT_READY_OR_CRAWL_RELEASE_READY
+    producedGate: INPUT_LOADED
+    allowedRunModes: [fixture, observed-dev, production]
+    upstreamStages: [A2-00-CONTRACT-AUDIT]
+    schemaVersion: p4-contract-2.1.2
+
+  - stageId: A2-02-PARSE
+    notebookPath: pipeline/notebooks/02ParseAndNormalize.ipynb
+    ownerAgent: P4-A2-PIPELINE
+    inputArtifacts: [raw staging tables]
+    outputArtifacts: [postingNormalized]
+    requiredGate: INPUT_LOADED
+    producedGate: PARSE_READY
+    allowedRunModes: [fixture, observed-dev, production]
+    upstreamStages: [A2-01-LOAD]
+    schemaVersion: p4-contract-2.1.2
+
+  - stageId: A2-03-OCR
+    notebookPath: pipeline/notebooks/03OcrAndSectionRecovery.ipynb
+    ownerAgent: P4-A2-PIPELINE
+    inputArtifacts: [posting assets, activityTextHtml]
+    outputArtifacts: [ocrResult, recovered sections]
+    requiredGate: PARSE_READY
+    producedGate: OCR_READY
+    allowedRunModes: [fixture, observed-dev, production]
+    upstreamStages: [A2-02-PARSE]
+    schemaVersion: p4-contract-2.1.2
+
+  - stageId: A2-04-TRACK
+    notebookPath: pipeline/notebooks/04SplitTracks.ipynb
+    ownerAgent: P4-A2-PIPELINE
+    inputArtifacts: [postingNormalized, recovered sections]
+    outputArtifacts: [postingTrack]
+    requiredGate: OCR_READY
+    producedGate: TRACK_READY
+    allowedRunModes: [fixture, observed-dev, production]
+    upstreamStages: [A2-03-OCR]
+    schemaVersion: p4-contract-2.1.2
+
+  - stageId: A2-05-REQUIREMENT
+    notebookPath: pipeline/notebooks/05ExtractRequirements.ipynb
+    ownerAgent: P4-A2-PIPELINE
+    inputArtifacts: [postingTrack, postingSection]
+    outputArtifacts: [requirementFact]
+    requiredGate: TRACK_READY
+    producedGate: REQUIREMENT_READY
+    allowedRunModes: [fixture, observed-dev, production]
+    upstreamStages: [A2-04-TRACK]
+    schemaVersion: p4-contract-2.1.2
+
+  - stageId: A2-06-DEDUP
+    notebookPath: pipeline/notebooks/06Deduplicate90Days.ipynb
+    ownerAgent: P4-A2-PIPELINE
+    inputArtifacts: [postingNormalized]
+    outputArtifacts: [canonicalRecordFlag]
+    requiredGate: PARSE_READY
+    producedGate: DEDUP_READY
+    allowedRunModes: [fixture, observed-dev, production]
+    upstreamStages: [A2-02-PARSE]
+    schemaVersion: p4-contract-2.1.2
+
+  - stageId: A2-07-LABEL
+    notebookPath: pipeline/notebooks/07LabelCareerAccess.ipynb
+    ownerAgent: P4-A2-PIPELINE
+    inputArtifacts: [postingTrack, requirementFact]
+    outputArtifacts: [careerLabel]
+    requiredGate: REQUIREMENT_READY
+    producedGate: LABEL_DEV_READY_OR_LABEL_GOLD_READY
+    allowedRunModes: [fixture, observed-dev, production]
+    upstreamStages: [A2-05-REQUIREMENT]
+    schemaVersion: p4-contract-2.1.2
+
+  - stageId: A2-08-NCS-LOAD
+    notebookPath: pipeline/notebooks/08LoadAndPrepareNcs.ipynb
+    ownerAgent: P4-A2-PIPELINE
+    inputArtifacts: [Agent 4 NCS source audit, core AI IT code set]
+    outputArtifacts: [validated NCS source tables, code set acceptance]
+    requiredGate: NCS_BASE_READY
+    producedGate: NCS_INPUT_ACCEPTED
+    allowedRunModes: [observed-dev, production]
+    upstreamStages: [A4-00-NCS-SOURCE, A4-01-CODESET]
+    schemaVersion: ncs-agent2-acceptance-v1
+
+  - stageId: A2-09-NCS-MAP
+    notebookPath: pipeline/notebooks/09MapPostingToNcs.ipynb
+    ownerAgent: P4-A2-PIPELINE
+    inputArtifacts: [Agent 4 candidates, matches, unmapped rows]
+    outputArtifacts: [validated track NCS mapping tables]
+    requiredGate: NCS_MAPPING_DEV_READY
+    producedGate: NCS_MAPPING_ACCEPTED
+    allowedRunModes: [observed-dev, production]
+    upstreamStages: [A2-08-NCS-LOAD, A4-03-MAP-OBSERVED, A4-04-EXPORT]
+    schemaVersion: ncs-agent2-mapping-v1
+
+  - stageId: A4-00-NCS-SOURCE
+    notebookPath: ncs_mapping/notebooks/00NcsSourceAudit.ipynb
+    ownerAgent: P4-A4-NCS
+    inputArtifacts: [ncsUnit source release]
+    outputArtifacts: [ncsUnit parquet, source audit]
+    requiredGate: CONTRACT_LINKED
+    producedGate: NCS_BASE_READY
+    allowedRunModes: [fixture, observed-dev, production]
+    upstreamStages: [A2-00-CONTRACT-AUDIT]
+    schemaVersion: ncs-base-v1
+
+  - stageId: A4-01-CODESET
+    notebookPath: ncs_mapping/notebooks/01BuildCoreAiItCodeSet.ipynb
+    ownerAgent: P4-A4-NCS
+    inputArtifacts: [ncsUnit parquet]
+    outputArtifacts: [core code set candidate]
+    requiredGate: NCS_BASE_READY
+    producedGate: NCS_CODESET_REVIEW_READY
+    allowedRunModes: [fixture, observed-dev]
+    upstreamStages: [A4-00-NCS-SOURCE]
+    schemaVersion: core-ai-it-v0.1
+
+  - stageId: A4-02-RETRIEVAL
+    notebookPath: ncs_mapping/notebooks/02BuildNcsRetrievalIndex.ipynb
+    ownerAgent: P4-A4-NCS
+    inputArtifacts: [core code set, alias dictionary]
+    outputArtifacts: [retrieval index manifest]
+    requiredGate: NCS_BASE_READY
+    producedGate: NCS_RETRIEVAL_READY
+    allowedRunModes: [fixture, observed-dev]
+    upstreamStages: [A4-01-CODESET]
+    schemaVersion: ncs-retrieval-v1
+
+  - stageId: A4-03-MAP-OBSERVED
+    notebookPath: ncs_mapping/notebooks/03MapObservedDuties.ipynb
+    ownerAgent: P4-A4-NCS
+    inputArtifacts: [observed duty manifest, retrieval index]
+    outputArtifacts: [posting NCS candidates]
+    requiredGate: REQUIREMENT_READY_AND_NCS_RETRIEVAL_READY
+    producedGate: NCS_MAPPING_DEV_READY
+    allowedRunModes: [observed-dev]
+    upstreamStages: [A2-05-REQUIREMENT, A4-02-RETRIEVAL]
+    schemaVersion: posting-ncs-candidates-v1
+
+  - stageId: A4-04-EXPORT
+    notebookPath: ncs_mapping/notebooks/04ExportNcsMappingCsv.ipynb
+    ownerAgent: P4-A4-NCS
+    inputArtifacts: [posting NCS candidates]
+    outputArtifacts: [inspection CSV, export manifest]
+    requiredGate: NCS_MAPPING_DEV_READY
+    producedGate: NCS_MAPPING_EXPORT_READY
+    allowedRunModes: [observed-dev, production]
+    upstreamStages: [A4-03-MAP-OBSERVED]
+    schemaVersion: ncs-export-v1
+
+  - stageId: A4-05-EVALUATE
+    notebookPath: ncs_mapping/notebooks/05EvaluateNcsMapping.ipynb
+    ownerAgent: P4-A4-NCS
+    inputArtifacts: [posting NCS candidates, adjudicated gold]
+    outputArtifacts: [precision coverage report]
+    requiredGate: NCS_GOLD_SAMPLE_READY
+    producedGate: NCS_MAPPING_GOLD_READY
+    allowedRunModes: [observed-dev, production]
+    upstreamStages: [A4-04-EXPORT]
+    schemaVersion: ncs-evaluation-v1
+
+  - stageId: A2-10-EXPORT
+    notebookPath: pipeline/notebooks/10ExportPreprocessedCsv.ipynb
+    ownerAgent: P4-A2-PIPELINE
+    inputArtifacts: [parsed tracks requirements dedup labels NCS matches]
+    outputArtifacts: [canonical parquet, inspection CSV, export manifest]
+    requiredGate: DEDUP_READY_AND_REQUIREMENT_READY
+    producedGate: PREPROCESSED_EXPORT_BUILT
+    allowedRunModes: [observed-dev, production]
+    upstreamStages: [A2-05-REQUIREMENT, A2-06-DEDUP, A2-07-LABEL]
+    schemaVersion: preprocessing-export-v1
+
+  - stageId: A2-11-EXPORT-QA
+    notebookPath: pipeline/notebooks/11PreprocessedDataQa.ipynb
+    ownerAgent: P4-A2-PIPELINE
+    inputArtifacts: [canonical parquet, inspection CSV, export manifest]
+    outputArtifacts: [stage quality, checksums]
+    requiredGate: PREPROCESSED_EXPORT_BUILT
+    producedGate: PREPROCESSED_CSV_READY
+    allowedRunModes: [observed-dev, production]
+    upstreamStages: [A2-10-EXPORT]
+    schemaVersion: preprocessing-qa-v1
+
+  - stageId: A2-12-POSTING-MART
+    notebookPath: pipeline/notebooks/12BuildPostingMart.ipynb
+    ownerAgent: P4-A2-PIPELINE
+    inputArtifacts: [dedup, gold labels, NCS matches]
+    outputArtifacts: [postingAnalysisMart parquet]
+    requiredGate: PREPROCESSED_CSV_READY_AND_LABEL_GOLD_READY_AND_NCS_MAPPING_GOLD_READY
+    producedGate: POSTING_MART_READY
+    allowedRunModes: [production]
+    upstreamStages: [A2-11-EXPORT-QA, A4-05-EVALUATE]
+    schemaVersion: p4-contract-2.1.2
+
+  - stageId: A2-13-TIME-SERIES
+    notebookPath: pipeline/notebooks/13BuildTimeSeriesMart.ipynb
+    ownerAgent: P4-A2-PIPELINE
+    inputArtifacts: [postingAnalysisMart]
+    outputArtifacts: [timeSeriesMart]
+    requiredGate: POSTING_MART_READY
+    producedGate: ANALYSIS_READY
+    allowedRunModes: [production]
+    upstreamStages: [A2-12-POSTING-MART]
+    schemaVersion: p4-contract-2.1.2
+
+  - stageId: A2-14-ANALYSIS
+    notebookPath: pipeline/notebooks/14AnalyzeRq1Rq2.ipynb
+    ownerAgent: P4-A2-PIPELINE
+    inputArtifacts: [timeSeriesMart]
+    outputArtifacts: [model tables]
+    requiredGate: ANALYSIS_READY
+    producedGate: ANALYSIS_RESULTS_READY
+    allowedRunModes: [production]
+    upstreamStages: [A2-13-TIME-SERIES]
+    schemaVersion: analysis-v1
+
+  - stageId: A2-15-FIGURES
+    notebookPath: pipeline/notebooks/15BuildArticleFigures.ipynb
+    ownerAgent: P4-A2-PIPELINE
+    inputArtifacts: [model tables]
+    outputArtifacts: [article figures]
+    requiredGate: ANALYSIS_RESULTS_READY
+    producedGate: FIGURES_READY
+    allowedRunModes: [production]
+    upstreamStages: [A2-14-ANALYSIS]
+    schemaVersion: figures-v1
+
+  - stageId: A3-MASTER
+    notebookPath: crawl/notebooks/P4_Notebook_First_Master.ipynb
+    ownerAgent: P4-A3-CONTROL
+    inputArtifacts: [23 source notebooks, stage registry, observed export bundle]
+    outputArtifacts: [executed notebook bundle, execution results, master stage artifacts]
+    requiredGate: PREPROCESSED_CSV_READY_AND_NCS_MAPPING_DEV_READY
+    producedGate: NOTEBOOK_EXECUTION_READY_OBSERVED_DEV
+    allowedRunModes: [observed-dev]
+    upstreamStages: [A1-04-RELEASE, A2-11-EXPORT-QA, A4-05-EVALUATE]
+    schemaVersion: notebook-bundle-v1

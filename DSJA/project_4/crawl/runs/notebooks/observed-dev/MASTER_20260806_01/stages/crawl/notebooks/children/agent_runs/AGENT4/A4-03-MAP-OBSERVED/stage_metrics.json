@@ -1,0 +1,45 @@
+{
+  "metricsVersion": "stage-metrics-v1",
+  "runId": "NCS_MAPPING_OBSERVED_20260806_01",
+  "runMode": "observed-dev",
+  "stageId": "A4-03-MAP-OBSERVED",
+  "contractVersion": "2.1.2",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "dataVersion": "observed-dev-20260806.1",
+  "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+  "empiricalAnalysisAllowed": false,
+  "promotionAllowed": false,
+  "generatedAt": "2026-08-06T09:16:54.226847Z",
+  "metrics": [
+    {
+      "metricId": "dutyInputRows",
+      "value": 28,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "sectionId",
+      "unknownHandling": "unknown retained; no empirical inference",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "candidateRows",
+      "value": 128,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "sectionId plus candidateRank",
+      "unknownHandling": "unknown retained; no empirical inference",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "unmappedRows",
+      "value": 1,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "sectionId",
+      "unknownHandling": "unknown retained; no empirical inference",
+      "status": "INFORMATIONAL"
+    }
+  ]
+}

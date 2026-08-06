@@ -1,0 +1,30 @@
+{
+  "generatedAt": "2026-08-06",
+  "notebookCount": 24,
+  "validSourceCount": 24,
+  "executedNotebookCount": 24,
+  "sourceOutputCount": 0,
+  "artifactCount": 388,
+  "states": {
+    "OBSERVED_DEV_CSV_READY": true,
+    "NOTEBOOK_SOURCE_READY": true,
+    "NOTEBOOK_EXECUTION_READY_OBSERVED_DEV": true,
+    "NOTEBOOK_BUNDLE_READY": true
+  },
+  "forbiddenStates": {
+    "CRAWL_RELEASE_READY": false,
+    "DATA_READY_RQ1_RQ2A": false,
+    "DATA_READY_RQ2B": false,
+    "ANALYSIS_READY": false
+  },
+  "reports": [
+    "NOTEBOOK_BUILD_FINAL_REPORT.md",
+    "NOTEBOOK_BUILD_FINAL_REPORT.json",
+    "NOTEBOOK_FILE_INVENTORY.csv",
+    "NOTEBOOK_CELL_INVENTORY.csv",
+    "NOTEBOOK_EXECUTION_RESULTS.csv",
+    "NOTEBOOK_MODULE_CALL_MATRIX.csv",
+    "NOTEBOOK_OUTPUT_ARTIFACTS.csv",
+    "NOTEBOOK_GATE_RESULTS.csv"
+  ]
+}

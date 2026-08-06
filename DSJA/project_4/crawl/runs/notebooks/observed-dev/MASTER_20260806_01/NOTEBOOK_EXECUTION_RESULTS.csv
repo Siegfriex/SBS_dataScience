@@ -1,0 +1,2 @@
+﻿notebook,status,elapsedSeconds,sourceSha256,executedPath,executedSha256,executedOutputs,stageOutputRoot,error,agentId,stageId
+crawl/notebooks/P4_Notebook_First_Master.ipynb,PASS,62.78,84ba8f52070c7941043be4195a146af2218d74e9c0fd6855c6122cf094da345c,crawl/runs/notebooks/observed-dev/MASTER_20260806_01/executed/crawl/notebooks/P4_Notebook_First_Master.ipynb,9f3bdd1308a2c459eadee39c00ea45e51f0aa754b7be659fd5453d41a1d50ab1,31,crawl/runs/notebooks/observed-dev/MASTER_20260806_01/stages/crawl/notebooks/P4_Notebook_First_Master,,P4-A3-CONTROL,A3-MASTER
