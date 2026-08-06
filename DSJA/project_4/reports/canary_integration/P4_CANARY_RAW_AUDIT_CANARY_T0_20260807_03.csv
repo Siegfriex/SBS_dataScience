@@ -1,2 +1,2 @@
-runId,dataVersion,approvalId,gitSha,requestCount,manifestSha256,command,exitCode,policyVersion,checkId,rows,resolved,quarantined,status
-CANARY_T0_20260807_03,NONE,NONE,85567ec86879e0e31ada4bcce3b2cbd03e171739,0,85e71de36428b1473187badcdd5cce153479f30658f202525bf43a995169a5bd,python3 integration/validate_canary_handoff.py [redacted portable arguments],2,NOT_EVALUATED,RAW_AUTHORITY,0,0,0,NOT_EVALUATED
+runId,dataVersion,approvalId,gitSha,requestCount,manifestSha256,command,exitCode,policyVersion,checkId,rows,resolved,quarantined,emptyReason,status
+CANARY_T0_20260807_03,canary-t0-canary_t0_20260807_03,NONE,530ab2b3e0fd7c12f8156ccd143b60577e6b8582,0,6162d3aea6ff3646d4d9cb7ff09d09acf91bbde81a815896096bca82b6f63c42,python3 integration/validate_canary_handoff.py [redacted portable arguments],2,p4-linkareer-source-policy-v1,RAW_AUTHORITY,0,0,0,NETWORK_NOT_AUTHORIZED,NOT_EVALUATED
