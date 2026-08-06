@@ -1,0 +1,19 @@
+{
+  "analysisPromotionAllowed": false,
+  "assetTerminalCoverage": "NOT_EVALUATED",
+  "credentialedApiCalls": 0,
+  "dataVersion": "canary-t0-canary_t0_20260807_03",
+  "detailTerminalCoverage": "NOT_EVALUATED",
+  "externalAtsTransportCalls": 0,
+  "fixtureChecks": 15,
+  "fixtureChecksPassed": 15,
+  "networkCalls": 0,
+  "quarantinedRows": 0,
+  "rawObjectCount": 0,
+  "rawShaCompleteness": "NOT_EVALUATED",
+  "releasePromotionAllowed": false,
+  "requestCount": 0,
+  "runId": "CANARY_T0_20260807_03",
+  "schemaVersion": "p4-canary-handoff-v1",
+  "status": "CANARY_BLOCKED_BY_POLICY"
+}

@@ -1,0 +1,14 @@
+{
+  "analysisPromotionAllowed": false,
+  "createdAtUtc": "2026-08-06T17:23:26.664869Z",
+  "dataVersion": "canary-t0-canary_t0_20260807_03",
+  "externalAtsTransportCalls": 0,
+  "networkCalls": 0,
+  "releasePromotionAllowed": false,
+  "runId": "CANARY_T0_20260807_03",
+  "runMode": "fixture-only",
+  "schemaVersion": "p4-canary-handoff-v1",
+  "sourceRuntimeManifestSha256": "3fda6f5153ad9f6e4df50bd8129654a2bae1ef8b08cb7146137c3d3c0a0262c4",
+  "stageId": "CANARY-T0-FIXTURE",
+  "status": "CANARY_BLOCKED_BY_POLICY"
+}
