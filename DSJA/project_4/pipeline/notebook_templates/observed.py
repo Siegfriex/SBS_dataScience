@@ -49,7 +49,7 @@ CONTROL_ROOT = Path(os.environ.get("P4_CONTROL_ROOT", PROJECT_ROOT / "crawl/cont
 NCS_PROJECT_ROOT = Path(os.environ.get("P4_NCS_PROJECT_ROOT", PROJECT_ROOT)).resolve()
 NCS_HANDOFF_PATH = Path(os.environ.get("P4_NCS_HANDOFF_PATH", NCS_PROJECT_ROOT / "shared/handoffs/AGENT4_TO_AGENT2_NCS_MAPPING_OBSERVED_DEV.json")).resolve()
 RUN_ROOT = Path(os.environ.get("P4_NOTEBOOK_RUN_ROOT", PIPELINE_ROOT / "runs/notebooks/observed-dev/AGENT2_20260806_01")).resolve()
-BRANCH = subprocess.check_output(["git", "branch", "--show-current"], cwd=PROJECT_ROOT, text=True).strip()
+BRANCH = subprocess.check_output(["git", "branch", "--show-current"], cwd=PROJECT_ROOT, text=True).strip() or "DETACHED_HEAD"
 GIT_HEAD = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=PROJECT_ROOT, text=True).strip()
 METADATA = {
     "agentId": AGENT_ID, "branch": BRANCH, "gitHead": GIT_HEAD,
