@@ -1,0 +1,604 @@
+{
+  "title": "PROJECT4_INITIAL_SSOT",
+  "version": "0.1",
+  "generatedAt": "2026-08-06T00:00:00+09:00",
+  "verdict": "PROJECT4_INITIAL_SSOT_READY",
+  "userDecisionState": "USER_DECISION_REQUIRED",
+  "auditMode": "READ_ONLY_FORENSIC_RECONSTRUCTION",
+  "identity": {
+    "agentId": "P4-ORCHESTRATOR",
+    "agentName": "P4 Project-Wide Multi-Agent Orchestrator",
+    "role": "MULTI_AGENT_CONTROL_AND_SSOT_OWNER"
+  },
+  "research": {
+    "rq1": "신입·인턴 공고구조의 시계열 변화",
+    "rq2a": "신입·인턴 진입장벽 및 요구조건 변화",
+    "rq2b": "인턴 담당업무의 NCS 수준과 직무구조 변화",
+    "auxiliary": [
+      "RQ3 인턴·신입·경력 공고 유사성",
+      "RQ4 독립 기술통계",
+      "RQ5 대표 사례분석"
+    ],
+    "allowedInference": [
+      "기술통계",
+      "패턴",
+      "상관",
+      "기간별·집단별 차이",
+      "조건부 연관성"
+    ],
+    "forbiddenCausalClaims": [
+      "AI가 신입채용을 감소시켰다",
+      "AI 때문에 기업이 신입을 인턴으로 대체했다"
+    ]
+  },
+  "repositoryTopology": {
+    "monorepo": "/home/sieg/projects-wsl/SBS_dataScience",
+    "docsRepo": "/home/sieg/projects-wsl/SBS_P4_PROJECT4_DOCS",
+    "coreRoots": [
+      "crawl",
+      "pipeline",
+      "ncs_mapping"
+    ],
+    "controlRoots": [
+      "shared",
+      "integration",
+      "reports"
+    ],
+    "integrationRootStatus": "PARTIAL: directory absent on canonical Agent3 base",
+    "branches": [
+      {
+        "agent_id": "P4-A1-SOURCE",
+        "agent_name": "Source Acquisition",
+        "branch": "agent/p4-crawl-release-v2",
+        "local_head": "00b2e6b832b0b07d09f9c99d8c1f623c7976f69d",
+        "remote_head": "3ad43c39dd01933575529e0c81d9809dc64c4e57",
+        "ahead": 2,
+        "behind": 10,
+        "dirty_tracked": 0,
+        "dirty_untracked": 0,
+        "ignored_runtime": 43,
+        "worktree": "/home/sieg/projects-wsl/worktrees/p4-agent1",
+        "status": "PARTIAL",
+        "finding": "clean worktree but divergent; 29 raw HTML gzip and 14 pycache ignored",
+        "latest_local_commits": [
+          "00b2e6b feat(crawl): build M1 observed input and modular collector",
+          "d4669fe audit(crawl): refresh readiness for observed modules",
+          "c277107 audit(crawl): publish Agent 1 notebook readiness inventory"
+        ],
+        "latest_remote_commits": [
+          "3ad43c3 test(crawl): refresh observed-default notebook evidence",
+          "1f60f1f fix(crawl): default recovery to observed handoff",
+          "6e200d7 test(crawl): record Agent 1 fresh-kernel notebook run",
+          "0605a38 fix(crawl): sanitize observed lineage diagnostics",
+          "5f79667 fix(crawl): complete notebook title and data contracts"
+        ]
+      },
+      {
+        "agent_id": "P4-A2-PIPELINE",
+        "agent_name": "Pipeline",
+        "branch": "agent/p4-pipeline-v2",
+        "local_head": "9a0571dbcc0183960bda153baedcd0a2c9dc8248",
+        "remote_head": "9a0571dbcc0183960bda153baedcd0a2c9dc8248",
+        "ahead": 0,
+        "behind": 0,
+        "dirty_tracked": "NOT_EVALUATED",
+        "dirty_untracked": "NOT_EVALUATED",
+        "ignored_runtime": "NOT_EVALUATED",
+        "worktree": "/tmp/p4-agent2-observed (missing/prunable)",
+        "status": "PASS_WITH_FINDINGS",
+        "finding": "refs are in parity; registered branch worktree is missing, so dirty state is not evaluable",
+        "latest_local_commits": [
+          "9a0571d fix(p4): gate canonical contamination on rows",
+          "462b752 fix(p4): label detached stage manifests",
+          "436f90e fix(p4): label detached notebook runs"
+        ],
+        "latest_remote_commits": [
+          "9a0571d fix(p4): gate canonical contamination on rows",
+          "462b752 fix(p4): label detached stage manifests",
+          "436f90e fix(p4): label detached notebook runs",
+          "abed5d8 data(p4): refresh contract-compliant notebook run",
+          "17a9055 fix(p4): align notebook parameter contract"
+        ]
+      },
+      {
+        "agent_id": "P4-A3-CONTROL",
+        "agent_name": "Control Plane",
+        "branch": "agent/p4-integration-cleanup-v2",
+        "local_head": "b64270bd4ab839ec750a4ceceb08d57957c88782",
+        "remote_head": "b64270bd4ab839ec750a4ceceb08d57957c88782",
+        "ahead": 0,
+        "behind": 0,
+        "dirty_tracked": 0,
+        "dirty_untracked": 0,
+        "ignored_runtime": 64,
+        "worktree": "/home/sieg/projects-wsl/worktrees/p4-agent3-cleanup",
+        "status": "PASS_WITH_FINDINGS",
+        "finding": "contract and control evidence are in parity; integration/ root absent; runtime-only bundle files not frozen",
+        "latest_local_commits": [
+          "b64270b feat(p4): add executable notebook master and observed bundle audit",
+          "dedd4a1 audit: refresh P4 promotion and integration controls",
+          "3b4e866 audit: refresh concurrent Agent worktree status"
+        ],
+        "latest_remote_commits": [
+          "b64270b feat(p4): add executable notebook master and observed bundle audit",
+          "dedd4a1 audit: refresh P4 promotion and integration controls",
+          "3b4e866 audit: refresh concurrent Agent worktree status",
+          "dd0de90 audit: publish P4 integration control report",
+          "58cf6cf audit: publish P4 integration issue handoffs"
+        ]
+      },
+      {
+        "agent_id": "P4-A4-NCS",
+        "agent_name": "NCS Mapping",
+        "branch": "agent/p4-ncs-mapping-v2",
+        "local_head": "7a9feccc7a2fc99b8b86b95bdb73699620bc7ff0",
+        "remote_head": "7a9feccc7a2fc99b8b86b95bdb73699620bc7ff0",
+        "ahead": 0,
+        "behind": 0,
+        "dirty_tracked": 0,
+        "dirty_untracked": 0,
+        "ignored_runtime": 5,
+        "worktree": "/home/sieg/projects-wsl/worktrees/p4-agent4",
+        "status": "PASS_WITH_FINDINGS",
+        "finding": "branch parity and 35 tests pass; ignored mode-600 .env exists; gold gate not evaluated",
+        "latest_local_commits": [
+          "7a9fecc fix(ncs): label detached notebook runs",
+          "017f187 chore(ncs): refresh compliant notebook runs",
+          "afac9fd fix(ncs): align notebook parameter contract"
+        ],
+        "latest_remote_commits": [
+          "7a9fecc fix(ncs): label detached notebook runs",
+          "017f187 chore(ncs): refresh compliant notebook runs",
+          "afac9fd fix(ncs): align notebook parameter contract",
+          "23d8f62 chore(ncs): record final notebook execution",
+          "cce6067 feat(ncs): build final six-stage notebook suite"
+        ]
+      }
+    ],
+    "docs": {
+      "head": "c65253f806dc95fa87c6c7dcc7d583a00de45e09",
+      "remoteHead": "c65253f806dc95fa87c6c7dcc7d583a00de45e09",
+      "dirty": false,
+      "status": "PASS"
+    }
+  },
+  "contract": {
+    "version": "2.1.2",
+    "schemas": 5,
+    "tables": 26,
+    "qaViews": 6,
+    "checksum": "PASS",
+    "identifierPolicy": "SHA-256 deterministic identifiers",
+    "emptyDataGate": "NOT_EVALUATED",
+    "canonicalFields": {
+      "postingEligibleFlag": "canonical",
+      "rq1EligibleFlag": "canonical",
+      "rq2EligibleFlag": "canonical",
+      "ncsEligibleFlag": "canonical",
+      "highDemandScore": "always NULL",
+      "validPostingFlag": "canonical use prohibited"
+    }
+  },
+  "source": {
+    "linkareer": {
+      "releaseId": "CRAWL_20260806_03",
+      "status": "BLOCKED",
+      "targetMonths": 79,
+      "verifiedMonths": 21,
+      "unverifiedMonths": 58,
+      "postingRows": 137,
+      "rawSsrRows": 29,
+      "assetRows": 0,
+      "fullCorpus": false
+    },
+    "ncs": {
+      "rows": 13442,
+      "uniqueRows": 13442,
+      "coreReviewRows": 120,
+      "included": 69,
+      "excluded": 51,
+      "aliases": 10,
+      "status": "PASS_WITH_FINDINGS"
+    },
+    "policy": {
+      "robots": "allowed",
+      "terms": "reviewedConditional",
+      "transparentClientVerified": true,
+      "productionApproval": "NOT_STARTED",
+      "status": "PARTIAL"
+    }
+  },
+  "dataLayers": [
+    {
+      "layer": "raw",
+      "producer": "P4-A1-SOURCE",
+      "canonical_source": "immutable compressed SSR plus SHA manifest",
+      "current_artifact": "crawl/data/raw/linkareer/detail and raw_detail_manifest.jsonl",
+      "rows": 29,
+      "status": "PARTIAL",
+      "blocker": "full-corpus raw absent"
+    },
+    {
+      "layer": "manifest",
+      "producer": "P4-A1-SOURCE",
+      "canonical_source": "Parquet/JSONL manifest",
+      "current_artifact": "OBSERVED_INPUT_20260806_01 posting manifest",
+      "rows": 137,
+      "status": "PASS_WITH_FINDINGS",
+      "blocker": "hasDetailRawHtml flag differs from actual raw for 18 rows"
+    },
+    {
+      "layer": "normalized",
+      "producer": "P4-A2-PIPELINE",
+      "canonical_source": "observed DuckDB/Parquet",
+      "current_artifact": "posting_normalized.parquet",
+      "rows": 137,
+      "status": "PASS_WITH_FINDINGS",
+      "blocker": "duplicate bundle authority and enum gaps"
+    },
+    {
+      "layer": "track",
+      "producer": "P4-A2-PIPELINE",
+      "canonical_source": "observed DuckDB/Parquet",
+      "current_artifact": "posting_tracks.parquet",
+      "rows": 137,
+      "status": "PARTIAL",
+      "blocker": "one-track observed simplification; 52 mixed/unknown"
+    },
+    {
+      "layer": "section",
+      "producer": "P4-A2-PIPELINE",
+      "canonical_source": "observed DuckDB/Parquet",
+      "current_artifact": "posting_sections.parquet",
+      "rows": 84,
+      "status": "PARTIAL",
+      "blocker": "28/137 tracks only"
+    },
+    {
+      "layer": "requirement",
+      "producer": "P4-A2-PIPELINE",
+      "canonical_source": "observed DuckDB/Parquet",
+      "current_artifact": "requirement_facts.parquet",
+      "rows": 35,
+      "status": "BLOCKED",
+      "blocker": "requirementType canonical enum 0/35"
+    },
+    {
+      "layer": "label",
+      "producer": "P4-A2-PIPELINE",
+      "canonical_source": "observed DuckDB/Parquet",
+      "current_artifact": "career_access_labels.parquet",
+      "rows": 137,
+      "status": "BLOCKED",
+      "blocker": "career/intern/boundary unresolved"
+    },
+    {
+      "layer": "NCS candidate",
+      "producer": "P4-A4-NCS",
+      "canonical_source": "Agent4 Parquet handoff",
+      "current_artifact": "posting_ncs_candidates.parquet",
+      "rows": 128,
+      "status": "PASS_WITH_FINDINGS",
+      "blocker": "development lexical only; dense null"
+    },
+    {
+      "layer": "NCS match",
+      "producer": "P4-A4-NCS",
+      "canonical_source": "Agent4 Parquet handoff",
+      "current_artifact": "posting_ncs_matches.parquet",
+      "rows": 28,
+      "status": "NOT_EVALUATED",
+      "blocker": "27 mapped, 1 unmapped, gold false"
+    },
+    {
+      "layer": "preprocessed",
+      "producer": "P4-A2-PIPELINE",
+      "canonical_source": "Parquet and observed DuckDB; CSV is inspection only",
+      "current_artifact": "preprocessed_posting_tracks.parquet",
+      "rows": 137,
+      "status": "PASS_WITH_FINDINGS",
+      "blocker": "not analysis-ready; snapshot authority divergent"
+    },
+    {
+      "layer": "mart",
+      "producer": "P4-A2-PIPELINE",
+      "canonical_source": "canonical DuckDB/Parquet",
+      "current_artifact": "none for observed production authority",
+      "rows": 0,
+      "status": "NOT_STARTED",
+      "blocker": "production data not ready"
+    },
+    {
+      "layer": "analysis",
+      "producer": "future analysis stage",
+      "canonical_source": "versioned result manifest",
+      "current_artifact": "none",
+      "rows": 0,
+      "status": "NOT_STARTED",
+      "blocker": "ANALYSIS_READY blocked"
+    }
+  ],
+  "currentData": {
+    "posting": 137,
+    "tracks": 137,
+    "rawSsr": 29,
+    "sections": 84,
+    "requirements": 35,
+    "ncsCandidates": 128,
+    "ncsMatches": 28,
+    "ncsMapped": 27,
+    "ncsUnmapped": 1,
+    "canonicalDbBaseRows": 0
+  },
+  "notebooks": {
+    "canonicalSource": 24,
+    "cells": 234,
+    "codeCells": 136,
+    "sourceOutputs": 0,
+    "sourceExecutionCounts": 0,
+    "actualModuleCalls": 24,
+    "executed": 24,
+    "artifacts": 388,
+    "physicalUniverse": 93,
+    "zeroByte": 0,
+    "status": "PASS_WITH_FINDINGS"
+  },
+  "gates": [
+    {
+      "gate_id": "OBSERVED_DEV_CSV_READY",
+      "status": "PASS_WITH_FINDINGS",
+      "evidence": "crawl/data/exports/observed-dev/OBSERVED_DEV_20260806_01; 20/20 checksum, 8/8 semantic pairs, but duplicate bundle ID diverges from pipeline copy",
+      "blocker": "authority freeze and canonical enum remediation"
+    },
+    {
+      "gate_id": "NOTEBOOK_SOURCE_READY",
+      "status": "PASS",
+      "evidence": "24/24 source; 234 cells; 136 code; output/execution 0; module calls 24/24",
+      "blocker": ""
+    },
+    {
+      "gate_id": "NOTEBOOK_EXECUTION_READY_OBSERVED_DEV",
+      "status": "PASS_WITH_FINDINGS",
+      "evidence": "24/24 execution; 136/136 code cells; 0 error; A4-05 meaningfully NOT_EVALUATED",
+      "blocker": "NCS gold is absent"
+    },
+    {
+      "gate_id": "NOTEBOOK_BUNDLE_READY",
+      "status": "PASS_WITH_FINDINGS",
+      "evidence": "388/388 artifact SHA; 24/24 canonical 4-artifact stage sets",
+      "blocker": "76 runtime-only paths and four duplicate manifests need snapshot authority"
+    },
+    {
+      "gate_id": "SOURCE_POLICY_READY",
+      "status": "PARTIAL",
+      "evidence": "robots allowed, reviewedConditional terms, transparent client verified; no production approval record in canonical DB",
+      "blocker": "human production collection approval"
+    },
+    {
+      "gate_id": "CRAWL_RELEASE_READY",
+      "status": "BLOCKED",
+      "evidence": "CRAWL_20260806_03 is CRAWL_RELEASE_CANDIDATE; 21/79 months, raw 29/137, assets 0, head_commit blank",
+      "blocker": "58 months, full detail/raw/asset lineage, validator and source-policy closure"
+    },
+    {
+      "gate_id": "DATA_READY_RQ1_RQ2A",
+      "status": "BLOCKED",
+      "evidence": "canonicalPostedAt and periodMonth 0/137; career resolved 0/137; valid requirementType 0/35",
+      "blocker": "semantic QA and production preprocessing"
+    },
+    {
+      "gate_id": "DATA_READY_RQ2B",
+      "status": "BLOCKED",
+      "evidence": "NCS mapped 27; level/band 0/137; gold 0; evaluator NOT_EVALUATED",
+      "blocker": "scope decision, gold n=300 and quality gates"
+    },
+    {
+      "gate_id": "ANALYSIS_READY",
+      "status": "BLOCKED",
+      "evidence": "canonical analysis gate NOT_EVALUATED; empiricalAnalysisAllowed=false throughout observed bundle",
+      "blocker": "all production data gates"
+    }
+  ],
+  "defectSummary": {
+    "P1": 7,
+    "P2": 8,
+    "P3": 3
+  },
+  "decisions": [
+    {
+      "decision_id": "D-ORCH-001",
+      "phase": "IMMEDIATE",
+      "status": "NOT_STARTED",
+      "question": "어느 authority를 P4 Notebook Observed v1.0 snapshot으로 동결할 것인가?",
+      "current_status": "네 원격 HEAD와 24-source bundle은 재현 가능하지만 동일 observed bundle ID의 crawl/pipeline lineage가 108행 갈리고 76 runtime artifact가 원격에 없다.",
+      "options": [
+        {
+          "id": "A",
+          "label": "원격 HEAD + crawl export를 동결하고 pipeline copy는 superseded로 표시",
+          "impact": "현재 지정 감사 대상을 authority로 고정하나 observed DB를 재생성해야 한다."
+        },
+        {
+          "id": "B",
+          "label": "원격 HEAD + pipeline/observed DB copy를 동결하고 crawl copy는 superseded로 표시",
+          "impact": "현재 DB와 일치하지만 지정 crawl export를 대체해야 한다."
+        },
+        {
+          "id": "C",
+          "label": "동결을 보류하고 새 dataVersion으로 두 copy를 재조정",
+          "impact": "가장 명확하지만 snapshot 확정이 늦어진다."
+        }
+      ],
+      "recommendation": "C",
+      "reason": "동일 ID에 서로 다른 lineage를 남긴 채 A/B를 선택하면 provenance가 왜곡된다. 새 dataVersion으로 authority를 명시하는 것이 가장 안전하다.",
+      "deferrable": false
+    },
+    {
+      "decision_id": "D-ORCH-002",
+      "phase": "IMMEDIATE",
+      "status": "NOT_STARTED",
+      "question": "Agent 3 remote HEAD b64270b를 canonical integration base로 유지할 것인가?",
+      "current_status": "계약 v2.1.2와 control evidence가 remote parity이며 오케스트레이터 branch도 이 HEAD에서 분기했다.",
+      "options": [
+        {
+          "id": "A",
+          "label": "b64270b 유지",
+          "impact": "현재 계약/Notebook control을 안정된 기준으로 사용한다."
+        },
+        {
+          "id": "B",
+          "label": "다른 Agent branch를 base로 변경",
+          "impact": "계약·control의 재감사가 필요하다."
+        }
+      ],
+      "recommendation": "A",
+      "reason": "현재 계약 checksum과 docs repo parity가 검증됐고 다른 Agent 코드는 아직 merge 대상이 아니다.",
+      "deferrable": false
+    },
+    {
+      "decision_id": "D-ORCH-003",
+      "phase": "IMMEDIATE",
+      "status": "NOT_STARTED",
+      "question": "M1.5 semantic QA를 M2 full crawl보다 먼저 수행할 것인가?",
+      "current_status": "날짜 0/137, career resolved 0/137, enum 불일치가 있어 같은 결함을 full corpus로 확대할 위험이 있다.",
+      "options": [
+        {
+          "id": "A",
+          "label": "M1.5를 먼저 수행",
+          "impact": "소규모 표본에서 contract/semantic 결함을 수정한 뒤 M2 비용을 집행한다."
+        },
+        {
+          "id": "B",
+          "label": "M2를 먼저 수행",
+          "impact": "수집은 빨라지지만 대규모 재처리 가능성이 높다."
+        }
+      ],
+      "recommendation": "A",
+      "reason": "현재 blocker는 표본 크기보다 변수 정의와 lineage authority다.",
+      "deferrable": false
+    },
+    {
+      "decision_id": "D-ORCH-004",
+      "phase": "BEFORE_M2",
+      "status": "NOT_STARTED",
+      "question": "production crawl의 source-policy, 기간, 2019 처리 원칙을 승인할 것인가?",
+      "current_status": "robots allowed/reviewedConditional/transparent-client evidence는 있으나 production 승인 record가 없고 2020-01~2026-07 중 58개월이 미검증이다. 2019는 platform pre-launch다.",
+      "options": [
+        {
+          "id": "A",
+          "label": "2020-01~2026-07만 승인, 2019 제외",
+          "impact": "현재 operational window와 일치하고 79개월 gate를 명확히 한다."
+        },
+        {
+          "id": "B",
+          "label": "2019 포함",
+          "impact": "별도 pre-launch regime과 결측 처리 규칙이 필요하다."
+        },
+        {
+          "id": "C",
+          "label": "production crawl 승인 보류",
+          "impact": "M2는 시작하지 않고 policy evidence만 보강한다."
+        }
+      ],
+      "recommendation": "A",
+      "reason": "2019 recruit category는 operational 비교기간으로 방어하기 어렵다. 실제 실행 전 qa.sourcePolicyAudit human approval을 필수로 한다.",
+      "deferrable": true
+    },
+    {
+      "decision_id": "D-ORCH-005",
+      "phase": "BEFORE_M2",
+      "status": "NOT_STARTED",
+      "question": "asset/OCR 범위와 NCS API key custody를 어떻게 확정할 것인가?",
+      "current_status": "asset lineage 0, period 하드코딩 결함이 있고 Agent4 ignored .env에 비공개 키가 있다. tracked secret은 발견되지 않았다.",
+      "options": [
+        {
+          "id": "A",
+          "label": "Linkareer-hosted 핵심 자산만 수집/OCR, 키 회전 후 secret store 사용",
+          "impact": "범위를 제한하고 provenance·보안을 통제한다."
+        },
+        {
+          "id": "B",
+          "label": "외부 ATS 자산까지 확대",
+          "impact": "source-policy와 라이선스 검토 범위가 크게 늘어난다."
+        },
+        {
+          "id": "C",
+          "label": "asset/OCR과 KSA API를 M2에서 제외",
+          "impact": "텍스트 기반 M2는 가능하나 이미지 공고와 KSA enrichment가 남는다."
+        }
+      ],
+      "recommendation": "A",
+      "reason": "현재 collector 정책과 최소수집 원칙에 맞고 로컬 키의 장기 보관 위험을 줄인다.",
+      "deferrable": true
+    },
+    {
+      "decision_id": "D-ORCH-006",
+      "phase": "BEFORE_M3",
+      "status": "NOT_STARTED",
+      "question": "core AI·IT 범위를 69 included/51 excluded로 동결하고 middle 20-02 통신, 20-03 방송을 제외할 것인가?",
+      "current_status": "현재 review candidate는 120개이며 20-01의 69개만 included, 20-02 38개와 20-03 13개는 excluded다.",
+      "options": [
+        {
+          "id": "A",
+          "label": "현재 69/51 동결",
+          "impact": "명확한 ICT-core 분석을 유지한다."
+        },
+        {
+          "id": "B",
+          "label": "통신 20-02 포함",
+          "impact": "범위가 107 subcategories로 확대돼 gold strata와 해석이 달라진다."
+        },
+        {
+          "id": "C",
+          "label": "통신·방송 모두 포함",
+          "impact": "120 전체가 포함되어 AI·IT core 개념이 가장 넓어진다."
+        }
+      ],
+      "recommendation": "A",
+      "reason": "현재 명칭은 일부 derived이며 gold가 없으므로 보수적 core부터 동결하는 편이 해석 가능하다.",
+      "deferrable": true
+    },
+    {
+      "decision_id": "D-ORCH-007",
+      "phase": "BEFORE_M3",
+      "status": "NOT_STARTED",
+      "question": "D-023 KSA optional 정책과 gold n=300, 30% 이중코딩, 검수 책임자를 승인할 것인가?",
+      "current_status": "KSA는 미수집/optional 제안 상태이고 gold template는 0행이며 precision, coverage, low-confidence는 NOT_EVALUATED다.",
+      "options": [
+        {
+          "id": "A",
+          "label": "KSA optional + n=300 + 30% 이중코딩 + 사용자 지정 검수자",
+          "impact": "base lexical mapping 품질을 먼저 평가하고 KSA를 enrichment로 둔다."
+        },
+        {
+          "id": "B",
+          "label": "KSA를 blocking prerequisite로 지정",
+          "impact": "KSA API schema가 해결될 때까지 M3가 중단된다."
+        },
+        {
+          "id": "C",
+          "label": "gold 규모/이중코딩 축소",
+          "impact": "비용은 줄지만 precision/coverage 주장 신뢰도가 낮아진다."
+        }
+      ],
+      "recommendation": "A",
+      "reason": "D-023 취지와 현재 계약 게이트에 맞으며 빈 gold에서 성능을 제조하지 않는다. 단 검수 담당자 실명/역할은 사용자가 지정해야 한다.",
+      "deferrable": true
+    }
+  ],
+  "roadmap": [
+    "M1 snapshot freeze",
+    "M1.5 semantic QA",
+    "M2 full crawl",
+    "M2 production preprocessing",
+    "M3 gold",
+    "analysis",
+    "article"
+  ],
+  "nonEquivalenceStatements": [
+    "Notebook이 실행됐다는 것은 분석데이터가 준비됐다는 뜻이 아니다.",
+    "구조적 QA 통과는 의미적 변수 완성도를 보장하지 않는다.",
+    "Observed-development 결과는 기사 결과가 아니다.",
+    "CSV는 canonical source가 아니다.",
+    "NCS candidate 생성은 NCS mapping 품질게이트 통과가 아니다."
+  ]
+}
