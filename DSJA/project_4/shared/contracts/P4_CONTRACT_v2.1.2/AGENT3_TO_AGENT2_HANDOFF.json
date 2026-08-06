@@ -1,0 +1,94 @@
+{
+  "agentId": "P4-A3-CONTROL",
+  "agentName": "P4 SSOT Contract & Control Plane Lead",
+  "status": "CONTRACT_RELEASED",
+  "branch": "main",
+  "headCommit": "49e3d09a7a74f1c5ddf984196741d338b77bd1f9",
+  "contractVersion": "2.1.2",
+  "releasePath": "releases/contracts/P4_CONTRACT_v2.1.2",
+  "snapshotPath": "DSJA/project_4/shared/contracts/P4_CONTRACT_v2.1.2",
+  "contractSha256": "f92380cdfc16967f1e363800cd9a575e44532f18a86b2f28f8c3e2404ed675e9",
+  "ddlSha256": "956986874eae5686a20a52721dc303f1913c7391b2ee27da6d582a762f73ad58",
+  "schemaFilename": "p4_contract.schema.json",
+  "eligibilityDefinitions": {
+    "postingEligibleFlag": "confirmed recruitment posting with usable postedAt; independent of dedup and bodyTextLength",
+    "rq1EligibleFlag": "posting eligible record with resolved entry/intern presence; canonicalRecordFlag is additionally required for the primary denominator",
+    "rq2EligibleFlag": "eligible track with resolved track boundary and required-preferred boundary; external URL alone is not exclusion",
+    "ncsEligibleFlag": "RQ2-eligible track with defensible duty/task context",
+    "canonicalRecordFlag": "dedup-selected representative; independent of source/text eligibility",
+    "rq2ExclusionReason": [
+      "activityTextMissing",
+      "externalAtsBodyUnavailable",
+      "boundaryUnresolved",
+      "trackUnresolved",
+      "textTooShort",
+      "nonRecruitPosting",
+      "other"
+    ]
+  },
+  "newFields": [
+    "raw.queryRegistry",
+    "activityTypeId",
+    "jobTypesRawJson",
+    "dutiesRawJson",
+    "activityTextHtml",
+    "activityTextAvailableFlag",
+    "externalApplyUrl",
+    "externalAtsDomain",
+    "externalApplyFlag",
+    "externalDetailOnlyFlag",
+    "jobTypeConflictFlag",
+    "postingEligibleFlag",
+    "rq1EligibleFlag",
+    "rq2EligibleFlag",
+    "ncsEligibleFlag",
+    "canonicalRecordFlag",
+    "rq2ExclusionReason",
+    "coverageStatus",
+    "coverageReason",
+    "platformCoverageRegime"
+  ],
+  "deprecatedFields": {
+    "validPosting": "replace with explicit eligibility flags",
+    "validPostingFlag": "replace with explicit eligibility flags",
+    "postingRawId": "rename to rawPostingId",
+    "linkareerBodyAvailableFlag": "rename to activityTextAvailableFlag",
+    "externalAtsOnlyShare": "replace with externalApplyShare and externalDetailOnlyShare"
+  },
+  "keyMigration": {
+    "algorithm": "SHA-256",
+    "encoding": "UTF-8",
+    "separator": "|",
+    "truncationHexChars": 20,
+    "postingId": "PST_ + sha256(sourceName|sourcePostingId)[:20]",
+    "rawPostingId": "RAW_ + sha256(sourceName|sourcePostingId|rawSha256)[:20]",
+    "trackId": "TRK_ + sha256(postingId|trackIndex)[:20]",
+    "sectionId": "SEC_ + sha256(trackId|sectionOrder)[:20]",
+    "requirementId": "REQ_ + sha256(sectionId|requirementType|normalizedEvidence)[:20]",
+    "matchId": "NMT_ + sha256(trackId|ncsUnitCode|mappingBasis|evidenceHash)[:20]"
+  },
+  "metricMetadata": {
+    "requiredPerMetric": [
+      "grain",
+      "numerator",
+      "denominator",
+      "eligiblePopulation",
+      "unknownHandling",
+      "dedupApplied",
+      "unit",
+      "interpretation",
+      "prohibitedInterpretation"
+    ],
+    "registry": "metrics.yaml"
+  },
+  "requiredLoaderChanges": [
+    "Require contractVersion 2.1.2 and p4_contract.schema.json.",
+    "Replace SHA-1 fixture IDs with prefixed truncated SHA-256 IDs.",
+    "Load all split eligibility fields and rq2ExclusionReason.",
+    "Do not exclude RQ2 solely because externalApplyUrl exists.",
+    "Persist contractVersion and dataVersion in marts and notebook outputs."
+  ],
+  "blockers": [
+    "Agent 1 crawl release is not available; empty QA views are NOT_EVALUATED, not PASS"
+  ]
+}
