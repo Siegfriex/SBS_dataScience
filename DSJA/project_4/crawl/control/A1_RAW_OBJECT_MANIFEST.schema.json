@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sbs-data-science.invalid/p4/crawl/A1_RAW_OBJECT_MANIFEST.schema.json",
+  "title": "P4 portable external raw object manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "rawPostingId",
+    "sourceMode",
+    "storageRootId",
+    "objectLocatorRelative",
+    "compressedSha256",
+    "contentSha256",
+    "byteCount",
+    "retrievedAtUtc",
+    "sourceUrlFingerprint",
+    "mountPolicyVersion",
+    "availabilityStatus"
+  ],
+  "properties": {
+    "rawPostingId": {"type": "string", "minLength": 1},
+    "sourceMode": {"enum": ["observed-dev", "production"]},
+    "storageRootId": {"type": "string", "pattern": "^[A-Z0-9][A-Z0-9_.-]+$"},
+    "objectLocatorRelative": {
+      "type": "string",
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+    },
+    "compressedSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "contentSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "byteCount": {"type": "integer", "minimum": 1},
+    "contentByteCount": {"type": "integer", "minimum": 1},
+    "retrievedAtUtc": {"type": "string", "format": "date-time", "pattern": "Z$"},
+    "sourceUrlFingerprint": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "mountPolicyVersion": {"const": "p4-raw-mount-v1"},
+    "availabilityStatus": {
+      "enum": [
+        "AVAILABLE",
+        "RAW_ROOT_UNMOUNTED",
+        "RAW_OBJECT_MISSING",
+        "COMPRESSED_SHA_MISMATCH",
+        "CONTENT_SHA_MISMATCH",
+        "BYTE_COUNT_MISMATCH"
+      ]
+    }
+  }
+}
