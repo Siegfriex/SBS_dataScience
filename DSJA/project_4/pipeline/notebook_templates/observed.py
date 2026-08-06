@@ -36,7 +36,7 @@ PROJECT_ROOT = Path(PROJECT_ROOT).resolve() if PROJECT_ROOT else find_project_ro
 PIPELINE_ROOT = PROJECT_ROOT / "pipeline"
 sys.path.insert(0, str(PIPELINE_ROOT / "src"))
 RELEASE_ROOT = Path(RELEASE_ROOT).resolve() if RELEASE_ROOT else PROJECT_ROOT / "crawl/observed_inputs/OBSERVED_INPUT_20260806_01"
-CRAWL_ROOT = PROJECT_ROOT / "crawl"
+CRAWL_ROOT = Path(os.environ.get("P4_CRAWL_ROOT", PROJECT_ROOT / "crawl")).resolve()
 OUTPUT_ROOT = Path(OUTPUT_ROOT).resolve() if OUTPUT_ROOT else PIPELINE_ROOT / "data/exports/observed-dev/OBSERVED_DEV_20260806_01"
 CONTROL_ROOT = Path(os.environ.get("P4_CONTROL_ROOT", PROJECT_ROOT / "crawl/control")).resolve()
 NCS_PROJECT_ROOT = Path(os.environ.get("P4_NCS_PROJECT_ROOT", PROJECT_ROOT)).resolve()

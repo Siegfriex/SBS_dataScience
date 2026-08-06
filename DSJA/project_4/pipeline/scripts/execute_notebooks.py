@@ -45,6 +45,8 @@ def execute(args: argparse.Namespace) -> list[Path]:
     if args.mode == "observed-dev":
         run_root.mkdir(parents=True, exist_ok=True)
         os.environ["P4_NOTEBOOK_RUN_ROOT"] = str(run_root.resolve())
+        if args.crawl_root:
+            os.environ["P4_CRAWL_ROOT"] = str(args.crawl_root.resolve())
         if args.control_root:
             os.environ["P4_CONTROL_ROOT"] = str(args.control_root.resolve())
         if args.ncs_project_root:
