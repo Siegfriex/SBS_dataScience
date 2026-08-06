@@ -19,6 +19,7 @@ pipeline/data/raw/
 pipeline/data/interim/
 pipeline/data/warehouse/
 pipeline/runs/
+integration/runs/
 *.duckdb
 *.duckdb.wal
 
