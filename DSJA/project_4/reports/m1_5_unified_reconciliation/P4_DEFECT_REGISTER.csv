@@ -7,3 +7,5 @@ P1-UNIFIED-005,P1,OPEN,"HUMAN_GOLD, dual coding and adjudication are all 0",NCS 
 P1-UNIFIED-006,P1,RESOLVED,NCS-aware 23-stage DAG and producer-before-consumer runtime order,A5 promotion audit,verified by fresh replay
 P1-UNIFIED-007,P1,RESOLVED,execution-wrapper timestamps and command/source/module/input/output bindings,A5 promotion audit,verified by fresh replay
 P2-UNIFIED-001,P2,OPEN,A1 release Notebook remains intentionally NOT_EVALUATED for production,CRAWL_RELEASE_READY,retain fail-closed
+P2-UNIFIED-002,P2,OPEN,A4 six-stage replay used deterministic read-only runners instead of fresh-kernel Notebooks; execution equivalence requires A5 verification,A5 audit recommendation,retain fail-closed
+P2-UNIFIED-003,P2,OPEN,A1-04 is NOT_EVALUATED while A2-00 proceeds; observed-input exception/status compatibility is not independently verified,M2 preflight,retain fail-closed

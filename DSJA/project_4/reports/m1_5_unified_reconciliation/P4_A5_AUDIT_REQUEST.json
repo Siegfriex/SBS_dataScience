@@ -2,7 +2,7 @@
   "requestType": "P4_M1_5_A5_INDEPENDENT_AUDIT",
   "agentId": "P4-A3-GLOBAL-RECONCILIATION-ORCHESTRATOR",
   "integrationBranch": "integration/p4-m1_5-unified-reconciliation-v2",
-  "integrationEvidenceHead": "d65a4f0b5883348989e9f9fa0b85c88f1bd9dab4",
+  "integrationEvidenceHead": "02870ec04021a09a350c6754e6d2a7b27e10545e",
   "baseCommit": "5508fce02ba5396b5d5a55870f1f879c1f32e8e0",
   "acceptedAgentCommits": {
     "A1Evidence": "14ebe6beba530318dcedfd3471c7ba8565ee11f2",
@@ -23,8 +23,8 @@
   "strictValidatorReportSha256": "e4d3bd646b49293c9c0fa9193fab147a0dacaa17dcb1e9644762aa1b7b1f47f9",
   "canonicalLineageAuditSha256": "3d1d05835b887bccd0d645b980b54346335523ff6eb5e640f65c743968742dbf",
   "ncsMappingToMartContractSha256": "edc2296aed9813132047a344939dd6215dc2a30a8ef411562c9ea5bed7f18d86",
-  "gateStatusSha256": "e19689b6608ce48b9c907fc58610cfd40cc95c712d0cb76bf8061e41798bf69a",
-  "defectRegisterSha256": "93e63797de5c5a9e7fe58b0ec47e2340ef06af53e0d2eac02c1a71f210e1f3ec",
+  "gateStatusSha256": "d98a8f940a475e70b43f55208064e45cfc4683d56737d02b9f2b66e6862cfdc5",
+  "defectRegisterSha256": "a76266484c80f062bcfe6dddb861e8b7d24244d020b7b0014d6215caa06d9c1a",
   "testCommands": [
     {
       "component": "crawl",
@@ -65,6 +65,28 @@
   "secretsIncluded": false,
   "piiOriginalIncluded": false,
   "claimedStatus": "M1_5_RECONCILIATION_READY_FOR_A5_AUDIT",
+  "auditRecommendation": "APPROVE_WITH_FINDINGS",
+  "executionModeCounts": {
+    "freshKernelNotebookStages": 17,
+    "deterministicReadOnlyStageRunnerStages": 6
+  },
+  "observedInputExceptionCandidate": {
+    "producerStageId": "A1-04-RELEASE",
+    "producerStatus": "NOT_EVALUATED",
+    "consumerStageId": "A2-00-CONTRACT",
+    "candidateInputManifestPath": "crawl/observed_inputs/OBSERVED_INPUT_20260806_01/HANDOFF.json",
+    "candidateInputManifestSha256": "f58810b38bde7c7e1c69bf1f7000b3931cadf9d4d544f64b9c9c0d27a63bce8e",
+    "verificationStatus": "NOT_EVALUATED"
+  },
+  "requiredIndependentChecks": [
+    "recalculate _06 DAG and producer/consumer runtime ordering",
+    "recalculate started/completed timestamps and reject placeholders",
+    "recalculate all source Notebook and module SHA bindings",
+    "verify A4 deterministic read-only runner re-executes current A4 source/module bytes and is an allowed substitute mode",
+    "verify A1-04 NOT_EVALUATED to A2-00 status compatibility and explicit observed-input exception contract",
+    "recalculate mounted/unmounted/wrong-SHA raw authority behavior",
+    "recalculate canonical field coverage and explicit unresolved null policy"
+  ],
   "prohibitedPromotions": [
     "M2_CRAWL_READY_FOR_USER_APPROVAL",
     "CRAWL_RELEASE_READY",
@@ -77,6 +99,8 @@
     "P1-UNIFIED-003",
     "P1-UNIFIED-004",
     "P1-UNIFIED-005",
-    "P2-UNIFIED-001"
+    "P2-UNIFIED-001",
+    "P2-UNIFIED-002",
+    "P2-UNIFIED-003"
   ]
 }

@@ -77,6 +77,7 @@ def main() -> int:
         and all(strict_status.get(check_id) == "PASS" for check_id in required_runtime_checks)
     )
     claimed_status = "M1_5_RECONCILIATION_READY_FOR_A5_AUDIT" if reconciliation_ready else "BLOCKED_BY_EVIDENCE"
+    audit_recommendation = "APPROVE_WITH_FINDINGS" if reconciliation_ready else "BLOCKED_BY_EVIDENCE"
 
     a1_report = project / "crawl/reports/reconciliation_a1"
     checksum_rows: dict[str, str] = {}
@@ -224,14 +225,16 @@ def main() -> int:
         ("CANONICAL_POSTING_KIND", "PASS", "invalid=0/137"),
         ("CANONICAL_TIME_ENTITY", "PASS_WITH_FINDINGS", "29/137 authoritative; 108 explicit unresolved; mismatch=0"),
         ("A4_STAGE_AUTHORITY_READY", "PASS", "6/6 source authority; deterministic read-only replay"),
+        ("A4_EXECUTION_MODE_EQUIVALENCE", "PASS_WITH_FINDINGS", "6 A4 stages used deterministic read-only runners, not fresh-kernel Notebooks; A5 equivalence audit required"),
         ("A4_MAPPING_TO_MART_CONTRACT_READY", "PASS", "27 structural level/band plus 1 unmapped; quality NOT_EVALUATED"),
         ("CURRENT_RUN_MANIFEST_EXACT_ONE", "PASS", "23/23; stale=0; foreign=0"),
         ("M1_5_RECONCILIATION_DAG_VALID", strict_status.get("TOPOLOGICAL_DEPENDENCY_ORDER", "FAIL"), "producer order and completion precede every consumer"),
         ("M1_5_RUNTIME_TIMESTAMP_VALID", strict_status.get("NO_FIXED_TIMESTAMP", "FAIL"), "execution wrapper captured non-placeholder stage intervals"),
         ("NCS_CONSUMER_PRODUCER_BOUND", strict_status.get("NCS_CONSUMER_PRODUCER_BOUND", "FAIL"), "A2-08/A2-09 bound to A4 producers"),
         ("STRICT_VALIDATOR", "PASS" if strict_payload.get("validatorStatus") == "SUCCEEDED" else "FAIL", f"{strict_payload.get('validatorStatus')}; failures={len(strict_payload.get('failures', []))}"),
-        ("M1_5_RECONCILIATION_READY_FOR_A5_AUDIT", "PASS" if reconciliation_ready else "BLOCKED", "A5 package complete; no self-promotion beyond A5 audit" if reconciliation_ready else "DAG/timestamp/current-run evidence incomplete"),
-        ("M1_5_RECONCILIATION_READY_FOR_M2_PREFLIGHT", "BLOCKED", "independent A5 PASS not yet supplied"),
+        ("A1_RELEASE_TO_A2_OBSERVED_INPUT_COMPATIBILITY", "NOT_EVALUATED", "A1-04 is NOT_EVALUATED; A5 must verify A2-00 used the explicit observed-input handoff rather than A1-04 output"),
+        ("M1_5_RECONCILIATION_READY_FOR_A5_AUDIT", "PASS_WITH_FINDINGS" if reconciliation_ready else "BLOCKED", "APPROVE_WITH_FINDINGS: A4 alternate execution mode and A1-04 to A2-00 status compatibility require A5 verification" if reconciliation_ready else "DAG/timestamp/current-run evidence incomplete"),
+        ("M1_5_RECONCILIATION_READY_FOR_M2_PREFLIGHT", "BLOCKED", "BLOCKED_UNTIL_A5 independent audit"),
         ("M2_CRAWL_READY_FOR_USER_APPROVAL", "BLOCKED", "A5 and user/source-policy approvals absent"),
         ("CRAWL_RELEASE_READY", "BLOCKED", "79-month production release absent"),
         ("ANALYSIS_READY", "BLOCKED", "production data and Gold gates absent"),
@@ -246,6 +249,8 @@ def main() -> int:
         ("P1-UNIFIED-006", "P1", "RESOLVED" if reconciliation_ready else "OPEN", "NCS-aware 23-stage DAG and producer-before-consumer runtime order", "A5 promotion audit"),
         ("P1-UNIFIED-007", "P1", "RESOLVED" if reconciliation_ready else "OPEN", "execution-wrapper timestamps and command/source/module/input/output bindings", "A5 promotion audit"),
         ("P2-UNIFIED-001", "P2", "OPEN", "A1 release Notebook remains intentionally NOT_EVALUATED for production", "CRAWL_RELEASE_READY"),
+        ("P2-UNIFIED-002", "P2", "OPEN", "A4 six-stage replay used deterministic read-only runners instead of fresh-kernel Notebooks; execution equivalence requires A5 verification", "A5 audit recommendation"),
+        ("P2-UNIFIED-003", "P2", "OPEN", "A1-04 is NOT_EVALUATED while A2-00 proceeds; observed-input exception/status compatibility is not independently verified", "M2 preflight"),
     ]
     write_csv(report / "P4_DEFECT_REGISTER.csv", [{"defectId": did, "severity": sev, "status": status, "finding": finding, "downstreamGate": gate, "disposition": "verified by fresh replay" if status == "RESOLVED" else "retain fail-closed"} for did, sev, status, finding, gate in defects])
 
@@ -254,6 +259,8 @@ def main() -> int:
 ## Executive verdict
 
 `{claimed_status}`
+
+Audit recommendation: `{audit_recommendation}`
 
 This is an implementation-orchestrator result, not an independent A5 verdict. It does not authorize M2 crawl, a production release, an analysis mart, Gold promotion, article numbers, or any network transport.
 
@@ -273,8 +280,10 @@ This is an implementation-orchestrator result, not an independent A5 verdict. It
 - A1 previous compatibility failures: 8/8 classified and superseded; current crawl tests 86 passed.
 - A2 canonical export: 137 rows, invalid postingKind 0, dates/month/company 29 authoritative and 108 explicitly unresolved, period mismatch 0.
 - Source lineage: source blocks 84, semantic chunks {len(chunks)}, requirements 41 with sourceBlock FK 41/41.
-- A4: six-stage authority accepted; 27 structural level/band rows plus one UNMAPPED. Mapping quality remains NOT_EVALUATED and HUMAN_GOLD remains 0.
-- Replay: planned 23, executed 23, exact-one manifests 23, stale 0, foreign 0.
+- Execution modes: 17 stages were fresh-kernel Notebook executions; six A4 stages used deterministic read-only stage runners.
+- A4: six-stage authority was bound to current source/module SHA, but alternate-runner equivalence remains for A5 to verify. There are 27 structural level/band rows plus one UNMAPPED; mapping quality remains NOT_EVALUATED and HUMAN_GOLD remains 0.
+- A1-04 is NOT_EVALUATED. A2-00 reports the explicit observed-input HANDOFF SHA rather than a promoted crawl-release output, but the status-compatibility exception remains NOT_EVALUATED until A5 verifies consumption independently.
+- Replay: planned 23, executed 23, exact-one manifests 23, stale 0, foreign 0. This is not a 23-stage fresh-kernel Notebook replay.
 - DAG: 23-stage producer dependencies and runtime ordering PASS; A2-08/A2-09 NCS producers bound.
 - Runtime timestamps: execution-wrapper captured intervals PASS; placeholder/fixed timestamps 0.
 - Strict validator: {strict_payload.get('validatorStatus')} with {len(strict_payload.get('checks', []))} checks and {len(strict_payload.get('failures', []))} failures.
@@ -320,6 +329,24 @@ This is an implementation-orchestrator result, not an independent A5 verdict. It
         "productionNetworkCalls": 0, "externalAtsTransportCalls": 0, "credentialedApiCalls": 0,
         "rawBytesIncluded": False, "secretsIncluded": False, "piiOriginalIncluded": False,
         "claimedStatus": claimed_status,
+        "auditRecommendation": audit_recommendation,
+        "executionModeCounts": {"freshKernelNotebookStages": 17, "deterministicReadOnlyStageRunnerStages": 6},
+        "observedInputExceptionCandidate": {
+            "producerStageId": "A1-04-RELEASE", "producerStatus": "NOT_EVALUATED",
+            "consumerStageId": "A2-00-CONTRACT",
+            "candidateInputManifestPath": "crawl/observed_inputs/OBSERVED_INPUT_20260806_01/HANDOFF.json",
+            "candidateInputManifestSha256": sha(project / "crawl/observed_inputs/OBSERVED_INPUT_20260806_01/HANDOFF.json"),
+            "verificationStatus": "NOT_EVALUATED",
+        },
+        "requiredIndependentChecks": [
+            "recalculate _06 DAG and producer/consumer runtime ordering",
+            "recalculate started/completed timestamps and reject placeholders",
+            "recalculate all source Notebook and module SHA bindings",
+            "verify A4 deterministic read-only runner re-executes current A4 source/module bytes and is an allowed substitute mode",
+            "verify A1-04 NOT_EVALUATED to A2-00 status compatibility and explicit observed-input exception contract",
+            "recalculate mounted/unmounted/wrong-SHA raw authority behavior",
+            "recalculate canonical field coverage and explicit unresolved null policy",
+        ],
         "prohibitedPromotions": ["M2_CRAWL_READY_FOR_USER_APPROVAL", "CRAWL_RELEASE_READY", "NCS_MAPPING_GOLD_READY", "ANALYSIS_READY"],
         "unresolvedDefects": [row[0] for row in defects if row[2] == "OPEN"],
     }
