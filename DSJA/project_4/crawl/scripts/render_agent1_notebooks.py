@@ -167,18 +167,18 @@ config = RunConfig(
     contract_version=CONTRACT_VERSION, crawl_release_id=CRAWL_RELEASE_ID,
     data_version=DATA_VERSION, as_of_date=AS_OF_DATE, random_seed=RANDOM_SEED,
 )
-PARAMETERS = {{name: globals()[name] for name in [
+PARAMETERS = {name: globals()[name] for name in [
     "RUN_MODE", "AGENT_ID", "STAGE_ID", "CONTRACT_VERSION", "SCHEMA_VERSION",
     "DATA_VERSION", "CRAWL_RELEASE_ID", "AS_OF_DATE", "INPUT_MANIFEST_PATH",
     "OUTPUT_ROOT", "RANDOM_SEED", "FAIL_ON_GATE", "EMPIRICAL_ANALYSIS_ALLOWED",
-]}}
+]}
 
 def quality_row(gate, rule, severity, status, observed, threshold, evidence):
-    return {{
+    return {
         "gateId": gate, "ruleId": rule, "severity": severity, "status": status,
         "observedValue": observed, "threshold": threshold,
-        "evidencePath": f"{{OUTPUT_ROOT}}/{{STAGE_ID}}/{{evidence}}",
-    }}'''
+        "evidencePath": f"{OUTPUT_ROOT}/{STAGE_ID}/{evidence}",
+    }'''
 
 INPUT_AUDIT = '''from p4_crawl.observed import audit_input_manifest
 
