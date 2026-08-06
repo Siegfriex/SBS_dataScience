@@ -1,0 +1,16 @@
+{
+  "a1SourceCommit": "13205c11e7de3dfc7b005b0fde16197281eb857f",
+  "assumedBytesPerResponse": 313317,
+  "automatedDeletionAllowed": false,
+  "automatedWriteAllowedOnlyAfterScopeApproval": true,
+  "candidateScopeId": "T1-INDEX-2026-03-APQ-V1",
+  "estimatedIndexResponses": 28,
+  "estimatedStorageBytes": 8772876,
+  "gitRawBytesAllowed": false,
+  "networkCalls": 0,
+  "schemaVersion": "p4-tier1-preapproval-v1",
+  "status": "STATIC_NO_NETWORK_ESTIMATE_NOT_QUOTA_RESERVATION",
+  "storagePolicy": "IMMUTABLE_CONTENT_ADDRESSED_EXTERNAL_STORAGE",
+  "tier0CanonicalHandoffManifestSha256": "6162d3aea6ff3646d4d9cb7ff09d09acf91bbde81a815896096bca82b6f63c42",
+  "tier0ChecksumManifestSha256": "6162d3aea6ff3646d4d9cb7ff09d09acf91bbde81a815896096bca82b6f63c42"
+}

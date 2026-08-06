@@ -1,0 +1,38 @@
+{
+  "a1SourceCommit": "13205c11e7de3dfc7b005b0fde16197281eb857f",
+  "approvalExpiryRecommendation": "PT2H_AFTER_APPROVAL",
+  "assetRequestCount": 0,
+  "browserAutomationAllowed": false,
+  "candidatePeriodOrQuery": {
+    "periodMonths": [
+      "2026-03"
+    ],
+    "queryOperations": [
+      "CalendarScreen_ActivityCalendarEntries",
+      "CalendarScreen_Activities"
+    ]
+  },
+  "candidateScopeId": "T1-INDEX-2026-03-APQ-V1",
+  "detailRequestCount": 0,
+  "estimatedIndexRequests": 28,
+  "estimatedStorageBytes": 8772876,
+  "expectedPaginationDepth": 27,
+  "externalAtsTransportAllowed": false,
+  "generatedAtUtc": "2026-08-06T23:24:18.086398Z",
+  "killSwitchPolicySha256": "0b197b71a0c46c8a2c49f716af5d0bdc2708fad3ce130e44ede6a3002e25300a",
+  "killSwitchPolicyVersion": "p4-linkareer-kill-switch-v1",
+  "logicalRequestType": "INDEX",
+  "networkCalls": 0,
+  "proposalStatus": "PROPOSED_NOT_APPROVED",
+  "proposedMaxIndexRequests": 28,
+  "queryRegistrySha256": "7715d7170ec4d033c6ec257aee4eebd34381b12cfc2be891a3b8d61f8655782e",
+  "rateLimitPolicySha256": "0f64f948b875a38434b4a05af31a0d3dee6115f2d0251b94dfe4129af79cdf92",
+  "rateLimitPolicyVersion": "p4-linkareer-production-rate-v1",
+  "riskLevel": "MEDIUM",
+  "riskReason": "Live response semantics and actual pagination depth remain unobserved; bounded fixture-derived budget stops closed if exceeded.",
+  "schemaVersion": "p4-tier1-preapproval-v1",
+  "sourcePolicyAuditSha256": "e461f58e70bca86e4e16ddf1821829972cce77a7ab55ea7eeeea9a0d8e37bb3b",
+  "sourcePolicyVersion": "p4-linkareer-source-policy-v1",
+  "tier0CanonicalHandoffManifestSha256": "6162d3aea6ff3646d4d9cb7ff09d09acf91bbde81a815896096bca82b6f63c42",
+  "tier0ChecksumManifestSha256": "6162d3aea6ff3646d4d9cb7ff09d09acf91bbde81a815896096bca82b6f63c42"
+}

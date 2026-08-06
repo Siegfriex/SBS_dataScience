@@ -1,0 +1,71 @@
+{
+  "$comment": "Schema only. It does not authorize transport and contains no approved values.",
+  "$id": "p4-tier1-empty-handoff-skeleton-v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "a1SourceCommit": {
+      "const": "13205c11e7de3dfc7b005b0fde16197281eb857f"
+    },
+    "approvalId": {
+      "const": "NONE"
+    },
+    "assetRequestCount": {
+      "const": 0
+    },
+    "dataVersion": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "detailRequestCount": {
+      "const": 0
+    },
+    "networkCalls": {
+      "const": 0
+    },
+    "proposalStatus": {
+      "const": "PREAPPROVAL_EMPTY_NOT_EXECUTABLE"
+    },
+    "runId": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": "p4-canary-handoff-v1"
+    },
+    "status": {
+      "enum": [
+        "AWAIT_TIER1_APPROVAL",
+        "PREAPPROVAL_EMPTY_NOT_EXECUTABLE"
+      ]
+    },
+    "tier0CanonicalHandoffManifestSha256": {
+      "const": "6162d3aea6ff3646d4d9cb7ff09d09acf91bbde81a815896096bca82b6f63c42"
+    },
+    "tier0ChecksumManifestSha256": {
+      "const": "6162d3aea6ff3646d4d9cb7ff09d09acf91bbde81a815896096bca82b6f63c42"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "runId",
+    "dataVersion",
+    "approvalId",
+    "status",
+    "proposalStatus",
+    "networkCalls",
+    "detailRequestCount",
+    "assetRequestCount",
+    "tier0ChecksumManifestSha256",
+    "tier0CanonicalHandoffManifestSha256",
+    "a1SourceCommit"
+  ],
+  "title": "Tier 1 preapproval empty handoff skeleton",
+  "type": "object",
+  "x-p4-binding": {
+    "a1SourceCommit": "13205c11e7de3dfc7b005b0fde16197281eb857f",
+    "networkCalls": 0,
+    "tier0CanonicalHandoffManifestSha256": "6162d3aea6ff3646d4d9cb7ff09d09acf91bbde81a815896096bca82b6f63c42",
+    "tier0ChecksumManifestSha256": "6162d3aea6ff3646d4d9cb7ff09d09acf91bbde81a815896096bca82b6f63c42"
+  }
+}

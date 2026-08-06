@@ -1,0 +1,21 @@
+{
+  "a1SourceCommit": "13205c11e7de3dfc7b005b0fde16197281eb857f",
+  "aggregateCrossCheckRequests": 1,
+  "assetRequests": 0,
+  "basis": "2026-03 checked-in APQ fixture; pageSize=6; max bucket total divided by pageSize plus one aggregate cross-check",
+  "candidateScopeId": "T1-INDEX-2026-03-APQ-V1",
+  "detailRequests": 0,
+  "estimatedIndexRequests": 28,
+  "estimatedStorageBytes": 8772876,
+  "expectedPaginationDepth": 27,
+  "fixtureBuckets": 56,
+  "fixtureBytes": 313317,
+  "fixtureDays": 28,
+  "maxBucketTotal": 159,
+  "networkCalls": 0,
+  "pageSize": 6,
+  "schemaVersion": "p4-tier1-preapproval-v1",
+  "status": "STATIC_NO_NETWORK_ESTIMATE_NOT_APPROVAL",
+  "tier0CanonicalHandoffManifestSha256": "6162d3aea6ff3646d4d9cb7ff09d09acf91bbde81a815896096bca82b6f63c42",
+  "tier0ChecksumManifestSha256": "6162d3aea6ff3646d4d9cb7ff09d09acf91bbde81a815896096bca82b6f63c42"
+}
