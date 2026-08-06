@@ -1,0 +1,68 @@
+{
+  "agentId": "P4-A1-SOURCE",
+  "branch": "agent/p4-crawl-release-v2",
+  "contractVersion": "2.1.2",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "observedPackageId": "OBSERVED_INPUT_20260806_01",
+  "runMode": "observed-dev",
+  "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+  "empiricalAnalysisAllowed": false,
+  "promotionAllowed": false,
+  "fullCorpus": false,
+  "statuses": {
+    "CRAWL_OBSERVED_INPUT_READY": "PASS",
+    "COLLECTOR_MODULARIZATION_READY": "PASS",
+    "LIVE_PRODUCTION_CRAWL_EXECUTED": "NO",
+    "CRAWL_RELEASE_READY": "NO",
+    "push": "PUSH_BLOCKED_BY_UNRELATED_AHEAD_COMMIT"
+  },
+  "counts": {
+    "postingRows": 137,
+    "distinctSourcePostingIds": 137,
+    "detailFetchReferences": 32,
+    "verifiedRawHtmlRows": 29,
+    "excludedMaskedFixtureReferences": 3,
+    "assetRows": 0,
+    "ncsUnitRows": 13442,
+    "unverifiedMonths": 58
+  },
+  "observedPackage": {
+    "path": "crawl/observed_inputs/OBSERVED_INPUT_20260806_01",
+    "rawCopied": false,
+    "checksumFileSha256": "83d9beab338bebd6e9165d24ff246116e18b003345ed987ca33b64049379fdc9",
+    "deterministicRebuild": true
+  },
+  "implementation": {
+    "moduleCount": 13,
+    "notebookCount": 5,
+    "notebookCellCountEach": 4,
+    "sourceNotebookOutputCount": 0,
+    "apqHashesLoadedFromRegistry": true,
+    "liveProductionCrawlExecuted": false
+  },
+  "validation": {
+    "pytestPassed": 10,
+    "pythonAstFilesPassed": 23,
+    "notebooksNbformatPassed": 5,
+    "notebooksAstPassed": 5,
+    "notebookOutputCount": 0,
+    "packageChecksumPassed": true,
+    "postingCsvParquetRows": [137, 137],
+    "trackedRawPiiFiles": 0,
+    "secretPatternFindings": 0,
+    "absolutePathFindings": 0,
+    "gitDiffCheck": "PASS"
+  },
+  "git": {
+    "unrelatedAheadCommit": "d4669fe",
+    "unrelatedPathsStaged": false,
+    "pushAllowed": false,
+    "pushReason": "PUSH_BLOCKED_BY_UNRELATED_AHEAD_COMMIT"
+  },
+  "m2Blockers": [
+    "58 months remain unverified",
+    "full-corpus detail lineage incomplete",
+    "asset lineage empty",
+    "Agent 2 production validator has not passed"
+  ]
+}

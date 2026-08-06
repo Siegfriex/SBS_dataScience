@@ -1,0 +1,28 @@
+{
+  "agentId": "P4-A1-SOURCE",
+  "agentName": "P4 Source Acquisition & Coverage Engineer",
+  "packageId": "OBSERVED_INPUT_20260806_01",
+  "sourceCrawlReleaseId": "CRAWL_20260806_03",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "contractVersion": "2.1.2",
+  "runMode": "observed-dev",
+  "dataVersion": "OBSERVED_DEV_20260806_01",
+  "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+  "empiricalAnalysisAllowed": false,
+  "promotionAllowed": false,
+  "fullCorpus": false,
+  "postingManifestRows": 137,
+  "postingRows": 137,
+  "rawHtmlRows": 29,
+  "assetRows": 0,
+  "ncsUnitRows": 13442,
+  "rawCopied": false,
+  "createdAt": "2026-08-06T17:10:00+09:00",
+  "artifacts": [
+    "posting_manifest.parquet",
+    "posting_manifest.csv",
+    "raw_detail_manifest.jsonl",
+    "ncs_source_manifest.jsonl",
+    "known_gaps.json"
+  ]
+}
