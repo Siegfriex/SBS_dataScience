@@ -91,6 +91,7 @@ def write_stage_artifacts(
     business_files: list[dict[str, Any]],
     warnings: list[str] | None = None,
     schema_dir: Path | None = None,
+    stage_status: str | None = None,
 ) -> dict[str, Any]:
     """Write exactly four termination artifacts and optionally validate JSON schemas."""
     stage_dir = context.stage_dir
@@ -120,12 +121,17 @@ def write_stage_artifacts(
         for row in quality_rows
     ]
     completed_at = utc_now()
+    resolved_status = stage_status or (
+        "FAILED" if any(row["status"] == "FAIL" for row in quality_rows) else "SUCCEEDED"
+    )
+    if resolved_status not in {"SUCCEEDED", "FAILED", "NOT_EVALUATED"}:
+        raise ValueError(f"invalid stage status: {resolved_status}")
     manifest = {
         "manifestVersion": "stage-manifest-v1",
         "runId": context.run_id,
         "runMode": context.run_mode,
         "stageId": context.stage_id,
-        "status": "FAILED" if any(row["status"] == "FAIL" for row in quality_rows) else "SUCCEEDED",
+        "status": resolved_status,
         "agentId": "P4-A4-NCS",
         "branch": _git_value(context.ncs_root, "branch", "--show-current"),
         "gitHead": _git_value(context.ncs_root, "rev-parse", "HEAD"),

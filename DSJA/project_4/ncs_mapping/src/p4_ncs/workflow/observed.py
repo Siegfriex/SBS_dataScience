@@ -9,7 +9,9 @@ from typing import Any
 import pandas as pd
 
 from p4_ncs.contracts.observed_duty import canonical_json_sha256, load_and_validate_observed_duties
+from p4_ncs.codeset.core_ai_it import build_core_ai_it_codeset
 from p4_ncs.dictionary.alias_dictionary import load_alias_dictionary, validate_alias_dictionary
+from p4_ncs.evaluation.gold_evaluation import evaluate_gold_mapping, load_gold_structure
 from p4_ncs.mapping.observed_baseline import map_observed_duties
 from p4_ncs.quality.stage_artifacts import StageContext, file_record, sha256_file, write_stage_artifacts
 from p4_ncs.retrieval.lexical_index import LexicalIndex
@@ -20,6 +22,7 @@ STAGES = {
     "A4-02-RETRIEVAL": "ncs-retrieval-v1",
     "A4-03-MAP-OBSERVED": "posting-ncs-candidates-v1",
     "A4-04-EXPORT": "ncs-export-v1",
+    "A4-05-EVALUATE": "ncs-evaluation-v1",
 }
 RUN_ID = "NCS_MAPPING_OBSERVED_20260806_01"
 DATA_VERSION = "observed-dev-20260806.1"
@@ -205,6 +208,7 @@ def run_stage(
     stage_id: str,
     root: str | Path | None = None,
     duty_input_path: str | Path | None = None,
+    gold_input_path: str | Path | None = None,
     schema_dir: str | Path | None = None,
 ) -> dict[str, Any]:
     if stage_id not in STAGES:
@@ -215,26 +219,44 @@ def run_stage(
     ncs_sha = sha256_file(ncs_root / "data" / "processed" / "ncsUnit.parquet")
     files: list[dict[str, Any]] = []
     warnings: list[str] = []
+    stage_status: str | None = None
 
     if stage_id == "A4-00-NCS-SOURCE":
         unique_units = int(units["ncsUnitCode"].nunique())
         level_values = sorted(units["ncsLevel"].dropna().astype(int).unique().tolist())
+        hierarchy_nulls = int(units[["majorCode", "middleCode", "minorCode", "subCode"]].isna().sum().sum())
+        hierarchy_name_nulls = int(units[["majorName", "middleName", "minorName", "subName"]].isna().sum().sum())
+        raw_sha_count = int(units["rawSha256"].nunique(dropna=True))
         quality = [
             _quality("NCS_BASE_READY", "NCS_UNIT_ROWS", "PASS" if len(units) == 13442 else "FAIL", len(units), 13442, "ncs_mapping/data/processed/ncsUnit.parquet"),
             _quality("NCS_BASE_READY", "NCS_UNIT_PK", "PASS" if unique_units == len(units) else "FAIL", unique_units, len(units), "ncs_mapping/data/processed/ncsUnit.parquet"),
             _quality("NCS_BASE_READY", "NCS_LEVEL_DOMAIN", "PASS" if level_values == list(range(1, 9)) else "FAIL", str(level_values), "[1..8]", "ncs_mapping/data/processed/ncsUnit.parquet"),
+            _quality("NCS_BASE_READY", "HIERARCHY_CODE_NULL", "PASS" if hierarchy_nulls == 0 else "FAIL", hierarchy_nulls, 0, "ncs_mapping/data/processed/ncsUnit.parquet"),
+            _quality("NCS_BASE_READY", "SOURCE_SHA_LINEAGE", "PASS" if raw_sha_count == 1 else "FAIL", raw_sha_count, 1, "ncs_mapping/data/processed/ncsUnit.parquet"),
+            _quality("NCS_BASE_READY", "HIERARCHY_NAME_GAP", "REVIEW_REQUIRED", hierarchy_name_nulls, "documented source gap", "ncs_mapping/docs/CORE_AI_IT_CODESET_DECISION.md"),
         ]
-        rows = {"ncsUnit": len(units), "uniqueNcsUnitCode": unique_units}
-        metrics = [_metric("ncsUnitRows", len(units), "ncsUnitCode"), _metric("ncsLevelValues", str(level_values), "ncsLevel")]
+        rows = {"ncsUnit": len(units), "uniqueNcsUnitCode": unique_units, "hierarchyCodeNulls": hierarchy_nulls, "hierarchyNameNulls": hierarchy_name_nulls}
+        metrics = [
+            _metric("ncsUnitRows", len(units), "ncsUnitCode"),
+            _metric("ncsLevelValues", str(level_values), "ncsLevel"),
+            _metric("hierarchyCodeNulls", hierarchy_nulls, "cell"),
+            _metric("hierarchyNameNulls", hierarchy_name_nulls, "cell"),
+            _metric("rawSha256Distinct", raw_sha_count, "rawSha256"),
+        ]
     elif stage_id == "A4-01-CODESET":
-        included_count = int(codeset["included"].astype(bool).sum())
+        rebuilt_codeset = build_core_ai_it_codeset(units)
+        rebuilt_codeset = rebuilt_codeset.sort_values("ncsSubCode", kind="stable").reset_index(drop=True)
+        stored_codeset = codeset.sort_values("ncsSubCode", kind="stable").reset_index(drop=True)
+        pd.testing.assert_frame_equal(rebuilt_codeset, stored_codeset, check_dtype=False)
+        included_count = int(rebuilt_codeset["included"].astype(bool).sum())
         quality = [
-            _quality("NCS_CODESET_REVIEW_READY", "CODESET_TOTAL", "PASS" if len(codeset) == 120 else "FAIL", len(codeset), 120, "ncs_mapping/data/processed/coreAiItCodeSet.parquet"),
+            _quality("NCS_CODESET_REVIEW_READY", "CODESET_TOTAL", "PASS" if len(rebuilt_codeset) == 120 else "FAIL", len(rebuilt_codeset), 120, "ncs_mapping/data/processed/coreAiItCodeSet.parquet"),
             _quality("NCS_CODESET_REVIEW_READY", "CODESET_INCLUDED", "PASS" if included_count == 69 else "FAIL", included_count, 69, "ncs_mapping/data/processed/coreAiItCodeSet.parquet"),
+            _quality("NCS_CODESET_REVIEW_READY", "CODESET_DETERMINISTIC_REBUILD", "PASS", True, True, "ncs_mapping/data/processed/coreAiItCodeSet.parquet"),
             _quality("NCS_CODESET_REVIEW_READY", "CODESET_STATUS", "REVIEW_REQUIRED", "REVIEW_REQUIRED", "production freeze prohibited", "ncs_mapping/configs/core_ai_it_codes.yaml"),
         ]
-        rows = {"coreCodeSet": len(codeset), "included": included_count, "excluded": len(codeset) - included_count}
-        metrics = [_metric("coreCodeRows", len(codeset), "ncsSubCode"), _metric("includedDevelopmentCodes", included_count, "ncsSubCode")]
+        rows = {"coreCodeSet": len(rebuilt_codeset), "included": included_count, "excluded": len(rebuilt_codeset) - included_count}
+        metrics = [_metric("coreCodeRows", len(rebuilt_codeset), "ncsSubCode"), _metric("includedDevelopmentCodes", included_count, "ncsSubCode"), _metric("excludedDevelopmentCodes", len(rebuilt_codeset) - included_count, "ncsSubCode")]
     elif stage_id == "A4-02-RETRIEVAL":
         index = LexicalIndex.build(units, codeset)
         invalid_aliases = validate_alias_dictionary(aliases, set(codeset["ncsSubCode"].astype(str)))
@@ -279,7 +301,7 @@ def run_stage(
         rows = {"dutyInput": validation.row_count, "postingNcsCandidates": len(candidates), "postingNcsMatches": len(matches)}
         metrics = [_metric("dutyInputRows", validation.row_count, "sectionId"), _metric("candidateRows", len(candidates), "sectionId plus candidateRank"), _metric("unmappedRows", int(matches["ncsSubCode"].isna().sum()), "sectionId")]
         ncs_sha = validation.rows_sha256
-    else:
+    elif stage_id == "A4-04-EXPORT":
         input_path = _input_path(ncs_root, duty_input_path)
         files, rows, warnings, handoff_path = _final_exports(ncs_root, input_path)
         quality = [
@@ -290,10 +312,41 @@ def run_stage(
         metrics = [_metric(f"{name}Rows", count, name) for name, count in rows.items()]
         _, validation, _ = load_and_validate_observed_duties(input_path)
         ncs_sha = validation.rows_sha256
+    else:
+        gold_path = Path(gold_input_path).resolve() if gold_input_path else (
+            ncs_root / "data" / "gold" / "ncsMappings" / "gold_ncs_mapping_v1_TEMPLATE.csv"
+        )
+        gold = load_gold_structure(gold_path)
+        result = evaluate_gold_mapping(gold)
+        evaluation_path = ncs_root / "data" / "processed" / "observed-dev" / RUN_ID / "ncs_gold_evaluation.json"
+        evaluation_path.parent.mkdir(parents=True, exist_ok=True)
+        evaluation_payload = {
+            **result.to_dict(),
+            "runMode": "observed-dev",
+            "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+            "mappingMode": "LEXICAL_BASELINE",
+            "codeSetStatus": "REVIEW_REQUIRED",
+            "denseScore": None,
+        }
+        evaluation_path.write_text(json.dumps(evaluation_payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        files = [file_record(evaluation_path, ncs_root, stage_id, "evaluation run", 1, len(evaluation_payload))]
+        rows = {"goldInput": result.goldRows, "adjudicatedGold": result.adjudicatedRows}
+        quality = [
+            _quality("NCS_MAPPING_GOLD_READY", "GOLD_ROWS_PRESENT", "NOT_EVALUATED", result.goldRows, ">0", "ncs_mapping/data/gold/ncsMappings/gold_ncs_mapping_v1_TEMPLATE.csv"),
+            _quality("NCS_MAPPING_GOLD_READY", "FINAL_METRICS", "NOT_EVALUATED", result.gateStatus, "adjudicated gold required", "ncs_mapping/data/processed/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/ncs_gold_evaluation.json"),
+        ]
+        metrics = [
+            {"metricId": "precision", "value": None, "numerator": None, "denominator": 0, "unit": "ratio", "grain": "gold mapping", "unknownHandling": "empty gold input -> NOT_EVALUATED", "status": "NOT_EVALUATED"},
+            {"metricId": "finalCoverage", "value": None, "numerator": None, "denominator": 0, "unit": "ratio", "grain": "gold mapping", "unknownHandling": "empty gold input -> NOT_EVALUATED", "status": "NOT_EVALUATED"},
+            {"metricId": "goldRows", "value": 0, "numerator": 0, "denominator": 0, "unit": "count", "grain": "gold row", "unknownHandling": "empty gold input retained", "status": "NOT_EVALUATED"},
+        ]
+        ncs_sha = sha256_file(gold_path)
+        stage_status = "NOT_EVALUATED"
 
     return write_stage_artifacts(
         context=context, input_manifest_sha256=ncs_sha,
         row_counts={key: int(value) for key, value in rows.items()}, metrics=metrics,
         quality_rows=quality, business_files=files, warnings=warnings,
         schema_dir=_schema_dir(ncs_root, schema_dir),
+        stage_status=stage_status,
     )

@@ -11,15 +11,31 @@ EXPECTED = [
     "02BuildNcsRetrievalIndex.ipynb",
     "03MapObservedDuties.ipynb",
     "04ExportNcsMappingCsv.ipynb",
+    "05EvaluateNcsMapping.ipynb",
 ]
+
+PARAMETER_NAMES = {
+    "RUN_MODE", "CONTRACT_VERSION", "CRAWL_RELEASE_ID", "DATA_VERSION",
+    "AS_OF_DATE", "RANDOM_SEED", "DATA_PROVENANCE",
+    "EMPIRICAL_ANALYSIS_ALLOWED", "PROMOTION_ALLOWED", "DUTY_INPUT_PATH",
+    "GOLD_INPUT_PATH", "CONTROL_SCHEMA_DIR",
+}
 
 
 def test_notebooks_are_thin_clean_and_parseable():
     for name in EXPECTED:
         notebook = nbformat.read(NCS_ROOT / "notebooks" / name, as_version=4)
         nbformat.validate(notebook)
+        assert len(notebook.cells) == 6
         assert notebook.cells[0].cell_type == "code"
         assert "parameters" in notebook.cells[0].metadata.get("tags", [])
+        parameter_tree = ast.parse(notebook.cells[0].source)
+        assigned = {
+            target.id
+            for node in parameter_tree.body if isinstance(node, ast.Assign)
+            for target in node.targets if isinstance(target, ast.Name)
+        }
+        assert assigned == PARAMETER_NAMES
         assert 'RUN_MODE = "observed-dev"' in notebook.cells[0].source
         assert 'DATA_PROVENANCE = "OBSERVED_DEVELOPMENT_ONLY"' in notebook.cells[0].source
         assert "EMPIRICAL_ANALYSIS_ALLOWED = False" in notebook.cells[0].source
@@ -29,6 +45,9 @@ def test_notebooks_are_thin_clean_and_parseable():
         for cell in notebook.cells:
             if cell.cell_type == "code":
                 ast.parse(cell.source)
+        all_source = "\n".join(cell.source for cell in notebook.cells)
+        assert "run_stage(" in all_source
+        assert "expected_artifacts" in all_source
 
 
 def test_notebook_sources_do_not_embed_dense_or_absolute_temp_path():

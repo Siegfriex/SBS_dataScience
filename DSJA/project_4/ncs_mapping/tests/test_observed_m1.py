@@ -6,6 +6,7 @@ import pytest
 
 from p4_ncs.contracts.observed_duty import canonical_json_sha256, load_and_validate_observed_duties
 from p4_ncs.dictionary.alias_dictionary import load_alias_dictionary
+from p4_ncs.evaluation.gold_evaluation import GOLD_COLUMNS, evaluate_gold_mapping, load_gold_structure
 from p4_ncs.mapping.observed_baseline import map_observed_duties
 from p4_ncs.retrieval.lexical_index import LexicalIndex, restrict_units_to_subcategories
 
@@ -126,3 +127,19 @@ def test_alias_anchor_restricts_same_subcategory(sources):
     assert not candidates.empty
     assert set(candidates["ncsSubCode"]) == {"20010701"}
     assert candidates["sameSubcategoryRestrictedFlag"].all()
+
+
+def test_empty_gold_is_not_evaluated():
+    result = evaluate_gold_mapping(load_gold_structure())
+    assert result.goldRows == 0
+    assert result.precision is None
+    assert result.finalCoverage is None
+    assert result.gateStatus == "NOT_EVALUATED"
+    assert result.goldValidatedFlag is False
+
+
+def test_nonempty_gold_is_rejected_in_observed_development():
+    row = {column: None for column in GOLD_COLUMNS}
+    row["goldSampleId"] = "GOLD_1"
+    with pytest.raises(ValueError, match="cannot evaluate non-empty gold"):
+        evaluate_gold_mapping(pd.DataFrame([row], columns=GOLD_COLUMNS))

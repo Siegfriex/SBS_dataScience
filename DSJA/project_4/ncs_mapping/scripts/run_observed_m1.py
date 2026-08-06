@@ -16,6 +16,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--stage", choices=["all", *STAGES], default="all")
     parser.add_argument("--duty-input", type=Path)
+    parser.add_argument("--gold-input", type=Path)
     parser.add_argument("--schema-dir", type=Path)
     args = parser.parse_args()
     stages = list(STAGES) if args.stage == "all" else [args.stage]
@@ -24,6 +25,7 @@ def main() -> int:
             stage,
             root=ROOT,
             duty_input_path=args.duty_input,
+            gold_input_path=args.gold_input,
             schema_dir=args.schema_dir,
         )
         for stage in stages

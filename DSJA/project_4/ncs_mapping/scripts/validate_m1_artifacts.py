@@ -17,11 +17,13 @@ EXPORT_ROOT = ROOT / "data/exports/observed-dev/NCS_MAPPING_OBSERVED_20260806_01
 STAGES = [
     "A4-00-NCS-SOURCE", "A4-01-CODESET", "A4-02-RETRIEVAL",
     "A4-03-MAP-OBSERVED", "A4-04-EXPORT",
+    "A4-05-EVALUATE",
 ]
 NOTEBOOKS = [
     "00NcsSourceAudit.ipynb", "01BuildCoreAiItCodeSet.ipynb",
     "02BuildNcsRetrievalIndex.ipynb", "03MapObservedDuties.ipynb",
     "04ExportNcsMappingCsv.ipynb",
+    "05EvaluateNcsMapping.ipynb",
 ]
 TERMINATION = {"stage_manifest.json", "stage_metrics.json", "stage_quality.csv", "CHECKSUMS.sha256"}
 QUALITY_COLUMNS = ["gateId", "ruleId", "severity", "status", "observedValue", "threshold", "evidencePath"]
