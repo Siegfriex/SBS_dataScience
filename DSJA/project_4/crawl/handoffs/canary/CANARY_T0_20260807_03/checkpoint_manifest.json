@@ -8,7 +8,7 @@
       "createdAtUtc": "2026-08-06T17:23:26.664869Z",
       "emptyReason": "NETWORK_NOT_AUTHORIZED",
       "previousCheckpointSha256": null,
-      "rawObjectManifestSha256": "78bbd4a7df8e0a388fbbf12a5fcdb3c90432ab706aa7ae214dd67aa2a9ae77ae",
+      "rawObjectManifestSha256": "9067f0ecc27b4bf3cd924116a0794f36615a716e4ffa886a35f71ce80a7b20fa",
       "requestLedgerOffset": 0,
       "runId": "CANARY_T0_20260807_03",
       "terminalAssetIds": [],

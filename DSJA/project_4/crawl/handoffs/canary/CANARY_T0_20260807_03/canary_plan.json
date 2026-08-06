@@ -24,7 +24,7 @@
   "releasePromotionAllowed": false,
   "runMode": "fixture-only",
   "schemaVersion": "p4-canary-handoff-v1",
-  "sourceCommit": "a59a5de12a6d45e47729b5d0a175f65305c25c8d",
+  "sourceCommit": "eaf10c3f354dbe0cbde39077ad015a536f657b31",
   "sourceCommitAtRun": "d82df0878cc4c69aad40bda5b052e51021539130",
   "sourcePolicyAuditSha256": "e461f58e70bca86e4e16ddf1821829972cce77a7ab55ea7eeeea9a0d8e37bb3b",
   "sourcePolicyVersion": "p4-linkareer-source-policy-v1",

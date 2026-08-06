@@ -62,8 +62,12 @@ def empty_envelope(run_id: str, artifact_type: str) -> dict[str, Any]:
     }
 
 
-def write_empty_jsonl(path: Path, run_id: str, artifact_type: str) -> None:
-    path.write_text(json.dumps(empty_envelope(run_id, artifact_type), ensure_ascii=False, sort_keys=True) + "\n", encoding="utf-8")
+def write_empty_jsonl(
+    path: Path, run_id: str, artifact_type: str, extra: dict[str, Any] | None = None
+) -> None:
+    payload = empty_envelope(run_id, artifact_type)
+    payload.update(extra or {})
+    path.write_text(json.dumps(payload, ensure_ascii=False, sort_keys=True) + "\n", encoding="utf-8")
 
 
 def write_empty_parquet(
@@ -188,11 +192,18 @@ def publish(runtime: Path, output: Path, source_commit: str) -> dict[str, Any]:
     for name, artifact_type in (
         ("request_attempt.jsonl", "REQUEST_ATTEMPT"),
         ("request_response_manifest.jsonl", "REQUEST_RESPONSE"),
-        ("raw_object_manifest.jsonl", "RAW_OBJECT"),
         ("kill_switch_events.jsonl", "KILL_SWITCH_EVENT"),
         ("quarantine_manifest.jsonl", "QUARANTINE_RECORD"),
     ):
         write_empty_jsonl(output / name, run_id, artifact_type)
+    write_empty_jsonl(output / "raw_object_manifest.jsonl", run_id, "RAW_OBJECT", {
+        "storageRootId": "P4_CANARY_LOCAL_RUNTIME",
+        "objectLocatorRelative": None,
+        "compressedSha256": None,
+        "contentSha256": None,
+        "byteCount": 0,
+        "contentByteCount": 0,
+    })
 
     write_empty_parquet(output / "index_results.parquet", run_id, data_version, "requestKey", "periodMonth")
     write_empty_parquet(output / "detail_results.parquet", run_id, data_version, "requestKey", "postingId")
