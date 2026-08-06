@@ -40,7 +40,7 @@ class RunConfig:
     run_mode: str = "observed-dev"
     contract_version: str = CONTRACT_VERSION
     crawl_release_id: str = BASELINE_RELEASE_ID
-    data_version: str = "OBSERVED_DEV_20260806_01"
+    data_version: str = "observed-dev-20260806.1"
     as_of_date: str = "2026-08-06"
     random_seed: int = 42
     execute_live: bool = False
@@ -53,7 +53,7 @@ class RunConfig:
             phase=os.getenv("P4_A1_PHASE", "restore").strip().lower(),
             run_mode=os.getenv("P4_RUN_MODE", "observed-dev"),
             crawl_release_id=os.getenv("P4_CRAWL_RELEASE_ID", BASELINE_RELEASE_ID),
-            data_version=os.getenv("P4_DATA_VERSION", "OBSERVED_DEV_20260806_01"),
+            data_version=os.getenv("P4_DATA_VERSION", "observed-dev-20260806.1"),
             as_of_date=os.getenv("P4_AS_OF_DATE", "2026-08-06"),
             random_seed=int(os.getenv("P4_RANDOM_SEED", "42")),
             execute_live=os.getenv("P4_A1_EXECUTE_LIVE", "0") == "1",

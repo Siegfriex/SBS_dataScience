@@ -6,7 +6,7 @@
   "crawlReleaseId": "CRAWL_20260806_03",
   "contractVersion": "2.1.2",
   "runMode": "observed-dev",
-  "dataVersion": "OBSERVED_DEV_20260806_01",
+  "dataVersion": "observed-dev-20260806.1",
   "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
   "empiricalAnalysisAllowed": false,
   "promotionAllowed": false,

@@ -12,17 +12,17 @@
   "rejectedNonRawDetailReferences": [
     {
       "sourceUrl": "https://linkareer.com/activity/339673",
-      "rawPath": "../CRAWL_20260806_01/fixtures/ssr/activity_339673.masked.json",
+      "rawPathClass": "NON_RAW_MASKED_FIXTURE_REFERENCE",
       "reason": "notRealRawDetailPath"
     },
     {
       "sourceUrl": "https://linkareer.com/activity/339737",
-      "rawPath": "../CRAWL_20260806_01/fixtures/ssr/activity_339737.masked.json",
+      "rawPathClass": "NON_RAW_MASKED_FIXTURE_REFERENCE",
       "reason": "notRealRawDetailPath"
     },
     {
       "sourceUrl": "https://linkareer.com/activity/339821",
-      "rawPath": "../CRAWL_20260806_01/fixtures/ssr/activity_339821.masked.json",
+      "rawPathClass": "NON_RAW_MASKED_FIXTURE_REFERENCE",
       "reason": "notRealRawDetailPath"
     }
   ],
