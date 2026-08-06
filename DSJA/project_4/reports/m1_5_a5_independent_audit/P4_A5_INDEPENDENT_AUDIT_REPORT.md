@@ -28,7 +28,7 @@ All six A4 stages were executed again in independent processes using the current
 
 The runner executes current Python modules, but it does not execute the six source Notebook bytes. The Notebooks are SHA-bound only. A portable search over 32 contract, SSOT, registry, gate, and Notebook-spec authority files found zero explicit clauses authorizing this runner as equivalent to fresh-kernel Notebook execution. Therefore substitution equivalence remains `NOT_EVALUATED`, recorded as `A5-P2-001`.
 
-Evidence: `P4_A5_A4_RUNNER_AUDIT.csv`, SHA-256 `e882804854c89989fa1f0055c00832eb0f7dd8f20534322ae6ddea3d60e04b2a`; `P4_A5_CONTRACT_REGISTRY_SEARCH_AUDIT.csv`, SHA-256 `e17e8f31d04d798a241f556d331efab79869e39a718994bb4b5f5ac568ae8df3`.
+Evidence: `P4_A5_A4_RUNNER_AUDIT.csv`, SHA-256 `507acc6667c9887fc5191821d9b8858571462f076d7364900297d29f06a2e939`; `P4_A5_CONTRACT_REGISTRY_SEARCH_AUDIT.csv`, SHA-256 `c775427f0c3102165458b03ccbf764c186c6865ce6d431bc25ca3188a8d870ea`.
 
 ## 2. A1-04 to A2-00 access isolation
 
@@ -42,7 +42,7 @@ A2-00 was executed in a new fresh kernel with a Python audit hook installed befo
 
 This proves the current implementation consumes the HANDOFF-rooted observed package and does not implicitly read an A1-04 release artifact. It does not resolve the registry semantics: A2-00 still has A1-04 as a generic dependency. The same 32-file portable authority search found zero explicit clauses permitting A2-00 execution when A1-04 is `NOT_EVALUATED`. `A5-P2-002` remains open.
 
-Evidence: `P4_A5_A1_A2_ACCESS_AUDIT.csv`, SHA-256 `e9a25dd0010e901fd033e7d5e1d1d2f2cea8eeb9428fc016a7c28195d1136d39`; portable access log SHA-256 `c6fb19b3f99d7e2afa5bf30d393b2724d45811c333b4823c8fc1fc85e7d08e34`; contract/registry search SHA-256 `e17e8f31d04d798a241f556d331efab79869e39a718994bb4b5f5ac568ae8df3`.
+Evidence: `P4_A5_A1_A2_ACCESS_AUDIT.csv`, SHA-256 `4f525ba7c45492d1faaff9138a9540651e7e62dd0f0df83ff0e6b3ee8b21e7b4`; portable access log SHA-256 `e2feb093353a0087d6c7932cfdf6aea78a9d8ba176837f947c0fdada01461615`; contract/registry search SHA-256 `c775427f0c3102165458b03ccbf764c186c6865ce6d431bc25ca3188a8d870ea`.
 
 ## 3. Raw authority
 
@@ -52,7 +52,7 @@ Evidence: `P4_A5_A1_A2_ACCESS_AUDIT.csv`, SHA-256 `e9a25dd0010e901fd033e7d5e1d1d
 - Missing object: the row returned `RAW_OBJECT_MISSING` and `QUARANTINED`.
 - Raw-to-posting binding: 11 `MATCHED`, 18 `QUARANTINED`, silent correction 0.
 
-Evidence: `P4_A5_RAW_MOUNT_AUDIT.csv`, SHA-256 `76819d4905d16f32c161ab39606ee993312200bf86bf440bf15322834a9b67ac`.
+Evidence: `P4_A5_RAW_MOUNT_AUDIT.csv`, SHA-256 `f338aeff138ef06443925b1297a0e3dded7e842e31abcb6eb427ce4476cdbe7c`.
 
 ## 4. DAG, timestamps, and SHA bindings
 
@@ -66,7 +66,7 @@ An A5-local dependency map was used instead of importing the integration validat
 - A1/A2 native manifests independently rehashed from the read-only `_06` runtime: 17/17.
 - A4 outputs independently reproduced: 6/6.
 
-Evidence: `P4_A5_DAG_SHA_AUDIT.csv`, SHA-256 `0a398d571cf5840447d354c23a0c5881941afce74216b6624dd56f9c7f119b31`.
+Evidence: `P4_A5_DAG_SHA_AUDIT.csv`, SHA-256 `765dd3dd4c6e033396eeecdb28940ea602ad42d9a75f094f972ab45ce9e40934`.
 
 ## 5. Canonical unresolved policy
 
@@ -81,7 +81,7 @@ The observed semantic batch was regenerated independently from the observed pack
 - Non-null `highDemandScore`: 0.
 - Regenerated semantic SHA: `1b5c70f15a2e1e04d11a55b07964e9ac75ee013caf8683f6c4bebaae0859878b`.
 
-Evidence: `P4_A5_CANONICAL_POLICY_AUDIT.csv`, SHA-256 `9e6e29b094bc8057a7e8e115c5c858db9cd380469a94778dcd170cba03cbf768`.
+Evidence: `P4_A5_CANONICAL_POLICY_AUDIT.csv`, SHA-256 `8cc10f2f5ee5673c9ba1f1ef46b6fa2c9512ee027883dee29b238a427d5fd562`.
 
 ## 6. Tests
 
@@ -95,6 +95,8 @@ Evidence: `P4_A5_CANONICAL_POLICY_AUDIT.csv`, SHA-256 `9e6e29b094bc8057a7e8e115c
 | Integration | 17 passed |
 
 All commands exited 0. Full pytest stdout and exit codes are retained as `PYTEST_CRAWL.log`, `PYTEST_PIPELINE.log`, `PYTEST_NCS.log`, and `PYTEST_INTEGRATION.log`; their SHA values are bound in `P4_A5_TEST_SUMMARY.csv`. Network counters remained zero.
+
+All audit CSV outputs were regenerated with explicit `lineterminator='\n'`. A package-wide carriage-return scan returned zero and `git diff --check` is required to remain clean.
 
 ## Gate conclusion
 

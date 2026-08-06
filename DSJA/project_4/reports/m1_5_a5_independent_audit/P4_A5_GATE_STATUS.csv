@@ -5,6 +5,7 @@ A4_FRESH_KERNEL_SUBSTITUTE_CONTRACT,NOT_EVALUATED,P4_A5_A4_RUNNER_AUDIT.csv;P4_A
 A1_A2_OBSERVED_INPUT_ISOLATION,PASS,P4_A5_A1_A2_ACCESS_AUDIT.csv,HANDOFF-rooted observed package read; A1 release runtime/output access count 0
 A1_A2_EXPLICIT_STATUS_EXCEPTION_CONTRACT,NOT_EVALUATED,P4_A5_A1_A2_ACCESS_AUDIT.csv;P4_A5_CONTRACT_REGISTRY_SEARCH_AUDIT.csv,registry retains generic dependency and portable authority search found explicit exception count 0
 A5_CONTRACT_REGISTRY_SEARCH_COMPLETED,PASS,P4_A5_CONTRACT_REGISTRY_SEARCH_AUDIT.csv,32 portable authority files bound by corpus SHA and four search assertions recorded
+A5_CSV_SERIALIZATION_LF,PASS,run_a5_independent_audit.py,all A5 audit CSV writers use explicit LF line termination and package contains no CR bytes
 RAW_MOUNT_CONTRACT,PASS,P4_A5_RAW_MOUNT_AUDIT.csv,mounted 29/29; unmounted fail closed; wrong SHA and missing object quarantined
 RAW_POSTING_BINDING,PASS_WITH_FINDINGS,P4_A5_RAW_MOUNT_AUDIT.csv,11 matched and 18 quarantined; no silent correction
 M1_5_RECONCILIATION_DAG_VALID,PASS,P4_A5_DAG_SHA_AUDIT.csv,23/23 exact dependency and producer order

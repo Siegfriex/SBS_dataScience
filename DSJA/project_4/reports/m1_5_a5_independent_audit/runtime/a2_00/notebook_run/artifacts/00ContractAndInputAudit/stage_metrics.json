@@ -9,7 +9,7 @@
   "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
   "empiricalAnalysisAllowed": false,
   "promotionAllowed": false,
-  "generatedAt": "2026-08-06T17:09:23.557494Z",
+  "generatedAt": "2026-08-06T17:14:39.839526Z",
   "metrics": [
     {
       "metricId": "canonicalDatabaseObjectCount",
