@@ -2,8 +2,8 @@ import json
 
 from p4.normalize.eligibility import eligibility_flags, resolve_job_types
 from p4.normalize.linkareer import adapt_linkareer_source
-from p4.parse.linkareer_activity_text import parse_activity_text_html
-from p4.parse.linkareer_apollo_cache import extract_activity, find_apollo_cache
+from p4.parse.linkareer_activity_text import build_ocr_queue_candidates, parse_activity_text_html
+from p4.parse.linkareer_apollo_cache import extract_activity, find_apollo_cache, parse_masked_ssr_fixture
 from p4.parse.linkareer_apq import parse_apq_entries
 from p4.parse.linkareer_next_data import extract_next_data, extract_page_props
 
@@ -16,7 +16,7 @@ def masked_apq_fixture():
                     "id": "MASKED_1",
                     "group": "recruit",
                     "title": "마스킹 채용 공고",
-                    "activityTypeID": 7,
+                    "activityTypeID": 5,
                     "activityStartAt": "2026-01-01",
                     "activityEndAt": "2026-01-31",
                     "organizationName": "마스킹 기업",
@@ -37,9 +37,27 @@ def test_apq_entry_parsing_preserves_job_types_masks_manager_and_is_idempotent()
     second = parse_apq_entries(payload)
     assert first == second
     assert json.loads(first[0]["jobTypesRawJson"]) == [{"id": "JT1", "name": "인턴"}]
-    assert first[0]["activityTypeId"] == 7
+    assert first[0]["activityTypeId"] == 5
     assert first[0]["managerMasked"] == {"email": "[MASKED]", "name": "[MASKED]"}
     assert "개인정보" not in json.dumps(first, ensure_ascii=False)
+
+
+def test_apq_calendar_date_connections_are_flattened_and_deduplicated():
+    activity = masked_apq_fixture()["data"]["CalendarScreen_ActivityCalendarEntries"][0]
+    payload = {
+        "responseBody": {
+            "data": {
+                "activityCalendarEntries": {
+                    "nodes": [
+                        {"date": 1, "start": {"nodes": [activity]}, "end": {"nodes": [activity]}},
+                    ]
+                }
+            }
+        }
+    }
+    rows = parse_apq_entries(payload)
+    assert len(rows) == 1
+    assert rows[0]["id"] == "MASKED_1"
 
 
 def test_next_data_apollo_duties_activity_text_and_external_url():
@@ -160,3 +178,47 @@ def test_external_apply_does_not_exclude_when_activity_text_is_usable():
     assert flags["rq2EligibleFlag"] is True
     assert flags["ncsEligibleFlag"] is True
     assert json.loads(flags["rq2ExclusionReasonsJson"]) == []
+
+
+def test_embedded_image_routes_to_ocr_only_when_text_is_insufficient():
+    short_html = '<p>채용공고</p><p><img src="https://cdn.example.invalid/posting.jpg"></p>'
+    queue = build_ocr_queue_candidates(short_html)
+    assert queue[0]["assetUrl"] == "https://cdn.example.invalid/posting.jpg"
+    assert queue[0]["routingReason"] == "activityTextEmbeddedImageWithInsufficientText"
+    long_html = f'<p>{"담당업무 데이터 분석 " * 40}</p><img src="https://cdn.example.invalid/banner.jpg">'
+    assert build_ocr_queue_candidates(long_html) == []
+
+
+def test_masked_ssr_fixture_masks_manager_and_preserves_external_apply():
+    payload = {
+        "activityData": {
+            "id": "MASKED_3",
+            "manager": {"id": "PII_1", "email": "pii@example.invalid"},
+            "managerName": "PII name",
+            "applyDetail": "https://ats.example.invalid/apply",
+            "duties": {"nodes": [{"jobType": "INTERN"}]},
+        },
+        "apolloState_ActivityText_sample": {
+            "ActivityText:1": {"text": '<p>채용공고</p><img src="https://cdn.example.invalid/posting.jpg">'}
+        },
+    }
+    detail = parse_masked_ssr_fixture(payload)
+    assert detail["managerMasked"] == {"email": "[MASKED]", "id": "[MASKED]"}
+    assert "PII" not in json.dumps(detail, ensure_ascii=False)
+    assert detail["externalApplyFlag"] is True
+    assert detail["externalDetailOnlyFlag"] is False
+    assert detail["ocrRoutingRequiredFlag"] is True
+
+
+def test_non_recruit_activity_is_excluded_from_posting_denominator():
+    index = parse_apq_entries(masked_apq_fixture())[0]
+    index["activityTypeId"] = 1
+    index["activityTypeID"] = 1
+    index["group"] = "NORMAL"
+    detail = {
+        "activityTextHtml": "<strong>담당업무</strong><p>대외활동을 수행한다</p><strong>자격요건</strong><p>누구나</p>",
+        "activityTextAvailableFlag": True,
+    }
+    adapted = adapt_linkareer_source(index, detail)
+    assert adapted["postingEligibleFlag"] is False
+    assert adapted["rq2ExclusionReason"] == "nonRecruitPosting"

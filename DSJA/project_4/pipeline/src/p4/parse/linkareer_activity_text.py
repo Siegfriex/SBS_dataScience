@@ -23,10 +23,14 @@ class _BlockParser(HTMLParser):
         super().__init__()
         self.stack: list[tuple[str, dict[str, str | None], list[str]]] = []
         self.blocks: list[dict[str, Any]] = []
+        self.image_urls: list[str] = []
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        attributes = dict(attrs)
+        if tag.casefold() == "img" and attributes.get("src"):
+            self.image_urls.append(str(attributes["src"]))
         if tag.casefold() in _BLOCK_TAGS:
-            self.stack.append((tag.casefold(), dict(attrs), []))
+            self.stack.append((tag.casefold(), attributes, []))
 
     def handle_data(self, data: str) -> None:
         for _, _, parts in self.stack:
@@ -71,3 +75,25 @@ def parse_activity_text_html(html: str) -> list[dict[str, Any]]:
         char_offset = end + 1
     return rows
 
+
+def embedded_image_urls(html: str) -> list[str]:
+    parser = _BlockParser()
+    parser.feed(html)
+    return list(dict.fromkeys(parser.image_urls))
+
+
+def build_ocr_queue_candidates(html: str, minimum_text_chars: int = 300) -> list[dict[str, Any]]:
+    urls = embedded_image_urls(html)
+    text = " ".join(block["text"] for block in parse_activity_text_html(html))
+    usable_chars = len(re.sub(r"\s+", "", text))
+    if not urls or usable_chars >= minimum_text_chars:
+        return []
+    return [
+        {
+            "assetType": "embeddedImage",
+            "assetUrl": url,
+            "routingReason": "activityTextEmbeddedImageWithInsufficientText",
+            "observedTextChars": usable_chars,
+        }
+        for url in urls
+    ]
