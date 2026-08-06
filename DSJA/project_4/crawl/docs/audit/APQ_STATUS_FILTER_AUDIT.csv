@@ -1,0 +1,5 @@
+﻿test_range,filterBy_variant,http_status,sum_start_totalCount,note
+2020-03,OPEN,200,887,
+2020-03,no_status_key,200,895,
+2020-03,CLOSED_guess,200,"ERROR:'data' body={""errors"":[{""message"":""Variable \""$filterBy\"" got invalid value \""CLOSED\"" at \""filterBy.status\""; Value \""CLOSED\"" does not exist in \""ActivityStatus\"" enum."",""locations"":[{""line"":1,""column"":126}],""e","ActivityStatus enum rejects CLOSED — GraphQL validation error, not a valid value"
+2020-03,null_status,200,895,

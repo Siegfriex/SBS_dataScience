@@ -1,0 +1,36 @@
+User-agent: *
+Allow: /
+Disallow: /stem/learn/api/
+Disallow: /stem/learn/exam/
+Disallow: /stem/learn/my-course/
+Disallow: /stem/learn/mynote/allennote/
+Disallow: /stem/learn/mynote/flashcards/
+Disallow: /stem/learn/mynote/memos/
+Disallow: /stem/learn/profile/
+Disallow: /stem/learn/purchase/
+Disallow: /stem/learn/study/chapter/
+Disallow: /stem/learn/study/search/
+Disallow: /stem/learn/study/toc/
+Disallow: /stem/learn/study/today/
+Disallow: /stem/learn/landing/
+Disallow: /stem/learn/community/
+
+User-agent: Bingbot
+Crawl-delay: 1
+Allow: /
+Disallow: /stem/learn/api/
+Disallow: /stem/learn/exam/
+Disallow: /stem/learn/my-course/
+Disallow: /stem/learn/mynote/allennote/
+Disallow: /stem/learn/mynote/flashcards/
+Disallow: /stem/learn/mynote/memos/
+Disallow: /stem/learn/profile/
+Disallow: /stem/learn/purchase/
+Disallow: /stem/learn/study/chapter/
+Disallow: /stem/learn/study/search/
+Disallow: /stem/learn/study/toc/
+Disallow: /stem/learn/study/today/
+Disallow: /stem/learn/landing/
+Disallow: /stem/learn/community/
+
+Sitemap: https://linkareer.com/sitemap/sitemapindex.xml

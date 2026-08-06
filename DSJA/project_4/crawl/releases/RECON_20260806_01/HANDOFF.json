@@ -1,0 +1,61 @@
+{
+  "reconRunId": "RECON_20260806_01",
+  "agent": "Agent 1 (insane-search)",
+  "completedAt": "2026-08-06",
+  "listingTransport": "graphql_apq_get",
+  "detailTransport": "ssr_next_data",
+  "queryRegistryPath": "configs/queryRegistry.yaml",
+  "activityTypeRecruitId": "5",
+  "activityTypeActivityId": "1",
+  "monthlyTotalCountVerified": false,
+  "monthlyTotalCountVerifiedNote": "Only 2026-08 deep-audited (per-day truncation confirmed: 46/326 = 14.1% naive recovery). 2019/2020/.../2026 spot-checked at 1 month/year granularity only (see APQ_DATE_SEMANTICS.md §4). Full 96-month pagination audit NOT done — remains for Agent 2 / PROMPT 3.",
+  "paginationVerified": true,
+  "paginationVerifiedNote": "Truncation mechanism identified and quantified (nodePagination.pageSize=6 hard cap per day/side, totalCount field available for detecting truncation). /list/recruit SSR pagination (?page=N) confirmed working, capped at page=140 (~2782 items, oldest reaches 2023-11-17).",
+  "statusSemanticsVerified": true,
+  "statusSemanticsNote": "status='OPEN' vs omitted/null measured on 2020-03: 887 vs 895 (OPEN drops ~0.9%). 'CLOSED' is not a valid ActivityStatus enum value (GraphQL validation error). status does NOT mean 'currently open for applications' — closed/expired postings ARE returned even with status='OPEN'. Recommend collector OMITS status filter.",
+  "transparentClientVerified": true,
+  "transparentClientNote": "curl_cffi(impersonate='chrome') + Referer header alone reproduces both APQ list calls and SSR detail pages with HTTP 200 — no Playwright/browser automation required for bulk collection. (robots.txt fetch alone triggered a curl_cffi 'challenge' verdict in the generic WAF validator, resolved via Playwright fallback, but this appears to be a validator false-positive on a tiny plain-text response, not a real block — the GraphQL/SSR endpoints used for actual collection returned clean 200s directly via curl_cffi with no such flag.)",
+  "termsStatus": "reviewed_conditional",
+  "robotsStatus": "allowed",
+  "rq1EligibleEstimatedShare": 1.0,
+  "rq1EligibleEstimatedShareNote": "Pilot sample n=35 (2020-2026, 5/year): jobTypes populated 35/35 (100%). This is a PILOT signal only, not the formal PROMPT 0 D stratified sample (n>=100 required).",
+  "rq2EligibleEstimatedShare": 0.857,
+  "rq2EligibleEstimatedShareNote": "Pilot sample n=35: bodyTextLength>=120 in 30/35 (85.7%). This measures only the length gate, not true section-parseability (required/preferred boundary detection) — true rq2EligibleFlag rate is likely LOWER once section-structure is checked. Needs formal PROMPT 0 D sample + PROMPT 2 pilot.",
+  "ncsEligibleEstimatedShare": null,
+  "ncsEligibleEstimatedShareNote": "Not estimated this pass — duty-sentence presence within ActivityText not yet systematically checked (only presence of the ActivityText entity itself was checked, not its section content).",
+  "externalAtsOnlyShare": 1.0,
+  "externalAtsOnlyShareNote": "Pilot sample n=35 (all recruit-type, 2020-2026): 35/35 (100%) had applyDetail pointing to a non-linkareer.com domain. This is the single most consequential finding of this recon pass — see P0_RECON_REPORT_FINAL.md §0 item 2.",
+  "criticalFindingFor2019": {
+    "recruitActivityTypeTotalCountByMonth2019": {"jan": 0, "mar": 0, "jun": 1, "sep": 0, "dec": 23},
+    "generalActivityTypeTotalCountByMonth2019": {"jan": 512, "mar": 496, "jun": 523, "sep": 457, "dec": 331},
+    "implication": "recruit(activityTypeID=5) category appears effectively unlaunched/unused through most of 2019. RQ1/RQ2 analysis window starting at 2019-01 likely needs revision — flagged as top-priority human decision item, ahead of the formal PROMPT 4 coverage gate."
+  },
+  "schemaChangesApplied": {
+    "files": [
+      "docs/ssot/P4_DATASET_SPEC_v2.0.md (§2.1, §2.2 added)",
+      "docs/ssot/P4_WAREHOUSE_DDL_v2.0.sql (raw.queryRegistry added; core.postingNormalized + mart.postingAnalysisMart: postingEligibleFlag/rq1EligibleFlag/rq2EligibleFlag/ncsEligibleFlag/externalApplyUrl/externalAtsDomain/externalDetailOnlyFlag/linkareerBodyAvailableFlag/rq2ExclusionReason added; mart.vValidPostingMonthly + mart.vRq2Eligible updated to use new flags; mart.vNcsEligible view added)"
+    ],
+    "note": "These 4 SSOT/DDL docs were also missing from docs/ssot/ prior to this pass (bootstrap step 1 of the prompt pack was never completed) — copied in from crawl/ and now updated in place."
+  },
+  "deliverables": [
+    "docs/audit/P0_RECON_REPORT_FINAL.md",
+    "docs/audit/robots_20260806.txt",
+    "docs/audit/APQ_PAGINATION_AUDIT.csv",
+    "docs/audit/APQ_DATE_SEMANTICS.md",
+    "docs/audit/APQ_STATUS_FILTER_AUDIT.csv",
+    "docs/audit/DETAIL_FIELD_COVERAGE.csv",
+    "docs/audit/EXTERNAL_ATS_COVERAGE.csv",
+    "docs/audit/SOURCE_POLICY_DECISION.md",
+    "schemas/linkareer_calendar_activities.json",
+    "configs/queryRegistry.yaml",
+    "configs/sources.yaml (updated)"
+  ],
+  "notYetStarted": [
+    "Full 96-month pagination completeness audit",
+    "Wayback CDX survival-bias audit",
+    "NCS source (data.go.kr) field verification",
+    "Formal PROMPT 0 D stratified sample (n>=100)",
+    "recruitStartAt/recruitCloseAt rangeBy AND/OR semantics disambiguation"
+  ],
+  "gateForFullCollection": "전량 수집은 96개월 pagination 완전성 검증, transparentClientVerified 재확인(장기), 그리고 2019년 시작연도 재검토가 사람 승인 후에만 시작한다."
+}

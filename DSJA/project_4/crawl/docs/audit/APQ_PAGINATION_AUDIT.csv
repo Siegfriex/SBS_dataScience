@@ -1,0 +1,13 @@
+﻿source,test,parameter,value,note
+CalendarScreen_ActivityCalendarEntries,per_day_node_cap,nodePagination.pageSize,6,"hard cap on activities returned per calendar day per side(start/end); UI-oriented, not a full list"
+CalendarScreen_ActivityCalendarEntries,test_month,2026-08 recruit(activityTypeIDs=5),,test range for truncation measurement
+CalendarScreen_ActivityCalendarEntries,day_buckets_returned,,31,all days of month present in date-bucket list
+CalendarScreen_ActivityCalendarEntries,days_with_start_truncation,,7/31 (22.6%),days where start.totalCount > 6 (nodes returned capped at 6)
+CalendarScreen_ActivityCalendarEntries,sum_start_totalCount_month,,326,"true total across all day buckets, start side only"
+CalendarScreen_ActivityCalendarEntries,sum_start_nodes_returned_month,,46,"actual nodes returned with single default request (page=1,nodePagination.page=1)"
+CalendarScreen_ActivityCalendarEntries,naive_single_request_completeness,,14.1%,46/326 — naive single call per month is NOT complete; per-day nodePagination.page iteration required whenever a day totalCount>6
+CalendarScreen_Activities,cross_check_totalCount_2026-08_recruit,,1681,"aggregate totalCount call — NOT directly comparable to entries-endpoint sum because rangeBy applies to both recruitStartAt AND recruitCloseAt windows (semantics not fully disambiguated, see APQ_DATE_SEMANTICS.md)"
+/list/recruit (SSR list page),page_param_support,?page=N,confirmed working,"independent of calendar API; simple SSR list, 20 items/page, sorted newest-first by id"
+/list/recruit (SSR list page),max_valid_page,,"140 (partial, 2 items)",total items reachable ~= 139*20+2 = 2782
+/list/recruit (SSR list page),depth_window_oldest_item_date,id=159298,2023-11-17,"list view does NOT reach back to 2019 — hard depth cap, unsuitable as sole primary source for full 2019-2026 backfill"
+/list/recruit (SSR list page),page_beyond_cutoff,page=141+,count=0,"confirms hard cutoff, not rate-limit/error (HTTP 200 empty array)"
