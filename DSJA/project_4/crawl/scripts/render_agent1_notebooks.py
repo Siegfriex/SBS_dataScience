@@ -118,12 +118,40 @@ persisted_files = [STAGE_ROOT / "observed_package_validation.json", STAGE_ROOT /
     },
 )
 
+TITLE_DETAILS = {
+    "00RecoverSourceState": {
+        "outputs": "resume_state, remaining_months, detail/asset frontier, reference-only observed package",
+        "prior": "NOT_EVALUATED",
+        "next": "A1-01-INDEX의 source-policy 및 입력 기준",
+    },
+    "01CollectLinkareerIndex": {
+        "outputs": "fixture APQ audit와 posting_discovery_index CSV/Parquet",
+        "prior": "SOURCE_POLICY_READY",
+        "next": "A1-02-DETAIL의 APQ/query-registry 작동 근거",
+    },
+    "02CollectPostingDetail": {
+        "outputs": "29건 posting_detail_replay CSV/Parquet와 replay QA",
+        "prior": "INDEX_FIXTURE_APQ_READY",
+        "next": "A1-03-ASSET metadata candidate routing 및 Agent 2 observed parser",
+    },
+    "03CollectPostingAssets": {
+        "outputs": "asset_frontier, OCR candidate manifest, 빈 asset manifest",
+        "prior": "CRAWL_OBSERVED_INPUT_READY",
+        "next": "A1-04-RELEASE observed package 검증; production asset 수집은 미승격",
+    },
+    "04BuildCrawlRelease": {
+        "outputs": "observed package validation과 Agent 2 validator adapter 결과",
+        "prior": "CRAWL_OBSERVED_INPUT_READY",
+        "next": "Agent 2 observed-development handoff; CRAWL_RELEASE_READY 선언 금지",
+    },
+}
+
 PARAMETERS_TEMPLATE = '''RUN_MODE = "observed-dev"
 AGENT_ID = "P4-A1-SOURCE"
 STAGE_ID = "{stage}"
 CONTRACT_VERSION = "2.1.2"
 SCHEMA_VERSION = "{schema}"
-DATA_VERSION = "OBSERVED_DEV_20260806_01"
+DATA_VERSION = "observed-dev-20260806.1"
 CRAWL_RELEASE_ID = "CRAWL_20260806_03"
 AS_OF_DATE = "2026-08-06"
 INPUT_MANIFEST_PATH = "{input}"
@@ -202,10 +230,19 @@ if FAIL_ON_GATE and any(row["status"] == "FAIL" for row in quality):
 
 def render_notebook(spec: dict) -> str:
     prefix = spec["stage"].lower()
+    detail = TITLE_DETAILS[spec["name"]]
     cells = [
         new_markdown_cell(
-            f"# {spec['name']}\n\n{spec['title']}\n\n"
-            "This notebook is orchestration-only. It cannot enable empirical analysis or production promotion.",
+            f"# {spec['name']}\n\n"
+            f"- 목적: {spec['title']}\n"
+            "- 담당 Agent: `P4-A1-SOURCE`\n"
+            f"- Stage ID: `{spec['stage']}`\n"
+            f"- 입력: `{spec['input']}`\n"
+            f"- 처리: `{spec['calls']}` 모듈 호출만 수행\n"
+            f"- 출력: {detail['outputs']} 및 4개 종료 artifact\n"
+            f"- 선행 Gate: `{detail['prior']}`\n"
+            f"- 후속 활용: {detail['next']}\n\n"
+            "이 Notebook은 orchestration-only이며 empirical analysis와 production promotion을 활성화하지 않는다.",
             id=f"{prefix}-title",
         ),
         new_code_cell(
