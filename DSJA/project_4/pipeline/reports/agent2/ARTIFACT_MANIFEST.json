@@ -15,8 +15,8 @@
   },
   {
     "path": "DSJA/project_4/pipeline/data/warehouse/p4.duckdb",
-    "sha256": "12d993d385abcf91104810be3767e0de9d7bd82651b3d9578a33f6c8ca4247de",
-    "bytes": 1585152,
+    "sha256": "d1e33086ccbd10249d90e9cea5fce58a3205db92a078a1d198920a6d87a8d9a0",
+    "bytes": 2895872,
     "rows": 0,
     "schemaVersion": "2.1.2"
   },
@@ -24,6 +24,20 @@
     "path": "DSJA/project_4/pipeline/reports/agent2/PARTIAL_CRAWL_CONFORMANCE.json",
     "sha256": "642675bedc525faa1e8eef1852152c3e0022f858864e6e9f2e1c8ad7febc7260",
     "bytes": 4070,
+    "rows": 0,
+    "schemaVersion": "2.1.2"
+  },
+  {
+    "path": "DSJA/project_4/pipeline/reports/agent2/SYNTHETIC_DB_QUARANTINE.json",
+    "sha256": "f79bee321414bf246f06d6d0ae60d583e400aaf7acda19b331f2a84056c7a9b0",
+    "bytes": 2651,
+    "rows": 0,
+    "schemaVersion": "2.1.2"
+  },
+  {
+    "path": "DSJA/project_4/shared/handoffs/AGENT2_TO_AGENT4_DUTY_INPUT.json",
+    "sha256": "b5d3305977614fc08c0c8664b584e7d6ed7012807531bd37685db066982d9536",
+    "bytes": 4878,
     "rows": 0,
     "schemaVersion": "2.1.2"
   },

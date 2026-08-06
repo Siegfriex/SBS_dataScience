@@ -23,6 +23,7 @@ CRAWL_RELEASE_ID = "CRAWL_20260806_02"
 sys.path.insert(0, str(PIPELINE_ROOT / "src"))
 
 from p4.common.hashing import sha256_file  # noqa: E402
+from p4.contracts.duty_input import validate_duty_input_handoff  # noqa: E402
 from p4.contracts.validators import audit_contract_bundle  # noqa: E402
 
 
@@ -152,8 +153,17 @@ def agent3_issues() -> dict[str, object]:
 
 
 def build() -> dict[str, object]:
+    git_common_dir = Path(git("rev-parse", "--git-common-dir"))
+    if not git_common_dir.is_absolute():
+        git_common_dir = REPOSITORY_ROOT / git_common_dir
+    canonical_git_root = str(git_common_dir.resolve().parent)
     contract = audit_contract_bundle(PROJECT_ROOT / "shared/contracts/P4_CONTRACT_v2.1.2")
     warehouse = json.loads((PIPELINE_ROOT / "runs/canonical_warehouse_bootstrap.json").read_text(encoding="utf-8"))
+    quarantine = json.loads(
+        (PIPELINE_ROOT / "reports/agent2/SYNTHETIC_DB_QUARANTINE.json").read_text(encoding="utf-8")
+    )
+    duty_handoff_path = HANDOFF_ROOT / "AGENT2_TO_AGENT4_DUTY_INPUT.json"
+    duty_handoff = validate_duty_input_handoff(duty_handoff_path)
     partial = json.loads((PIPELINE_ROOT / "reports/agent2/PARTIAL_CRAWL_CONFORMANCE.json").read_text(encoding="utf-8"))
     fixture_summary = json.loads((PIPELINE_ROOT / "runs/fixture_pipeline_summary.json").read_text(encoding="utf-8"))
     tests = test_audit()
@@ -170,7 +180,8 @@ def build() -> dict[str, object]:
         "empiricalAnalysisAllowed": False,
         "generatedAt": datetime.now(ZoneInfo("Asia/Seoul")).isoformat(),
         "repository": {
-            "gitRoot": str(REPOSITORY_ROOT), "branch": git("branch", "--show-current"), "headRef": "HEAD",
+            "gitRoot": canonical_git_root, "branch": git("branch", "--show-current"), "headRef": "HEAD",
+            "worktreeMode": "cleanDedicated",
             "headResolution": "Resolve HEAD when consumed; a tracked report cannot contain its own commit hash.",
             "remote": git("remote", "get-url", "origin"),
         },
@@ -181,6 +192,13 @@ def build() -> dict[str, object]:
             "sourceCommits": ["97f9c04", "2e69380"],
         },
         "canonicalWarehouse": warehouse,
+        "canonicalWarehouseProtection": {
+            "syntheticDatabase": quarantine,
+            "requiredProductionProvenance": [
+                "contractVersion", "crawlReleaseId", "dataVersion", "dataProvenance=EMPIRICAL"
+            ],
+            "failClosed": True,
+        },
         "crawlInput": {
             "crawlReleaseId": CRAWL_RELEASE_ID,
             "sourceBranchHead": "825ba03",
@@ -215,11 +233,21 @@ def build() -> dict[str, object]:
         "marts": {"scope": "SYNTHETIC_FIXTURE_ONLY", "postingAnalysisMart": posting, "timeSeriesMart": time_series},
         "analysis": {"executed": False, "effects": [], "reason": "Full crawl release is absent; partial conformance input is prohibited for empirical analysis."},
         "figures": [],
+        "agent4DutyInput": {
+            "path": relative(duty_handoff_path),
+            "schemaVersion": duty_handoff["schemaVersion"],
+            "status": duty_handoff["status"],
+            "fixtureRows": len(duty_handoff["fixtureRows"]),
+            "empiricalUseAllowed": duty_handoff["empiricalUseAllowed"],
+        },
         "gates": [
             {"gate": "contractChecksums", "status": "PASS", "observed": f"{len(contract['checksums']['checked'])} files"},
             {"gate": "canonicalDdl", "status": "PASS", "observed": "39 statements, idempotent"},
             {"gate": "canonicalObjects", "status": "PASS", "observed": "5 schemas, 26 tables, 6 views"},
             {"gate": "emptyAnalysisReadyGate", "status": "PASS", "observed": "NOT_EVALUATED"},
+            {"gate": "syntheticDatabaseQuarantine", "status": "PASS", "observed": quarantine["moveValidation"]},
+            {"gate": "canonicalMartProvenanceGuard", "status": "PASS", "observed": "fail-closed EMPIRICAL envelope"},
+            {"gate": "agent4DutyInputSchema", "status": "PASS", "observed": duty_handoff["status"]},
             {"gate": "unitAndIntegrationTests", "status": "PASS" if not tests["failed"] and not tests["errors"] else "FAIL", "observed": f"{tests['passed']} passed"},
             {"gate": "productionNotebookOutputs", "status": "PASS", "observed": sum(row["outputCount"] for row in production)},
             {"gate": "sourceAdapterConformance", "status": "PASS", "observed": partial["sourceAdapterConformanceStatus"]},
@@ -265,6 +293,8 @@ agentName = {AGENT_NAME}
 - Canonical DDL: 39 statements; two executions identical
 - Objects: 5 schemas, 26 tables, 6 QA views
 - Empty `vAnalysisReadyGate`: `NOT_EVALUATED`
+- Synthetic DB quarantine SHA-256: `{quarantine['after']['sha256']}`
+- Canonical mart provenance guard: `contractVersion + crawlReleaseId + dataVersion + EMPIRICAL`
 
 ## Partial crawl conformance
 
@@ -278,6 +308,13 @@ agentName = {AGENT_NAME}
 - NCS ability-unit records: {partial['ncsUnitRecordCount']:,}
 
 Sample rates are conformance diagnostics, not empirical findings: ActivityText {sample['rates']['hasActivityText']:.1%}, external apply {sample['rates']['externalApplyFlag']:.1%}, external detail only {sample['rates']['externalDetailOnlyFlag']:.1%}, RQ1 {sample['rates']['rq1EligibleFlag']:.1%}, RQ2 {sample['rates']['rq2EligibleFlag']:.1%}, NCS {sample['rates']['ncsEligibleFlag']:.1%}, conflict {sample['rates']['jobTypeConflictFlag']:.1%}, embedded-image OCR candidate {sample['rates']['activityTextEmbeddedImageFlag']:.1%}.
+
+## Agent 4 duty input
+
+- Status: `{duty_handoff['status']}`
+- Schema: `{duty_handoff['schemaVersion']}`
+- Structural fixture rows: {len(duty_handoff['fixtureRows'])}
+- Empirical use allowed: `{str(duty_handoff['empiricalUseAllowed']).lower()}`
 
 ## Verification
 
@@ -294,6 +331,8 @@ Sample rates are conformance diagnostics, not empirical findings: ActivityText {
         PIPELINE_ROOT / "data/marts/timeSeriesMart.parquet",
         PIPELINE_ROOT / "data/warehouse/p4.duckdb",
         report_dir / "PARTIAL_CRAWL_CONFORMANCE.json",
+        report_dir / "SYNTHETIC_DB_QUARANTINE.json",
+        duty_handoff_path,
         *[REPOSITORY_ROOT / row["path"] for row in notebooks],
     ]
     artifact_rows = {
@@ -326,7 +365,11 @@ Sample rates are conformance diagnostics, not empirical findings: ActivityText {
         "empiricalAnalysisAllowed": False,
         "canonicalWarehousePath": "DSJA/project_4/pipeline/data/warehouse/p4.duckdb", "canonicalWarehouseExecuted": True,
         "canonicalAnalysisReadyGate": "NOT_EVALUATED",
+        "canonicalMartProductionGuard": "contractVersion+crawlReleaseId+dataVersion+dataProvenance=EMPIRICAL",
+        "syntheticDatabaseQuarantineManifest": relative(report_dir / "SYNTHETIC_DB_QUARANTINE.json"),
         "developmentWarehousePath": "DSJA/project_4/pipeline/data/warehouse/p4.development.duckdb",
+        "agent4DutyInputPath": relative(duty_handoff_path),
+        "agent4DutyInputStatus": duty_handoff["status"],
         "martsEmpirical": False, "qualityChecks": report["gates"], "remainingBlockers": report["remainingBlockers"],
         "reportPaths": [relative(report_dir / "AGENT2_FINAL_REPORT.md"), relative(report_dir / "AGENT2_FINAL_REPORT.json")],
         "artifactManifestPath": relative(manifest_path),

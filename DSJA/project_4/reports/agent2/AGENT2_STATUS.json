@@ -7,11 +7,12 @@
     "PIPELINE_FOUNDATION_READY"
   ],
   "empiricalAnalysisAllowed": false,
-  "generatedAt": "2026-08-06T15:03:09.968254+09:00",
+  "generatedAt": "2026-08-06T15:27:54.365163+09:00",
   "repository": {
     "gitRoot": "/home/sieg/projects-wsl/SBS_dataScience",
     "branch": "agent/p4-pipeline-v2",
     "headRef": "HEAD",
+    "worktreeMode": "cleanDedicated",
     "headResolution": "Resolve HEAD when consumed; a tracked report cannot contain its own commit hash.",
     "remote": "https://github.com/Siegfriex/SBS_dataScience.git"
   },
@@ -70,7 +71,7 @@
     "contractSha256": "f92380cdfc16967f1e363800cd9a575e44532f18a86b2f28f8c3e2404ed675e9",
     "ddlSha256": "956986874eae5686a20a52721dc303f1913c7391b2ee27da6d582a762f73ad58",
     "databasePath": "data/warehouse/p4.duckdb",
-    "databaseSha256": "12d993d385abcf91104810be3767e0de9d7bd82651b3d9578a33f6c8ca4247de",
+    "databaseSha256": "d1e33086ccbd10249d90e9cea5fce58a3205db92a078a1d198920a6d87a8d9a0",
     "warehouse": {
       "ddlStatementCount": 39,
       "firstRunSucceeded": true,
@@ -122,6 +123,7 @@
         "qa.vSourcePolicyGate"
       ],
       "viewCount": 6,
+      "crossSchemaForeignKeyCount": 0,
       "qaViews": {
         "qa.vAnalysisReadyGate": "EXECUTED",
         "qa.vEnumViolations": "EXECUTED",
@@ -133,6 +135,92 @@
       "analysisReadyGate": "NOT_EVALUATED",
       "emptyDatabasePass": false
     }
+  },
+  "canonicalWarehouseProtection": {
+    "syntheticDatabase": {
+      "agentId": "P4-A2-PIPELINE",
+      "agentName": "P4 Contract-Driven Pipeline & Analysis Engineer",
+      "status": "QUARANTINED",
+      "verifiedAt": "2026-08-06T15:25:22+09:00",
+      "originalCollisionPath": "DSJA/project_4/pipeline/data/warehouse/p4.duckdb",
+      "priorQuarantinePath": "DSJA/project_4/pipeline/data/warehouse/p4.pre-v212-fixture.duckdb",
+      "quarantinePath": "DSJA/project_4/pipeline/data/warehouse/p4.synthetic.duckdb",
+      "movePerformedThisRun": "p4.pre-v212-fixture.duckdb -> p4.synthetic.duckdb",
+      "databaseClassification": "SYNTHETIC_FIXTURE_ONLY",
+      "empiricalUseAllowed": false,
+      "before": {
+        "sha256": "4e08b5645747cfd21742480c32d87e50dcf5187ba5a1fa30f0e5bbca3883e03e",
+        "bytes": 10760192,
+        "schemaCount": 5,
+        "tableCount": 11,
+        "viewCount": 0,
+        "rowCounts": {
+          "raw.linkareer_posting": 6,
+          "core.posting_normalized": 6,
+          "core.posting_track": 6,
+          "core.posting_section": 10,
+          "core.requirement_fact": 10,
+          "core.career_label": 6,
+          "ncs.ncs_unit": 3,
+          "ncs.posting_ncs_match": 4,
+          "mart.posting_analysis": 6,
+          "mart.time_series": 10,
+          "qa.check_result": 0
+        }
+      },
+      "after": {
+        "sha256": "4e08b5645747cfd21742480c32d87e50dcf5187ba5a1fa30f0e5bbca3883e03e",
+        "bytes": 10760192,
+        "schemaCount": 5,
+        "tableCount": 11,
+        "viewCount": 0,
+        "rowCounts": {
+          "raw.linkareer_posting": 6,
+          "core.posting_normalized": 6,
+          "core.posting_track": 6,
+          "core.posting_section": 10,
+          "core.requirement_fact": 10,
+          "core.career_label": 6,
+          "ncs.ncs_unit": 3,
+          "ncs.posting_ncs_match": 4,
+          "mart.posting_analysis": 6,
+          "mart.time_series": 10,
+          "qa.check_result": 0
+        }
+      },
+      "moveValidation": {
+        "sha256Unchanged": true,
+        "bytesUnchanged": true,
+        "rowCountsUnchanged": true
+      },
+      "canonicalReplacement": {
+        "path": "DSJA/project_4/pipeline/data/warehouse/p4.duckdb",
+        "contractVersion": "2.1.2",
+        "createdFrom": "shared/contracts/P4_CONTRACT_v2.1.2/warehouse_duckdb.sql",
+        "expectedState": "EMPTY_NOT_EVALUATED",
+        "schemaCount": 5,
+        "tableCount": 26,
+        "qaViewCount": 6,
+        "analysisReadyGate": "NOT_EVALUATED"
+      },
+      "restoreProcedure": {
+        "warning": "Never overwrite the canonical p4.duckdb with this fixture database.",
+        "inspectionMode": "Open p4.synthetic.duckdb with DuckDB read_only=true.",
+        "recoverableCopyPath": "DSJA/project_4/pipeline/data/warehouse/p4.synthetic.restored.duckdb",
+        "sourcePath": "DSJA/project_4/pipeline/data/warehouse/p4.synthetic.duckdb"
+      },
+      "gitTracking": {
+        "tracked": false,
+        "ignoreRule": "data/warehouse/*.duckdb"
+      }
+    },
+    "requiredProductionProvenance": [
+      "contractVersion",
+      "crawlReleaseId",
+      "dataVersion",
+      "dataProvenance=EMPIRICAL"
+    ],
+    "failClosed": true
   },
   "crawlInput": {
     "crawlReleaseId": "CRAWL_20260806_02",
@@ -282,7 +370,7 @@
     },
     "fixtureSha256": "50b12d711676646181d9fa6023638ec6a7e1d627486e1c8f3b4b9937fc43ae35",
     "tests": {
-      "passed": 83,
+      "passed": 93,
       "failed": 0,
       "errors": 0,
       "skipped": 0
@@ -334,6 +422,13 @@
     "reason": "Full crawl release is absent; partial conformance input is prohibited for empirical analysis."
   },
   "figures": [],
+  "agent4DutyInput": {
+    "path": "DSJA/project_4/shared/handoffs/AGENT2_TO_AGENT4_DUTY_INPUT.json",
+    "schemaVersion": "agent2-duty-input-v1",
+    "status": "SCHEMA_AND_FIXTURE_ONLY",
+    "fixtureRows": 1,
+    "empiricalUseAllowed": false
+  },
   "gates": [
     {
       "gate": "contractChecksums",
@@ -356,9 +451,28 @@
       "observed": "NOT_EVALUATED"
     },
     {
+      "gate": "syntheticDatabaseQuarantine",
+      "status": "PASS",
+      "observed": {
+        "sha256Unchanged": true,
+        "bytesUnchanged": true,
+        "rowCountsUnchanged": true
+      }
+    },
+    {
+      "gate": "canonicalMartProvenanceGuard",
+      "status": "PASS",
+      "observed": "fail-closed EMPIRICAL envelope"
+    },
+    {
+      "gate": "agent4DutyInputSchema",
+      "status": "PASS",
+      "observed": "SCHEMA_AND_FIXTURE_ONLY"
+    },
+    {
       "gate": "unitAndIntegrationTests",
       "status": "PASS",
-      "observed": "83 passed"
+      "observed": "93 passed"
     },
     {
       "gate": "productionNotebookOutputs",

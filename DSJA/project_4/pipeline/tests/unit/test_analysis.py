@@ -26,7 +26,7 @@ def test_empirical_fit_rejects_fixture_provenance():
         }
     )
     provenance = ProvenanceContext(DataProvenance.SYNTHETIC, None, None, "fixture-v1")
-    with pytest.raises(ValueError, match="canonical contract"):
+    with pytest.raises(ValueError, match="requires contractVersion"):
         fit_monthly_hac(frame, AnalysisSpec("outcome"), provenance=provenance)
 
 

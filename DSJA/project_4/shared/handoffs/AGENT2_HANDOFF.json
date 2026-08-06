@@ -18,7 +18,11 @@
   "canonicalWarehousePath": "DSJA/project_4/pipeline/data/warehouse/p4.duckdb",
   "canonicalWarehouseExecuted": true,
   "canonicalAnalysisReadyGate": "NOT_EVALUATED",
+  "canonicalMartProductionGuard": "contractVersion+crawlReleaseId+dataVersion+dataProvenance=EMPIRICAL",
+  "syntheticDatabaseQuarantineManifest": "DSJA/project_4/pipeline/reports/agent2/SYNTHETIC_DB_QUARANTINE.json",
   "developmentWarehousePath": "DSJA/project_4/pipeline/data/warehouse/p4.development.duckdb",
+  "agent4DutyInputPath": "DSJA/project_4/shared/handoffs/AGENT2_TO_AGENT4_DUTY_INPUT.json",
+  "agent4DutyInputStatus": "SCHEMA_AND_FIXTURE_ONLY",
   "martsEmpirical": false,
   "qualityChecks": [
     {
@@ -42,9 +46,28 @@
       "observed": "NOT_EVALUATED"
     },
     {
+      "gate": "syntheticDatabaseQuarantine",
+      "status": "PASS",
+      "observed": {
+        "sha256Unchanged": true,
+        "bytesUnchanged": true,
+        "rowCountsUnchanged": true
+      }
+    },
+    {
+      "gate": "canonicalMartProvenanceGuard",
+      "status": "PASS",
+      "observed": "fail-closed EMPIRICAL envelope"
+    },
+    {
+      "gate": "agent4DutyInputSchema",
+      "status": "PASS",
+      "observed": "SCHEMA_AND_FIXTURE_ONLY"
+    },
+    {
       "gate": "unitAndIntegrationTests",
       "status": "PASS",
-      "observed": "83 passed"
+      "observed": "93 passed"
     },
     {
       "gate": "productionNotebookOutputs",

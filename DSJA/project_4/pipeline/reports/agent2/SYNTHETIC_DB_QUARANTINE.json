@@ -1,0 +1,77 @@
+{
+  "agentId": "P4-A2-PIPELINE",
+  "agentName": "P4 Contract-Driven Pipeline & Analysis Engineer",
+  "status": "QUARANTINED",
+  "verifiedAt": "2026-08-06T15:25:22+09:00",
+  "originalCollisionPath": "DSJA/project_4/pipeline/data/warehouse/p4.duckdb",
+  "priorQuarantinePath": "DSJA/project_4/pipeline/data/warehouse/p4.pre-v212-fixture.duckdb",
+  "quarantinePath": "DSJA/project_4/pipeline/data/warehouse/p4.synthetic.duckdb",
+  "movePerformedThisRun": "p4.pre-v212-fixture.duckdb -> p4.synthetic.duckdb",
+  "databaseClassification": "SYNTHETIC_FIXTURE_ONLY",
+  "empiricalUseAllowed": false,
+  "before": {
+    "sha256": "4e08b5645747cfd21742480c32d87e50dcf5187ba5a1fa30f0e5bbca3883e03e",
+    "bytes": 10760192,
+    "schemaCount": 5,
+    "tableCount": 11,
+    "viewCount": 0,
+    "rowCounts": {
+      "raw.linkareer_posting": 6,
+      "core.posting_normalized": 6,
+      "core.posting_track": 6,
+      "core.posting_section": 10,
+      "core.requirement_fact": 10,
+      "core.career_label": 6,
+      "ncs.ncs_unit": 3,
+      "ncs.posting_ncs_match": 4,
+      "mart.posting_analysis": 6,
+      "mart.time_series": 10,
+      "qa.check_result": 0
+    }
+  },
+  "after": {
+    "sha256": "4e08b5645747cfd21742480c32d87e50dcf5187ba5a1fa30f0e5bbca3883e03e",
+    "bytes": 10760192,
+    "schemaCount": 5,
+    "tableCount": 11,
+    "viewCount": 0,
+    "rowCounts": {
+      "raw.linkareer_posting": 6,
+      "core.posting_normalized": 6,
+      "core.posting_track": 6,
+      "core.posting_section": 10,
+      "core.requirement_fact": 10,
+      "core.career_label": 6,
+      "ncs.ncs_unit": 3,
+      "ncs.posting_ncs_match": 4,
+      "mart.posting_analysis": 6,
+      "mart.time_series": 10,
+      "qa.check_result": 0
+    }
+  },
+  "moveValidation": {
+    "sha256Unchanged": true,
+    "bytesUnchanged": true,
+    "rowCountsUnchanged": true
+  },
+  "canonicalReplacement": {
+    "path": "DSJA/project_4/pipeline/data/warehouse/p4.duckdb",
+    "contractVersion": "2.1.2",
+    "createdFrom": "shared/contracts/P4_CONTRACT_v2.1.2/warehouse_duckdb.sql",
+    "expectedState": "EMPTY_NOT_EVALUATED",
+    "schemaCount": 5,
+    "tableCount": 26,
+    "qaViewCount": 6,
+    "analysisReadyGate": "NOT_EVALUATED"
+  },
+  "restoreProcedure": {
+    "warning": "Never overwrite the canonical p4.duckdb with this fixture database.",
+    "inspectionMode": "Open p4.synthetic.duckdb with DuckDB read_only=true.",
+    "recoverableCopyPath": "DSJA/project_4/pipeline/data/warehouse/p4.synthetic.restored.duckdb",
+    "sourcePath": "DSJA/project_4/pipeline/data/warehouse/p4.synthetic.duckdb"
+  },
+  "gitTracking": {
+    "tracked": false,
+    "ignoreRule": "data/warehouse/*.duckdb"
+  }
+}
