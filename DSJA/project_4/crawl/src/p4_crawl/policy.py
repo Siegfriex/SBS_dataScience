@@ -9,6 +9,7 @@ import time
 from concurrent.futures import Future, ThreadPoolExecutor, as_completed
 from contextlib import contextmanager
 from dataclasses import dataclass
+from collections import deque
 from typing import Callable, Iterable, Protocol, TypeVar
 from urllib.parse import urlparse
 
@@ -38,6 +39,29 @@ class KillSwitch:
     @property
     def tripped(self) -> bool:
         return self._event.is_set()
+
+
+class SuccessRateMonitor:
+    """Fail closed when a bounded recent response window degrades."""
+
+    def __init__(self, window: int = 20, minimum_observations: int = 10, minimum_rate: float = 0.8) -> None:
+        if window < 1 or not 1 <= minimum_observations <= window:
+            raise ValueError("invalid success-rate window")
+        if not 0.0 <= minimum_rate <= 1.0:
+            raise ValueError("minimum success rate must be between zero and one")
+        self.window = window
+        self.minimum_observations = minimum_observations
+        self.minimum_rate = minimum_rate
+        self._observations: deque[bool] = deque(maxlen=window)
+        self._lock = threading.Lock()
+
+    def record(self, status_code: int) -> tuple[int, float, bool]:
+        with self._lock:
+            self._observations.append(200 <= status_code < 400)
+            count = len(self._observations)
+            rate = sum(self._observations) / count
+            degraded = count >= self.minimum_observations and rate < self.minimum_rate
+            return count, rate, degraded
 
 
 class RateLimiter:
@@ -130,11 +154,19 @@ class PolicyHttpClient:
     concurrency: int = 2
     limiter: RateLimiter | None = None
     response_hook: Callable[[str, ResponseLike, dict], object] | None = None
+    success_window: int = 20
+    success_minimum_observations: int = 10
+    minimum_success_rate: float = 0.8
 
     def __post_init__(self) -> None:
         self.limiter = self.limiter or RateLimiter(self.minimum_interval)
         self.gate = ConcurrencyGate(self.concurrency)
         self.kill_switch = KillSwitch()
+        self.success_monitor = SuccessRateMonitor(
+            self.success_window,
+            self.success_minimum_observations,
+            self.minimum_success_rate,
+        )
 
     def get(self, url: str, **kwargs) -> ResponseLike:
         context = kwargs.pop("_p4_context", {})
@@ -152,6 +184,13 @@ class PolicyHttpClient:
             prefix = body[:200_000].lower()
             if any(marker in prefix for marker in (b"access denied", b"just a moment", b"captcha", b"datadome")):
                 self.kill_switch.trip("SOURCE_POLICY_BLOCKED: challenge marker")
+                raise SourcePolicyBlocked(self.kill_switch.reason)
+            count, rate, degraded = self.success_monitor.record(response.status_code)
+            if degraded:
+                self.kill_switch.trip(
+                    f"SOURCE_POLICY_BLOCKED: recent success rate {rate:.3f} below "
+                    f"{self.minimum_success_rate:.3f} over {count} responses"
+                )
                 raise SourcePolicyBlocked(self.kill_switch.reason)
             if self.response_hook is not None:
                 manifest = self.response_hook(url, response, context)

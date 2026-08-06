@@ -34,6 +34,21 @@ def activity_for_id(cache: dict, source_id: str) -> dict | None:
     return matches[0] if matches else None
 
 
+def activity_text_for_activity(cache: dict, activity: dict) -> dict:
+    """Resolve ActivityText without guessing among ambiguous standalone entities."""
+
+    for field in ("detailText", "activityText", "ActivityText"):
+        value = resolve_ref(cache, activity.get(field))
+        if isinstance(value, dict) and value.get("text"):
+            return value
+    standalone = [
+        value
+        for key, value in cache.items()
+        if str(key).startswith("ActivityText:") and isinstance(value, dict) and value.get("text")
+    ]
+    return standalone[0] if len(standalone) == 1 else {}
+
+
 def extract_detail_record(source_id: str, body: bytes, lineage: dict) -> tuple[dict, list[dict]]:
     soup = BeautifulSoup(body, "html.parser")
     tag = soup.select_one("script#__NEXT_DATA__")
@@ -44,22 +59,24 @@ def extract_detail_record(source_id: str, body: bytes, lineage: dict) -> tuple[d
     activity = activity_for_id(cache, source_id)
     if activity is None:
         raise ValueError("matching Activity entity not found")
-    detail_obj = resolve_ref(cache, activity.get("detailText")) or {}
+    detail_obj = activity_text_for_activity(cache, activity)
     activity_text = detail_obj.get("text") or ""
-    objects = refs_to_objects(cache, activity.get("files"))
+    objects = [(value, "files") for value in refs_to_objects(cache, activity.get("files"))]
     for key in ("thumbnailImage", "logoImage"):
         value = resolve_ref(cache, activity.get(key))
         if isinstance(value, dict):
-            objects.append(value)
+            objects.append((value, key))
     candidates = []
     seen_urls: set[str] = set()
-    for value in objects:
+    for value, source_field in objects:
         url = value.get("url")
         if not url or url in seen_urls:
             continue
         seen_urls.add(url)
         type_object = resolve_ref(cache, value.get("type")) or {}
-        candidates.append({"assetUrl": url, "assetType": type_object.get("name") or "file", "sourceField": "files"})
+        candidates.append(
+            {"assetUrl": url, "assetType": type_object.get("name") or "file", "sourceField": source_field}
+        )
     for image in BeautifulSoup(activity_text, "html.parser").find_all("img"):
         url = urljoin("https://linkareer.com/", image.get("src") or "")
         if url and url not in seen_urls:

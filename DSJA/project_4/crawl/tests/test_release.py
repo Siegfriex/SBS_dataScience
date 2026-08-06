@@ -6,7 +6,7 @@ from pathlib import Path
 from p4_crawl.config import RunConfig
 from p4_crawl.manifests import load_jsonl, verify_checksum_file
 from p4_crawl.release import build_observed_input_package
-from p4_crawl.observed import _safe_url
+from p4_crawl.observed import _safe_url, classify_agent2_validator_quality
 
 
 def test_observed_package_recomputes_real_counts(tmp_path) -> None:
@@ -33,3 +33,9 @@ def test_observed_url_sanitizer_drops_contact_strings_and_queries() -> None:
     assert _safe_url("business@example.com") is None
     assert _safe_url("mailto:person@example.com") is None
     assert _safe_url("https://jobs.example.com/apply?token=secret#section") == "https://jobs.example.com/apply"
+
+
+def test_agent2_validator_quality_is_fail_closed() -> None:
+    assert classify_agent2_validator_quality({"executed": False, "status": "MISSING"}) == "NOT_EVALUATED"
+    assert classify_agent2_validator_quality({"executed": True, "status": "EXECUTED"}) == "PASS"
+    assert classify_agent2_validator_quality({"executed": True, "status": "EXECUTION_FAILED"}) == "FAIL"

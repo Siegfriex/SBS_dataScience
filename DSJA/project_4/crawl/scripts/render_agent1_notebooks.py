@@ -99,7 +99,7 @@ persisted_files = [STAGE_ROOT / name for name in ["asset_frontier.parquet", "ass
         "input": OBSERVED_HANDOFF,
         "title": "Validate the observed package and invoke the Agent 2 validator adapter without release promotion",
         "calls": "audit_input_manifest;validate_observed_package;invoke_agent2_validator;write_stage_artifacts",
-        "operation": '''from p4_crawl.observed import invoke_agent2_validator, validate_observed_package
+        "operation": '''from p4_crawl.observed import classify_agent2_validator_quality, invoke_agent2_validator, validate_observed_package
 from p4_crawl.storage import atomic_write_json
 
 observed_validation = validate_observed_package(INPUT_MANIFEST.parent)
@@ -109,7 +109,7 @@ atomic_write_json(STAGE_ROOT / "agent2_validator_result.json", agent2_validation
 metrics = {**observed_validation, "agent2ValidatorStatus": agent2_validation["status"], "crawlReleaseReady": False}
 quality = [
     quality_row("CRAWL_OBSERVED_INPUT_READY", "OBSERVED_PACKAGE", "ERROR", "PASS" if observed_validation["observedInputReady"] else "FAIL", observed_validation["observedInputReady"], True, "observed_package_validation.json"),
-    quality_row("AGENT2_VALIDATOR", "CROSS_AGENT_VALIDATION", "WARNING", "NOT_EVALUATED" if not agent2_validation["executed"] else "PASS", agent2_validation["status"], "integrated validator", "agent2_validator_result.json"),
+    quality_row("AGENT2_VALIDATOR", "CROSS_AGENT_VALIDATION", "WARNING", classify_agent2_validator_quality(agent2_validation), agent2_validation["status"], "integrated validator", "agent2_validator_result.json"),
     quality_row("CRAWL_RELEASE_READY", "PRODUCTION_PROMOTION", "ERROR", "NOT_EVALUATED", False, "full production corpus", "observed_package_validation.json"),
 ]
 persisted_files = [STAGE_ROOT / "observed_package_validation.json", STAGE_ROOT / "agent2_validator_result.json"]''',
