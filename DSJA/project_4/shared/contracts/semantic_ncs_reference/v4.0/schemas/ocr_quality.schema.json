@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sbs.local/p4/semantic-ncs-reference/v4.0/ocr_quality.schema.json",
+  "title": "P4 OCR quality vector",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["ocrQualityId", "assetId", "ocrRunId", "ocrEngine", "ocrEngineVersion", "ocrCharCount", "ocrKoreanRatio", "ocrGarbageCharRate", "ocrLineOrderConfidence", "ocrDuplicateOverlapRate", "layoutType", "ocrEligibleForStructure", "ocrEligibleForMapping", "qualityReasonCodesJson"],
+  "properties": {
+    "ocrQualityId": {"type": "string", "minLength": 1},
+    "assetId": {"type": "string", "minLength": 1},
+    "ocrRunId": {"type": "string", "minLength": 1},
+    "ocrEngine": {"type": "string", "minLength": 1},
+    "ocrEngineVersion": {"type": "string", "minLength": 1},
+    "ocrCharCount": {"type": "integer", "minimum": 0},
+    "ocrKoreanRatio": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+    "ocrGarbageCharRate": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+    "ocrLineOrderConfidence": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+    "ocrDuplicateOverlapRate": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+    "layoutType": {"type": "string", "enum": ["POSTER", "TABLE", "BULLET", "MIXED", "UNKNOWN"]},
+    "htmlOcrTextAgreement": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+    "meanEngineConfidence": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+    "ocrEligibleForStructure": {"type": "boolean"},
+    "ocrEligibleForMapping": {"type": "boolean"},
+    "qualityReasonCodesJson": {"type": "array", "items": {"type": "string", "minLength": 1}}
+  }
+}

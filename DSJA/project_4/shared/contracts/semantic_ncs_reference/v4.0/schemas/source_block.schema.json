@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sbs.local/p4/semantic-ncs-reference/v4.0/source_block.schema.json",
+  "title": "P4 source block",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["sourceBlockId", "postingId", "rawPostingId", "sourceMode", "sourceText", "startChar", "endChar", "rawSha256", "parserVersion"],
+  "properties": {
+    "sourceBlockId": {"type": "string", "minLength": 1},
+    "postingId": {"type": "string", "minLength": 1},
+    "rawPostingId": {"type": "string", "minLength": 1},
+    "assetId": {"type": ["string", "null"]},
+    "sourceMode": {"type": "string", "enum": ["HTML", "ACTIVITY_TEXT", "OCR", "MERGED"]},
+    "sourceText": {"type": "string"},
+    "startChar": {"type": "integer", "minimum": 0},
+    "endChar": {"type": "integer", "minimum": 0},
+    "pageNo": {"type": ["integer", "null"], "minimum": 1},
+    "bboxJson": {"type": ["object", "array", "null"]},
+    "rawSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "parserVersion": {"type": "string", "minLength": 1}
+  }
+}

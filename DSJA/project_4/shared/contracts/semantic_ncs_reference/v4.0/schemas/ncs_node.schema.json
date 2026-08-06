@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sbs.local/p4/semantic-ncs-reference/v4.0/ncs_node.schema.json",
+  "title": "P4 versioned NCS node",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["ncsCorpusVersion", "nodeCode", "nodeType", "officialName", "nameSource", "sourceEndpoint", "sourceSha256"],
+  "properties": {
+    "ncsCorpusVersion": {"type": "string", "minLength": 1},
+    "nodeCode": {"type": "string", "minLength": 1},
+    "nodeType": {"type": "string", "enum": ["LARGE", "MIDDLE", "SMALL", "SUBCATEGORY", "DUTY", "UNIT", "FACTOR", "JOB_BASIC"]},
+    "parentNodeCode": {"type": ["string", "null"]},
+    "officialName": {"type": ["string", "null"]},
+    "nameSource": {"type": "string", "enum": ["OFFICIAL", "DERIVED", "MISSING"]},
+    "definitionText": {"type": ["string", "null"]},
+    "officialLevel": {"type": ["integer", "null"], "minimum": 1, "maximum": 8},
+    "validFrom": {"type": ["string", "null"], "format": "date"},
+    "validTo": {"type": ["string", "null"], "format": "date"},
+    "sourceEndpoint": {"type": "string", "minLength": 1},
+    "sourceSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  },
+  "allOf": [
+    {"if": {"properties": {"nameSource": {"const": "MISSING"}}}, "then": {"properties": {"officialName": {"type": "null"}}}},
+    {"if": {"properties": {"nameSource": {"enum": ["OFFICIAL", "DERIVED"]}}}, "then": {"properties": {"officialName": {"type": "string", "minLength": 1}}}}
+  ]
+}

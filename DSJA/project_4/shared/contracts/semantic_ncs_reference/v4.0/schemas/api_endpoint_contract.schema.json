@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sbs.local/p4/semantic-ncs-reference/v4.0/api_endpoint_contract.schema.json",
+  "title": "P4 API endpoint contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["apiContractId", "provider", "baseUrl", "endpointPath", "httpMethod", "contractVersion", "expectedContentTypesJson", "parameterSchemaJson", "contractStatus", "parserVersion", "validFrom"],
+  "properties": {
+    "apiContractId": {"type": "string", "minLength": 1},
+    "provider": {"type": "string", "enum": ["NCS_OPENAPI", "WORK24"]},
+    "baseUrl": {"type": "string", "pattern": "^https://"},
+    "endpointPath": {"type": "string", "minLength": 1},
+    "httpMethod": {"type": "string", "enum": ["GET", "POST"]},
+    "contractVersion": {"type": "string", "minLength": 1},
+    "expectedContentTypesJson": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "parameterSchemaJson": {"type": "object"},
+    "contractStatus": {"type": "string", "enum": ["PROVISIONAL", "PROBED", "FROZEN", "DRIFTED", "RETIRED"]},
+    "observedSchemaSha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+    "fixtureManifestSha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+    "parserVersion": {"type": "string", "minLength": 1},
+    "validFrom": {"type": "string", "format": "date-time"},
+    "validTo": {"type": ["string", "null"], "format": "date-time"}
+  }
+}

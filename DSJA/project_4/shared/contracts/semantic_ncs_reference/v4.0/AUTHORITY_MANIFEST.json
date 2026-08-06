@@ -1,0 +1,35 @@
+{
+  "manifestVersion": "p4-semantic-ncs-reference-authority-v1",
+  "addendumVersion": "4.0",
+  "baseContractVersion": "2.1.2",
+  "baseContractMutationAllowed": false,
+  "sourceSsot": {
+    "path": "/home/sieg/projects-wsl/SBS_dataScience/DSJA/project_4/P4_DOCS/SBS_P4_PROJECT4_v2_bootstrap/SBS_P4_PROJECT4_v2_bootstrap/docs/ssot/P4_final_design_v4.0.md",
+    "sha256": "409866c166ce3874ce587ad3b1230bc530c036e9682be01bf3466aa1fd37a05a",
+    "documentStatus": "IMPLEMENTATION_BASELINE_CANDIDATE"
+  },
+  "integrationBaseCommit": "111b118c5923d6f8f98888aac24f1c499aca0136",
+  "authorityOrder": [
+    "immutable source bytes and SHA-256",
+    "immutable release manifest",
+    "Git commit and Notebook blob SHA",
+    "stage artifacts",
+    "test results",
+    "audit reports",
+    "agent summaries"
+  ],
+  "schemas": [
+    "schemas/api_endpoint_contract.schema.json",
+    "schemas/api_probe_run.schema.json",
+    "schemas/source_block.schema.json",
+    "schemas/ocr_quality.schema.json",
+    "schemas/semantic_chunk.schema.json",
+    "schemas/ncs_node.schema.json",
+    "schemas/ncs_edge.schema.json",
+    "schemas/ncs_duty_unit_bridge.schema.json",
+    "schemas/ncs_external_code_crosswalk.schema.json",
+    "schemas/candidate_packet.schema.json",
+    "schemas/reference_label.schema.json",
+    "schemas/calibration_model.schema.json"
+  ]
+}

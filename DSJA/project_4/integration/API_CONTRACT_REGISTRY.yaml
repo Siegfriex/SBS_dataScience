@@ -1,0 +1,84 @@
+registryVersion: p4-api-contract-registry-v4.0
+baseContractVersion: 2.1.2
+semanticAddendumVersion: "4.0"
+authority:
+  ssotSha256: 409866c166ce3874ce587ad3b1230bc530c036e9682be01bf3466aa1fd37a05a
+  rule: observed probe fixtures and response SHA override provisional field assumptions
+statusVocabulary: &statuses
+  - PASS
+  - PASS_WITH_FINDINGS
+  - PARTIAL
+  - BLOCKED
+  - NOT_STARTED
+  - NOT_EVALUATED
+  - FAIL
+secretPolicy:
+  artifactSecretCount: 0
+  requestStorage: REDACTED_CANONICAL_FORM_ONLY
+endpoints:
+  - apiContractId: NCS-ncsCdInfo-v4.0
+    provider: NCS_OPENAPI
+    baseUrl: https://apis.data.go.kr/B490007/ncsInfo
+    endpointPath: /ncsCdInfo
+    httpMethod: GET
+    semanticRole: classification_entrypoint
+    expectedContentTypes: [application/xml, text/xml]
+    credentialEnv: NCS_API_SERVICE_KEY
+    contractStatus: PROVISIONAL
+    probeStatus: NOT_STARTED
+    requiredProbeCases: [SUCCESS_MINIMAL, SUCCESS_PAGINATED, EMPTY_VALID, INVALID_PARAMETER, AUTH_MISSING, AUTH_INVALID, FORMAT_VARIANT]
+  - apiContractId: NCS-ncsDutyInfo-v4.0
+    provider: NCS_OPENAPI
+    baseUrl: https://apis.data.go.kr/B490007/ncsInfo
+    endpointPath: /ncsDutyInfo
+    httpMethod: GET
+    semanticRole: duty_name_definition
+    expectedContentTypes: [application/xml, text/xml]
+    credentialEnv: NCS_API_SERVICE_KEY
+    contractStatus: PROVISIONAL
+    probeStatus: NOT_STARTED
+    requiredProbeCases: [SUCCESS_MINIMAL, SUCCESS_PAGINATED, EMPTY_VALID, INVALID_PARAMETER, AUTH_MISSING, AUTH_INVALID, FORMAT_VARIANT]
+  - apiContractId: NCS-ncsCompeUnitInfo-v4.0
+    provider: NCS_OPENAPI
+    baseUrl: https://apis.data.go.kr/B490007/ncsInfo
+    endpointPath: /ncsCompeUnitInfo
+    httpMethod: GET
+    semanticRole: ability_unit_definition_level
+    expectedContentTypes: [application/xml, text/xml]
+    credentialEnv: NCS_API_SERVICE_KEY
+    contractStatus: PROVISIONAL
+    probeStatus: NOT_STARTED
+    requiredProbeCases: [SUCCESS_MINIMAL, SUCCESS_PAGINATED, EMPTY_VALID, INVALID_PARAMETER, AUTH_MISSING, AUTH_INVALID, FORMAT_VARIANT]
+  - apiContractId: NCS-ncsCompeUnitFactrInfo-v4.0
+    provider: NCS_OPENAPI
+    baseUrl: https://apis.data.go.kr/B490007/ncsInfo
+    endpointPath: /ncsCompeUnitFactrInfo
+    httpMethod: GET
+    semanticRole: ability_unit_factor_criteria
+    expectedContentTypes: [application/xml, text/xml]
+    credentialEnv: NCS_API_SERVICE_KEY
+    contractStatus: PROVISIONAL
+    probeStatus: NOT_STARTED
+    requiredProbeCases: [SUCCESS_MINIMAL, SUCCESS_PAGINATED, EMPTY_VALID, INVALID_PARAMETER, AUTH_MISSING, AUTH_INVALID, FORMAT_VARIANT]
+  - apiContractId: NCS-ncsKsaInfo-v4.0
+    provider: NCS_OPENAPI
+    baseUrl: https://apis.data.go.kr/B490007/ncsInfo
+    endpointPath: /ncsKsaInfo
+    httpMethod: GET
+    semanticRole: knowledge_skill_attitude
+    expectedContentTypes: [application/xml, text/xml]
+    credentialEnv: NCS_API_SERVICE_KEY
+    contractStatus: PROVISIONAL
+    probeStatus: NOT_STARTED
+    requiredProbeCases: [SUCCESS_MINIMAL, SUCCESS_PAGINATED, EMPTY_VALID, INVALID_PARAMETER, AUTH_MISSING, AUTH_INVALID, FORMAT_VARIANT]
+  - apiContractId: WORK24-job-dictionary-v4.0
+    provider: WORK24
+    baseUrl: https://www.work24.go.kr
+    endpointPath: /cm/openApi/call/wk/callOpenApiSvcInfo215L11.do
+    httpMethod: GET
+    semanticRole: retrieval_alias_enrichment
+    expectedContentTypes: [application/xml, text/xml, application/json]
+    credentialEnv: WORK24_API_AUTH_KEY
+    contractStatus: PROVISIONAL
+    probeStatus: NOT_STARTED
+    requiredProbeCases: [SUCCESS_MINIMAL, SUCCESS_PAGINATED, EMPTY_VALID, INVALID_PARAMETER, AUTH_MISSING, AUTH_INVALID, FORMAT_VARIANT]

@@ -1,0 +1,27 @@
+stageId,gateId,critical,minEvidenceCount,emptyEvidenceStatus,dependencyUnmetStatus,validationErrorStatus,initialStatus,evidenceContract
+M1.5-P,NCS_API_CONTRACT_PROBED,true,1,NOT_EVALUATED,BLOCKED,FAIL,NOT_EVALUATED,success-empty-error fixtures plus SHA and parser test
+M1.5-P,WORK24_API_CONTRACT_PROBED,true,1,NOT_EVALUATED,BLOCKED,FAIL,NOT_EVALUATED,success-empty-error fixtures plus canonical crosswalk test
+M1.5-P,API_ERROR_CONTRACT_READY,true,1,NOT_EVALUATED,BLOCKED,FAIL,NOT_EVALUATED,auth and invalid-parameter envelopes
+M1.5-P,API_SECRET_LOGGING_ZERO,true,1,NOT_EVALUATED,BLOCKED,FAIL,NOT_EVALUATED,secret scan with zero findings
+M1.5-0,OBSERVED_SNAPSHOT_FROZEN,true,1,NOT_EVALUATED,BLOCKED,FAIL,NOT_EVALUATED,single dataVersion and immutable lineage manifest
+M1.5-0,MASTER_ORCHESTRATION_PATCHED,true,1,NOT_EVALUATED,BLOCKED,FAIL,NOT_EVALUATED,topological execution evidence
+M1.5-0,VALIDATOR_FAIL_CLOSED,true,1,NOT_EVALUATED,BLOCKED,FAIL,NOT_EVALUATED,negative-path validator tests
+M1.5-0,CURRENT_RUN_ARTIFACT_BOUND,true,1,NOT_EVALUATED,BLOCKED,FAIL,NOT_EVALUATED,one current manifest per stage and Notebook blob SHA
+M1.5-0,RUNTIME_DEPENDENCIES_LOCKED,true,1,NOT_EVALUATED,BLOCKED,FAIL,NOT_EVALUATED,dependency lock and runtime fingerprint
+M1.5-A,TIME_SEMANTICS_READY,true,1,NOT_EVALUATED,BLOCKED,FAIL,NOT_EVALUATED,canonicalPostedAt coverage at least 0.98 and period mismatch zero
+M1.5-A,CANONICAL_ENUM_READY,true,1,NOT_EVALUATED,BLOCKED,FAIL,NOT_EVALUATED,canonical enum invalid count zero
+M1.5-A,RAW_LINEAGE_READY,true,1,NOT_EVALUATED,BLOCKED,FAIL,NOT_EVALUATED,raw existence flag mismatch zero
+M1.5-A,DETERMINISTIC_SEMANTIC_BASE_READY,true,1,NOT_EVALUATED,BLOCKED,FAIL,NOT_EVALUATED,deterministic facts with version and provenance
+M1.5-B,OCR_PILOT_READY,true,1,NOT_EVALUATED,BLOCKED,FAIL,NOT_EVALUATED,Linkareer-hosted OCR pilot artifacts
+M1.5-B,SOURCE_BLOCK_READY,true,1,NOT_EVALUATED,BLOCKED,FAIL,NOT_EVALUATED,sourceBlock lineage and PK-FK checks
+M1.5-B,SECTION_STRUCTURE_PILOT_READY,true,1,NOT_EVALUATED,BLOCKED,FAIL,NOT_EVALUATED,section and chunk evidence links
+M1.5-B,OCR_MAPPING_ELIGIBILITY_READY,true,1,NOT_EVALUATED,BLOCKED,FAIL,NOT_EVALUATED,ineligible OCR never final-mapped
+M1.5-C,REFERENCE_SCHEMA_READY,true,1,NOT_EVALUATED,BLOCKED,FAIL,NOT_EVALUATED,Draft 2020-12 schema validation
+M1.5-C,LLM_AGENT_RUNTIME_READY,true,1,NOT_EVALUATED,BLOCKED,FAIL,NOT_EVALUATED,structured output and retry metrics
+M1.5-C,PROMPT_MODEL_REGISTRY_READY,true,1,NOT_EVALUATED,BLOCKED,FAIL,NOT_EVALUATED,prompt and model revision SHA
+M1.5-C,LLM_REFERENCE_PILOT_READY,true,1,NOT_EVALUATED,BLOCKED,FAIL,NOT_EVALUATED,labeler critic and conditional adjudicator evidence
+M1.5-D,NCS_CANONICAL_CORPUS_READY,true,1,NOT_EVALUATED,BLOCKED,FAIL,NOT_EVALUATED,versioned graph bridge crosswalk and corpus diff
+M1.5-D,NCS_RETRIEVAL_BENCHMARK_READY,true,1,NOT_EVALUATED,BLOCKED,FAIL,NOT_EVALUATED,sparse dense reranker hierarchy and Work24 ablation
+M1.5-D,CALIBRATION_READY,true,1,NOT_EVALUATED,BLOCKED,FAIL,NOT_EVALUATED,2025 validation-only calibration with ECE and Brier
+M1.5-D,SELECTIVE_PREDICTION_READY,true,1,NOT_EVALUATED,BLOCKED,FAIL,NOT_EVALUATED,threshold margin and risk-coverage artifacts
+M1.5-D,TEMPORAL_AUDIT_FRAME_READY,true,1,NOT_EVALUATED,BLOCKED,FAIL,NOT_EVALUATED,2026 audit excluded from tuning

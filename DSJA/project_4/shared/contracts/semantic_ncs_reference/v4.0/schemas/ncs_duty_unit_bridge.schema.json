@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sbs.local/p4/semantic-ncs-reference/v4.0/ncs_duty_unit_bridge.schema.json",
+  "title": "P4 NCS duty-unit bridge",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["ncsCorpusVersion", "dutyCode", "unitCode", "relationshipType", "sourceEndpoint", "sourceSha256", "canonicalizationStatus", "isActive"],
+  "properties": {
+    "ncsCorpusVersion": {"type": "string", "minLength": 1},
+    "dutyCode": {"type": "string", "minLength": 1},
+    "unitCode": {"type": "string", "minLength": 1},
+    "relationshipType": {"type": "string", "enum": ["OFFICIAL", "DERIVED", "EXTERNAL_CROSSWALK"]},
+    "sourceEndpoint": {"type": "string", "minLength": 1},
+    "sourceSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "canonicalizationStatus": {"type": "string", "enum": ["MATCHED", "UNMATCHED", "AMBIGUOUS", "INVALID"]},
+    "isActive": {"type": "boolean"}
+  }
+}

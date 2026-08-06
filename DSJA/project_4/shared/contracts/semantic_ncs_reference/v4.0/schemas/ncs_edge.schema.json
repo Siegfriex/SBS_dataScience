@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sbs.local/p4/semantic-ncs-reference/v4.0/ncs_edge.schema.json",
+  "title": "P4 versioned NCS edge",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["ncsCorpusVersion", "fromNodeCode", "toNodeCode", "edgeType", "sourceEndpoint", "sourceSha256", "isActive"],
+  "properties": {
+    "ncsCorpusVersion": {"type": "string", "minLength": 1},
+    "fromNodeCode": {"type": "string", "minLength": 1},
+    "toNodeCode": {"type": "string", "minLength": 1},
+    "edgeType": {"type": "string", "enum": ["PARENT_OF", "CONTAINS", "ASSOCIATED_WITH", "FUSED_WITH"]},
+    "sourceEndpoint": {"type": "string", "minLength": 1},
+    "sourceSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "isActive": {"type": "boolean"}
+  }
+}

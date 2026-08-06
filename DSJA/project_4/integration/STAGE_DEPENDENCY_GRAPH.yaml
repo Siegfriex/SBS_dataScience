@@ -1,0 +1,25 @@
+graphVersion: p4-m1.5-dependency-graph-v4.0
+nodes: [M1.5-P, M1.5-0, M1.5-A, M1.5-B, M1.5-C, M1.5-D]
+edges:
+  - {from: M1.5-0, to: M1.5-A}
+  - {from: M1.5-A, to: M1.5-B}
+  - {from: M1.5-P, to: M1.5-C}
+  - {from: M1.5-0, to: M1.5-C}
+  - {from: M1.5-A, to: M1.5-C}
+  - {from: M1.5-B, to: M1.5-C}
+  - {from: M1.5-P, to: M1.5-D}
+  - {from: M1.5-0, to: M1.5-D}
+  - {from: M1.5-A, to: M1.5-D}
+  - {from: M1.5-B, to: M1.5-D}
+  - {from: M1.5-C, to: M1.5-D}
+evaluationOrder:
+  - [M1.5-P, M1.5-0]
+  - [M1.5-A]
+  - [M1.5-B]
+  - [M1.5-C]
+  - [M1.5-D]
+rules:
+  unknownNode: FAIL
+  cycle: FAIL
+  dependencyStatusOutsideSuccessSet: BLOCKED
+  dependencySuccessSet: [PASS, PASS_WITH_FINDINGS]
