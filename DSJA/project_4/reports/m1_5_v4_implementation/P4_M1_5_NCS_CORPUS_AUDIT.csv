@@ -1,0 +1,12 @@
+checkId,layer,implementation,execution,evaluation,rows,status,evidence
+NCS-SOURCE-BINDING,source,PASS,PASS,PASS,13442,PASS,raw source SHA=d7033327fbb7756f36706866bb0c0222a6ab6a72aa3b1f314a919b04c2c99e94; normalized SHA=b5b02ea232295931f245c69c881046a813f04cfbc517a13bc40d9e82994277c1
+NCS-CORPUS-RELEASE,corpus,PASS,PASS,NOT_EVALUATED,13442,PASS_WITH_FINDINGS,candidate manifest; promotionAllowed=false; parserVersion absent
+NCS-HIERARCHY,graph,PASS,PASS,PASS,14930,PASS,14930 nodes; 14906 edges; level 1..8 and band tests PASS
+NCS-DUTY-UNIT-BRIDGE,bridge,PASS,NOT_EVALUATED,NOT_EVALUATED,0,NOT_EVALUATED,no duty-unit bridge rows
+WORK24-CROSSWALK,crosswalk,PASS,NOT_EVALUATED,NOT_EVALUATED,0,NOT_EVALUATED,MATCHED/UNMATCHED/AMBIGUOUS/INVALID schema implemented; no rows
+R0,alias exact,PASS,FIXTURE_ONLY,NOT_EVALUATED,0,PARTIAL,hybrid.py aliasExact tests
+R1,char TF-IDF 3-5,PASS,FIXTURE_ONLY,NOT_EVALUATED,0,PARTIAL,feature contract tests
+R2,word TF-IDF 1-2/BM25,PASS,FIXTURE_ONLY,NOT_EVALUATED,0,PARTIAL,BM25 unit tests
+R3,dense reranker,PARTIAL,NOT_EVALUATED,NOT_EVALUATED,0,NOT_EVALUATED,adapter fails closed; pinned model absent
+R4,crosswalk/hierarchy backoff,PASS,FIXTURE_ONLY,NOT_EVALUATED,0,PARTIAL,hierarchy fixture test; Work24 rows 0
+R5,reference/calibration selection,PASS,NOT_EVALUATED,NOT_EVALUATED,0,NOT_EVALUATED,no HUMAN_GOLD or LLM_REFERENCE release

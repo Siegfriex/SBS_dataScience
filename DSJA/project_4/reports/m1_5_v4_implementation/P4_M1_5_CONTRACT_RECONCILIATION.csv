@@ -1,0 +1,12 @@
+checkId,scope,expected,observed,status,evidence
+CONTRACT-CHECKSUM,P4_CONTRACT_v2.1.2,11 checksum-listed files,11 present; 11 checksum PASS,PASS,shared/contracts/P4_CONTRACT_v2.1.2/CHECKSUMS.sha256
+SEMANTIC-SCHEMAS,semantic_ncs_reference/v4.0,12 Draft 2020-12 schemas,12 present; validator PASS,PASS,shared/contracts/semantic_ncs_reference/v4.0/schemas
+HANDOFF-RESTORE,shared handoffs,contract and consumer handoffs present,2 contract handoffs and 10 shared handoffs tracked,PASS,shared/contracts/P4_CONTRACT_v2.1.2; shared/handoffs
+STAGE-REGISTRY,integration/report,byte-identical registry,6 stages; 26 gates; 11 edges; report copy identical,PASS,integration/SEMANTIC_STAGE_REGISTRY.yaml
+EXPORT-CONTRACT,observed canonical export,postingKind enum valid and canonicalPostedAt non-null,postingKind invalid 137; canonicalPostedAt null 137,FAIL,pipeline/data/exports/observed-dev/OBSERVED_DEV_20260806_01/preprocessed_posting_tracks.parquet
+SEMANTIC-CONSUMPTION,recovery to canonical export,recovery values consumed with provenance,recovery has valid enum 137 and date 29; canonical export consumes neither,BLOCKED,reports/m1_5_v4_implementation/evidence/observed_replay/OBSERVED_SEMANTIC_POSTINGS.csv
+MANIFEST-HEAD,authority chain,branch/source SHA bound to one manifest HEAD,observed manifest gitHead=17a9055; integration base=aec8dfc; crawl audited=23b242d,BLOCKED,pipeline/data/exports/observed-dev/OBSERVED_DEV_20260806_01/stage_manifest.json
+RAW-PROMOTION,untracked authority,untracked bytes excluded from promotion evidence,29 raw bytes verified only from separate local worktree; Git audit worktree contains 0,BLOCKED,crawl/observed_inputs/OBSERVED_INPUT_20260806_01/raw_detail_manifest.jsonl
+WAREHOUSE-SEPARATION,DuckDB,p4.duckdb production and p4.observed-dev.duckdb observed kept separate,both absent; p4.development.duckdb is a 6-row fixture warehouse,PASS_WITH_FINDINGS,pipeline/data/warehouse/p4.development.duckdb
+HISTORICAL-STAGE-ARTIFACTS,reports/m1_5_v4_implementation/stages,historical artifacts not treated as current audit authority,stage artifacts retain M1_5_V4_IMPLEMENTATION_20260806_01 and are excluded from the cloud evidence manifest,PASS_WITH_FINDINGS,reports/m1_5_v4_implementation/stages
+SUPERSEDE-DECISION,earlier implementation audit,versioned supersede decision,P4_M1_5_CLOUD_HANDOFF_MANIFEST.json supersedes earlier readiness wording for promotion decisions; source files retained,PASS,reports/m1_5_v4_implementation/P4_M1_5_CLOUD_HANDOFF_MANIFEST.json

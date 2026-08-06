@@ -1,57 +1,53 @@
-# P4 M1.5 v4.0 Implementation Report
+# P4 Project-Wide Post-Implementation Audit & Cloud Handoff
 
-## Executive verdict
+## Verdict
 
-`P4_M1_5_IMPLEMENTATION_READY_FOR_INDEPENDENT_AUDIT`
+`PARTIAL`
 
-이 판정은 코드·schema·offline fixture·tests·observed replay가 독립감사에 넘길 수 있다는 뜻이다. production 데이터 또는 분석 준비 완료를 뜻하지 않는다.
+The implementation modules are testable, but the cloud handoff cannot promote data or analysis gates. The current integration commit `aec8dfcb4cb6d57efc5a351874c2c32ba69abc0a` has not consumed the independently audited crawl handoff source at `23b242da31c63687cc100af0603dacc7b4bafe2c`. Canonical observed exports also do not consume the v4 semantic recovery output.
 
-## Authority
+## Authority chain
 
-- Project root: `DSJA/project_4`
-- SSOT: `shared/ssot/v4.0/P4_final_design_v4.0.md`
+- agentId: `P4-PROJECTWIDE-IMPLEMENTATION-ORCHESTRATOR`
+- audit branch: `audit/p4-m1_5-cloud-handoff-v1`
+- audited integration base: `aec8dfcb4cb6d57efc5a351874c2c32ba69abc0a`
+- crawl handoff branch/head: `agent/p4-crawl-m1_5-control-patch-v4` / `2d3f48025352359acf5787efeb79c0111fdea9f7`
+- crawl audited code commit: `23b242da31c63687cc100af0603dacc7b4bafe2c`
+- dataVersion: `observed-dev-20260806.1`
+- runId: `P4_CLOUD_HANDOFF_AUDIT_20260806_01`
 - SSOT SHA-256: `409866c166ce3874ce587ad3b1230bc530c036e9682be01bf3466aa1fd37a05a`
-- Implementation evidence Git HEAD: `71d5c7642a59d0d5b764d7fa837224e79c90381e`
-- Run ID: `M1_5_V4_IMPLEMENTATION_20260806_01`
 
-## Verified implementation
+## Crawl consumption verdict
 
-- Legacy baselines after fetch: A1 remote `3ad43c39` (local `00b2e6b`, ahead 2/behind 10), A2 `9a0571db`, A3 `b64270bd`, A4 `7a9feccc`, A5 audit baseline `3a5bd066`.
-- M1.5 component heads: A1 `5a78cac2`, A2 `879b2c2e`, A3 `b20bdf5`, A4 `3396eb66`; each component branch was pushed with 0/0 remote divergence.
-- Documentation authority branch: `docs/p4-final-design-v4` at `9a5e49d7`, remote parity 0/0.
-- Control: 12 schemas, 6 stages, 26 gates, 11 dependency edges; validator PASS.
-- Crawl: fail-closed validator, topology/current-run binding, ActivityText fallback, source-policy kill switches; 38 tests PASS.
-- Pipeline: deterministic semantic/OCR/structure/RQ2-B contract; 116 tests PASS.
-- NCS: API/corpus/retrieval/reference/temporal/calibration implementation; 84 tests PASS.
-- Independent Agent 5 audit: PASS_WITH_FINDINGS; tracked manifests/checksums PASS, with ignored raw-byte portability recorded.
-- API fixtures: 8 synthetic success/empty/auth/parameter fixtures. Live calls 0; live probe NOT_EVALUATED.
-- NCS candidate corpus: 13,442 units, 14,930 nodes, 14,906 edges; bridge/crosswalk 0; promotionAllowed=false.
+`EVIDENCE_INSUFFICIENT`
 
-## Observed replay
+All seven mandatory handoff artifacts exist and checksum correctly. Nevertheless, full current-run authority is only 5/23 stages, the immutable release handoff has three missing provenance values, and the integration checkout differs from the audited crawl handoff in 88 crawl paths and all six source Notebook bytes. No merge or promotion was performed.
 
-- postings: 137
-- authoritative dates: 29/137 (21.17%)
-- period mismatch: 0
-- invalid canonical enums: 0
-- raw SSR: 29; raw SHA mismatch: 0; declared/existence mismatch: 18
-- requirement facts: 41; source blocks: 84; semantic chunks: 277
-- OCR candidates: 30 rows / 29 postings; asset bytes: 0
-- production Linkareer calls: 0; live API probes: 0; article numbers: 0
+## Contract and pipeline reconciliation
 
-## Gate interpretation
+- Base contract checksum: 11/11 PASS.
+- Semantic schemas/control registry: 12 schemas, 6 stages, 26 gates, 11 edges; PASS.
+- Pipeline tests: 116/116 PASS; NCS tests: 84/84 PASS.
+- CSV/Parquet schema-aware equality: 8/8 pairs PASS; `ncsSubCode` requires explicit string dtype.
+- PK/FK: 8 PK and 9 FK checks PASS; duplicate/orphan count 0.
+- Canonical export: `postingKind` invalid 137/137; `canonicalPostedAt`, `periodMonth`, `companyKey` non-null 0/137.
+- Separate deterministic recovery: valid enum 137/137 and authoritative time 29/137, but it is not consumed by the canonical export.
+- `highDemandScore` non-null: 0.
+- `p4.duckdb`: absent. `p4.observed-dev.duckdb`: absent. `p4.development.duckdb` contains six fixture postings and is neither production nor the observed release.
 
-M1.5-P is PARTIAL, M1.5-0 is PASS_WITH_FINDINGS, and M1.5-A through D remain BLOCKED or NOT_EVALUATED where evidence is absent. `highDemandScore` remains NULL. No production or analysis promotion is made.
+## NCS and Gold reconciliation
 
-Notebook이 실행됐다는 것은 분석데이터가 준비됐다는 뜻이 아니다.
+- Official source/normalized corpus binding: 13,442/13,442 rows bound to raw SHA `d7033327...`.
+- Graph: 14,930 nodes and 14,906 edges; official level/band populated for 13,442 units.
+- Observed mapped codes: 27/27 join official unit codes, but canonical mart level/band rows are 0.
+- Duty-unit bridge: 0. Work24 crosswalk: 0. Corpus manifest parserVersion: missing.
+- HUMAN_GOLD: 0; dual coding: 0; adjudication: 0; LLM_REFERENCE_FROZEN: 0.
+- Precision, recall, F1 and reference coverage: `NOT_EVALUATED`.
 
-구조적 QA 통과는 의미적 변수 완성도를 보장하지 않는다.
+## Cross-component result
 
-Observed-development 결과는 기사 결과가 아니다.
+Only `normalized→track` is fully proven. Other downstream edges are `PASS_WITH_FINDINGS`, `LINEAGE_UNPROVEN`, or `BLOCKED`; therefore `DATA_READY_RQ2B`, analytical mart promotion, and RQ dataset construction remain blocked.
 
-CSV는 canonical source가 아니다.
+## Forbidden promotions
 
-NCS candidate 생성은 NCS mapping 품질게이트 통과가 아니다.
-
-## Roadmap
-
-M1 snapshot freeze → M1.5 semantic QA → M2 full crawl → production preprocess → M3 gold/reference → analysis → article.
+`CRAWL_RELEASE_READY`, `PRODUCTION_PREPROCESSED_DATA_READY`, `DATA_READY_RQ1_RQ2A`, `DATA_READY_RQ2B`, and `ANALYSIS_READY` are not declared. Production network crawl approval remains a user decision.

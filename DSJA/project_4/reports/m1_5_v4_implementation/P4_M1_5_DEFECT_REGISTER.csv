@@ -1,10 +1,12 @@
-defectId,severity,status,finding,evidence
-M15-P1-001,P1,BLOCKED,authoritative posted timestamp coverage is 29/137,evidence/observed_replay/OBSERVED_M1_5_SUMMARY.json
-M15-P1-002,P1,BLOCKED,raw declared/physical mismatch is 18,evidence/observed_replay/OBSERVED_SEMANTIC_POSTINGS.csv
-M15-P1-003,P1,NOT_EVALUATED,30 OCR candidate rows but zero asset bytes,evidence/observed_replay/OBSERVED_OCR_OFFLINE_PILOT.csv
-M15-P1-004,P1,NOT_EVALUATED,NCS and Work24 live API credentials/probes unavailable,P4_M1_5_API_CONTRACT_STATUS.csv
-M15-P1-005,P1,NOT_EVALUATED,"human reference, pinned dense model, 2025 calibration and 2026 audit rows absent",P4_M1_5_REFERENCE_STATUS.csv
-M15-P1-006,P1,BLOCKED,58 of 79 production pagination months remain unverified,shared/ssot/PROJECT4_DEFECT_REGISTER.csv
-M15-P2-001,P2,PASS_WITH_FINDINGS,standalone local LLM/NCS blueprint v2.0 file not found; content is integrated into v4 SSOT,shared/ssot/v4.0/P4_final_design_v4.0.md
-M15-P2-002,P2,PASS_WITH_FINDINGS,historical executed bundle contains an absolute path; new bundle uses repository-relative paths,reports/orchestrator/NOTEBOOK_RUNTIME_INVENTORY.csv
-M15-P2-003,P2,PASS_WITH_FINDINGS,ignored raw SSR bytes are local authority and are not portable in Git; tracked replay outputs remain checksum-verifiable,crawl/observed_inputs/OBSERVED_INPUT_20260806_01/raw_detail_manifest.jsonl
+defectId,severity,status,finding,downstreamGate,evidence
+P1-CLOUD-001,P1,OPEN,crawl audited handoff source differs from integration in 88 crawl paths and 6/6 Notebook bytes,BLOCKED,see reconciliation/lineage/crawl/NCS audit
+P1-CLOUD-002,P1,OPEN,current-run exact-one authority is A1 5/5 but downstream 0/18,BLOCKED,see reconciliation/lineage/crawl/NCS audit
+P1-CLOUD-003,P1,OPEN,"immutable release HANDOFF lacks head, source Notebook SHA and validator artifact SHA",BLOCKED,see reconciliation/lineage/crawl/NCS audit
+P1-CLOUD-004,P1,OPEN,pipeline does not consume ActivityText fallback contract/evidence fields,BLOCKED,see reconciliation/lineage/crawl/NCS audit
+P1-CLOUD-005,P1,OPEN,canonical export has invalid postingKind 137 and canonicalPostedAt null 137,BLOCKED,see reconciliation/lineage/crawl/NCS audit
+P1-CLOUD-006,P1,OPEN,p4.observed-dev.duckdb is absent; p4.development.duckdb is only a 6-row fixture,BLOCKED,see reconciliation/lineage/crawl/NCS audit
+P1-CLOUD-007,P1,OPEN,55 eligible tracks yield 28 decision rows; level/band propagated rows are 0,BLOCKED,see reconciliation/lineage/crawl/NCS audit
+P1-CLOUD-008,P1,OPEN,"HUMAN_GOLD, dual coding and adjudication counts are 0",BLOCKED,see reconciliation/lineage/crawl/NCS audit
+P1-CLOUD-009,P1,OPEN,29 raw bytes are untracked local authority and unavailable in Git-only worktree,BLOCKED,see reconciliation/lineage/crawl/NCS audit
+P1-CLOUD-010,P1,OPEN,NCS corpus manifest lacks parserVersion; duty bridge and Work24 crosswalk have 0 rows,BLOCKED,see reconciliation/lineage/crawl/NCS audit
+P1-CLOUD-011,P1,OPEN,canonical requirement facts 35 differ from v4 recovered facts 41,BLOCKED,see reconciliation/lineage/crawl/NCS audit

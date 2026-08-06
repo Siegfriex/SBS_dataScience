@@ -1,0 +1,10 @@
+suiteId,command,workdir,passed,failed,exitCode,status,finding
+T-CRAWL-INTEGRATION,PYTHONPATH=src python -m pytest -q control/tests tests,crawl,37,1,1,FAIL,Git-only worktree lacks 29 ignored raw files
+T-CRAWL-HANDOFF,P4_CRAWL_RAW_SOURCE_ROOT=<local-crawl-root> PYTHONPATH=crawl/src:. python -m pytest crawl/tests crawl/control/tests -q -rs,crawl handoff branch,64,0,0,PASS_WITH_FINDINGS,independently rerun with explicit local raw mount; raw remains excluded from Git
+T-PIPELINE,PYTHONPATH=src python -m pytest -q,pipeline,116,0,0,PASS,canonical artifact semantic defects remain outside test gate
+T-NCS,PYTHONPATH=src python -m pytest -q,ncs_mapping,84,0,0,PASS,real reference evaluation NOT_EVALUATED
+T-INTEGRATION,python -m pytest -q integration/tests,project_4,10,0,0,PASS,control implementation only
+T-CONTROL-VALIDATOR,python integration/validate_m1_5_control.py,project_4,1,0,0,PASS,12 schemas; 6 endpoints; 6 stages; 26 gates; 11 edges
+T-CONTRACT-CHECKSUM,sha256sum -c CHECKSUMS.sha256,shared/contracts/P4_CONTRACT_v2.1.2,11,0,0,PASS,all contract artifacts present
+T-CSV-PARQUET,schema-aware pandas equality audit,observed export,8,0,0,PASS_WITH_FINDINGS,ncsSubCode requires schema-aware string dtype to avoid float inference
+T-PK-FK,key-level pandas audit,observed export,17,0,0,PASS,8 PK and 9 FK checks; duplicate/orphan 0

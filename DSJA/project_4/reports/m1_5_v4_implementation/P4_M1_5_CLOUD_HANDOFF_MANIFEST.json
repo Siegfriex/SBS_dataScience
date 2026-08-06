@@ -1,0 +1,142 @@
+{
+  "agentId": "P4-PROJECTWIDE-IMPLEMENTATION-ORCHESTRATOR",
+  "baseCommit": "aec8dfcb4cb6d57efc5a351874c2c32ba69abc0a",
+  "claimedStatus": "PARTIAL",
+  "crawlHandoffBranch": "agent/p4-crawl-m1_5-control-patch-v4",
+  "crawlHandoffBranchHead": "2d3f48025352359acf5787efeb79c0111fdea9f7",
+  "crawlHandoffCommit": "23b242da31c63687cc100af0603dacc7b4bafe2c",
+  "crawlHandoffStatus": "EVIDENCE_INSUFFICIENT",
+  "dataVersion": "observed-dev-20260806.1",
+  "headCommit": "0309a42a3d97e96b11d920cd71b2ed16b32b107b",
+  "headCommitMeaning": "audited integration input plus audit generator; report publication commit is intentionally external to avoid self-referential Git SHA",
+  "integrationBranch": "audit/p4-m1_5-cloud-handoff-v1",
+  "manifestVersion": "p4-cloud-handoff-v1",
+  "productionNetworkCalls": 0,
+  "rawBytesIncluded": false,
+  "rawBytesInclusionPolicy": "RAW_BYTES_GIT_EXCLUDED; 29 local bytes independently hash-verified; not promotion evidence",
+  "reportSha256": {
+    "P4_M1_5_API_CONTRACT_STATUS.csv": "584da383bccbbeb710f481352734b78ec0f1efd1ec0437cc5080b35045148aa0",
+    "P4_M1_5_COMPONENT_STATUS.csv": "f8f7011abb904d5b3029587b4440880d904aad0ead335847bfd5555c09f2b07f",
+    "P4_M1_5_CONTRACT_RECONCILIATION.csv": "f8e145dbbe7ce12a84ba99f27da20f7f9da92f24178ed84543bb677f64992c4a",
+    "P4_M1_5_CRAWL_HANDOFF_CONSUMPTION.csv": "ae3d03f44b0acfc812364fb7f7f266af3f08776830e9a87f6b21c8a0ed6ff05b",
+    "P4_M1_5_DATA_LINEAGE.csv": "6151a1bd61530bdd8e0f676f8eb0a6e47b67fb025d0705b445bd5b788cb67752",
+    "P4_M1_5_DECISION_REGISTER.csv": "ba178021c5ba2328394ee15d9e61713da01393ae097aafad52b3d6f36e941c06",
+    "P4_M1_5_DEFECT_REGISTER.csv": "76b0eb2bde6404c1c0cefe6272c88d1861d948c42f6290963d2b2d6e27f84e25",
+    "P4_M1_5_GATE_STATUS.csv": "acf71dccbad54d083c4e606e9ad7bccc2d8edbb1ab9c66173ed063cce42e8baa",
+    "P4_M1_5_GOLD_STATUS.csv": "650263f933a12d9fbe209cdcc722a87546278599e4323fcbf0c29cbe9c63aa4a",
+    "P4_M1_5_IMPLEMENTATION_REPORT.md": "563493282eade6265c720c1479b9243360fe1d4c98b8747a8c734da69d0a60c9",
+    "P4_M1_5_NCS_CORPUS_AUDIT.csv": "9b042f69f354301c24813ea26c4e6bcda1bfae35c9bb3db5b08bc547a0bc9437",
+    "P4_M1_5_RQ2B_AGGREGATION_AUDIT.csv": "1afb5afd4763c5ea0175cbce59da1834feb66b6c9adfca9d244c000b401863e6",
+    "P4_M1_5_STAGE_REGISTRY.yaml": "1bd6704df77c7da8fc7ac59bcebbef491c98fc09e40a59dfc0ac723160fa100b",
+    "P4_M1_5_TEMPORAL_SPLIT_AUDIT.csv": "9c307e5c539030f7d87befe8c69e29521dbd994551b1511cb20a24f47f0530a9",
+    "P4_M1_5_TEST_SUMMARY.csv": "f5f038cff674a8a9964d650f6f299e923970f21b85f869e52566caba007c4899",
+    "P4_M1_5_USER_DECISION_PACKET.md": "6397b718bf00999a2e9e1b5b66ec9c733892a135a54af5e548ee884281e3be8b"
+  },
+  "runId": "P4_CLOUD_HANDOFF_AUDIT_20260806_01",
+  "secretsIncluded": false,
+  "testCommands": [
+    {
+      "command": "PYTHONPATH=src python -m pytest -q control/tests tests",
+      "exitCode": 1,
+      "failed": 1,
+      "finding": "Git-only worktree lacks 29 ignored raw files",
+      "passed": 37,
+      "status": "FAIL",
+      "suiteId": "T-CRAWL-INTEGRATION",
+      "workdir": "crawl"
+    },
+    {
+      "command": "P4_CRAWL_RAW_SOURCE_ROOT=<local-crawl-root> PYTHONPATH=crawl/src:. python -m pytest crawl/tests crawl/control/tests -q -rs",
+      "exitCode": 0,
+      "failed": 0,
+      "finding": "independently rerun with explicit local raw mount; raw remains excluded from Git",
+      "passed": 64,
+      "status": "PASS_WITH_FINDINGS",
+      "suiteId": "T-CRAWL-HANDOFF",
+      "workdir": "crawl handoff branch"
+    },
+    {
+      "command": "PYTHONPATH=src python -m pytest -q",
+      "exitCode": 0,
+      "failed": 0,
+      "finding": "canonical artifact semantic defects remain outside test gate",
+      "passed": 116,
+      "status": "PASS",
+      "suiteId": "T-PIPELINE",
+      "workdir": "pipeline"
+    },
+    {
+      "command": "PYTHONPATH=src python -m pytest -q",
+      "exitCode": 0,
+      "failed": 0,
+      "finding": "real reference evaluation NOT_EVALUATED",
+      "passed": 84,
+      "status": "PASS",
+      "suiteId": "T-NCS",
+      "workdir": "ncs_mapping"
+    },
+    {
+      "command": "python -m pytest -q integration/tests",
+      "exitCode": 0,
+      "failed": 0,
+      "finding": "control implementation only",
+      "passed": 10,
+      "status": "PASS",
+      "suiteId": "T-INTEGRATION",
+      "workdir": "project_4"
+    },
+    {
+      "command": "python integration/validate_m1_5_control.py",
+      "exitCode": 0,
+      "failed": 0,
+      "finding": "12 schemas; 6 endpoints; 6 stages; 26 gates; 11 edges",
+      "passed": 1,
+      "status": "PASS",
+      "suiteId": "T-CONTROL-VALIDATOR",
+      "workdir": "project_4"
+    },
+    {
+      "command": "sha256sum -c CHECKSUMS.sha256",
+      "exitCode": 0,
+      "failed": 0,
+      "finding": "all contract artifacts present",
+      "passed": 11,
+      "status": "PASS",
+      "suiteId": "T-CONTRACT-CHECKSUM",
+      "workdir": "shared/contracts/P4_CONTRACT_v2.1.2"
+    },
+    {
+      "command": "schema-aware pandas equality audit",
+      "exitCode": 0,
+      "failed": 0,
+      "finding": "ncsSubCode requires schema-aware string dtype to avoid float inference",
+      "passed": 8,
+      "status": "PASS_WITH_FINDINGS",
+      "suiteId": "T-CSV-PARQUET",
+      "workdir": "observed export"
+    },
+    {
+      "command": "key-level pandas audit",
+      "exitCode": 0,
+      "failed": 0,
+      "finding": "8 PK and 9 FK checks; duplicate/orphan 0",
+      "passed": 17,
+      "status": "PASS",
+      "suiteId": "T-PK-FK",
+      "workdir": "observed export"
+    }
+  ],
+  "unresolvedDefects": [
+    "P1-CLOUD-001",
+    "P1-CLOUD-002",
+    "P1-CLOUD-003",
+    "P1-CLOUD-004",
+    "P1-CLOUD-005",
+    "P1-CLOUD-006",
+    "P1-CLOUD-007",
+    "P1-CLOUD-008",
+    "P1-CLOUD-009",
+    "P1-CLOUD-010",
+    "P1-CLOUD-011"
+  ]
+}

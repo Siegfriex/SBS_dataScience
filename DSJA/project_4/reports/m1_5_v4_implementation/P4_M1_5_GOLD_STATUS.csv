@@ -1,0 +1,4 @@
+labelAuthority,rowCount,dualCodingCount,adjudicationCount,metricStatus,precision,recall,f1,coverage,status,evidence
+HUMAN_GOLD,0,0,0,NOT_EVALUATED,,,,,NOT_EVALUATED,ncs_mapping/data/gold/ncsMappings/gold_ncs_mapping_v1_TEMPLATE.csv
+LLM_REFERENCE_FROZEN,0,0,0,NOT_EVALUATED,,,,,NOT_EVALUATED,reference schema only; no release
+MODEL_ACCEPTED,0,0,0,NOT_EVALUATED,,,,,NOT_EVALUATED,never auto-promoted to reference

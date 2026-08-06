@@ -1,7 +1,7 @@
-rule,status,observed,productionRows
-Python-SQL equality,PASS,targeted test PASS,0
-DUTY main; sourceRole separated,PASS,unit test PASS,0
-multi-label 1/k,PASS,unit test PASS,0
-trackId x ncsUnitCode primary dedup,PASS,unit test PASS,0
-ABSTAIN/UNMAPPED/OUT_OF_SCOPE denominator,PASS,unit test PASS,0
-production mart promotion,NOT_EVALUATED,no accepted production mappings,0
+rule,status,observed,productionRows,lineageStatus,empiricalClaimAllowed
+Python-SQL equality,PASS,targeted test PASS,0,PASS,False
+DUTY main; sourceRole separated,PASS,unit test PASS,0,PASS,False
+multi-label 1/k,PASS,unit test PASS,0,PASS,False
+trackId x ncsUnitCode primary dedup,PASS,unit test PASS,0,PASS,False
+ABSTAIN/UNMAPPED/OUT_OF_SCOPE denominator,PASS,unit test PASS,0,PASS,False
+production mart promotion,NOT_EVALUATED,no accepted production mappings,0,BLOCKED,False
