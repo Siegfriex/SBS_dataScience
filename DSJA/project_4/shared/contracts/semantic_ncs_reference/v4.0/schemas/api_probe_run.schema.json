@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sbs.local/p4/semantic-ncs-reference/v4.0/api_probe_run.schema.json",
+  "title": "P4 API probe run",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["apiProbeRunId", "apiContractId", "probeCase", "requestSha256", "requestParametersRedactedJson", "responseClass", "startedAt", "status"],
+  "properties": {
+    "apiProbeRunId": {"type": "string", "minLength": 1},
+    "apiContractId": {"type": "string", "minLength": 1},
+    "probeCase": {"type": "string", "enum": ["SUCCESS_MINIMAL", "SUCCESS_PAGINATED", "EMPTY_VALID", "INVALID_PARAMETER", "AUTH_MISSING", "AUTH_INVALID", "FORMAT_VARIANT"]},
+    "requestSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "requestParametersRedactedJson": {"type": "object"},
+    "httpStatus": {"type": ["integer", "null"], "minimum": 100, "maximum": 599},
+    "contentType": {"type": ["string", "null"]},
+    "responseClass": {"type": "string", "enum": ["SUCCESS", "EMPTY_VALID", "AUTH_ERROR", "PARAM_ERROR", "SERVER_ERROR"]},
+    "rawResponsePath": {"type": ["string", "null"], "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"},
+    "rawResponseSha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+    "observedSchemaSha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+    "startedAt": {"type": "string", "format": "date-time"},
+    "completedAt": {"type": ["string", "null"], "format": "date-time"},
+    "status": {"type": "string", "enum": ["PASS", "PASS_WITH_FINDINGS", "PARTIAL", "BLOCKED", "NOT_STARTED", "NOT_EVALUATED", "FAIL"]}
+  }
+}

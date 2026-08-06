@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sbs.local/p4/semantic-ncs-reference/v4.0/ncs_external_code_crosswalk.schema.json",
+  "title": "P4 external-to-canonical NCS crosswalk",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["provider", "externalCode", "externalName", "canonicalizationStatus", "matchBasis", "sourceResponseSha256", "crosswalkVersion"],
+  "properties": {
+    "provider": {"type": "string", "enum": ["WORK24", "OTHER"]},
+    "externalCode": {"type": "string", "minLength": 1},
+    "externalName": {"type": "string", "minLength": 1},
+    "canonicalNodeCode": {"type": ["string", "null"]},
+    "canonicalizationStatus": {"type": "string", "enum": ["MATCHED", "UNMATCHED", "AMBIGUOUS", "INVALID"]},
+    "matchBasis": {"type": "string", "minLength": 1},
+    "sourceResponseSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "crosswalkVersion": {"type": "string", "minLength": 1}
+  },
+  "allOf": [
+    {"if": {"properties": {"canonicalizationStatus": {"const": "MATCHED"}}}, "then": {"properties": {"canonicalNodeCode": {"type": "string", "minLength": 1}}, "required": ["canonicalNodeCode"]}},
+    {"if": {"properties": {"canonicalizationStatus": {"enum": ["UNMATCHED", "INVALID"]}}}, "then": {"properties": {"canonicalNodeCode": {"type": "null"}}}}
+  ]
+}

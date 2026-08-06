@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sbs.local/p4/semantic-ncs-reference/v4.0/reference_label.schema.json",
+  "title": "P4 reference label",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["referenceLabelId", "annotationTaskId", "referenceAuthority", "referenceLabelJson", "referenceTier", "referenceStatus", "evidenceSpansJson", "sourceSha256", "candidatePacketSha256", "candidateCorpusSha256", "promptBundleSha256"],
+  "properties": {
+    "referenceLabelId": {"type": "string", "minLength": 1},
+    "annotationTaskId": {"type": "string", "minLength": 1},
+    "referenceAuthority": {"type": "string", "enum": ["LLM_REFERENCE", "HUMAN_GOLD", "HYBRID_GOLD"]},
+    "referenceLabelJson": {"type": ["object", "array"]},
+    "referenceTier": {"type": "string", "enum": ["A", "B", "C", "HUMAN", "HYBRID", "ABSTAIN"]},
+    "referenceConfidence": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+    "referenceStatus": {"type": "string", "enum": ["UNLABELED", "SILVER_PROPOSED", "LLM_CODED", "HUMAN_CODED", "CRITIC_EVALUATED", "ADJUDICATION_REQUIRED", "ADJUDICATED", "LLM_REFERENCE_FROZEN", "HUMAN_GOLD_FROZEN", "HYBRID_GOLD_FROZEN", "SUPERSEDED", "ABSTAINED", "OUT_OF_SCOPE", "INSUFFICIENT_EVIDENCE", "INVALIDATED"]},
+    "labelerRunId": {"type": ["string", "null"]},
+    "criticRunId": {"type": ["string", "null"]},
+    "adjudicatorRunId": {"type": ["string", "null"]},
+    "humanCodingBundleId": {"type": ["string", "null"]},
+    "evidenceSpansJson": {"type": "array", "items": {"type": "object", "required": ["sourceBlockId", "startChar", "endChar"], "properties": {"sourceBlockId": {"type": "string", "minLength": 1}, "startChar": {"type": "integer", "minimum": 0}, "endChar": {"type": "integer", "minimum": 0}}, "additionalProperties": false}},
+    "sourceSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "candidatePacketSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "candidateCorpusSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "promptBundleSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "frozenAt": {"type": ["string", "null"], "format": "date-time"},
+    "supersededBy": {"type": ["string", "null"]}
+  }
+}

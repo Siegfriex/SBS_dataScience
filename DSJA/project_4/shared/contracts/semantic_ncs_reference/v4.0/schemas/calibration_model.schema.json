@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sbs.local/p4/semantic-ncs-reference/v4.0/calibration_model.schema.json",
+  "title": "P4 temporal validation calibration model",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["calibrationModelId", "calibrationVersion", "method", "inputModelVersion", "fitSplit", "fitPeriodStart", "fitPeriodEnd", "probabilityThreshold", "marginThreshold", "parametersJson", "referenceReleaseSha256", "modelArtifactSha256", "status"],
+  "properties": {
+    "calibrationModelId": {"type": "string", "minLength": 1},
+    "calibrationVersion": {"type": "string", "minLength": 1},
+    "method": {"type": "string", "enum": ["TEMPERATURE_SCALING", "PLATT_SCALING", "ISOTONIC_REGRESSION"]},
+    "inputModelVersion": {"type": "string", "minLength": 1},
+    "fitSplit": {"type": "string", "const": "VALIDATION"},
+    "fitPeriodStart": {"type": "string", "pattern": "^2025-(0[1-9]|1[0-2])$"},
+    "fitPeriodEnd": {"type": "string", "pattern": "^2025-(0[1-9]|1[0-2])$"},
+    "probabilityThreshold": {"type": "number", "minimum": 0, "maximum": 1},
+    "marginThreshold": {"type": "number", "minimum": 0, "maximum": 1},
+    "parametersJson": {"type": "object"},
+    "brierScore": {"type": ["number", "null"], "minimum": 0},
+    "ece": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+    "riskCoverageArtifactSha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+    "referenceReleaseSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "modelArtifactSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "status": {"type": "string", "enum": ["PASS", "PASS_WITH_FINDINGS", "PARTIAL", "BLOCKED", "NOT_STARTED", "NOT_EVALUATED", "FAIL"]}
+  }
+}

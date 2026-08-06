@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sbs.local/p4/semantic-ncs-reference/v4.0/semantic_chunk.schema.json",
+  "title": "P4 semantic chunk",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["chunkId", "trackId", "sectionId", "sourceBlockId", "chunkType", "chunkText", "normalizedText", "ncsMappableFlag", "chunkingVersion"],
+  "properties": {
+    "chunkId": {"type": "string", "minLength": 1},
+    "trackId": {"type": "string", "minLength": 1},
+    "sectionId": {"type": "string", "minLength": 1},
+    "sourceBlockId": {"type": "string", "minLength": 1},
+    "chunkType": {"type": "string", "enum": ["DUTY", "REQUIREMENT", "KNOWLEDGE", "SKILL", "COMPETENCY_EXPERIENCE", "PROCESS", "OTHER"]},
+    "chunkText": {"type": "string", "minLength": 1},
+    "normalizedText": {"type": "string", "minLength": 1},
+    "ncsMappableFlag": {"type": "boolean"},
+    "chunkingVersion": {"type": "string", "minLength": 1}
+  }
+}

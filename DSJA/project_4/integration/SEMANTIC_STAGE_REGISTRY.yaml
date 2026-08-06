@@ -1,0 +1,58 @@
+registryVersion: p4-semantic-stage-registry-v4.0
+baseContractVersion: 2.1.2
+semanticAddendumVersion: "4.0"
+authoritySsotSha256: 409866c166ce3874ce587ad3b1230bc530c036e9682be01bf3466aa1fd37a05a
+statusVocabulary:
+  - PASS
+  - PASS_WITH_FINDINGS
+  - PARTIAL
+  - BLOCKED
+  - NOT_STARTED
+  - NOT_EVALUATED
+  - FAIL
+failClosedRules:
+  unknownDependency: FAIL
+  dependencyCycle: FAIL
+  dependencyUnmet: BLOCKED
+  validationError: FAIL
+  emptyEvidence: NOT_EVALUATED
+  successStatuses: [PASS, PASS_WITH_FINDINGS]
+stages:
+  - stageId: M1.5-P
+    name: External API Contract Probe
+    ownerAgentIds: [P4-A4-NCS, P4-A3-CONTROL]
+    dependencies: []
+    parallelGroup: CONTROL_PROBE
+    initialStatus: NOT_STARTED
+    gates: [NCS_API_CONTRACT_PROBED, WORK24_API_CONTRACT_PROBED, API_ERROR_CONTRACT_READY, API_SECRET_LOGGING_ZERO]
+  - stageId: M1.5-0
+    name: Authority and Control Repair
+    ownerAgentIds: [P4-A3-CONTROL]
+    dependencies: []
+    parallelGroup: CONTROL_PROBE
+    initialStatus: NOT_STARTED
+    gates: [OBSERVED_SNAPSHOT_FROZEN, MASTER_ORCHESTRATION_PATCHED, VALIDATOR_FAIL_CLOSED, CURRENT_RUN_ARTIFACT_BOUND, RUNTIME_DEPENDENCIES_LOCKED]
+  - stageId: M1.5-A
+    name: Deterministic Semantic Recovery
+    ownerAgentIds: [P4-A2-PIPELINE, P4-A3-CONTROL]
+    dependencies: [M1.5-0]
+    initialStatus: NOT_STARTED
+    gates: [TIME_SEMANTICS_READY, CANONICAL_ENUM_READY, RAW_LINEAGE_READY, DETERMINISTIC_SEMANTIC_BASE_READY]
+  - stageId: M1.5-B
+    name: OCR and Structure Pilot
+    ownerAgentIds: [P4-A1-SOURCE, P4-A2-PIPELINE, P4-A3-CONTROL]
+    dependencies: [M1.5-A]
+    initialStatus: NOT_STARTED
+    gates: [OCR_PILOT_READY, SOURCE_BLOCK_READY, SECTION_STRUCTURE_PILOT_READY, OCR_MAPPING_ELIGIBILITY_READY]
+  - stageId: M1.5-C
+    name: Reference Infrastructure
+    ownerAgentIds: [P4-A4-NCS, P4-A3-CONTROL]
+    dependencies: [M1.5-P, M1.5-0, M1.5-A, M1.5-B]
+    initialStatus: NOT_STARTED
+    gates: [REFERENCE_SCHEMA_READY, LLM_AGENT_RUNTIME_READY, PROMPT_MODEL_REGISTRY_READY, LLM_REFERENCE_PILOT_READY]
+  - stageId: M1.5-D
+    name: Hybrid Retrieval and Calibration Benchmark
+    ownerAgentIds: [P4-A4-NCS, P4-A3-CONTROL]
+    dependencies: [M1.5-P, M1.5-0, M1.5-A, M1.5-B, M1.5-C]
+    initialStatus: NOT_STARTED
+    gates: [NCS_CANONICAL_CORPUS_READY, NCS_RETRIEVAL_BENCHMARK_READY, CALIBRATION_READY, SELECTIVE_PREDICTION_READY, TEMPORAL_AUDIT_FRAME_READY]
