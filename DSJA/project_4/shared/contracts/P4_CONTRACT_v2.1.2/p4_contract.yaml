@@ -1,0 +1,3352 @@
+contractVersion: 2.1.2
+status: canonical
+asOfDate: '2026-08-06'
+generatorVersion: 2.1.2
+timezone: Asia/Seoul
+authority:
+- docs/ssot/USER_REVIEW_DECISIONS.md
+- docs/ssot/P4_PROJECT_SSOT_v2.1.md
+- docs/ssot/P4_DATASET_SPEC_v2.1.md
+- schema/p4_contract.yaml
+officialSources:
+- Linkareer
+- NCS
+removedScope:
+- 고용24
+- NIA
+- DART
+- 20대·50대
+- 공무원 급수
+- 공공 경력채용 앵커
+schemas:
+- raw
+- core
+- ncs
+- mart
+- qa
+rules:
+  naming: camelCase
+  crossSchemaForeignKeys: forbidden
+  timestampTimezone: Asia/Seoul
+  rq1PrimaryCountKey: canonicalPostingId
+  rq1PreDedupCountKey: postingId
+  reservedFields:
+    highDemandScore:
+      requiredValue: null
+      while: scoreStatus = reserved
+  careerMonths:
+    E2: 12 <= minCareerMonths AND minCareerMonths <= 35
+    E3: minCareerMonths >= 36 OR explicitCareerFlag = true
+  keyContract:
+    algorithm: SHA-256
+    encoding: UTF-8
+    separator: '|'
+    truncationHexChars: 20
+    postingId: PST_ + sha256(sourceName|sourcePostingId)[:20]
+    rawPostingId: RAW_ + sha256(sourceName|sourcePostingId|rawSha256)[:20]
+    trackId: TRK_ + sha256(postingId|trackIndex)[:20]
+    sectionId: SEC_ + sha256(trackId|sectionOrder)[:20]
+    requirementId: REQ_ + sha256(sectionId|requirementType|normalizedEvidence)[:20]
+    matchId: NMT_ + sha256(trackId|ncsUnitCode|mappingBasis|evidenceHash)[:20]
+  eligibility:
+    postingEligibleFlag: confirmed recruit posting AND usable postedAt; excludes dedup and body length
+    rq1EligibleFlag: postingEligibleFlag AND resolved entry/intern presence
+    rq2EligibleFlag: eligible track AND resolved track split AND required/preferred boundary
+    ncsEligibleFlag: rq2EligibleFlag AND defensible duty/task context
+    canonicalRecordFlag: canonical record within dedup group; independent of eligibility
+  sourcePolicyGate:
+    pass: robotsStatus != restricted AND termsStatus IN [reviewedConditional, permissionGranted, permitted] AND transparentClientVerified
+      = true AND collectionBlocked = false AND clientAccessMode != impersonatedOnly
+    emptyEvidence: NOT_EVALUATED
+    impersonatedOnly: REVIEW_REQUIRED
+foreignKeys:
+- - raw.crawlRun
+  - sourceName
+  - raw.sourceRegistry
+  - sourceName
+- - raw.linkareerIndexRaw
+  - crawlRunId
+  - raw.crawlRun
+  - crawlRunId
+- - raw.linkareerPostingRaw
+  - indexItemId
+  - raw.linkareerIndexRaw
+  - indexItemId
+- - raw.postingAsset
+  - rawPostingId
+  - raw.linkareerPostingRaw
+  - rawPostingId
+- - raw.ocrResult
+  - assetId
+  - raw.postingAsset
+  - assetId
+- - core.postingNormalized
+  - rawPostingId
+  - raw.linkareerPostingRaw
+  - rawPostingId
+- - core.postingTrack
+  - postingId
+  - core.postingNormalized
+  - postingId
+- - core.postingSection
+  - trackId
+  - core.postingTrack
+  - trackId
+- - core.requirementFact
+  - sectionId
+  - core.postingSection
+  - sectionId
+- - core.careerLabel
+  - trackId
+  - core.postingTrack
+  - trackId
+- - core.postingDedupEdge
+  - leftPostingId
+  - core.postingNormalized
+  - postingId
+- - core.postingDedupEdge
+  - rightPostingId
+  - core.postingNormalized
+  - postingId
+- - ncs.ncsLearningModule
+  - ncsUnitCode
+  - ncs.ncsUnit
+  - ncsUnitCode
+- - ncs.postingNcsMatch
+  - trackId
+  - core.postingTrack
+  - trackId
+- - ncs.postingNcsMatch
+  - ncsUnitCode
+  - ncs.ncsUnit
+  - ncsUnitCode
+- - qa.sourcePolicyAudit
+  - sourceName
+  - raw.sourceRegistry
+  - sourceName
+tables:
+  raw.queryRegistry:
+    description: Versioned registry of verified Linkareer APQ and SSR query architecture
+    primaryKey:
+    - operationName
+    - sha256Hash
+    columns:
+      operationName:
+        type: VARCHAR
+        nullable: false
+        description: GraphQL operation name
+        source: Agent 1 APQ/SSR discovery evidence
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: non-null and unique within primary key of raw.queryRegistry
+      sha256Hash:
+        type: VARCHAR
+        nullable: false
+        description: Apollo persisted-query SHA-256
+        check: length(sha256Hash) = 64
+        source: Agent 1 APQ/SSR discovery evidence
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: non-null and unique within primary key of raw.queryRegistry; must satisfy length(sha256Hash) = 64
+      transportType:
+        type: VARCHAR
+        nullable: false
+        description: APQ SSR or Apollo transport
+        enumRef: transportType
+        source: Agent 1 APQ/SSR discovery evidence
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null; must belong to enum transportType
+      httpMethod:
+        type: VARCHAR
+        nullable: false
+        description: HTTP method
+        enumRef: httpMethod
+        source: Agent 1 APQ/SSR discovery evidence
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null; must belong to enum httpMethod
+      variablesSchemaJson:
+        type: JSON
+        nullable: true
+        description: JSON schema for operation variables
+        source: Agent 1 APQ/SSR discovery evidence
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      responseSchemaJson:
+        type: JSON
+        nullable: true
+        description: JSON schema for response payload
+        source: Agent 1 APQ/SSR discovery evidence
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      frontendBuildId:
+        type: VARCHAR
+        nullable: true
+        description: Next.js frontend build identifier
+        source: Agent 1 APQ/SSR discovery evidence
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      discoveredAt:
+        type: TIMESTAMPTZ
+        nullable: false
+        description: Initial discovery timestamp
+        source: Agent 1 APQ/SSR discovery evidence
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null
+      lastVerifiedAt:
+        type: TIMESTAMPTZ
+        nullable: false
+        description: Most recent verification timestamp
+        source: Agent 1 APQ/SSR discovery evidence
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null
+      activeFlag:
+        type: BOOLEAN
+        nullable: false
+        description: Operation remains active
+        source: Agent 1 APQ/SSR discovery evidence
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null
+      verificationStatus:
+        type: VARCHAR
+        nullable: false
+        description: Verification status
+        enumRef: verificationStatus
+        source: Agent 1 APQ/SSR discovery evidence
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null; must belong to enum verificationStatus
+  raw.sourceRegistry:
+    description: Source authorization and coverage registry
+    primaryKey:
+    - sourceName
+    columns:
+      sourceName:
+        type: VARCHAR
+        nullable: false
+        description: Stable source name
+        enum:
+        - linkareer
+        - ncs
+        source: source authorization registry
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: non-null and unique within primary key of raw.sourceRegistry; must belong to the inline enum
+      sourceType:
+        type: VARCHAR
+        nullable: false
+        description: Access medium
+        enumRef: sourceType
+        source: source authorization registry
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null; must belong to enum sourceType
+      sourceRole:
+        type: VARCHAR
+        nullable: false
+        description: Analytical source role
+        enumRef: sourceRole
+        source: source authorization registry
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null; must belong to enum sourceRole
+      baseUrl:
+        type: VARCHAR
+        nullable: false
+        description: Canonical source base URL
+        source: source authorization registry
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null
+      termsStatus:
+        type: VARCHAR
+        nullable: false
+        description: Terms review status
+        enumRef: termsStatus
+        default: '''unverified'''
+        source: source authorization registry
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null; must belong to enum termsStatus
+      robotsStatus:
+        type: VARCHAR
+        nullable: false
+        description: Robots review status
+        enumRef: robotsStatus
+        default: '''unverified'''
+        source: source authorization registry
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null; must belong to enum robotsStatus
+      historyStart:
+        type: DATE
+        nullable: true
+        description: Earliest confirmed accessible date
+        source: source authorization registry
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      historyEnd:
+        type: DATE
+        nullable: true
+        description: Latest confirmed accessible date
+        source: source authorization registry
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      historyStatus:
+        type: VARCHAR
+        nullable: false
+        description: Historical coverage status
+        enumRef: historyStatus
+        default: '''unverified'''
+        source: source authorization registry
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null; must belong to enum historyStatus
+      paginationType:
+        type: VARCHAR
+        nullable: true
+        description: Observed index pagination mechanism
+        enumRef: paginationType
+        source: source authorization registry
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must belong to enum paginationType
+      verifiedAt:
+        type: TIMESTAMPTZ
+        nullable: true
+        description: Last verification timestamp
+        source: source authorization registry
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+  raw.crawlRun:
+    description: Collection run metadata
+    primaryKey:
+    - crawlRunId
+    columns:
+      crawlRunId:
+        type: VARCHAR
+        nullable: false
+        description: Stable run identifier
+        source: collector runtime metadata
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: non-null and unique within primary key of raw.crawlRun
+      sourceName:
+        type: VARCHAR
+        nullable: false
+        description: Source name
+        source: collector runtime metadata
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null
+      runPhase:
+        type: VARCHAR
+        nullable: false
+        description: Audit index detail asset or NCS phase
+        source: collector runtime metadata
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null
+      collectorVersion:
+        type: VARCHAR
+        nullable: false
+        description: Collector version
+        source: collector runtime metadata
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null
+      configSha256:
+        type: VARCHAR
+        nullable: false
+        description: Configuration SHA-256
+        check: length(configSha256) = 64
+        source: collector runtime metadata
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null; must satisfy length(configSha256) = 64
+      startedAt:
+        type: TIMESTAMPTZ
+        nullable: false
+        description: Run start
+        source: collector runtime metadata
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null
+      endedAt:
+        type: TIMESTAMPTZ
+        nullable: true
+        description: Run end
+        source: collector runtime metadata
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      status:
+        type: VARCHAR
+        nullable: false
+        description: Run status
+        enumRef: runStatus
+        source: collector runtime metadata
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null; must belong to enum runStatus
+      requestCount:
+        type: INTEGER
+        nullable: false
+        description: Requests attempted
+        default: 0
+        check: requestCount >= 0
+        source: collector runtime metadata
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null; must satisfy requestCount >= 0
+      successCount:
+        type: INTEGER
+        nullable: false
+        description: Successful requests
+        default: 0
+        check: successCount >= 0
+        source: collector runtime metadata
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null; must satisfy successCount >= 0
+      failCount:
+        type: INTEGER
+        nullable: false
+        description: Failed requests
+        default: 0
+        check: failCount >= 0
+        source: collector runtime metadata
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null; must satisfy failCount >= 0
+      gitCommitSha:
+        type: VARCHAR
+        nullable: true
+        description: Code monorepo commit
+        source: collector runtime metadata
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+  raw.linkareerIndexRaw:
+    description: Immutable index discovery record
+    primaryKey:
+    - indexItemId
+    columns:
+      indexItemId:
+        type: VARCHAR
+        nullable: false
+        description: Deterministic index record key
+        source: Linkareer Calendar APQ response
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: non-null and unique within primary key of raw.linkareerIndexRaw
+      crawlRunId:
+        type: VARCHAR
+        nullable: false
+        description: Collection run
+        source: Linkareer Calendar APQ response
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null
+      discoveryType:
+        type: VARCHAR
+        nullable: false
+        description: Discovery route
+        source: Linkareer Calendar APQ response
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null
+      sourcePostingId:
+        type: VARCHAR
+        nullable: true
+        description: Linkareer activity identifier
+        source: Linkareer Calendar APQ response
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      detailUrl:
+        type: VARCHAR
+        nullable: false
+        description: Detail URL
+        source: Linkareer Calendar APQ response
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null
+      titleRaw:
+        type: VARCHAR
+        nullable: true
+        description: Raw title
+        source: Linkareer Calendar APQ response
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      companyRaw:
+        type: VARCHAR
+        nullable: true
+        description: Raw company
+        source: Linkareer Calendar APQ response
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      postedAtRaw:
+        type: VARCHAR
+        nullable: true
+        description: Raw posted date
+        source: Linkareer Calendar APQ response
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      categoryRaw:
+        type: VARCHAR
+        nullable: true
+        description: Raw category
+        source: Linkareer Calendar APQ response
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      activityTypeId:
+        type: VARCHAR
+        nullable: false
+        description: Linkareer activity type identifier; recruit is 5
+        source: Linkareer Calendar APQ response
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null
+      groupRaw:
+        type: VARCHAR
+        nullable: true
+        description: Raw GraphQL activity group
+        source: Linkareer Calendar APQ response
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      jobTypesRawJson:
+        type: JSON
+        nullable: true
+        description: Raw listing-level jobTypes JSON
+        source: Linkareer Calendar APQ response
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      recruitStartAt:
+        type: TIMESTAMPTZ
+        nullable: true
+        description: Recruitment start time
+        source: Linkareer Calendar APQ response
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      recruitCloseAt:
+        type: TIMESTAMPTZ
+        nullable: true
+        description: Recruitment close time
+        source: Linkareer Calendar APQ response
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      activityStartAt:
+        type: TIMESTAMPTZ
+        nullable: true
+        description: Activity start time
+        source: Linkareer Calendar APQ response
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      activityEndAt:
+        type: TIMESTAMPTZ
+        nullable: true
+        description: Activity end time
+        source: Linkareer Calendar APQ response
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      createdAt:
+        type: TIMESTAMPTZ
+        nullable: true
+        description: Source entity creation time
+        source: Linkareer Calendar APQ response
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      rawPath:
+        type: VARCHAR
+        nullable: false
+        description: Immutable local raw path
+        source: Linkareer Calendar APQ response
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null
+      rawSha256:
+        type: VARCHAR
+        nullable: false
+        description: Raw payload SHA-256
+        check: length(rawSha256) = 64
+        source: Linkareer Calendar APQ response
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null; must satisfy length(rawSha256) = 64
+  raw.linkareerPostingRaw:
+    description: Immutable posting detail snapshot; postingRawId is a superseded alias
+    primaryKey:
+    - rawPostingId
+    aliases:
+      postingRawId: rawPostingId
+    columns:
+      rawPostingId:
+        type: VARCHAR
+        nullable: false
+        description: Deterministic raw posting snapshot key
+        source: Linkareer detail SSR __NEXT_DATA__ and Apollo cache
+        derivation: RAW_ + sha256(sourceName|sourcePostingId|rawSha256)[:20]
+        qualityRule: non-null and unique within primary key of raw.linkareerPostingRaw
+      indexItemId:
+        type: VARCHAR
+        nullable: true
+        description: Index discovery record
+        source: Linkareer detail SSR __NEXT_DATA__ and Apollo cache
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      crawlRunId:
+        type: VARCHAR
+        nullable: false
+        description: Collection run
+        source: Linkareer detail SSR __NEXT_DATA__ and Apollo cache
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null
+      sourcePostingId:
+        type: VARCHAR
+        nullable: false
+        description: Linkareer activity identifier
+        source: Linkareer detail SSR __NEXT_DATA__ and Apollo cache
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null
+      sourceUrl:
+        type: VARCHAR
+        nullable: false
+        description: Posting URL
+        source: Linkareer detail SSR __NEXT_DATA__ and Apollo cache
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null
+      fetchedAt:
+        type: TIMESTAMPTZ
+        nullable: false
+        description: Fetch timestamp
+        source: Linkareer detail SSR __NEXT_DATA__ and Apollo cache
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null
+      httpStatus:
+        type: SMALLINT
+        nullable: false
+        description: HTTP status
+        check: httpStatus BETWEEN 100 AND 599
+        source: Linkareer detail SSR __NEXT_DATA__ and Apollo cache
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null; must satisfy httpStatus BETWEEN 100 AND 599
+      contentType:
+        type: VARCHAR
+        nullable: true
+        description: Response content type
+        source: Linkareer detail SSR __NEXT_DATA__ and Apollo cache
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      rawPath:
+        type: VARCHAR
+        nullable: false
+        description: Immutable payload path
+        source: Linkareer detail SSR __NEXT_DATA__ and Apollo cache
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null
+      rawSha256:
+        type: VARCHAR
+        nullable: false
+        description: Payload SHA-256
+        check: length(rawSha256) = 64
+        source: Linkareer detail SSR __NEXT_DATA__ and Apollo cache
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null; must satisfy length(rawSha256) = 64
+      textAvailableFlag:
+        type: BOOLEAN
+        nullable: false
+        description: Text body available
+        default: false
+        source: Linkareer detail SSR __NEXT_DATA__ and Apollo cache
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null
+      assetCount:
+        type: SMALLINT
+        nullable: false
+        description: Asset count
+        default: 0
+        check: assetCount >= 0
+        source: Linkareer detail SSR __NEXT_DATA__ and Apollo cache
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null; must satisfy assetCount >= 0
+      nextDataJsonPath:
+        type: VARCHAR
+        nullable: true
+        description: Local path to extracted __NEXT_DATA__ JSON
+        source: Linkareer detail SSR __NEXT_DATA__ and Apollo cache
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      activityJsonPath:
+        type: VARCHAR
+        nullable: true
+        description: Local path to normalized Activity entity JSON
+        source: Linkareer detail SSR __NEXT_DATA__ and Apollo cache
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      apolloCacheJsonPath:
+        type: VARCHAR
+        nullable: true
+        description: Local path to extracted Apollo cache JSON
+        source: Linkareer detail SSR __NEXT_DATA__ and Apollo cache
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      activityTextEntityKey:
+        type: VARCHAR
+        nullable: true
+        description: Apollo cache key for ActivityText entity
+        source: Linkareer detail SSR __NEXT_DATA__ and Apollo cache
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      dutiesRawJson:
+        type: JSON
+        nullable: true
+        description: Raw duties array including duties[].jobType from SSR activity entity
+        source: Linkareer detail SSR __NEXT_DATA__ and Apollo cache
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      activityTextHtml:
+        type: VARCHAR
+        nullable: true
+        description: Raw ActivityText.text HTML from Apollo cache
+        source: Linkareer detail SSR __NEXT_DATA__ and Apollo cache
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      activityTextAvailableFlag:
+        type: BOOLEAN
+        nullable: false
+        description: ActivityText.text is available
+        default: false
+        source: Linkareer detail SSR __NEXT_DATA__ and Apollo cache
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null
+      externalApplyUrl:
+        type: VARCHAR
+        nullable: true
+        description: External application or ATS URL
+        source: Linkareer detail SSR __NEXT_DATA__ and Apollo cache
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      externalApplyFlag:
+        type: BOOLEAN
+        nullable: false
+        description: External apply destination is present
+        default: false
+        source: Linkareer detail SSR __NEXT_DATA__ and Apollo cache
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null
+      externalAtsDomain:
+        type: VARCHAR
+        nullable: true
+        description: Normalized external ATS domain
+        source: Linkareer detail SSR __NEXT_DATA__ and Apollo cache
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      externalDetailOnlyFlag:
+        type: BOOLEAN
+        nullable: false
+        description: Full detail exists only on external ATS
+        default: false
+        source: Linkareer detail SSR __NEXT_DATA__ and Apollo cache
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null
+  raw.postingAsset:
+    description: Posting image PDF or attachment lineage
+    primaryKey:
+    - assetId
+    columns:
+      assetId:
+        type: VARCHAR
+        nullable: false
+        description: Asset key
+        source: Linkareer posting asset metadata
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: non-null and unique within primary key of raw.postingAsset
+      rawPostingId:
+        type: VARCHAR
+        nullable: false
+        description: Raw posting key
+        source: Linkareer posting asset metadata
+        derivation: RAW_ + sha256(sourceName|sourcePostingId|rawSha256)[:20]
+        qualityRule: must be non-null
+      assetType:
+        type: VARCHAR
+        nullable: false
+        description: Asset type
+        enum:
+        - image
+        - pdf
+        - attachment
+        - other
+        source: Linkareer posting asset metadata
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null; must belong to the inline enum
+      assetUrl:
+        type: VARCHAR
+        nullable: true
+        description: Source URL
+        source: Linkareer posting asset metadata
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      assetPath:
+        type: VARCHAR
+        nullable: false
+        description: Immutable local path
+        source: Linkareer posting asset metadata
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null
+      assetSha256:
+        type: VARCHAR
+        nullable: false
+        description: Asset SHA-256
+        check: length(assetSha256) = 64
+        source: Linkareer posting asset metadata
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null; must satisfy length(assetSha256) = 64
+      widthPx:
+        type: INTEGER
+        nullable: true
+        description: Pixel width
+        check: widthPx IS NULL OR widthPx > 0
+        source: Linkareer posting asset metadata
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must satisfy widthPx IS NULL OR widthPx > 0
+      heightPx:
+        type: INTEGER
+        nullable: true
+        description: Pixel height
+        check: heightPx IS NULL OR heightPx > 0
+        source: Linkareer posting asset metadata
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must satisfy heightPx IS NULL OR heightPx > 0
+      bytes:
+        type: BIGINT
+        nullable: true
+        description: Asset byte length
+        check: bytes IS NULL OR bytes >= 0
+        source: Linkareer posting asset metadata
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must satisfy bytes IS NULL OR bytes >= 0
+  raw.ocrResult:
+    description: OCR result and block lineage
+    primaryKey:
+    - ocrId
+    columns:
+      ocrId:
+        type: VARCHAR
+        nullable: false
+        description: OCR result key
+        source: OCR engine output
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: non-null and unique within primary key of raw.ocrResult
+      assetId:
+        type: VARCHAR
+        nullable: false
+        description: Asset key
+        source: OCR engine output
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null
+      ocrEngine:
+        type: VARCHAR
+        nullable: false
+        description: OCR engine
+        source: OCR engine output
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null
+      ocrModel:
+        type: VARCHAR
+        nullable: false
+        description: OCR model
+        source: OCR engine output
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null
+      ocrVersion:
+        type: VARCHAR
+        nullable: false
+        description: OCR pipeline version
+        source: OCR engine output
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null
+      ocrText:
+        type: VARCHAR
+        nullable: true
+        description: Extracted text
+        source: OCR engine output
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      ocrBlocksJson:
+        type: JSON
+        nullable: true
+        description: Block coordinates and text
+        source: OCR engine output
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      ocrConfidence:
+        type: DOUBLE
+        nullable: true
+        description: OCR confidence
+        check: ocrConfidence IS NULL OR ocrConfidence BETWEEN 0 AND 1
+        source: OCR engine output
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must satisfy ocrConfidence IS NULL OR ocrConfidence BETWEEN 0 AND 1
+      ocrReviewFlag:
+        type: BOOLEAN
+        nullable: false
+        description: Human review required
+        default: false
+        source: OCR engine output
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null
+      producedAt:
+        type: TIMESTAMPTZ
+        nullable: false
+        description: Produced timestamp
+        source: OCR engine output
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null
+  core.postingNormalized:
+    description: One normalized posting identity with dedup-independent eligibility
+    primaryKey:
+    - postingId
+    columns:
+      postingId:
+        type: VARCHAR
+        nullable: false
+        description: Stable posting identity
+        source: raw.linkareerPostingRaw and raw.ocrResult
+        derivation: PST_ + sha256(sourceName|sourcePostingId)[:20]
+        qualityRule: non-null and unique within primary key of core.postingNormalized
+      rawPostingId:
+        type: VARCHAR
+        nullable: false
+        description: Source snapshot used
+        source: raw.linkareerPostingRaw and raw.ocrResult
+        derivation: RAW_ + sha256(sourceName|sourcePostingId|rawSha256)[:20]
+        qualityRule: must be non-null
+      sourcePostingId:
+        type: VARCHAR
+        nullable: false
+        description: Source posting identifier
+        source: raw.linkareerPostingRaw and raw.ocrResult
+        derivation: deterministic transformation for core.postingNormalized under contract 2.1.2
+        qualityRule: must be non-null
+      sourceUrl:
+        type: VARCHAR
+        nullable: false
+        description: Posting URL
+        source: raw.linkareerPostingRaw and raw.ocrResult
+        derivation: deterministic transformation for core.postingNormalized under contract 2.1.2
+        qualityRule: must be non-null
+      companyKey:
+        type: VARCHAR
+        nullable: true
+        description: Normalized company key
+        source: raw.linkareerPostingRaw and raw.ocrResult
+        derivation: deterministic transformation for core.postingNormalized under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      companyName:
+        type: VARCHAR
+        nullable: true
+        description: Normalized company name
+        source: raw.linkareerPostingRaw and raw.ocrResult
+        derivation: deterministic transformation for core.postingNormalized under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      industryName:
+        type: VARCHAR
+        nullable: true
+        description: Industry name
+        source: raw.linkareerPostingRaw and raw.ocrResult
+        derivation: deterministic transformation for core.postingNormalized under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      jobTitle:
+        type: VARCHAR
+        nullable: true
+        description: Posting job title
+        source: raw.linkareerPostingRaw and raw.ocrResult
+        derivation: deterministic transformation for core.postingNormalized under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      bodyText:
+        type: VARCHAR
+        nullable: true
+        description: Merged HTML and OCR text
+        source: raw.linkareerPostingRaw and raw.ocrResult
+        derivation: deterministic transformation for core.postingNormalized under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      postedAt:
+        type: TIMESTAMPTZ
+        nullable: true
+        description: Observed posting time
+        source: raw.linkareerPostingRaw and raw.ocrResult
+        derivation: deterministic transformation for core.postingNormalized under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      deadlineAt:
+        type: TIMESTAMPTZ
+        nullable: true
+        description: Deadline
+        source: raw.linkareerPostingRaw and raw.ocrResult
+        derivation: deterministic transformation for core.postingNormalized under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      postingKind:
+        type: VARCHAR
+        nullable: false
+        description: Posting kind
+        enumRef: postingKind
+        source: raw.linkareerPostingRaw and raw.ocrResult
+        derivation: deterministic transformation for core.postingNormalized under contract 2.1.2
+        qualityRule: must be non-null; must belong to enum postingKind
+      recruitmentScope:
+        type: VARCHAR
+        nullable: false
+        description: Recruitment scope
+        enumRef: recruitmentScope
+        source: raw.linkareerPostingRaw and raw.ocrResult
+        derivation: deterministic transformation for core.postingNormalized under contract 2.1.2
+        qualityRule: must be non-null; must belong to enum recruitmentScope
+      postingEligibleFlag:
+        type: BOOLEAN
+        nullable: false
+        description: Recruitment eligibility before dedup
+        default: false
+        source: raw.linkareerPostingRaw and raw.ocrResult
+        derivation: deterministic transformation for core.postingNormalized under contract 2.1.2
+        qualityRule: must be non-null
+      rq1EligibleFlag:
+        type: BOOLEAN
+        nullable: false
+        description: Eligible for RQ1 posting composition after canonical selection
+        default: false
+        source: raw.linkareerPostingRaw and raw.ocrResult
+        derivation: deterministic transformation for core.postingNormalized under contract 2.1.2
+        qualityRule: must be non-null
+      rq2EligibleFlag:
+        type: BOOLEAN
+        nullable: false
+        description: Eligible for resolved track-level barrier analysis
+        default: false
+        source: raw.linkareerPostingRaw and raw.ocrResult
+        derivation: deterministic transformation for core.postingNormalized under contract 2.1.2
+        qualityRule: must be non-null
+      ncsEligibleFlag:
+        type: BOOLEAN
+        nullable: false
+        description: Eligible for task-context NCS mapping
+        default: false
+        source: raw.linkareerPostingRaw and raw.ocrResult
+        derivation: deterministic transformation for core.postingNormalized under contract 2.1.2
+        qualityRule: must be non-null
+      rq2ExclusionReason:
+        type: VARCHAR
+        nullable: true
+        description: Reason the track or posting is unavailable for RQ2
+        enumRef: rq2ExclusionReason
+        source: raw.linkareerPostingRaw and raw.ocrResult
+        derivation: deterministic transformation for core.postingNormalized under contract 2.1.2
+        qualityRule: must belong to enum rq2ExclusionReason
+      invalidReason:
+        type: VARCHAR
+        nullable: true
+        description: Eligibility failure reason
+        source: raw.linkareerPostingRaw and raw.ocrResult
+        derivation: deterministic transformation for core.postingNormalized under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      duplicateGroupId:
+        type: VARCHAR
+        nullable: true
+        description: Ninety-day repost group
+        source: raw.linkareerPostingRaw and raw.ocrResult
+        derivation: deterministic transformation for core.postingNormalized under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      canonicalPostingId:
+        type: VARCHAR
+        nullable: false
+        description: Canonical group identifier
+        source: raw.linkareerPostingRaw and raw.ocrResult
+        derivation: deterministic transformation for core.postingNormalized under contract 2.1.2
+        qualityRule: must be non-null
+      canonicalPostedAt:
+        type: TIMESTAMPTZ
+        nullable: false
+        description: First posting time in group
+        source: raw.linkareerPostingRaw and raw.ocrResult
+        derivation: deterministic transformation for core.postingNormalized under contract 2.1.2
+        qualityRule: must be non-null
+      canonicalRecordFlag:
+        type: BOOLEAN
+        nullable: false
+        description: Canonical record indicator
+        default: true
+        source: raw.linkareerPostingRaw and raw.ocrResult
+        derivation: deterministic transformation for core.postingNormalized under contract 2.1.2
+        qualityRule: must be non-null
+      repostCount:
+        type: SMALLINT
+        nullable: false
+        description: Repost count
+        default: 0
+        check: repostCount >= 0
+        source: raw.linkareerPostingRaw and raw.ocrResult
+        derivation: deterministic transformation for core.postingNormalized under contract 2.1.2
+        qualityRule: must be non-null; must satisfy repostCount >= 0
+      rawSha256:
+        type: VARCHAR
+        nullable: false
+        description: Source payload SHA-256
+        check: length(rawSha256) = 64
+        source: raw.linkareerPostingRaw and raw.ocrResult
+        derivation: deterministic transformation for core.postingNormalized under contract 2.1.2
+        qualityRule: must be non-null; must satisfy length(rawSha256) = 64
+      parseVersion:
+        type: VARCHAR
+        nullable: false
+        description: Parser version
+        source: raw.linkareerPostingRaw and raw.ocrResult
+        derivation: deterministic transformation for core.postingNormalized under contract 2.1.2
+        qualityRule: must be non-null
+      dataVersion:
+        type: VARCHAR
+        nullable: false
+        description: Data version
+        source: raw.linkareerPostingRaw and raw.ocrResult
+        derivation: deterministic transformation for core.postingNormalized under contract 2.1.2
+        qualityRule: must be non-null
+      normalizedAt:
+        type: TIMESTAMPTZ
+        nullable: false
+        description: Normalization timestamp
+        source: raw.linkareerPostingRaw and raw.ocrResult
+        derivation: deterministic transformation for core.postingNormalized under contract 2.1.2
+        qualityRule: must be non-null
+  core.postingTrack:
+    description: Recruitment track within a posting
+    primaryKey:
+    - trackId
+    unique:
+    - - postingId
+      - trackIndex
+    columns:
+      trackId:
+        type: VARCHAR
+        nullable: false
+        description: Track key
+        source: core.postingNormalized plus jobTypes and duties evidence
+        derivation: TRK_ + sha256(postingId|trackIndex)[:20]
+        qualityRule: non-null and unique within primary key of core.postingTrack
+      postingId:
+        type: VARCHAR
+        nullable: false
+        description: Posting key
+        source: core.postingNormalized plus jobTypes and duties evidence
+        derivation: PST_ + sha256(sourceName|sourcePostingId)[:20]
+        qualityRule: must be non-null
+      trackIndex:
+        type: SMALLINT
+        nullable: false
+        description: Stable zero-based track order
+        check: trackIndex >= 0
+        source: core.postingNormalized plus jobTypes and duties evidence
+        derivation: deterministic transformation for core.postingTrack under contract 2.1.2
+        qualityRule: must be non-null; must satisfy trackIndex >= 0
+      trackType:
+        type: VARCHAR
+        nullable: false
+        description: Track type
+        enumRef: trackType
+        source: core.postingNormalized plus jobTypes and duties evidence
+        derivation: deterministic transformation for core.postingTrack under contract 2.1.2
+        qualityRule: must be non-null; must belong to enum trackType
+      trackTitle:
+        type: VARCHAR
+        nullable: true
+        description: Track title
+        source: core.postingNormalized plus jobTypes and duties evidence
+        derivation: deterministic transformation for core.postingTrack under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      hasEntryFlag:
+        type: BOOLEAN
+        nullable: false
+        description: Includes entry recruitment
+        source: core.postingNormalized plus jobTypes and duties evidence
+        derivation: deterministic transformation for core.postingTrack under contract 2.1.2
+        qualityRule: must be non-null
+      hasInternFlag:
+        type: BOOLEAN
+        nullable: false
+        description: Includes intern recruitment
+        source: core.postingNormalized plus jobTypes and duties evidence
+        derivation: deterministic transformation for core.postingTrack under contract 2.1.2
+        qualityRule: must be non-null
+      hasExperiencedFlag:
+        type: BOOLEAN
+        nullable: false
+        description: Includes experienced recruitment
+        source: core.postingNormalized plus jobTypes and duties evidence
+        derivation: deterministic transformation for core.postingTrack under contract 2.1.2
+        qualityRule: must be non-null
+      recruitmentScope:
+        type: VARCHAR
+        nullable: false
+        description: Posting recruitment scope
+        enumRef: recruitmentScope
+        source: core.postingNormalized plus jobTypes and duties evidence
+        derivation: deterministic transformation for core.postingTrack under contract 2.1.2
+        qualityRule: must be non-null; must belong to enum recruitmentScope
+      mixedResolvedFlag:
+        type: BOOLEAN
+        nullable: false
+        description: Mixed posting was split reliably
+        source: core.postingNormalized plus jobTypes and duties evidence
+        derivation: deterministic transformation for core.postingTrack under contract 2.1.2
+        qualityRule: must be non-null
+      splitConfidence:
+        type: DOUBLE
+        nullable: true
+        description: Track split confidence
+        check: splitConfidence IS NULL OR splitConfidence BETWEEN 0 AND 1
+        source: core.postingNormalized plus jobTypes and duties evidence
+        derivation: deterministic transformation for core.postingTrack under contract 2.1.2
+        qualityRule: must satisfy splitConfidence IS NULL OR splitConfidence BETWEEN 0 AND 1
+      trackVersion:
+        type: VARCHAR
+        nullable: false
+        description: Track parser version
+        source: core.postingNormalized plus jobTypes and duties evidence
+        derivation: deterministic transformation for core.postingTrack under contract 2.1.2
+        qualityRule: must be non-null
+      jobTypeSource:
+        type: VARCHAR
+        nullable: false
+        description: Authority used for track job type
+        enumRef: jobTypeSource
+        source: core.postingNormalized plus jobTypes and duties evidence
+        derivation: deterministic transformation for core.postingTrack under contract 2.1.2
+        qualityRule: must be non-null; must belong to enum jobTypeSource
+      jobTypeConflictFlag:
+        type: BOOLEAN
+        nullable: false
+        description: duties jobType conflicts with listing jobTypes
+        default: false
+        source: core.postingNormalized plus jobTypes and duties evidence
+        derivation: deterministic transformation for core.postingTrack under contract 2.1.2
+        qualityRule: must be non-null
+  core.postingSection:
+    description: Typed section within a track
+    primaryKey:
+    - sectionId
+    unique:
+    - - trackId
+      - sectionOrder
+    columns:
+      sectionId:
+        type: VARCHAR
+        nullable: false
+        description: Section key
+        source: core.postingTrack and normalized body evidence
+        derivation: SEC_ + sha256(trackId|sectionOrder)[:20]
+        qualityRule: non-null and unique within primary key of core.postingSection
+      trackId:
+        type: VARCHAR
+        nullable: false
+        description: Track key
+        source: core.postingTrack and normalized body evidence
+        derivation: TRK_ + sha256(postingId|trackIndex)[:20]
+        qualityRule: must be non-null
+      postingId:
+        type: VARCHAR
+        nullable: false
+        description: Posting key
+        source: core.postingTrack and normalized body evidence
+        derivation: PST_ + sha256(sourceName|sourcePostingId)[:20]
+        qualityRule: must be non-null
+      sectionOrder:
+        type: SMALLINT
+        nullable: false
+        description: Stable section order
+        check: sectionOrder >= 0
+        source: core.postingTrack and normalized body evidence
+        derivation: deterministic transformation for core.postingSection under contract 2.1.2
+        qualityRule: must be non-null; must satisfy sectionOrder >= 0
+      sectionType:
+        type: VARCHAR
+        nullable: false
+        description: Section type
+        enumRef: sectionType
+        source: core.postingTrack and normalized body evidence
+        derivation: deterministic transformation for core.postingSection under contract 2.1.2
+        qualityRule: must be non-null; must belong to enum sectionType
+      sectionText:
+        type: VARCHAR
+        nullable: false
+        description: Section text
+        source: core.postingTrack and normalized body evidence
+        derivation: deterministic transformation for core.postingSection under contract 2.1.2
+        qualityRule: must be non-null
+      sourceMode:
+        type: VARCHAR
+        nullable: false
+        description: HTML OCR or merged source
+        enumRef: sourceMode
+        source: core.postingTrack and normalized body evidence
+        derivation: deterministic transformation for core.postingSection under contract 2.1.2
+        qualityRule: must be non-null; must belong to enum sourceMode
+      boundaryResolvedFlag:
+        type: BOOLEAN
+        nullable: false
+        description: Required-preferred boundary resolved
+        source: core.postingTrack and normalized body evidence
+        derivation: deterministic transformation for core.postingSection under contract 2.1.2
+        qualityRule: must be non-null
+      sectionConfidence:
+        type: DOUBLE
+        nullable: true
+        description: Section confidence
+        check: sectionConfidence IS NULL OR sectionConfidence BETWEEN 0 AND 1
+        source: core.postingTrack and normalized body evidence
+        derivation: deterministic transformation for core.postingSection under contract 2.1.2
+        qualityRule: must satisfy sectionConfidence IS NULL OR sectionConfidence BETWEEN 0 AND 1
+      parseVersion:
+        type: VARCHAR
+        nullable: false
+        description: Parser version
+        source: core.postingTrack and normalized body evidence
+        derivation: deterministic transformation for core.postingSection under contract 2.1.2
+        qualityRule: must be non-null
+  core.requirementFact:
+    description: Atomic requirement evidence
+    primaryKey:
+    - requirementId
+    columns:
+      requirementId:
+        type: VARCHAR
+        nullable: false
+        description: Requirement key
+        source: core.postingSection
+        derivation: REQ_ + sha256(sectionId|requirementType|normalizedEvidence)[:20]
+        qualityRule: non-null and unique within primary key of core.requirementFact
+      sectionId:
+        type: VARCHAR
+        nullable: false
+        description: Section key
+        source: core.postingSection
+        derivation: SEC_ + sha256(trackId|sectionOrder)[:20]
+        qualityRule: must be non-null
+      trackId:
+        type: VARCHAR
+        nullable: false
+        description: Track key
+        source: core.postingSection
+        derivation: TRK_ + sha256(postingId|trackIndex)[:20]
+        qualityRule: must be non-null
+      postingId:
+        type: VARCHAR
+        nullable: false
+        description: Posting key
+        source: core.postingSection
+        derivation: PST_ + sha256(sourceName|sourcePostingId)[:20]
+        qualityRule: must be non-null
+      requirementType:
+        type: VARCHAR
+        nullable: false
+        description: Requirement type
+        enumRef: requirementType
+        source: core.postingSection
+        derivation: deterministic transformation for core.requirementFact under contract 2.1.2
+        qualityRule: must be non-null; must belong to enum requirementType
+      obligation:
+        type: VARCHAR
+        nullable: false
+        description: Required preferred or unknown
+        enumRef: obligation
+        source: core.postingSection
+        derivation: deterministic transformation for core.requirementFact under contract 2.1.2
+        qualityRule: must be non-null; must belong to enum obligation
+      valueNum:
+        type: DOUBLE
+        nullable: true
+        description: Numeric normalized value
+        source: core.postingSection
+        derivation: deterministic transformation for core.requirementFact under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      valueUnit:
+        type: VARCHAR
+        nullable: true
+        description: Unit such as month count or level
+        source: core.postingSection
+        derivation: deterministic transformation for core.requirementFact under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      valueText:
+        type: VARCHAR
+        nullable: true
+        description: Normalized text value
+        source: core.postingSection
+        derivation: deterministic transformation for core.requirementFact under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      certificateNameRaw:
+        type: VARCHAR
+        nullable: true
+        description: Raw certificate name
+        source: core.postingSection
+        derivation: deterministic transformation for core.requirementFact under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      certificateClass:
+        type: VARCHAR
+        nullable: true
+        description: National certificate class
+        enumRef: certificateClass
+        source: core.postingSection
+        derivation: deterministic transformation for core.requirementFact under contract 2.1.2
+        qualityRule: must belong to enum certificateClass
+      degreeLevel:
+        type: VARCHAR
+        nullable: true
+        description: Required degree level
+        enumRef: degreeLevel
+        source: core.postingSection
+        derivation: deterministic transformation for core.requirementFact under contract 2.1.2
+        qualityRule: must belong to enum degreeLevel
+      evidenceText:
+        type: VARCHAR
+        nullable: false
+        description: Source evidence text
+        source: core.postingSection
+        derivation: deterministic transformation for core.requirementFact under contract 2.1.2
+        qualityRule: must be non-null
+      extractorVersion:
+        type: VARCHAR
+        nullable: false
+        description: Extractor version
+        source: core.postingSection
+        derivation: deterministic transformation for core.requirementFact under contract 2.1.2
+        qualityRule: must be non-null
+      confidence:
+        type: DOUBLE
+        nullable: true
+        description: Extraction confidence
+        check: confidence IS NULL OR confidence BETWEEN 0 AND 1
+        source: core.postingSection
+        derivation: deterministic transformation for core.requirementFact under contract 2.1.2
+        qualityRule: must satisfy confidence IS NULL OR confidence BETWEEN 0 AND 1
+      reviewFlag:
+        type: BOOLEAN
+        nullable: false
+        description: Human review required
+        default: false
+        source: core.postingSection
+        derivation: deterministic transformation for core.requirementFact under contract 2.1.2
+        qualityRule: must be non-null
+  core.careerLabel:
+    description: Career and intern access labels
+    primaryKey:
+    - trackId
+    columns:
+      trackId:
+        type: VARCHAR
+        nullable: false
+        description: Track key
+        source: core.requirementFact and core.postingTrack
+        derivation: TRK_ + sha256(postingId|trackIndex)[:20]
+        qualityRule: non-null and unique within primary key of core.careerLabel
+      postingId:
+        type: VARCHAR
+        nullable: false
+        description: Posting key
+        source: core.requirementFact and core.postingTrack
+        derivation: PST_ + sha256(sourceName|sourcePostingId)[:20]
+        qualityRule: must be non-null
+      careerClass:
+        type: VARCHAR
+        nullable: false
+        description: Non-intern career class or U
+        enumRef: careerClass
+        source: core.requirementFact and core.postingTrack
+        derivation: deterministic transformation for core.careerLabel under contract 2.1.2
+        qualityRule: must be non-null; must belong to enum careerClass
+      internAccessClass:
+        type: VARCHAR
+        nullable: true
+        description: Intern access class
+        enumRef: internAccessClass
+        source: core.requirementFact and core.postingTrack
+        derivation: deterministic transformation for core.careerLabel under contract 2.1.2
+        qualityRule: must belong to enum internAccessClass
+      nominalEntryFlag:
+        type: BOOLEAN
+        nullable: false
+        description: E0 or E1
+        source: core.requirementFact and core.postingTrack
+        derivation: deterministic transformation for core.careerLabel under contract 2.1.2
+        qualityRule: must be non-null
+      openEntryFlag:
+        type: BOOLEAN
+        nullable: false
+        description: E0 indicator
+        source: core.requirementFact and core.postingTrack
+        derivation: deterministic transformation for core.careerLabel under contract 2.1.2
+        qualityRule: must be non-null
+      restrictedEntryFlag:
+        type: BOOLEAN
+        nullable: false
+        description: E1 indicator
+        source: core.requirementFact and core.postingTrack
+        derivation: deterministic transformation for core.careerLabel under contract 2.1.2
+        qualityRule: must be non-null
+      openInternFlag:
+        type: BOOLEAN
+        nullable: false
+        description: I0 indicator
+        source: core.requirementFact and core.postingTrack
+        derivation: deterministic transformation for core.careerLabel under contract 2.1.2
+        qualityRule: must be non-null
+      restrictedInternFlag:
+        type: BOOLEAN
+        nullable: false
+        description: R or P required for intern
+        source: core.requirementFact and core.postingTrack
+        derivation: deterministic transformation for core.careerLabel under contract 2.1.2
+        qualityRule: must be non-null
+      experiencedInternFlag:
+        type: BOOLEAN
+        nullable: false
+        description: Strict required prior experience P
+        source: core.requirementFact and core.postingTrack
+        derivation: deterministic transformation for core.careerLabel under contract 2.1.2
+        qualityRule: must be non-null
+      minCareerMonths:
+        type: SMALLINT
+        nullable: true
+        description: Minimum required career months
+        check: minCareerMonths IS NULL OR minCareerMonths >= 0
+        source: core.requirementFact and core.postingTrack
+        derivation: deterministic transformation for core.careerLabel under contract 2.1.2
+        qualityRule: must satisfy minCareerMonths IS NULL OR minCareerMonths >= 0
+      requiredExperienceFlag:
+        type: BOOLEAN
+        nullable: false
+        description: Required positive career duration
+        source: core.requirementFact and core.postingTrack
+        derivation: deterministic transformation for core.careerLabel under contract 2.1.2
+        qualityRule: must be non-null
+      requiredPriorExperienceFlag:
+        type: BOOLEAN
+        nullable: false
+        description: Required prior internship role or production project
+        source: core.requirementFact and core.postingTrack
+        derivation: deterministic transformation for core.careerLabel under contract 2.1.2
+        qualityRule: must be non-null
+      boundaryResolvedFlag:
+        type: BOOLEAN
+        nullable: false
+        description: Required-preferred boundary resolved
+        source: core.requirementFact and core.postingTrack
+        derivation: deterministic transformation for core.careerLabel under contract 2.1.2
+        qualityRule: must be non-null
+      explicitCareerFlag:
+        type: BOOLEAN
+        nullable: false
+        description: Explicit experienced-only wording
+        source: core.requirementFact and core.postingTrack
+        derivation: deterministic transformation for core.careerLabel under contract 2.1.2
+        qualityRule: must be non-null
+      labelConfidence:
+        type: DOUBLE
+        nullable: true
+        description: Label confidence
+        check: labelConfidence IS NULL OR labelConfidence BETWEEN 0 AND 1
+        source: core.requirementFact and core.postingTrack
+        derivation: deterministic transformation for core.careerLabel under contract 2.1.2
+        qualityRule: must satisfy labelConfidence IS NULL OR labelConfidence BETWEEN 0 AND 1
+      labelVersion:
+        type: VARCHAR
+        nullable: false
+        description: Label version
+        source: core.requirementFact and core.postingTrack
+        derivation: deterministic transformation for core.careerLabel under contract 2.1.2
+        qualityRule: must be non-null
+  core.postingDedupEdge:
+    description: Auditable pairwise repost decision
+    primaryKey:
+    - edgeId
+    unique:
+    - - leftPostingId
+      - rightPostingId
+      - dedupVersion
+    columns:
+      edgeId:
+        type: VARCHAR
+        nullable: false
+        description: Edge key
+        source: core.postingNormalized
+        derivation: deterministic transformation for core.postingDedupEdge under contract 2.1.2
+        qualityRule: non-null and unique within primary key of core.postingDedupEdge
+      leftPostingId:
+        type: VARCHAR
+        nullable: false
+        description: Left posting
+        source: core.postingNormalized
+        derivation: deterministic transformation for core.postingDedupEdge under contract 2.1.2
+        qualityRule: must be non-null
+      rightPostingId:
+        type: VARCHAR
+        nullable: false
+        description: Right posting
+        source: core.postingNormalized
+        derivation: deterministic transformation for core.postingDedupEdge under contract 2.1.2
+        qualityRule: must be non-null
+      dayDiff:
+        type: INTEGER
+        nullable: false
+        description: Absolute date gap
+        check: dayDiff BETWEEN 0 AND 90
+        source: core.postingNormalized
+        derivation: deterministic transformation for core.postingDedupEdge under contract 2.1.2
+        qualityRule: must be non-null; must satisfy dayDiff BETWEEN 0 AND 90
+      titleSimilarity:
+        type: DOUBLE
+        nullable: true
+        description: Title similarity
+        check: titleSimilarity IS NULL OR titleSimilarity BETWEEN 0 AND 1
+        source: core.postingNormalized
+        derivation: deterministic transformation for core.postingDedupEdge under contract 2.1.2
+        qualityRule: must satisfy titleSimilarity IS NULL OR titleSimilarity BETWEEN 0 AND 1
+      bodySimilarity:
+        type: DOUBLE
+        nullable: true
+        description: Body similarity
+        check: bodySimilarity IS NULL OR bodySimilarity BETWEEN 0 AND 1
+        source: core.postingNormalized
+        derivation: deterministic transformation for core.postingDedupEdge under contract 2.1.2
+        qualityRule: must satisfy bodySimilarity IS NULL OR bodySimilarity BETWEEN 0 AND 1
+      decision:
+        type: VARCHAR
+        nullable: false
+        description: Dedup decision
+        enumRef: dedupDecision
+        source: core.postingNormalized
+        derivation: deterministic transformation for core.postingDedupEdge under contract 2.1.2
+        qualityRule: must be non-null; must belong to enum dedupDecision
+      decisionBasis:
+        type: VARCHAR
+        nullable: true
+        description: Decision evidence
+        source: core.postingNormalized
+        derivation: deterministic transformation for core.postingDedupEdge under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      dedupVersion:
+        type: VARCHAR
+        nullable: false
+        description: Dedup version
+        source: core.postingNormalized
+        derivation: deterministic transformation for core.postingDedupEdge under contract 2.1.2
+        qualityRule: must be non-null
+  ncs.ncsUnit:
+    description: NCS unit and level anchor
+    primaryKey:
+    - ncsUnitCode
+    columns:
+      ncsUnitCode:
+        type: VARCHAR
+        nullable: false
+        description: NCS unit code
+        source: official NCS unit source
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: non-null and unique within primary key of ncs.ncsUnit
+      ncsUnitName:
+        type: VARCHAR
+        nullable: false
+        description: NCS unit name
+        source: official NCS unit source
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null
+      ncsMajorCode:
+        type: VARCHAR
+        nullable: true
+        description: Major classification code
+        source: official NCS unit source
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      ncsMiddleCode:
+        type: VARCHAR
+        nullable: true
+        description: Middle classification code
+        source: official NCS unit source
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      ncsMinorCode:
+        type: VARCHAR
+        nullable: true
+        description: Minor classification code
+        source: official NCS unit source
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      ncsSubCode:
+        type: VARCHAR
+        nullable: false
+        description: Subclassification code
+        source: official NCS unit source
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null
+      ncsLevel:
+        type: SMALLINT
+        nullable: false
+        description: NCS level
+        check: ncsLevel BETWEEN 1 AND 8
+        source: official NCS unit source
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null; must satisfy ncsLevel BETWEEN 1 AND 8
+      ncsBand:
+        type: VARCHAR
+        nullable: false
+        description: Four-level article band
+        enumRef: ncsBand
+        source: official NCS unit source
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null; must belong to enum ncsBand
+      definitionText:
+        type: VARCHAR
+        nullable: true
+        description: Unit definition
+        source: official NCS unit source
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      performanceCriteriaText:
+        type: VARCHAR
+        nullable: true
+        description: Performance criteria
+        source: official NCS unit source
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      knowledgeText:
+        type: VARCHAR
+        nullable: true
+        description: Knowledge evidence
+        source: official NCS unit source
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      skillText:
+        type: VARCHAR
+        nullable: true
+        description: Skill evidence
+        source: official NCS unit source
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      attitudeText:
+        type: VARCHAR
+        nullable: true
+        description: Attitude evidence
+        source: official NCS unit source
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      developmentYear:
+        type: SMALLINT
+        nullable: true
+        description: Development year
+        source: official NCS unit source
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      sourceVersion:
+        type: VARCHAR
+        nullable: false
+        description: NCS source version
+        source: official NCS unit source
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null
+      rawSha256:
+        type: VARCHAR
+        nullable: false
+        description: Source SHA-256
+        check: length(rawSha256) = 64
+        source: official NCS unit source
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null; must satisfy length(rawSha256) = 64
+  ncs.ncsLearningModule:
+    description: NCS learning module task evidence
+    primaryKey:
+    - moduleId
+    columns:
+      moduleId:
+        type: VARCHAR
+        nullable: false
+        description: Module key
+        source: official NCS learning module source
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: non-null and unique within primary key of ncs.ncsLearningModule
+      ncsUnitCode:
+        type: VARCHAR
+        nullable: false
+        description: NCS unit code
+        source: official NCS learning module source
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null
+      moduleName:
+        type: VARCHAR
+        nullable: false
+        description: Module name
+        source: official NCS learning module source
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null
+      taskText:
+        type: VARCHAR
+        nullable: true
+        description: Task-context evidence
+        source: official NCS learning module source
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      trainingLevel:
+        type: SMALLINT
+        nullable: true
+        description: Training level
+        check: trainingLevel IS NULL OR trainingLevel BETWEEN 1 AND 8
+        source: official NCS learning module source
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must satisfy trainingLevel IS NULL OR trainingLevel BETWEEN 1 AND 8
+      sourceUrl:
+        type: VARCHAR
+        nullable: true
+        description: Source URL
+        source: official NCS learning module source
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      localFilePath:
+        type: VARCHAR
+        nullable: true
+        description: Non-redistributable local reference
+        source: official NCS learning module source
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      redistributableFlag:
+        type: BOOLEAN
+        nullable: false
+        description: Redistribution permission
+        default: false
+        source: official NCS learning module source
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null
+      sourceVersion:
+        type: VARCHAR
+        nullable: false
+        description: Source version
+        source: official NCS learning module source
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null
+      rawSha256:
+        type: VARCHAR
+        nullable: false
+        description: Source SHA-256
+        check: length(rawSha256) = 64
+        source: official NCS learning module source
+        derivation: direct extraction or normalized source metadata; no analytical inference
+        qualityRule: must be non-null; must satisfy length(rawSha256) = 64
+  ncs.postingNcsMatch:
+    description: Evidence-bearing posting-task to NCS match
+    primaryKey:
+    - matchId
+    columns:
+      matchId:
+        type: VARCHAR
+        nullable: false
+        description: Match key
+        source: core task evidence and official NCS units
+        derivation: NMT_ + sha256(trackId|ncsUnitCode|mappingBasis|evidenceHash)[:20]
+        qualityRule: non-null and unique within primary key of ncs.postingNcsMatch
+      postingId:
+        type: VARCHAR
+        nullable: false
+        description: Posting key
+        source: core task evidence and official NCS units
+        derivation: PST_ + sha256(sourceName|sourcePostingId)[:20]
+        qualityRule: must be non-null
+      trackId:
+        type: VARCHAR
+        nullable: false
+        description: Track key
+        source: core task evidence and official NCS units
+        derivation: TRK_ + sha256(postingId|trackIndex)[:20]
+        qualityRule: must be non-null
+      sectionId:
+        type: VARCHAR
+        nullable: true
+        description: Section evidence key
+        source: core task evidence and official NCS units
+        derivation: SEC_ + sha256(trackId|sectionOrder)[:20]
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      requirementId:
+        type: VARCHAR
+        nullable: true
+        description: Requirement evidence key
+        source: core task evidence and official NCS units
+        derivation: REQ_ + sha256(sectionId|requirementType|normalizedEvidence)[:20]
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      ncsUnitCode:
+        type: VARCHAR
+        nullable: false
+        description: NCS unit code
+        source: core task evidence and official NCS units
+        derivation: deterministic transformation for ncs.postingNcsMatch under contract 2.1.2
+        qualityRule: must be non-null
+      ncsLevel:
+        type: SMALLINT
+        nullable: false
+        description: NCS level
+        check: ncsLevel BETWEEN 1 AND 8
+        source: core task evidence and official NCS units
+        derivation: deterministic transformation for ncs.postingNcsMatch under contract 2.1.2
+        qualityRule: must be non-null; must satisfy ncsLevel BETWEEN 1 AND 8
+      ncsBand:
+        type: VARCHAR
+        nullable: false
+        description: NCS band
+        enumRef: ncsBand
+        source: core task evidence and official NCS units
+        derivation: deterministic transformation for ncs.postingNcsMatch under contract 2.1.2
+        qualityRule: must be non-null; must belong to enum ncsBand
+      mappingBasis:
+        type: VARCHAR
+        nullable: false
+        description: Mapping evidence class
+        enumRef: mappingBasis
+        source: core task evidence and official NCS units
+        derivation: deterministic transformation for ncs.postingNcsMatch under contract 2.1.2
+        qualityRule: must be non-null; must belong to enum mappingBasis
+      matchScore:
+        type: DOUBLE
+        nullable: true
+        description: Match score
+        check: matchScore IS NULL OR matchScore BETWEEN 0 AND 1
+        source: core task evidence and official NCS units
+        derivation: deterministic transformation for ncs.postingNcsMatch under contract 2.1.2
+        qualityRule: must satisfy matchScore IS NULL OR matchScore BETWEEN 0 AND 1
+      matchRank:
+        type: SMALLINT
+        nullable: false
+        description: Candidate rank
+        check: matchRank >= 1
+        source: core task evidence and official NCS units
+        derivation: deterministic transformation for ncs.postingNcsMatch under contract 2.1.2
+        qualityRule: must be non-null; must satisfy matchRank >= 1
+      selectedFlag:
+        type: BOOLEAN
+        nullable: false
+        description: Selected mapping candidate
+        source: core task evidence and official NCS units
+        derivation: deterministic transformation for ncs.postingNcsMatch under contract 2.1.2
+        qualityRule: must be non-null
+      ncsConfidenceTier:
+        type: VARCHAR
+        nullable: false
+        description: Confidence tier
+        enumRef: confidenceTier
+        source: core task evidence and official NCS units
+        derivation: deterministic transformation for ncs.postingNcsMatch under contract 2.1.2
+        qualityRule: must be non-null; must belong to enum confidenceTier
+      evidenceText:
+        type: VARCHAR
+        nullable: false
+        description: Task-context evidence text
+        source: core task evidence and official NCS units
+        derivation: deterministic transformation for ncs.postingNcsMatch under contract 2.1.2
+        qualityRule: must be non-null
+      mappingVersion:
+        type: VARCHAR
+        nullable: false
+        description: Mapping version
+        source: core task evidence and official NCS units
+        derivation: deterministic transformation for ncs.postingNcsMatch under contract 2.1.2
+        qualityRule: must be non-null
+      matchedAt:
+        type: TIMESTAMPTZ
+        nullable: false
+        description: Match timestamp
+        source: core task evidence and official NCS units
+        derivation: deterministic transformation for ncs.postingNcsMatch under contract 2.1.2
+        qualityRule: must be non-null
+  mart.postingAnalysisMart:
+    description: Canonical track-grain analytical mart
+    primaryKey:
+    - trackId
+    columns:
+      trackId:
+        type: VARCHAR
+        nullable: false
+        description: Track key
+        source: canonical core and NCS entities
+        derivation: TRK_ + sha256(postingId|trackIndex)[:20]
+        qualityRule: non-null and unique within primary key of mart.postingAnalysisMart
+      postingId:
+        type: VARCHAR
+        nullable: false
+        description: Posting key
+        source: canonical core and NCS entities
+        derivation: PST_ + sha256(sourceName|sourcePostingId)[:20]
+        qualityRule: must be non-null
+      canonicalPostingId:
+        type: VARCHAR
+        nullable: false
+        description: Deduplicated count key
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null
+      canonicalPostedAt:
+        type: TIMESTAMPTZ
+        nullable: false
+        description: First post timestamp
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null
+      periodMonth:
+        type: DATE
+        nullable: false
+        description: First day of month
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null
+      year:
+        type: SMALLINT
+        nullable: false
+        description: Calendar year
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null
+      month:
+        type: SMALLINT
+        nullable: false
+        description: Calendar month
+        check: month BETWEEN 1 AND 12
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null; must satisfy month BETWEEN 1 AND 12
+      quarterNumber:
+        type: SMALLINT
+        nullable: false
+        description: Quarter number
+        check: quarterNumber BETWEEN 1 AND 4
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null; must satisfy quarterNumber BETWEEN 1 AND 4
+      asOfDate:
+        type: DATE
+        nullable: false
+        description: Data cutoff date
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null
+      sourceName:
+        type: VARCHAR
+        nullable: false
+        description: Source
+        enum:
+        - linkareer
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null; must belong to the inline enum
+      sourceUrl:
+        type: VARCHAR
+        nullable: false
+        description: Posting URL
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null
+      companyKey:
+        type: VARCHAR
+        nullable: true
+        description: Company key
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      companyName:
+        type: VARCHAR
+        nullable: true
+        description: Company name
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      jobTitle:
+        type: VARCHAR
+        nullable: true
+        description: Job title
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      cohortType:
+        type: VARCHAR
+        nullable: false
+        description: Analysis cohort
+        enumRef: cohortType
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null; must belong to enum cohortType
+      jobCodeLevel:
+        type: VARCHAR
+        nullable: false
+        description: Job aggregation level
+        enumRef: jobCodeLevel
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null; must belong to enum jobCodeLevel
+      jobCode:
+        type: VARCHAR
+        nullable: false
+        description: ALL or NCS classification code
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null
+      coreAiItFlag:
+        type: BOOLEAN
+        nullable: false
+        description: Core AI-IT cohort flag
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null
+      postingKind:
+        type: VARCHAR
+        nullable: false
+        description: Posting kind
+        enumRef: postingKind
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null; must belong to enum postingKind
+      postingEligibleFlag:
+        type: BOOLEAN
+        nullable: false
+        description: Dedup-independent eligibility
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null
+      rq1EligibleFlag:
+        type: BOOLEAN
+        nullable: false
+        description: RQ1 denominator eligibility
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null
+      rq2EligibleFlag:
+        type: BOOLEAN
+        nullable: false
+        description: RQ2 barrier-analysis eligibility
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null
+      ncsEligibleFlag:
+        type: BOOLEAN
+        nullable: false
+        description: NCS mapping eligibility
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null
+      rq2ExclusionReason:
+        type: VARCHAR
+        nullable: true
+        description: RQ2 exclusion reason
+        enumRef: rq2ExclusionReason
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must belong to enum rq2ExclusionReason
+      canonicalRecordFlag:
+        type: BOOLEAN
+        nullable: false
+        description: Canonical repost-group record
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null
+      trackType:
+        type: VARCHAR
+        nullable: false
+        description: Track type
+        enumRef: trackType
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null; must belong to enum trackType
+      recruitmentScope:
+        type: VARCHAR
+        nullable: false
+        description: Recruitment scope
+        enumRef: recruitmentScope
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null; must belong to enum recruitmentScope
+      hasEntryFlag:
+        type: BOOLEAN
+        nullable: false
+        description: Includes entry
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null
+      hasInternFlag:
+        type: BOOLEAN
+        nullable: false
+        description: Includes intern
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null
+      hasExperiencedFlag:
+        type: BOOLEAN
+        nullable: false
+        description: Includes experienced
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null
+      mixedResolvedFlag:
+        type: BOOLEAN
+        nullable: false
+        description: Mixed split resolved
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null
+      activityTextAvailableFlag:
+        type: BOOLEAN
+        nullable: false
+        description: ActivityText detail availability
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null
+      externalApplyFlag:
+        type: BOOLEAN
+        nullable: false
+        description: External apply destination is present
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null
+      externalDetailOnlyFlag:
+        type: BOOLEAN
+        nullable: false
+        description: Full detail only on external ATS
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null
+      jobTypeConflictFlag:
+        type: BOOLEAN
+        nullable: false
+        description: Listing and duty job type conflict
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null
+      careerClass:
+        type: VARCHAR
+        nullable: false
+        description: Career class
+        enumRef: careerClass
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null; must belong to enum careerClass
+      internAccessClass:
+        type: VARCHAR
+        nullable: true
+        description: Intern access class
+        enumRef: internAccessClass
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must belong to enum internAccessClass
+      nominalEntryFlag:
+        type: BOOLEAN
+        nullable: false
+        description: E0 or E1
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null
+      restrictedInternFlag:
+        type: BOOLEAN
+        nullable: false
+        description: Required career or prior experience
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null
+      experiencedInternFlag:
+        type: BOOLEAN
+        nullable: false
+        description: Strict prior-experience requirement
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null
+      boundaryResolvedFlag:
+        type: BOOLEAN
+        nullable: false
+        description: Required-preferred boundary resolved
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null
+      minCareerMonths:
+        type: SMALLINT
+        nullable: true
+        description: Minimum required career months
+        check: minCareerMonths IS NULL OR minCareerMonths >= 0
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must satisfy minCareerMonths IS NULL OR minCareerMonths >= 0
+      ncsLevelWeightedMedian:
+        type: DOUBLE
+        nullable: true
+        description: Confidence-weighted median NCS level
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      ncsBandPrimary:
+        type: VARCHAR
+        nullable: true
+        description: Primary NCS band
+        enumRef: ncsBand
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must belong to enum ncsBand
+      ncsMappingCoverage:
+        type: DOUBLE
+        nullable: false
+        description: Track-level mapping coverage
+        check: ncsMappingCoverage BETWEEN 0 AND 1
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null; must satisfy ncsMappingCoverage BETWEEN 0 AND 1
+      ncsConfidenceTier:
+        type: VARCHAR
+        nullable: true
+        description: Selected match confidence
+        enumRef: confidenceTier
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must belong to enum confidenceTier
+      highDemandScore:
+        type: DOUBLE
+        nullable: true
+        description: Reserved composite score
+        check: highDemandScore IS NULL
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must satisfy highDemandScore IS NULL
+      scoreStatus:
+        type: VARCHAR
+        nullable: false
+        description: Reserved score status
+        enumRef: scoreStatus
+        default: '''reserved'''
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null; must belong to enum scoreStatus
+      duplicateGroupId:
+        type: VARCHAR
+        nullable: true
+        description: Dedup group
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      repostCount:
+        type: SMALLINT
+        nullable: false
+        description: Repost count
+        default: 0
+        check: repostCount >= 0
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null; must satisfy repostCount >= 0
+      rawSha256:
+        type: VARCHAR
+        nullable: false
+        description: Source SHA-256
+        check: length(rawSha256) = 64
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null; must satisfy length(rawSha256) = 64
+      parseVersion:
+        type: VARCHAR
+        nullable: false
+        description: Parser version
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null
+      labelVersion:
+        type: VARCHAR
+        nullable: false
+        description: Label version
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null
+      ncsMapVersion:
+        type: VARCHAR
+        nullable: false
+        description: NCS mapping version
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null
+      dataVersion:
+        type: VARCHAR
+        nullable: false
+        description: Data version
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null
+      builtAt:
+        type: TIMESTAMPTZ
+        nullable: false
+        description: Mart build timestamp
+        source: canonical core and NCS entities
+        derivation: deterministic transformation for mart.postingAnalysisMart under contract 2.1.2
+        qualityRule: must be non-null
+  mart.timeSeriesMart:
+    description: Monthly metric mart
+    primaryKey:
+    - periodMonth
+    - cohortType
+    - jobCodeLevel
+    - jobCode
+    - dedupApplied
+    columns:
+      periodMonth:
+        type: DATE
+        nullable: false
+        description: First day of month
+        source: mart.postingAnalysisMart and qa.monthlyCoverageAudit
+        derivation: deterministic transformation for mart.timeSeriesMart under contract 2.1.2
+        qualityRule: non-null and unique within primary key of mart.timeSeriesMart
+      cohortType:
+        type: VARCHAR
+        nullable: false
+        description: Analysis cohort
+        enumRef: cohortType
+        source: mart.postingAnalysisMart and qa.monthlyCoverageAudit
+        derivation: deterministic transformation for mart.timeSeriesMart under contract 2.1.2
+        qualityRule: non-null and unique within primary key of mart.timeSeriesMart; must belong to enum cohortType
+      jobCodeLevel:
+        type: VARCHAR
+        nullable: false
+        description: Job aggregation level
+        enumRef: jobCodeLevel
+        source: mart.postingAnalysisMart and qa.monthlyCoverageAudit
+        derivation: deterministic transformation for mart.timeSeriesMart under contract 2.1.2
+        qualityRule: non-null and unique within primary key of mart.timeSeriesMart; must belong to enum jobCodeLevel
+      jobCode:
+        type: VARCHAR
+        nullable: false
+        description: ALL or NCS classification code
+        source: mart.postingAnalysisMart and qa.monthlyCoverageAudit
+        derivation: deterministic transformation for mart.timeSeriesMart under contract 2.1.2
+        qualityRule: non-null and unique within primary key of mart.timeSeriesMart
+      dedupApplied:
+        type: BOOLEAN
+        nullable: false
+        description: Canonical dedup filter applied
+        source: mart.postingAnalysisMart and qa.monthlyCoverageAudit
+        derivation: deterministic transformation for mart.timeSeriesMart under contract 2.1.2
+        qualityRule: non-null and unique within primary key of mart.timeSeriesMart
+      totalValidPostingCount:
+        type: INTEGER
+        nullable: false
+        description: Distinct posting count
+        check: totalValidPostingCount >= 0
+        source: mart.postingAnalysisMart and qa.monthlyCoverageAudit
+        derivation: deterministic transformation for mart.timeSeriesMart under contract 2.1.2
+        qualityRule: must be non-null; must satisfy totalValidPostingCount >= 0
+      entryPostingCount:
+        type: INTEGER
+        nullable: false
+        description: Entry-including posting count
+        check: entryPostingCount >= 0
+        source: mart.postingAnalysisMart and qa.monthlyCoverageAudit
+        derivation: deterministic transformation for mart.timeSeriesMart under contract 2.1.2
+        qualityRule: must be non-null; must satisfy entryPostingCount >= 0
+      internPostingCount:
+        type: INTEGER
+        nullable: false
+        description: Intern-including posting count
+        check: internPostingCount >= 0
+        source: mart.postingAnalysisMart and qa.monthlyCoverageAudit
+        derivation: deterministic transformation for mart.timeSeriesMart under contract 2.1.2
+        qualityRule: must be non-null; must satisfy internPostingCount >= 0
+      entryPostingRate:
+        type: DOUBLE
+        nullable: true
+        description: Entry posting rate
+        source: mart.postingAnalysisMart and qa.monthlyCoverageAudit
+        derivation: deterministic transformation for mart.timeSeriesMart under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      internPostingRate:
+        type: DOUBLE
+        nullable: true
+        description: Intern posting rate
+        source: mart.postingAnalysisMart and qa.monthlyCoverageAudit
+        derivation: deterministic transformation for mart.timeSeriesMart under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      entryOnlyRate:
+        type: DOUBLE
+        nullable: true
+        description: Entry-only posting rate
+        source: mart.postingAnalysisMart and qa.monthlyCoverageAudit
+        derivation: deterministic transformation for mart.timeSeriesMart under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      internOnlyRate:
+        type: DOUBLE
+        nullable: true
+        description: Intern-only posting rate
+        source: mart.postingAnalysisMart and qa.monthlyCoverageAudit
+        derivation: deterministic transformation for mart.timeSeriesMart under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      mixedRate:
+        type: DOUBLE
+        nullable: true
+        description: Mixed posting rate
+        source: mart.postingAnalysisMart and qa.monthlyCoverageAudit
+        derivation: deterministic transformation for mart.timeSeriesMart under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      experiencedOnlyRate:
+        type: DOUBLE
+        nullable: true
+        description: Experienced-only posting rate
+        source: mart.postingAnalysisMart and qa.monthlyCoverageAudit
+        derivation: deterministic transformation for mart.timeSeriesMart under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      internRelativeIndex:
+        type: DOUBLE
+        nullable: true
+        description: Log relative prevalence index
+        source: mart.postingAnalysisMart and qa.monthlyCoverageAudit
+        derivation: deterministic transformation for mart.timeSeriesMart under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      openEntryShare:
+        type: DOUBLE
+        nullable: true
+        description: E0 among E0 plus E1
+        source: mart.postingAnalysisMart and qa.monthlyCoverageAudit
+        derivation: deterministic transformation for mart.timeSeriesMart under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      restrictedEntryShare:
+        type: DOUBLE
+        nullable: true
+        description: E1 among E0 plus E1
+        source: mart.postingAnalysisMart and qa.monthlyCoverageAudit
+        derivation: deterministic transformation for mart.timeSeriesMart under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      unknownCareerShare:
+        type: DOUBLE
+        nullable: true
+        description: U among eligible non-intern tracks
+        source: mart.postingAnalysisMart and qa.monthlyCoverageAudit
+        derivation: deterministic transformation for mart.timeSeriesMart under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      restrictedInternShare:
+        type: DOUBLE
+        nullable: true
+        description: I1 among I0 plus I1
+        source: mart.postingAnalysisMart and qa.monthlyCoverageAudit
+        derivation: deterministic transformation for mart.timeSeriesMart under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      experiencedInternShare:
+        type: DOUBLE
+        nullable: true
+        description: Strict experienced interns among I0 plus I1
+        source: mart.postingAnalysisMart and qa.monthlyCoverageAudit
+        derivation: deterministic transformation for mart.timeSeriesMart under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      unknownInternShare:
+        type: DOUBLE
+        nullable: true
+        description: IU among eligible intern tracks
+        source: mart.postingAnalysisMart and qa.monthlyCoverageAudit
+        derivation: deterministic transformation for mart.timeSeriesMart under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      advancedDutyShare:
+        type: DOUBLE
+        nullable: true
+        description: NCS level 5 to 8 share among mapped duties
+        source: mart.postingAnalysisMart and qa.monthlyCoverageAudit
+        derivation: deterministic transformation for mart.timeSeriesMart under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      ncsMappingCoverage:
+        type: DOUBLE
+        nullable: true
+        description: NCS mapping coverage
+        source: mart.postingAnalysisMart and qa.monthlyCoverageAudit
+        derivation: deterministic transformation for mart.timeSeriesMart under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      lowConfidenceNcsShare:
+        type: DOUBLE
+        nullable: true
+        description: Low-confidence share among mapped tracks
+        source: mart.postingAnalysisMart and qa.monthlyCoverageAudit
+        derivation: deterministic transformation for mart.timeSeriesMart under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      rq1EligibilityRate:
+        type: DOUBLE
+        nullable: true
+        description: RQ1 eligibility rate
+        source: mart.postingAnalysisMart and qa.monthlyCoverageAudit
+        derivation: deterministic transformation for mart.timeSeriesMart under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      rq2EligibilityRate:
+        type: DOUBLE
+        nullable: true
+        description: RQ2 eligibility rate
+        source: mart.postingAnalysisMart and qa.monthlyCoverageAudit
+        derivation: deterministic transformation for mart.timeSeriesMart under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      ncsEligibilityRate:
+        type: DOUBLE
+        nullable: true
+        description: NCS eligibility rate
+        source: mart.postingAnalysisMart and qa.monthlyCoverageAudit
+        derivation: deterministic transformation for mart.timeSeriesMart under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      externalApplyShare:
+        type: DOUBLE
+        nullable: true
+        description: Share of RQ1 postings with an external apply destination
+        check: externalApplyShare IS NULL OR externalApplyShare BETWEEN 0 AND 1
+        source: mart.postingAnalysisMart and qa.monthlyCoverageAudit
+        derivation: deterministic transformation for mart.timeSeriesMart under contract 2.1.2
+        qualityRule: must satisfy externalApplyShare IS NULL OR externalApplyShare BETWEEN 0 AND 1
+      externalDetailOnlyShare:
+        type: DOUBLE
+        nullable: true
+        description: Share of RQ1 postings whose full detail is external-only
+        check: externalDetailOnlyShare IS NULL OR externalDetailOnlyShare BETWEEN 0 AND 1
+        source: mart.postingAnalysisMart and qa.monthlyCoverageAudit
+        derivation: deterministic transformation for mart.timeSeriesMart under contract 2.1.2
+        qualityRule: must satisfy externalDetailOnlyShare IS NULL OR externalDetailOnlyShare BETWEEN 0 AND 1
+      activityTextAvailabilityRate:
+        type: DOUBLE
+        nullable: true
+        description: ActivityText availability rate
+        source: mart.postingAnalysisMart and qa.monthlyCoverageAudit
+        derivation: deterministic transformation for mart.timeSeriesMart under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      jobTypeConflictRate:
+        type: DOUBLE
+        nullable: true
+        description: Job-type conflict rate
+        source: mart.postingAnalysisMart and qa.monthlyCoverageAudit
+        derivation: deterministic transformation for mart.timeSeriesMart under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      coverageStatus:
+        type: VARCHAR
+        nullable: false
+        description: Monthly source coverage
+        enumRef: coverageStatus
+        source: mart.postingAnalysisMart and qa.monthlyCoverageAudit
+        derivation: deterministic transformation for mart.timeSeriesMart under contract 2.1.2
+        qualityRule: must be non-null; must belong to enum coverageStatus
+      partialMonthFlag:
+        type: BOOLEAN
+        nullable: false
+        description: Period is an incomplete month
+        source: mart.postingAnalysisMart and qa.monthlyCoverageAudit
+        derivation: deterministic transformation for mart.timeSeriesMart under contract 2.1.2
+        qualityRule: must be non-null
+      asOfDate:
+        type: DATE
+        nullable: false
+        description: Data cutoff date
+        source: mart.postingAnalysisMart and qa.monthlyCoverageAudit
+        derivation: deterministic transformation for mart.timeSeriesMart under contract 2.1.2
+        qualityRule: must be non-null
+      dataVersion:
+        type: VARCHAR
+        nullable: false
+        description: Data version
+        source: mart.postingAnalysisMart and qa.monthlyCoverageAudit
+        derivation: deterministic transformation for mart.timeSeriesMart under contract 2.1.2
+        qualityRule: must be non-null
+      builtAt:
+        type: TIMESTAMPTZ
+        nullable: false
+        description: Mart build timestamp
+        source: mart.postingAnalysisMart and qa.monthlyCoverageAudit
+        derivation: deterministic transformation for mart.timeSeriesMart under contract 2.1.2
+        qualityRule: must be non-null
+  mart.caseStudyRegistry:
+    description: Manual RQ5 case registry
+    primaryKey:
+    - caseId
+    columns:
+      caseId:
+        type: VARCHAR
+        nullable: false
+        description: Case key
+        source: human-reviewed registered cases
+        derivation: deterministic transformation for mart.caseStudyRegistry under contract 2.1.2
+        qualityRule: non-null and unique within primary key of mart.caseStudyRegistry
+      postingId:
+        type: VARCHAR
+        nullable: false
+        description: Posting key
+        source: human-reviewed registered cases
+        derivation: PST_ + sha256(sourceName|sourcePostingId)[:20]
+        qualityRule: must be non-null
+      trackId:
+        type: VARCHAR
+        nullable: true
+        description: Track key
+        source: human-reviewed registered cases
+        derivation: TRK_ + sha256(postingId|trackIndex)[:20]
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      companyName:
+        type: VARCHAR
+        nullable: true
+        description: Company name
+        source: human-reviewed registered cases
+        derivation: deterministic transformation for mart.caseStudyRegistry under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      selectionReason:
+        type: VARCHAR
+        nullable: false
+        description: Evidence-based selection reason
+        source: human-reviewed registered cases
+        derivation: deterministic transformation for mart.caseStudyRegistry under contract 2.1.2
+        qualityRule: must be non-null
+      evidenceQuote:
+        type: VARCHAR
+        nullable: true
+        description: Short supporting quotation
+        source: human-reviewed registered cases
+        derivation: deterministic transformation for mart.caseStudyRegistry under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      reviewedBy:
+        type: VARCHAR
+        nullable: false
+        description: Human reviewer
+        source: human-reviewed registered cases
+        derivation: deterministic transformation for mart.caseStudyRegistry under contract 2.1.2
+        qualityRule: must be non-null
+      reviewedAt:
+        type: TIMESTAMPTZ
+        nullable: false
+        description: Review timestamp
+        source: human-reviewed registered cases
+        derivation: deterministic transformation for mart.caseStudyRegistry under contract 2.1.2
+        qualityRule: must be non-null
+  mart.similarityPair:
+    description: Optional RQ3 similarity result
+    primaryKey:
+    - pairId
+    columns:
+      pairId:
+        type: VARCHAR
+        nullable: false
+        description: Pair key
+        source: registered auxiliary similarity analysis
+        derivation: deterministic transformation for mart.similarityPair under contract 2.1.2
+        qualityRule: non-null and unique within primary key of mart.similarityPair
+      internTrackId:
+        type: VARCHAR
+        nullable: false
+        description: Intern track
+        source: registered auxiliary similarity analysis
+        derivation: deterministic transformation for mart.similarityPair under contract 2.1.2
+        qualityRule: must be non-null
+      comparisonTrackId:
+        type: VARCHAR
+        nullable: false
+        description: Entry or experienced track
+        source: registered auxiliary similarity analysis
+        derivation: deterministic transformation for mart.similarityPair under contract 2.1.2
+        qualityRule: must be non-null
+      comparisonType:
+        type: VARCHAR
+        nullable: false
+        description: Comparison class
+        enum:
+        - entry
+        - experienced
+        source: registered auxiliary similarity analysis
+        derivation: deterministic transformation for mart.similarityPair under contract 2.1.2
+        qualityRule: must be non-null; must belong to the inline enum
+      ncsSubCode:
+        type: VARCHAR
+        nullable: true
+        description: Matched NCS subclass
+        source: registered auxiliary similarity analysis
+        derivation: deterministic transformation for mart.similarityPair under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      yearGap:
+        type: SMALLINT
+        nullable: true
+        description: Absolute year gap
+        check: yearGap IS NULL OR yearGap BETWEEN 0 AND 1
+        source: registered auxiliary similarity analysis
+        derivation: deterministic transformation for mart.similarityPair under contract 2.1.2
+        qualityRule: must satisfy yearGap IS NULL OR yearGap BETWEEN 0 AND 1
+      qualificationSimilarity:
+        type: DOUBLE
+        nullable: true
+        description: Qualification similarity
+        source: registered auxiliary similarity analysis
+        derivation: deterministic transformation for mart.similarityPair under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      dutySimilarity:
+        type: DOUBLE
+        nullable: true
+        description: Duty similarity
+        source: registered auxiliary similarity analysis
+        derivation: deterministic transformation for mart.similarityPair under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      embeddingModel:
+        type: VARCHAR
+        nullable: false
+        description: Embedding model
+        source: registered auxiliary similarity analysis
+        derivation: deterministic transformation for mart.similarityPair under contract 2.1.2
+        qualityRule: must be non-null
+      auxVersion:
+        type: VARCHAR
+        nullable: false
+        description: Auxiliary analysis version
+        source: registered auxiliary similarity analysis
+        derivation: deterministic transformation for mart.similarityPair under contract 2.1.2
+        qualityRule: must be non-null
+  qa.monthlyCoverageAudit:
+    description: Monthly collection and OCR coverage audit
+    primaryKey:
+    - periodMonth
+    - sourceName
+    - auditVersion
+    columns:
+      periodMonth:
+        type: DATE
+        nullable: false
+        description: First day of month
+        source: Agent 1 crawl release manifests and coverage audits
+        derivation: deterministic transformation for qa.monthlyCoverageAudit under contract 2.1.2
+        qualityRule: non-null and unique within primary key of qa.monthlyCoverageAudit
+      sourceName:
+        type: VARCHAR
+        nullable: false
+        description: Source name
+        source: Agent 1 crawl release manifests and coverage audits
+        derivation: deterministic transformation for qa.monthlyCoverageAudit under contract 2.1.2
+        qualityRule: non-null and unique within primary key of qa.monthlyCoverageAudit
+      discoveredCount:
+        type: INTEGER
+        nullable: false
+        description: Discovered candidate count
+        check: discoveredCount >= 0
+        source: Agent 1 crawl release manifests and coverage audits
+        derivation: deterministic transformation for qa.monthlyCoverageAudit under contract 2.1.2
+        qualityRule: must be non-null; must satisfy discoveredCount >= 0
+      fetchedCount:
+        type: INTEGER
+        nullable: false
+        description: Fetched count
+        check: fetchedCount >= 0
+        source: Agent 1 crawl release manifests and coverage audits
+        derivation: deterministic transformation for qa.monthlyCoverageAudit under contract 2.1.2
+        qualityRule: must be non-null; must satisfy fetchedCount >= 0
+      aliveCount:
+        type: INTEGER
+        nullable: false
+        description: Live detail count
+        check: aliveCount >= 0
+        source: Agent 1 crawl release manifests and coverage audits
+        derivation: deterministic transformation for qa.monthlyCoverageAudit under contract 2.1.2
+        qualityRule: must be non-null; must satisfy aliveCount >= 0
+      deadCount:
+        type: INTEGER
+        nullable: false
+        description: Deleted detail count
+        check: deadCount >= 0
+        source: Agent 1 crawl release manifests and coverage audits
+        derivation: deterministic transformation for qa.monthlyCoverageAudit under contract 2.1.2
+        qualityRule: must be non-null; must satisfy deadCount >= 0
+      parsedCount:
+        type: INTEGER
+        nullable: false
+        description: Parsed count
+        check: parsedCount >= 0
+        source: Agent 1 crawl release manifests and coverage audits
+        derivation: deterministic transformation for qa.monthlyCoverageAudit under contract 2.1.2
+        qualityRule: must be non-null; must satisfy parsedCount >= 0
+      validPostingCount:
+        type: INTEGER
+        nullable: false
+        description: Eligible posting count
+        check: validPostingCount >= 0
+        source: Agent 1 crawl release manifests and coverage audits
+        derivation: deterministic transformation for qa.monthlyCoverageAudit under contract 2.1.2
+        qualityRule: must be non-null; must satisfy validPostingCount >= 0
+      imageOnlyShare:
+        type: DOUBLE
+        nullable: true
+        description: Image-only posting share
+        source: Agent 1 crawl release manifests and coverage audits
+        derivation: deterministic transformation for qa.monthlyCoverageAudit under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      ocrAttemptCount:
+        type: INTEGER
+        nullable: false
+        description: OCR attempts
+        default: 0
+        check: ocrAttemptCount >= 0
+        source: Agent 1 crawl release manifests and coverage audits
+        derivation: deterministic transformation for qa.monthlyCoverageAudit under contract 2.1.2
+        qualityRule: must be non-null; must satisfy ocrAttemptCount >= 0
+      ocrSuccessCount:
+        type: INTEGER
+        nullable: false
+        description: Successful OCR results
+        default: 0
+        check: ocrSuccessCount >= 0
+        source: Agent 1 crawl release manifests and coverage audits
+        derivation: deterministic transformation for qa.monthlyCoverageAudit under contract 2.1.2
+        qualityRule: must be non-null; must satisfy ocrSuccessCount >= 0
+      ocrSuccessRate:
+        type: DOUBLE
+        nullable: true
+        description: OCR success rate
+        source: Agent 1 crawl release manifests and coverage audits
+        derivation: deterministic transformation for qa.monthlyCoverageAudit under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      survivalRate:
+        type: DOUBLE
+        nullable: true
+        description: Detail-page survival rate
+        source: Agent 1 crawl release manifests and coverage audits
+        derivation: deterministic transformation for qa.monthlyCoverageAudit under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      coverageStatus:
+        type: VARCHAR
+        nullable: false
+        description: Coverage status
+        enumRef: coverageStatus
+        source: Agent 1 crawl release manifests and coverage audits
+        derivation: deterministic transformation for qa.monthlyCoverageAudit under contract 2.1.2
+        qualityRule: must be non-null; must belong to enum coverageStatus
+      coverageReason:
+        type: VARCHAR
+        nullable: false
+        description: Primary reason for the monthly coverage status
+        enumRef: coverageReason
+        source: Agent 1 crawl release manifests and coverage audits
+        derivation: deterministic transformation for qa.monthlyCoverageAudit under contract 2.1.2
+        qualityRule: must be non-null; must belong to enum coverageReason
+      platformCoverageRegime:
+        type: VARCHAR
+        nullable: false
+        description: Observed platform-service maturity regime
+        enumRef: platformCoverageRegime
+        source: Agent 1 crawl release manifests and coverage audits
+        derivation: deterministic transformation for qa.monthlyCoverageAudit under contract 2.1.2
+        qualityRule: must be non-null; must belong to enum platformCoverageRegime
+      auditNote:
+        type: VARCHAR
+        nullable: true
+        description: Coverage caveat
+        source: Agent 1 crawl release manifests and coverage audits
+        derivation: deterministic transformation for qa.monthlyCoverageAudit under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      auditVersion:
+        type: VARCHAR
+        nullable: false
+        description: Audit version
+        source: Agent 1 crawl release manifests and coverage audits
+        derivation: deterministic transformation for qa.monthlyCoverageAudit under contract 2.1.2
+        qualityRule: non-null and unique within primary key of qa.monthlyCoverageAudit
+      auditedAt:
+        type: TIMESTAMPTZ
+        nullable: false
+        description: Audit timestamp
+        source: Agent 1 crawl release manifests and coverage audits
+        derivation: deterministic transformation for qa.monthlyCoverageAudit under contract 2.1.2
+        qualityRule: must be non-null
+  qa.sourcePolicyAudit:
+    description: Versioned source-policy evidence used by the collection gate
+    primaryKey:
+    - sourceName
+    - policyVersion
+    columns:
+      sourceName:
+        type: VARCHAR
+        nullable: false
+        description: Registered source name
+        source: robots, terms, client-verification, and human-review evidence
+        derivation: versioned evidence assertion reviewed under SOURCE_POLICY_GATE
+        qualityRule: non-null and unique within primary key of qa.sourcePolicyAudit
+      policyVersion:
+        type: VARCHAR
+        nullable: false
+        description: Policy evidence version
+        source: robots, terms, client-verification, and human-review evidence
+        derivation: versioned evidence assertion reviewed under SOURCE_POLICY_GATE
+        qualityRule: non-null and unique within primary key of qa.sourcePolicyAudit
+      robotsStatus:
+        type: VARCHAR
+        nullable: false
+        description: Robots review status
+        enumRef: robotsStatus
+        source: robots, terms, client-verification, and human-review evidence
+        derivation: versioned evidence assertion reviewed under SOURCE_POLICY_GATE
+        qualityRule: must be non-null; must belong to enum robotsStatus
+      termsStatus:
+        type: VARCHAR
+        nullable: false
+        description: Terms review status
+        enumRef: termsStatus
+        source: robots, terms, client-verification, and human-review evidence
+        derivation: versioned evidence assertion reviewed under SOURCE_POLICY_GATE
+        qualityRule: must be non-null; must belong to enum termsStatus
+      clientAccessMode:
+        type: VARCHAR
+        nullable: false
+        description: Client mode required for successful access
+        enumRef: clientAccessMode
+        source: robots, terms, client-verification, and human-review evidence
+        derivation: versioned evidence assertion reviewed under SOURCE_POLICY_GATE
+        qualityRule: must be non-null; must belong to enum clientAccessMode
+      transparentClientVerified:
+        type: BOOLEAN
+        nullable: false
+        description: Declared non-impersonated client reproduced production request form
+        default: false
+        source: robots, terms, client-verification, and human-review evidence
+        derivation: versioned evidence assertion reviewed under SOURCE_POLICY_GATE
+        qualityRule: must be non-null
+      collectionBlocked:
+        type: BOOLEAN
+        nullable: false
+        description: Collection is administratively or technically blocked
+        default: false
+        source: robots, terms, client-verification, and human-review evidence
+        derivation: versioned evidence assertion reviewed under SOURCE_POLICY_GATE
+        qualityRule: must be non-null
+      verifiedAt:
+        type: TIMESTAMPTZ
+        nullable: false
+        description: Policy and access verification timestamp
+        source: robots, terms, client-verification, and human-review evidence
+        derivation: versioned evidence assertion reviewed under SOURCE_POLICY_GATE
+        qualityRule: must be non-null
+      reviewerStatus:
+        type: VARCHAR
+        nullable: false
+        description: Human review disposition
+        enumRef: reviewerStatus
+        source: robots, terms, client-verification, and human-review evidence
+        derivation: versioned evidence assertion reviewed under SOURCE_POLICY_GATE
+        qualityRule: must be non-null; must belong to enum reviewerStatus
+      evidenceSha256:
+        type: VARCHAR
+        nullable: false
+        description: SHA-256 of the policy evidence bundle
+        check: length(evidenceSha256) = 64
+        source: robots, terms, client-verification, and human-review evidence
+        derivation: versioned evidence assertion reviewed under SOURCE_POLICY_GATE
+        qualityRule: must be non-null; must satisfy length(evidenceSha256) = 64
+      policyNote:
+        type: VARCHAR
+        nullable: true
+        description: Scope limits and unresolved policy notes
+        source: robots, terms, client-verification, and human-review evidence
+        derivation: versioned evidence assertion reviewed under SOURCE_POLICY_GATE
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+  qa.goldSample:
+    description: Human-labeled evaluation sample
+    primaryKey:
+    - goldId
+    columns:
+      goldId:
+        type: VARCHAR
+        nullable: false
+        description: Gold sample key
+        source: human annotation workflow
+        derivation: deterministic transformation for qa.goldSample under contract 2.1.2
+        qualityRule: non-null and unique within primary key of qa.goldSample
+      goldSetName:
+        type: VARCHAR
+        nullable: false
+        description: Gold set name
+        source: human annotation workflow
+        derivation: deterministic transformation for qa.goldSample under contract 2.1.2
+        qualityRule: must be non-null
+      targetType:
+        type: VARCHAR
+        nullable: false
+        description: Evaluated task
+        source: human annotation workflow
+        derivation: deterministic transformation for qa.goldSample under contract 2.1.2
+        qualityRule: must be non-null
+      postingId:
+        type: VARCHAR
+        nullable: false
+        description: Posting key
+        source: human annotation workflow
+        derivation: PST_ + sha256(sourceName|sourcePostingId)[:20]
+        qualityRule: must be non-null
+      trackId:
+        type: VARCHAR
+        nullable: true
+        description: Track key
+        source: human annotation workflow
+        derivation: TRK_ + sha256(postingId|trackIndex)[:20]
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      goldValue:
+        type: VARCHAR
+        nullable: false
+        description: Adjudicated label
+        source: human annotation workflow
+        derivation: deterministic transformation for qa.goldSample under contract 2.1.2
+        qualityRule: must be non-null
+      annotator:
+        type: VARCHAR
+        nullable: false
+        description: Primary annotator
+        source: human annotation workflow
+        derivation: deterministic transformation for qa.goldSample under contract 2.1.2
+        qualityRule: must be non-null
+      doubleCodedFlag:
+        type: BOOLEAN
+        nullable: false
+        description: Double-coded indicator
+        default: false
+        source: human annotation workflow
+        derivation: deterministic transformation for qa.goldSample under contract 2.1.2
+        qualityRule: must be non-null
+      evidenceText:
+        type: VARCHAR
+        nullable: true
+        description: Label evidence
+        source: human annotation workflow
+        derivation: deterministic transformation for qa.goldSample under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      goldVersion:
+        type: VARCHAR
+        nullable: false
+        description: Gold version
+        source: human annotation workflow
+        derivation: deterministic transformation for qa.goldSample under contract 2.1.2
+        qualityRule: must be non-null
+      labeledAt:
+        type: TIMESTAMPTZ
+        nullable: false
+        description: Label timestamp
+        source: human annotation workflow
+        derivation: deterministic transformation for qa.goldSample under contract 2.1.2
+        qualityRule: must be non-null
+  qa.evalRun:
+    description: Quality-gate evaluation run
+    primaryKey:
+    - evalRunId
+    columns:
+      evalRunId:
+        type: VARCHAR
+        nullable: false
+        description: Evaluation run key
+        source: registered quality evaluation run
+        derivation: deterministic transformation for qa.evalRun under contract 2.1.2
+        qualityRule: non-null and unique within primary key of qa.evalRun
+      targetType:
+        type: VARCHAR
+        nullable: false
+        description: Evaluated target
+        source: registered quality evaluation run
+        derivation: deterministic transformation for qa.evalRun under contract 2.1.2
+        qualityRule: must be non-null
+      goldSetName:
+        type: VARCHAR
+        nullable: false
+        description: Gold set name
+        source: registered quality evaluation run
+        derivation: deterministic transformation for qa.evalRun under contract 2.1.2
+        qualityRule: must be non-null
+      predictorVersion:
+        type: VARCHAR
+        nullable: false
+        description: Evaluated predictor version
+        source: registered quality evaluation run
+        derivation: deterministic transformation for qa.evalRun under contract 2.1.2
+        qualityRule: must be non-null
+      sampleCount:
+        type: INTEGER
+        nullable: false
+        description: Evaluation sample count
+        check: sampleCount >= 0
+        source: registered quality evaluation run
+        derivation: deterministic transformation for qa.evalRun under contract 2.1.2
+        qualityRule: must be non-null; must satisfy sampleCount >= 0
+      macroF1:
+        type: DOUBLE
+        nullable: true
+        description: Macro F1
+        source: registered quality evaluation run
+        derivation: deterministic transformation for qa.evalRun under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      precisionE0:
+        type: DOUBLE
+        nullable: true
+        description: E0 precision
+        source: registered quality evaluation run
+        derivation: deterministic transformation for qa.evalRun under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      boundaryPrecision:
+        type: DOUBLE
+        nullable: true
+        description: Boundary precision
+        source: registered quality evaluation run
+        derivation: deterministic transformation for qa.evalRun under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      mappingPrecision:
+        type: DOUBLE
+        nullable: true
+        description: NCS mapping precision
+        source: registered quality evaluation run
+        derivation: deterministic transformation for qa.evalRun under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      mappingCoverage:
+        type: DOUBLE
+        nullable: true
+        description: NCS mapping coverage
+        source: registered quality evaluation run
+        derivation: deterministic transformation for qa.evalRun under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      lowConfidenceShare:
+        type: DOUBLE
+        nullable: true
+        description: Low-confidence share
+        source: registered quality evaluation run
+        derivation: deterministic transformation for qa.evalRun under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      passedGate:
+        type: BOOLEAN
+        nullable: false
+        description: Gate pass result
+        source: registered quality evaluation run
+        derivation: deterministic transformation for qa.evalRun under contract 2.1.2
+        qualityRule: must be non-null
+      ranAt:
+        type: TIMESTAMPTZ
+        nullable: false
+        description: Evaluation timestamp
+        source: registered quality evaluation run
+        derivation: deterministic transformation for qa.evalRun under contract 2.1.2
+        qualityRule: must be non-null
+  qa.resultManifest:
+    description: Reproducibility manifest for every reported result
+    primaryKey:
+    - metricId
+    columns:
+      metricId:
+        type: VARCHAR
+        nullable: false
+        description: Result key
+        source: published analysis output lineage
+        derivation: deterministic transformation for qa.resultManifest under contract 2.1.2
+        qualityRule: non-null and unique within primary key of qa.resultManifest
+      metricName:
+        type: VARCHAR
+        nullable: false
+        description: Registered metric name
+        source: published analysis output lineage
+        derivation: deterministic transformation for qa.resultManifest under contract 2.1.2
+        qualityRule: must be non-null
+      metricScope:
+        type: VARCHAR
+        nullable: false
+        description: Monthly yearly YTD segment or model
+        source: published analysis output lineage
+        derivation: deterministic transformation for qa.resultManifest under contract 2.1.2
+        qualityRule: must be non-null
+      cohortType:
+        type: VARCHAR
+        nullable: false
+        description: Analysis cohort
+        enumRef: cohortType
+        source: published analysis output lineage
+        derivation: deterministic transformation for qa.resultManifest under contract 2.1.2
+        qualityRule: must be non-null; must belong to enum cohortType
+      periodLabel:
+        type: VARCHAR
+        nullable: false
+        description: Human-readable period
+        source: published analysis output lineage
+        derivation: deterministic transformation for qa.resultManifest under contract 2.1.2
+        qualityRule: must be non-null
+      jobCode:
+        type: VARCHAR
+        nullable: true
+        description: Job code
+        source: published analysis output lineage
+        derivation: deterministic transformation for qa.resultManifest under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      metricValue:
+        type: DOUBLE
+        nullable: true
+        description: Numeric result
+        source: published analysis output lineage
+        derivation: deterministic transformation for qa.resultManifest under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      denominatorCount:
+        type: INTEGER
+        nullable: true
+        description: Metric denominator
+        source: published analysis output lineage
+        derivation: deterministic transformation for qa.resultManifest under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      dedupApplied:
+        type: BOOLEAN
+        nullable: false
+        description: Dedup setting
+        source: published analysis output lineage
+        derivation: deterministic transformation for qa.resultManifest under contract 2.1.2
+        qualityRule: must be non-null
+      scriptPath:
+        type: VARCHAR
+        nullable: false
+        description: Producing code path
+        source: published analysis output lineage
+        derivation: deterministic transformation for qa.resultManifest under contract 2.1.2
+        qualityRule: must be non-null
+      scriptGitSha:
+        type: VARCHAR
+        nullable: false
+        description: Code monorepo commit
+        source: published analysis output lineage
+        derivation: deterministic transformation for qa.resultManifest under contract 2.1.2
+        qualityRule: must be non-null
+      inputMartSha256:
+        type: VARCHAR
+        nullable: false
+        description: Input mart SHA-256
+        check: length(inputMartSha256) = 64
+        source: published analysis output lineage
+        derivation: deterministic transformation for qa.resultManifest under contract 2.1.2
+        qualityRule: must be non-null; must satisfy length(inputMartSha256) = 64
+      dataVersion:
+        type: VARCHAR
+        nullable: false
+        description: Data version
+        source: published analysis output lineage
+        derivation: deterministic transformation for qa.resultManifest under contract 2.1.2
+        qualityRule: must be non-null
+      computedAt:
+        type: TIMESTAMPTZ
+        nullable: false
+        description: Computation timestamp
+        source: published analysis output lineage
+        derivation: deterministic transformation for qa.resultManifest under contract 2.1.2
+        qualityRule: must be non-null
+  qa.decisionLog:
+    description: Versioned project decision log
+    primaryKey:
+    - decisionId
+    columns:
+      decisionId:
+        type: VARCHAR
+        nullable: false
+        description: Stable decision key
+        source: user and control-plane decisions
+        derivation: deterministic transformation for qa.decisionLog under contract 2.1.2
+        qualityRule: non-null and unique within primary key of qa.decisionLog
+      decidedAt:
+        type: TIMESTAMPTZ
+        nullable: false
+        description: Decision timestamp
+        source: user and control-plane decisions
+        derivation: deterministic transformation for qa.decisionLog under contract 2.1.2
+        qualityRule: must be non-null
+      phase:
+        type: VARCHAR
+        nullable: false
+        description: Project phase
+        source: user and control-plane decisions
+        derivation: deterministic transformation for qa.decisionLog under contract 2.1.2
+        qualityRule: must be non-null
+      topic:
+        type: VARCHAR
+        nullable: false
+        description: Decision topic
+        source: user and control-plane decisions
+        derivation: deterministic transformation for qa.decisionLog under contract 2.1.2
+        qualityRule: must be non-null
+      decision:
+        type: VARCHAR
+        nullable: false
+        description: Decision text
+        source: user and control-plane decisions
+        derivation: deterministic transformation for qa.decisionLog under contract 2.1.2
+        qualityRule: must be non-null
+      rationale:
+        type: VARCHAR
+        nullable: false
+        description: Rationale
+        source: user and control-plane decisions
+        derivation: deterministic transformation for qa.decisionLog under contract 2.1.2
+        qualityRule: must be non-null
+      supersedes:
+        type: VARCHAR
+        nullable: true
+        description: Superseded decision key
+        source: user and control-plane decisions
+        derivation: deterministic transformation for qa.decisionLog under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
+      decidedBy:
+        type: VARCHAR
+        nullable: false
+        description: Decision authority
+        source: user and control-plane decisions
+        derivation: deterministic transformation for qa.decisionLog under contract 2.1.2
+        qualityRule: must be non-null
+      ssotSection:
+        type: VARCHAR
+        nullable: true
+        description: Updated SSOT section
+        source: user and control-plane decisions
+        derivation: deterministic transformation for qa.decisionLog under contract 2.1.2
+        qualityRule: nullable value must preserve source missingness; no sentinel substitution
