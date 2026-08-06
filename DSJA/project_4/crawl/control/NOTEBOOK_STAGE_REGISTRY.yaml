@@ -291,7 +291,7 @@ stages:
     requiredGate: DEDUP_READY_AND_REQUIREMENT_READY
     producedGate: PREPROCESSED_EXPORT_BUILT
     allowedRunModes: [observed-dev, production]
-    upstreamStages: [A2-05-REQUIREMENT, A2-06-DEDUP, A2-07-LABEL]
+    upstreamStages: [A2-05-REQUIREMENT, A2-06-DEDUP, A2-07-LABEL, A2-09-NCS-MAP]
     schemaVersion: preprocessing-export-v1
 
   - stageId: A2-11-EXPORT-QA

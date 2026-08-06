@@ -1,0 +1,33 @@
+{
+  "handoffVersion": "p4-crawl-post-implementation-audit-v1",
+  "agentId": "P4-CRAWL-LOCAL-ORCHESTRATOR",
+  "auditedHeadCommit": "23b242da31c63687cc100af0603dacc7b4bafe2c",
+  "runId": "POST_IMPL_AUDIT_20260806_01",
+  "dataVersion": "observed-dev-20260806.2",
+  "claimedStatus": "PARTIAL",
+  "items": [
+    {
+      "defectId": "P1-CRAWL-003",
+      "owner": "P4-A3-CONTROL",
+      "status": "OPEN",
+      "requiredAction": "Integrate missing A2/A4 Notebook sources and prove 23 exact-one current-run manifests."
+    },
+    {
+      "defectId": "P1-CRAWL-006",
+      "owner": "P4-A2-PIPELINE",
+      "status": "OPEN",
+      "requiredAction": "Adopt ACTIVITY_TEXT_FALLBACK_CONTRACT.json and prove ambiguous auto-selection remains zero."
+    },
+    {
+      "defectId": "P1-CRAWL-007",
+      "owner": "P4-A1-SOURCE",
+      "status": "OPEN",
+      "requiredAction": "Publish a new candidate HANDOFF with head, source Notebook, and validator artifact SHA provenance."
+    }
+  ],
+  "forbiddenClaims": [
+    "CRAWL_RELEASE_READY",
+    "M2_PRODUCTION_CRAWL_READY",
+    "ANALYSIS_READY"
+  ]
+}

@@ -1,0 +1,9 @@
+﻿defectId,priority,status,component,evidence,owner
+P1-CRAWL-001,P1,RESOLVED,validator,fail-closed exit/status/artifact/run/input/source SHA tests,P4-CRAWL-LOCAL-ORCHESTRATOR
+P1-CRAWL-002,P1,RESOLVED,Master topology,28 edges; cycle=0; violation=0,P4-CRAWL-LOCAL-ORCHESTRATOR
+P1-CRAWL-003,P1,PARTIAL,current-run authority,5/5 A1 exact-one; downstream 18 not executed,P4-A3-CONTROL
+P1-CRAWL-004,P1,RESOLVED,Notebook blob provenance,6/6 source and executed code parity,P4-CRAWL-LOCAL-ORCHESTRATOR
+P1-CRAWL-005,P1,RESOLVED,source policy,18 tests; network=0,P4-CRAWL-LOCAL-ORCHESTRATOR
+P1-CRAWL-006,P1,HANDOFF_OPEN,ActivityText fallback,crawl 29/29; pipeline adapter adoption unverified,P4-A2-PIPELINE
+P1-CRAWL-007,P1,OPEN,release HANDOFF provenance,headCommit/sourceNotebookSha256/validatorArtifactSha256 null,P4-A1-SOURCE
+P2-CRAWL-001,P2,EXPLICIT_QUARANTINE,raw flag lineage,18 flag mismatches; raw bytes/SHA match 29/29,P4-A1-SOURCE

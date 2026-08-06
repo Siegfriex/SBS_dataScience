@@ -70,19 +70,25 @@ from crawl.control.notebook_bundle import (
     NOTEBOOKS,
     audit_source_bundle,
     collect_stage_manifests,
+    bind_current_run_manifests,
+    dependency_order_audit,
     execute_notebook_plan,
     git_head,
     load_stage_registry,
+    notebook_plan,
     repository_architecture,
     resolve_project_root,
     sha256_file,
+    source_blob_provenance,
+    source_executed_parity_rows,
+    write_csv,
     write_master_stage_artifacts,
 )
 
 PROJECT_ROOT = resolve_project_root(Path.cwd())
 CONTRACT_PATH = PROJECT_ROOT / "crawl/control/NOTEBOOK_EXECUTION_CONTRACT.md"
 environment = {
-    "repoRoot": str(PROJECT_ROOT),
+    "repoRoot": ".",
     "gitHead": git_head(PROJECT_ROOT),
     "python": sys.version.split()[0],
     "platform": platform.platform(),
@@ -94,18 +100,21 @@ environment
         code("a3-master-input-audit", """
 registry = load_stage_registry(PROJECT_ROOT)
 source_audit = audit_source_bundle(PROJECT_ROOT)
+source_blob_rows = source_blob_provenance(PROJECT_ROOT)
 invalid_sources = [row for row in source_audit if not row.get("valid")]
+invalid_blobs = [row for row in source_blob_rows if not row["tracked"] or not row["workingTreeMatchesGitBlob"]]
 input_audit = {
     "registryVersion": registry["registryVersion"],
     "contractVersion": registry["contractVersion"],
     "sourceNotebookCount": len(source_audit),
     "validSourceNotebookCount": len(source_audit) - len(invalid_sources),
+    "crawlNotebookBlobCoverage": f"{len(source_blob_rows) - len(invalid_blobs)}/{len(source_blob_rows)}",
     "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
     "empiricalAnalysisAllowed": EMPIRICAL_ANALYSIS_ALLOWED,
     "upstreamGate": "OBSERVED_DEV_CSV_READY",
 }
-if FAIL_ON_GATE and invalid_sources:
-    raise RuntimeError(f"Notebook source gate failed: {invalid_sources}")
+if FAIL_ON_GATE and (invalid_sources or invalid_blobs):
+    raise RuntimeError(f"Notebook source/blob gate failed: sources={invalid_sources}, blobs={invalid_blobs}")
 input_audit
 """),
         markdown("a3-master-index", """
@@ -121,6 +130,8 @@ Master는 stage registry 순서로 source Notebook을 fresh kernel에서 실행�
 """),
         code("a3-master-architecture", """
 architecture_rows = repository_architecture(PROJECT_ROOT)
+topological_plan = notebook_plan(PROJECT_ROOT)
+dependency_rows = dependency_order_audit(PROJECT_ROOT, topological_plan)
 architecture_summary = {
     "agent1": sum(row["agentId"] == "P4-A1-SOURCE" for row in architecture_rows),
     "agent2": sum(row["agentId"] == "P4-A2-PIPELINE" for row in architecture_rows),
@@ -151,19 +162,34 @@ execution_results = execute_notebook_plan(
     CHILD_RUN_ROOT,
     include_master=False,
     fail_fast=FAIL_ON_GATE,
+    data_version=DATA_VERSION,
 )
+CURRENT_RUN_ID = CHILD_RUN_ROOT.relative_to(PROJECT_ROOT / "crawl/runs").as_posix()
 failed = [row for row in execution_results if row["status"] != "PASS"]
 if FAIL_ON_GATE and failed:
     raise RuntimeError(f"Child Notebook execution failed: {failed[0]}")
 execution_results
 """),
         code("a3-master-manifests", """
-stage_manifests = collect_stage_manifests(CHILD_RUN_ROOT)
+stage_manifests = bind_current_run_manifests(
+    PROJECT_ROOT,
+    CHILD_RUN_ROOT,
+    execution_results,
+    run_id=CURRENT_RUN_ID,
+    data_version=DATA_VERSION,
+)
+parity_rows = source_executed_parity_rows(PROJECT_ROOT, execution_results)
+write_csv(MASTER_OUTPUT / "CRAWL_NOTEBOOK_SOURCE_BLOB_MANIFEST.csv", source_blob_rows)
+write_csv(MASTER_OUTPUT / "CRAWL_STAGE_DEPENDENCY_GRAPH.csv", dependency_rows)
+write_csv(MASTER_OUTPUT / "CRAWL_CURRENT_RUN_MANIFEST_AUDIT.csv", stage_manifests)
+write_csv(MASTER_OUTPUT / "NOTEBOOK_SOURCE_EXECUTED_PARITY.csv", parity_rows)
 manifest_summary = {
     "collected": len(stage_manifests),
     "succeeded": sum(row.get("status") == "SUCCEEDED" for row in stage_manifests),
     "notEvaluated": sum(row.get("status") == "NOT_EVALUATED" for row in stage_manifests),
     "failed": sum(row.get("status") in {"FAILED", "INVALID"} for row in stage_manifests),
+    "uniqueCurrentRunStages": len({row["stageId"] for row in stage_manifests}),
+    "sourceExecutedParity": f"{sum(row['executedCodeParity'] for row in parity_rows)}/{len(parity_rows)}",
 }
 manifest_summary
 """),

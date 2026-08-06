@@ -35,7 +35,7 @@ def _validated_raw_detail_rows(config: RunConfig) -> tuple[list[dict], list[dict
         if posix.is_absolute() or ".." in posix.parts or posix.parts[:4] != ("data", "raw", "linkareer", "detail"):
             rejected.append({"sourceUrl": source.get("requestUrl"), "rawPathClass": "NON_RAW_MASKED_FIXTURE_REFERENCE", "reason": "notRealRawDetailPath"})
             continue
-        path = config.crawl_root / relative
+        path = config.raw_base / relative
         if not path.is_file():
             rejected.append({"sourceUrl": source.get("requestUrl"), "rawPath": relative, "reason": "missing"})
             continue

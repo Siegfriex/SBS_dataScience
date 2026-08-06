@@ -1,0 +1,25 @@
+{
+  "lockFormat": "p4-crawl-runtime-lock-v1",
+  "capturedAt": "2026-08-06",
+  "python": "3.12.3",
+  "kernelName": "python3",
+  "environmentAuthority": "repository-parent-.venv",
+  "packages": {
+    "beautifulsoup4": "4.15.0",
+    "duckdb": "1.5.4",
+    "httpx": "0.28.1",
+    "ipykernel": "7.3.0",
+    "jsonschema": "4.26.0",
+    "jupyter-core": "5.9.1",
+    "nbclient": "0.11.0",
+    "nbformat": "5.10.4",
+    "pandas": "3.0.3",
+    "pyarrow": "24.0.0",
+    "pytest": "9.1.1",
+    "PyYAML": "6.0.3"
+  },
+  "excluded": {
+    "papermill": "not used by the execution implementation; nbclient is authoritative",
+    "jupyter": "meta-package not required; jupyter-core and ipykernel are pinned"
+  }
+}

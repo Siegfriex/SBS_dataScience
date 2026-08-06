@@ -47,6 +47,7 @@ class APQClient:
                 "period": period,
                 "operationName": operation_name,
                 "variablesHash": sha256_bytes(canonical_json(variables).encode("utf-8")),
+                "expectedContentTypes": ["application/json"],
             } if period else {},
         )
         if response.status_code != 200:
@@ -57,4 +58,9 @@ class APQClient:
             payload = json.loads(response.content)
         if payload.get("errors"):
             raise RuntimeError(f"APQ GraphQL errors: {payload['errors'][:1]}")
+        data = payload.get("data")
+        required_key = "activityCalendarEntries" if operation_name == "CalendarScreen_ActivityCalendarEntries" else "activities"
+        if not isinstance(data, dict) or required_key not in data:
+            self.http.health.schema_drift(f"{operation_name} missing data.{required_key}")
+            self.http.kill_switch.check()
         return APQResult(payload, operation_name, definition.sha256_hash, variables, response)
