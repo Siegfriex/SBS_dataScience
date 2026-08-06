@@ -27,14 +27,20 @@ SPECS = (
         "calls": "audit_input_manifest;recover_observed_input_state;validate_observed_package;write_stage_artifacts",
         "operation": '''from p4_crawl.observed import recover_observed_input_state, validate_observed_package
 
-recovery = recover_observed_input_state(INPUT_MANIFEST.parent, STAGE_ROOT)
+recovery = recover_observed_input_state(
+    INPUT_MANIFEST.parent,
+    STAGE_ROOT,
+    release_root=CRAWL_ROOT / "releases" / CRAWL_RELEASE_ID,
+)
 package = validate_observed_package(INPUT_MANIFEST.parent)
 metrics = {**recovery, "observedPackagePostingRows": package["postingRows"], "observedPackageRawHtmlRows": package["rawHtmlRows"]}
 quality = [
     quality_row("SOURCE_POLICY_READY", "RAW_LINEAGE", "ERROR", "PASS" if recovery["rawHtmlRows"] == 29 else "FAIL", recovery["rawHtmlRows"], 29, "resume_state.json"),
     quality_row("OBSERVED_PACKAGE_REFERENCE_ONLY", "NO_RAW_COPY", "ERROR", "PASS" if package["rawCopied"] is False else "FAIL", package["rawCopied"], False, "resume_state.json"),
+    quality_row("MONTH_GRAIN_RECOVERY", "REMAINING_MONTH_ROWS", "ERROR", "PASS" if recovery["remainingMonthRows"] == recovery["remainingMonths"] == 58 else "FAIL", recovery["remainingMonthRows"], 58, "remaining_months.csv"),
+    quality_row("RAW_FLAG_RECONCILED", "RAW_MANIFEST_AUTHORITY", "ERROR", "PASS" if recovery["rawFlagUnresolvedRows"] == 0 else "FAIL", recovery["rawFlagUnresolvedRows"], 0, "raw_lineage_audit.csv"),
 ]
-persisted_files = [STAGE_ROOT / name for name in ["resume_state.json", "remaining_months.csv", "detail_frontier.parquet", "detail_frontier.csv", "asset_frontier.parquet", "asset_frontier.csv"]]''',
+persisted_files = [STAGE_ROOT / name for name in ["resume_state.json", "remaining_months.csv", "detail_frontier.parquet", "detail_frontier.csv", "asset_frontier.parquet", "asset_frontier.csv", "raw_lineage_audit.parquet", "raw_lineage_audit.csv"]]''',
         "warning": "Observed input is partial and cannot be promoted to empirical analysis.",
     },
     {
@@ -241,7 +247,7 @@ manifest = write_stage_artifacts(
     started_at=f"{AS_OF_DATE}T00:00:00+09:00", parameters=PARAMETERS,
     input_manifest_path=INPUT_MANIFEST, stage_root=STAGE_ROOT,
     metric_values=metrics, quality_rows=quality, persisted_files=persisted_files,
-    warnings=[STAGE_WARNING], branch="agent/p4-crawl-release-v2",
+    warnings=[STAGE_WARNING],
 )
 if FAIL_ON_GATE and any(row["status"] == "FAIL" for row in quality):
     raise RuntimeError(f"{STAGE_ID} quality gate failed")

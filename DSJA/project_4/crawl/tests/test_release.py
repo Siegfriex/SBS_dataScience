@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 
 from p4_crawl.config import RunConfig
@@ -11,7 +12,11 @@ from p4_crawl.observed import _safe_url
 
 def test_observed_package_recomputes_real_counts(tmp_path) -> None:
     project_root = Path(__file__).resolve().parents[2]
-    config = RunConfig(project_root=project_root)
+    runtime_raw = os.getenv("P4_CRAWL_RAW_SOURCE_ROOT")
+    if not runtime_raw and not (project_root / "crawl/data/raw").is_dir():
+        import pytest
+        pytest.skip("29 raw SSR runtime source is not mounted")
+    config = RunConfig(project_root=project_root, raw_source_base=Path(runtime_raw) if runtime_raw else None)
     handoff = build_observed_input_package(config, tmp_path / "observed")
     assert handoff["postingRows"] == 137
     assert handoff["rawHtmlRows"] == 29

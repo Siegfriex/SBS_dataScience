@@ -19,7 +19,7 @@ from .frontier import build_detail_frontier, persist_frontier
 from .manifests import load_jsonl, verify_checksum_file
 from .policy import PolicyHttpClient, RateLimiter, SourcePolicyBlocked
 from .query_registry import QueryRegistry
-from .storage import atomic_write_json, sha256_bytes, write_parquet_atomic
+from .storage import atomic_write_json, sha256_bytes, write_csv_atomic, write_parquet_atomic
 from .validator import evaluate_validator_artifact, file_sha256
 
 
@@ -104,7 +104,7 @@ def run_fixture_apq_query(crawl_root: Path, output_root: Path) -> dict:
     discovery = pd.DataFrame(rows).drop_duplicates(["sourcePostingId", "discoverySide"])
     output_root.mkdir(parents=True, exist_ok=True)
     write_parquet_atomic(discovery, output_root / "posting_discovery_index.parquet")
-    discovery.to_csv(output_root / "posting_discovery_index.csv", index=False, encoding="utf-8-sig")
+    write_csv_atomic(discovery, output_root / "posting_discovery_index.csv")
     audit = {
         "mode": "DRY_RUN_FIXTURE",
         "operationName": operation,
@@ -154,7 +154,7 @@ def replay_observed_raw(
     output_root.mkdir(parents=True, exist_ok=True)
     frame = pd.DataFrame(records).sort_values("sourcePostingId") if records else pd.DataFrame()
     write_parquet_atomic(frame, output_root / "posting_detail_replay.parquet")
-    frame.to_csv(output_root / "posting_detail_replay.csv", index=False, encoding="utf-8-sig")
+    write_csv_atomic(frame, output_root / "posting_detail_replay.csv")
     atomic_write_json(output_root / "raw_replay_failures.json", failures)
     metrics = {
         "rawManifestRows": len(raw_rows),
@@ -179,15 +179,15 @@ def route_observed_asset_metadata(detail_replay_path: Path, output_root: Path) -
     posting = pd.read_parquet(detail_replay_path)
     candidates = build_asset_frontier(posting)
     if candidates.empty:
-        candidates = pd.DataFrame(columns=["sourcePostingId", "assetUrl", "assetType", "sourceField", "status", "externalAtsAsset"])
+        candidates = pd.DataFrame(columns=["sourcePostingId", "assetUrl", "assetType", "sourceField", "periodMonth", "status", "externalAtsAsset"])
     else:
         candidates["assetUrl"] = candidates["assetUrl"].map(_safe_url)
     output_root.mkdir(parents=True, exist_ok=True)
     write_parquet_atomic(candidates, output_root / "asset_frontier.parquet")
-    candidates.to_csv(output_root / "asset_frontier.csv", index=False, encoding="utf-8-sig")
+    write_csv_atomic(candidates, output_root / "asset_frontier.csv")
     ocr = candidates[candidates["assetType"].astype(str).str.contains("image", case=False, na=False)].copy()
     write_parquet_atomic(ocr, output_root / "ocr_candidate_manifest.parquet")
-    ocr.to_csv(output_root / "ocr_candidate_manifest.csv", index=False, encoding="utf-8-sig")
+    write_csv_atomic(ocr, output_root / "ocr_candidate_manifest.csv")
     (output_root / "asset_manifest.jsonl").write_text("", encoding="utf-8")
     transport_calls = 0
 
@@ -230,7 +230,7 @@ def validate_observed_package(observed_root: Path) -> dict:
     }
 
 
-def recover_observed_input_state(observed_root: Path, output_root: Path) -> dict:
+def recover_observed_input_state(observed_root: Path, output_root: Path, *, release_root: Path) -> dict:
     """Recover the M1 frontier from the self-contained observed handoff."""
 
     posting = pd.read_parquet(observed_root / "posting_manifest.parquet")
@@ -246,15 +246,32 @@ def recover_observed_input_state(observed_root: Path, output_root: Path) -> dict
     output_root.mkdir(parents=True, exist_ok=True)
     frontier = build_detail_frontier(set(posting["sourcePostingId"].astype(str)), raw_by_id)
     persist_frontier(frontier, output_root / "detail_frontier.parquet")
-    asset_frontier = pd.DataFrame(columns=["sourcePostingId", "assetUrl", "assetType", "sourceField", "status", "externalAtsAsset"])
+    asset_frontier = pd.DataFrame(columns=["sourcePostingId", "assetUrl", "assetType", "sourceField", "periodMonth", "status", "externalAtsAsset"])
     write_parquet_atomic(asset_frontier, output_root / "asset_frontier.parquet")
-    asset_frontier.to_csv(output_root / "asset_frontier.csv", index=False, encoding="utf-8-sig")
-    remaining = pd.DataFrame([{
-        "coverageStatus": "unverified",
-        "remainingMonthCount": int(gaps["unverifiedMonthCount"]),
-        "detail": "Month identities require the production coverage manifest; count is preserved from known_gaps.json",
-    }])
-    remaining.to_csv(output_root / "remaining_months.csv", index=False, encoding="utf-8-sig")
+    write_csv_atomic(asset_frontier, output_root / "asset_frontier.csv")
+    coverage = pd.read_csv(release_root / "monthly_coverage.csv", encoding="utf-8-sig")
+    target = coverage[coverage["periodMonth"].astype(str).between("2020-01", "2026-07")].copy()
+    remaining = target[target["coverageReason"].eq("paginationUnverified")].copy()
+    if len(remaining) != int(gaps["unverifiedMonthCount"]):
+        raise ValueError(
+            f"month-grain gap mismatch: release={len(remaining)} handoff={gaps['unverifiedMonthCount']}"
+        )
+    remaining = remaining.sort_values("periodMonth")
+    write_csv_atomic(remaining, output_root / "remaining_months.csv")
+
+    actual_raw_ids = set(raw_by_id)
+    raw_flag = posting["hasDetailRawHtml"].fillna(False).astype(bool)
+    raw_lineage = pd.DataFrame({
+        "sourcePostingId": posting["sourcePostingId"].astype(str),
+        "declaredHasDetailRawHtml": raw_flag,
+    })
+    raw_lineage["actualRawManifest"] = raw_lineage["sourcePostingId"].isin(actual_raw_ids)
+    raw_lineage["hasDetailRawHtmlReconciled"] = raw_lineage["actualRawManifest"]
+    raw_lineage["baselineFlagMismatch"] = raw_lineage["declaredHasDetailRawHtml"] != raw_lineage["actualRawManifest"]
+    raw_lineage["resolution"] = "DERIVED_FROM_VERIFIED_RAW_MANIFEST_NO_SOURCE_MUTATION"
+    raw_lineage = raw_lineage.sort_values("sourcePostingId")
+    write_parquet_atomic(raw_lineage, output_root / "raw_lineage_audit.parquet")
+    write_csv_atomic(raw_lineage, output_root / "raw_lineage_audit.csv")
     state = {
         "status": "OBSERVED_INPUT_RECOVERED",
         "crawlReleaseId": "CRAWL_20260806_03",
@@ -262,6 +279,9 @@ def recover_observed_input_state(observed_root: Path, output_root: Path) -> dict
         "rawHtmlRows": len(raw_rows),
         "assetRows": int(gaps["assetRows"]),
         "remainingMonths": int(gaps["unverifiedMonthCount"]),
+        "remainingMonthRows": len(remaining),
+        "rawFlagBaselineMismatchRows": int(raw_lineage["baselineFlagMismatch"].sum()),
+        "rawFlagUnresolvedRows": 0,
         "detailFrontierStates": frontier["status"].value_counts().to_dict(),
         "source": "OBSERVED_INPUT_20260806_01",
     }

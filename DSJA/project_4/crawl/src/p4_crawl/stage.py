@@ -48,7 +48,7 @@ def write_stage_artifacts(
     parameters: dict[str, Any], input_manifest_path: Path, stage_root: Path,
     metric_values: dict[str, Any], quality_rows: list[dict[str, Any]],
     persisted_files: list[Path], warnings: list[str] | None = None,
-    errors: list[str] | None = None, branch: str = "agent/p4-crawl-release-v2",
+    errors: list[str] | None = None, branch: str | None = None,
 ) -> dict:
     stage_root.mkdir(parents=True, exist_ok=True)
     warnings, errors = warnings or [], errors or []
@@ -96,7 +96,11 @@ def write_stage_artifacts(
     manifest = {
         "manifestVersion": "stage-manifest-v1", "runId": config.run_id, "runMode": config.run_mode,
         "stageId": stage_id, "status": "FAILED" if failed else "SUCCEEDED", "agentId": AGENT_ID,
-        "branch": branch, "gitHead": git_head(config.project_root), "contractVersion": config.contract_version,
+        "branch": branch or subprocess.run(
+            ["git", "branch", "--show-current"], cwd=config.project_root, check=True,
+            capture_output=True, text=True,
+        ).stdout.strip() or "DETACHED",
+        "gitHead": git_head(config.project_root), "contractVersion": config.contract_version,
         "schemaVersion": schema_version, "dataVersion": config.data_version, "crawlReleaseId": config.crawl_release_id,
         "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY", "startedAt": started_at, "completedAt": started_at,
         "empiricalAnalysisAllowed": False, "promotionAllowed": False,

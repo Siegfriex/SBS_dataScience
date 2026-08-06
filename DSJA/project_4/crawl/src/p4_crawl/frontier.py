@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from .storage import write_parquet_atomic
+from .storage import write_csv_atomic, write_parquet_atomic
 
 
 def utc_now() -> str:
@@ -29,6 +29,7 @@ def build_detail_frontier(
     *,
     discovery_month: dict[str, str] | None = None,
     previous: pd.DataFrame | None = None,
+    content_observed_at: str | None = None,
 ) -> pd.DataFrame:
     discovery_month = discovery_month or {}
     old = {}
@@ -52,7 +53,7 @@ def build_detail_frontier(
                 "rawPath": raw.get("rawPath") if raw else None,
                 "bytes": raw.get("bytes") if raw else None,
                 "lastError": None,
-                "updatedAt": utc_now(),
+                "updatedAt": (raw.get("fetchedAt") if raw else None) or content_observed_at or "",
             }
         )
     return pd.DataFrame(rows)
@@ -60,4 +61,4 @@ def build_detail_frontier(
 
 def persist_frontier(frame: pd.DataFrame, parquet_path: Path) -> None:
     write_parquet_atomic(frame, parquet_path)
-    frame.to_csv(parquet_path.with_suffix(".csv"), index=False, encoding="utf-8-sig")
+    write_csv_atomic(frame, parquet_path.with_suffix(".csv"))
