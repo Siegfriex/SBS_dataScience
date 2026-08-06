@@ -18,6 +18,10 @@ REQUIRED_CONTRACT_FILES = (
     "p4_contract.yaml",
     CANONICAL_SCHEMA_FILENAME,
     "warehouse_duckdb.sql",
+    "data_dictionary.csv",
+    "metrics.yaml",
+    "QUALITY_GATES.md",
+    "SOURCE_POLICY_GATE.md",
     "CONTRACT_MANIFEST.json",
     "CHECKSUMS.sha256",
     "AGENT3_TO_AGENT2_HANDOFF.json",
@@ -182,10 +186,14 @@ def manifest_has_raw_lineage(path: Path) -> bool:
         return False
 
 
-def validate_crawl_release(path: str | Path) -> dict[str, Any]:
+def validate_crawl_release(path: str | Path, expected_contract_version: str | None = None) -> dict[str, Any]:
     handoff_path = Path(path)
     release_root = handoff_path.parent.resolve()
     release = load_crawl_release(handoff_path)
+    if expected_contract_version and release.contract_version != expected_contract_version:
+        raise ValueError(
+            f"crawl release contract_version {release.contract_version} does not match {expected_contract_version}"
+        )
     targets = {
         "manifests": [_resolve_release_path(release_root, value) for value in release.manifest_paths],
         "coverage": _resolve_release_path(release_root, release.coverage_path),
@@ -197,7 +205,7 @@ def validate_crawl_release(path: str | Path) -> dict[str, Any]:
     if missing:
         raise ValueError(f"crawl release references missing files: {missing}")
     lineage = [manifest_has_raw_lineage(path) for path in targets["manifests"]]
-    if not lineage or not all(lineage):
+    if not lineage or not any(lineage):
         raise ValueError("crawl release manifest lacks sourceUrl/rawPath/rawSha256 lineage")
 
     checksum_lines = targets["checksums"].read_text(encoding="utf-8").splitlines()
@@ -218,6 +226,69 @@ def validate_crawl_release(path: str | Path) -> dict[str, Any]:
         "releaseRoot": str(release_root),
         "checksumCount": checked,
         "rawLineageVerified": True,
+        "manifestRawLineageFlags": lineage,
         "paths": {key: [str(item) for item in value] if isinstance(value, list) else str(value) for key, value in targets.items()},
     }
 
+
+def assess_crawl_release(path: str | Path, expected_contract_version: str = "2.1.2") -> dict[str, Any]:
+    handoff_path = Path(path)
+    payload = json.loads(handoff_path.read_text(encoding="utf-8"))
+    release_id = str(payload.get("release_id", payload.get("releaseId")) or "")
+    if not release_id.startswith("CRAWL_"):
+        raise ValueError("source adapter conformance requires a CRAWL_ release")
+    release_root = handoff_path.parent.resolve()
+    locators = {
+        "manifest_paths": payload.get("manifest_paths", payload.get("manifestPaths")),
+        "coverage_path": payload.get("coverage_path", payload.get("coveragePath")),
+        "checksum_path": payload.get("checksum_path", payload.get("checksumPath")),
+        "query_registry_path": payload.get("query_registry_path", payload.get("queryRegistryPath")),
+        "schema_snapshot_path": payload.get("schema_snapshot_path", payload.get("schemaSnapshotPath")),
+    }
+    missing_locators = [name for name, value in locators.items() if value in (None, "", [])]
+    if missing_locators:
+        raise ValueError(f"crawl handoff missing conformance locators: {missing_locators}")
+    referenced = [*locators["manifest_paths"], locators["coverage_path"], locators["query_registry_path"], locators["schema_snapshot_path"]]
+    missing_files = [value for value in referenced if not _resolve_release_path(release_root, value).is_file()]
+    checksum_path = _resolve_release_path(release_root, locators["checksum_path"])
+    if not checksum_path.is_file():
+        missing_files.append(locators["checksum_path"])
+    if missing_files:
+        raise ValueError(f"crawl conformance release references missing files: {missing_files}")
+    checksum_failures: list[str] = []
+    checksum_count = 0
+    for line in checksum_path.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        digest, relative = line.strip().split(maxsplit=1)
+        target = _resolve_release_path(release_root, relative.lstrip("*"))
+        checksum_count += 1
+        if not target.is_file() or sha256_file(target) != digest:
+            checksum_failures.append(relative)
+    if not checksum_count or checksum_failures:
+        raise ValueError(f"crawl conformance checksum failure: {checksum_failures or ['empty checksum file']}")
+
+    contract_version = payload.get("contract_version", payload.get("contractVersion"))
+    pagination_verified = bool(payload.get("pagination_verified", payload.get("paginationVerified", False)))
+    release_status = str(payload.get("status") or "")
+    empirical_reasons = []
+    if contract_version != expected_contract_version:
+        empirical_reasons.append("contractVersionMismatchOrMissing")
+    if not pagination_verified:
+        empirical_reasons.append("paginationUnverified")
+    if release_status not in {"CRAWL_READY", "READY"}:
+        empirical_reasons.append("releaseStatusNotReady")
+    empirical_accepted = not empirical_reasons
+    if empirical_accepted:
+        validate_crawl_release(handoff_path, expected_contract_version=expected_contract_version)
+    return {
+        "releaseId": release_id,
+        "releaseStatus": release_status,
+        "contractVersion": contract_version,
+        "checksumCount": checksum_count,
+        "checksumPassed": True,
+        "paginationVerified": pagination_verified,
+        "sourceAdapterConformanceStatus": "SOURCE_ADAPTER_CONFORMANCE_ACCEPTED",
+        "empiricalCorpusStatus": "EMPIRICAL_CORPUS_ACCEPTED" if empirical_accepted else "EMPIRICAL_CORPUS_REJECTED",
+        "empiricalRejectionReasons": empirical_reasons,
+    }

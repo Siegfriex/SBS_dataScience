@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Any
 
 from p4.contracts.validators import assert_duckdb_executable_ddl
 from p4.warehouse.connection import connect
@@ -14,7 +15,7 @@ CREATE SCHEMA IF NOT EXISTS mart;
 CREATE SCHEMA IF NOT EXISTS qa;
 
 CREATE TABLE IF NOT EXISTS raw.linkareer_posting (
-    postingRawId VARCHAR PRIMARY KEY,
+    rawPostingId VARCHAR PRIMARY KEY,
     sourcePostingId VARCHAR,
     sourceUrl VARCHAR NOT NULL,
     fetchedAt TIMESTAMPTZ NOT NULL,
@@ -28,7 +29,7 @@ CREATE TABLE IF NOT EXISTS raw.linkareer_posting (
 
 CREATE TABLE IF NOT EXISTS core.posting_normalized (
     postingId VARCHAR PRIMARY KEY,
-    postingRawId VARCHAR NOT NULL,
+    rawPostingId VARCHAR NOT NULL,
     canonicalPostingId VARCHAR NOT NULL,
     sourcePostingId VARCHAR,
     sourceUrl VARCHAR NOT NULL,
@@ -255,6 +256,17 @@ ALTER TABLE mart.time_series ADD COLUMN IF NOT EXISTS jobTypeConflictRate DOUBLE
 def bootstrap_development_warehouse(path: str | Path) -> list[str]:
     with connect(path) as connection:
         connection.execute(DEVELOPMENT_DDL)
+        for table in ("raw.linkareer_posting", "core.posting_normalized"):
+            schema, name = table.split(".")
+            columns = {
+                row[0]
+                for row in connection.execute(
+                    "SELECT column_name FROM information_schema.columns WHERE table_schema = ? AND table_name = ?",
+                    [schema, name],
+                ).fetchall()
+            }
+            if "postingRawId" in columns and "rawPostingId" not in columns:
+                connection.execute(f"ALTER TABLE {table} RENAME COLUMN postingRawId TO rawPostingId")
         rows = connection.execute(
             """
             SELECT table_schema || '.' || table_name
@@ -275,3 +287,67 @@ def bootstrap_contract_warehouse(path: str | Path, ddl_path: str | Path) -> list
             "SELECT table_schema || '.' || table_name FROM information_schema.tables ORDER BY 1"
         ).fetchall()
     return [row[0] for row in rows]
+
+
+def bootstrap_canonical_warehouse(path: str | Path, ddl_path: str | Path) -> dict[str, Any]:
+    ddl = Path(ddl_path).read_text(encoding="utf-8")
+    assert_duckdb_executable_ddl(ddl)
+    statement_count = len([statement for statement in ddl.split(";") if statement.strip()])
+    if statement_count < 36:
+        raise ValueError(f"canonical DDL requires at least 36 statements, found {statement_count}")
+    with connect(path) as connection:
+        connection.execute(ddl)
+        first_objects = connection.execute(
+            """
+            SELECT table_schema, table_name, table_type
+            FROM information_schema.tables
+            WHERE table_schema IN ('raw', 'core', 'ncs', 'mart', 'qa')
+            ORDER BY 1, 2
+            """
+        ).fetchall()
+        connection.execute(ddl)
+        second_objects = connection.execute(
+            """
+            SELECT table_schema, table_name, table_type
+            FROM information_schema.tables
+            WHERE table_schema IN ('raw', 'core', 'ncs', 'mart', 'qa')
+            ORDER BY 1, 2
+            """
+        ).fetchall()
+        if first_objects != second_objects:
+            raise ValueError("canonical DDL is not idempotent")
+        schemas = [
+            row[0]
+            for row in connection.execute(
+                "SELECT schema_name FROM information_schema.schemata WHERE schema_name IN ('raw','core','ncs','mart','qa') ORDER BY 1"
+            ).fetchall()
+        ]
+        tables = [f"{schema}.{name}" for schema, name, kind in second_objects if kind == "BASE TABLE"]
+        views = [f"{schema}.{name}" for schema, name, kind in second_objects if kind == "VIEW"]
+        qa_view_results = {}
+        for view in views:
+            if view.startswith("qa."):
+                connection.execute(f"SELECT * FROM {view} LIMIT 1").fetchall()
+                qa_view_results[view] = "EXECUTED"
+        gate = connection.execute("SELECT analysisReadyStatus FROM qa.vAnalysisReadyGate").fetchone()[0]
+    if schemas != ["core", "mart", "ncs", "qa", "raw"] or len(tables) != 26 or len(views) != 6:
+        raise ValueError(
+            f"canonical warehouse object mismatch: schemas={schemas}, tables={len(tables)}, views={len(views)}"
+        )
+    if gate != "NOT_EVALUATED":
+        raise ValueError(f"empty canonical warehouse must be NOT_EVALUATED, observed {gate}")
+    return {
+        "ddlStatementCount": statement_count,
+        "firstRunSucceeded": True,
+        "secondRunSucceeded": True,
+        "idempotent": True,
+        "schemas": schemas,
+        "schemaCount": len(schemas),
+        "tables": tables,
+        "tableCount": len(tables),
+        "views": views,
+        "viewCount": len(views),
+        "qaViews": qa_view_results,
+        "analysisReadyGate": gate,
+        "emptyDatabasePass": False,
+    }
