@@ -7,6 +7,7 @@ from typing import Any
 
 import pandas as pd
 
+from p4.common.hashing import sha256_file
 from p4.contracts.loader import assess_crawl_release
 
 
@@ -187,4 +188,64 @@ def validate_release_gates(
         },
         "failedGates": gaps,
         "empiricalAnalysisAllowed": full_pass,
+    }
+
+
+def validate_observed_input_package(
+    handoff_path: str | Path,
+    *,
+    expected_contract_version: str = "2.1.2",
+) -> dict[str, Any]:
+    """Validate the immutable M1 package without treating it as a crawl release."""
+    path = Path(handoff_path)
+    root = path.parent
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    expected = {
+        "packageId": "OBSERVED_INPUT_20260806_01",
+        "crawlReleaseId": "CRAWL_20260806_03",
+        "contractVersion": expected_contract_version,
+        "runMode": "observed-dev",
+        "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+        "empiricalAnalysisAllowed": False,
+        "promotionAllowed": False,
+        "fullCorpus": False,
+        "postingManifestRows": 137,
+        "rawHtmlRows": 29,
+        "assetRows": 0,
+        "ncsUnitRows": 13_442,
+        "rawCopied": False,
+    }
+    mismatches = {key: {"expected": value, "observed": payload.get(key)} for key, value in expected.items() if payload.get(key) != value}
+    if mismatches:
+        raise ValueError(f"observed input envelope mismatch: {mismatches}")
+    checksum_path = root / "CHECKSUMS.sha256"
+    checksum_rows = [line.split(None, 1) for line in checksum_path.read_text(encoding="utf-8").splitlines() if line.strip()]
+    failures = []
+    for digest, relative in checksum_rows:
+        target = root / relative.strip()
+        if not target.is_file() or sha256_file(target) != digest:
+            failures.append(relative.strip())
+    if failures:
+        raise ValueError(f"observed input checksum mismatch: {failures}")
+    posting = pd.read_parquet(root / "posting_manifest.parquet")
+    raw_rows = [json.loads(line) for line in (root / "raw_detail_manifest.jsonl").read_text(encoding="utf-8").splitlines() if line.strip()]
+    if len(posting) != 137 or posting["sourcePostingId"].astype(str).nunique() != 137 or len(raw_rows) != 29:
+        raise ValueError("observed input row counts do not match 137 postings / 29 raw HTML rows")
+    return {
+        "releaseId": payload["crawlReleaseId"],
+        "packageId": payload["packageId"],
+        "contractVersion": payload["contractVersion"],
+        "sourceAdapterConformance": "PASS",
+        "fullCorpusAcceptance": "FAIL",
+        "checksumPassed": True,
+        "checksumCount": len(checksum_rows),
+        "observedBatch": {
+            "postingManifestRows": len(posting),
+            "uniquePostingIds": int(posting["sourcePostingId"].astype(str).nunique()),
+            "rawDetailManifestRows": len(raw_rows),
+            "assetRows": 0,
+        },
+        "failedGates": [{"failedGate": "fullCorpus", "blocking": True, "observedValue": False}],
+        "empiricalAnalysisAllowed": False,
+        "promotionAllowed": False,
     }

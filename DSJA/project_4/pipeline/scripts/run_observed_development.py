@@ -31,6 +31,7 @@ def run(
     stage_results = {}
     for stage in (
         "00ContractAndInputAudit",
+        "01LoadCrawlRelease",
         "02ParseAndNormalize",
         "03OcrAndSectionRecovery",
         "04SplitTracks",
@@ -60,7 +61,7 @@ def run(
     ncs_candidate_rows = len(__import__("pandas").read_parquet(output_root / "posting_ncs_candidates.parquet"))
     ncs_match_rows = len(__import__("pandas").read_parquet(output_root / "posting_ncs_matches.parquet"))
     parse_metrics_payload = json.loads(
-        (pipeline_root / "runs/observed-dev/02ParseAndNormalize/stage_metrics.json").read_text(encoding="utf-8")
+        (pipeline_root / "runs/notebooks/observed-dev/AGENT2_20260806_01/artifacts/02ParseAndNormalize/stage_metrics.json").read_text(encoding="utf-8")
     )
     parse_metrics = {row["metricId"]: row["value"] for row in parse_metrics_payload["metrics"]}
     duty_path = project_root / "shared/handoffs/AGENT2_TO_AGENT4_DUTY_INPUT_OBSERVED_DEV.json"

@@ -56,7 +56,14 @@ def validate_agent4_ncs_handoff(handoff_path: str | Path, project_root: str | Pa
         raise ValueError("Agent4 handoff duty input lineage is incomplete")
 
     frames: dict[str, pd.DataFrame] = {}
-    for name in ("posting_ncs_candidates", "posting_ncs_matches"):
+    names = (
+        "ncs_units",
+        "core_ai_it_codes",
+        "ncs_alias_dictionary",
+        "posting_ncs_candidates",
+        "posting_ncs_matches",
+    )
+    for name in names:
         record = payload.get("files", {}).get(name, {})
         parquet_rel = str(record.get("parquet") or "")
         csv_rel = str(record.get("csv") or "")
@@ -67,17 +74,26 @@ def validate_agent4_ncs_handoff(handoff_path: str | Path, project_root: str | Pa
             raise ValueError(f"Agent4 {name} checksum mismatch")
         parquet = pd.read_parquet(parquet_path)
         csv = pd.read_csv(csv_path, dtype="string", keep_default_na=False)
-        if len(parquet) != record.get("rows") or not REQUIRED_COLUMNS.issubset(parquet.columns):
+        if len(parquet) != record.get("rows"):
+            raise ValueError(f"Agent4 {name} row count or schema mismatch")
+        if name in {"posting_ncs_candidates", "posting_ncs_matches"} and not REQUIRED_COLUMNS.issubset(parquet.columns):
             raise ValueError(f"Agent4 {name} row count or schema mismatch")
         assert_frame_equal(_semantic(parquet), _semantic(csv), check_dtype=False)
         frames[name] = parquet
 
     candidates, matches = frames["posting_ncs_candidates"], frames["posting_ncs_matches"]
+    units, codes = frames["ncs_units"], frames["core_ai_it_codes"]
+    if len(units) != 13_442 or not units["ncsLevel"].between(1, 8).all():
+        raise ValueError("Agent4 NCS source must contain 13,442 level 1-8 units")
+    if len(codes) != 120 or int(codes["included"].fillna(False).astype(bool).sum()) != 69:
+        raise ValueError("Agent4 core-ai-it-v0.1 review set must contain 120 rows / 69 included")
+    if set(codes["reviewStatus"].dropna()) != {"REVIEW_REQUIRED"}:
+        raise ValueError("Agent4 code set is not review-only")
     if len(candidates) != 128 or len(matches) != 28:
         raise ValueError("Agent4 observed mapping requires 128 candidates and 28 matches")
     if candidates.duplicated(["sectionId", "candidateRank"]).any() or matches["sectionId"].duplicated().any():
         raise ValueError("Agent4 NCS grain is not unique")
-    for frame in frames.values():
+    for frame in (candidates, matches):
         if frame["denseScore"].notna().any() or frame["goldValidatedFlag"].any():
             raise ValueError("Agent4 dense/gold development policy violated")
         if set(frame["mappingMode"]) != {"LEXICAL_BASELINE"} or set(frame["codeSetStatus"]) != {"REVIEW_REQUIRED"}:

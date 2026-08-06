@@ -30,11 +30,18 @@ def test_stage_registry_notebooks_are_deterministic_clean_thin_sources():
         nbformat.validate(notebook)
         assert notebook.cells[0].metadata.tags == ["parameters"]
         assert notebook.cells[0].source.startswith('RUN_MODE = "observed-dev"')
+        assignments = [
+            node for node in ast.parse(notebook.cells[0].source).body if isinstance(node, (ast.Assign, ast.AnnAssign))
+        ]
+        assert len(assignments) == 12
+        assert len(notebook.cells) == 11
         assert sum(len(cell.get("outputs", [])) for cell in notebook.cells if cell.cell_type == "code") == 0
         for cell in notebook.cells:
             assert cell.id not in seen_ids
             seen_ids.add(cell.id)
             if cell.cell_type == "code":
                 ast.parse(cell.source)
-        assert "run_observed_stage" in notebook.cells[3].source
+        assert "audit_observed_stage_inputs" in notebook.cells[4].source
+        assert "_stage(" in notebook.cells[6].source
         assert "stage_manifest.json" in notebook.cells[-1].source
+        assert notebook.cells[1].source.startswith(f"# P4 Notebook-First · {stage['stageId']}")

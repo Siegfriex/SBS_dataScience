@@ -39,7 +39,17 @@ def _read_jsonl(path: Path) -> list[dict[str, Any]]:
 
 def _raw_detail_rows(release_root: Path, crawl_root: Path) -> dict[str, dict[str, Any]]:
     result: dict[str, dict[str, Any]] = {}
-    for offset, row in enumerate(_read_jsonl(release_root / "fetch_manifest.jsonl")):
+    manifest_path = (
+        release_root / "raw_detail_manifest.jsonl"
+        if (release_root / "raw_detail_manifest.jsonl").is_file()
+        else release_root / "fetch_manifest.jsonl"
+    )
+    for offset, source_row in enumerate(_read_jsonl(manifest_path)):
+        row = dict(source_row)
+        if manifest_path.name == "raw_detail_manifest.jsonl":
+            row.setdefault("entityType", "detail")
+            row.setdefault("requestUrl", row.get("sourceUrl"))
+            row.setdefault("contentSha256", row.get("rawSha256"))
         if str(row.get("entityType")).casefold() != "detail":
             continue
         raw_path = crawl_root / str(row.get("rawPath"))
@@ -92,7 +102,8 @@ def build_observed_batch(release_root: str | Path, crawl_root: str | Path) -> di
     release_root = Path(release_root)
     crawl_root = Path(crawl_root)
     manifest = pd.read_parquet(release_root / "posting_manifest.parquet")
-    sample_rows = json.loads((release_root / "stratified_detail_sample_n126.json").read_text(encoding="utf-8"))
+    sample_path = release_root / "stratified_detail_sample_n126.json"
+    sample_rows = json.loads(sample_path.read_text(encoding="utf-8")) if sample_path.is_file() else []
     samples = {str(row["id"]): row for row in sample_rows}
     raw_details = _raw_detail_rows(release_root, crawl_root)
 
@@ -180,7 +191,7 @@ def build_observed_batch(release_root: str | Path, crawl_root: str | Path) -> di
             "rawPostingId": raw_posting_id,
             "sourcePostingId": source_id,
             "sourceUrl": source_url,
-            "titleText": title,
+            "titleText": title or None,
             "companyName": company or None,
             "bodyText": body_text or None,
             "activityTypeId": activity.get("activityTypeID", 5),

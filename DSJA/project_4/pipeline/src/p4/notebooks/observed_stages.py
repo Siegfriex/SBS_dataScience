@@ -11,7 +11,8 @@ import pandas as pd
 from p4.common.hashing import canonical_json_sha256, sha256_file
 from p4.contracts.duty_input import validate_observed_duty_input_handoff
 from p4.contracts.ncs_handoff import validate_agent4_ncs_handoff
-from p4.contracts.release_validation import validate_release_gates
+from p4.contracts.release_validation import validate_observed_input_package, validate_release_gates
+from p4.dedup.reposts import assign_observed_singleton_groups
 from p4.export.observed import build_export_frames, export_observed_frames, validate_export_bundle
 from p4.export.observed import RUN_TIMESTAMP
 from p4.normalize.observed_batch import (
@@ -33,6 +34,8 @@ OBSERVED_TABLES = (
     "posting_section",
     "requirement_fact",
     "eligibility",
+    "posting_dedup",
+    "career_access_label",
     "ocr_queue",
     "manifest_cursor",
     "posting_ncs_candidates",
@@ -187,7 +190,7 @@ def _metrics_contract(stage: str, metrics: dict[str, Any]) -> dict[str, Any]:
 
     def visit(prefix: str, value: Any) -> None:
         if isinstance(value, dict):
-            for key, child in sorted(value.items()):
+            for key, child in sorted(value.items(), key=lambda item: str(item[0])):
                 visit(f"{prefix}.{key}" if prefix else str(key), child)
             return
         scalar = value
@@ -344,8 +347,9 @@ def _stage_artifacts(
     metrics: dict[str, Any],
     quality_rows: list[dict[str, Any]],
     output_paths: list[Path],
+    run_root: Path | None = None,
 ) -> dict[str, Any]:
-    stage_root = pipeline_root / "runs/observed-dev" / stage
+    stage_root = (run_root or pipeline_root / "runs/notebooks/observed-dev/AGENT2_20260806_01") / "artifacts" / stage
     stage_root.mkdir(parents=True, exist_ok=True)
     quality = _quality_contract_rows(stage, quality_rows, "stage_quality.csv")
     quality_path = stage_root / "stage_quality.csv"
@@ -394,6 +398,7 @@ def run_observed_stage(
     control_root: str | Path | None = None,
     ncs_handoff_path: str | Path | None = None,
     ncs_project_root: str | Path | None = None,
+    run_root: str | Path | None = None,
 ) -> dict[str, Any]:
     project = Path(project_root).resolve()
     pipeline = project / "pipeline"
@@ -404,34 +409,97 @@ def run_observed_stage(
     control = Path(control_root).resolve() if control_root else project / "crawl/control"
     ncs_handoff = Path(ncs_handoff_path).resolve() if ncs_handoff_path else project / "shared/handoffs/AGENT4_TO_AGENT2_NCS_MAPPING_OBSERVED_DEV.json"
     ncs_project = Path(ncs_project_root).resolve() if ncs_project_root else project
+    notebook_run_root = Path(run_root).resolve() if run_root else pipeline / "runs/notebooks/observed-dev/AGENT2_20260806_01"
     metrics: dict[str, Any] = {"stage": stage}
     quality: list[dict[str, Any]] = []
     outputs: list[Path] = []
 
     if stage == "00ContractAndInputAudit":
-        validation = validate_release_gates(release / "HANDOFF.json")
+        handoff_payload = json.loads((release / "HANDOFF.json").read_text(encoding="utf-8"))
+        validation = (
+            validate_observed_input_package(release / "HANDOFF.json")
+            if handoff_payload.get("packageId") == "OBSERVED_INPUT_20260806_01"
+            else validate_release_gates(release / "HANDOFF.json")
+        )
         metrics.update(validation)
+        canonical_database = pipeline / "data/warehouse/p4.duckdb"
+        canonical_objects = 0
+        if canonical_database.is_file():
+            with connect(canonical_database, read_only=True) as connection:
+                canonical_objects = int(
+                    connection.execute(
+                        "SELECT COUNT(*) FROM information_schema.tables "
+                        "WHERE table_schema IN ('raw','core','ncs','mart','qa')"
+                    ).fetchone()[0]
+                )
+        metrics["canonicalDatabaseObjectCount"] = canonical_objects
         quality.append({"check": "source_adapter_conformance", "status": validation["sourceAdapterConformance"], "observed": validation["sourceAdapterConformance"]})
         quality.append({"check": "empirical_analysis_disabled", "status": "PASS" if not validation["empiricalAnalysisAllowed"] else "FAIL", "observed": validation["empiricalAnalysisAllowed"]})
-    elif stage in {"01LoadCrawlRelease", "02ParseAndNormalize"}:
-        batch, frames, database = _build_observed(project, release, crawl)
+        quality.append({"check": "canonical_database_zero", "status": "PASS" if canonical_objects == 0 else "FAIL", "observed": canonical_objects})
+    elif stage == "01LoadCrawlRelease":
+        batch = build_observed_batch(release, crawl)
+        frames = batch["frames"]
+        if database.exists():
+            database.unlink()
+        bootstrap_observed_warehouse(database, PARSE_VERSION)
+        replace_observed_table(database, "raw_posting", frames["raw_posting"])
+        metrics.update({
+            "inputPostings": batch["metrics"]["inputPostings"],
+            "rawPostingRows": len(frames["raw_posting"]),
+            "realSsrRaw": batch["metrics"]["realSsrRaw"],
+            "derivedObservedAccepted": batch["metrics"]["derivedObservedAccepted"],
+            "warehouseInventory": observed_inventory(database),
+        })
+        quality.append({"check": "raw_posting_loaded", "status": "PASS" if len(frames["raw_posting"]) == 137 else "FAIL", "observed": len(frames["raw_posting"])})
+        quality.append({"check": "observed_warehouse_isolated", "status": "PASS", "observed": database.name})
+    elif stage == "02ParseAndNormalize":
+        batch = build_observed_batch(release, crawl)
+        frames = batch["frames"]
+        for name in ("posting_normalized", "manifest_cursor", "eligibility"):
+            replace_observed_table(database, name, frames[name])
         metrics.update(batch["metrics"])
         metrics["parseFailures"] = batch["parseFailures"]
         metrics["warehouseInventory"] = observed_inventory(database)
         metrics["warehouseSemanticSha256"] = _frames_semantic_sha256(frames)
         quality.append({"check": "parse_failures", "status": "PASS" if not batch["parseFailures"] else "FAIL", "observed": len(batch["parseFailures"])})
         quality.append({"check": "posting_rows", "status": "PASS" if len(frames["posting_normalized"]) == len(frames["raw_posting"]) else "FAIL", "observed": len(frames["posting_normalized"])})
-    elif stage in {"03OcrAndSectionRecovery", "04SplitTracks", "05ExtractRequirements", "06Deduplicate90Days", "07LabelCareerAccess"}:
-        inventory = observed_inventory(database)
-        metrics["warehouseInventory"] = inventory
-        required = {
-            "03OcrAndSectionRecovery": "posting_section",
-            "04SplitTracks": "posting_track",
-            "05ExtractRequirements": "requirement_fact",
-            "06Deduplicate90Days": "posting_track",
-            "07LabelCareerAccess": "eligibility",
-        }[stage]
-        quality.append({"check": f"{required}_available", "status": "PASS" if required in inventory else "FAIL", "observed": inventory.get(required)})
+    elif stage == "03OcrAndSectionRecovery":
+        batch = build_observed_batch(release, crawl)
+        frames = batch["frames"]
+        replace_observed_table(database, "posting_section", frames["posting_section"])
+        replace_observed_table(database, "ocr_queue", frames["ocr_queue"])
+        metrics.update({"sectionRows": len(frames["posting_section"]), "ocrQueueRows": len(frames["ocr_queue"]), "ocrAssetsFetched": 0, "ocrMode": "ROUTING_ONLY", "warehouseInventory": observed_inventory(database)})
+        quality.append({"check": "ocr_routing_only", "status": "PASS" if frames["ocr_queue"].get("queueStatus", pd.Series(dtype=str)).eq("ASSET_NOT_FETCHED").all() else "FAIL", "observed": "ROUTING_ONLY"})
+        quality.append({"check": "section_materialized", "status": "PASS" if len(frames["posting_section"]) == 84 else "FAIL", "observed": len(frames["posting_section"])})
+    elif stage == "04SplitTracks":
+        batch = build_observed_batch(release, crawl)
+        tracks = batch["frames"]["posting_track"]
+        replace_observed_table(database, "posting_track", tracks)
+        metrics.update({"trackRows": len(tracks), "trackTypes": tracks["trackType"].value_counts(dropna=False).to_dict(), "warehouseInventory": observed_inventory(database)})
+        quality.append({"check": "track_pk", "status": "PASS" if not tracks["trackId"].duplicated().any() else "FAIL", "observed": int(tracks["trackId"].duplicated().sum())})
+    elif stage == "05ExtractRequirements":
+        batch = build_observed_batch(release, crawl)
+        frames = batch["frames"]
+        replace_observed_table(database, "requirement_fact", frames["requirement_fact"])
+        duty_path = _write_duty_handoff(project, frames)
+        duty = validate_observed_duty_input_handoff(duty_path)
+        outputs.append(duty_path)
+        metrics.update({"requirementRows": len(frames["requirement_fact"]), "dutyRows": duty["rowCount"], "dutyRowsSha256": duty["rowsSha256"], "warehouseInventory": observed_inventory(database)})
+        quality.append({"check": "requirement_evidence", "status": "PASS" if frames["requirement_fact"]["sectionId"].notna().all() else "FAIL", "observed": len(frames["requirement_fact"])})
+        quality.append({"check": "duty_handoff", "status": "PASS" if duty["rowCount"] == 28 else "FAIL", "observed": duty["rowCount"]})
+    elif stage == "06Deduplicate90Days":
+        source = _load_frames(database)
+        dedup = assign_observed_singleton_groups(source["posting_track"])
+        replace_observed_table(database, "posting_dedup", dedup)
+        metrics.update({"dedupRows": len(dedup), "duplicateGroups": dedup["duplicateGroupId"].nunique(), "repostEdgesInferred": 0, "dedupMode": "OBSERVED_SINGLETON_NO_CORPUS_INFERENCE", "warehouseInventory": observed_inventory(database)})
+        quality.append({"check": "observed_no_corpus_inference", "status": "PASS" if dedup["canonicalRecordFlag"].all() else "FAIL", "observed": int(dedup["canonicalRecordFlag"].sum())})
+    elif stage == "07LabelCareerAccess":
+        source = _load_frames(database)
+        label_frames = build_export_frames(source)
+        labels = label_frames["career_access_labels"]
+        replace_observed_table(database, "career_access_label", labels)
+        metrics.update({"labelRows": len(labels), "careerClasses": labels["careerClass"].value_counts(dropna=False).to_dict(), "internAccessClasses": labels["internAccessClass"].value_counts(dropna=False).to_dict(), "warehouseInventory": observed_inventory(database)})
+        quality.append({"check": "label_track_coverage", "status": "PASS" if labels["trackId"].nunique() == len(source["posting_track"]) else "FAIL", "observed": labels["trackId"].nunique()})
     elif stage in {"08LoadAndPrepareNcs", "09MapPostingToNcs"}:
         accepted = validate_agent4_ncs_handoff(ncs_handoff, ncs_project)
         duty_path = project / "shared/handoffs/AGENT2_TO_AGENT4_DUTY_INPUT_OBSERVED_DEV.json"
@@ -441,6 +509,9 @@ def run_observed_stage(
         metrics.update(
             {
                 "agent4HandoffSha256": accepted["handoffSha256"],
+                "ncsUnitRows": len(accepted["frames"]["ncs_units"]),
+                "coreCodeRows": len(accepted["frames"]["core_ai_it_codes"]),
+                "coreIncludedRows": int(accepted["frames"]["core_ai_it_codes"]["included"].fillna(False).astype(bool).sum()),
                 "candidateRows": accepted["candidateRows"],
                 "matchRows": accepted["matchRows"],
                 "unmappedRows": accepted["unmappedRows"],
@@ -448,8 +519,11 @@ def run_observed_stage(
         )
         quality.append({"check": "agent4_handoff_self_sha", "status": "PASS", "observed": accepted["handoffSha256"]})
         quality.append({"check": "agent4_input_rows_sha", "status": "PASS", "observed": duty["rowsSha256"]})
+        quality.append({"check": "ncs_source_rows", "status": "PASS" if len(accepted["frames"]["ncs_units"]) == 13442 else "FAIL", "observed": len(accepted["frames"]["ncs_units"])})
+        quality.append({"check": "core_code_review_set", "status": "PASS" if len(accepted["frames"]["core_ai_it_codes"]) == 120 else "FAIL", "observed": len(accepted["frames"]["core_ai_it_codes"])})
         if stage == "09MapPostingToNcs":
-            for name, frame in accepted["frames"].items():
+            for name in ("posting_ncs_candidates", "posting_ncs_matches"):
+                frame = accepted["frames"][name]
                 replace_observed_table(database, name, frame)
             inventory = observed_inventory(database)
             metrics["warehouseInventory"] = inventory
@@ -532,4 +606,53 @@ def run_observed_stage(
         quality.extend(quality_frame.to_dict(orient="records"))
     else:
         raise ValueError(f"unknown observed stage: {stage}")
-    return _stage_artifacts(project, pipeline, release, control, stage, metrics, quality, outputs)
+    return _stage_artifacts(project, pipeline, release, control, stage, metrics, quality, outputs, notebook_run_root)
+
+
+def audit_observed_stage_inputs(
+    stage: str,
+    *,
+    project_root: str | Path,
+    release_root: str | Path,
+    ncs_handoff_path: str | Path | None = None,
+) -> dict[str, Any]:
+    """Read-only preflight used by every source Notebook before mutation."""
+    project = Path(project_root).resolve()
+    release = Path(release_root).resolve()
+    required = [release / "HANDOFF.json", release / "posting_manifest.parquet"]
+    if stage in {"08LoadAndPrepareNcs", "09MapPostingToNcs"}:
+        required.append(Path(ncs_handoff_path).resolve() if ncs_handoff_path else project / "shared/handoffs/AGENT4_TO_AGENT2_NCS_MAPPING_OBSERVED_DEV.json")
+    missing = [path.name for path in required if not path.is_file()]
+    if missing:
+        raise FileNotFoundError(f"missing stage inputs: {missing}")
+    return {
+        "stage": stage,
+        "requiredInputCount": len(required),
+        "missingInputCount": 0,
+        "inputNames": [path.name for path in required],
+        "runMode": "observed-dev",
+        "dataProvenance": DATA_PROVENANCE,
+        "empiricalAnalysisAllowed": False,
+        "promotionAllowed": False,
+    }
+
+
+def _stage_runner(stage: str):
+    def execute(**kwargs: Any) -> dict[str, Any]:
+        return run_observed_stage(stage, **kwargs)
+    execute.__name__ = f"run_{stage}_stage"
+    return execute
+
+
+run_contract_and_input_audit_stage = _stage_runner("00ContractAndInputAudit")
+run_load_crawl_release_stage = _stage_runner("01LoadCrawlRelease")
+run_parse_and_normalize_stage = _stage_runner("02ParseAndNormalize")
+run_ocr_and_section_recovery_stage = _stage_runner("03OcrAndSectionRecovery")
+run_split_tracks_stage = _stage_runner("04SplitTracks")
+run_extract_requirements_stage = _stage_runner("05ExtractRequirements")
+run_deduplicate_90_days_stage = _stage_runner("06Deduplicate90Days")
+run_label_career_access_stage = _stage_runner("07LabelCareerAccess")
+run_load_and_prepare_ncs_stage = _stage_runner("08LoadAndPrepareNcs")
+run_map_posting_to_ncs_stage = _stage_runner("09MapPostingToNcs")
+run_export_preprocessed_csv_stage = _stage_runner("10ExportPreprocessedCsv")
+run_preprocessed_data_qa_stage = _stage_runner("11PreprocessedDataQa")

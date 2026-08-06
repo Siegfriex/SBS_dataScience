@@ -110,10 +110,20 @@ def build_export_frames(
             normalized[column] = normalized[column].map(_mask_pii)
 
     tracks = _provenance(frames["posting_track"].copy())
-    tracks["canonicalPostingId"] = tracks["postingId"]
-    tracks["duplicateGroupId"] = tracks["postingId"].map(lambda value: f"DUP_{value}")
-    tracks["repostCount"] = 1
-    tracks["canonicalRecordFlag"] = True
+    if "posting_dedup" in frames:
+        tracks = tracks.merge(
+            frames["posting_dedup"][[
+                "trackId", "canonicalPostingId", "duplicateGroupId", "repostCount", "canonicalRecordFlag"
+            ]],
+            on="trackId",
+            how="left",
+            validate="one_to_one",
+        )
+    else:
+        tracks["canonicalPostingId"] = tracks["postingId"]
+        tracks["duplicateGroupId"] = tracks["postingId"].map(lambda value: f"DUP_{value}")
+        tracks["repostCount"] = 1
+        tracks["canonicalRecordFlag"] = True
     tracks["dedupVersion"] = DEDUP_VERSION
 
     sections = _provenance(frames["posting_section"].copy())
@@ -122,13 +132,13 @@ def build_export_frames(
     requirements = _provenance(frames["requirement_fact"].copy())
     if "requirementText" in requirements:
         requirements["requirementText"] = requirements["requirementText"].map(_mask_pii)
-    labels = _career_labels(frames)
+    labels = frames.get("career_access_label", _career_labels(frames)).copy()
     eligibility = _provenance(frames["eligibility"].copy())
-    labels = labels.merge(
-        eligibility[["trackId", "postingEligibleFlag", "rq1EligibleFlag", "rq2EligibleFlag", "ncsEligibleFlag", "eligibilitySource"]],
-        on="trackId",
-        how="left",
-    )
+    eligibility_columns = [
+        "trackId", "postingEligibleFlag", "rq1EligibleFlag", "rq2EligibleFlag", "ncsEligibleFlag", "eligibilitySource"
+    ]
+    if "postingEligibleFlag" not in labels:
+        labels = labels.merge(eligibility[eligibility_columns], on="trackId", how="left")
 
     if ncs_candidates is None:
         ncs_candidates = pd.DataFrame(

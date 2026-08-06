@@ -31,7 +31,14 @@ def render(mode: str) -> list[Path]:
     for stage in spec["stages"]:
         target = NOTEBOOK_ROOT / f"{stage['id']}.ipynb"
         desired = _serialized(
-            make_notebook(stage["id"], stage["stageId"], stage["title"], stage["note"])
+            make_notebook(
+                stage["id"],
+                stage["stageId"],
+                stage["title"],
+                stage["note"],
+                stage["inputs"],
+                stage["outputs"],
+            )
         )
         current = target.read_text(encoding="utf-8") if target.exists() else ""
         if current == desired:

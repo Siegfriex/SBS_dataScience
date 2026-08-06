@@ -66,3 +66,26 @@ def assign_repost_groups(
     result["canonicalRecordFlag"] = result["postingId"].map(lambda value: assignments[value][2])
     return result
 
+
+def assign_observed_singleton_groups(tracks: pd.DataFrame) -> pd.DataFrame:
+    """Create deterministic, non-empirical dedup assignments for M1.
+
+    The observed-development input does not contain a reliable company key and
+    posted-at timestamp for every record.  It is therefore unsafe to infer
+    90-day repost edges.  This function records every observed posting as its
+    own canonical singleton while retaining the exact production-facing dedup
+    columns.  Production must use :func:`assign_repost_groups` instead.
+    """
+    required = {"trackId", "postingId"}
+    missing = required.difference(tracks.columns)
+    if missing:
+        raise ValueError(f"tracks missing observed dedup columns: {sorted(missing)}")
+    result = tracks[["trackId", "postingId"]].copy()
+    if result["trackId"].duplicated().any():
+        raise ValueError("observed dedup requires unique trackId rows")
+    result["duplicateGroupId"] = result["postingId"].map(lambda value: f"DUP_{value}")
+    result["canonicalPostingId"] = result["postingId"]
+    result["repostCount"] = 1
+    result["canonicalRecordFlag"] = True
+    result["dedupMode"] = "OBSERVED_SINGLETON_NO_CORPUS_INFERENCE"
+    return result
