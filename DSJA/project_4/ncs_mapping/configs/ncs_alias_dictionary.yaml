@@ -1,0 +1,39 @@
+version: ncs-alias-dictionary-v0.1
+status: DRAFT_SEED_NOT_EXHAUSTIVE
+note: >
+  Seed set only, built before any real Agent 2 duty input exists. Each alias
+  maps a job-posting-style term to one candidate ncsSubCode from the v0.1
+  core AI/IT codeset (major=20/middle=01). Expand once real evidenceText
+  samples from Agent 2 are available -- do not treat this list as coverage-
+  complete.
+aliases:
+  - alias: "머신러닝 엔지니어"
+    ncsSubCode: "20010701"
+    mappingBasis: dictionaryRule
+  - alias: "딥러닝"
+    ncsSubCode: "20010703"
+    mappingBasis: dictionaryRule
+  - alias: "생성형 AI"
+    ncsSubCode: "20010707"
+    mappingBasis: dictionaryRule
+  - alias: "데이터베이스 개발자"
+    ncsSubCode: "20010204"
+    mappingBasis: dictionaryRule
+  - alias: "네트워크 엔지니어"
+    ncsSubCode: "20010205"
+    mappingBasis: dictionaryRule
+  - alias: "정보보안 담당자"
+    ncsSubCode: "20010206"
+    mappingBasis: dictionaryRule
+  - alias: "클라우드 엔지니어"
+    ncsSubCode: "20010214"
+    mappingBasis: dictionaryRule
+  - alias: "블록체인 개발자"
+    ncsSubCode: "20010802"
+    mappingBasis: dictionaryRule
+  - alias: "IT 프로젝트 매니저"
+    ncsSubCode: "20010401"
+    mappingBasis: dictionaryRule
+  - alias: "UI/UX 디자이너"
+    ncsSubCode: "20010207"
+    mappingBasis: dictionaryRule
