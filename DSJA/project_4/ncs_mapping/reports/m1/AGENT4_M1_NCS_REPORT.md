@@ -6,6 +6,8 @@
 NCS_MAPPING_DEV_READY
 ```
 
+Execution source Git HEAD: `25552b4ddde414a91d037a6b1ecc4e3fa65f4e31`.
+
 This status is limited to observed development. It is not a production code-set freeze, gold validation, final precision/coverage result, RQ2-B result, or `DATA_READY_RQ2B` declaration.
 
 ## Fixed execution policy

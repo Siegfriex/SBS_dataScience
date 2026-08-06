@@ -6,7 +6,7 @@
   "status": "SUCCEEDED",
   "agentId": "P4-A4-NCS",
   "branch": "agent/p4-ncs-mapping-v2",
-  "gitHead": "0b93d50893f76e51e24ca8328670c5aae59a2327",
+  "gitHead": "25552b4ddde414a91d037a6b1ecc4e3fa65f4e31",
   "contractVersion": "2.1.2",
   "schemaVersion": "core-ai-it-v0.1",
   "dataVersion": "observed-dev-20260806.1",

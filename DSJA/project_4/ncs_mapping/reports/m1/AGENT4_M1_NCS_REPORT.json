@@ -2,6 +2,7 @@
   "agentId": "P4-A4-NCS",
   "status": "NCS_MAPPING_DEV_READY",
   "runId": "NCS_MAPPING_OBSERVED_20260806_01",
+  "executionSourceGitHead": "25552b4ddde414a91d037a6b1ecc4e3fa65f4e31",
   "runMode": "observed-dev",
   "contractVersion": "2.1.2",
   "crawlReleaseId": "CRAWL_20260806_03",

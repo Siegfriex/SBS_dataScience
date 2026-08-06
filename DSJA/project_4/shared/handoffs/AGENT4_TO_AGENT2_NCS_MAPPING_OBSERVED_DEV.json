@@ -6,6 +6,7 @@
   "contractVersion": "2.1.2",
   "crawlReleaseId": "CRAWL_20260806_03",
   "dataVersion": "observed-dev-20260806.1",
+  "executionSourceGitHead": "25552b4ddde414a91d037a6b1ecc4e3fa65f4e31",
   "runMode": "observed-dev",
   "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
   "empiricalAnalysisAllowed": false,
@@ -68,5 +69,5 @@
     "RQ2_B",
     "DATA_READY_RQ2B"
   ],
-  "handoffSha256": "8f9c0af8fdd3d5f54b68f8ad6361de63f57f6b5badeeefb8b120b1f604e16a56"
+  "handoffSha256": "162f8cbb5c95abe917ab021799617a7457b323cde1cdbb7f42db74cf7241b155"
 }
