@@ -7,3 +7,5 @@ data/raw/
 # under reports/m1_5_control_patch.
 runs/notebooks/observed-dev/M1_5_*/
 runs/notebooks/observed-dev/superseded/M1_5_*/
+runs/notebooks/observed-dev/POST_IMPL_AUDIT_*/
+runs/notebooks/observed-dev/POST_IMPL_MASTER_AUDIT_*/

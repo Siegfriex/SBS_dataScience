@@ -17,6 +17,7 @@ from crawl.control.notebook_bundle import execute_notebook, resolve_project_root
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--run-root", default="crawl/runs/notebooks/observed-dev/MASTER_20260806_01")
+    parser.add_argument("--data-version", default="observed-dev-20260806.2")
     args = parser.parse_args()
     root = resolve_project_root(Path.cwd())
     run_root = (root / args.run_root).resolve()
@@ -25,6 +26,7 @@ def main() -> int:
         root,
         run_root,
         timeout=1800,
+        data_version=args.data_version,
     )
     result.update({"agentId": "P4-A3-CONTROL", "stageId": "A3-MASTER"})
     write_csv(run_root / "NOTEBOOK_EXECUTION_RESULTS.csv", [result])

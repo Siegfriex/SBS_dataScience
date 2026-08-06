@@ -294,6 +294,7 @@ def invoke_agent2_validator(
     release_handoff: Path,
     *,
     run_id: str,
+    source_notebook_sha256: str,
 ) -> dict:
     """Call Agent 2's validator and validate its complete evidence envelope."""
 
@@ -302,6 +303,7 @@ def invoke_agent2_validator(
     if not (pipeline_src / "p4" / "contracts" / "release_validation.py").is_file():
         evaluation = evaluate_validator_artifact(
             None, expected_run_id=run_id, expected_input_sha256=input_sha256,
+            expected_source_notebook_sha256=source_notebook_sha256,
         )
         return {
             "validator": "p4.contracts.release_validation.validate_release_gates",
@@ -310,6 +312,7 @@ def invoke_agent2_validator(
             "processExitCode": None,
             "runId": run_id,
             "inputSha256": input_sha256,
+            "sourceNotebookSha256": source_notebook_sha256,
             **evaluation,
         }
     sys.path.insert(0, str(pipeline_src))
@@ -324,10 +327,12 @@ def invoke_agent2_validator(
             "status": "PASS" if full_status == "PASS" else "FAIL",
             "runId": run_id,
             "inputSha256": input_sha256,
+            "sourceNotebookSha256": source_notebook_sha256,
             "validation": validation,
         }
         evaluation = evaluate_validator_artifact(
             artifact, expected_run_id=run_id, expected_input_sha256=input_sha256,
+            expected_source_notebook_sha256=source_notebook_sha256,
         )
         return {
             "validator": "p4.contracts.release_validation.validate_release_gates",
@@ -342,10 +347,12 @@ def invoke_agent2_validator(
             "status": "FAIL",
             "runId": run_id,
             "inputSha256": input_sha256,
+            "sourceNotebookSha256": source_notebook_sha256,
             "validation": {},
         }
         evaluation = evaluate_validator_artifact(
             artifact, expected_run_id=run_id, expected_input_sha256=input_sha256,
+            expected_source_notebook_sha256=source_notebook_sha256,
         )
         return {
             "validator": "p4.contracts.release_validation.validate_release_gates",

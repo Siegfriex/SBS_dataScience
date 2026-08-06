@@ -7,6 +7,7 @@ import ast
 import csv
 import hashlib
 import time
+from datetime import UTC, datetime
 from pathlib import Path
 
 import nbformat
@@ -49,6 +50,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--timeout", type=int, default=180)
     parser.add_argument("--run-root", default=str(DEFAULT_RUN_ROOT.relative_to(PROJECT_ROOT)))
+    parser.add_argument("--data-version", default="observed-dev-20260806.2")
     args = parser.parse_args()
     run_root = (PROJECT_ROOT / args.run_root).resolve()
     if not run_root.is_relative_to(CRAWL_ROOT / "runs/notebooks/observed-dev"):
@@ -68,10 +70,12 @@ def main() -> int:
             "# Injected into the executed copy by crawl.control.notebook_bundle",
             f"OUTPUT_ROOT = {run_root.relative_to(PROJECT_ROOT).as_posix()!r}",
             "RUN_MODE = 'observed-dev'",
+            f"DATA_VERSION = {args.data_version!r}",
             "FAIL_ON_GATE = True",
             "EMPIRICAL_ANALYSIS_ALLOWED = False",
         ])
         started = time.monotonic()
+        started_at_utc = datetime.now(UTC).isoformat().replace("+00:00", "Z")
         client = NotebookClient(
             notebook, timeout=args.timeout, kernel_name="python3",
             resources={"metadata": {"path": str(PROJECT_ROOT)}},
@@ -93,6 +97,9 @@ def main() -> int:
             "cells": cell_count, "codeCells": code_count,
             "sourceOutputCount": 0, "executedOutputCount": sum(len(cell.get("outputs", [])) for cell in executed.cells if cell.cell_type == "code"),
             "elapsedSeconds": elapsed, "sourceSha256": sha256(source), "executedSha256": sha256(destination),
+            "runtimeStartedAtUtc": started_at_utc,
+            "runtimeEndedAtUtc": datetime.now(UTC).isoformat().replace("+00:00", "Z"),
+            "dataVersion": args.data_version,
             "executedPath": destination.relative_to(PROJECT_ROOT).as_posix(),
             "stageOutputRoot": f"{run_root.relative_to(PROJECT_ROOT).as_posix()}/{stage_id}",
             "executionRunId": run_root.relative_to(CRAWL_ROOT / "runs").as_posix(),

@@ -5,6 +5,7 @@ from p4_crawl.validator import evaluate_validator_artifact
 
 EXPECTED_RUN = "RUN-001"
 EXPECTED_SHA = "a" * 64
+EXPECTED_NOTEBOOK_SHA = "c" * 64
 
 
 def artifact(**overrides):
@@ -13,6 +14,7 @@ def artifact(**overrides):
         "status": "PASS",
         "runId": EXPECTED_RUN,
         "inputSha256": EXPECTED_SHA,
+        "sourceNotebookSha256": EXPECTED_NOTEBOOK_SHA,
         "validation": {"fullCorpusAcceptance": "PASS"},
     }
     value.update(overrides)
@@ -77,4 +79,15 @@ def test_validator_full_corpus_must_also_pass() -> None:
         expected_input_sha256=EXPECTED_SHA,
     )
     assert result["reason"] == "FULL_CORPUS_ACCEPTANCE_NOT_PASS"
+    assert result["crawlReleaseReady"] is False
+
+
+def test_validator_notebook_source_sha_mismatch_fails_closed() -> None:
+    result = evaluate_validator_artifact(
+        artifact(sourceNotebookSha256="d" * 64),
+        expected_run_id=EXPECTED_RUN,
+        expected_input_sha256=EXPECTED_SHA,
+        expected_source_notebook_sha256=EXPECTED_NOTEBOOK_SHA,
+    )
+    assert result["reason"] == "VALIDATOR_SOURCE_NOTEBOOK_SHA256_MISMATCH"
     assert result["crawlReleaseReady"] is False

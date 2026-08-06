@@ -424,7 +424,7 @@ def audit_source_bundle(project_root: str | Path) -> list[dict[str, Any]]:
     return rows
 
 
-def _parameter_overrides(output_root: Path | None) -> str:
+def _parameter_overrides(output_root: Path | None, data_version: str | None = None) -> str:
     lines = [
         "# Injected into the executed copy by crawl.control.notebook_bundle",
         "RUN_MODE = 'observed-dev'",
@@ -433,6 +433,8 @@ def _parameter_overrides(output_root: Path | None) -> str:
     ]
     if output_root is not None:
         lines.insert(2, f"OUTPUT_ROOT = {str(output_root)!r}")
+    if data_version is not None:
+        lines.insert(3, f"DATA_VERSION = {data_version!r}")
     return "\n".join(lines)
 
 
@@ -442,6 +444,7 @@ def execute_notebook(
     run_root: str | Path,
     timeout: int = 900,
     kernel_name: str = "python3",
+    data_version: str | None = None,
 ) -> dict[str, Any]:
     root = Path(project_root).resolve()
     source = Path(source_path).resolve()
@@ -491,8 +494,9 @@ def execute_notebook(
     code_cells = [cell for cell in notebook.cells if cell.cell_type == "code"]
     if not code_cells or "parameters" not in code_cells[0].metadata.get("tags", []):
         raise ValueError(f"parameters cell missing: {relative}")
-    code_cells[0].source = code_cells[0].source.rstrip() + "\n\n" + _parameter_overrides(parameter_output)
+    code_cells[0].source = code_cells[0].source.rstrip() + "\n\n" + _parameter_overrides(parameter_output, data_version)
     started = time.monotonic()
+    started_at_utc = utc_now()
     status = "PASS"
     error = ""
     original_env = {name: os.environ.get(name) for name in child_env}
@@ -529,6 +533,8 @@ def execute_notebook(
         "notebook": relative.as_posix(),
         "status": status,
         "elapsedSeconds": round(time.monotonic() - started, 3),
+        "runtimeStartedAtUtc": started_at_utc,
+        "runtimeEndedAtUtc": utc_now(),
         "sourceSha256": sha256_file(source),
         "executedPath": destination.relative_to(root).as_posix() if destination.is_relative_to(root) else str(destination),
         "executedSha256": sha256_file(destination),
@@ -548,6 +554,14 @@ CURRENT_RUN_REQUIRED_FIELDS = (
     "outputRoot",
     "status",
     "createdAt",
+    "dataVersion",
+)
+
+REQUIRED_STAGE_ARTIFACTS = (
+    "stage_manifest.json",
+    "stage_metrics.json",
+    "stage_quality.csv",
+    "CHECKSUMS.sha256",
 )
 
 
@@ -564,6 +578,7 @@ def validate_current_run_manifest(
     expected_stage_id: str,
     expected_run_id: str,
     expected_source_sha256: str,
+    expected_data_version: str | None = None,
 ) -> list[str]:
     errors = [f"missing:{field}" for field in CURRENT_RUN_REQUIRED_FIELDS if not payload.get(field)]
     if payload.get("stageId") != expected_stage_id:
@@ -572,6 +587,8 @@ def validate_current_run_manifest(
         errors.append("runId:mismatch")
     if payload.get("sourceNotebookSha256") != expected_source_sha256:
         errors.append("sourceNotebookSha256:mismatch")
+    if expected_data_version is not None and payload.get("dataVersion") != expected_data_version:
+        errors.append("dataVersion:mismatch")
     for field in ("sourceNotebookSha256", "parameterSha256", "inputManifestSha256"):
         value = str(payload.get(field, ""))
         if len(value) != 64 or any(character not in "0123456789abcdef" for character in value):
@@ -582,6 +599,68 @@ def validate_current_run_manifest(
     if payload.get("status") not in {"SUCCEEDED", "FAILED", "NOT_EVALUATED"}:
         errors.append("status:invalid")
     return sorted(set(errors))
+
+
+def validate_required_stage_artifacts(stage_root: str | Path) -> list[str]:
+    """Fail closed when a required stage termination artifact is absent or empty."""
+
+    root = Path(stage_root)
+    errors: list[str] = []
+    for name in REQUIRED_STAGE_ARTIFACTS:
+        path = root / name
+        if not path.is_file():
+            errors.append(f"requiredArtifact:missing:{name}")
+        elif path.stat().st_size == 0:
+            errors.append(f"requiredArtifact:empty:{name}")
+    return errors
+
+
+def require_current_run_manifest(
+    run_root: str | Path,
+    *,
+    stage_id: str,
+    expected_run_id: str,
+    expected_source_sha256: str,
+    expected_data_version: str,
+) -> dict[str, Any]:
+    """Resolve only the canonical current-run envelope, never pre-existing stage output."""
+
+    path = Path(run_root) / "current_run_manifests" / stage_id / "stage_manifest.json"
+    if not path.is_file():
+        raise FileNotFoundError(f"canonical current-run manifest missing: {path}")
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    errors = validate_current_run_manifest(
+        payload,
+        expected_stage_id=stage_id,
+        expected_run_id=expected_run_id,
+        expected_source_sha256=expected_source_sha256,
+        expected_data_version=expected_data_version,
+    )
+    if errors:
+        raise ValueError(f"invalid canonical current-run manifest for {stage_id}: {errors}")
+    return payload
+
+
+def audit_current_run_authority(run_root: str | Path, planned_stage_ids: Sequence[str]) -> list[dict[str, Any]]:
+    """Count canonical envelopes and expose missing or duplicate stage authority."""
+
+    root = Path(run_root) / "current_run_manifests"
+    discovered: dict[str, list[Path]] = {stage_id: [] for stage_id in planned_stage_ids}
+    paths = sorted(root.rglob("stage_manifest.json")) if root.is_dir() else []
+    for path in paths:
+        try:
+            stage_id = str(json.loads(path.read_text(encoding="utf-8")).get("stageId", ""))
+        except Exception:
+            stage_id = ""
+        discovered.setdefault(stage_id, []).append(path)
+    return [
+        {
+            "stageId": stage_id,
+            "manifestCount": len(discovered.get(stage_id, [])),
+            "status": "PASS" if len(discovered.get(stage_id, [])) == 1 else "FAIL",
+        }
+        for stage_id in planned_stage_ids
+    ]
 
 
 def quarantine_manifest(path: str | Path, quarantine_root: str | Path, *, reason: str) -> Path:
@@ -607,6 +686,7 @@ def bind_current_run_manifests(
     executions: Sequence[Mapping[str, Any]],
     *,
     run_id: str,
+    data_version: str,
 ) -> list[dict[str, Any]]:
     """Create exactly one canonical current-run envelope per executed stage."""
 
@@ -624,6 +704,9 @@ def bind_current_run_manifests(
         source_manifest = root / str(execution["stageOutputRoot"]) / "stage_manifest.json"
         if not source_manifest.is_file():
             raise FileNotFoundError(f"current-run source manifest missing: {source_manifest}")
+        artifact_errors = validate_required_stage_artifacts(source_manifest.parent)
+        if artifact_errors:
+            raise ValueError(f"invalid required artifacts for {stage_id}: {artifact_errors}")
         source_payload = json.loads(source_manifest.read_text(encoding="utf-8"))
         source_run_id = str(source_payload.get("runId", ""))
         expected_source_run_id = str(execution.get("executionRunId") or run_id)
@@ -643,6 +726,7 @@ def bind_current_run_manifests(
             "outputRoot": _relative_portable_path(root / str(execution["stageOutputRoot"]), root),
             "status": str(source_payload.get("status", "NOT_EVALUATED")),
             "createdAt": str(source_payload.get("completedAt") or source_payload.get("startedAt") or ""),
+            "dataVersion": str(source_payload.get("dataVersion", "")),
             "sourceManifestPath": _relative_portable_path(source_manifest, root),
             "sourceManifestSha256": sha256_file(source_manifest),
             "sourceManifestRunId": source_run_id,
@@ -652,6 +736,7 @@ def bind_current_run_manifests(
             expected_stage_id=stage_id,
             expected_run_id=run_id,
             expected_source_sha256=str(execution["sourceSha256"]),
+            expected_data_version=data_version,
         )
         if errors:
             raise ValueError(f"invalid current-run manifest for {stage_id}: {errors}")
@@ -707,6 +792,7 @@ def execute_notebook_plan(
     run_root: str | Path,
     include_master: bool = False,
     fail_fast: bool = True,
+    data_version: str | None = None,
 ) -> list[dict[str, Any]]:
     root = Path(project_root).resolve()
     run = Path(run_root).resolve()
@@ -716,7 +802,7 @@ def execute_notebook_plan(
     if any(row["status"] != "PASS" for row in order_audit):
         raise ValueError(f"Notebook dependency order violation: {order_audit}")
     for owner, stage, relative in plan:
-        row = execute_notebook(root / relative, root, run)
+        row = execute_notebook(root / relative, root, run, data_version=data_version)
         row.update({"agentId": owner, "stageId": stage})
         rows.append(row)
         if row["status"] != "PASS" and fail_fast:
@@ -747,7 +833,7 @@ def write_csv(path: str | Path, rows: Sequence[Mapping[str, Any]], fieldnames: S
     destination.parent.mkdir(parents=True, exist_ok=True)
     columns = list(fieldnames or (list(rows[0].keys()) if rows else []))
     with destination.open("w", encoding="utf-8-sig", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=columns, extrasaction="ignore")
+        writer = csv.DictWriter(handle, fieldnames=columns, extrasaction="ignore", lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
 

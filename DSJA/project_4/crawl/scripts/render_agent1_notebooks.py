@@ -113,13 +113,14 @@ persisted_files = [STAGE_ROOT / name for name in ["asset_frontier.parquet", "ass
         "title": "Validate the observed package and invoke the Agent 2 validator adapter without release promotion",
         "calls": "audit_input_manifest;validate_observed_package;invoke_agent2_validator;write_stage_artifacts",
         "operation": '''from p4_crawl.observed import invoke_agent2_validator, validate_observed_package
-from p4_crawl.storage import atomic_write_json
+from p4_crawl.storage import atomic_write_json, sha256_file
 
 observed_validation = validate_observed_package(INPUT_MANIFEST.parent)
 agent2_validation = invoke_agent2_validator(
     PROJECT_ROOT,
     CRAWL_ROOT / "releases" / CRAWL_RELEASE_ID / "HANDOFF.json",
     run_id=config.run_id,
+    source_notebook_sha256=sha256_file(CRAWL_ROOT / "notebooks" / "04BuildCrawlRelease.ipynb"),
 )
 atomic_write_json(STAGE_ROOT / "observed_package_validation.json", observed_validation)
 atomic_write_json(STAGE_ROOT / "agent2_validator_result.json", agent2_validation)

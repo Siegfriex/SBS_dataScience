@@ -162,6 +162,7 @@ execution_results = execute_notebook_plan(
     CHILD_RUN_ROOT,
     include_master=False,
     fail_fast=FAIL_ON_GATE,
+    data_version=DATA_VERSION,
 )
 CURRENT_RUN_ID = CHILD_RUN_ROOT.relative_to(PROJECT_ROOT / "crawl/runs").as_posix()
 failed = [row for row in execution_results if row["status"] != "PASS"]
@@ -175,6 +176,7 @@ stage_manifests = bind_current_run_manifests(
     CHILD_RUN_ROOT,
     execution_results,
     run_id=CURRENT_RUN_ID,
+    data_version=DATA_VERSION,
 )
 parity_rows = source_executed_parity_rows(PROJECT_ROOT, execution_results)
 write_csv(MASTER_OUTPUT / "CRAWL_NOTEBOOK_SOURCE_BLOB_MANIFEST.csv", source_blob_rows)

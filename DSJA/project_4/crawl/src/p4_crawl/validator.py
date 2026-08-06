@@ -25,6 +25,7 @@ def evaluate_validator_artifact(
     *,
     expected_run_id: str,
     expected_input_sha256: str,
+    expected_source_notebook_sha256: str | None = None,
 ) -> dict[str, Any]:
     """Validate the complete validator evidence envelope before promotion.
 
@@ -72,6 +73,13 @@ def evaluate_validator_artifact(
             "crawlReleaseReady": False,
             "reason": "VALIDATOR_INPUT_SHA256_MISMATCH",
         }
+    if expected_source_notebook_sha256 is not None:
+        if artifact.get("sourceNotebookSha256") != expected_source_notebook_sha256:
+            return {
+                "gateStatus": FAIL,
+                "crawlReleaseReady": False,
+                "reason": "VALIDATOR_SOURCE_NOTEBOOK_SHA256_MISMATCH",
+            }
     if artifact["status"] != PASS:
         return {
             "gateStatus": FAIL,
