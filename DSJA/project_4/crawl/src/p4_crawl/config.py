@@ -44,6 +44,7 @@ class RunConfig:
     as_of_date: str = "2026-08-06"
     random_seed: int = 42
     execute_live: bool = False
+    raw_source_base: Path | None = None
 
     @classmethod
     def from_env(cls, project_root: Path | None = None) -> "RunConfig":
@@ -57,6 +58,8 @@ class RunConfig:
             as_of_date=os.getenv("P4_AS_OF_DATE", "2026-08-06"),
             random_seed=int(os.getenv("P4_RANDOM_SEED", "42")),
             execute_live=os.getenv("P4_A1_EXECUTE_LIVE", "0") == "1",
+            raw_source_base=Path(os.environ["P4_CRAWL_RAW_SOURCE_ROOT"]).resolve()
+            if os.getenv("P4_CRAWL_RAW_SOURCE_ROOT") else None,
         )
 
     @property
@@ -73,7 +76,11 @@ class RunConfig:
 
     @property
     def raw_root(self) -> Path:
-        return self.crawl_root / "data" / "raw" / "linkareer"
+        return self.raw_base / "data" / "raw" / "linkareer"
+
+    @property
+    def raw_base(self) -> Path:
+        return (self.raw_source_base or self.crawl_root).resolve()
 
     def ensure_run_layout(self) -> None:
         for rel in ("coverage", "state", "manifests", "reports"):

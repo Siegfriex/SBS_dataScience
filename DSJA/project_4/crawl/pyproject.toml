@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "p4-crawl-local-orchestrator"
+version = "0.1.0"
+requires-python = "==3.12.*"
+dependencies = [
+  "beautifulsoup4==4.15.0",
+  "duckdb==1.5.4",
+  "httpx==0.28.1",
+  "ipykernel==7.3.0",
+  "jsonschema==4.26.0",
+  "nbclient==0.11.0",
+  "nbformat==5.10.4",
+  "pandas==3.0.3",
+  "pyarrow==24.0.0",
+  "PyYAML==6.0.3",
+]
+
+[project.optional-dependencies]
+test = ["pytest==9.1.1"]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "control/tests"]

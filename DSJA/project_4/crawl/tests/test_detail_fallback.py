@@ -59,4 +59,8 @@ def test_asset_source_field_lineage_is_preserved() -> None:
         "File:3": {"url": "https://linkareer.com/files/c.png"},
     }
     _, candidates = extract_detail_record("42", _html(cache), _lineage())
-    assert {row["sourceField"] for row in candidates} == {"files", "thumbnailImage", "logoImage"}
+    assert {row["sourceField"] for row in candidates} == {
+        "activity.files",
+        "activity.thumbnailImage",
+        "activity.logoImage",
+    }
