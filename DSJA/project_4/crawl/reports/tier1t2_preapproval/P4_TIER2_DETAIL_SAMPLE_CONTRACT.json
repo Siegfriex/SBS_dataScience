@@ -1,0 +1,32 @@
+{
+  "ambiguousFallbackAutoSelectionAllowed": false,
+  "contractStatus": "NOT_EVALUATED_AWAITING_TIER1_DISCOVERY",
+  "detailCalls": 0,
+  "externalAtsTransportCalls": 0,
+  "networkCalls": 0,
+  "postingIds": [],
+  "rawMutationAllowed": false,
+  "replacement": false,
+  "sampleFrame": "UNIQUE_POSTING_IDS_FROM_ACCEPTED_TIER1_DISCOVERY_MANIFEST",
+  "sampleFrameRows": null,
+  "sampleSize": 10,
+  "samplingMethod": "DETERMINISTIC_RANDOM_WITHOUT_REPLACEMENT",
+  "samplingSeedExpression": "SHA256(tier1CanaryRunId+tier1DiscoveryManifestSha256+approvedScopeHash)",
+  "samplingSeedStatus": "NOT_EVALUATED_AWAITING_REQUIRED_INPUTS",
+  "schemaVersion": "p4-tier1t2-preapproval-v1",
+  "scopeApprovalHashInput": null,
+  "selectionManifest": "detail_canary_sample_manifest.json",
+  "selectionManifestStatus": "NOT_CREATED_BEFORE_TIER1_DISCOVERY",
+  "terminalFailureReplacementAllowed": false,
+  "terminalStatusesPreserved": [
+    "FETCHED_VALID",
+    "FETCHED_EMPTY_VALID",
+    "NOT_FOUND",
+    "EXPIRED",
+    "POLICY_BLOCKED",
+    "RETRY_EXHAUSTED",
+    "PARSER_QUARANTINED"
+  ],
+  "tier1CanaryRunIdInput": null,
+  "tier1DiscoveryManifestSha256Input": null
+}
