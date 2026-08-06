@@ -6,6 +6,7 @@ from pathlib import Path
 from p4_crawl.config import RunConfig
 from p4_crawl.manifests import load_jsonl, verify_checksum_file
 from p4_crawl.release import build_observed_input_package
+from p4_crawl.observed import _safe_url
 
 
 def test_observed_package_recomputes_real_counts(tmp_path) -> None:
@@ -26,3 +27,9 @@ def test_observed_package_recomputes_real_counts(tmp_path) -> None:
     assert verify_checksum_file(tmp_path / "observed" / "CHECKSUMS.sha256", tmp_path / "observed")["ok"]
     gaps = json.loads((tmp_path / "observed" / "known_gaps.json").read_text())
     assert len(gaps["rejectedNonRawDetailReferences"]) == 3
+
+
+def test_observed_url_sanitizer_drops_contact_strings_and_queries() -> None:
+    assert _safe_url("business@example.com") is None
+    assert _safe_url("mailto:person@example.com") is None
+    assert _safe_url("https://jobs.example.com/apply?token=secret#section") == "https://jobs.example.com/apply"

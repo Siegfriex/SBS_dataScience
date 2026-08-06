@@ -25,6 +25,8 @@ def _safe_url(url: str | None) -> str | None:
     if not url:
         return url
     parts = urlsplit(str(url))
+    if parts.scheme not in {"http", "https"} or not parts.netloc:
+        return None
     return urlunsplit((parts.scheme, parts.netloc, parts.path, "", ""))
 
 
