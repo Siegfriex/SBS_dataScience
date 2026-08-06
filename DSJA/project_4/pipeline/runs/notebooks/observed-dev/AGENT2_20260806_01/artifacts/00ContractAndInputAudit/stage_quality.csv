@@ -1,0 +1,4 @@
+﻿gateId,ruleId,severity,status,observedValue,threshold,evidencePath
+CONTRACT_LINKED,source_adapter_conformance,INFO,PASS,PASS,PASS,stage_quality.csv
+CONTRACT_LINKED,empirical_analysis_disabled,INFO,PASS,False,PASS,stage_quality.csv
+CONTRACT_LINKED,canonical_database_zero,INFO,PASS,0,PASS,stage_quality.csv

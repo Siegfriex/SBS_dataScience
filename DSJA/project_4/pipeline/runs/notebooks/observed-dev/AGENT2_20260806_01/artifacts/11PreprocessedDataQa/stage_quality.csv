@@ -1,0 +1,25 @@
+﻿gateId,ruleId,severity,status,observedValue,threshold,evidencePath
+PREPROCESSED_CSV_READY,posting_pk,INFO,PASS,0,PASS,stage_quality.csv
+PREPROCESSED_CSV_READY,track_pk,INFO,PASS,0,PASS,stage_quality.csv
+PREPROCESSED_CSV_READY,section_pk,INFO,PASS,0,PASS,stage_quality.csv
+PREPROCESSED_CSV_READY,track_fk,INFO,PASS,0,PASS,stage_quality.csv
+PREPROCESSED_CSV_READY,section_fk,INFO,PASS,0,PASS,stage_quality.csv
+PREPROCESSED_CSV_READY,requirement_fk,INFO,PASS,0,PASS,stage_quality.csv
+PREPROCESSED_CSV_READY,raw_sha_lineage,INFO,PASS,0,PASS,stage_quality.csv
+PREPROCESSED_CSV_READY,required_nulls,INFO,PASS,"{""trackId"": 0, ""postingId"": 0, ""sourcePostingId"": 0, ""sourceUrl"": 0, ""postingEligibleFlag"": 0, ""rawSha256"": 0}",PASS,stage_quality.csv
+PREPROCESSED_CSV_READY,version_singleton,INFO,PASS,"{""contractVersion"": 1, ""crawlReleaseId"": 1, ""dataVersion"": 1, ""parseVersion"": 1}",PASS,stage_quality.csv
+PREPROCESSED_CSV_READY,provenance,INFO,PASS,"""OBSERVED_DEVELOPMENT_ONLY""",PASS,stage_quality.csv
+PREPROCESSED_CSV_READY,eligibility_name,INFO,PASS,"[""trackId"", ""postingId"", ""canonicalPostingId"", ""sourcePostingId"", ""sourceUrl"", ""canonicalPostedAt"", ""periodMonth"", ""companyKey"", ""companyNameMasked"", ""jobTitle"", ""activityTypeId"", ""trackType"", ""recruitmentScope"", ""postingKind"", ""postingEligibleFlag"", ""rq1EligibleFlag"", ""rq2EligibleFlag"", ""ncsEligibleFlag"", ""mixedResolvedFlag"", ""careerClass"", ""internAccessClass"", ""boundaryResolvedFlag"", ""minCareerMonths"", ""requiredExperienceFlag"", ""requiredPriorExperienceFlag"", ""requiredPortfolioFlag"", ""requiredProjectFlag"", ""requiredCertificateFlag"", ""certificateClass"", ""requiredDegreeLevel"", ""requiredToolCount"", ""ncsSubCode"", ""ncsLevelWeightedMedian"", ""ncsBandPrimary"", ""ncsMappingCoverage"", ""ncsMatchConfidence"", ""duplicateGroupId"", ""repostCount"", ""canonicalRecordFlag"", ""rawSha256"", ""parseVersion"", ""extractorVersion"", ""labelVersion"", ""ncsMapVersion"", ""dedupVersion"", ""dataVersion"", ""contractVersion"", ""crawlReleaseId"", ""dataProvenance"", ""empiricalAnalysisAllowed"", ""promotionAllowed"", ""highDemandScore""]",PASS,stage_quality.csv
+PREPROCESSED_CSV_READY,high_demand_null,INFO,PASS,0,PASS,stage_quality.csv
+PREPROCESSED_CSV_READY,enum_track_type,INFO,PASS,"[""entry"", ""experienced"", ""intern"", ""mixedUnresolved"", ""unknown""]",PASS,stage_quality.csv
+PREPROCESSED_CSV_READY,ncs_candidate_rows,INFO,PASS,128,PASS,stage_quality.csv
+PREPROCESSED_CSV_READY,ncs_match_rows,INFO,PASS,28,PASS,stage_quality.csv
+PREPROCESSED_CSV_READY,ncs_unmapped_preserved,INFO,PASS,1,PASS,stage_quality.csv
+PREPROCESSED_CSV_READY,ncs_dense_null,INFO,PASS,0,PASS,stage_quality.csv
+PREPROCESSED_CSV_READY,ncs_policy,INFO,PASS,"""LEXICAL_BASELINE/REVIEW_REQUIRED/gold=false""",PASS,stage_quality.csv
+PREPROCESSED_CSV_READY,ncs_track_fk,INFO,PASS,0,PASS,stage_quality.csv
+PREPROCESSED_CSV_READY,ncs_final_materialized,INFO,PASS,28,PASS,stage_quality.csv
+PREPROCESSED_CSV_READY,secret_scan,INFO,PASS,"""text fields only""",PASS,stage_quality.csv
+PREPROCESSED_CSV_READY,pii_scan,INFO,PASS,"""text fields only""",PASS,stage_quality.csv
+PREPROCESSED_CSV_READY,absolute_path_scan,INFO,PASS,[],PASS,stage_quality.csv
+PREPROCESSED_CSV_READY,csv_parquet_semantic_equality,INFO,PASS,[],PASS,stage_quality.csv

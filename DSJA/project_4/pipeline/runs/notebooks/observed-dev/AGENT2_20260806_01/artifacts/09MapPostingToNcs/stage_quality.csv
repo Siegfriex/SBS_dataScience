@@ -1,0 +1,6 @@
+﻿gateId,ruleId,severity,status,observedValue,threshold,evidencePath
+NCS_MAPPING_DEV_READY,agent4_handoff_self_sha,INFO,PASS,8f9c0af8fdd3d5f54b68f8ad6361de63f57f6b5badeeefb8b120b1f604e16a56,PASS,stage_quality.csv
+NCS_MAPPING_DEV_READY,agent4_input_rows_sha,INFO,PASS,a305d2354a7437860dc947f4e537be76c6233cd26fe658da650d3bb07437bc30,PASS,stage_quality.csv
+NCS_MAPPING_DEV_READY,ncs_source_rows,INFO,PASS,13442,PASS,stage_quality.csv
+NCS_MAPPING_DEV_READY,core_code_review_set,INFO,PASS,120,PASS,stage_quality.csv
+NCS_MAPPING_DEV_READY,agent4_mapping_tables_loaded,INFO,PASS,"{'candidates': 128, 'matches': 28}",PASS,stage_quality.csv

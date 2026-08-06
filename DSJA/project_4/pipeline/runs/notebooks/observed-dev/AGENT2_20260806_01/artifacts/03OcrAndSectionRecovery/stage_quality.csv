@@ -1,0 +1,3 @@
+﻿gateId,ruleId,severity,status,observedValue,threshold,evidencePath
+OCR_READY,ocr_routing_only,INFO,PASS,ROUTING_ONLY,PASS,stage_quality.csv
+OCR_READY,section_materialized,INFO,PASS,84,PASS,stage_quality.csv

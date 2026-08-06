@@ -1,0 +1,225 @@
+{
+  "metricsVersion": "stage-metrics-v1",
+  "runId": "OBSERVED_DEV_20260806_01-A2-09-NCS-MAP",
+  "runMode": "observed-dev",
+  "stageId": "A2-09-NCS-MAP",
+  "contractVersion": "2.1.2",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "dataVersion": "observed-dev-20260806.1",
+  "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+  "empiricalAnalysisAllowed": false,
+  "promotionAllowed": false,
+  "generatedAt": "2026-08-06T00:00:00+09:00",
+  "metrics": [
+    {
+      "metricId": "agent4HandoffSha256",
+      "value": "8f9c0af8fdd3d5f54b68f8ad6361de63f57f6b5badeeefb8b120b1f604e16a56",
+      "numerator": null,
+      "denominator": null,
+      "unit": "value",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "candidateRows",
+      "value": 128,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "coreCodeRows",
+      "value": 120,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "coreIncludedRows",
+      "value": 69,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "matchRows",
+      "value": 28,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "ncsUnitRows",
+      "value": 13442,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "stage",
+      "value": "09MapPostingToNcs",
+      "numerator": null,
+      "denominator": null,
+      "unit": "value",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "unmappedRows",
+      "value": 1,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "warehouseInventory.batch_metadata",
+      "value": 1,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "warehouseInventory.career_access_label",
+      "value": 137,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "warehouseInventory.eligibility",
+      "value": 137,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "warehouseInventory.manifest_cursor",
+      "value": 29,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "warehouseInventory.ocr_queue",
+      "value": 30,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "warehouseInventory.posting_dedup",
+      "value": 137,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "warehouseInventory.posting_ncs_candidates",
+      "value": 128,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "warehouseInventory.posting_ncs_matches",
+      "value": 28,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "warehouseInventory.posting_normalized",
+      "value": 137,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "warehouseInventory.posting_section",
+      "value": 84,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "warehouseInventory.posting_track",
+      "value": 137,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "warehouseInventory.raw_posting",
+      "value": 137,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "warehouseInventory.requirement_fact",
+      "value": 35,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    }
+  ]
+}

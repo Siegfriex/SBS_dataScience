@@ -1,0 +1,3 @@
+﻿gateId,ruleId,severity,status,observedValue,threshold,evidencePath
+PARSE_READY,parse_failures,INFO,PASS,0,PASS,stage_quality.csv
+PARSE_READY,posting_rows,INFO,PASS,137,PASS,stage_quality.csv
