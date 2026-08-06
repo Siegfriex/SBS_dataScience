@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://p4.local/schemas/current-run-manifest-v1.json",
+  "title": "P4 Master current-run stage binding",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "manifestVersion", "currentRunId", "stageId", "agentId", "status",
+    "sourceNotebookPath", "sourceNotebookSha256", "sourceGitRef",
+    "sourceGitBlobSha", "parameterSha256", "artifactRoot",
+    "executedNotebookPath", "executedNotebookSha256",
+    "nativeStageManifestPath", "nativeStageManifestSha256", "createdAt", "errors"
+  ],
+  "properties": {
+    "manifestVersion": {"const": "current-run-manifest-v1"},
+    "currentRunId": {"type": "string", "minLength": 1},
+    "stageId": {"type": "string", "pattern": "^A[1234]-[A-Z0-9-]+$"},
+    "agentId": {"type": "string", "pattern": "^P4-A[1234]-[A-Z0-9-]+$"},
+    "status": {"enum": ["PASS", "FAIL"]},
+    "sourceNotebookPath": {"$ref": "#/$defs/path"},
+    "sourceNotebookSha256": {"$ref": "#/$defs/sha256"},
+    "sourceGitRef": {"const": "HEAD"},
+    "sourceGitBlobSha": {"type": "string", "pattern": "^[0-9a-f]{40,64}$"},
+    "parameterSha256": {"$ref": "#/$defs/sha256"},
+    "artifactRoot": {"$ref": "#/$defs/path"},
+    "executedNotebookPath": {"$ref": "#/$defs/path"},
+    "executedNotebookSha256": {"$ref": "#/$defs/sha256"},
+    "nativeStageManifestPath": {"anyOf": [{"$ref": "#/$defs/path"}, {"type": "null"}]},
+    "nativeStageManifestSha256": {"anyOf": [{"$ref": "#/$defs/sha256"}, {"type": "null"}]},
+    "createdAt": {"type": "string", "format": "date-time"},
+    "errors": {"type": "array", "items": {"type": "string"}}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "path": {"type": "string", "minLength": 1, "pattern": "^(?!~)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"}
+  }
+}

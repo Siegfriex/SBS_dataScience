@@ -20,6 +20,7 @@ if str(PROJECT_ROOT) not in sys.path:
 from crawl.control.notebook_bundle import (
     NOTEBOOKS,
     audit_source_bundle,
+    collect_stage_manifests,
     resolve_project_root,
     sha256_file,
     write_csv,
@@ -38,34 +39,19 @@ REPORT_FILES = (
 )
 
 
-def execution_rows(root: Path) -> list[dict[str, Any]]:
-    candidates: dict[str, list[dict[str, Any]]] = {}
-    for path in sorted(root.glob("**/runs/notebooks/observed-dev/**/NOTEBOOK_EXECUTION_RESULTS.csv")):
-        try:
-            frame = pd.read_csv(path)
-        except Exception:
-            continue
-        for row in frame.to_dict(orient="records"):
-            row["resultFile"] = path.relative_to(root).as_posix()
-            notebook = str(row.get("notebook", ""))
-            candidates.setdefault(notebook, []).append(row)
-
-    expected = {relative for _, _, relative in NOTEBOOKS}
-    rows: list[dict[str, Any]] = []
-    for notebook in sorted(expected):
-        matches = candidates.get(notebook, [])
-        if not matches:
-            continue
-        # The integrated Master run is the bundle authority. Agent-local runs
-        # remain preserved as evidence but must not duplicate final report rows.
-        matches.sort(
-            key=lambda row: (
-                "MASTER_20260806_01" in str(row.get("resultFile", "")),
-                row.get("status") == "PASS",
-            ),
-            reverse=True,
-        )
-        rows.append(matches[0])
+def execution_rows(root: Path, run_root: Path) -> list[dict[str, Any]]:
+    """Read only the explicitly selected current run; never search history."""
+    path = run_root / "NOTEBOOK_EXECUTION_RESULTS.csv"
+    if not path.is_file():
+        return []
+    try:
+        frame = pd.read_csv(path)
+    except Exception:
+        return []
+    rows = frame.to_dict(orient="records")
+    result_file = path.relative_to(root).as_posix() if path.is_relative_to(root) else str(path)
+    for row in rows:
+        row["resultFile"] = result_file
     return rows
 
 
@@ -102,15 +88,23 @@ def cell_rows(root: Path) -> list[dict[str, Any]]:
     return rows
 
 
-def artifact_rows(root: Path) -> list[dict[str, Any]]:
+def artifact_rows(root: Path, run_root: Path) -> list[dict[str, Any]]:
     patterns = (
-        "crawl/runs/notebooks/observed-dev/**/*",
-        "pipeline/runs/notebooks/observed-dev/**/*",
-        "ncs_mapping/runs/notebooks/observed-dev/**/*",
         "crawl/data/exports/observed-dev/OBSERVED_DEV_20260806_01/*",
     )
     rows = []
     seen: set[Path] = set()
+    for path in run_root.rglob("*") if run_root.is_dir() else []:
+        if path.is_file():
+            seen.add(path)
+            if path.suffix.lower() in {".ipynb", ".json", ".csv", ".parquet", ".sha256", ".jsonl"}:
+                rows.append({
+                    "path": path.relative_to(root).as_posix() if path.is_relative_to(root) else str(path),
+                    "bytes": path.stat().st_size,
+                    "sha256": sha256_file(path),
+                    "format": path.suffix.lstrip(".") or path.name,
+                    "kind": "executed_notebook" if path.suffix == ".ipynb" else "stage_or_data_artifact",
+                })
     for pattern in patterns:
         for path in root.glob(pattern):
             if not path.is_file() or path in seen:
@@ -131,13 +125,25 @@ def artifact_rows(root: Path) -> list[dict[str, Any]]:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--report-root", default="crawl/reports/m1_notebook_build")
+    parser.add_argument(
+        "--run-root",
+        default="crawl/runs/notebooks/observed-dev/MASTER_20260806_01/stages/crawl/notebooks/children",
+        help="exact current Master child-run root; historical runs are not searched",
+    )
     args = parser.parse_args()
     root = resolve_project_root(Path.cwd())
     report_root = root / args.report_root
+    run_root = (root / args.run_root).resolve() if not Path(args.run_root).is_absolute() else Path(args.run_root).resolve()
     report_root.mkdir(parents=True, exist_ok=True)
 
     audits = audit_source_bundle(root)
-    executions = execution_rows(root)
+    executions = execution_rows(root, run_root)
+    current_run_manifest_error = ""
+    try:
+        current_run_manifests = collect_stage_manifests(run_root, root)
+    except Exception as exc:
+        current_run_manifests = []
+        current_run_manifest_error = f"{type(exc).__name__}: {exc}"
     execution_by_notebook: dict[str, list[dict[str, Any]]] = {}
     for row in executions:
         execution_by_notebook.setdefault(str(row.get("notebook", "")), []).append(row)
@@ -147,7 +153,7 @@ def main() -> int:
         row["executedCopies"] = len(matches)
 
     cells = cell_rows(root)
-    artifacts = artifact_rows(root)
+    artifacts = artifact_rows(root, run_root)
     module_rows = [{
         "agentId": row["agentId"], "stageId": row["stageId"], "notebook": row["notebook"],
         "projectImports": row.get("projectImports", ""), "moduleCalls": row.get("moduleCalls", ""),
@@ -157,7 +163,13 @@ def main() -> int:
     final_path = root / "crawl/data/exports/observed-dev/OBSERVED_DEV_20260806_01/preprocessed_posting_tracks.parquet"
     final = pd.read_parquet(final_path) if final_path.is_file() else pd.DataFrame()
     source_ready = len(audits) == 24 and all(row.get("valid") for row in audits)
-    execution_ready = len(audits) == 24 and all(row.get("executionResult") == "PASS" for row in audits)
+    expected_children = len(NOTEBOOKS) - 1
+    execution_ready = (
+        len(executions) == expected_children
+        and all(row.get("status") == "PASS" for row in executions)
+        and len(current_run_manifests) == expected_children
+        and not current_run_manifest_error
+    )
     bundle_ready = source_ready and execution_ready and len(artifacts) > 0
     invariants = bool(
         not final.empty
@@ -173,7 +185,7 @@ def main() -> int:
         {"gateId": "PARAMETER_CELL_READY", "status": "PASS" if all(row.get("parameterTag") and row.get("parameterContractValues") and row.get("titleMarkdownFirst") and row.get("titleSpecificationComplete") and row.get("parameterCellIndex") == 1 for row in audits) else "FAIL", "observed": f"{sum(bool(row.get('parameterTag')) and bool(row.get('parameterContractValues')) and bool(row.get('titleMarkdownFirst')) and bool(row.get('titleSpecificationComplete')) and row.get('parameterCellIndex') == 1 for row in audits)}/24", "required": "24/24", "evidence": "NOTEBOOK_CELL_INVENTORY.csv"},
         {"gateId": "ACTUAL_MODULE_CALL_READY", "status": "PASS" if all(row.get("actualModuleCall") for row in audits) else "FAIL", "observed": f"{sum(bool(row.get('actualModuleCall')) for row in audits)}/24", "required": "24/24", "evidence": "NOTEBOOK_MODULE_CALL_MATRIX.csv"},
         {"gateId": "SOURCE_OUTPUT_ZERO", "status": "PASS" if all(int(row.get("sourceOutputs", 0)) == 0 for row in audits) else "FAIL", "observed": str(sum(int(row.get("sourceOutputs", 0)) for row in audits)), "required": "0", "evidence": "NOTEBOOK_FILE_INVENTORY.csv"},
-        {"gateId": "NOTEBOOK_EXECUTION_READY_OBSERVED_DEV", "status": "PASS" if execution_ready else "FAIL", "observed": f"{sum(row.get('executionResult') == 'PASS' for row in audits)}/24", "required": "at least 19; bundle target 24/24", "evidence": "NOTEBOOK_EXECUTION_RESULTS.csv"},
+        {"gateId": "NOTEBOOK_EXECUTION_READY_OBSERVED_DEV", "status": "PASS" if execution_ready else "FAIL", "observed": f"children={sum(row.get('status') == 'PASS' for row in executions)}/{expected_children}; currentManifests={len(current_run_manifests)}/{expected_children}", "required": f"{expected_children}/{expected_children} current child executions and provenance manifests", "evidence": "NOTEBOOK_EXECUTION_RESULTS.csv; current_run_manifest.json"},
         {"gateId": "OBSERVED_PROVENANCE_INVARIANTS", "status": "PASS" if invariants else "FAIL", "observed": str(invariants), "required": "True", "evidence": "preprocessed_posting_tracks.parquet"},
         {"gateId": "NOTEBOOK_BUNDLE_READY", "status": "PASS" if bundle_ready and invariants else "FAIL", "observed": str(bundle_ready and invariants), "required": "True", "evidence": "NOTEBOOK_OUTPUT_ARTIFACTS.csv"},
     ]
@@ -190,8 +202,12 @@ def main() -> int:
         "notebookCount": len(audits),
         "validSourceCount": sum(bool(row.get("valid")) for row in audits),
         "executedNotebookCount": sum(row.get("executionResult") == "PASS" for row in audits),
+        "executedChildNotebookCount": sum(row.get("status") == "PASS" for row in executions),
         "sourceOutputCount": sum(int(row.get("sourceOutputs", 0)) for row in audits),
         "artifactCount": len(artifacts),
+        "currentRunRoot": run_root.relative_to(root).as_posix() if run_root.is_relative_to(root) else str(run_root),
+        "currentRunManifestCount": len(current_run_manifests),
+        "currentRunManifestError": current_run_manifest_error,
         "states": {
             "OBSERVED_DEV_CSV_READY": invariants,
             "NOTEBOOK_SOURCE_READY": source_ready,

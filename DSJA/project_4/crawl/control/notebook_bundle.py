@@ -10,12 +10,14 @@ import os
 import shutil
 import subprocess
 import time
+from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence
 
 import nbformat
 from nbclient import NotebookClient
+from jsonschema import Draft202012Validator, FormatChecker
 
 
 CONTRACT_VERSION = "2.1.2"
@@ -50,6 +52,8 @@ NOTEBOOKS: tuple[tuple[str, str, str], ...] = (
     ("P4-A4-NCS", "A4-05-EVALUATE", "ncs_mapping/notebooks/05EvaluateNcsMapping.ipynb"),
     ("P4-A3-CONTROL", "A3-MASTER", "crawl/notebooks/P4_Notebook_First_Master.ipynb"),
 )
+
+CURRENT_RUN_MANIFEST = "current_run_manifest.json"
 
 PARAMETER_NAMES = (
     "RUN_MODE", "AGENT_ID", "STAGE_ID", "CONTRACT_VERSION", "SCHEMA_VERSION",
@@ -95,13 +99,97 @@ def load_stage_registry(project_root: str | Path) -> dict[str, Any]:
     import yaml
 
     path = Path(project_root) / "crawl/control/NOTEBOOK_STAGE_REGISTRY.yaml"
-    return yaml.safe_load(path.read_text(encoding="utf-8"))
+    registry = yaml.safe_load(path.read_text(encoding="utf-8"))
+    registry["stages"] = topological_stage_rows(registry)
+    return registry
+
+
+def topological_stage_rows(registry: Mapping[str, Any]) -> list[dict[str, Any]]:
+    """Return a deterministic upstream-first plan or fail on an invalid DAG."""
+    stages = registry.get("stages", [])
+    if not isinstance(stages, list) or any(not isinstance(stage, dict) for stage in stages):
+        raise ValueError("registry stages must be a list of mappings")
+    by_id = {str(stage.get("stageId", "")): stage for stage in stages}
+    if "" in by_id or len(by_id) != len(stages):
+        raise ValueError("registry stageId values must be non-empty and unique")
+    unknown = sorted({upstream for stage in stages for upstream in stage.get("upstreamStages", []) if upstream not in by_id})
+    if unknown:
+        raise ValueError("unknown upstream stages: " + ",".join(unknown))
+
+    remaining = {stage_id: set(stage.get("upstreamStages", [])) for stage_id, stage in by_id.items()}
+    ordered: list[dict[str, Any]] = []
+    while remaining:
+        ready = sorted(stage_id for stage_id, upstream in remaining.items() if not upstream)
+        if not ready:
+            raise ValueError("stage registry contains a dependency cycle: " + ",".join(sorted(remaining)))
+        for stage_id in ready:
+            ordered.append(by_id[stage_id])
+            remaining.pop(stage_id)
+        for upstream in remaining.values():
+            upstream.difference_update(ready)
+    return ordered
+
+
+def registry_notebook_plan(project_root: str | Path, include_master: bool = False) -> tuple[tuple[str, str, str], ...]:
+    """Build the executable Notebook plan from registry upstream edges, not tuple order."""
+    root = Path(project_root).resolve()
+    inventory_paths = {relative for _, _, relative in NOTEBOOKS}
+    rows: list[tuple[str, str, str]] = []
+    for stage in topological_stage_rows(load_stage_registry(root)):
+        relative = str(stage["notebookPath"])
+        if relative not in inventory_paths or (stage["stageId"] == "A3-MASTER" and not include_master):
+            continue
+        rows.append((str(stage["ownerAgent"]), str(stage["stageId"]), relative))
+    expected = {relative for _, stage, relative in NOTEBOOKS if include_master or stage != "A3-MASTER"}
+    actual = {relative for _, _, relative in rows}
+    if actual != expected:
+        raise ValueError(f"registry/inventory Notebook mismatch: missing={sorted(expected - actual)} extra={sorted(actual - expected)}")
+    return tuple(rows)
+
+
+def git_blob_provenance(path: str | Path, project_root: str | Path, git_ref: str = "HEAD") -> dict[str, Any]:
+    """Bind a source file to a tracked Git blob at an explicit ref."""
+    root = Path(project_root).resolve()
+    source = Path(path).resolve()
+    try:
+        repo_root = Path(subprocess.run(
+            ["git", "rev-parse", "--show-toplevel"], cwd=root,
+            text=True, capture_output=True, check=True,
+        ).stdout.strip()).resolve()
+        relative = source.relative_to(repo_root).as_posix()
+    except (OSError, ValueError, subprocess.CalledProcessError):
+        return {"gitTracked": False, "gitRef": git_ref, "gitBlobSha": "", "workingTreeBlobSha": "", "gitBlobMatch": False}
+    base = {"gitTracked": False, "gitRef": git_ref, "gitBlobSha": "", "workingTreeBlobSha": "", "gitBlobMatch": False}
+    try:
+        tracked = subprocess.run(
+            ["git", "ls-files", "--error-unmatch", "--", relative], cwd=repo_root,
+            text=True, capture_output=True, check=False,
+        )
+        if tracked.returncode != 0:
+            return base
+        ref_blob = subprocess.run(
+            ["git", "rev-parse", f"{git_ref}:{relative}"], cwd=repo_root,
+            text=True, capture_output=True, check=True,
+        ).stdout.strip()
+        worktree_blob = subprocess.run(
+            ["git", "hash-object", "--", relative], cwd=repo_root,
+            text=True, capture_output=True, check=True,
+        ).stdout.strip()
+    except (OSError, subprocess.CalledProcessError):
+        return base
+    return {
+        "gitTracked": True,
+        "gitRef": git_ref,
+        "gitBlobSha": ref_blob,
+        "workingTreeBlobSha": worktree_blob,
+        "gitBlobMatch": bool(ref_blob and ref_blob == worktree_blob),
+    }
 
 
 def repository_architecture(project_root: str | Path) -> list[dict[str, Any]]:
     root = Path(project_root)
     rows = []
-    for owner, stage_id, relative in NOTEBOOKS:
+    for owner, stage_id, relative in registry_notebook_plan(root, include_master=True):
         path = root / relative
         rows.append({
             "agentId": owner,
@@ -181,6 +269,7 @@ def audit_notebook(path: str | Path, project_root: str | Path) -> dict[str, Any]
         "exists": source_path.is_file(),
         "bytes": source_path.stat().st_size if source_path.is_file() else 0,
         "sha256": sha256_file(source_path) if source_path.is_file() else "",
+        **git_blob_provenance(source_path, project_root),
     }
     if not source_path.is_file() or source_path.stat().st_size == 0:
         return {**row, "valid": False, "errors": "missing or zero-byte"}
@@ -245,6 +334,10 @@ def audit_notebook(path: str | Path, project_root: str | Path) -> dict[str, Any]
         errors.append(f"source execution count is {execution_count}")
     if not has_project_call:
         errors.append("no project module import and call detected")
+    if not row["gitTracked"]:
+        errors.append("source Notebook is not tracked by Git")
+    elif not row["gitBlobMatch"]:
+        errors.append(f"source Notebook does not match {row['gitRef']} blob")
     return {
         **row,
         "valid": not errors,
@@ -269,9 +362,8 @@ def audit_notebook(path: str | Path, project_root: str | Path) -> dict[str, Any]
 
 def audit_source_bundle(project_root: str | Path) -> list[dict[str, Any]]:
     root = Path(project_root)
-    metadata = {(relative): (owner, stage) for owner, stage, relative in NOTEBOOKS}
     rows = []
-    for relative, (owner, stage) in metadata.items():
+    for owner, stage, relative in registry_notebook_plan(root, include_master=True):
         row = audit_notebook(root / relative, root)
         row.update({"agentId": owner, "stageId": stage})
         rows.append(row)
@@ -290,6 +382,51 @@ def _parameter_overrides(output_root: Path | None) -> str:
     return "\n".join(lines)
 
 
+def _parameter_sha(source_parameter_cell: str, output_root: Path | None) -> str:
+    material = source_parameter_cell.rstrip() + "\n\n" + _parameter_overrides(output_root)
+    return hashlib.sha256(material.encode("utf-8")).hexdigest()
+
+
+def _relative_or_absolute(path: Path, root: Path) -> str:
+    return path.relative_to(root).as_posix() if path.is_relative_to(root) else str(path)
+
+
+def _write_current_run_manifest(
+    *, root: Path, run: Path, source: Path, destination: Path, stage_output: Path,
+    stage_id: str, owner: str, status: str, parameter_sha: str, error: str,
+) -> Path:
+    provenance = git_blob_provenance(source, root)
+    native = stage_output / "stage_manifest.json"
+    errors = [error] if error else []
+    if not native.is_file():
+        errors.append("native stage_manifest.json missing")
+    if not provenance["gitTracked"] or not provenance["gitBlobMatch"]:
+        errors.append("source Git provenance invalid")
+    effective_status = "PASS" if status == "PASS" and not errors else "FAIL"
+    payload = {
+        "manifestVersion": "current-run-manifest-v1",
+        "currentRunId": MASTER_RUN_ID,
+        "stageId": stage_id,
+        "agentId": owner,
+        "status": effective_status,
+        "sourceNotebookPath": source.relative_to(root).as_posix(),
+        "sourceNotebookSha256": sha256_file(source),
+        "sourceGitRef": provenance["gitRef"],
+        "sourceGitBlobSha": provenance["gitBlobSha"],
+        "parameterSha256": parameter_sha,
+        "artifactRoot": _relative_or_absolute(stage_output, root),
+        "executedNotebookPath": _relative_or_absolute(destination, root),
+        "executedNotebookSha256": sha256_file(destination),
+        "nativeStageManifestPath": _relative_or_absolute(native, root) if native.is_file() else None,
+        "nativeStageManifestSha256": sha256_file(native) if native.is_file() else None,
+        "createdAt": utc_now(),
+        "errors": errors,
+    }
+    path = stage_output / CURRENT_RUN_MANIFEST
+    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return path
+
+
 def execute_notebook(
     source_path: str | Path,
     project_root: str | Path,
@@ -302,9 +439,10 @@ def execute_notebook(
     relative = source.relative_to(root)
     destination = Path(run_root).resolve() / "executed" / relative
     shared_run = Path(run_root).resolve()
-    stage_lookup = {item[2]: item[1] for item in NOTEBOOKS}
+    plan = registry_notebook_plan(root, include_master=True)
+    stage_lookup = {item[2]: item[1] for item in plan}
     stage_id = stage_lookup[relative.as_posix()]
-    owner = next(item[0] for item in NOTEBOOKS if item[2] == relative.as_posix())
+    owner = next(item[0] for item in plan if item[2] == relative.as_posix())
     parameter_output: Path | None
     kernel_cwd = root
     child_env: dict[str, str] = {}
@@ -341,6 +479,7 @@ def execute_notebook(
     code_cells = [cell for cell in notebook.cells if cell.cell_type == "code"]
     if not code_cells or "parameters" not in code_cells[0].metadata.get("tags", []):
         raise ValueError(f"parameters cell missing: {relative}")
+    parameter_sha = _parameter_sha(code_cells[0].source, parameter_output)
     code_cells[0].source = code_cells[0].source.rstrip() + "\n\n" + _parameter_overrides(parameter_output)
     started = time.monotonic()
     status = "PASS"
@@ -375,15 +514,32 @@ def execute_notebook(
                     shutil.copy2(canonical_stage / name, stage_output / name)
     nbformat.write(notebook, destination)
     outputs = sum(len(cell.get("outputs", [])) for cell in notebook.cells if cell.cell_type == "code")
+    current_manifest = _write_current_run_manifest(
+        root=root,
+        run=shared_run,
+        source=source,
+        destination=destination,
+        stage_output=stage_output,
+        stage_id=stage_id,
+        owner=owner,
+        status=status,
+        parameter_sha=parameter_sha,
+        error=error,
+    )
+    binding = json.loads(current_manifest.read_text(encoding="utf-8"))
     return {
         "notebook": relative.as_posix(),
-        "status": status,
+        "status": binding["status"],
         "elapsedSeconds": round(time.monotonic() - started, 3),
         "sourceSha256": sha256_file(source),
         "executedPath": destination.relative_to(root).as_posix() if destination.is_relative_to(root) else str(destination),
         "executedSha256": sha256_file(destination),
         "executedOutputs": outputs,
         "stageOutputRoot": stage_output.relative_to(root).as_posix() if stage_output.is_relative_to(root) else str(stage_output),
+        "parameterSha256": parameter_sha,
+        "currentRunManifest": current_manifest.relative_to(root).as_posix() if current_manifest.is_relative_to(root) else str(current_manifest),
+        "sourceGitRef": binding["sourceGitRef"],
+        "sourceGitBlobSha": binding["sourceGitBlobSha"],
         "error": error.replace("\n", " ")[:2000],
     }
 
@@ -397,7 +553,7 @@ def execute_notebook_plan(
     root = Path(project_root).resolve()
     run = Path(run_root).resolve()
     rows: list[dict[str, Any]] = []
-    plan = NOTEBOOKS if include_master else NOTEBOOKS[:-1]
+    plan = registry_notebook_plan(root, include_master=include_master)
     for owner, stage, relative in plan:
         row = execute_notebook(root / relative, root, run)
         row.update({"agentId": owner, "stageId": stage})
@@ -408,21 +564,102 @@ def execute_notebook_plan(
     return rows
 
 
-def collect_stage_manifests(run_root: str | Path) -> list[dict[str, Any]]:
-    run = Path(run_root)
-    rows = []
-    for path in sorted(run.rglob("stage_manifest.json")):
+def collect_stage_manifests(
+    run_root: str | Path,
+    project_root: str | Path | None = None,
+    current_run_id: str = MASTER_RUN_ID,
+) -> list[dict[str, Any]]:
+    """Validate exactly one provenance-bound manifest for every planned child stage."""
+    run = Path(run_root).resolve()
+    root = Path(project_root).resolve() if project_root else resolve_project_root(run)
+    expected_plan = registry_notebook_plan(root, include_master=False)
+    expected = {stage: (owner, relative) for owner, stage, relative in expected_plan}
+    result_path = run / "NOTEBOOK_EXECUTION_RESULTS.csv"
+    if not result_path.is_file():
+        raise ValueError(f"current-run execution results missing: {result_path}")
+    with result_path.open(encoding="utf-8-sig", newline="") as handle:
+        execution_rows = list(csv.DictReader(handle))
+    by_stage = {str(row.get("stageId", "")): row for row in execution_rows}
+    if len(by_stage) != len(execution_rows) or set(by_stage) != set(expected):
+        raise ValueError("current-run execution plan is incomplete or has duplicate/unplanned stages")
+
+    paths = sorted(run.rglob(CURRENT_RUN_MANIFEST))
+    schema = json.loads((Path(__file__).resolve().parent / "CURRENT_RUN_MANIFEST.schema.json").read_text(encoding="utf-8"))
+    validator = Draft202012Validator(schema, format_checker=FormatChecker())
+    payloads: list[tuple[Path, dict[str, Any]]] = []
+    parse_errors: list[str] = []
+    for path in paths:
         try:
             payload = json.loads(path.read_text(encoding="utf-8"))
-            rows.append({
-                "stageId": payload.get("stageId", ""),
-                "status": payload.get("status", ""),
-                "path": path.as_posix(),
-                "sha256": sha256_file(path),
-            })
+            if not isinstance(payload, dict):
+                raise ValueError("manifest must be an object")
+            validation_errors = sorted(validator.iter_errors(payload), key=lambda item: list(item.path))
+            if validation_errors:
+                raise ValueError("; ".join(error.message for error in validation_errors))
+            payloads.append((path, payload))
         except Exception as exc:
-            rows.append({"stageId": "", "status": "INVALID", "path": path.as_posix(), "sha256": "", "error": str(exc)})
-    return rows
+            parse_errors.append(f"{path}: {exc}")
+    if parse_errors:
+        raise ValueError("invalid current-run manifest: " + " | ".join(parse_errors))
+    counts = Counter(str(payload.get("stageId", "")) for _, payload in payloads)
+    missing = sorted(set(expected) - set(counts))
+    duplicate = sorted(stage for stage, count in counts.items() if count != 1)
+    unplanned = sorted(set(counts) - set(expected))
+    if missing or duplicate or unplanned:
+        raise ValueError(f"current-run manifest cardinality failure: missing={missing} duplicate={duplicate} unplanned={unplanned}")
+
+    source_audit = {row["stageId"]: row for row in audit_source_bundle(root) if row["stageId"] in expected}
+    errors: list[str] = []
+    rows: list[dict[str, Any]] = []
+    for path, payload in payloads:
+        stage_id = str(payload.get("stageId", ""))
+        if stage_id not in expected:
+            continue
+        owner, relative = expected[stage_id]
+        execution = by_stage[stage_id]
+        source = source_audit[stage_id]
+        expected_artifact = (root / str(execution["stageOutputRoot"])).resolve()
+        native = expected_artifact / "stage_manifest.json"
+        native_value = payload.get("nativeStageManifestPath")
+        native_path = (root / str(native_value)).resolve() if native_value else None
+        executed_value = payload.get("executedNotebookPath")
+        executed_path = (root / str(executed_value)).resolve() if executed_value else None
+        checks = {
+            "manifestVersion": payload.get("manifestVersion") == "current-run-manifest-v1",
+            "currentRunId": payload.get("currentRunId") == current_run_id,
+            "agentId": payload.get("agentId") == owner,
+            "sourceNotebookPath": payload.get("sourceNotebookPath") == relative,
+            "sourceNotebookSha256": payload.get("sourceNotebookSha256") == source.get("sha256"),
+            "sourceGitRef": payload.get("sourceGitRef") == source.get("gitRef") == "HEAD",
+            "sourceGitBlobSha": payload.get("sourceGitBlobSha") == source.get("gitBlobSha"),
+            "sourceGitTrackedClean": bool(source.get("gitTracked") and source.get("gitBlobMatch")),
+            "executionSourceSha256": execution.get("sourceSha256") == source.get("sha256"),
+            "parameterSha256": payload.get("parameterSha256") == execution.get("parameterSha256"),
+            "artifactRoot": (root / str(payload.get("artifactRoot", ""))).resolve() == expected_artifact == path.parent.resolve(),
+            "nativeStageManifestPath": native_path == native and native.is_file(),
+            "nativeStageManifestSha256": native.is_file() and payload.get("nativeStageManifestSha256") == sha256_file(native),
+            "executedNotebookPath": executed_path is not None and executed_path.is_file(),
+            "executedNotebookSha256": executed_path is not None and executed_path.is_file() and payload.get("executedNotebookSha256") == sha256_file(executed_path),
+            "status": payload.get("status") == execution.get("status") == "PASS",
+        }
+        failed = sorted(name for name, passed in checks.items() if not passed)
+        if failed:
+            errors.append(f"{stage_id}: " + ",".join(failed))
+        rows.append({
+            "stageId": stage_id,
+            "status": "SUCCEEDED" if not failed else "INVALID",
+            "path": _relative_or_absolute(path, root),
+            "sha256": sha256_file(path),
+            "currentRunId": payload.get("currentRunId", ""),
+            "sourceGitBlobSha": payload.get("sourceGitBlobSha", ""),
+            "parameterSha256": payload.get("parameterSha256", ""),
+            "artifactRoot": payload.get("artifactRoot", ""),
+            "error": ",".join(failed),
+        })
+    if errors:
+        raise ValueError("current-run provenance validation failed: " + " | ".join(errors))
+    order = {stage: index for index, (_, stage, _) in enumerate(expected_plan)}
+    return sorted(rows, key=lambda row: order[row["stageId"]])
 
 
 def write_csv(path: str | Path, rows: Sequence[Mapping[str, Any]], fieldnames: Sequence[str] | None = None) -> None:
