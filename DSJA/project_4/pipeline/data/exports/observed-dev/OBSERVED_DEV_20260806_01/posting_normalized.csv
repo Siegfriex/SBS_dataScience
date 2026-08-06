@@ -1,0 +1,387 @@
+﻿postingId,rawPostingId,sourcePostingId,sourceUrl,titleText,companyName,bodyText,activityTypeId,jobTypesRawJson,resolvedJobTypesJson,activityTextAvailableFlag,externalApplyFlag,externalDetailOnlyFlag,jobTypeConflictFlag,postingEligibleFlag,rq1EligibleFlag,rq2EligibleFlag,ncsEligibleFlag,eligibilitySource,inputSha256,parseVersion,dataVersion,contractVersion,crawlReleaseId,dataProvenance,empiricalAnalysisAllowed,promotionAllowed,postingKind
+PST_337d47f3cdd6c782273a,RAW_9c29115d6376db4dd858,36491,https://linkareer.com/activity/36491,각 부문 수시 채용,,,5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,5d66d9da438aad667ab91b88c3238927d78ebe9fb433d2f4b7677d80568236b4,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_e44e0140b1d344be3cd7,RAW_11f754b367cf51891bd7,34617,https://linkareer.com/activity/34617,동탄호텔 F&B 정규직 채용,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,2660cb5d57d2897b7f2b50f9e55da40497826865488f0db8450903312be2c8b0,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_748d8c011b32c7444320,RAW_73e7b6934187842f4d45,34460,https://linkareer.com/activity/34460,2020 상반기 각 부문 신입 및 경력 채용,,,5,"[""NEW"", ""EXPERIENCED"", ""CONTRACT""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,3cae650c2c40dba21e61ebfe7a6d497ef7ca3030346a3840813fb60acfb1d8f6,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_02987f96cc211cf90206,RAW_4aa2d6534c30be3e8f22,34465,https://linkareer.com/activity/34465,2020 3월 공개채용,,,5,"[""INTERN"", ""NEW"", ""CONTRACT""]","[""entry"", ""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,0225acaa3534953651e9ba46e44f85be6b68f67446bf68720838fb61c37fa0bf,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_de28e7deb92f8c192cd2,RAW_cb38c06494577b06f1b3,34469,https://linkareer.com/activity/34469,육아휴직 대체 체험형 청년인턴 채용,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,a822e5fbd0cf479c0685fe0e65b646ab381b1525a16f5e43053f2985faf21fd3,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_d27ceb8f47713bd57932,RAW_6de3384b8b5146e1f9cb,34376,https://linkareer.com/activity/34376,게임기획 인턴직 채용,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,85c8499d3b9c1ee70eaa3e06f7e327ac9f22c6cd2b807aa7120079aea3ba62af,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_4349286822ebaf6e23e5,RAW_d31f53afd3c86ab90286,34379,https://linkareer.com/activity/34379,해외영업부 인턴직 채용,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,f59d1c4493d50628a5ff189426d7c74298255184997a2932cb42640c063c3367,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_2d123bf05a9dc0235aaa,RAW_b0614e894db51f85ce98,34380,https://linkareer.com/activity/34380,언론홍보 인턴 채용,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,71d9f36f9c9d9705f075e4ade05f285bc9437f611974dc08abf7068bfdfcd947,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_5f19416f06284a2fbd3d,RAW_e55510445a536ae37cf8,34644,https://linkareer.com/activity/34644,[JB금융지주] 홍보부 인턴 채용 공고 (~03/06),,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,f97de476fb12aaf7349c6f927337d6d1b5f0be79e657045406f9668a6b398e36,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_e0017da897a76fb040dc,RAW_9ae7df7122a06e311db0,34827,https://linkareer.com/activity/34827,"블록체인 전문 기자(신입인턴, 경력)모집",,,5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,6f1517d17e01ab96582bcd47b6caad605544125d455c7dac9dd74e00effa3109,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_593f7dcf167e7771237c,RAW_49192cb5fd76a4409bcf,34548,https://linkareer.com/activity/34548,2020년 상반기 체험형 청년인턴(본사) 채용,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,176825ffe14612602d1bf6e3bd10bb0e758b34d103c3a2a4c9dda6e95d89ff29,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_b2af92d111d2d82c5b2f,RAW_646d88d03823635baf35,34736,https://linkareer.com/activity/34736,재무회계 신입(인턴) 채용,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,dcbec14f341bd651451f5f056bbd16342691b8487ffd9ac49aa26c3842a43b90,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_514373e6a25300a3551f,RAW_758d7406fec757ad8976,34552,https://linkareer.com/activity/34552,통합환경허가 경력/인턴(정규직전환형) 채용,,,5,"[""INTERN"", ""EXPERIENCED""]","[""experienced"", ""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,a4f6b8c26f1ca5ac69526616ddd657aa2e39e02a015c46fef7b25128339b495c,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_4f1d554169abe7793390,RAW_2d1ebe25289ab370216d,34738,https://linkareer.com/activity/34738,디지털PR 인턴 모집,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,37fcb88671367690389e913160f580932161035fd2120884571b71f4565f0f1b,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_c5c217e3af9fb266a718,RAW_57e834176af04891972d,34741,https://linkareer.com/activity/34741,헬스케어PR 인턴 및 신입 채용,,,5,"[""INTERN"", ""NEW""]","[""entry"", ""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,5af08ece90ac7b885de9bd940e9ee9d95d102ed10e8b6b864093aca7f39d8566,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_9309a1d8c7cc853504fd,RAW_a1f61eb854921af38595,34661,https://linkareer.com/activity/34661,Sales Manager 채용,,,5,"[""NEW"", ""CONTRACT""]","[""entry""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,6a51848cfba9f847955ab59b971313e4699a5ea4704e3edbf1a8d9a5dc04aa16,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_637fea34dd4dbcd676ee,RAW_fb82cd2d0830cf5576d5,34631,https://linkareer.com/activity/34631,콘텐츠 기획 제작 & 채널 운영 인턴 채용,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,1f065a0e45b0ee7c7a0af7d19c7942a2ee52e76b99c63705fb3c8cb54e0c391b,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_b7eda358564d27ff1523,RAW_add5981dc41d63f3aa12,34639,https://linkareer.com/activity/34639,전력O2O 마케팅 대학생 인턴 채용,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,2f58b281a67233dac9f660729c0ae3600c759a55a29545441ad024699146d643,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_da406f2484cf78d595ff,RAW_9aa06bbc1001bb3dc324,57020,https://linkareer.com/activity/57020,월 200만원! 채용조건부 인턴 채용,케이아이디비채권중개,"[케이아이디비채권중개] 월 200만원! 채용조건부 인턴 채용(~3/14)
+​
+- 서류전형 > 1차면접 > 2차면접 > 최종합격
+- 채권시장 중개
+- 태양관 발전사업 영업
+- 금융기관 간 채권 중개
+- 4년제 대졸 이상 또는 9월 졸업예정자
+- 전공무관 등",5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,a0f7f6bfcd41b03c22c084e088cef880c070e50b43202e5825fe0df2c1ed44f5,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_ab3ac38f124940380eba,RAW_281354fc5603af4cc5c0,57035,https://linkareer.com/activity/57035,총 00명! 각 부문 신입 및 경력 채용,금강주택,"[금강주택] 총 00명! 각 부문 신입 및 경력 채용(~3/14)
+​
+- 서류전형 > 인적성검사 > 1차면접 > 2차면접 > 채용검진 > 최종합격
+- 건축
+- 전기
+- 안전/보건
+- 개발사업
+- 인사총무
+- 법무
+- 자재 등
+- 건축시공,품질관리 및 하도급 관리
+- 건축현장 설비 시공 및 관리
+- 프로젝트별 설계 및 공법 적용 검토
+- 인사/교육/총무/홍보/전산
+- 건설 관련 자재 구매 및 관리 등
+- 4년제 대학교 졸업자 및 2월 졸업예정자
+- 각 직무별 관련학과 전공 및 관련 자격증 소지자",5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,8ff4fe824127a32632db38de0ca0d70133a47688dafab770fabacc49266f1dc2,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_617452578aac6fdfa98a,RAW_acf5aadb4f222a52424c,57144,https://linkareer.com/activity/57144,2021년 상반기 대졸 신입사원 채용,동부엔지니어링,"[동부엔지니어링] 2021년 상반기 대졸 신입사원 채용(~3/10)
+​
+- 서류전형 > 면접전형 > 최종합격
+- 도로공항설계
+- 구조설계
+- 지반설계
+- 교통설계
+- GIS S/W개발
+- 4년제 대학 졸업 또는 2월 졸업자",5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,ce884e1d66cb468009f39e1abc88965ff7b027789ba8f56722201c7deb2be441,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_4929fbbc810b91347270,RAW_6ad9861cc00472c53352,57076,https://linkareer.com/activity/57076,금연정책 시행기업! 각 부문별 신입 및 경력 채용,비상교육,"[비상교육] 금연정책 시행기업! 각 부문별 신입 및 경력 채용(~3/10)
+​
+- 서류전형 및 1차면접 > 인적성검사 > 2차면접 > 최종합격
+- IT
+- 마케팅
+- 기획
+- 교과서/교재개발 등
+- 웹/앱 개발 및 기획
+- 브랜드 마케팅
+- 회계
+- 물류관리
+- 교과서 개발 등
+- 공고참조",5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,ee961629b7cb1352379fb838b0c8923da1edc3fe21f116fa96bb852d1371ef58,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_8be4d7ea13dbb88c9849,RAW_228390d75740551dbe06,58387,https://linkareer.com/activity/58387,야근강요 없음! 각 부문별 신입 및 경력 채용,아이디어키,"[아이디어키] 야근강요 없음! 각 부문별 신입 및 경력 채용(~3/31)
+​
+- 서류전형 > 1차면접 > 2차면접 > 최종합격
+- 브랜드 마케팅
+- 이커머스 영업AE
+- 광고영업AE
+- 마케팅
+- 브랜드 바이럴 마케팅 기획 및 실행
+- 광고주 광고 연구 및 솔루션 분석
+- 디지털광고 제안 및 수주
+- 광고효과 분석 및 관리 등
+- 직무별 상이",5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,66556ee2be76f35e9e8fc26e6b80160f38ea1dd8d15da21ffd6e90db29904030,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_8d81a23c9ae9f4117f63,RAW_672daa63a3335d1d2c2b,58388,https://linkareer.com/activity/58388,자녀학자금 지원! 2021년 신입사원 채용,신코,"[신코] 자녀학자금 지원! 2021년 신입사원 채용(~4/30)
+​
+- 서류전형 > 인성검사 > 면접전형 > 최종합격
+- 기술지원
+- 영업지원
+- 기술영업
+- 과학/분석 기기 엔지니어 업무
+- 입/출고 및 납품 등 영업지원 업무
+- 연구기자재 기술영업 업무 등
+- 공고참조",5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,e0d1a377e43a3b198ea384d2221fd318dc2af5bb659434b08f953cc3d7283232,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_76616932d1f2d20dc518,RAW_4e22b9e9d294a59efb4c,57112,https://linkareer.com/activity/57112,생산본부 환경안전팀(관리직) 신입 채용,SH에너지화학,"[SH에너지화학] 생산본부 환경안전팀(관리직) 신입 채용(~3/9)
+​
+- 서류전형 > 인성검사/필기시험 > 1차면접 > 2차면접 > 최종합격
+- 환경안전
+- 공장 내 점검활동을 통해 유해위험요소의 발굴에 따른 개선
+- 보완업무 진행 및 각종 공사관련 사항에 대한 검토 및 관리업무
+- 4년제 대학 졸업예정 또는 졸업자",5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,7db73da84d23a74e52678c65d425473d9cc20ef2cf61c450034dbb0d56e5e23a,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_7e8cd135230f013dffce,RAW_d92d34b2086d81b18226,57113,https://linkareer.com/activity/57113,"초봉 3,600만원! 신입/경력 채용",CS홀딩스,"[CS홀딩스] 초봉 3,600만원! 신입/경력 채용(~3/15)
+​
+- 서류전형 > 인적성검사(온라인) > 실무진 면접 > 심층(PT)면접 > 임원진면접 > 채용검진 > 최종합격
+- 경영관리
+- 해외영업
+- 기술연구소
+- 사업계획 수립 및 KPI관리
+- 제품 해외영업
+- 용접재료 개발/개선 등
+- 공고참조",5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,d08c890ca45f916f6a478e8e18b7aa99734b06056bf3e3c4ec3f55ee2dabf79a,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_4110b3e7191a4276286a,RAW_79c1c4cf4cb53c495ff0,57191,https://linkareer.com/activity/57191,다양한 복리후생! DNA 상반기 공개 채용,대원제약,"[대원제약] 다양한 복리후생! DNA 상반기 공개 채용(~3/14)
+​
+- 서류전형 > 인적성검사 > 1차면접 > 2차면접 > 최종합격
+- 영업
+- OTC
+- 컨슈어 헬스케어
+- 해외 사업
+- 마케팅
+- 연구 등
+- ETC MR
+- 온라인 영업
+- 제품개발
+- 연구기획
+- 디지털 마케팅 등
+- 공고참조",5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,8217c0cb258250ceb09e6d832b2dfaa9d6a179da984b0ee3f77b7ba680111219,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_38610d26f66ea5e672ce,RAW_68e30c2681907d7e551b,57115,https://linkareer.com/activity/57115,월 250만원! 자사몰 MD 인턴 채용,APR,"[APR] 월 250만원! 자사몰 MD 인턴 채용(~3/11)
+​
+- 서류전형 > 인성검사 > 1차면접 > 인턴십
+- 자사몰 MD
+- 자사몰 판매 분석에 따른 주차별 판매 프로모션 기획 및 분석
+- 상품관리
+- 고객관리
+- 자사몰 UI/UX 관리 및 개선 등
+- 대졸 또는 8월 졸업예정자 등",5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,e3f52a11f77022683614769c0324bfa12cf1da362e3d981d329069a5c39a9586,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_9f20db26e566977eba4e,RAW_2a42e7174c12cd3e71d1,57188,https://linkareer.com/activity/57188,현대백화점 계열사! 생산팀 사무행정 직원 채용,한섬,"[한섬] 현대백화점 계열사! 생산팀 사무행정 직원 채용(~채용시 마감)
+​
+- 서류전형 > 인적성 검사 > 면접 전형 > 최종 입사
+- 타임생산/악세사리 생산
+- 작업지시서 입력/원가입력/수정사항 및 행정 업무
+- 택/라벨 및 포장 부자재 발주 및 수불업무
+- 마감 업무 등
+- 초대졸",5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,9729485d93c130d3d69d3000dd665cafb0351553afce27affc1aba099ed9da2c,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_389b366916928ce059a1,RAW_8347b74715562b04405a,57189,https://linkareer.com/activity/57189,현대백화점 계열사! 기계설비 생산전문직 채용,현대리바트,"[현대리바트] 현대백화점 계열사! 기계설비 생산전문직 채용(~3/9)
+​
+- 서류전형 > 면접전형 > 신체검사 > 최종합격
+- 기계설비
+- 자동화 기계
+- 초대졸 이상",5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,81c58897baaa45ac4d54f1f5bd8461f520cf987eb6e4b65b4ddef50e06af00ae,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_293b7ed0870eeca06d1e,RAW_0c378addd25ff4f2118e,57118,https://linkareer.com/activity/57118,주거지원! 생산기술/품질부문 신입 채용,현대제철,"[현대제철] 주거지원! 생산기술/품질부문 신입 채용(~3/16)
+​
+- 서류전형/온라인 AI 역량검사 > 온라인 인성검사 > 1차면접 > 2차면접/신체검사 > 최종합격
+- 생산기술
+- 수요산업 및 제품/기술동향 조사
+- 소재/강관제품 개발 및 시생산/평가 등
+- 국내외 4년제 대학교(원) 졸업자",5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,c2299f7e64e79925acf706cfbb45fb02e26a58a42f89d9b5608c6e11cd019a5c,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_6b9fb7923e6b71c2db08,RAW_16ff7db80d0fe9de0bf9,57199,https://linkareer.com/activity/57199,재경부(재무팀 및 회계팀) 신입 및 경력 채용,ABC마트코리아,"[ABC마트코리아] 재경부(재무팀 및 회계팀) 신입 및 경력 채용(~3/10)
+​
+- 온라인접수 > 면접전형 > 최종합격
+- 회계
+- 재무
+- 전표입력 및 계정명세 작성
+- 기타 서류 및 증빙 정리
+- 수수료 정산업무
+- 입출금 관리 및 은행업무 등
+- 초대졸 이상",5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,da0b99ea90071cd7b506bc6ee3da0aeaf5050ff318927c31de1892217550ff97,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_e0d677971f5f82c7437a,RAW_f00bf56c83f7900ce45b,57201,https://linkareer.com/activity/57201,유연근무제 시행! 2021년 수시 채용,종근당,"[종근당] 유연근무제 시행! 2021년 수시 채용(~3/14)
+​
+- 서류전형 및 AI면접 > 1차면접 > 2차면접 > 채용검진 > 최종합격
+- 의약품 관리약사
+- 의약품 생산
+- 회의약품 제조관리, 생상공정관리 및 변경관리 업무
+- 내용고형제 포장공정설비 운영지원
+- 의약품 생산 업무 등
+- 기졸업자 및 졸업예정자 지원 가능",5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,48bfccdccf17ae2e62d7148a276de80d02ed4543a959a293e0a9561bc722a109,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_6ce18a38beccb829de31,RAW_6e4d07d621ddbb05e1e5,57306,https://linkareer.com/activity/57306,Audi 공식딜러! AS본부 직무별 신입/경력 채용,코오롱아우토,"[코오롱아우토] Audi 공식딜러! AS본부 직무별 신입/경력 채용(~채용시 마감)
+​
+- 서류전형 > 1차면접 > 최종면접 > 채용검진 > 최종합격
+- 일반정비
+- 어드바이저
+- 차량점검 및 수리
+- 정비차량 접수/견적
+- 고객관리
+- 운전가능자",5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,024b8ce6b7b2eb9d8c05f4aa05b95af611d8f1ab8732ce01cdd0d2ea31d7f842,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_2d356c0b33a06780988c,RAW_7996adea669acd5f1f86,57185,https://linkareer.com/activity/57185,(주)담아 기역이미음 2021 인턴 모집,주식회사 담아,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,False,False,AGENT2_SSR_PARSE,d0fd7ac43a7dc7136bb6868b97a6db5d2d80efed0a18dd5d94e4eab902a2496e,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_2d8b2c511b01ca35b4ae,RAW_925269e1133d6fd38cae,57465,https://linkareer.com/activity/57465,농심그룹 계열사! 각 부문별 신입 및 경력 채용,태경농산,"[태경농산] 농심그룹 계열사! 각 부문별 신입 및 경력 채용(~3/21)
+​
+- 서류전형 > 인적성검사 > 실무면접 > 임원면접 > 최종합격
+- 경영관리
+- 연구개발
+- 생산기획
+- 생산관리
+- 기계/설비관리
+- 산업안전 관리
+- 기획업무
+- 식품가공기술연구
+- 공장관리업무
+- 포장관련 설비 관리
+- 사업장 안전 관리 등
+- 정규 4년제 대학졸업 이상 학력 소지자",5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,1c85f79dca27d8560c9a93913b8a9cde3fdadd6c0087e1e53c152b3261d0da87,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_c8a566b18d17545c5fb4,RAW_77fd3ec60f0a055b4b5d,82542,https://linkareer.com/activity/82542,2022년 제1차 청년재단 신규직원 채용,,,5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,a3bcb6c8af01f905845efcca7175f1821ca9e4400ebaa11c7920c707ae0d24b1,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_11057336995fd9231b01,RAW_92a2d912cc8eed6514e7,80565,https://linkareer.com/activity/80565,신입/경력 영업담당자 채용,,,5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,b59d25c3809296689511fa01e88bfceb0b852ef73ed1bcd33ca3ce71728badef,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_b56a5f7dc13be1a34b1c,RAW_85855ebe3182acb06614,80750,https://linkareer.com/activity/80750,NFT디자인/일러스트레이터 경력 채용,,,5,"[""EXPERIENCED"", ""NEW""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,2b32c72155a9f04cb40287372eba2b7e96c80bf0466702285dc8c1a4b9088a3a,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_4331212fee4dfc1c8765,RAW_6a8e26e0d29c3b59d802,80262,https://linkareer.com/activity/80262,"온라인광고 영업부서 신입, 경력사원 모집",,,5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,6a23df59b31a44c32c182592eb5eb4e225d6b735d25429bb9638bbd8a86dc9c3,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_ab9439933fa616bbd355,RAW_7438fc97f77eb6f075f3,80274,https://linkareer.com/activity/80274,2022년 3월 JA Grade 신입사원 채용,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,da8281818b5ae61beac506ebd1aa9a8534f17c5bd3c3cf699de541951147f66d,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_e7f5b72b23d984dd4dda,RAW_3b1ef819e326f1b94cf6,80437,https://linkareer.com/activity/80437,2022년 롯데시티호텔 및 L7호텔 신입인턴사원 채용,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,fdd2347c1d3a5950a8c31b5a9e715f0e6433e73e1c181632cd49ba0e35e6608f,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_2a222b3f083b4c73f603,RAW_a9626c01696cee37fdc0,80566,https://linkareer.com/activity/80566,2022년도 직원 채용,,,5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,d554ef31d64bd3b06852f579eaaa935938536e6a58ef9ef473edff4a31b81a21,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_6c487d19a96304b12260,RAW_09d4bd650869d039d606,80746,https://linkareer.com/activity/80746,2022년 일반행적직 신입사원 채용,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,5cd6665a663b296bdcccb1e996404f2da24fa0756f186070f65d6d951a9e0cc8,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_01cc7805765408c3a4ba,RAW_90146274d5072f5ea9b2,80406,https://linkareer.com/activity/80406,SK그룹 체험형 인턴 채용,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,03a7d46487fb12c74909a84e07499aec625e029365630ce623e36504d3d6b5b6,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_d10b376b808a15d6e9c7,RAW_125620319e6559ca7b37,80747,https://linkareer.com/activity/80747,"대체투자평가, 금융공학실 신입/경력사원 채용",,,5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,803799318d55b34d91de7eff252920bd9bad377a36c0f1eeb2f079b503e271e4,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_4111ea8734cae8fd85a0,RAW_a35907929b7aeecf7f30,80570,https://linkareer.com/activity/80570,"영업엔지니어, QC, 지게차, 생산직 인재모집",,,5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,26d3b66c017d8e81ae807f1e5ae3772168a7c3096f1aa8e7e9523b95391005cf,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_ffc3a5b9d30a46be49bc,RAW_74a2097c521f4a8a3c7e,80412,https://linkareer.com/activity/80412,2022년 생산/화학부문 신입사원 수시채용,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,082f1569b451003bc830f39f2dece12d835bd1c481272b8ee75a95f0b64c9e85,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_1172fd251556c30ea959,RAW_e1f433f07fc545f152e3,80907,https://linkareer.com/activity/80907,Strategic Planning팀 (전략기획팀) Future Analytics 인턴 채용,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,f15c229cf7a296778521e8d8b31025b420db61cf6407c51e1b3aebae580c4bac,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_9a1a48b604496cd6a436,RAW_e1d67b1f36ae8878a2ad,80744,https://linkareer.com/activity/80744,2022년도 사무지원직 신입사원 채용,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,87a53661c9d903021a67f7f398be7745ea4ac4daa538631a2e2ba98c47363955,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_ac460548aa695c46c57f,RAW_0c94762e785e0332414d,81223,https://linkareer.com/activity/81223,"산업용 프린터 영업, 제어계측 기계 영업, 장비조립 QC 부문 신입/경력 채용",,,5,"[""EXPERIENCED"", ""NEW""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,e7d560b85e02ea64a0817a107762cb0be33cc5047acae80c2fd9b1658ae2d20e,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_08683b5d8391428fa252,RAW_9e8a66987e9d13d82475,80568,https://linkareer.com/activity/80568,온라인 마케터 및 편집자 채용,,,5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,7f15ecb5cb186dee8fb2786c5df445f9d244050536e62d4fd1b319a8a7c07159,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_4101bcdf93a4d33804a8,RAW_0187f318fbec46df451c,81225,https://linkareer.com/activity/81225,2022 Research Associate 채용 모집(신입/경력),,,5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,24c9176b3c7f7bfdb6959cfe6bf6d95d374d9ff6d690476911f864ee67294365,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_df6311716d4cbdd80a9f,RAW_95997f9e7c538e841ea8,80571,https://linkareer.com/activity/80571,2022년 상반기 청년인턴 채용,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,2d919a1a4b73de42b2b773ad202b96d13c56922c1c5683592d53a902608f5ee9,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_d5c21023aea97fe8ef3d,RAW_6ac3a4d8e25676069f74,122078,https://linkareer.com/activity/122078,[다이사] 콘텐츠 마케터 인턴 채용,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,ec99d35850394be2f770a3daa90a8434d36a376a772499b906de7f020b588011,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_ad07840e0add4fd6e516,RAW_6251a0f85f9cdada041c,123336,https://linkareer.com/activity/123336,현대자동차 3월 신입 채용,,,5,"[""NEW""]","[""entry""]",True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,6503534d698db561609e8c9c8a74dce5b18a76afe6baa43c6ec02ce67de8a226,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_4cb8be9ae2b2b254ffa8,RAW_bbb57ed3d97262024328,118646,https://linkareer.com/activity/118646,KP그룹 국내영업,,,5,"[""NEW""]","[""entry""]",True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,89055264664e671834f9d5c6fad6c15190a29e979550db03e646dc67d76e57ce,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_444c7d651cf6aa45c1c3,RAW_41603b0e8e5b6c3502cd,123696,https://linkareer.com/activity/123696,"<국내 최고의 휴양지 양양의 메인거리 양리단길> 에서 마케팅,사무직 담당직원 구합니다.",,,5,"[""EXPERIENCED"", ""NEW""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,7ddcb352420d6c11db9e44298c9639e7a58f88ef65121f7dbf75fa93ca74f74f,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_bb935aecf5a2162e371d,RAW_7000d4982291b25a5553,123401,https://linkareer.com/activity/123401,2023년 이앤에스글로벌 3월 채용연계형 인턴 채용,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,0c2419472f265e5655d67f88d80ce85a948a26686cc5d0bde3fefeeb1b913dac,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_0e4076b2a4a4a2776ea8,RAW_0abc5300435d7785d1ca,124317,https://linkareer.com/activity/124317,재보험중개 신입 채용,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,3114918571647f8e25e1044dbc174309ee54d5a1b40751f6139f96c4041f9874,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_db0ca0346a0ed24353f0,RAW_1e01122070919d6c4211,123760,https://linkareer.com/activity/123760,탑엔지니어링 표면 처리 작업자 모집(계약직),,,5,"[""CONTRACT""]",[],True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,115e4516d631b7bed0fe5d8a2e1e1f66c615968956b8e3e1fde32c7ae06a20ab,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_6b2c41efce3ed0c9c19a,RAW_7acfba662e1cfa3fd329,120172,https://linkareer.com/activity/120172,"Content Designer(신입,경력)",,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,fda4684f68c409f734327284876b1223133c245a1cfe5ba17094936d1d366114,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_5c8bd29452b13cfdf53f,RAW_d4b7d2a8a24ed9fa715b,127714,https://linkareer.com/activity/127714,(주)시스게이트 [서울 영등포구] 의료기관 전산실 OA기기 유지보수 담당자 모집,,,5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,d77b5ee10a8095a1d5f2699d92ef18be7e398dee33e146989b9aa838b4031bec,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_95914e80af4c733a93c4,RAW_ea0b574e385010e3285d,123708,https://linkareer.com/activity/123708,2023 상반기 InBody 수시채용(비개발),,,5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,026d88efede14b018f5140d1d3a6da74dfb8152525e55e7d51c44ec312206923,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_2b77d01b3c03b73a0fa5,RAW_a3b7caac978edd759266,123709,https://linkareer.com/activity/123709,2023 상반기 InBody 수시채용(개발),,,5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,e2d65c00c4df3cd8da10032d67e24837354202cd87eaf954d29007932e78ffae,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_e6f1cc2b87c839df043e,RAW_a8da0739978473e924e3,123710,https://linkareer.com/activity/123710,Merchant Onboarding Specialist,,,5,"[""CONTRACT""]",[],True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,449d05036defbc978f6b36daa13c96ec62be80c62c57f35b2499ef741f78fa12,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_786df9f60ffcb8982010,RAW_3e3a5d12e672d65942ff,123711,https://linkareer.com/activity/123711,[평택시국제교류재단] 2023년 제1회 직원 채용 재공고,,,5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,e769cd806b27bff7c1c79094d478fb7e4c0f251a500a3a4acd6b635833d02c66,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_d77344253c9ec7bc68ed,RAW_69528eda81a106054613,123910,https://linkareer.com/activity/123910,"[한국원자력연구원] 정규직 신입(﻿연구직, 기술직 등) 채용",,,5,"[""NEW""]","[""entry""]",True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,50c6b45e49bfe65e75e73bc59c3a3974bdd24173fbef83a9c1c79423cb400f1e,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_4a90f8d3cd80f1ff7927,RAW_c2bf576c8a734fd07149,123911,https://linkareer.com/activity/123911,SPC삼립 각 부문 신입/경력 채용공고,,,5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,4c8da707c5476f8d2021e3bceb9de791d3467f17554b318d599860a4bb0ecf90,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_75dabdfa1067a3876525,RAW_dfb79167e6ba906e265d,123912,https://linkareer.com/activity/123912,[한국지질자원연구원] 2023년 상반기 각 분야별 정규직원 공개채용,,,5,"[""NEW"", ""EXPERIENCED"", ""CONTRACT""]","[""entry"", ""experienced""]",True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,bd74f08392bd8b824999f39ea306bbbf7f6ac82814c123a2c6c9a18914692cfd,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_06a91e40853eab00bfd2,RAW_70a783ff999d28ee2f6b,123915,https://linkareer.com/activity/123915,"[JTBC] 보도국 사건반장 자료 조사원 (휴학생 가능, 외국어)",,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,7c4981dc7aba1f76b2bfe1351830747e088ffd2cde9102bf8c468de443c2a92d,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_3fca77cae93ba6cef491,RAW_9fc9a6cdeb47e85e55f4,123917,https://linkareer.com/activity/123917,2023년 사무행정직 수시채용 [원료지원],,,5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,6717b2b5d48fe509b35ced3d20f113d947e7a41e3aa78d0bb8a57a680d5f0a00,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_48e2816d92570d291b6d,RAW_fea8ff7eb31a216477c9,171820,https://linkareer.com/activity/171820,[파나시아] 스마트서비스본부 ACS&SMR 신사업 담당 신입/경력 채용,,,5,"[""NEW""]","[""entry""]",True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,bfd2cf270b4e6e0bcd53560fa4835ab5f15be772d6c019b7467638e508b9b64b,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_b8b41eadc4e9efb0254e,RAW_ac54807c75e46ddaf37e,171480,https://linkareer.com/activity/171480,[현대자동차] 연구개발 신입 수시 채용,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,a6bacbe0c3946e75d6fe24822f9ebbafc2a3d0a851095730da1f22d34969e888,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_24f5ad313e567d585519,RAW_d171c58bb68786aa7696,171491,https://linkareer.com/activity/171491,[현대자동차] 생산/제조 신입 수시 채용,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,475896372a557ddf70665516646f8480e1798712bc8ea7cf88a1f1d117ff9678,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_2be603b4f208c4e4684b,RAW_0c522f30a1c0b233cd4e,171492,https://linkareer.com/activity/171492,[현대자동차] 사업/기획 신입 수시 채용,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,01303c13f23aab0cefebd7e4dc891e929fb11431ca057f1e090c3f66b0bdeb5a,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_676ec8eaad58e24f5814,RAW_4e9cc2aac44402719a84,171493,https://linkareer.com/activity/171493,[현대자동차] 경영지원 신입 수시 채용,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,74ef28e147c903524dc581d7acc0266c0912d2a8e6b4bd2e69dfeb5c3e17885e,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_6484ec604f901c57deb2,RAW_75789565559bfcfb12b0,171494,https://linkareer.com/activity/171494,[현대자동차] IT 신입 수시 채용,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,fa239d72e9b0ca32a042d4d9c7f74c54db51e6998243f49922c11cbd67b16194,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_be53ad0cedacda539573,RAW_640a863c1beb8022c844,171898,https://linkareer.com/activity/171898,[LG전자] 2024 상반기 신입사원 채용,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,a2b933a3cb85f128f88c7239973b99978d4f78abaa6693b3df506f8dedaa0b0c,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_35c9d5bbf17c54db9db1,RAW_e7d72c679323d6b0d5a4,171900,https://linkareer.com/activity/171900,[LG마그나] 2024 상반기 신입사원&산학장학생 모집,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,2fece8c3635eafe98c4bce0231f2c95f6c8aa1264e0441a977ac4824d6e6e77c,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_14a0627263f1bc907543,RAW_b5e64f1246b56e4f6df6,173928,https://linkareer.com/activity/173928,[일양약품] 해외사업팀 (공고연장),,,5,"[""NEW""]","[""entry""]",True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,e08e203f33315d678ef241e76aa590c96dccdb64a39f93d8bf59e802179456d7,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_e3f4b6248d311797a8b5,RAW_9495b17df64b153c3ce7,173173,https://linkareer.com/activity/173173,[토스] Community Operation Specialist,,,5,"[""CONTRACT""]",[],True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,aafaf1df3efe5a000cf3af355ea3a67d6fc4221c45e41e75e540af1e9b73ebff,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_a1108a384e8915f2d256,RAW_ddf7b912736c2a0bfe8a,173174,https://linkareer.com/activity/173174,[토스] Concierge Service Coordinator,,,5,"[""CONTRACT""]",[],True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,b0d09fbe1dc0f5bdc3ff3759f4e2b65edb3cf0cee01beec75f5d32b35edb487d,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_a608553d1888204a4a4c,RAW_d5dafe7c7ec17e5835d7,171907,https://linkareer.com/activity/171907,[포스코인터내셔널] 2024년 상반기 신입사원 채용 (~3/25),,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,38b18c8fa5b07c432a222dee2296c1514d74f27fea45288dccdd9b927c30542f,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_3af6cc7781e8fa06a7ba,RAW_798699eb70a6f624901f,171909,https://linkareer.com/activity/171909,[포스코] 2024년 상반기 신입사원 채용 (~3/25),,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,0ae21eac917da598333f6022cfd53e0a1cdce9f0200a02946f0e83174fdbdc70,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_e503e4ccc0feea412e14,RAW_8fe624fb6b89b4694e4e,171910,https://linkareer.com/activity/171910,[현대카드/커머셜] 2024 인턴십 채용,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,25007ff8799d5b23abf25af53f9688b776693ecef3c67b3482a4daaa34f83ce0,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_7d8c3288344f9470adb2,RAW_d02d27ab288001acc4a7,172119,https://linkareer.com/activity/172119,링글 Ringle Tutor-Product Team 채용 공고,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,a3c7c8a44ca446b6e3e90b4585d4ba63fccc517ed38d39d4a24046b8d2de00ed,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_3e7dc55704fa78cb1827,RAW_07dd40e8f41a77d904ba,172557,https://linkareer.com/activity/172557,[한국장애인고용공단] 충북지사 기간제 근로자(체험형 청년인턴) 채용,,,5,"[""INTERN""]","[""intern""]",True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,14fbc39d185f31b4208aa87343600272c185535b7211d40c5676b46bbef9f0fc,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_d6a0776b64f6415609dc,RAW_c44dd6f711d039f6a743,172558,https://linkareer.com/activity/172558,[한국장애인고용공단] 경남동부지사 기간제 근로자(체험형 청년인턴) 채용,,,5,"[""INTERN""]","[""intern""]",True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,f70b35633e0082233fc88ec09253441e88430afa74216caf3c4c5aad3a399337,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_5b60e8972101f0fd5e32,RAW_4619326ffecf57f83976,172417,https://linkareer.com/activity/172417,[넵스] 2024년 각 부문별 신입 및 경력 채용,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,591e78045929a2b7ff5ac0ddcf12b6d0cbed14e52f6788b342c229685992d9f2,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_994bc31da5ace724cbdf,RAW_9822a35ac6c9f9e184c5,227063,https://linkareer.com/activity/227063,[현대자동차] 장애인 신입 특별채용 (~03/14 17시),,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,c6f921c986ea5741a54bc5eb3e000cc6b3a28944ca47db75652e502b65511f52,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_bd95eeddbd7a7f3fc24f,RAW_e74e66f7c2d9c191d8aa,226892,https://linkareer.com/activity/226892,(사전공고)[현대자동차] 25년 3월 신입 채용 (~03/14),,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,37303d0668df02da78b19afd9ba979df10a8803a1334ae5347a3c8ef01b7ef2c,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_68959769468216223815,RAW_531a63adacc86a4d3891,226921,https://linkareer.com/activity/226921,[KT텔레캅] 2025년 3차 KT텔레캅 SG사원 상시채용,,,5,"[""CONTRACT""]",[],True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,a65ab15109803a734cb8f3d96d4d92f3ab539590d392cb3f34719c65edbc5ce3,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_7d4b089af820fa443077,RAW_dbf53c4478bbcc9bd03d,227039,https://linkareer.com/activity/227039,[현대자동차] 3월 신입 채용 (경영지원),,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,16ac77996552a5ca659283460f0ffcca692bc560b3f3186d366f8705b5c91b5d,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_873d722830da6482b370,RAW_0e3f8a4cb078283defd8,227042,https://linkareer.com/activity/227042,[현대자동차] 3월 신입 채용 (사업/기획),,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,bbc74583997711b12d32babbae749bcf9ff618171b6aad4c5505fa6b6deae8e1,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_1fdf7b3bbe41fe3bc4d0,RAW_42f6a98e9e175d9a609f,227044,https://linkareer.com/activity/227044,[현대자동차] 3월 신입 채용 (생산/제조),,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,f963912719320a793d36f5feda768c68baebfbdfad7c3abe6ab392727cd7a3f6,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_42db1f5abfe18d4d94ac,RAW_3509a13a8f8fd0f84a68,228165,https://linkareer.com/activity/228165,[BAT] 2025 상반기 신입사원 채용 (커머셜 마케팅 & 대외활동 및 홍보),,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,86fc932242e4d096d7d99d932795bfab65877b7387782a685778dbd2d53893e6,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_b4140bfd1d7c7c34a413,RAW_dff721b2dc1395876020,228845,https://linkareer.com/activity/228845,[삼성E&A] 2025년 대학생 인턴 모집 안내,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,de44bb075c35752842635f40ce9b0b2c0e0cccfe0db3c72f67ab295921fe5387,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_552ace8d2db0ccd21ba0,RAW_5053463f48c642de440d,227698,https://linkareer.com/activity/227698,[BGF로지스] 2025년 1분기 신입 및 경력사원 공개채용,,,5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,True,True,True,True,True,AGENT1_DERIVED_OBSERVED,4fc230a4bd88523e2b39c8a79572114a5f3d8c36fb17eb5d260bc154be9f98e1,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_a61585fede0d1ee2ffb0,RAW_cdaf477fbe4ae799aa52,227773,https://linkareer.com/activity/227773,"[쎄트렉아이] 2025 상반기 신입 채용, SI Future-Ship 모집",,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,1785ec5523d51ccab3a2549bcafbeae74cecd789fd88291f614fa7b85d16843e,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_f76f1216f6fc4e97f828,RAW_48e1dfdfe22dcff46efd,227783,https://linkareer.com/activity/227783,[퍼시스그룹] 2025 상반기 신입사원 채용,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,f88c0378ddc1646a117ff65989b3537fc00021a4cfac41c159dea9426e2676ee,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_407e77bcbcda0f14d240,RAW_cf6b9f3f42945c2d65a1,227791,https://linkareer.com/activity/227791,[한국항공우주산업] 2025년 상반기 KAI 신입사원 공개채용,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,0adc67a4fbb9b6cba2bd4b7838d3c63ceaaedbb2a9a9810e137ada4a363917e9,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_5ea262aa359ec3d0e402,RAW_a0ff8740192d54f1f040,226927,https://linkareer.com/activity/226927,"[한국산림복지진흥원] 2025년도 상반기 정규직(4급, 5급, 6급) 채용 (~03/17)",,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,e1f6f3efb9563c0feb7f4f26210f7dc1266cb8eeec1915872e3e56fec8376a39,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_bebc7ae5bee7c23f6322,RAW_161a6a4de6763c897a69,226932,https://linkareer.com/activity/226932,[한국산림복지진흥원] 2025년도 상반기 정규직(공무직) 채용 (~03/17),,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,43987c613f5f28546bca77640a99eaa43c2273b3b7505e9fc1ae118f42c376f0,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_ab7923321075fcc3aba1,RAW_11635bd187dccc8b10bd,227721,https://linkareer.com/activity/227721,신세계인터내셔날 연작/로이비/아이엠 글로벌 파트 사무보조 인턴 채용,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,b9aa245177964a94f110d326bcf222d29723689621f29b8957075d38883bb53b,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_3cb213ad911ef61d3b89,RAW_7c4d878f32659079d527,225762,https://linkareer.com/activity/225762,[강남구도시관리공단] 2025년 직무중심 역량기반 직원 채용 (~03/10),,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,16ebcb7480810f1dd7207ec52b2c31dc8216969f1c7fc88aeea28267eeb98f3f,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_1b56fda1e1a0c4860b51,RAW_39f3d5014d9c3e9f7498,229384,https://linkareer.com/activity/229384,[포스코GYR테크] 2025년 신입 및 경력사원 채용,,,5,"[""NEW""]","[""entry""]",True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,e0bfee44f0100e07065c07298a6c3243b1261a855d1c653f1d70043a37fb996a,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_ccfd5e05eebb16681c3f,RAW_9ec0d657c081fd0d9e85,228141,https://linkareer.com/activity/228141,[바이엘코리아] Medical Information Associate (의학부 1년 계약직 채용),,,5,"[""CONTRACT""]",[],True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,2b9f1871c8b52df211940c8581c68636024164711b1feffbc53805b9b74fc2bd,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_cd646fd0c83ef2fc26c0,RAW_3bc72e9eaa7db1c76790,306146,https://linkareer.com/activity/306146,[웰컴금융그룹/웰컴에프앤디] 자금팀 신입경력직(3년 이내),,,5,"[""CONTRACT""]",[],True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,c5e009af293a7b2444f8aa51e48b93edae854476a6763243d610e37367c212e4,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_93504a735c96aeb20d66,RAW_d76609bf7a3c7e53fb14,305952,https://linkareer.com/activity/305952,[타라티피에스] 브랜드 캠페인 PM(제작물•디자인 관리),,,5,"[""EXPERIENCED""]","[""experienced""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,346f99a73b2b4b8ed5f9ae4a302ca61f70fa7818760a1595bf3c7f7f764253d7,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_ff6a896a3244f8d71fe8,RAW_cf5933ac98fa02f0a466,305955,https://linkareer.com/activity/305955,[타라티피에스] PO(Product Owner) - 경력,,,5,"[""EXPERIENCED""]","[""experienced""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,8ec9113aafed38ac176d66a32136f0fab26ddffcd62093adcfb7986e1b61a7e5,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_7249b78a6fe20845be71,RAW_52c3705540b4795bf6b6,306256,https://linkareer.com/activity/306256,[롯데렌탈] 26년 03월 계약직(영업전문직군) - 오토렌탈영업,,,5,"[""CONTRACT""]",[],True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,249eeb5041391ef245192120351d1f91f9e19d00c0c228f64d3b26e8034237d0,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_0dd789fdc06382147469,RAW_b4a804524942e94bd8ce,306761,https://linkareer.com/activity/306761,[CBS] 2026년도 CBS 신입사원 선발 모집요강,,,5,"[""NEW""]","[""entry""]",True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,577bfdd7b8b51e65fee6dae8f37ba7e8eb40ab9bc91d3101fafaa4adf1173126,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_4ab729b498dfe82ad000,RAW_765a291a724f21381c02,308198,https://linkareer.com/activity/308198,[브랜드 마케팅] 글로벌 호텔·크루즈 클라이언트 마케팅 담당자 모집,,,5,"[""EXPERIENCED""]","[""experienced""]",True,False,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,709feef4ccc9ca6140ef61c61137880587b68580c4cd158e0ac3b79f2ab7c3c4,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_a9633992767e9b71850b,RAW_a457ad7f48a03cd78b17,305407,https://linkareer.com/activity/305407,[한화에너지] 2026 상반기 신입사원 공개채용,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,923c8fc1bb96a6d838bb572f5f3a50cfe7711347ff46726cddafb5f5308c94f0,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_5ee85e000c07f3827d75,RAW_2b67baef869bd9157f29,305516,https://linkareer.com/activity/305516,[기아] [계약직] HR Coordinator(압구정),,,5,"[""CONTRACT""]",[],True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,8a61524e92f47aab2735ec66fbb61c77855f613b02415b1cca9e459f21fbb154,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_81ea977cc1f175447664,RAW_d0a2f81165f50662793a,305469,https://linkareer.com/activity/305469,[ANUA] 글로벌 뷰티 화장품 브랜드 / 캠페인 리드 시니어 매니저,,,5,"[""EXPERIENCED""]","[""experienced""]",True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,53134421dbea49a44cc84e1c664af3ccf24981801809fac316bd1c40c99210bf,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_3797f6dbdc9f196d699f,RAW_9cc7c12502d1f979c8f0,305874,https://linkareer.com/activity/305874,[LK보험중개] 26년 채용연계형 신입 인턴 모집 공고,,,5,"[""INTERN""]","[""intern""]",True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,76c5e14ef76f17873eba319ae9aedbbfb0708ef4887452c4d8ea87e42992c40a,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_9ee624bd36ce4ccc9c42,RAW_08138051d49c5c945461,303219,https://linkareer.com/activity/303219,[서부지방산림청] 2026년도 서부지방산림청 청년인턴 채용공고,,,5,"[""INTERN""]","[""intern""]",True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,efaa0e3fc9e947db21c1b460bd9f1086665748d6f761ba150a120dd12b5cddac,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_f9a0102e564039702b21,RAW_16411de385aeff10639b,303567,https://linkareer.com/activity/303567,[중부지방산림청] 2026년 중부지방산림청 청년인턴 채용 공고,,,5,"[""INTERN""]","[""intern""]",True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,537921e5a7c8a33359430eb348d00749bb7db4da82d8f2f231b72fe4254a9ec9,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_26c192c7f1eecb16ec91,RAW_165182c9ae5c27623d38,303635,https://linkareer.com/activity/303635,[제주지방검찰청] 2026년 제주지방검찰청 청년인턴 채용 공고,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,e997fba07de2aada3b1897124d78f955bf22fff977888d10e26287e2fbc7dfdc,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_c8499a5873ca964ac1c9,RAW_9cbb103c7036d3b4fa3b,303636,https://linkareer.com/activity/303636,[북부지방산림청] 2026년 북부지방산림청 청년인턴 채용 공고,,,5,"[""INTERN""]","[""intern""]",True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,246bb06022b274a2bef5f6149143bbf230ed31856f10fb02b51af072a5172f78,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_d6eccbb3a1aa37db812e,RAW_aec5a28b18749b114f61,303699,https://linkareer.com/activity/303699,[한국남부발전] 2026년 상반기 신입사원 및 별정직 채용 공고 (~03/12),,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,False,AGENT1_DERIVED_OBSERVED,b08399869962342f89c0338878bd192ba24d5c2ff7f0cd94b7d16132ab3b0e5b,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_958ad66442b377c3d0b1,RAW_f491c2a33e3d798ea271,303739,https://linkareer.com/activity/303739,[한국지역난방공사] 2026년 체험형 인턴 선발 공고,,,5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,600cab09113edc9986cf426dd9982240d1d0817212644dfbb72ce735dce84e81,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_c10ae7550b8b3255f586,RAW_4aacd149afbb9cd2e278,279836,https://linkareer.com/activity/279836,[전환형 인턴] 마케팅 AE 채용,,,5,"[""INTERN""]","[""intern""]",True,True,True,False,True,True,False,False,AGENT1_DERIVED_OBSERVED,8c85cf67f3ef1107ef2d7c35e33a7ffb4d289ff3281db8cab5dfccc22e9a2790,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_4443180e85a01abc76ba,RAW_ae9643384f5c0f9d262c,305747,https://linkareer.com/activity/305747,[롯데컬처웍스] 2026년 3월 신입사원 채용 일반전형,,,5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT1_DERIVED_OBSERVED,d126b9aeaa7786a6767604c8d525a5ea2e088c18de5c798e77f6cf47ea2ae7fc,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_7fe1ea5eea01fa31d636,RAW_475013aa52d4a59f6a3d,57190,https://linkareer.com/activity/57190,현대백화점 계열사! 방송FD 전문직 채용,현대홈쇼핑,"[현대홈쇼핑] 현대백화점 계열사! 방송FD 전문직 채용(~3/11)
+​
+- 서류전형 > AI역량검사 > 실무면접 > 건강검진 > 최종합격
+- 방송FD
+- Live 방송 진행보조
+- 방송관련 업무지원
+-학력무관
+- 스케줄 근무 가능자",5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,99f405607ec50d6c024257f59aec7fbcd1b590dabb26efb833a1ec0fd79e8709,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_84b7cda3e95e48adceb0,RAW_f79d9c43a86542602139,57192,https://linkareer.com/activity/57192,KOICA 해외사무소/재외공관 영프로페셔널(인턴) 채용,한국국제협력단,"[한국국제협력단] KOICA 해외사무소/재외공관 영프로페셔널(청년인턴) 채용(~3/18)
+​
+- 서류전형 > 적합도검사, 면접전형 > 최종합격
+- ODA사업
+- 공고참조
+- 만 19세 이상 만 34세 이하
+- 공인영어성적",5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,c4d68db9d9cce3e798276d64c22765f5bfa71b5acf665740661e525f32a2490d,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_249007188d9e248139d3,RAW_eceea4e5038258513ec2,57295,https://linkareer.com/activity/57295,신입 및 경력 직원 정기 채용,울산문화재단,"[울산문화재단] 신입 및 경력 직원 정기 채용(~3/10)
+​
+- 서류전형 > 필기심사 > 면접심사 > 최종합격
+- 일반직
+- 재단 행정 업무 전반
+- 예술지원팀 사업 운영
+- 18세 이상인 자",5,"[""NEW"", ""EXPERIENCED"", ""CONTRACT""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,2a61d0d2fa856c8d1a53d3858581e08c01c6d4411f77c304469b1eafccd9ef8e,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_11dcd85fd4fd1bf1511c,RAW_9fc2c439e367eed8f8cc,57296,https://linkareer.com/activity/57296,각 부문별 신입 및 경력 채용,한국임업진흥원,"[한국임업진흥원] 각 부문별 신입 및 경력 채용(~3/14)
+​
+- 서류전형 > 필기전형 > 면접전형 > 최종합격
+- 일반직
+- 공무직
+- 임업소득지원
+- 산림자원보호
+- 기관 정보화 업무
+- IT인프라
+- 일반사무 사업수행지원 등
+- 공고참조",5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,252071e38ccf4dc50b8b8f870adb8c90a47c1aa85261b92e0d02f1869adf0706,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_bd774f58cc33ba2b7644,RAW_13562d87bb6d53003ac5,57298,https://linkareer.com/activity/57298,나이/학력제한 없음! 57기 수습기자 채용,경향신문사,"[경향신문사] 나이/학력제한 없음! 57기 수습기자 채용(~3/8)
+​
+- 서류전형 > 필기시험(종합교양, 논술) > 실무능력평가/실무면접 > 최종면접
+- 수습기자
+- 취재
+- 지역주재
+- 사진
+- 나이/학력 제한 없음
+- 공인 영어성적
+- 공인 국어성적",5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,3aa417eef672a56fcce159a0176393dc4df1cafbb86b5d5a9e827ad8a3e15c3c,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_7404b3b92cd76bc70a0f,RAW_be08d539bcd7486bdac9,57405,https://linkareer.com/activity/57405,다양한 복리후생! 2021년 상반기 수시 채용,NICE정보통신,"[NICE정보통신] 다양한 복리후생! 2021년 상반기 수시 채용(~3/15)
+​
+- 서류전형 > 실무면접 > 임원면접 > 신체검사 > 최종합격
+- 원가 기획 및 전략
+- 인사/총무
+- 영업/마케팅
+- 서비스 개발
+- 정보보호
+- 시스템 개발
+- 네트워크
+- 정산
+- 인바운드
+- 원가분석,관리회계,손익 및 정산관리
+- 고정자산/비품/계약 관리
+- 지역화폐 신규영업 및 고객사 관리
+- 입찰 제안서 작성
+- 정보보호시스템 구축 및 운영
+- 중계시스템 개발/운영
+- 네트워크 관련 업무 등
+- 공고참조",5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,3920d98d42e92c2f8a3065c652f5c6aa0af998c44cb1eea704ed4b0c4f76e029,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_985496360bec63bea5c4,RAW_23e7471aebfcd49a7603,57408,https://linkareer.com/activity/57408,자녀학자금 지원! 각 부문 신입/경력사원 채용,귀뚜라미그룹,"[귀뚜라미그룹] 자녀학자금 지원! 각 부문 신입/경력사원 채용(~3/13)
+​
+- 서류전형 > 면접전형 > 신체검사 > 최종합격
+- 기술영업
+- 웹디자인
+- 전산개발
+- 경영기획
+- 구매/회계
+- 공고참조
+- 직무별 상이",5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,12e0924a97fe7285d589855275772931a5ffca47c569b633d19fae18953ebb74,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_d781b57bb3519796f126,RAW_9f276c93524b80a4567b,57409,https://linkareer.com/activity/57409,기숙사 운영! 경영정보팀 신입사원 채용,태양금속공업,"[태양금속공업] 기숙사 운영! 경영정보팀 신입사원 채용(~3/17)
+​
+- 서류전형 > 면접 > 심층면접 > 신체검사 > 최종합격
+- 경영정보
+- ERP프로그램 개발/운영
+- 컴퓨터/전산관력학과 전공자
+- 정보처리기사 자격증",5,"[""NEW""]","[""entry""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,1076179905311c9952bf529fdea2218707afe5f0154573423c981492cbd077e3,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_e6edebcc42bcfd107433,RAW_ef43e59924c13d7e535b,57464,https://linkareer.com/activity/57464,총 7명! 아리랑국제방송 신입 및 경력 채용,국제방송교류재단,"[국제방송교류재단] 총 7명! 아리랑국제방송 신입 및 경력 채용(~3/21)
+​
+- 서류전형 > 필기시험 > 카메라테스트 및 실무면접 > 종합면접 > 최종합격
+- 보도기자
+- TV제작PD
+- 재무회계
+- 산업안전보건
+- 정보화
+- 공고참조
+- 직무기술서 상의 능력을 보유한 자",5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,62ec91d3ebd44086bc1a1fe18d28f96e6e7637c3e5ede7f736058126db4ff836,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_3d446f5f6ba04b3b58a4,RAW_b66ac732f3714cf8b4b6,57470,https://linkareer.com/activity/57470,"창원센터 환경/안전 관리자(기능직, 사무직) 채용",판토스,"[판토스] 창원센터 환경/안전 관리자(기능직, 사무직) 채용(~3/15)
+​
+- 서류전형 > 1차면접 > 2차면접 > 건강검진 > 최종합격
+- 안전환경
+- 관리 계획 수립 및 활동 지원
+- 인원 육성 및 교육 관리
+- 센터 내 안전 관련 정기 점검 등
+- 전공무관",5,"[""NEW"", ""EXPERIENCED""]","[""entry"", ""experienced""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,9c8a94dc686d9d0037d302eca6e393627e7b1979ead256a246d357bca39bedf8,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit
+PST_cc9007db559c58121210,RAW_17636a91434950772c27,57585,https://linkareer.com/activity/57585,자녀학자금 지원! 채권영업 인턴 채용,이베스트투자증권,"[이베스트투자증권] 자녀학자금 지원! 채권영업 인턴 채용(~3/14)
+​
+- 서류전형 > 1차면접 > 2차면접 > 신체검사 > 최종합격
+- 채권영업
+- 금융투자업 전반에 대한 이해가 풍부한 자",5,"[""INTERN""]","[""intern""]",True,True,False,False,True,True,True,True,AGENT2_SSR_PARSE,21f527cc8400414969d11addc767ca96fb751fb6bdeb968e4935c05a130cf1c9,observed-dev-parse-20260806.1,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False,recruit

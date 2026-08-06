@@ -1,0 +1,155 @@
+{
+  "metricsVersion": "stage-metrics-v1",
+  "runId": "OBSERVED_DEV_20260806_01-A2-11-EXPORT-QA",
+  "runMode": "observed-dev",
+  "stageId": "A2-11-EXPORT-QA",
+  "contractVersion": "2.1.2",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "dataVersion": "observed-dev-20260806.1",
+  "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+  "empiricalAnalysisAllowed": false,
+  "promotionAllowed": false,
+  "generatedAt": "2026-08-06T00:00:00+09:00",
+  "metrics": [
+    {
+      "metricId": "checks",
+      "value": 17,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "empiricalAnalysisAllowed",
+      "value": false,
+      "numerator": null,
+      "denominator": null,
+      "unit": "flag",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "failed",
+      "value": 0,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "generatedAt",
+      "value": "2026-08-06T00:00:00+09:00",
+      "numerator": null,
+      "denominator": null,
+      "unit": "value",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "passed",
+      "value": 17,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "promotionAllowed",
+      "value": false,
+      "numerator": null,
+      "denominator": null,
+      "unit": "flag",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "rowCounts.career_access_labels",
+      "value": 137,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "rowCounts.posting_ncs_candidates",
+      "value": 0,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "rowCounts.posting_normalized",
+      "value": 137,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "rowCounts.posting_sections",
+      "value": 84,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "rowCounts.posting_tracks",
+      "value": 137,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "rowCounts.preprocessed_posting_tracks",
+      "value": 137,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "rowCounts.requirement_facts",
+      "value": 35,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "status",
+      "value": "PASS",
+      "numerator": null,
+      "denominator": null,
+      "unit": "value",
+      "grain": "stage",
+      "unknownHandling": "null preserved; zero denominator is NOT_EVALUATED",
+      "status": "INFORMATIONAL"
+    }
+  ]
+}

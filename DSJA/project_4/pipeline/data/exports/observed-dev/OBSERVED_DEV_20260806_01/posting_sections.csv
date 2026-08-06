@@ -1,0 +1,278 @@
+﻿sectionId,trackId,sectionType,sectionOrdinal,sectionText,boundaryResolvedFlag,sourceMode,sectionConfidence,dataVersion,contractVersion,crawlReleaseId,dataProvenance,empiricalAnalysisAllowed,promotionAllowed
+SEC_a1064da548a8d5f91e57,TRK_b4494691aae0b80c691c,other,0,"[케이아이디비채권중개] 월 200만원! 채용조건부 인턴 채용(~3/14)
+​
+- 서류전형 > 1차면접 > 2차면접 > 최종합격",False,SSR_ACTIVITY_TEXT,0.5,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_d4216f15e80be7367dc8,TRK_b4494691aae0b80c691c,duty,1,"- 채권시장 중개
+- 태양관 발전사업 영업
+- 금융기관 간 채권 중개",True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_c646bd6836221ed03763,TRK_b4494691aae0b80c691c,required,2,"- 4년제 대졸 이상 또는 9월 졸업예정자
+- 전공무관 등",True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_acf109400d23d023cbf8,TRK_8283fc98f06a9fdb44ca,other,0,"[금강주택] 총 00명! 각 부문 신입 및 경력 채용(~3/14)
+​
+- 서류전형 > 인적성검사 > 1차면접 > 2차면접 > 채용검진 > 최종합격",False,SSR_ACTIVITY_TEXT,0.5,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_850fea27f1bde64e77d0,TRK_8283fc98f06a9fdb44ca,duty,1,"- 건축
+- 전기
+- 안전/보건
+- 개발사업
+- 인사총무
+- 법무
+- 자재 등
+- 건축시공,품질관리 및 하도급 관리
+- 건축현장 설비 시공 및 관리
+- 프로젝트별 설계 및 공법 적용 검토
+- 인사/교육/총무/홍보/전산
+- 건설 관련 자재 구매 및 관리 등",True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_6c210c38fb4e74abbb99,TRK_8283fc98f06a9fdb44ca,required,2,"- 4년제 대학교 졸업자 및 2월 졸업예정자
+- 각 직무별 관련학과 전공 및 관련 자격증 소지자",True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_9a316f8c58934c9f94d7,TRK_5299e51ae112f77a0ff2,other,0,"[동부엔지니어링] 2021년 상반기 대졸 신입사원 채용(~3/10)
+​
+- 서류전형 > 면접전형 > 최종합격",False,SSR_ACTIVITY_TEXT,0.5,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_63be9f7d68657a37c44d,TRK_5299e51ae112f77a0ff2,duty,1,"- 도로공항설계
+- 구조설계
+- 지반설계
+- 교통설계
+- GIS S/W개발",True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_43f47449164033cebc1a,TRK_5299e51ae112f77a0ff2,required,2,- 4년제 대학 졸업 또는 2월 졸업자,True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_5b076fe391822c9f3437,TRK_bc6016b33aeaa17ea1cd,other,0,"[비상교육] 금연정책 시행기업! 각 부문별 신입 및 경력 채용(~3/10)
+​
+- 서류전형 및 1차면접 > 인적성검사 > 2차면접 > 최종합격",False,SSR_ACTIVITY_TEXT,0.5,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_63b29cd8057be37d2a72,TRK_bc6016b33aeaa17ea1cd,duty,1,"- IT
+- 마케팅
+- 기획
+- 교과서/교재개발 등
+- 웹/앱 개발 및 기획
+- 브랜드 마케팅
+- 회계
+- 물류관리
+- 교과서 개발 등",True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_fcd191cf037a6573baff,TRK_bc6016b33aeaa17ea1cd,required,2,- 공고참조,True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_cfef86d690c93b350f83,TRK_8dc918e2b1feb037f653,other,0,"[아이디어키] 야근강요 없음! 각 부문별 신입 및 경력 채용(~3/31)
+​
+- 서류전형 > 1차면접 > 2차면접 > 최종합격",False,SSR_ACTIVITY_TEXT,0.5,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_3549519967896730d018,TRK_8dc918e2b1feb037f653,duty,1,"- 브랜드 마케팅
+- 이커머스 영업AE
+- 광고영업AE
+- 마케팅
+- 브랜드 바이럴 마케팅 기획 및 실행
+- 광고주 광고 연구 및 솔루션 분석
+- 디지털광고 제안 및 수주
+- 광고효과 분석 및 관리 등",True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_41d2173751f8f4f622c3,TRK_8dc918e2b1feb037f653,required,2,- 직무별 상이,True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_285175397ac41df74fbd,TRK_ace100936d896bc81753,other,0,"[신코] 자녀학자금 지원! 2021년 신입사원 채용(~4/30)
+​
+- 서류전형 > 인성검사 > 면접전형 > 최종합격",False,SSR_ACTIVITY_TEXT,0.5,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_c36dbd484a03613a3406,TRK_ace100936d896bc81753,duty,1,"- 기술지원
+- 영업지원
+- 기술영업
+- 과학/분석 기기 엔지니어 업무
+- 입/출고 및 납품 등 영업지원 업무
+- 연구기자재 기술영업 업무 등",True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_2d717ac94ccc64b620c5,TRK_ace100936d896bc81753,required,2,- 공고참조,True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_96d9b3732d503ae9c618,TRK_0fbef660a7427af45a36,other,0,"[SH에너지화학] 생산본부 환경안전팀(관리직) 신입 채용(~3/9)
+​
+- 서류전형 > 인성검사/필기시험 > 1차면접 > 2차면접 > 최종합격",False,SSR_ACTIVITY_TEXT,0.5,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_77a924f282cb1491f706,TRK_0fbef660a7427af45a36,duty,1,"- 환경안전
+- 공장 내 점검활동을 통해 유해위험요소의 발굴에 따른 개선
+- 보완업무 진행 및 각종 공사관련 사항에 대한 검토 및 관리업무",True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_aaf7855617f162661a3e,TRK_0fbef660a7427af45a36,required,2,- 4년제 대학 졸업예정 또는 졸업자,True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_d86c2251eb6e0d3fb8fd,TRK_c21cda7468e777f299d4,other,0,"[CS홀딩스] 초봉 3,600만원! 신입/경력 채용(~3/15)
+​
+- 서류전형 > 인적성검사(온라인) > 실무진 면접 > 심층(PT)면접 > 임원진면접 > 채용검진 > 최종합격",False,SSR_ACTIVITY_TEXT,0.5,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_f6920dc3319cd44f494a,TRK_c21cda7468e777f299d4,duty,1,"- 경영관리
+- 해외영업
+- 기술연구소
+- 사업계획 수립 및 KPI관리
+- 제품 해외영업
+- 용접재료 개발/개선 등",True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_a5a9c994ec6705ca8140,TRK_c21cda7468e777f299d4,required,2,- 공고참조,True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_16ac4e5822a26f0de5a9,TRK_4a691677b74374297bf3,other,0,"[대원제약] 다양한 복리후생! DNA 상반기 공개 채용(~3/14)
+​
+- 서류전형 > 인적성검사 > 1차면접 > 2차면접 > 최종합격",False,SSR_ACTIVITY_TEXT,0.5,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_ffb68e42ec3a7ea9714d,TRK_4a691677b74374297bf3,duty,1,"- 영업
+- OTC
+- 컨슈어 헬스케어
+- 해외 사업
+- 마케팅
+- 연구 등
+- ETC MR
+- 온라인 영업
+- 제품개발
+- 연구기획
+- 디지털 마케팅 등",True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_33c114a8072397b2adfd,TRK_4a691677b74374297bf3,required,2,- 공고참조,True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_5119e0e65ab7bfc09221,TRK_ebe5f522856a185f1960,other,0,"[APR] 월 250만원! 자사몰 MD 인턴 채용(~3/11)
+​
+- 서류전형 > 인성검사 > 1차면접 > 인턴십",False,SSR_ACTIVITY_TEXT,0.5,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_fca42ceab34cde9a4394,TRK_ebe5f522856a185f1960,duty,1,"- 자사몰 MD
+- 자사몰 판매 분석에 따른 주차별 판매 프로모션 기획 및 분석
+- 상품관리
+- 고객관리
+- 자사몰 UI/UX 관리 및 개선 등",True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_1753062d8751c098b8f6,TRK_ebe5f522856a185f1960,required,2,- 대졸 또는 8월 졸업예정자 등,True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_0649ec75af40d77b5d7e,TRK_b238b36c1eeccb5f127c,other,0,"[한섬] 현대백화점 계열사! 생산팀 사무행정 직원 채용(~채용시 마감)
+​
+- 서류전형 > 인적성 검사 > 면접 전형 > 최종 입사",False,SSR_ACTIVITY_TEXT,0.5,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_734a9aa090bd6824155c,TRK_b238b36c1eeccb5f127c,duty,1,"- 타임생산/악세사리 생산
+- 작업지시서 입력/원가입력/수정사항 및 행정 업무
+- 택/라벨 및 포장 부자재 발주 및 수불업무
+- 마감 업무 등",True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_9b0f5cd7bc679d484fe6,TRK_b238b36c1eeccb5f127c,required,2,- 초대졸,True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_e4e3dfdf28c690868833,TRK_c1da746d84ef4231384b,other,0,"[현대리바트] 현대백화점 계열사! 기계설비 생산전문직 채용(~3/9)
+​
+- 서류전형 > 면접전형 > 신체검사 > 최종합격",False,SSR_ACTIVITY_TEXT,0.5,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_65158d9326ac4276a845,TRK_c1da746d84ef4231384b,duty,1,"- 기계설비
+- 자동화 기계",True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_f1b6df863cff7450cc5b,TRK_c1da746d84ef4231384b,required,2,- 초대졸 이상,True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_7a3db49251eeb69abef6,TRK_73bb2b6a2af1a7b7ff4f,other,0,"[현대제철] 주거지원! 생산기술/품질부문 신입 채용(~3/16)
+​
+- 서류전형/온라인 AI 역량검사 > 온라인 인성검사 > 1차면접 > 2차면접/신체검사 > 최종합격",False,SSR_ACTIVITY_TEXT,0.5,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_f24d99680668f2395489,TRK_73bb2b6a2af1a7b7ff4f,duty,1,"- 생산기술
+- 수요산업 및 제품/기술동향 조사
+- 소재/강관제품 개발 및 시생산/평가 등",True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_bb787d85d61510fa980c,TRK_73bb2b6a2af1a7b7ff4f,required,2,- 국내외 4년제 대학교(원) 졸업자,True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_3c1074a25d83370ed9d9,TRK_a9cbe040acfe75141aa9,other,0,"[ABC마트코리아] 재경부(재무팀 및 회계팀) 신입 및 경력 채용(~3/10)
+​
+- 온라인접수 > 면접전형 > 최종합격",False,SSR_ACTIVITY_TEXT,0.5,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_cc745927eec5019f0c45,TRK_a9cbe040acfe75141aa9,duty,1,"- 회계
+- 재무
+- 전표입력 및 계정명세 작성
+- 기타 서류 및 증빙 정리
+- 수수료 정산업무
+- 입출금 관리 및 은행업무 등",True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_bd60fad7fdff98c0aec4,TRK_a9cbe040acfe75141aa9,required,2,- 초대졸 이상,True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_4bc92087bfa1d77ee3d8,TRK_b5820bfc908bbaac5398,other,0,"[종근당] 유연근무제 시행! 2021년 수시 채용(~3/14)
+​
+- 서류전형 및 AI면접 > 1차면접 > 2차면접 > 채용검진 > 최종합격",False,SSR_ACTIVITY_TEXT,0.5,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_23400c1d3429b3ab5be4,TRK_b5820bfc908bbaac5398,duty,1,"- 의약품 관리약사
+- 의약품 생산
+- 회의약품 제조관리, 생상공정관리 및 변경관리 업무
+- 내용고형제 포장공정설비 운영지원
+- 의약품 생산 업무 등",True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_ae85abdad34cf37b3b22,TRK_b5820bfc908bbaac5398,required,2,- 기졸업자 및 졸업예정자 지원 가능,True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_dbc1e63deae06ff6ba02,TRK_2ddedb22530187d8d297,other,0,"[코오롱아우토] Audi 공식딜러! AS본부 직무별 신입/경력 채용(~채용시 마감)
+​
+- 서류전형 > 1차면접 > 최종면접 > 채용검진 > 최종합격",False,SSR_ACTIVITY_TEXT,0.5,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_7982c0d796b4962e88d1,TRK_2ddedb22530187d8d297,duty,1,"- 일반정비
+- 어드바이저
+- 차량점검 및 수리
+- 정비차량 접수/견적
+- 고객관리",True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_bdeb3330864cdcc2c698,TRK_2ddedb22530187d8d297,required,2,- 운전가능자,True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_26697cfcad977b60c1b6,TRK_f67b37ae319c520a7b4f,other,0,"[태경농산] 농심그룹 계열사! 각 부문별 신입 및 경력 채용(~3/21)
+​
+- 서류전형 > 인적성검사 > 실무면접 > 임원면접 > 최종합격",False,SSR_ACTIVITY_TEXT,0.5,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_d89bfc1323e3937512f9,TRK_f67b37ae319c520a7b4f,duty,1,"- 경영관리
+- 연구개발
+- 생산기획
+- 생산관리
+- 기계/설비관리
+- 산업안전 관리
+- 기획업무
+- 식품가공기술연구
+- 공장관리업무
+- 포장관련 설비 관리
+- 사업장 안전 관리 등",True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_69d2942a3b681d042141,TRK_f67b37ae319c520a7b4f,required,2,- 정규 4년제 대학졸업 이상 학력 소지자,True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_a68b8b195c8542eca30c,TRK_aff9d96ee2bfd0786c43,other,0,"[현대홈쇼핑] 현대백화점 계열사! 방송FD 전문직 채용(~3/11)
+​
+- 서류전형 > AI역량검사 > 실무면접 > 건강검진 > 최종합격",False,SSR_ACTIVITY_TEXT,0.5,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_7f11837dae3b40cf5657,TRK_aff9d96ee2bfd0786c43,duty,1,"- 방송FD
+- Live 방송 진행보조
+- 방송관련 업무지원",True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_2114946a1b601c085bd6,TRK_aff9d96ee2bfd0786c43,required,2,"-학력무관
+- 스케줄 근무 가능자",True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_2ea333d4f1bc47a34865,TRK_b76f96d639c2d408d90f,other,0,"[한국국제협력단] KOICA 해외사무소/재외공관 영프로페셔널(청년인턴) 채용(~3/18)
+​
+- 서류전형 > 적합도검사, 면접전형 > 최종합격",False,SSR_ACTIVITY_TEXT,0.5,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_d033becb7794aa31fc22,TRK_b76f96d639c2d408d90f,duty,1,"- ODA사업
+- 공고참조",True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_343ba5b27d73c4d2bc58,TRK_b76f96d639c2d408d90f,required,2,"- 만 19세 이상 만 34세 이하
+- 공인영어성적",True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_46c360039d4fa6fdaa6f,TRK_647016b0681d490e2fc5,other,0,"[울산문화재단] 신입 및 경력 직원 정기 채용(~3/10)
+​
+- 서류전형 > 필기심사 > 면접심사 > 최종합격",False,SSR_ACTIVITY_TEXT,0.5,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_211ced36e950f669382d,TRK_647016b0681d490e2fc5,duty,1,"- 일반직
+- 재단 행정 업무 전반
+- 예술지원팀 사업 운영",True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_8247b93cf6166c67dcd7,TRK_647016b0681d490e2fc5,required,2,- 18세 이상인 자,True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_980f8f52d8c0ada19daf,TRK_259d13ca83163482aa5a,other,0,"[한국임업진흥원] 각 부문별 신입 및 경력 채용(~3/14)
+​
+- 서류전형 > 필기전형 > 면접전형 > 최종합격",False,SSR_ACTIVITY_TEXT,0.5,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_9d24734bc8d3e1b708fa,TRK_259d13ca83163482aa5a,duty,1,"- 일반직
+- 공무직
+- 임업소득지원
+- 산림자원보호
+- 기관 정보화 업무
+- IT인프라
+- 일반사무 사업수행지원 등",True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_7087eff46bb577d1b6a4,TRK_259d13ca83163482aa5a,required,2,- 공고참조,True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_560a2a051cf90f4557a4,TRK_de3fb766e375c22e345f,other,0,"[경향신문사] 나이/학력제한 없음! 57기 수습기자 채용(~3/8)
+​
+- 서류전형 > 필기시험(종합교양, 논술) > 실무능력평가/실무면접 > 최종면접",False,SSR_ACTIVITY_TEXT,0.5,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_69437a39999599d75aa7,TRK_de3fb766e375c22e345f,duty,1,"- 수습기자
+- 취재
+- 지역주재
+- 사진",True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_96a65da635a05c6e61f6,TRK_de3fb766e375c22e345f,required,2,"- 나이/학력 제한 없음
+- 공인 영어성적
+- 공인 국어성적",True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_77bdfbd591e7325683a2,TRK_3f50dd638caea148e77d,other,0,"[NICE정보통신] 다양한 복리후생! 2021년 상반기 수시 채용(~3/15)
+​
+- 서류전형 > 실무면접 > 임원면접 > 신체검사 > 최종합격",False,SSR_ACTIVITY_TEXT,0.5,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_84b71500c959dfd0eeb7,TRK_3f50dd638caea148e77d,duty,1,"- 원가 기획 및 전략
+- 인사/총무
+- 영업/마케팅
+- 서비스 개발
+- 정보보호
+- 시스템 개발
+- 네트워크
+- 정산
+- 인바운드
+- 원가분석,관리회계,손익 및 정산관리
+- 고정자산/비품/계약 관리
+- 지역화폐 신규영업 및 고객사 관리
+- 입찰 제안서 작성
+- 정보보호시스템 구축 및 운영
+- 중계시스템 개발/운영
+- 네트워크 관련 업무 등",True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_52fabb709209eba1d34d,TRK_3f50dd638caea148e77d,required,2,- 공고참조,True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_71a960c684cf972e6f8e,TRK_4eb7124fc1480d242435,other,0,"[귀뚜라미그룹] 자녀학자금 지원! 각 부문 신입/경력사원 채용(~3/13)
+​
+- 서류전형 > 면접전형 > 신체검사 > 최종합격",False,SSR_ACTIVITY_TEXT,0.5,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_0cd6d84f752758b94fc0,TRK_4eb7124fc1480d242435,duty,1,"- 기술영업
+- 웹디자인
+- 전산개발
+- 경영기획
+- 구매/회계
+- 공고참조",True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_74734b66d27e60f31446,TRK_4eb7124fc1480d242435,required,2,- 직무별 상이,True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_5f63aad2edf0c37c64d6,TRK_942cf9403ccba789c3d1,other,0,"[태양금속공업] 기숙사 운영! 경영정보팀 신입사원 채용(~3/17)
+​
+- 서류전형 > 면접 > 심층면접 > 신체검사 > 최종합격",False,SSR_ACTIVITY_TEXT,0.5,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_ad8746ec23a628f52965,TRK_942cf9403ccba789c3d1,duty,1,"- 경영정보
+- ERP프로그램 개발/운영",True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_adc5846fb631a8b2cca7,TRK_942cf9403ccba789c3d1,required,2,"- 컴퓨터/전산관력학과 전공자
+- 정보처리기사 자격증",True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_8c227afe1d53500505b7,TRK_6c305d39802dc37309f1,other,0,"[국제방송교류재단] 총 7명! 아리랑국제방송 신입 및 경력 채용(~3/21)
+​
+- 서류전형 > 필기시험 > 카메라테스트 및 실무면접 > 종합면접 > 최종합격",False,SSR_ACTIVITY_TEXT,0.5,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_b196fd79b40053b76337,TRK_6c305d39802dc37309f1,duty,1,"- 보도기자
+- TV제작PD
+- 재무회계
+- 산업안전보건
+- 정보화
+- 공고참조",True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_cd38b76ee04c2e2c2add,TRK_6c305d39802dc37309f1,required,2,- 직무기술서 상의 능력을 보유한 자,True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_665cc734e05cbf175538,TRK_4f3c49340f5c8deb6f87,other,0,"[판토스] 창원센터 환경/안전 관리자(기능직, 사무직) 채용(~3/15)
+​
+- 서류전형 > 1차면접 > 2차면접 > 건강검진 > 최종합격",False,SSR_ACTIVITY_TEXT,0.5,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_679598872421b8d738cd,TRK_4f3c49340f5c8deb6f87,duty,1,"- 안전환경
+- 관리 계획 수립 및 활동 지원
+- 인원 육성 및 교육 관리
+- 센터 내 안전 관련 정기 점검 등",True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_b1ff57102769e3ea9fd5,TRK_4f3c49340f5c8deb6f87,required,2,- 전공무관,True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_6711cfb433b34e65170a,TRK_dfc31037f1a7dd9b37bc,other,0,"[이베스트투자증권] 자녀학자금 지원! 채권영업 인턴 채용(~3/14)
+​
+- 서류전형 > 1차면접 > 2차면접 > 신체검사 > 최종합격",False,SSR_ACTIVITY_TEXT,0.5,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_9eb119402aa7e67125c3,TRK_dfc31037f1a7dd9b37bc,duty,1,- 채권영업,True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False
+SEC_46c1ffc038723b98c44a,TRK_dfc31037f1a7dd9b37bc,required,2,- 금융투자업 전반에 대한 이해가 풍부한 자,True,SSR_ACTIVITY_TEXT,1.0,observed-dev-20260806.1,2.1.2,CRAWL_20260806_03,OBSERVED_DEVELOPMENT_ONLY,False,False

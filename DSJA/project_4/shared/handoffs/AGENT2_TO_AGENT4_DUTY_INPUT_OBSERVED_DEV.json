@@ -1,0 +1,297 @@
+{
+  "agentId": "P4-A2-PIPELINE",
+  "recipientAgentId": "P4-A4-NCS",
+  "handoffType": "DUTY_INPUT_OBSERVED_DEVELOPMENT",
+  "status": "OBSERVED_DEVELOPMENT_ONLY",
+  "contractVersion": "2.1.2",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "dataVersion": "observed-dev-20260806.1",
+  "parseVersion": "observed-dev-parse-20260806.1",
+  "grain": "sectionId",
+  "empiricalUseAllowed": false,
+  "promotionAllowed": false,
+  "rowCount": 28,
+  "rowsSha256": "a305d2354a7437860dc947f4e537be76c6233cd26fe658da650d3bb07437bc30",
+  "rows": [
+    {
+      "trackId": "TRK_b4494691aae0b80c691c",
+      "sectionId": "SEC_d4216f15e80be7367dc8",
+      "evidenceText": "- 채권시장 중개\n- 태양관 발전사업 영업\n- 금융기관 간 채권 중개",
+      "jobTitle": "월 200만원! 채용조건부 인턴 채용",
+      "jobCode": null,
+      "ncsEligibleFlag": true,
+      "parseVersion": "observed-dev-parse-20260806.1",
+      "inputSha256": "a0f7f6bfcd41b03c22c084e088cef880c070e50b43202e5825fe0df2c1ed44f5"
+    },
+    {
+      "trackId": "TRK_8283fc98f06a9fdb44ca",
+      "sectionId": "SEC_850fea27f1bde64e77d0",
+      "evidenceText": "- 건축\n- 전기\n- 안전/보건\n- 개발사업\n- 인사총무\n- 법무\n- 자재 등\n- 건축시공,품질관리 및 하도급 관리\n- 건축현장 설비 시공 및 관리\n- 프로젝트별 설계 및 공법 적용 검토\n- 인사/교육/총무/홍보/전산\n- 건설 관련 자재 구매 및 관리 등",
+      "jobTitle": "총 00명! 각 부문 신입 및 경력 채용",
+      "jobCode": null,
+      "ncsEligibleFlag": true,
+      "parseVersion": "observed-dev-parse-20260806.1",
+      "inputSha256": "8ff4fe824127a32632db38de0ca0d70133a47688dafab770fabacc49266f1dc2"
+    },
+    {
+      "trackId": "TRK_5299e51ae112f77a0ff2",
+      "sectionId": "SEC_63be9f7d68657a37c44d",
+      "evidenceText": "- 도로공항설계\n- 구조설계\n- 지반설계\n- 교통설계\n- GIS S/W개발",
+      "jobTitle": "2021년 상반기 대졸 신입사원 채용",
+      "jobCode": null,
+      "ncsEligibleFlag": true,
+      "parseVersion": "observed-dev-parse-20260806.1",
+      "inputSha256": "ce884e1d66cb468009f39e1abc88965ff7b027789ba8f56722201c7deb2be441"
+    },
+    {
+      "trackId": "TRK_bc6016b33aeaa17ea1cd",
+      "sectionId": "SEC_63b29cd8057be37d2a72",
+      "evidenceText": "- IT\n- 마케팅\n- 기획\n- 교과서/교재개발 등\n- 웹/앱 개발 및 기획\n- 브랜드 마케팅\n- 회계\n- 물류관리\n- 교과서 개발 등",
+      "jobTitle": "금연정책 시행기업! 각 부문별 신입 및 경력 채용",
+      "jobCode": null,
+      "ncsEligibleFlag": true,
+      "parseVersion": "observed-dev-parse-20260806.1",
+      "inputSha256": "ee961629b7cb1352379fb838b0c8923da1edc3fe21f116fa96bb852d1371ef58"
+    },
+    {
+      "trackId": "TRK_8dc918e2b1feb037f653",
+      "sectionId": "SEC_3549519967896730d018",
+      "evidenceText": "- 브랜드 마케팅\n- 이커머스 영업AE\n- 광고영업AE\n- 마케팅\n- 브랜드 바이럴 마케팅 기획 및 실행\n- 광고주 광고 연구 및 솔루션 분석\n- 디지털광고 제안 및 수주\n- 광고효과 분석 및 관리 등",
+      "jobTitle": "야근강요 없음! 각 부문별 신입 및 경력 채용",
+      "jobCode": null,
+      "ncsEligibleFlag": true,
+      "parseVersion": "observed-dev-parse-20260806.1",
+      "inputSha256": "66556ee2be76f35e9e8fc26e6b80160f38ea1dd8d15da21ffd6e90db29904030"
+    },
+    {
+      "trackId": "TRK_ace100936d896bc81753",
+      "sectionId": "SEC_c36dbd484a03613a3406",
+      "evidenceText": "- 기술지원\n- 영업지원\n- 기술영업\n- 과학/분석 기기 엔지니어 업무\n- 입/출고 및 납품 등 영업지원 업무\n- 연구기자재 기술영업 업무 등",
+      "jobTitle": "자녀학자금 지원! 2021년 신입사원 채용",
+      "jobCode": null,
+      "ncsEligibleFlag": true,
+      "parseVersion": "observed-dev-parse-20260806.1",
+      "inputSha256": "e0d1a377e43a3b198ea384d2221fd318dc2af5bb659434b08f953cc3d7283232"
+    },
+    {
+      "trackId": "TRK_0fbef660a7427af45a36",
+      "sectionId": "SEC_77a924f282cb1491f706",
+      "evidenceText": "- 환경안전\n- 공장 내 점검활동을 통해 유해위험요소의 발굴에 따른 개선\n- 보완업무 진행 및 각종 공사관련 사항에 대한 검토 및 관리업무",
+      "jobTitle": "생산본부 환경안전팀(관리직) 신입 채용",
+      "jobCode": null,
+      "ncsEligibleFlag": true,
+      "parseVersion": "observed-dev-parse-20260806.1",
+      "inputSha256": "7db73da84d23a74e52678c65d425473d9cc20ef2cf61c450034dbb0d56e5e23a"
+    },
+    {
+      "trackId": "TRK_c21cda7468e777f299d4",
+      "sectionId": "SEC_f6920dc3319cd44f494a",
+      "evidenceText": "- 경영관리\n- 해외영업\n- 기술연구소\n- 사업계획 수립 및 KPI관리\n- 제품 해외영업\n- 용접재료 개발/개선 등",
+      "jobTitle": "초봉 3,600만원! 신입/경력 채용",
+      "jobCode": null,
+      "ncsEligibleFlag": true,
+      "parseVersion": "observed-dev-parse-20260806.1",
+      "inputSha256": "d08c890ca45f916f6a478e8e18b7aa99734b06056bf3e3c4ec3f55ee2dabf79a"
+    },
+    {
+      "trackId": "TRK_4a691677b74374297bf3",
+      "sectionId": "SEC_ffb68e42ec3a7ea9714d",
+      "evidenceText": "- 영업\n- OTC\n- 컨슈어 헬스케어\n- 해외 사업\n- 마케팅\n- 연구 등\n- ETC MR\n- 온라인 영업\n- 제품개발\n- 연구기획\n- 디지털 마케팅 등",
+      "jobTitle": "다양한 복리후생! DNA 상반기 공개 채용",
+      "jobCode": null,
+      "ncsEligibleFlag": true,
+      "parseVersion": "observed-dev-parse-20260806.1",
+      "inputSha256": "8217c0cb258250ceb09e6d832b2dfaa9d6a179da984b0ee3f77b7ba680111219"
+    },
+    {
+      "trackId": "TRK_ebe5f522856a185f1960",
+      "sectionId": "SEC_fca42ceab34cde9a4394",
+      "evidenceText": "- 자사몰 MD\n- 자사몰 판매 분석에 따른 주차별 판매 프로모션 기획 및 분석\n- 상품관리\n- 고객관리\n- 자사몰 UI/UX 관리 및 개선 등",
+      "jobTitle": "월 250만원! 자사몰 MD 인턴 채용",
+      "jobCode": null,
+      "ncsEligibleFlag": true,
+      "parseVersion": "observed-dev-parse-20260806.1",
+      "inputSha256": "e3f52a11f77022683614769c0324bfa12cf1da362e3d981d329069a5c39a9586"
+    },
+    {
+      "trackId": "TRK_b238b36c1eeccb5f127c",
+      "sectionId": "SEC_734a9aa090bd6824155c",
+      "evidenceText": "- 타임생산/악세사리 생산\n- 작업지시서 입력/원가입력/수정사항 및 행정 업무\n- 택/라벨 및 포장 부자재 발주 및 수불업무\n- 마감 업무 등",
+      "jobTitle": "현대백화점 계열사! 생산팀 사무행정 직원 채용",
+      "jobCode": null,
+      "ncsEligibleFlag": true,
+      "parseVersion": "observed-dev-parse-20260806.1",
+      "inputSha256": "9729485d93c130d3d69d3000dd665cafb0351553afce27affc1aba099ed9da2c"
+    },
+    {
+      "trackId": "TRK_c1da746d84ef4231384b",
+      "sectionId": "SEC_65158d9326ac4276a845",
+      "evidenceText": "- 기계설비\n- 자동화 기계",
+      "jobTitle": "현대백화점 계열사! 기계설비 생산전문직 채용",
+      "jobCode": null,
+      "ncsEligibleFlag": true,
+      "parseVersion": "observed-dev-parse-20260806.1",
+      "inputSha256": "81c58897baaa45ac4d54f1f5bd8461f520cf987eb6e4b65b4ddef50e06af00ae"
+    },
+    {
+      "trackId": "TRK_73bb2b6a2af1a7b7ff4f",
+      "sectionId": "SEC_f24d99680668f2395489",
+      "evidenceText": "- 생산기술\n- 수요산업 및 제품/기술동향 조사\n- 소재/강관제품 개발 및 시생산/평가 등",
+      "jobTitle": "주거지원! 생산기술/품질부문 신입 채용",
+      "jobCode": null,
+      "ncsEligibleFlag": true,
+      "parseVersion": "observed-dev-parse-20260806.1",
+      "inputSha256": "c2299f7e64e79925acf706cfbb45fb02e26a58a42f89d9b5608c6e11cd019a5c"
+    },
+    {
+      "trackId": "TRK_a9cbe040acfe75141aa9",
+      "sectionId": "SEC_cc745927eec5019f0c45",
+      "evidenceText": "- 회계\n- 재무\n- 전표입력 및 계정명세 작성\n- 기타 서류 및 증빙 정리\n- 수수료 정산업무\n- 입출금 관리 및 은행업무 등",
+      "jobTitle": "재경부(재무팀 및 회계팀) 신입 및 경력 채용",
+      "jobCode": null,
+      "ncsEligibleFlag": true,
+      "parseVersion": "observed-dev-parse-20260806.1",
+      "inputSha256": "da0b99ea90071cd7b506bc6ee3da0aeaf5050ff318927c31de1892217550ff97"
+    },
+    {
+      "trackId": "TRK_b5820bfc908bbaac5398",
+      "sectionId": "SEC_23400c1d3429b3ab5be4",
+      "evidenceText": "- 의약품 관리약사\n- 의약품 생산\n- 회의약품 제조관리, 생상공정관리 및 변경관리 업무\n- 내용고형제 포장공정설비 운영지원\n- 의약품 생산 업무 등",
+      "jobTitle": "유연근무제 시행! 2021년 수시 채용",
+      "jobCode": null,
+      "ncsEligibleFlag": true,
+      "parseVersion": "observed-dev-parse-20260806.1",
+      "inputSha256": "48bfccdccf17ae2e62d7148a276de80d02ed4543a959a293e0a9561bc722a109"
+    },
+    {
+      "trackId": "TRK_2ddedb22530187d8d297",
+      "sectionId": "SEC_7982c0d796b4962e88d1",
+      "evidenceText": "- 일반정비\n- 어드바이저\n- 차량점검 및 수리\n- 정비차량 접수/견적\n- 고객관리",
+      "jobTitle": "Audi 공식딜러! AS본부 직무별 신입/경력 채용",
+      "jobCode": null,
+      "ncsEligibleFlag": true,
+      "parseVersion": "observed-dev-parse-20260806.1",
+      "inputSha256": "024b8ce6b7b2eb9d8c05f4aa05b95af611d8f1ab8732ce01cdd0d2ea31d7f842"
+    },
+    {
+      "trackId": "TRK_f67b37ae319c520a7b4f",
+      "sectionId": "SEC_d89bfc1323e3937512f9",
+      "evidenceText": "- 경영관리\n- 연구개발\n- 생산기획\n- 생산관리\n- 기계/설비관리\n- 산업안전 관리\n- 기획업무\n- 식품가공기술연구\n- 공장관리업무\n- 포장관련 설비 관리\n- 사업장 안전 관리 등",
+      "jobTitle": "농심그룹 계열사! 각 부문별 신입 및 경력 채용",
+      "jobCode": null,
+      "ncsEligibleFlag": true,
+      "parseVersion": "observed-dev-parse-20260806.1",
+      "inputSha256": "1c85f79dca27d8560c9a93913b8a9cde3fdadd6c0087e1e53c152b3261d0da87"
+    },
+    {
+      "trackId": "TRK_aff9d96ee2bfd0786c43",
+      "sectionId": "SEC_7f11837dae3b40cf5657",
+      "evidenceText": "- 방송FD\n- Live 방송 진행보조\n- 방송관련 업무지원",
+      "jobTitle": "현대백화점 계열사! 방송FD 전문직 채용",
+      "jobCode": null,
+      "ncsEligibleFlag": true,
+      "parseVersion": "observed-dev-parse-20260806.1",
+      "inputSha256": "99f405607ec50d6c024257f59aec7fbcd1b590dabb26efb833a1ec0fd79e8709"
+    },
+    {
+      "trackId": "TRK_b76f96d639c2d408d90f",
+      "sectionId": "SEC_d033becb7794aa31fc22",
+      "evidenceText": "- ODA사업\n- 공고참조",
+      "jobTitle": "KOICA 해외사무소/재외공관 영프로페셔널(인턴) 채용",
+      "jobCode": null,
+      "ncsEligibleFlag": true,
+      "parseVersion": "observed-dev-parse-20260806.1",
+      "inputSha256": "c4d68db9d9cce3e798276d64c22765f5bfa71b5acf665740661e525f32a2490d"
+    },
+    {
+      "trackId": "TRK_647016b0681d490e2fc5",
+      "sectionId": "SEC_211ced36e950f669382d",
+      "evidenceText": "- 일반직\n- 재단 행정 업무 전반\n- 예술지원팀 사업 운영",
+      "jobTitle": "신입 및 경력 직원 정기 채용",
+      "jobCode": null,
+      "ncsEligibleFlag": true,
+      "parseVersion": "observed-dev-parse-20260806.1",
+      "inputSha256": "2a61d0d2fa856c8d1a53d3858581e08c01c6d4411f77c304469b1eafccd9ef8e"
+    },
+    {
+      "trackId": "TRK_259d13ca83163482aa5a",
+      "sectionId": "SEC_9d24734bc8d3e1b708fa",
+      "evidenceText": "- 일반직\n- 공무직\n- 임업소득지원\n- 산림자원보호\n- 기관 정보화 업무\n- IT인프라\n- 일반사무 사업수행지원 등",
+      "jobTitle": "각 부문별 신입 및 경력 채용",
+      "jobCode": null,
+      "ncsEligibleFlag": true,
+      "parseVersion": "observed-dev-parse-20260806.1",
+      "inputSha256": "252071e38ccf4dc50b8b8f870adb8c90a47c1aa85261b92e0d02f1869adf0706"
+    },
+    {
+      "trackId": "TRK_de3fb766e375c22e345f",
+      "sectionId": "SEC_69437a39999599d75aa7",
+      "evidenceText": "- 수습기자\n- 취재\n- 지역주재\n- 사진",
+      "jobTitle": "나이/학력제한 없음! 57기 수습기자 채용",
+      "jobCode": null,
+      "ncsEligibleFlag": true,
+      "parseVersion": "observed-dev-parse-20260806.1",
+      "inputSha256": "3aa417eef672a56fcce159a0176393dc4df1cafbb86b5d5a9e827ad8a3e15c3c"
+    },
+    {
+      "trackId": "TRK_3f50dd638caea148e77d",
+      "sectionId": "SEC_84b71500c959dfd0eeb7",
+      "evidenceText": "- 원가 기획 및 전략\n- 인사/총무\n- 영업/마케팅\n- 서비스 개발\n- 정보보호\n- 시스템 개발\n- 네트워크\n- 정산\n- 인바운드\n- 원가분석,관리회계,손익 및 정산관리\n- 고정자산/비품/계약 관리\n- 지역화폐 신규영업 및 고객사 관리\n- 입찰 제안서 작성\n- 정보보호시스템 구축 및 운영\n- 중계시스템 개발/운영\n- 네트워크 관련 업무 등",
+      "jobTitle": "다양한 복리후생! 2021년 상반기 수시 채용",
+      "jobCode": null,
+      "ncsEligibleFlag": true,
+      "parseVersion": "observed-dev-parse-20260806.1",
+      "inputSha256": "3920d98d42e92c2f8a3065c652f5c6aa0af998c44cb1eea704ed4b0c4f76e029"
+    },
+    {
+      "trackId": "TRK_4eb7124fc1480d242435",
+      "sectionId": "SEC_0cd6d84f752758b94fc0",
+      "evidenceText": "- 기술영업\n- 웹디자인\n- 전산개발\n- 경영기획\n- 구매/회계\n- 공고참조",
+      "jobTitle": "자녀학자금 지원! 각 부문 신입/경력사원 채용",
+      "jobCode": null,
+      "ncsEligibleFlag": true,
+      "parseVersion": "observed-dev-parse-20260806.1",
+      "inputSha256": "12e0924a97fe7285d589855275772931a5ffca47c569b633d19fae18953ebb74"
+    },
+    {
+      "trackId": "TRK_942cf9403ccba789c3d1",
+      "sectionId": "SEC_ad8746ec23a628f52965",
+      "evidenceText": "- 경영정보\n- ERP프로그램 개발/운영",
+      "jobTitle": "기숙사 운영! 경영정보팀 신입사원 채용",
+      "jobCode": null,
+      "ncsEligibleFlag": true,
+      "parseVersion": "observed-dev-parse-20260806.1",
+      "inputSha256": "1076179905311c9952bf529fdea2218707afe5f0154573423c981492cbd077e3"
+    },
+    {
+      "trackId": "TRK_6c305d39802dc37309f1",
+      "sectionId": "SEC_b196fd79b40053b76337",
+      "evidenceText": "- 보도기자\n- TV제작PD\n- 재무회계\n- 산업안전보건\n- 정보화\n- 공고참조",
+      "jobTitle": "총 7명! 아리랑국제방송 신입 및 경력 채용",
+      "jobCode": null,
+      "ncsEligibleFlag": true,
+      "parseVersion": "observed-dev-parse-20260806.1",
+      "inputSha256": "62ec91d3ebd44086bc1a1fe18d28f96e6e7637c3e5ede7f736058126db4ff836"
+    },
+    {
+      "trackId": "TRK_4f3c49340f5c8deb6f87",
+      "sectionId": "SEC_679598872421b8d738cd",
+      "evidenceText": "- 안전환경\n- 관리 계획 수립 및 활동 지원\n- 인원 육성 및 교육 관리\n- 센터 내 안전 관련 정기 점검 등",
+      "jobTitle": "창원센터 환경/안전 관리자(기능직, 사무직) 채용",
+      "jobCode": null,
+      "ncsEligibleFlag": true,
+      "parseVersion": "observed-dev-parse-20260806.1",
+      "inputSha256": "9c8a94dc686d9d0037d302eca6e393627e7b1979ead256a246d357bca39bedf8"
+    },
+    {
+      "trackId": "TRK_dfc31037f1a7dd9b37bc",
+      "sectionId": "SEC_9eb119402aa7e67125c3",
+      "evidenceText": "- 채권영업",
+      "jobTitle": "자녀학자금 지원! 채권영업 인턴 채용",
+      "jobCode": null,
+      "ncsEligibleFlag": true,
+      "parseVersion": "observed-dev-parse-20260806.1",
+      "inputSha256": "21f527cc8400414969d11addc767ca96fb751fb6bdeb968e4935c05a130cf1c9"
+    }
+  ]
+}

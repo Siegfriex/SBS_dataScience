@@ -1,0 +1,244 @@
+{
+  "manifestVersion": "stage-manifest-v1",
+  "runId": "OBSERVED_DEV_20260806_01-A2-11-EXPORT-QA",
+  "runMode": "observed-dev",
+  "stageId": "A2-11-EXPORT-QA",
+  "status": "SUCCEEDED",
+  "agentId": "P4-A2-PIPELINE",
+  "branch": "agent/p4-pipeline-v2",
+  "gitHead": "640f21718f928cf31e313b55587ddfb86a9bce9d",
+  "contractVersion": "2.1.2",
+  "schemaVersion": "preprocessing-qa-v1",
+  "dataVersion": "observed-dev-20260806.1",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+  "startedAt": "2026-08-06T00:00:00+09:00",
+  "completedAt": "2026-08-06T00:00:00+09:00",
+  "empiricalAnalysisAllowed": false,
+  "promotionAllowed": false,
+  "inputManifestSha256": "404af678f9812678941d3fed5ab913949f364cc38e1f5005940a3aaac9e442eb",
+  "parameterSha256": "1785d58b11fc8d1e421e8b102918830a2fd69bc5abd023c5fea60d37a3428932",
+  "rowCounts": {
+    "posting_ncs_candidates": 0,
+    "posting_normalized": 137,
+    "posting_tracks": 137,
+    "requirement_facts": 35,
+    "preprocessed_posting_tracks": 137,
+    "posting_sections": 84,
+    "career_access_labels": 137
+  },
+  "gateResults": [
+    {
+      "gateId": "PREPROCESSED_CSV_READY",
+      "status": "PASS",
+      "evidencePath": "stage_quality.csv"
+    }
+  ],
+  "warnings": [],
+  "errors": [],
+  "files": [
+    {
+      "path": "career_access_labels.csv",
+      "sha256": "583f5954c70646256c462fa2d1b2ca151ce030be4064ede4cb9fd3bab6532e5a",
+      "bytes": 30564,
+      "rows": 137,
+      "columns": 19,
+      "format": "csv",
+      "grain": "career_access_labels",
+      "nullablePolicy": "schema-defined nulls preserved",
+      "sourceStage": "A2-11-EXPORT-QA",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "career_access_labels.parquet",
+      "sha256": "c6c5ec401a0bbc7b9d3c6c253209cd76e43f3feb33b64a3e6a738d1c46e6eac5",
+      "bytes": 17904,
+      "rows": 137,
+      "columns": 19,
+      "format": "parquet",
+      "grain": "career_access_labels",
+      "nullablePolicy": "schema-defined nulls preserved",
+      "sourceStage": "A2-11-EXPORT-QA",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "data_quality_summary.csv",
+      "sha256": "514ea7a529e3587d6db1e408659d979690712b8ce4b6d4d7c1514228605ebf64",
+      "bytes": 136,
+      "rows": 1,
+      "columns": 7,
+      "format": "csv",
+      "grain": "data_quality_summary",
+      "nullablePolicy": "schema-defined nulls preserved",
+      "sourceStage": "A2-11-EXPORT-QA",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "posting_ncs_candidates.csv",
+      "sha256": "f2349a20d5055e44f625c62b883f6ef445368a3a655699d16501cd4e02e7100f",
+      "bytes": 237,
+      "rows": 0,
+      "columns": 16,
+      "format": "csv",
+      "grain": "posting_ncs_candidates",
+      "nullablePolicy": "schema-defined nulls preserved",
+      "sourceStage": "A2-11-EXPORT-QA",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "posting_ncs_candidates.parquet",
+      "sha256": "494822f9307874202bd395f367dd6542f022945f17564770d50aa1d0a3400612",
+      "bytes": 7837,
+      "rows": 0,
+      "columns": 16,
+      "format": "parquet",
+      "grain": "posting_ncs_candidates",
+      "nullablePolicy": "schema-defined nulls preserved",
+      "sourceStage": "A2-11-EXPORT-QA",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "posting_normalized.csv",
+      "sha256": "8b7fbd1f46bfb1dbcb863434829c2623ae5dfe67d239f9a8e6a10360ddbd7557",
+      "bytes": 71617,
+      "rows": 137,
+      "columns": 28,
+      "format": "csv",
+      "grain": "posting_normalized",
+      "nullablePolicy": "schema-defined nulls preserved",
+      "sourceStage": "A2-11-EXPORT-QA",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "posting_normalized.parquet",
+      "sha256": "88ffc7cced3281a7f282e094345dc2966cebe9a49226e9005474676e124e3328",
+      "bytes": 46833,
+      "rows": 137,
+      "columns": 28,
+      "format": "parquet",
+      "grain": "posting_normalized",
+      "nullablePolicy": "schema-defined nulls preserved",
+      "sourceStage": "A2-11-EXPORT-QA",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "posting_sections.csv",
+      "sha256": "8c4a12d7d8bbaace155c1a667172616f0e2cf3d2171b1a1d6bfb089d85fcf2ac",
+      "bytes": 24142,
+      "rows": 84,
+      "columns": 14,
+      "format": "csv",
+      "grain": "posting_sections",
+      "nullablePolicy": "schema-defined nulls preserved",
+      "sourceStage": "A2-11-EXPORT-QA",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "posting_sections.parquet",
+      "sha256": "3a2e9b2bd8acbd1495c5de944f6122d32efe98a07837bc8eb723d9e725fa63d0",
+      "bytes": 17056,
+      "rows": 84,
+      "columns": 14,
+      "format": "parquet",
+      "grain": "posting_sections",
+      "nullablePolicy": "schema-defined nulls preserved",
+      "sourceStage": "A2-11-EXPORT-QA",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "posting_tracks.csv",
+      "sha256": "6fc6bfa5d1cb7a9a9081d616d3e6a7dd49430a776b90c896b406ba5fe7077f4d",
+      "bytes": 42744,
+      "rows": 137,
+      "columns": 18,
+      "format": "csv",
+      "grain": "posting_tracks",
+      "nullablePolicy": "schema-defined nulls preserved",
+      "sourceStage": "A2-11-EXPORT-QA",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "posting_tracks.parquet",
+      "sha256": "1636f225346a306e6b213daf8b4e042f69eb6ec19fa71bcb89ad8c3a05f374b7",
+      "bytes": 33679,
+      "rows": 137,
+      "columns": 18,
+      "format": "parquet",
+      "grain": "posting_tracks",
+      "nullablePolicy": "schema-defined nulls preserved",
+      "sourceStage": "A2-11-EXPORT-QA",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "preprocessed_posting_tracks.csv",
+      "sha256": "67b3d60432073e5a1de8ce9801e18c5fbd223b5eb8b65dad7a2e9bc87de46a6c",
+      "bytes": 87146,
+      "rows": 137,
+      "columns": 52,
+      "format": "csv",
+      "grain": "preprocessed_posting_tracks",
+      "nullablePolicy": "schema-defined nulls preserved",
+      "sourceStage": "A2-11-EXPORT-QA",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "preprocessed_posting_tracks.parquet",
+      "sha256": "b2ff64aa277f5fa483b006b7686d5a354fc9ea1b6d5e91f28e3f7d559bf06a39",
+      "bytes": 60696,
+      "rows": 137,
+      "columns": 52,
+      "format": "parquet",
+      "grain": "preprocessed_posting_tracks",
+      "nullablePolicy": "schema-defined nulls preserved",
+      "sourceStage": "A2-11-EXPORT-QA",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "requirement_facts.csv",
+      "sha256": "88e0b66feffe41865415ad69600ca2bf520ef0d674d89f878ffdb80186cc65ef",
+      "bytes": 6949,
+      "rows": 35,
+      "columns": 14,
+      "format": "csv",
+      "grain": "requirement_facts",
+      "nullablePolicy": "schema-defined nulls preserved",
+      "sourceStage": "A2-11-EXPORT-QA",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "requirement_facts.parquet",
+      "sha256": "984d1b888da19f9ab85081ef2baa005159e61fb062eb29591757bb11364f6fdc",
+      "bytes": 10928,
+      "rows": 35,
+      "columns": 14,
+      "format": "parquet",
+      "grain": "requirement_facts",
+      "nullablePolicy": "schema-defined nulls preserved",
+      "sourceStage": "A2-11-EXPORT-QA",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    }
+  ],
+  "terminationArtifacts": [
+    "stage_manifest.json",
+    "stage_metrics.json",
+    "stage_quality.csv",
+    "CHECKSUMS.sha256"
+  ],
+  "dataPolicies": {
+    "canonicalStorage": "DUCKDB_PARQUET",
+    "csvPurpose": "HUMAN_INSPECTION_EXPORT",
+    "eligibilityColumns": [
+      "postingEligibleFlag",
+      "rq1EligibleFlag",
+      "rq2EligibleFlag",
+      "ncsEligibleFlag"
+    ],
+    "highDemandScore": "ALL_NULL"
+  },
+  "mappingPolicy": {
+    "mappingMode": "LEXICAL_BASELINE",
+    "codeSetStatus": "REVIEW_REQUIRED",
+    "goldValidatedFlag": false,
+    "denseScore": null
+  }
+}
