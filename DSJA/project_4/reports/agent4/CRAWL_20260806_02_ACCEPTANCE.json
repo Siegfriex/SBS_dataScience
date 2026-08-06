@@ -1,0 +1,154 @@
+{
+  "agentId": "P4-A4-NCS",
+  "agentName": "P4 NCS Source & Duty-Level Mapping Engineer",
+  "auditedRelease": "CRAWL_20260806_02",
+  "auditedSourceBranch": "agent/p4-crawl-release-v2",
+  "auditedSourceCommit": "825ba03d0a7c46880e9aeba86078eb750a8a36b5",
+  "auditMethod": "git archive extraction into isolated scratchpad (release tree NOT copied or modified inside agent4 worktree; DSJA/project_4/crawl/** left untouched)",
+  "statusCode": "PARTIALLY_READY",
+  "verdicts": {
+    "sourceAdapterInput": "ACCEPT",
+    "ncsUnitSource": "ACCEPT",
+    "fullLinkareerCorpus": "REJECT",
+    "rq2bFinalMapping": "BLOCKED_BY_DUTY_INPUT_AND_GOLD"
+  },
+  "section3_1_checksum": {
+    "listedFiles": 14,
+    "verifiedFiles": 14,
+    "failedFiles": 0,
+    "missingFiles": 0,
+    "unlistedFiles": 0,
+    "note": "sha256sum -c: 14/14 OK. CHECKSUMS.sha256 itself is conventionally self-excluded from its own listing (not an anomaly). asset_manifest.jsonl hashes to the well-known empty-string SHA-256 (e3b0c4...) -- file is intentionally 0 bytes, not corrupt."
+  },
+  "section3_2_handoff": {
+    "requiredFieldsPresentNonEmpty": {
+      "manifest_paths": true,
+      "coverage_path": true,
+      "checksum_path": true
+    },
+    "release_id_matches": true,
+    "contract_version": "2.1.2",
+    "head_commit_field_value": "",
+    "head_commit_actual": "825ba03d0a7c46880e9aeba86078eb750a8a36b5",
+    "head_commit_verified": false,
+    "finding": "HANDOFF_HEAD_COMMIT_EMPTY: HANDOFF.json's head_commit field is an empty string, so it cannot be cross-checked against the actual branch HEAD by a downstream consumer without independently resolving the branch tip. Not a checksum/integrity failure (all listed manifest/coverage/checksum paths are present and non-empty), but a metadata completeness defect worth fixing in a future release."
+  },
+  "section3_3_coverage_recalculated": {
+    "totalRows": 85,
+    "targetMonths2020to2026": 79,
+    "missingTargetMonths": 0,
+    "completeMonths": 11,
+    "partialMonths": 1,
+    "unverifiedMonths": 68,
+    "insufficientMonths": 5,
+    "duplicatePeriodMonths": 0,
+    "note": "79 (complete+unverified) + 5 (2019 preLaunch, outside target window) + 1 (2026-08 partial, outside target window, current-month in-progress) = 85 total rows. All figures recalculated directly from monthly_coverage.csv, not copied from Agent 1's report; they match Agent 1's reported figures exactly."
+  },
+  "section3_4_completeMonthIdCounts": {
+    "sumOfMonthlyDistinctIds": 11825,
+    "globalDistinctIdsAcrossCompleteMonths": "NOT_COMPUTABLE_FROM_RELEASE_ARTIFACTS",
+    "globalDistinctReason": "Release only ships aggregate firstPostingId/lastPostingId ranges per month, not the actual per-record ID list. Those ranges overlap heavily across the 11 complete months (e.g. 2020-02 range 29589-38086 sits inside 2020-01's 24563-40878), so summing monthly distinct counts cannot be assumed equal to a true cross-month-deduplicated count. Treat 11,825 as sumOfMonthlyDistinctIds only, not as a verified global distinct count.",
+    "perMonthDetail": [
+      {"periodMonth": "2020-01", "expectedTotalCount": 264, "returnedDistinctCount": 254, "difference": 10, "paginationCompleteFlag": true},
+      {"periodMonth": "2020-02", "expectedTotalCount": 1234, "returnedDistinctCount": 896, "difference": 338, "paginationCompleteFlag": true},
+      {"periodMonth": "2020-04", "expectedTotalCount": 1699, "returnedDistinctCount": 1268, "difference": 431, "paginationCompleteFlag": true},
+      {"periodMonth": "2020-05", "expectedTotalCount": 1422, "returnedDistinctCount": 1105, "difference": 317, "paginationCompleteFlag": true},
+      {"periodMonth": "2020-06", "expectedTotalCount": 1676, "returnedDistinctCount": 1205, "difference": 471, "paginationCompleteFlag": true},
+      {"periodMonth": "2021-01", "expectedTotalCount": 1320, "returnedDistinctCount": 918, "difference": 402, "paginationCompleteFlag": true},
+      {"periodMonth": "2021-02", "expectedTotalCount": 1125, "returnedDistinctCount": 815, "difference": 310, "paginationCompleteFlag": true},
+      {"periodMonth": "2021-03", "expectedTotalCount": 1381, "returnedDistinctCount": 949, "difference": 432, "paginationCompleteFlag": true},
+      {"periodMonth": "2021-04", "expectedTotalCount": 1228, "returnedDistinctCount": 882, "difference": 346, "paginationCompleteFlag": true},
+      {"periodMonth": "2022-01", "expectedTotalCount": 2103, "returnedDistinctCount": 1592, "difference": 511, "paginationCompleteFlag": true},
+      {"periodMonth": "2022-02", "expectedTotalCount": 2552, "returnedDistinctCount": 1941, "difference": 611, "paginationCompleteFlag": true}
+    ],
+    "finding": "COMPLETE_MONTH_EXPECTED_VS_RETURNED_MISMATCH: All 11 'complete' months show returnedDistinctCount strictly less than expectedTotalCount (gap 10 to 611 ids, up to ~24%), yet each row's free-text note asserts '.../... distinct ids collected == expected'. The note's own numbers contradict its own '== expected' claim. discoveredCount == returnedDistinctCount in every row, so the de-dup step itself looks consistent -- the mismatch is between the collected set and expectedTotalCount, not a de-dup bug. This needs clarification from Agent 1 (does expectedTotalCount include activityTypes outside recruit, or a different query scope than what was actually collected?) before 'complete' can be trusted as == fully paginated against the same denominator used to certify it."
+  },
+  "section3_5_n126_recalculated": {
+    "sampleCount": 126,
+    "detailSuccessCount": "NOT_DETERMINABLE_FROM_ARTIFACT",
+    "detailFailureCount": "NOT_DETERMINABLE_FROM_ARTIFACT",
+    "detailSuccessFailureNote": "stratified_detail_sample_n126.{csv,json} contains only the 126 rows of already-succeeded detail fetches; there is no companion record of attempted-but-failed fetches, so success/failure counts cannot be derived from this artifact alone.",
+    "metrics": [
+      {"metric": "activityTextAvailabilityRate", "numerator": 126, "denominator": 126, "rate": 1.0, "definition": "share of sampled postings with hasActivityText=true", "sourceColumn": "hasActivityText"},
+      {"metric": "externalApplyShare", "numerator": 125, "denominator": 126, "rate": 0.9921, "definition": "share with externalApplyFlag=true", "sourceColumn": "externalApplyFlag"},
+      {"metric": "externalDetailOnlyShare", "numerator": 24, "denominator": 126, "rate": 0.1905, "definition": "share with externalDetailOnlyFlag=true (detail page has no scrapable content, fully redirects externally)", "sourceColumn": "externalDetailOnlyFlag"},
+      {"metric": "rq1EligibilityRate", "numerator": 126, "denominator": 126, "rate": 1.0, "definition": "share with rq1EligibleFlag=true", "sourceColumn": "rq1EligibleFlag"},
+      {"metric": "rq2EligibilityRate", "numerator": 102, "denominator": 126, "rate": 0.8095, "definition": "share with rq2EligibleFlag=true", "sourceColumn": "rq2EligibleFlag"},
+      {"metric": "ncsEligibilityRate", "numerator": 27, "denominator": 126, "rate": 0.2143, "definition": "share with ncsEligibleFlag=true", "sourceColumn": "ncsEligibleFlag"},
+      {"metric": "jobTypeConflictRate", "numerator": 1, "denominator": 126, "rate": 0.0079, "definition": "share with jobTypeConflictFlag=true", "sourceColumn": "jobTypeConflictFlag"},
+      {"metric": "imageOcrRoutingRate", "numerator": 113, "denominator": 126, "rate": 0.8968, "definition": "share with activityTextEmbeddedImageFlag=true (identical whether denominator restricted to hasActivityText rows or full sample, since hasActivityText=true for all 126)", "sourceColumn": "activityTextEmbeddedImageFlag"},
+      {"metric": "posterFileShare", "numerator": 0, "denominator": 126, "rate": 0.0, "definition": "share with hasPosterFile=true", "sourceColumn": "hasPosterFile"},
+      {"metric": "activityTextEmbeddedImageShare", "numerator": 113, "denominator": 126, "rate": 0.8968, "definition": "identical metric/column to imageOcrRoutingRate as currently recorded in this artifact -- no distinguishing denominator exists in the current schema; flagged for Agent 1/Agent 3 to clarify if these are meant to diverge", "sourceColumn": "activityTextEmbeddedImageFlag"}
+    ],
+    "externalApplyVsDetailOnlyCrosstab": {
+      "externalApplyFalse_detailOnlyFalse": 1,
+      "externalApplyFalse_detailOnlyTrue": 0,
+      "externalApplyTrue_detailOnlyFalse": 101,
+      "externalApplyTrue_detailOnlyTrue": 24
+    },
+    "finding": "externalApplyFlag != externalDetailOnlyFlag CONFIRMED: 101/126 rows have an external apply URL but still carry scrapable rq2-eligible in-house detail content (externalDetailOnlyFlag=false, rq2EligibleFlag=true). rq2EligibleFlag is False exactly for the 24 rows where externalDetailOnlyFlag=true, and True for all other 102 -- confirming rq2 exclusion tracks externalDetailOnlyFlag, not the mere presence of an external apply link."
+  },
+  "section3_6_rawLineage": {
+    "crawlManifestRowCount": 6,
+    "rowClassification": [
+      {"row": 1, "type": "artifact-level (NCS file download)"},
+      {"row": 2, "type": "artifact-level (n=126 derived-summary bundle, not raw HTML)"},
+      {"row": 3, "type": "record-level PII-masked fixture (single posting, CRAWL_20260806_01 carryover)"},
+      {"row": 4, "type": "record-level PII-masked fixture (single posting, CRAWL_20260806_01 carryover)"},
+      {"row": 5, "type": "record-level PII-masked fixture (single posting, CRAWL_20260806_01 carryover)"},
+      {"row": 6, "type": "request-level (GraphQL calendar index sample, CRAWL_20260806_01 carryover)"}
+    ],
+    "perRecordFieldsPresentForFullCorpus": false,
+    "verdict": "FULL_CORPUS_LINEAGE_NOT_READY",
+    "finding": "crawl_manifest.jsonl documents only 6 discrete fetch events (1 NCS file, 1 aggregated n=126 summary bundle, 3 single-posting masked fixtures, 1 GraphQL sample carried over from CRAWL_20260806_01) -- there is no per-posting-record manifest row (sourceUrl/rawPath/rawSha256/httpStatus/fetchedAt/collectorVersion/crawlRunId/sourcePostingId) for the thousands of postings implied by monthly_coverage.csv. This matches Agent 1's own disclosure in HANDOFF.known_gaps and the row-2 note ('raw HTML per-posting was NOT persisted this pass'). Independently confirmed, not merely copied."
+  },
+  "section3_7_ncsFile": {
+    "rows": 13442,
+    "columns": 4,
+    "columnNames": ["분류번호", "명칭", "수준", "훈련시간"],
+    "uniqueNcsUnitCodes": 13442,
+    "duplicateNcsUnitCodes": 0,
+    "nullNcsLevel": 0,
+    "invalidNcsLevel": 0,
+    "level1to8Distribution": {"1": 4, "2": 1411, "3": 3315, "4": 3318, "5": 3577, "6": 1278, "7": 475, "8": 64},
+    "missingHierarchyRate": "N/A_for_codes / 100%_for_names",
+    "missingHierarchyNote": "The source CSV carries only the leaf unit code (분류번호, 15-char e.g. '0101010101_17v2') and its own name (명칭) -- no separate major/middle/minor/sub CODE columns, and critically no major/middle/minor/sub NAME columns at all. Hierarchy codes (major=01/middle=01/minor=01/sub=01/unit=01 + version suffix _17v2) can be parsed out of the 10-digit code prefix, but the human-readable NAMES for major/middle/minor/sub categories are not present anywhere in this file and would require a separate NCS classification/hierarchy reference table not included in this release. This blocks populating majorName/middleName/minorName/subName in the Phase B normalized schema until that reference is sourced.",
+    "sourceVersion": "2026-02-20 (per ncs_manifest.jsonl); dataset content dated 20251231 per crawl_manifest.jsonl note",
+    "agent1ReportedRowsMatch": true,
+    "note": "13,443 raw lines (1 header + 13,442 data rows) in both the CP949-original and UTF-8-normalized copies; Agent 1's '13,442 data rows' claim is the correct data-row count, not a header-inclusive miscount."
+  },
+  "section3_8_ncsManifest": {
+    "rowCount": 2,
+    "row1_ncsUnit": {
+      "sourceDataset": "한국산업인력공단_국가직무능력표준 정보_20251231",
+      "datasetId": "15083321",
+      "sourceUrl": "https://www.data.go.kr/data/15083321/fileData.do",
+      "recordCount": 13442,
+      "sourceVersion": "2026-02-20",
+      "license": "공공저작물 자유이용허락 제1유형(출처표시)",
+      "redistributable": true,
+      "recordCountMatchesFile": true
+    },
+    "row2_ksa": {
+      "sourceDataset": "KSA source (dataset 15157542)",
+      "recordCount": null,
+      "accessMethod": "restApi_keyRequired_NOT_CALLED",
+      "redistributable": null,
+      "status": "NOT_INGESTED",
+      "note": "Confirms KSA_SOURCE_STATUS=UNVERIFIED is accurate as of this audit; requires a human-registered data.go.kr API key before ingestion."
+    }
+  },
+  "blockersForRq2bFinalMapping": [
+    "No record-level raw HTML lineage for the full corpus (only 126-sample derived summary + 3 fixtures exist)",
+    "68/79 target months unverified for pagination completeness",
+    "KSA source (15157542) not ingested -- precision NCS performance-criteria matching unavailable",
+    "Agent 2 duty-level input contract not yet received",
+    "No gold mapping labels exist yet (n=300 target, not started)",
+    "'complete' month expectedTotalCount vs returnedDistinctCount mismatch needs Agent 1 clarification before treating those 11 months as a trustworthy denominator for any coverage-based claim"
+  ],
+  "notEstimatedNotFabricated": [
+    "mappingPrecision = NOT_EVALUATED",
+    "mappingCoverage = NOT_EVALUATED",
+    "lowConfidenceShare = NOT_EVALUATED"
+  ]
+}
