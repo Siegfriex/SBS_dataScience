@@ -1,40 +1,39 @@
 {
   "agentId": "P4-RECURSIVE-CANARY-M2-ORCHESTRATOR",
-  "state": "BLOCKED_BY_EVIDENCE",
-  "tier": "TIER0",
-  "iterationId": "P4_AUTO_BOOTSTRAP_20260807_01",
-  "updatedAtUtc": "2026-08-06T22:30:50.273324Z",
+  "state": "AWAIT_TIER1_APPROVAL",
+  "tier": "TIER1",
+  "iterationId": "P4_AUTO_T0_20260807_01",
+  "updatedAtUtc": "2026-08-06T23:01:56.216147Z",
   "automationPolicyPath": "automation_policy.yaml",
-  "automationPolicyStatus": "INCOMPLETE",
-  "automationPolicyErrors": [
-    "AUTOMATION_POLICY_FILE_MISSING"
-  ],
-  "blockedReason": "AUTOMATION_POLICY_INCOMPLETE",
-  "latestAcceptedBaseSha": "e32e3e21a9e03869980f16721c67fccf42a96160",
+  "automationPolicySha256": "98b1d365faf1f8978f8f1f80a46e64a41ff78d6c6264f3509ebf175651842b01",
+  "automationPolicyStatus": "PASS",
+  "maxAutoRepairIterationsPerTier": 3,
+  "maxCanaryRunsPerScope": 2,
   "a1CanonicalHandoff": {
     "branch": "agent/p4-a1-canary-crawl-v1",
     "headCommit": "13205c11e7de3dfc7b005b0fde16197281eb857f",
     "runId": "CANARY_T0_20260807_03",
     "artifactCount": 16,
-    "status": "EVIDENCE_AVAILABLE_NOT_CONSUMED_BY_AUTOMATION_LOOP"
+    "manifestSha256": "6162d3aea6ff3646d4d9cb7ff09d09acf91bbde81a815896096bca82b6f63c42",
+    "status": "ACCEPTED"
   },
-  "a3ExistingAcceptance": {
+  "a3Acceptance": {
     "branch": "integration/p4-canary-acceptance-v1",
-    "headCommit": "e32e3e21a9e03869980f16721c67fccf42a96160",
-    "status": "EXISTING_REACCEPTANCE_AVAILABLE"
+    "headCommitBeforeAutomationReport": "234f647bf03d36ef19814d4ade6c3ee13548c4da",
+    "status": "CANARY_ACCEPTED_FOR_NEXT_DEBUG_SCOPE"
   },
   "a5Status": "NOT_REQUIRED",
-  "approvalStatus": "NOT_EVALUATED",
+  "approvalStatus": "TIER1_APPROVAL_MISSING",
   "networkCalls": 0,
   "externalAtsTransportCalls": 0,
   "credentialedApiCalls": 0,
-  "acceptedScope": null,
-  "nextRequiredAction": "PROVIDE_COMPLETE_AUTOMATION_POLICY",
+  "acceptedScope": "TIER0_FIXTURE_ONLY",
+  "nextRequiredAction": "USER_TIER1_INDEX_CANARY_APPROVAL_ARTIFACT",
   "fixedDefects": [
-    "CANARY-P1-EVIDENCE-BUNDLE"
+    "CANARY-P1-EVIDENCE-BUNDLE",
+    "AUTOMATION-P1-POLICY-INCOMPLETE"
   ],
   "openDefects": [
-    "AUTOMATION-P1-POLICY-INCOMPLETE",
     "P1-UNIFIED-001",
     "P1-UNIFIED-002",
     "P1-UNIFIED-003",

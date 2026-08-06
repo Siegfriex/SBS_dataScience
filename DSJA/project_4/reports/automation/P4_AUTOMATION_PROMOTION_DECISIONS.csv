@@ -1,6 +1,6 @@
 gate,decision,evidence,eligible
-TIER0_GLOBAL_ACCEPTANCE,NOT_EVALUATED,automation policy precondition failed,false
-TIER1_NETWORK_CANARY,BLOCKED,Tier 0 automation acceptance not completed and no Tier 1 approval,false
-M2_FULL_CRAWL,BLOCKED,Tier 0-4 and human approval gates unmet,false
+TIER0_GLOBAL_ACCEPTANCE,CANARY_ACCEPTED_FOR_NEXT_DEBUG_SCOPE,6162d3aea6ff3646d4d9cb7ff09d09acf91bbde81a815896096bca82b6f63c42,true
+TIER1_NETWORK_CANARY,AWAITING_USER_APPROVAL,no production_crawl_approval.json,false
+M2_FULL_CRAWL,BLOCKED,Tier 1-4 and human approval gates unmet,false
 CRAWL_RELEASE,BLOCKED,no production release,false
 ANALYSIS,BLOCKED,no production data readiness,false

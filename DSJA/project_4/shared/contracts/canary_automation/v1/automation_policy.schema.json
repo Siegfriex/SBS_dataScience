@@ -5,6 +5,7 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
+    "schemaVersion",
     "maxAutoRepairIterationsPerTier",
     "maxCanaryRunsPerScope",
     "allowedBranchPrefixes",
@@ -14,9 +15,13 @@
     "requiredA5AuditArtifacts",
     "canaryTierDefinitions",
     "approvalSchemaVersion",
-    "sourcePolicySchemaVersion"
+    "sourcePolicySchemaVersion",
+    "networkPolicy",
+    "scopeEscalation",
+    "budgetExhaustionPolicy"
   ],
   "properties": {
+    "schemaVersion": {"const": "p4-canary-automation-v1"},
     "maxAutoRepairIterationsPerTier": {"type": "integer", "minimum": 1},
     "maxCanaryRunsPerScope": {"type": "integer", "minimum": 1},
     "allowedBranchPrefixes": {"$ref": "#/$defs/nonEmptyStringArray"},
@@ -37,7 +42,43 @@
       }
     },
     "approvalSchemaVersion": {"type": "string", "minLength": 1},
-    "sourcePolicySchemaVersion": {"type": "string", "minLength": 1}
+    "sourcePolicySchemaVersion": {"type": "string", "minLength": 1},
+    "networkPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "allowNetworkWithoutApproval",
+        "allowExternalAts",
+        "allowBrowserAutomation",
+        "allowFullM2Automation"
+      ],
+      "properties": {
+        "allowNetworkWithoutApproval": {"const": false},
+        "allowExternalAts": {"const": false},
+        "allowBrowserAutomation": {"const": false},
+        "allowFullM2Automation": {"const": false}
+      }
+    },
+    "scopeEscalation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["requiresNewApprovalArtifact", "requiresA5ForTier4", "requiresA5ForM2"],
+      "properties": {
+        "requiresNewApprovalArtifact": {"const": true},
+        "requiresA5ForTier4": {"const": true},
+        "requiresA5ForM2": {"const": true}
+      }
+    },
+    "budgetExhaustionPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stopAutomaticPatch", "stopScopeEscalation", "requireHumanDecision"],
+      "properties": {
+        "stopAutomaticPatch": {"const": true},
+        "stopScopeEscalation": {"const": true},
+        "requireHumanDecision": {"const": true}
+      }
+    }
   },
   "$defs": {
     "nonEmptyStringArray": {

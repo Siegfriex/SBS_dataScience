@@ -246,6 +246,7 @@ def main() -> int:
     conflict_count = 0
     component_counts: dict[str, int] = {}
     contamination_hits: list[str] = ["CONTAMINATION_NOT_EVALUATED_NO_HANDOFF"]
+    tier0_fixture_only = False
     errors.extend(request_artifact_errors)
 
     network_calls = len(request_rows)
@@ -327,13 +328,20 @@ def main() -> int:
         binding = json.loads((handoff / "approval_binding.json").read_text(encoding="utf-8"))
         approval_id = str(binding.get("approvalId") or "NONE")
         policy_errors = validate_approval(handoff, effective_plan, network_calls, now)
-        if binding.get("status") == "CANARY_APPROVAL_MISSING":
+        scope = plan.get("canaryScope") if isinstance(plan.get("canaryScope"), dict) else {}
+        tier0_fixture_only = (
+            network_calls == 0
+            and scope.get("tier") == 0
+            and scope.get("mode") == "fixture-only"
+            and plan.get("runMode") == "fixture-only"
+        )
+        if binding.get("status") == "CANARY_APPROVAL_MISSING" and not tier0_fixture_only:
             policy_errors.append("CANARY_APPROVAL_MISSING")
         if policy_errors:
             status = "CANARY_BLOCKED_BY_POLICY"
         elif errors:
             status = "CANARY_REJECTED"
-        elif args.a5_status not in {"PASS", "PASS_WITH_FINDINGS"}:
+        elif args.a5_status not in {"PASS", "PASS_WITH_FINDINGS"} and not tier0_fixture_only:
             status = "CANARY_EVIDENCE_INSUFFICIENT"
             errors.append("A5_INDEPENDENT_AUDIT_NOT_ACCEPTABLE")
         else:
@@ -355,7 +363,7 @@ def main() -> int:
         {**common, "gateId": "CANARY_REQUEST_RAW_CHECKPOINT", "status": "NOT_EVALUATED" if missing else ("FAIL" if errors else "PASS"), "observed": len(errors), "expected": 0, "evidence": ";".join(errors) or "portable manifests"},
         {**common, "gateId": "CANARY_OBSERVED_PRODUCTION_ISOLATION", "status": "NOT_EVALUATED" if missing else ("FAIL" if contamination_hits else "PASS"), "observed": ";".join(contamination_hits) if contamination_hits else 0, "expected": "canonical/observed/mart/gold/article rows = 0", "evidence": "pipeline and NCS authority-store scan"},
         {**common, "gateId": "CANARY_PIPELINE_NCS_COMPATIBILITY", "status": "NOT_EVALUATED" if missing else ("FAIL" if any(e.startswith("CANARY_PARQUET") for e in errors) else "PASS"), "observed": json.dumps(component_counts, sort_keys=True), "expected": "run/data/status-bound debug-only rows", "evidence": "index/detail/asset Parquet schema"},
-        {**common, "gateId": "A5_INDEPENDENT_AUDIT", "status": args.a5_status, "observed": args.a5_commit, "expected": "PASS or PASS_WITH_FINDINGS", "evidence": "audit/p4-m1_5-a5-unified-v1"},
+        {**common, "gateId": "A5_INDEPENDENT_AUDIT", "status": args.a5_status, "observed": args.a5_commit, "expected": "NOT_REQUIRED for Tier 0 fixture-only; otherwise PASS or PASS_WITH_FINDINGS", "evidence": "tier policy / independent audit branch"},
         {**common, "gateId": "M2_CRAWL_READY_FOR_USER_APPROVAL", "status": "BLOCKED", "observed": "not promoted", "expected": "separate gate", "evidence": status},
         {**common, "gateId": "CRAWL_RELEASE_READY", "status": "BLOCKED", "observed": "not promoted", "expected": "production release evidence", "evidence": status},
         {**common, "gateId": "ANALYSIS_READY", "status": "BLOCKED", "observed": "not promoted", "expected": "analysis gate", "evidence": status},
@@ -406,7 +414,9 @@ def main() -> int:
     decision = {
         "agentId": "P4-A3-GLOBAL-CANARY-INTEGRATION-ORCHESTRATOR",
         "canaryRunId": run_id, "dataVersion": data_version, "approvalId": approval_id,
-        "status": status, "acceptedScope": "NONE", "approvedNextScope": "NONE",
+        "status": status,
+        "acceptedScope": "TIER0_FIXTURE_ONLY" if status == "CANARY_ACCEPTED_FOR_NEXT_DEBUG_SCOPE" else "NONE",
+        "approvedNextScope": "NONE",
         "requestCount": len(request_rows), "requestResponseConflictCount": conflict_count,
         "productionReleaseAllowed": False, "analysisPromotionAllowed": False,
         "externalAtsTransportAllowed": False, "productionNetworkCalls": network_calls,
@@ -438,7 +448,8 @@ def main() -> int:
         f"- A1 candidate: `{args.a1_branch}` at `{args.a1_commit}`; dirty paths `{args.a1_dirty_path_count}`\n\n"
         f"- Canonical handoff: `{'PASS' if not missing and not errors else 'FAIL'}`; "
         f"artifacts `{len(REQUIRED_ARTIFACTS) - len(missing)}/{len(REQUIRED_ARTIFACTS)}`\n\n"
-        "## Decision\n\nNo canary scope is accepted or escalated without both a complete Git-tracked handoff and a valid approval. "
+        "## Decision\n\nTier 0 fixture-only evidence may be accepted with zero network calls and no network approval. "
+        "Every networked tier and every scope expansion still requires a separate valid approval artifact. "
         "No production release, canonical database, RQ mart, Gold/reference, or article promotion is permitted.\n\n"
         "`CANARY_ACCEPTED_FOR_NEXT_DEBUG_SCOPE` is not equivalent to any M2, crawl-release, production-data, or analysis gate.\n",
         encoding="utf-8",

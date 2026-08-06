@@ -19,6 +19,7 @@ from recursive_canary_automation import (  # noqa: E402
 
 def complete_policy() -> dict:
     return {
+        "schemaVersion": "p4-canary-automation-v1",
         "maxAutoRepairIterationsPerTier": 1,
         "maxCanaryRunsPerScope": 1,
         "allowedBranchPrefixes": ["integration/p4-"],
@@ -29,6 +30,22 @@ def complete_policy() -> dict:
         "canaryTierDefinitions": {tier: {"mode": "TEST_ONLY"} for tier in ("TIER0", "TIER1", "TIER2", "TIER3", "TIER4")},
         "approvalSchemaVersion": "test-approval-v1",
         "sourcePolicySchemaVersion": "test-source-policy-v1",
+        "networkPolicy": {
+            "allowNetworkWithoutApproval": False,
+            "allowExternalAts": False,
+            "allowBrowserAutomation": False,
+            "allowFullM2Automation": False,
+        },
+        "scopeEscalation": {
+            "requiresNewApprovalArtifact": True,
+            "requiresA5ForTier4": True,
+            "requiresA5ForM2": True,
+        },
+        "budgetExhaustionPolicy": {
+            "stopAutomaticPatch": True,
+            "stopScopeEscalation": True,
+            "requireHumanDecision": True,
+        },
     }
 
 
@@ -67,12 +84,33 @@ def test_all_tiers_must_be_defined(tmp_path):
     assert "AUTOMATION_POLICY_TIER_DEFINITION_MISSING:TIER3" in errors
 
 
+def test_network_and_escalation_safety_flags_are_fail_closed(tmp_path):
+    policy = complete_policy()
+    policy["networkPolicy"]["allowNetworkWithoutApproval"] = True
+    policy["scopeEscalation"]["requiresNewApprovalArtifact"] = False
+    path = tmp_path / "automation_policy.yaml"
+    path.write_text(yaml.safe_dump(policy), encoding="utf-8")
+    _, errors = validate_automation_policy(path)
+    assert "AUTOMATION_POLICY_FALSE_REQUIRED:networkPolicy.allowNetworkWithoutApproval" in errors
+    assert "AUTOMATION_POLICY_TRUE_REQUIRED:scopeEscalation.requiresNewApprovalArtifact" in errors
+
+
 def test_complete_policy_passes_structure_validation(tmp_path):
     path = tmp_path / "automation_policy.yaml"
     path.write_text(yaml.safe_dump(complete_policy()), encoding="utf-8")
     payload, errors = validate_automation_policy(path)
     assert payload is not None
     assert errors == []
+
+
+def test_repository_policy_encodes_user_approved_three_two_budget():
+    path = INTEGRATION_ROOT.parent / "automation_policy.yaml"
+    payload, errors = validate_automation_policy(path)
+    assert errors == []
+    assert payload is not None
+    assert payload["maxAutoRepairIterationsPerTier"] == 3
+    assert payload["maxCanaryRunsPerScope"] == 2
+    assert payload["networkPolicy"]["allowNetworkWithoutApproval"] is False
 
 
 def test_blocked_packet_is_complete_and_checksum_bound(tmp_path):

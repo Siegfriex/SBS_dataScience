@@ -122,6 +122,14 @@ def test_network_without_approval_is_policy_block(tmp_path):
     assert errors == ["NETWORK_WITHOUT_APPROVAL_ARTIFACT"]
 
 
+def test_zero_network_does_not_require_network_approval(tmp_path):
+    (tmp_path / "approval_binding.json").write_text(
+        '{"approvalId":"NONE","status":"CANARY_APPROVAL_MISSING","networkCalls":0}\n',
+        encoding="utf-8",
+    )
+    assert validate_approval(tmp_path, {"networkCalls": 0}, 0, datetime(2026, 8, 7, tzinfo=UTC)) == []
+
+
 def test_response_manifest_orphan_fails():
     request = request_row()
     response = {"requestAttemptId": "UNKNOWN", "requestKey": request["requestKey"], "responseSha256": "2" * 64, "objectId": "OBJ-1"}

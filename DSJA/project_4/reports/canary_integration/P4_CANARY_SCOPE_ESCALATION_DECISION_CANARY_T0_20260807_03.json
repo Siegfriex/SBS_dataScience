@@ -3,8 +3,8 @@
   "canaryRunId": "CANARY_T0_20260807_03",
   "dataVersion": "canary-t0-canary_t0_20260807_03",
   "approvalId": "NONE",
-  "status": "CANARY_BLOCKED_BY_POLICY",
-  "acceptedScope": "NONE",
+  "status": "CANARY_ACCEPTED_FOR_NEXT_DEBUG_SCOPE",
+  "acceptedScope": "TIER0_FIXTURE_ONLY",
   "approvedNextScope": "NONE",
   "requestCount": 0,
   "requestResponseConflictCount": 0,
@@ -14,8 +14,8 @@
   "productionNetworkCalls": 0,
   "externalAtsTransportCalls": 0,
   "credentialedApiCalls": 0,
-  "a5AuditCommit": "06cd0cb4cb3726b1408dce58ad24f935ca008de9",
-  "a5AuditStatus": "PASS_WITH_FINDINGS",
+  "a5AuditCommit": "NONE",
+  "a5AuditStatus": "NOT_REQUIRED",
   "a1CandidateBranch": "agent/p4-a1-canary-crawl-v1",
   "a1CandidateCommit": "13205c11e7de3dfc7b005b0fde16197281eb857f",
   "a1CandidateDirtyPathCount": 0,
@@ -29,8 +29,6 @@
   "a1HeadCommitAtRun": "d82df0878cc4c69aad40bda5b052e51021539130",
   "missingArtifacts": [],
   "errors": [],
-  "policyErrors": [
-    "CANARY_APPROVAL_MISSING"
-  ],
-  "generatedAtUtc": "2026-08-06T22:22:21.095505Z"
+  "policyErrors": [],
+  "generatedAtUtc": "2026-08-06T23:01:55.915062Z"
 }
