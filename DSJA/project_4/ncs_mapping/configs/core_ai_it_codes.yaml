@@ -1,0 +1,1183 @@
+codeSetVersion: core-ai-it-v0.1
+status: REVIEW_REQUIRED
+note: ncsSubName is a DERIVED representative label (first constituent unit name),
+  not the official NCS 세분류명 -- see docs/CORE_AI_IT_CODESET_DECISION.md
+entries:
+- ncsSubCode: '20010101'
+  ncsSubName: 정보기술 전략 기획
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 10 constituent units, e.g. ['정보기술 전략 기획', '정보기술 거버넌스 전략 수립',
+    '정보기술 R&amp;D 전략 수립']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010102'
+  ncsSubName: 정보기술 컨설팅 기획
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 11 constituent units, e.g. ['정보기술 컨설팅 기획', '정보기술 조직 경영전략 분석',
+    '정보기술 조직 경영환경 분석']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010103'
+  ncsSubName: IT 비즈니스 환경분석
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 10 constituent units, e.g. ['IT 비즈니스 환경분석', '정보기술 환경분석', '정보기술
+    전략 수립']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010104'
+  ncsSubName: SW제품기업 내부 환경 분석
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 10 constituent units, e.g. ['SW제품기업 내부 환경 분석', 'SW제품기업 외부 환경
+    분석', 'SW제품 기술 검토']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010105'
+  ncsSubName: 빅데이터 분석 결과 시각화
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 8 constituent units, e.g. ['빅데이터 분석 결과 시각화', '분석 데이터 전처리', '탐색적
+    데이터 분석']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010106'
+  ncsSubName: IoT 환경분석
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 11 constituent units, e.g. ['IoT 환경분석', 'IoT 비즈니스 모델 개발', 'IoT
+    서비스 모형 기획']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010107'
+  ncsSubName: 빅데이터 서비스 기획
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 7 constituent units, e.g. ['빅데이터 서비스 기획', '빅데이터 환경분석', '빅데이터
+    분석 기획']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010108'
+  ncsSubName: 핀테크 환경 분석
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 9 constituent units, e.g. ['핀테크 환경 분석', '핀테크 데이터 분석', '핀테크 기술
+    분석']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010201'
+  ncsSubName: SW아키텍처 수행 관리
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 11 constituent units, e.g. ['SW아키텍처 수행 관리', 'SW아키텍처 비전 수립', 'SW아키텍처
+    요소기술선정']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010202'
+  ncsSubName: 요구사항 확인
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 27 constituent units, e.g. ['요구사항 확인', '데이터 입출력 구현', '통합 구현']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010203'
+  ncsSubName: 하드웨어 분석
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 24 constituent units, e.g. ['하드웨어 분석', '임베디드 시스템 테스팅', '기술문서
+    개발']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010204'
+  ncsSubName: 데이터베이스 요구사항 분석
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 11 constituent units, e.g. ['데이터베이스 요구사항 분석', '개념데이터 모델링', '논리
+    데이터베이스 설계']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010205'
+  ncsSubName: 네트워크 환경 분석
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 16 constituent units, e.g. ['네트워크 환경 분석', '네트워크 토폴로지 설계', '네트워크
+    자원관리 설계']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010206'
+  ncsSubName: 보안 구축 계획 수립
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 9 constituent units, e.g. ['보안 구축 계획 수립', '보안 구축 요구사항 분석', '관리적
+    보안 구축']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010207'
+  ncsSubName: UI/UX 환경 분석
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 12 constituent units, e.g. ['UI/UX 환경 분석', 'UI/UX 계획 수립', '사용자
+    리서치']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010208'
+  ncsSubName: 시스템SW 요구사항 분석
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 12 constituent units, e.g. ['시스템SW 요구사항 분석', '시스템SW 아키텍처 설계',
+    '시스템SW 상세 설계']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010209'
+  ncsSubName: 빅데이터 플랫폼 요구사항 분석
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 8 constituent units, e.g. ['빅데이터 플랫폼 요구사항 분석', '빅데이터 플랫폼 아키텍처
+    설계', '빅데이터 수집시스템 개발']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010210'
+  ncsSubName: 핀테크 요구사항 분석
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 9 constituent units, e.g. ['핀테크 요구사항 분석', '핀테크 인프라 설계', '핀테크
+    인터페이스 설계']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010211'
+  ncsSubName: 데이터 아키텍처 구축 계획 수립
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 10 constituent units, e.g. ['데이터 아키텍처 구축 계획 수립', '데이터 거버넌스 수립',
+    '데이터 아키텍처 요구사항 분석']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010212'
+  ncsSubName: IoT시스템 연동 계획
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 9 constituent units, e.g. ['IoT시스템 연동 계획', 'IoT시스템 연동 설계', 'IoT시스템
+    연동 모듈 개발']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010213'
+  ncsSubName: 인프라스트럭쳐 현황분석
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 9 constituent units, e.g. ['인프라스트럭쳐 현황분석', '인프라스트럭쳐 아키텍처 요구사항
+    정의', '인프라스트럭쳐 목표 아키텍처 설계']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010214'
+  ncsSubName: 클라우드 솔루션 요구사항 분석
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 8 constituent units, e.g. ['클라우드 솔루션 요구사항 분석', '클라우드 솔루션 구조 설계',
+    '클라우드 솔루션 보안 설계']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010215'
+  ncsSubName: 클라우드 인프라스트럭쳐 서비스 정책 수립
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 10 constituent units, e.g. ['클라우드 인프라스트럭쳐 서비스 정책 수립', '클라우드 인프라스트럭쳐
+    서비스 아키텍처 수립', '클라우드 서버 서비스 설계']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010216'
+  ncsSubName: PaaS 정책 수립
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 9 constituent units, e.g. ['PaaS 정책 수립', 'PaaS 아키텍처 수립', 'PaaS
+    백엔드 설계']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010217'
+  ncsSubName: AIoT 운영 플랫폼 요구사항 분석
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 9 constituent units, e.g. ['AIoT 운영 플랫폼 요구사항 분석', 'AIoT 운영 플랫폼
+    구축 계획 수립', 'AIoT 운영 플랫폼 데이터 수집 기능 구현']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010301'
+  ncsSubName: IT시스템 운영 기획
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 16 constituent units, e.g. ['IT시스템 운영 기획', 'IT시스템 자원획득관리', 'IT시스템
+    서비스 수준관리']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010302'
+  ncsSubName: IT기술교육 체계수립
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 11 constituent units, e.g. ['IT기술교육 체계수립', 'IT기술교육 요구조사', 'IT기술교육
+    환경조성']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010303'
+  ncsSubName: 기술지원 서비스 기획
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 12 constituent units, e.g. ['기술지원 서비스 기획', '기술지원 대상 인수', '기술지원
+    요청 관리']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010304'
+  ncsSubName: 빅데이터 플랫폼 운영 정책 수립
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 10 constituent units, e.g. ['빅데이터 플랫폼 운영 정책 수립', '빅데이터 서비스 운영
+    계획', '빅데이터 서비스 운영 관리']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010305'
+  ncsSubName: IoT 시스템 운영·관리 계획
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 9 constituent units, e.g. ['IoT 시스템 운영·관리 계획', 'IoT 응용서비스 운영·관리',
+    'IoT 플랫폼 운영·관리']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010306'
+  ncsSubName: 데이터거래 환경 분석
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 8 constituent units, e.g. ['데이터거래 환경 분석', '데이터거래플랫폼 현황 분석', '데이터거래
+    대상 선정']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010401'
+  ncsSubName: IT프로젝트 기획관리
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 14 constituent units, e.g. ['IT프로젝트 기획관리', 'IT프로젝트 통합관리', 'IT프로젝트
+    범위관리']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010402'
+  ncsSubName: IT품질정책 수립
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 13 constituent units, e.g. ['IT품질정책 수립', 'IT표준프로세스 수립', 'IT품질관리계획
+    수립']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010403'
+  ncsSubName: 테스트 기획
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 17 constituent units, e.g. ['테스트 기획', '테스트 진단 컨설팅', '테스트 계획']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010404'
+  ncsSubName: 감리계획수립
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 11 constituent units, e.g. ['감리계획수립', '현장감리 착수', '사업착수단계 현장감리
+    수행']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010501'
+  ncsSubName: 기술영업시장 현황분석
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 10 constituent units, e.g. ['기술영업시장 현황분석', '기술영업 전략수립', '기술영업
+    고객 현황분석']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010502'
+  ncsSubName: IT마케팅 환경 분석
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 10 constituent units, e.g. ['IT마케팅 환경 분석', 'IT마케팅 목표 설정', 'IT마케팅
+    STP 전략 수립']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010601'
+  ncsSubName: 정보보호 거버넌스 구현
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 13 constituent units, e.g. ['정보보호 거버넌스 구현', '정보보호 정책 기획', '보안
+    위험관리']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010602'
+  ncsSubName: 보안전략수립 컨설팅
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 8 constituent units, e.g. ['보안전략수립 컨설팅', '보안감사', '정보보호관리체계 인증심사']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010603'
+  ncsSubName: 보안사고 현황분석
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 7 constituent units, e.g. ['보안사고 현황분석', '탐지로그 분석', '분석대응 체계수립']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010604'
+  ncsSubName: 암호 분석 기획
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 10 constituent units, e.g. ['암호 분석 기획', '암호 분석', '암호 장비 운용']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010605'
+  ncsSubName: 영상정보처리시스템 요구사항 분석
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 8 constituent units, e.g. ['영상정보처리시스템 요구사항 분석', '영상정보처리시스템 설계',
+    '영상정보처리 알고리즘 개발']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010606'
+  ncsSubName: 생체인식 알고리즘 설계
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 8 constituent units, e.g. ['생체인식 알고리즘 설계', '생체인식 모듈 설계', '생체인식
+    API 설계']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010608'
+  ncsSubName: 조사계획 수립
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 7 constituent units, e.g. ['조사계획 수립', '현장 조사', '증거 수집']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010609'
+  ncsSubName: 영상정보보안·운영 정책 수립
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 9 constituent units, e.g. ['영상정보보안·운영 정책 수립', '영상정보보안·운영 계획 수립',
+    '영상정보처리 보안']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010611'
+  ncsSubName: OT보안 정책 기획
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 9 constituent units, e.g. ['OT보안 정책 기획', 'OT 시스템 운영체계 환경 분석 ',
+    'OT보안 표준 적용']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010612'
+  ncsSubName: 클라우드 정보보호 계획수립
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 9 constituent units, e.g. ['클라우드 정보보호 계획수립', '클라우드 컴플라이언스 준수',
+    '클라우드 네트워크 보안']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010614'
+  ncsSubName: 정보보호제품 시험·평가 기획
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 7 constituent units, e.g. ['정보보호제품 시험·평가 기획', '정보보호제품 시험·평가 문서
+    작성', '정보보호제품 보안기능 점검']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010615'
+  ncsSubName: SW공급망 보안 계획수립
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 6 constituent units, e.g. ['SW공급망 보안 계획수립', 'SW공급망 인프라 보안', 'SW
+    개발보안 자동화 관리']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010616'
+  ncsSubName: 모빌리티 보안 관리체계 수립
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 7 constituent units, e.g. ['모빌리티 보안 관리체계 수립', '모빌리티 보안 위협 식별',
+    '모빌리티 보안 위험 관리']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010701'
+  ncsSubName: 인공지능 플랫폼 구축 계획
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 11 constituent units, e.g. ['인공지능 플랫폼 구축 계획', '인공지능 플랫폼 요구사항
+    분석', '인공지능 플랫폼 설계']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010702'
+  ncsSubName: 인공지능 서비스 목표 수립
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 8 constituent units, e.g. ['인공지능 서비스 목표 수립', '인공지능 서비스 모델 기획',
+    '인공지능 서비스 시나리오 기획']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010703'
+  ncsSubName: 인공지능 모델 문제 정의
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 9 constituent units, e.g. ['인공지능 모델 문제 정의', '인공지능 모델 준비', '인공지능
+    데이터 확보']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010704'
+  ncsSubName: 인공지능서비스 운영계획 수립
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 10 constituent units, e.g. ['인공지능서비스 운영계획 수립', '인공지능서비스 이용자관리',
+    '인공지능서비스 운영환경관리']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010705'
+  ncsSubName: 인공지능서비스 구현요건분석
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 10 constituent units, e.g. ['인공지능서비스 구현요건분석', '인공지능서비스 상위설계',
+    '인공지능서비스 상세설계']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010706'
+  ncsSubName: 인공지능 학습데이터 구축 기획
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 11 constituent units, e.g. ['인공지능 학습데이터 구축 기획', '인공지능 학습데이터 획득
+    계획', '인공지능 학습데이터 획득']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010707'
+  ncsSubName: 생성형 AI 기반 프로덕트 목표 수립
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 9 constituent units, e.g. ['생성형 AI 기반 프로덕트 목표 수립', '생성형 AI 모델
+    선정', '생성형 AI 데이터 준비']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010801'
+  ncsSubName: 블록체인 시장조사
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 8 constituent units, e.g. ['블록체인 시장조사', '블록체인 요구사항 분석', '블록체인
+    비즈니스 전략 수립']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010802'
+  ncsSubName: 블록체인 요구사항 검증
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 8 constituent units, e.g. ['블록체인 요구사항 검증', '블록체인 플랫폼구현', '블록체인
+    응용서비스 구현']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010803'
+  ncsSubName: 블록체인 산업시장 환경분석
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 8 constituent units, e.g. ['블록체인 산업시장 환경분석', '블록체인 비즈니스모델 기획',
+    '블록체인 기술 분석']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010901'
+  ncsSubName: 스마트물류체계 도입타당성 검토
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 9 constituent units, e.g. ['스마트물류체계 도입타당성 검토', '스마트물류체계 전략 수립',
+    '스마트물류체계 추진계획 수립']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010902'
+  ncsSubName: 스마트물류 플랫폼 설계
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 10 constituent units, e.g. ['스마트물류 플랫폼 설계', '스마트물류 최적화서비스 설계',
+    '스마트물류 플랫폼구축 솔루션 선정']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20010903'
+  ncsSubName: 스마트물류 통합관리 환경분석
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 10 constituent units, e.g. ['스마트물류 통합관리 환경분석', '스마트물류 자원 관리',
+    '스마트물류 예측 관리']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20011001'
+  ncsSubName: 디지털트윈 목표 수립
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 8 constituent units, e.g. ['디지털트윈 목표 수립', '디지털트윈 환경분석', '디지털트윈
+    요구사항분석']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20011002'
+  ncsSubName: 디지털트윈 가상모델 상세 설계
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 7 constituent units, e.g. ['디지털트윈 가상모델 상세 설계', '디지털트윈 상호작용 설계',
+    '디지털트윈 데이터 설계']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20011003'
+  ncsSubName: 디지털트윈 응용서비스 구현
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 7 constituent units, e.g. ['디지털트윈 응용서비스 구현', '디지털트윈 가상세계 구현',
+    '디지털트윈 상호작용 구현']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20011101'
+  ncsSubName: 개인정보보호 법령·정책 분석
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 6 constituent units, e.g. ['개인정보보호 법령·정책 분석', '개인정보보호 기획', '개인정보보호
+    위험관리']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20011102'
+  ncsSubName: 가명익명 법제도분석
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 7 constituent units, e.g. ['가명익명 법제도분석', '가명익명처리 기획', '가명익명 위험관리']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20011103'
+  ncsSubName: 개인정보 인증심사 준비
+  subNameIsDerived: true
+  included: true
+  inclusionBasis: major=20(정보통신)/middle=01 -- 정보기술 -- SW개발/IT운영/정보보호/AI/블록체인/데이터 핵심
+    IT 직무
+  inclusionEvidence: 7 constituent units, e.g. ['개인정보 인증심사 준비', '개인정보 인증심사 착수', '개인정보
+    관리체계 진단']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020101'
+  ncsSubName: 교환시스템 구축계획
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 14 constituent units, e.g. ['교환시스템 구축계획', '교환시스템 기본설계', '교환시스템
+    중계설비 실시설계']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020102'
+  ncsSubName: 구내통신 구축계획 수립
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 18 constituent units, e.g. ['구내통신 구축계획 수립', '구내통신 구축설계', '구내통신구축
+    제안 관리']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020103'
+  ncsSubName: 네트워크사업기획
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 18 constituent units, e.g. ['네트워크사업기획', '네트워크구축계획', '네트워크구축설계']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020104'
+  ncsSubName: 이동통신구내설비공사
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 16 constituent units, e.g. ['이동통신구내설비공사', '방송공동수신설비공사', '영상정보처리기기(CCTV)설비공사']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020105'
+  ncsSubName: 실감형플랫폼 요구사항분석
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 9 constituent units, e.g. ['실감형플랫폼 요구사항분석', '실감형플랫폼 구축계획', '실감형플랫폼
+    설계']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020106'
+  ncsSubName: 철도전송설비공사
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 10 constituent units, e.g. ['철도전송설비공사', '선로변통합인터페이스 통신설비공사',
+    '열차무선설비공사']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020107'
+  ncsSubName: 교통신호제어설비공사
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 11 constituent units, e.g. ['교통신호제어설비공사', '도로전광판설비공사', '교통관제설비공사']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020108'
+  ncsSubName: 레이더시스템 설비공사
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 11 constituent units, e.g. ['레이더시스템 설비공사', '해상무선통신 설비공사', '해상교통관제전송
+    설비공사']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020109'
+  ncsSubName: 계기착륙시설공사
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 10 constituent units, e.g. ['계기착륙시설공사', '자동종속감시시설공사', '레이더시설공사']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020110'
+  ncsSubName: 클라우드 플랫폼 요구사항 분석
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 9 constituent units, e.g. ['클라우드 플랫폼 요구사항 분석', '클라우드 플랫폼 구축계획
+    수립', '클라우드 플랫폼 설계']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020201'
+  ncsSubName: 무선통신시스템구축 요구사항분석
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 16 constituent units, e.g. ['무선통신시스템구축 요구사항분석', '무선통신시스템구축 계획수립',
+    '무선통신시스템 설계']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020202'
+  ncsSubName: 전송시스템구축 요구사항분석
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 11 constituent units, e.g. ['전송시스템구축 요구사항분석', '전송시스템구축 계획수립',
+    '전송시스템 실시설계']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020203'
+  ncsSubName: 무선통신망구축 기본계획
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 15 constituent units, e.g. ['무선통신망구축 기본계획', '무선통신망구축 기본설계', '무선통신망구축
+    실시설계']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020204'
+  ncsSubName: 위성통신망 설계
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 8 constituent units, e.g. ['위성통신망 설계', '위성통신망 시공', '위성통신망 감리']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020205'
+  ncsSubName: IoT통신망 요구사항 분석
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 13 constituent units, e.g. ['IoT통신망 요구사항 분석', 'IoT통신망 표준 및 기술기준
+    활용', 'IoT통신망 공사 감리']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020206'
+  ncsSubName: 공공안전통신망구축 기획
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 10 constituent units, e.g. ['공공안전통신망구축 기획', '공공안전통신망 표준운영절차 수립',
+    '공공안전통신망 설계']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020301'
+  ncsSubName: 영업계획 수립
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 10 constituent units, e.g. ['영업계획 수립', '회선개통', '운용보전계획수립']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020302'
+  ncsSubName: 전용회선서비스 사업계획 수립
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 10 constituent units, e.g. ['전용회선서비스 사업계획 수립', '전용회선서비스 상품개발',
+    '전용회선서비스 영업관리']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020303'
+  ncsSubName: 사업 관리 수립
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 11 constituent units, e.g. ['사업 관리 수립', '운용 보전 계획 수립', '시스템 관리']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020304'
+  ncsSubName: 부가네트워크서비스 인프라 구성관리
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 10 constituent units, e.g. ['부가네트워크서비스 인프라 구성관리', '부가네트워크서비스
+    상품 기획관리', '부가네트워크서비스 영업관리']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020305'
+  ncsSubName: 전보서비스 기획
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 9 constituent units, e.g. ['전보서비스 기획', '전보서비스 마케팅', '전보서비스 영업관리']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020306'
+  ncsSubName: 이동통신서비스 기획
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 8 constituent units, e.g. ['이동통신서비스 기획', '이동통신서비스 운용', '이동통신서비스
+    개발']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020307'
+  ncsSubName: 콘텐츠사용자서비스 마케팅
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 9 constituent units, e.g. ['콘텐츠사용자서비스 마케팅', '콘텐츠사용자서비스 계획수립',
+    '콘텐츠사용자서비스 가입관리']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020308'
+  ncsSubName: 콘텐츠네트워크서비스 기획
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 10 constituent units, e.g. ['콘텐츠네트워크서비스 기획', '콘텐츠네트워크서비스 영업관리',
+    '콘텐츠네트워크서비스 고객관리']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020309'
+  ncsSubName: 무선초고속인터넷서비스 기획
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 10 constituent units, e.g. ['무선초고속인터넷서비스 기획', '무선초고속인터넷서비스 설계',
+    '무선초고속인터넷서비스 관리']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020310'
+  ncsSubName: 주파수공용통신 시스템 점검
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 6 constituent units, e.g. ['주파수공용통신 시스템 점검', '주파수공용통신 시스템 보안관리',
+    '주파수공용통신 서비스 관리계획']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020311'
+  ncsSubName: 무선호출메시징서비스 기획
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 10 constituent units, e.g. ['무선호출메시징서비스 기획', '무선호출메시징서비스 설계',
+    '무선호출메시징 네트워크 구축']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020312'
+  ncsSubName: 위성통신서비스 기획
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 8 constituent units, e.g. ['위성통신서비스 기획', '위성통신서비스 개발', '위성통신서비스
+    보안관리']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020313'
+  ncsSubName: IoT융합서비스 디바이스 개발
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 10 constituent units, e.g. ['IoT융합서비스 디바이스 개발', 'IoT융합서비스 플랫폼
+    개발', 'IoT융합서비스 품질관리']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020314'
+  ncsSubName: 인터넷지원서비스 신청관리
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 8 constituent units, e.g. ['인터넷지원서비스 신청관리', '인터넷지원서비스 품질관리',
+    '인터넷 망 장애관리']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020315'
+  ncsSubName: 부가통신응용중계서비스 기획
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 10 constituent units, e.g. ['부가통신응용중계서비스 기획', '부가통신응용중계서비스 설계',
+    '부가통신응용중계서비스 구현']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020316'
+  ncsSubName: 서비스 기획
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 10 constituent units, e.g. ['서비스 기획', '서비스 마케팅 계획', '서비스 체계관리']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020317'
+  ncsSubName: 무선데이터통신서비스 기획
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 10 constituent units, e.g. ['무선데이터통신서비스 기획', '무선데이터통신서비스 마케팅
+    계획', '무선데이터통신서비스 시스템 개발']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020318'
+  ncsSubName: 디지털비지니스지원서비스 플랫폼 기획
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 11 constituent units, e.g. ['디지털비지니스지원서비스 플랫폼 기획', '디지털비지니스지원서비스
+    플랫폼 운용관리', '디지털비지니스지원서비스 플랫폼 보안관리']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020319'
+  ncsSubName: 실감형통신서비스 기획
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 10 constituent units, e.g. ['실감형통신서비스 기획', '실감형통신서비스 사업관리', '실감형통신서비스
+    설계']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020401'
+  ncsSubName: 가상현실 시스템 설계
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 10 constituent units, e.g. ['가상현실 시스템 설계', '영상 소스 후반 작업', '오디오
+    소스 후반 작업']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020402'
+  ncsSubName: 실감콘텐츠 촬영 기획
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 8 constituent units, e.g. ['실감콘텐츠 촬영 기획', '실감콘텐츠 촬영 디자인', '실감콘텐츠
+    촬영계획 수립']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20020403'
+  ncsSubName: 증강현실 콘텐츠 기획
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=02 -- 통신 -- 통신망/설비 구축 인프라 중심, 소프트웨어·AI 직무
+    매핑과 결이 다름
+  inclusionEvidence: 8 constituent units, e.g. ['증강현실 콘텐츠 기획', '증강현실 UI/UX 설계', '증강현실
+    제작 리소스 최적화']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20030101'
+  ncsSubName: 중계방송기획
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=03 -- 방송 -- 방송 설비/서비스 기획 중심, 소프트웨어·AI 직무 매핑과
+    결이 다름
+  inclusionEvidence: 11 constituent units, e.g. ['중계방송기획', '중계방송시스템구축', '중계전송망운용']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20030102'
+  ncsSubName: 방송품질관리기획
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=03 -- 방송 -- 방송 설비/서비스 기획 중심, 소프트웨어·AI 직무 매핑과
+    결이 다름
+  inclusionEvidence: 10 constituent units, e.g. ['방송품질관리기획', '방송영상품질관리', '방송음향품질관리']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20030201'
+  ncsSubName: 라디오 방송 기술 기획
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=03 -- 방송 -- 방송 설비/서비스 기획 중심, 소프트웨어·AI 직무 매핑과
+    결이 다름
+  inclusionEvidence: 10 constituent units, e.g. ['라디오 방송 기술 기획', '라디오 방송 기술 관리', '라디오
+    방송 스튜디오 제작 기술']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20030202'
+  ncsSubName: TV방송 기술기획
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=03 -- 방송 -- 방송 설비/서비스 기획 중심, 소프트웨어·AI 직무 매핑과
+    결이 다름
+  inclusionEvidence: 11 constituent units, e.g. ['TV방송 기술기획', 'TV방송 기술감독', 'TV방송 영상·녹화']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20030203'
+  ncsSubName: DMB 서비스 기획
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=03 -- 방송 -- 방송 설비/서비스 기획 중심, 소프트웨어·AI 직무 매핑과
+    결이 다름
+  inclusionEvidence: 11 constituent units, e.g. ['DMB 서비스 기획', '지상파DMB 연구개발', '지상파DMB
+    단말 인증']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20030204'
+  ncsSubName: 기술기획수립_PP
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=03 -- 방송 -- 방송 설비/서비스 기획 중심, 소프트웨어·AI 직무 매핑과
+    결이 다름
+  inclusionEvidence: 24 constituent units, e.g. ['기술기획수립_PP', '기술 감독_PP', '영상 감독_PP']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20030205'
+  ncsSubName: 인터넷멀티미디어방송 기술기획
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=03 -- 방송 -- 방송 설비/서비스 기획 중심, 소프트웨어·AI 직무 매핑과
+    결이 다름
+  inclusionEvidence: 14 constituent units, e.g. ['인터넷멀티미디어방송 기술기획', '인터넷멀티미디어방송 설계구축',
+    '인터넷멀티미디어방송 실시간채널운용']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20030301'
+  ncsSubName: 유무선 통합서비스 기획
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=03 -- 방송 -- 방송 설비/서비스 기획 중심, 소프트웨어·AI 직무 매핑과
+    결이 다름
+  inclusionEvidence: 10 constituent units, e.g. ['유무선 통합서비스 기획', '유무선 통합시스템 설계', '유무선
+    통합시스템 구축']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20030302'
+  ncsSubName: 방송 기술기획
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=03 -- 방송 -- 방송 설비/서비스 기획 중심, 소프트웨어·AI 직무 매핑과
+    결이 다름
+  inclusionEvidence: 10 constituent units, e.g. ['방송 기술기획', '방송제작시스템 운용', '방송편집 시스템
+    운용']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20030303'
+  ncsSubName: 정보시스템 운영기획 수립
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=03 -- 방송 -- 방송 설비/서비스 기획 중심, 소프트웨어·AI 직무 매핑과
+    결이 다름
+  inclusionEvidence: 14 constituent units, e.g. ['정보시스템 운영기획 수립', '제작지원 정보시스템 운영',
+    '영상편집 시스템 운영']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20030304'
+  ncsSubName: 기술 기획
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=03 -- 방송 -- 방송 설비/서비스 기획 중심, 소프트웨어·AI 직무 매핑과
+    결이 다름
+  inclusionEvidence: 11 constituent units, e.g. ['기술 기획', '기술 관리', '방송기술 연구개발']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20030305'
+  ncsSubName: 방송장비 유지보수 계획수립
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=03 -- 방송 -- 방송 설비/서비스 기획 중심, 소프트웨어·AI 직무 매핑과
+    결이 다름
+  inclusionEvidence: 11 constituent units, e.g. ['방송장비 유지보수 계획수립', '시공 계획', '자료 조사']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
+- ncsSubCode: '20030306'
+  ncsSubName: 소셜미디어 기획
+  subNameIsDerived: true
+  included: false
+  inclusionBasis: major=20(정보통신)/middle=03 -- 방송 -- 방송 설비/서비스 기획 중심, 소프트웨어·AI 직무 매핑과
+    결이 다름
+  inclusionEvidence: 11 constituent units, e.g. ['소셜미디어 기획', '소셜미디어 영상·음향제작', '소셜미디어
+    그래픽 제작']
+  reviewStatus: REVIEW_REQUIRED
+  codeSetVersion: core-ai-it-v0.1
