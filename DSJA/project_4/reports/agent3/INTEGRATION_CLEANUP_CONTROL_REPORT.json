@@ -12,7 +12,8 @@
       "branch": "main",
       "head": "878386ac233403e75fcdab65574c65a09b5e69fa",
       "tag": "contract-v2.1.2",
-      "clean": true
+      "cleanAtReleaseCommitCheck": true,
+      "postPushLiveUntrackedPaths": 4
     },
     "cleanup": {
       "path": "/home/sieg/projects-wsl/worktrees/p4-agent3-cleanup",
@@ -28,11 +29,14 @@
     "agent2": {
       "branch": "agent/p4-pipeline-v2",
       "head": "a92eb91c2e1661b6eab426b1d92a68a5163a8658",
-      "uncommittedTrackedPaths": 32,
+      "postPushLiveTrackedChanges": 49,
+      "postPushLiveUntrackedPaths": 75,
       "protectedWorktreeMutatedByAgent3": false
     },
     "monorepoPorcelainCount": 12216,
-    "p4PorcelainCount": 110
+    "p4PorcelainCountAtInventory": 110,
+    "p4PorcelainCountPostPush": 124,
+    "postPushObservedAt": "2026-08-06T15:00:58+09:00"
   },
   "inventory": {
     "physicalFileCount": 289,
@@ -117,7 +121,8 @@
     {"priority": "P1", "code": "AGENT1_ISSUE_HANDOFF_MISSING", "detail": "reported issues file absent from 825ba03"},
     {"priority": "P1", "code": "SOURCE_POLICY_EVIDENCE_STALE", "detail": "canonical prose predates transparent httpx evidence"},
     {"priority": "P1", "code": "NCS_KSA_UNVERIFIED", "detail": "human API key required"},
-    {"priority": "P2", "code": "AGENT2_WORKTREE_DIRTY", "detail": "32 tracked notebook/builder changes uncommitted"},
+    {"priority": "P2", "code": "AGENT2_WORKTREE_DIRTY", "detail": "49 tracked changes and 75 untracked paths observed post-push"},
+    {"priority": "P2", "code": "AGENT1_WORKTREE_DIRTY", "detail": "4 untracked range-semantics/report paths observed after release commit"},
     {"priority": "P2", "code": "INHERITED_WHITESPACE_DRIFT", "detail": "Agent 2 baseline contains EOF blank-line warnings outside Agent 3 ownership"},
     {"priority": "P2", "code": "DATE_RANGE_SEMANTICS_UNRESOLVED", "detail": "recruitStartAt/recruitCloseAt combination not fixed"}
   ]

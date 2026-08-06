@@ -26,12 +26,14 @@ quarantine is copy-only, so the dirty Agent 2 worktree remains dirty by design.
 ## Repository and worktree state
 
 - docs repo: clean, `main`, HEAD `878386ac`, tag `contract-v2.1.2`
-- Agent 1: clean and pushed, HEAD `825ba03`
-- Agent 2 branch: HEAD `a92eb91`; 32 tracked notebook/builder changes remain
-  uncommitted in its active worktree
+- Agent 1: HEAD `825ba03` matches its tracking ref; its live worktree later gained
+  4 untracked range-semantics/report paths
+- Agent 2 branch: HEAD `a92eb91`; its live worktree later reached 49 tracked
+  changes and 75 untracked paths while Agent 2 continued working
 - cleanup branch baseline after controlled cherry-picks: `d3e3deb`
 - monorepo-wide porcelain entries: 12,216; outside-P4 entries were not touched
-- P4 porcelain entries in the active Agent 2 worktree: 110
+- P4 porcelain entries at inventory time: 110; live post-push count at
+  `2026-08-06T15:00:58+09:00`: 124
 
 ## Dirty inventory
 
@@ -141,7 +143,7 @@ paths are 0. Secret-pattern scan of Agent 3 additions returned no findings.
    and `825ba03` in order.
 3. Skip Agent 1 commits `f94e8aa` and `8fc16f9` because they are patch-equivalent
    contract/handoff vendors already present in the cleanup branch.
-4. Do not include the 32 uncommitted Agent 2 notebook/builder edits until Agent 2
+4. Do not include the live uncommitted Agent 2 edits until Agent 2
    publishes a clean logical commit and tests it.
 5. Keep empirical analysis disabled until monthly coverage and raw-detail lineage
    gates are explicitly satisfied or the analysis scope is reduced by decision.
@@ -157,7 +159,10 @@ paths are 0. Secret-pattern scan of Agent 3 additions returned no findings.
 - P1: reported `AGENT1_TO_AGENT3_ISSUES.json` is absent from Agent 1 HEAD.
 - P1: source-policy evidence prose predates the transparent httpx verification.
 - P1: NCS KSA source requires a human API key and remains unverified.
-- P2: Agent 2 active worktree has 32 uncommitted notebook/builder changes.
+- P2: Agent 2 active worktree has 49 tracked changes and 75 untracked paths;
+  these post-snapshot edits were not imported.
+- P2: Agent 1 active worktree has 4 untracked range-semantics/report paths;
+  these post-release edits are not part of `825ba03`.
 - P2: inherited Agent 2 baseline files contain EOF blank-line warnings; Agent 3
   did not rewrite another owner's paths.
 - P2: recruit start/close range combination semantics remain unresolved.
