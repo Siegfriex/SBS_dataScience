@@ -34,7 +34,7 @@ queries:
     activeFlag: true
     verificationStatus: verified
     note: >
-      totalCount-only aggregate for a filterBy/rangeBy combination. Useful as a
-      completeness cross-check, but its rangeBy (recruitStartAt + recruitCloseAt,
-      both windows) combination semantics (AND vs OR) is NOT yet disambiguated —
-      see APQ_DATE_SEMANTICS.md §3 (unresolved item).
+      totalCount-only aggregate for a filterBy/rangeBy combination. The two
+      recruitStartAt/recruitCloseAt windows use OR/union semantics, as recorded
+      in CRAWL_20260806_03/schema_snapshot.json. This aggregate is a secondary
+      cross-check; per-bucket exhaustion remains the completeness authority.
