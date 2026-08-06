@@ -1,0 +1,7 @@
+﻿gateId,ruleId,severity,status,observedValue,threshold,evidencePath
+NCS_BASE_READY,NCS_UNIT_ROWS,INFO,PASS,13442,13442,ncs_mapping/data/processed/ncsUnit.parquet
+NCS_BASE_READY,NCS_UNIT_PK,INFO,PASS,13442,13442,ncs_mapping/data/processed/ncsUnit.parquet
+NCS_BASE_READY,NCS_LEVEL_DOMAIN,INFO,PASS,"[1, 2, 3, 4, 5, 6, 7, 8]",[1..8],ncs_mapping/data/processed/ncsUnit.parquet
+NCS_BASE_READY,HIERARCHY_CODE_NULL,INFO,PASS,0,0,ncs_mapping/data/processed/ncsUnit.parquet
+NCS_BASE_READY,SOURCE_SHA_LINEAGE,INFO,PASS,1,1,ncs_mapping/data/processed/ncsUnit.parquet
+NCS_BASE_READY,HIERARCHY_NAME_GAP,WARNING,REVIEW_REQUIRED,53768,documented source gap,ncs_mapping/docs/CORE_AI_IT_CODESET_DECISION.md

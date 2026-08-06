@@ -1,0 +1,11 @@
+{
+  "mappingMode": "LEXICAL_BASELINE",
+  "documents": 691,
+  "includedSubcategories": 69,
+  "aliasRows": 10,
+  "sameSubcategoryRestriction": true,
+  "denseRerankCalled": false,
+  "denseScore": null,
+  "codeSetStatus": "REVIEW_REQUIRED",
+  "goldValidatedFlag": false
+}

@@ -1,0 +1,229 @@
+{
+  "manifestVersion": "stage-manifest-v1",
+  "runId": "NCS_MAPPING_OBSERVED_20260806_01",
+  "runMode": "observed-dev",
+  "stageId": "A4-04-EXPORT",
+  "status": "SUCCEEDED",
+  "agentId": "P4-A4-NCS",
+  "branch": "agent/p4-ncs-mapping-v2",
+  "gitHead": "afac9fd9e1854715759c7d893440cbe89e04c150",
+  "contractVersion": "2.1.2",
+  "schemaVersion": "ncs-export-v1",
+  "dataVersion": "observed-dev-20260806.1",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+  "startedAt": "2026-08-06T08:49:39.565644Z",
+  "completedAt": "2026-08-06T08:49:39.566722Z",
+  "empiricalAnalysisAllowed": false,
+  "promotionAllowed": false,
+  "inputManifestSha256": "a305d2354a7437860dc947f4e537be76c6233cd26fe658da650d3bb07437bc30",
+  "parameterSha256": "ee2a95b4cf722fbc15def7f7c955eba2248f681ec2a54ffef33e1869c3836e36",
+  "rowCounts": {
+    "ncs_units": 13442,
+    "core_ai_it_codes": 120,
+    "ncs_alias_dictionary": 10,
+    "posting_ncs_candidates": 128,
+    "posting_ncs_matches": 28,
+    "ncs_mapping_summary": 1
+  },
+  "gateResults": [
+    {
+      "gateId": "NCS_MAPPING_EXPORT_READY",
+      "status": "PASS",
+      "evidencePath": "ncs_mapping/data/exports/observed-dev/NCS_MAPPING_OBSERVED_20260806_01"
+    },
+    {
+      "gateId": "NCS_MAPPING_EXPORT_READY",
+      "status": "PASS",
+      "evidencePath": "shared/handoffs/AGENT4_TO_AGENT2_NCS_MAPPING_OBSERVED_DEV.json"
+    },
+    {
+      "gateId": "NCS_MAPPING_EXPORT_READY",
+      "status": "REVIEW_REQUIRED",
+      "evidencePath": "shared/handoffs/AGENT4_TO_AGENT2_NCS_MAPPING_OBSERVED_DEV.json"
+    }
+  ],
+  "warnings": [],
+  "errors": [],
+  "files": [
+    {
+      "path": "ncs_mapping/data/exports/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/ncs_units.parquet",
+      "sha256": "b5b02ea232295931f245c69c881046a813f04cfbc517a13bc40d9e82994277c1",
+      "bytes": 317420,
+      "rows": 13442,
+      "columns": 18,
+      "format": "parquet",
+      "grain": "ncsUnitCode",
+      "nullablePolicy": "schema-defined nullable values preserved",
+      "sourceStage": "A4-04-EXPORT",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "ncs_mapping/data/exports/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/ncs_units.csv",
+      "sha256": "2542dd6ea118b0c52b98ea34572f801b30078d279ac30f07280aa82d9c45978e",
+      "bytes": 3143900,
+      "rows": 13442,
+      "columns": 18,
+      "format": "csv",
+      "grain": "ncsUnitCode",
+      "nullablePolicy": "schema-defined nullable values preserved",
+      "sourceStage": "A4-04-EXPORT",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "ncs_mapping/data/exports/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/core_ai_it_codes.parquet",
+      "sha256": "bf94b2bd17dd60dea6305b431c482ba47dcc2383c551e34729ad18a7fafc2f71",
+      "bytes": 14724,
+      "rows": 120,
+      "columns": 8,
+      "format": "parquet",
+      "grain": "ncsSubCode",
+      "nullablePolicy": "schema-defined nullable values preserved",
+      "sourceStage": "A4-04-EXPORT",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "ncs_mapping/data/exports/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/core_ai_it_codes.csv",
+      "sha256": "1d5dd53ed3d097ecf61863c6d3ca9f266f0c62768e5365847ea0e6d5284d86e2",
+      "bytes": 42303,
+      "rows": 120,
+      "columns": 8,
+      "format": "csv",
+      "grain": "ncsSubCode",
+      "nullablePolicy": "schema-defined nullable values preserved",
+      "sourceStage": "A4-04-EXPORT",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "ncs_mapping/data/exports/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/ncs_alias_dictionary.parquet",
+      "sha256": "740828b550f54a46d984d88334cb653d713b91a7bffc39e4cbe6cb6c10292f3c",
+      "bytes": 4587,
+      "rows": 10,
+      "columns": 6,
+      "format": "parquet",
+      "grain": "alias plus ncsSubCode",
+      "nullablePolicy": "schema-defined nullable values preserved",
+      "sourceStage": "A4-04-EXPORT",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "ncs_mapping/data/exports/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/ncs_alias_dictionary.csv",
+      "sha256": "2fa2584df2b2bdd900bcfadb722a2d0fe5dc282a2fac6c362063c0d5a8ee77fa",
+      "bytes": 1226,
+      "rows": 10,
+      "columns": 6,
+      "format": "csv",
+      "grain": "alias plus ncsSubCode",
+      "nullablePolicy": "schema-defined nullable values preserved",
+      "sourceStage": "A4-04-EXPORT",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "ncs_mapping/data/exports/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/posting_ncs_candidates.parquet",
+      "sha256": "69e7509d8986c3a783826f589df3299c67eaecbcb0166cbc6ac9cbd427259f20",
+      "bytes": 24210,
+      "rows": 128,
+      "columns": 25,
+      "format": "parquet",
+      "grain": "sectionId plus candidateRank",
+      "nullablePolicy": "schema-defined nullable values preserved",
+      "sourceStage": "A4-04-EXPORT",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "ncs_mapping/data/exports/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/posting_ncs_candidates.csv",
+      "sha256": "2bc16807081403a48a239c899173c788aa6ff9e887a47e083c90fa676cabf1bb",
+      "bytes": 55897,
+      "rows": 128,
+      "columns": 25,
+      "format": "csv",
+      "grain": "sectionId plus candidateRank",
+      "nullablePolicy": "schema-defined nullable values preserved",
+      "sourceStage": "A4-04-EXPORT",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "ncs_mapping/data/exports/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/posting_ncs_matches.parquet",
+      "sha256": "2d21ebba955efa58c9acae98e07d5d48a04f47f94d5cd02396dbb41bf3006748",
+      "bytes": 21202,
+      "rows": 28,
+      "columns": 26,
+      "format": "parquet",
+      "grain": "sectionId",
+      "nullablePolicy": "schema-defined nullable values preserved",
+      "sourceStage": "A4-04-EXPORT",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "ncs_mapping/data/exports/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/posting_ncs_matches.csv",
+      "sha256": "927387e90b14d81ae35b6cc8df7a235402967bcf1a5f9fb37e3d3c3a32a9dd5a",
+      "bytes": 12480,
+      "rows": 28,
+      "columns": 26,
+      "format": "csv",
+      "grain": "sectionId",
+      "nullablePolicy": "schema-defined nullable values preserved",
+      "sourceStage": "A4-04-EXPORT",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "ncs_mapping/data/exports/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/ncs_mapping_summary.parquet",
+      "sha256": "bebdcaf04bc5d59ea0b56a5c2ef6605dd998eeab4fc0cb47a721d22d99e50d89",
+      "bytes": 9488,
+      "rows": 1,
+      "columns": 15,
+      "format": "parquet",
+      "grain": "runId",
+      "nullablePolicy": "schema-defined nullable values preserved",
+      "sourceStage": "A4-04-EXPORT",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "ncs_mapping/data/exports/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/ncs_mapping_summary.csv",
+      "sha256": "6350cd9a53ef4eecc18facedd943403c56875934dc6c7c35d262b2d9053908ba",
+      "bytes": 408,
+      "rows": 1,
+      "columns": 15,
+      "format": "csv",
+      "grain": "runId",
+      "nullablePolicy": "schema-defined nullable values preserved",
+      "sourceStage": "A4-04-EXPORT",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "shared/handoffs/AGENT4_TO_AGENT2_NCS_MAPPING_OBSERVED_DEV.json",
+      "sha256": "b7bde768fe994a9c81f3ad1d554afbb782c6b1a5f0cd69c49afa16dd4d633389",
+      "bytes": 3666,
+      "rows": 1,
+      "columns": 22,
+      "format": "json",
+      "grain": "handoff",
+      "nullablePolicy": "schema-defined nullable values preserved",
+      "sourceStage": "A4-04-EXPORT",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    }
+  ],
+  "terminationArtifacts": [
+    "stage_manifest.json",
+    "stage_metrics.json",
+    "stage_quality.csv",
+    "CHECKSUMS.sha256"
+  ],
+  "dataPolicies": {
+    "canonicalStorage": "DUCKDB_PARQUET",
+    "csvPurpose": "HUMAN_INSPECTION_EXPORT",
+    "eligibilityColumns": [
+      "postingEligibleFlag",
+      "rq1EligibleFlag",
+      "rq2EligibleFlag",
+      "ncsEligibleFlag"
+    ],
+    "highDemandScore": "ALL_NULL"
+  },
+  "mappingPolicy": {
+    "mappingMode": "LEXICAL_BASELINE",
+    "codeSetStatus": "REVIEW_REQUIRED",
+    "goldValidatedFlag": false,
+    "denseScore": null
+  }
+}

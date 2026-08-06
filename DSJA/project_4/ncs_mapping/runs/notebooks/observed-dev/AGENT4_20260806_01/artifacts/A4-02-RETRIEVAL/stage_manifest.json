@@ -1,0 +1,81 @@
+{
+  "manifestVersion": "stage-manifest-v1",
+  "runId": "NCS_MAPPING_OBSERVED_20260806_01",
+  "runMode": "observed-dev",
+  "stageId": "A4-02-RETRIEVAL",
+  "status": "SUCCEEDED",
+  "agentId": "P4-A4-NCS",
+  "branch": "agent/p4-ncs-mapping-v2",
+  "gitHead": "afac9fd9e1854715759c7d893440cbe89e04c150",
+  "contractVersion": "2.1.2",
+  "schemaVersion": "ncs-retrieval-v1",
+  "dataVersion": "observed-dev-20260806.1",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+  "startedAt": "2026-08-06T08:49:35.453053Z",
+  "completedAt": "2026-08-06T08:49:35.454611Z",
+  "empiricalAnalysisAllowed": false,
+  "promotionAllowed": false,
+  "inputManifestSha256": "b5b02ea232295931f245c69c881046a813f04cfbc517a13bc40d9e82994277c1",
+  "parameterSha256": "ee2a95b4cf722fbc15def7f7c955eba2248f681ec2a54ffef33e1869c3836e36",
+  "rowCounts": {
+    "lexicalDocuments": 691,
+    "aliasRows": 10
+  },
+  "gateResults": [
+    {
+      "gateId": "NCS_RETRIEVAL_READY",
+      "status": "PASS",
+      "evidencePath": "ncs_mapping/data/interim/observed-dev/lexical_index_manifest.json"
+    },
+    {
+      "gateId": "NCS_RETRIEVAL_READY",
+      "status": "PASS",
+      "evidencePath": "ncs_mapping/configs/ncs_alias_dictionary.yaml"
+    },
+    {
+      "gateId": "NCS_RETRIEVAL_READY",
+      "status": "PASS",
+      "evidencePath": "ncs_mapping/data/interim/observed-dev/lexical_index_manifest.json"
+    }
+  ],
+  "warnings": [],
+  "errors": [],
+  "files": [
+    {
+      "path": "ncs_mapping/data/interim/observed-dev/lexical_index_manifest.json",
+      "sha256": "d33880d1eea5ef3cfb9bca320ea0700f6a3e031d77a7bb22cfbfcc1aadfe5ac5",
+      "bytes": 268,
+      "rows": 1,
+      "columns": 9,
+      "format": "json",
+      "grain": "retrieval index manifest",
+      "nullablePolicy": "schema-defined nullable values preserved",
+      "sourceStage": "A4-02-RETRIEVAL",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    }
+  ],
+  "terminationArtifacts": [
+    "stage_manifest.json",
+    "stage_metrics.json",
+    "stage_quality.csv",
+    "CHECKSUMS.sha256"
+  ],
+  "dataPolicies": {
+    "canonicalStorage": "DUCKDB_PARQUET",
+    "csvPurpose": "HUMAN_INSPECTION_EXPORT",
+    "eligibilityColumns": [
+      "postingEligibleFlag",
+      "rq1EligibleFlag",
+      "rq2EligibleFlag",
+      "ncsEligibleFlag"
+    ],
+    "highDemandScore": "ALL_NULL"
+  },
+  "mappingPolicy": {
+    "mappingMode": "LEXICAL_BASELINE",
+    "codeSetStatus": "REVIEW_REQUIRED",
+    "goldValidatedFlag": false,
+    "denseScore": null
+  }
+}

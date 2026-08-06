@@ -1,0 +1,6 @@
+﻿gateId,ruleId,severity,status,observedValue,threshold,evidencePath
+NCS_MAPPING_DEV_READY,INPUT_ROWS_RECOMPUTED,INFO,PASS,28,28,ncs_mapping/data/processed/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/posting_ncs_matches.parquet
+NCS_MAPPING_DEV_READY,TOP5_CAP,INFO,PASS,5,<=5,ncs_mapping/data/processed/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/posting_ncs_candidates.parquet
+NCS_MAPPING_DEV_READY,UNMAPPED_PRESERVED,INFO,PASS,28,28,ncs_mapping/data/processed/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/posting_ncs_matches.parquet
+NCS_MAPPING_DEV_READY,SAME_SUBCATEGORY,INFO,PASS,True,True,ncs_mapping/data/processed/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/posting_ncs_candidates.parquet
+NCS_MAPPING_DEV_READY,INPUT_ROWS_SHA_DECLARED,INFO,PASS,True,True,shared/handoffs/AGENT2_TO_AGENT4_DUTY_INPUT_OBSERVED_DEV.json
