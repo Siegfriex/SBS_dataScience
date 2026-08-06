@@ -4,8 +4,18 @@ from pathlib import Path
 import nbformat
 import yaml
 
+from p4.notebooks.observed_stages import _git_identity
+
 
 PIPELINE_ROOT = Path(__file__).resolve().parents[2]
+
+
+def test_stage_artifact_git_identity_labels_detached_head(monkeypatch, tmp_path):
+    def fake_check_output(command, **kwargs):
+        return "\n" if command[1:3] == ["branch", "--show-current"] else "a" * 40 + "\n"
+
+    monkeypatch.setattr("p4.notebooks.observed_stages.subprocess.check_output", fake_check_output)
+    assert _git_identity(tmp_path) == ("DETACHED_HEAD", "a" * 40)
 
 
 def test_stage_registry_notebooks_are_deterministic_clean_thin_sources():

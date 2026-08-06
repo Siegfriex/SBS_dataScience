@@ -159,7 +159,7 @@ def _frames_semantic_sha256(frames: dict[str, pd.DataFrame]) -> str:
 
 
 def _git_identity(project_root: Path) -> tuple[str, str]:
-    branch = subprocess.check_output(["git", "branch", "--show-current"], cwd=project_root, text=True).strip()
+    branch = subprocess.check_output(["git", "branch", "--show-current"], cwd=project_root, text=True).strip() or "DETACHED_HEAD"
     head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=project_root, text=True).strip()
     return branch, head
 
