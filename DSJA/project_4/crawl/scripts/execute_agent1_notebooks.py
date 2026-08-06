@@ -20,6 +20,7 @@ NAMES = [
     "00RecoverSourceState", "01CollectLinkareerIndex", "02CollectPostingDetail",
     "03CollectPostingAssets", "04BuildCrawlRelease",
 ]
+STAGE_IDS = ["A1-00-RECOVER", "A1-01-INDEX", "A1-02-DETAIL", "A1-03-ASSET", "A1-04-RELEASE"]
 
 
 def sha256(path: Path) -> str:
@@ -58,6 +59,7 @@ def main() -> int:
     executed_root.mkdir(parents=True)
     results = []
     for name in NAMES:
+        stage_id = STAGE_IDS[NAMES.index(name)]
         source = SOURCE_ROOT / f"{name}.ipynb"
         cell_count, code_count = validate_source(source)
         notebook = nbformat.read(source, 4)
@@ -87,11 +89,13 @@ def main() -> int:
         nbformat.write(executed, destination)
         results.append({
             "notebook": f"crawl/notebooks/{source.name}", "status": status,
+            "stageId": stage_id,
             "cells": cell_count, "codeCells": code_count,
             "sourceOutputCount": 0, "executedOutputCount": sum(len(cell.get("outputs", [])) for cell in executed.cells if cell.cell_type == "code"),
             "elapsedSeconds": elapsed, "sourceSha256": sha256(source), "executedSha256": sha256(destination),
             "executedPath": destination.relative_to(PROJECT_ROOT).as_posix(),
-            "stageOutputRoot": f"{run_root.relative_to(PROJECT_ROOT).as_posix()}/{['A1-00-RECOVER','A1-01-INDEX','A1-02-DETAIL','A1-03-ASSET','A1-04-RELEASE'][NAMES.index(name)]}",
+            "stageOutputRoot": f"{run_root.relative_to(PROJECT_ROOT).as_posix()}/{stage_id}",
+            "executionRunId": run_root.relative_to(CRAWL_ROOT / "runs").as_posix(),
             "error": error,
         })
     with (run_root / "NOTEBOOK_EXECUTION_RESULTS.csv").open("w", encoding="utf-8-sig", newline="") as stream:
