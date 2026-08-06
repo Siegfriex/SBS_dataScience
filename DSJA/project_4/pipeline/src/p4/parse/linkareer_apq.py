@@ -38,6 +38,18 @@ def _candidate_lists(value: Any) -> Iterable[list[Any]]:
             if key == "CalendarScreen_ActivityCalendarEntries" and isinstance(item, list):
                 yield item
             yield from _candidate_lists(item)
+
+
+def _entry_dicts(value: Any) -> Iterable[dict[str, Any]]:
+    if _looks_like_entry(value):
+        yield value
+        return
+    if isinstance(value, dict):
+        for item in value.values():
+            yield from _entry_dicts(item)
+    elif isinstance(value, list):
+        for item in value:
+            yield from _entry_dicts(item)
     elif isinstance(value, list):
         for item in value:
             yield from _candidate_lists(item)
@@ -48,16 +60,14 @@ def _looks_like_entry(value: Any) -> bool:
 
 
 def parse_apq_entries(payload: dict[str, Any]) -> list[dict[str, Any]]:
-    candidates = list(_candidate_lists(payload))
-    if not candidates:
-        root = payload.get("data", {}).get("CalendarScreen_ActivityCalendarEntries")
-        if isinstance(root, dict):
-            for key in ("entries", "items", "nodes", "results"):
-                if isinstance(root.get(key), list):
-                    candidates.append(root[key])
-    entries = next((items for items in candidates if all(_looks_like_entry(item) for item in items)), [])
+    entries = list(_entry_dicts(payload))
     parsed: list[dict[str, Any]] = []
+    seen_ids: set[str] = set()
     for source in entries:
+        source_id = str(source.get("id"))
+        if source_id in seen_ids:
+            continue
+        seen_ids.add(source_id)
         row = {field: deepcopy(source.get(field)) for field in APQ_ENTRY_FIELDS if field != "manager"}
         row["activityTypeId"] = source.get("activityTypeID")
         job_types = deepcopy(source.get("jobTypes") or [])

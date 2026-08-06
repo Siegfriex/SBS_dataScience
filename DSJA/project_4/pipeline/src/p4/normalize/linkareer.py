@@ -39,7 +39,12 @@ def adapt_linkareer_source(index_entry: dict[str, Any], detail: dict[str, Any]) 
     external_only = bool(detail.get("externalDetailOnlyFlag"))
     activity_available = bool(detail.get("activityTextAvailableFlag") and activity_html.strip())
     flags = eligibility_flags(
-        posting_kind="recruit" if index_entry.get("recruitStartAt") or index_entry.get("group") == "recruit" else str(index_entry.get("group") or ""),
+        posting_kind=(
+            "recruit"
+            if str(index_entry.get("activityTypeId", index_entry.get("activityTypeID"))) == "5"
+            or str(index_entry.get("group") or "").casefold() == "recruit"
+            else str(index_entry.get("group") or "activity")
+        ),
         posted_at_available=bool(index_entry.get("createdAt") or index_entry.get("recruitStartAt")),
         source_integrity_available=bool(index_entry.get("id") and index_entry.get("organizationName")),
         job_types_resolved=bool(structured["resolvedJobTypes"]),
@@ -73,5 +78,7 @@ def adapt_linkareer_source(index_entry: dict[str, Any], detail: dict[str, Any]) 
         "jobTypeSource": structured["jobTypeSource"],
         **flags,
         "activityTextBlocks": blocks,
+        "embeddedImageUrls": detail.get("embeddedImageUrls") or [],
+        "ocrRoutingRequiredFlag": bool(detail.get("ocrRoutingRequiredFlag")),
+        "ocrQueue": detail.get("ocrQueue") or [],
     }
-

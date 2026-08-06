@@ -17,9 +17,9 @@ RQ2_EXCLUSION_REASONS = {
 }
 
 JOB_TYPE_TERMS = {
-    "entry": ("신입", "경력무관"),
-    "intern": ("인턴",),
-    "experienced": ("경력", "경력직"),
+    "entry": ("신입", "경력무관", "new", "entry"),
+    "intern": ("인턴", "intern"),
+    "experienced": ("경력", "경력직", "experienced"),
 }
 
 
