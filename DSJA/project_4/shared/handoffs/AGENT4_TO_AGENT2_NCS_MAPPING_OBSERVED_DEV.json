@@ -1,0 +1,74 @@
+{
+  "agentId": "P4-A4-NCS",
+  "recipientAgentId": "P4-A2-PIPELINE",
+  "handoffType": "NCS_MAPPING_OBSERVED_DEVELOPMENT",
+  "status": "NCS_MAPPING_DEV_READY",
+  "contractVersion": "2.1.2",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "dataVersion": "observed-dev-20260806.1",
+  "runMode": "observed-dev",
+  "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+  "empiricalAnalysisAllowed": false,
+  "promotionAllowed": false,
+  "mappingMode": "LEXICAL_BASELINE",
+  "codeSetStatus": "REVIEW_REQUIRED",
+  "goldValidatedFlag": false,
+  "denseScore": null,
+  "inputDutyRows": 28,
+  "inputRowsSha256": "a305d2354a7437860dc947f4e537be76c6233cd26fe658da650d3bb07437bc30",
+  "inputRowsSha256Verified": true,
+  "warnings": [
+    "LEGACY_CONSUMER_ENVELOPE_REBUILT_FROM_IMMUTABLE_EXPORT_BYTES"
+  ],
+  "files": {
+    "ncs_units": {
+      "parquet": "ncs_mapping/data/exports/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/ncs_units.parquet",
+      "csv": "ncs_mapping/data/exports/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/ncs_units.csv",
+      "parquetSha256": "b5b02ea232295931f245c69c881046a813f04cfbc517a13bc40d9e82994277c1",
+      "csvSha256": "2542dd6ea118b0c52b98ea34572f801b30078d279ac30f07280aa82d9c45978e",
+      "rows": 13442
+    },
+    "core_ai_it_codes": {
+      "parquet": "ncs_mapping/data/exports/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/core_ai_it_codes.parquet",
+      "csv": "ncs_mapping/data/exports/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/core_ai_it_codes.csv",
+      "parquetSha256": "bf94b2bd17dd60dea6305b431c482ba47dcc2383c551e34729ad18a7fafc2f71",
+      "csvSha256": "1d5dd53ed3d097ecf61863c6d3ca9f266f0c62768e5365847ea0e6d5284d86e2",
+      "rows": 120
+    },
+    "ncs_alias_dictionary": {
+      "parquet": "ncs_mapping/data/exports/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/ncs_alias_dictionary.parquet",
+      "csv": "ncs_mapping/data/exports/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/ncs_alias_dictionary.csv",
+      "parquetSha256": "740828b550f54a46d984d88334cb653d713b91a7bffc39e4cbe6cb6c10292f3c",
+      "csvSha256": "2fa2584df2b2bdd900bcfadb722a2d0fe5dc282a2fac6c362063c0d5a8ee77fa",
+      "rows": 10
+    },
+    "posting_ncs_candidates": {
+      "parquet": "ncs_mapping/data/exports/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/posting_ncs_candidates.parquet",
+      "csv": "ncs_mapping/data/exports/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/posting_ncs_candidates.csv",
+      "parquetSha256": "69e7509d8986c3a783826f589df3299c67eaecbcb0166cbc6ac9cbd427259f20",
+      "csvSha256": "2bc16807081403a48a239c899173c788aa6ff9e887a47e083c90fa676cabf1bb",
+      "rows": 128
+    },
+    "posting_ncs_matches": {
+      "parquet": "ncs_mapping/data/exports/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/posting_ncs_matches.parquet",
+      "csv": "ncs_mapping/data/exports/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/posting_ncs_matches.csv",
+      "parquetSha256": "2d21ebba955efa58c9acae98e07d5d48a04f47f94d5cd02396dbb41bf3006748",
+      "csvSha256": "927387e90b14d81ae35b6cc8df7a235402967bcf1a5f9fb37e3d3c3a32a9dd5a",
+      "rows": 28
+    },
+    "ncs_mapping_summary": {
+      "parquet": "ncs_mapping/data/exports/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/ncs_mapping_summary.parquet",
+      "csv": "ncs_mapping/data/exports/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/ncs_mapping_summary.csv",
+      "parquetSha256": "bebdcaf04bc5d59ea0b56a5c2ef6605dd998eeab4fc0cb47a721d22d99e50d89",
+      "csvSha256": "6350cd9a53ef4eecc18facedd943403c56875934dc6c7c35d262b2d9053908ba",
+      "rows": 1
+    }
+  },
+  "prohibitedClaims": [
+    "FINAL_PRECISION",
+    "FINAL_COVERAGE",
+    "RQ2_B",
+    "DATA_READY_RQ2B"
+  ],
+  "handoffSha256": "99419f807056928bd7025f934c278ca772589a75d5a06e72a6bf3f2854f0cf9c"
+}
