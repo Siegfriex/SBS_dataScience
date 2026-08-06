@@ -1,0 +1,39 @@
+﻿area,metric,numerator,denominator,rate,status,interpretation,evidence
+source,target months pagination verified,21,79,26.58%,PARTIAL,58 months unverified,crawl/releases/CRAWL_20260806_03/monthly_coverage.csv
+source,posting sample rows,137,137,100.00%,PASS_WITH_FINDINGS,observed-development sample only,posting_manifest.csv
+source,real raw SSR lineage,29,137,21.17%,PARTIAL,108 derived-only records,raw_detail_manifest.jsonl
+source,asset lineage,0,137,0.00%,BLOCKED,asset manifest empty,asset_manifest.jsonl
+time,canonicalPostedAt non-null,0,137,0.00%,BLOCKED,RQ1 time axis unavailable,preprocessed_posting_tracks.parquet
+time,periodMonth non-null,0,137,0.00%,BLOCKED,fetchedAt/raw path month cannot substitute for posting date,preprocessed_posting_tracks.parquet
+company,companyKey non-null,0,137,0.00%,BLOCKED,company-level comparisons unavailable,preprocessed_posting_tracks.parquet
+company,companyNameMasked non-null,29,137,21.17%,PARTIAL,raw SSR subset only,preprocessed_posting_tracks.parquet
+job,jobTitle non-null,137,137,100.00%,PASS_WITH_FINDINGS,title text present,preprocessed_posting_tracks.parquet
+job,jobCode non-null,0,137,0.00%,BLOCKED,job code absent,posting_tracks.parquet
+job,resolved track type,85,137,62.04%,PARTIAL,46 entry + 35 intern + 4 experienced; 43 mixed and 9 unknown,preprocessed_posting_tracks.parquet
+career,meaningfully resolved careerClass,0,137,0.00%,BLOCKED,careerClass is U for all rows,career_access_labels.parquet
+career,minCareerMonths non-null,6,137,4.38%,PARTIAL,six 48-month requirements,preprocessed_posting_tracks.parquet
+career,internAccessClass resolved,0,35,0.00%,BLOCKED,all 35 intern rows are IU,career_access_labels.parquet
+career,boundaryResolvedFlag true,0,137,0.00%,BLOCKED,required/preferred boundary unresolved,career_access_labels.parquet
+requirement,tracks with any requirement fact,28,137,20.44%,PARTIAL,35 facts across 28 tracks,requirement_facts.parquet
+requirement,contract-valid requirementType,0,35,0.00%,BLOCKED,"all values are required, outside canonical enum",requirement_facts.parquet
+requirement,requiredDegreeLevel non-null,0,137,0.00%,BLOCKED,education requirement absent,preprocessed_posting_tracks.parquet
+requirement,benefit sections,0,84,0.00%,BLOCKED,benefit semantic extraction absent,posting_sections.parquet
+requirement,skill requirements,0,35,0.00%,BLOCKED,skill semantic extraction absent,requirement_facts.parquet
+requirement,tool requirements,0,35,0.00%,BLOCKED,tool semantic extraction absent,requirement_facts.parquet
+requirement,requiredToolCount positive,0,137,0.00%,BLOCKED,all values are zero defaults,preprocessed_posting_tracks.parquet
+requirement,certificateClass non-null,0,137,0.00%,BLOCKED,certificate class absent,preprocessed_posting_tracks.parquet
+ncs,NCS final record among ncsEligible,28,55,50.91%,PARTIAL,28 duty inputs among 55 eligible tracks,posting_ncs_matches.parquet
+ncs,NCS mapped among ncsEligible,27,55,49.09%,PARTIAL,development lexical mapping only,posting_ncs_matches.parquet
+ncs,NCS mapped among duty input,27,28,96.43%,PASS_WITH_FINDINGS,"internal batch ratio, not a quality estimate",posting_ncs_matches.parquet
+ncs,NCS confidence among all tracks,28,137,20.44%,PARTIAL,"16 high-development, 11 medium-development, 1 unmapped",preprocessed_posting_tracks.parquet
+ncs,NCS level weighted median,0,137,0.00%,BLOCKED,RQ2-B level variable absent,preprocessed_posting_tracks.parquet
+ncs,NCS band primary,0,137,0.00%,BLOCKED,RQ2-B band variable absent,preprocessed_posting_tracks.parquet
+ncs,gold validated,0,28,0.00%,NOT_EVALUATED,gold template has zero rows,ncs_gold_evaluation.json
+ncs,denseScore non-null matches,0,28,0.00%,NOT_EVALUATED,dense reranker not invoked by design,posting_ncs_matches.parquet
+contract,highDemandScore non-null,0,137,0.00%,PASS,reserved score correctly all NULL,preprocessed_posting_tracks.parquet
+contract,postingKind canonical enum valid,0,137,0.00%,BLOCKED,"all values recruit, outside canonical enum",posting_normalized.parquet
+structure,checksum files verified,20,20,100.00%,PASS,all listed files match SHA-256,CHECKSUMS.sha256
+structure,CSV-Parquet semantic pairs,8,8,100.00%,PASS_WITH_FINDINGS,schema-aware semantic diff 0; dtype-naive reads coerce identifiers,stage_quality.csv
+structure,PK duplicate/null violations,0,8,0.00%,PASS,zero violations across eight grains,direct recomputation
+structure,FK orphan violations,0,11,0.00%,PASS,zero orphans across eleven relationships,direct recomputation
+structure,canonical base table rows,0,26,0.00%,PASS,p4.duckdb base tables empty; no observed contamination,pipeline/data/warehouse/p4.duckdb
