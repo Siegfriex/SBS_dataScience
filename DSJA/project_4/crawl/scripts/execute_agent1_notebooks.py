@@ -74,7 +74,7 @@ def main() -> int:
             "executedPath": destination.relative_to(PROJECT_ROOT).as_posix(),
         })
     with (RUN_ROOT / "NOTEBOOK_EXECUTION_RESULTS.csv").open("w", encoding="utf-8-sig", newline="") as stream:
-        writer = csv.DictWriter(stream, fieldnames=list(results[0]))
+        writer = csv.DictWriter(stream, fieldnames=list(results[0]), lineterminator="\n")
         writer.writeheader()
         writer.writerows(results)
     return 0

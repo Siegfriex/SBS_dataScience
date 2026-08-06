@@ -54,7 +54,7 @@ def write_stage_artifacts(
     warnings, errors = warnings or [], errors or []
     quality_columns = ["gateId", "ruleId", "severity", "status", "observedValue", "threshold", "evidencePath"]
     with (stage_root / "stage_quality.csv").open("w", encoding="utf-8-sig", newline="") as stream:
-        writer = csv.DictWriter(stream, fieldnames=quality_columns)
+        writer = csv.DictWriter(stream, fieldnames=quality_columns, lineterminator="\n")
         writer.writeheader()
         writer.writerows([{key: row.get(key) for key in quality_columns} for row in quality_rows])
 
