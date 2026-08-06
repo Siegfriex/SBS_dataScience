@@ -181,6 +181,7 @@ def build_export_frames(
     frames: Mapping[str, pd.DataFrame],
     ncs_candidates: pd.DataFrame | None = None,
     ncs_matches: pd.DataFrame | None = None,
+    ncs_mapping_to_mart: pd.DataFrame | None = None,
 ) -> dict[str, pd.DataFrame]:
     normalized = _attach_posting_semantics(_provenance(frames["posting_normalized"].copy()), frames)
     for column in ("titleText", "companyName", "bodyText"):
@@ -249,6 +250,18 @@ def build_export_frames(
         matches["codeSetStatus"] = "REVIEW_REQUIRED"
     if "goldValidatedFlag" not in matches:
         matches["goldValidatedFlag"] = False
+    mapping_to_mart = _provenance(
+        ncs_mapping_to_mart.copy()
+        if ncs_mapping_to_mart is not None
+        else pd.DataFrame(
+            columns=[
+                "trackId", "sectionId", "chunkId", "mappingStatus", "ncsUnitCode",
+                "ncsCorpusVersion", "officialLevel", "ncsBand", "sourceRole",
+                "evidencePointer", "candidatePacketSha256", "mappingRunId",
+                "mappingQualityEvaluated", "goldAuthority",
+            ]
+        )
+    )
 
     req = _requirement_aggregate(frames)
     final = tracks.merge(normalized, on=["postingId", "inputSha256"], how="left", suffixes=("", "_posting"))
@@ -299,6 +312,7 @@ def build_export_frames(
         "career_access_labels": labels,
         "posting_ncs_candidates": candidates,
         "posting_ncs_matches": matches,
+        "ncs_mapping_to_mart": mapping_to_mart,
         "preprocessed_posting_tracks": final,
     }
 
@@ -349,6 +363,7 @@ def validate_export_bundle(frames: Mapping[str, pd.DataFrame], output_root: str 
     final = frames["preprocessed_posting_tracks"]
     candidates = frames["posting_ncs_candidates"]
     matches = frames["posting_ncs_matches"]
+    mapping_to_mart = frames.get("ncs_mapping_to_mart", pd.DataFrame())
     add("posting_pk", not normalized["postingId"].duplicated().any(), int(normalized["postingId"].duplicated().sum()))
     add("track_pk", not tracks["trackId"].duplicated().any(), int(tracks["trackId"].duplicated().sum()))
     add("section_pk", not sections["sectionId"].duplicated().any(), int(sections["sectionId"].duplicated().sum()))
@@ -395,6 +410,11 @@ def validate_export_bundle(frames: Mapping[str, pd.DataFrame], output_root: str 
         add("ncs_track_fk", matches["trackId"].isin(tracks["trackId"]).all(), int((~matches["trackId"].isin(tracks["trackId"])).sum()))
         mapped_final = final.loc[final["trackId"].isin(matches["trackId"])]
         add("ncs_final_materialized", len(mapped_final) == 28 and mapped_final["ncsMatchConfidence"].notna().all() and mapped_final["ncsMapVersion"].eq(NCS_MAP_VERSION).all(), len(mapped_final))
+    if not mapping_to_mart.empty:
+        structural = mapping_to_mart["mappingStatus"].eq("REVIEW_REQUIRED")
+        add("ncs_structural_level_band", int(structural.sum()) == 27 and mapping_to_mart.loc[structural, ["officialLevel", "ncsBand"]].notna().all().all(), int(structural.sum()))
+        add("ncs_mapping_quality_boundary", not mapping_to_mart.get("mappingQualityEvaluated", pd.Series(False, index=mapping_to_mart.index)).fillna(True).any(), "NOT_EVALUATED")
+        add("ncs_structural_not_promoted_to_mart", final["ncsLevelWeightedMedian"].isna().all() and final["ncsBandPrimary"].isna().all(), int(final["ncsLevelWeightedMedian"].notna().sum()))
     text_columns = {"titleText", "companyName", "bodyText", "sectionText", "requirementText", "jobTitle", "companyNameMasked"}
     text = "\n".join(
         str(value)

@@ -11,6 +11,7 @@ import pandas as pd
 from p4.common.hashing import canonical_json_sha256, sha256_file
 from p4.contracts.duty_input import validate_observed_duty_input_handoff
 from p4.contracts.ncs_handoff import validate_agent4_ncs_handoff
+from p4.contracts.ncs_mart_handoff import load_ncs_mart_handoff
 from p4.contracts.release_validation import validate_observed_input_package, validate_release_gates
 from p4.dedup.reposts import assign_observed_singleton_groups
 from p4.export.observed import build_export_frames, export_observed_frames, validate_export_bundle
@@ -41,6 +42,7 @@ OBSERVED_TABLES = (
     "manifest_cursor",
     "posting_ncs_candidates",
     "posting_ncs_matches",
+    "ncs_mapping_to_mart",
 )
 
 STAGE_CONTRACT = {
@@ -548,6 +550,19 @@ def run_observed_stage(
             for name in ("posting_ncs_candidates", "posting_ncs_matches"):
                 frame = accepted["frames"][name]
                 replace_observed_table(database, name, frame)
+            mart_handoff_path = project / "ncs_mapping/reports/reconciliation_a4/A4_MAPPING_TO_MART_CONTRACT.json"
+            mart_handoff, mart_payload = load_ncs_mart_handoff(mart_handoff_path)
+            match_keys = set(zip(accepted["frames"]["posting_ncs_matches"]["trackId"].astype(str), accepted["frames"]["posting_ncs_matches"]["sectionId"].astype(str)))
+            mart_keys = set(zip(mart_handoff["trackId"].astype(str), mart_handoff["sectionId"].astype(str)))
+            if match_keys != mart_keys:
+                raise ValueError("A4 mapping-to-mart keys do not match observed NCS decisions")
+            replace_observed_table(database, "ncs_mapping_to_mart", mart_handoff)
+            metrics.update({
+                "mappingToMartRows": len(mart_handoff),
+                "mappingToMartRowsSha256": mart_payload["rowsSha256"],
+                "mappingQualityStatus": mart_payload["mappingQualityStatus"],
+                "humanGoldRows": mart_payload["humanGoldRows"],
+            })
             inventory = observed_inventory(database)
             metrics["warehouseInventory"] = inventory
             acceptance_path = project / "shared/handoffs/AGENT2_NCS_MAPPING_ACCEPTANCE_OBSERVED_DEV.json"
@@ -578,7 +593,8 @@ def run_observed_stage(
         source_frames = _load_frames(database)
         candidates = source_frames.pop("posting_ncs_candidates", None)
         matches = source_frames.pop("posting_ncs_matches", None)
-        export_frames = build_export_frames(source_frames, candidates, matches)
+        mapping_to_mart = source_frames.pop("ncs_mapping_to_mart", None)
+        export_frames = build_export_frames(source_frames, candidates, matches, mapping_to_mart)
         export_meta = export_observed_frames(export_frames, output)
         metrics.update(export_meta)
         outputs.extend(sorted(output.glob("*.parquet")))
