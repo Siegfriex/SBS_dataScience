@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import pandas as pd
+import pytest
 
 from p4.export.observed import build_export_frames, export_observed_frames, validate_export_bundle
 
@@ -58,6 +59,10 @@ def test_observed_export_uses_canonical_eligibility_and_passes_semantic_qa(tmp_p
     assert "postingEligibleFlag" in final
     assert "validPostingFlag" not in final
     assert final["highDemandScore"].isna().all()
+    assert set(final["postingKind"]) == {"recruitIntern"}
+    assert final["companyKey"].notna().all()
+    assert final["canonicalPostedAt"].isna().all()
+    assert frames["posting_normalized"]["canonicalPostedAtNullReason"].eq("RAW_AUTHORITY_UNAVAILABLE").all()
     assert "test@example.com" not in frames["posting_normalized"].to_json(force_ascii=False)
     export_observed_frames(frames, tmp_path)
     quality, summary = validate_export_bundle(frames, tmp_path)
@@ -91,3 +96,45 @@ def test_observed_export_materializes_agent4_lexical_match_fields():
     assert final["ncsMatchConfidence"] == "HIGH_DEVELOPMENT"
     assert final["ncsMapVersion"] == "ncs-lexical-observed-v0.1"
     assert len(exported["posting_ncs_matches"]) == 1
+
+
+def test_observed_export_rejects_invalid_posting_kind_injection():
+    source = _frames()
+    semantics = pd.DataFrame(
+        [{
+            "sourcePostingId": "1",
+            "canonicalPostedAt": None,
+            "periodMonth": None,
+            "canonicalPostedAtNullReason": "RAW_AUTHORITY_UNAVAILABLE",
+            "companyKey": "COM_fixture",
+            "companyKeyNullReason": None,
+            "postingKind": "recruit",
+            "postingKindValidationStatus": "VALIDATED",
+            "inputArtifactSha256": "a" * 64,
+            "semanticRecoveryVersion": "test",
+        }]
+    )
+    source["posting_semantics"] = semantics
+    with pytest.raises(ValueError, match="invalid canonical postingKind"):
+        build_export_frames(source)
+
+
+def test_observed_export_rejects_semantic_input_sha_mismatch():
+    source = _frames()
+    semantics = pd.DataFrame(
+        [{
+            "sourcePostingId": "1",
+            "canonicalPostedAt": None,
+            "periodMonth": None,
+            "canonicalPostedAtNullReason": "RAW_AUTHORITY_UNAVAILABLE",
+            "companyKey": "COM_fixture",
+            "companyKeyNullReason": None,
+            "postingKind": "recruitIntern",
+            "postingKindValidationStatus": "VALIDATED",
+            "inputArtifactSha256": "b" * 64,
+            "semanticRecoveryVersion": "test",
+        }]
+    )
+    source["posting_semantics"] = semantics
+    with pytest.raises(ValueError, match="input SHA"):
+        build_export_frames(source)

@@ -30,6 +30,7 @@ from p4.warehouse.observed import bootstrap_observed_warehouse, observed_invento
 OBSERVED_TABLES = (
     "raw_posting",
     "posting_normalized",
+    "posting_semantics",
     "posting_track",
     "posting_section",
     "requirement_fact",
@@ -477,7 +478,7 @@ def run_observed_stage(
     elif stage == "02ParseAndNormalize":
         batch = build_observed_batch(release, crawl)
         frames = batch["frames"]
-        for name in ("posting_normalized", "manifest_cursor", "eligibility"):
+        for name in ("posting_normalized", "posting_semantics", "manifest_cursor", "eligibility"):
             replace_observed_table(database, name, frames[name])
         metrics.update(batch["metrics"])
         metrics["parseFailures"] = batch["parseFailures"]

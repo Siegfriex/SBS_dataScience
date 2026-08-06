@@ -9,7 +9,14 @@ import pandas as pd
 from pandas.testing import assert_frame_equal
 
 from p4.common.hashing import sha256_file
+from p4.common.keys import make_company_key
 from p4.label.career import LabelEvidence, label_track
+from p4.normalize.semantic_recovery import (
+    POSTING_KIND_ENUM,
+    SEMANTIC_RECOVERY_VERSION,
+    canonical_posting_kind,
+    recover_authoritative_posted_at,
+)
 from p4.normalize.observed_batch import (
     CONTRACT_VERSION,
     CRAWL_RELEASE_ID,
@@ -98,13 +105,84 @@ def _requirement_aggregate(frames: Mapping[str, pd.DataFrame]) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def _fallback_posting_semantics(normalized: pd.DataFrame) -> pd.DataFrame:
+    """Build fail-closed semantics for unit fixtures, never silent default values."""
+    rows: list[dict[str, Any]] = []
+    for row in normalized.to_dict(orient="records"):
+        raw_job_types = row.get("resolvedJobTypesJson") or row.get("jobTypesRawJson") or "[]"
+        try:
+            job_types = json.loads(raw_job_types) if isinstance(raw_job_types, str) else raw_job_types
+        except json.JSONDecodeError:
+            job_types = []
+        timestamp = recover_authoritative_posted_at(
+            {
+                "postedAtRaw": row.get("postedAtRaw"),
+                "calendarPostedAt": row.get("calendarPostedAt"),
+                "createdAt": row.get("createdAt"),
+            }
+        )
+        company_name = row.get("companyName")
+        company_key = make_company_key(str(company_name)) if pd.notna(company_name) and str(company_name).strip() else None
+        kind = canonical_posting_kind(job_types=job_types, activity_type_id=row.get("activityTypeId", 5), activity_group="recruit")
+        rows.append(
+            {
+                "sourcePostingId": str(row.get("sourcePostingId") or ""),
+                "canonicalPostedAt": timestamp.canonical_posted_at,
+                "periodMonth": timestamp.period_month,
+                "canonicalPostedAtAuthoritySource": timestamp.source_field,
+                "canonicalPostedAtNullReason": None if timestamp.canonical_posted_at else "RAW_AUTHORITY_UNAVAILABLE",
+                "canonicalPostedAtValidationStatus": "VALIDATED" if timestamp.canonical_posted_at else "UNRESOLVED",
+                "companyKey": company_key,
+                "companyKeyAuthoritySource": "posting_normalized.companyName" if company_key else None,
+                "companyKeyNullReason": None if company_key else "COMPANY_NAME_UNAVAILABLE",
+                "companyKeyValidationStatus": "VALIDATED" if company_key else "UNRESOLVED",
+                "postingKind": kind,
+                "postingKindAuthoritySource": "resolvedJobTypesJson+activityTypeId",
+                "postingKindNullReason": None,
+                "postingKindValidationStatus": "VALIDATED",
+                "inputArtifactSha256": row.get("inputSha256"),
+                "semanticRecoveryVersion": SEMANTIC_RECOVERY_VERSION,
+                "dataProvenance": DATA_PROVENANCE,
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+def _attach_posting_semantics(normalized: pd.DataFrame, frames: Mapping[str, pd.DataFrame]) -> pd.DataFrame:
+    semantics = frames.get("posting_semantics")
+    semantics = semantics.copy() if semantics is not None else _fallback_posting_semantics(normalized)
+    required = {
+        "sourcePostingId", "canonicalPostedAt", "periodMonth", "companyKey", "postingKind",
+        "canonicalPostedAtNullReason", "companyKeyNullReason", "postingKindValidationStatus",
+        "inputArtifactSha256", "semanticRecoveryVersion",
+    }
+    missing = sorted(required.difference(semantics.columns))
+    if missing:
+        raise ValueError(f"posting semantics missing required columns: {missing}")
+    if semantics["sourcePostingId"].astype(str).duplicated().any():
+        raise ValueError("posting semantics sourcePostingId must be unique")
+    if (~semantics["postingKind"].isin(POSTING_KIND_ENUM)).any():
+        invalid = sorted(set(semantics.loc[~semantics["postingKind"].isin(POSTING_KIND_ENUM), "postingKind"].astype(str)))
+        raise ValueError(f"invalid canonical postingKind values: {invalid}")
+    semantics["sourcePostingId"] = semantics["sourcePostingId"].astype(str)
+    result = normalized.copy()
+    result["sourcePostingId"] = result["sourcePostingId"].astype(str)
+    semantic_columns = [column for column in semantics.columns if column != "dataProvenance"]
+    result = result.merge(semantics[semantic_columns], on="sourcePostingId", how="left", validate="one_to_one")
+    if result["postingKind"].isna().any():
+        raise ValueError("canonical export cannot consume postings without semantic authority rows")
+    input_mismatch = result["inputArtifactSha256"].notna() & result["inputSha256"].ne(result["inputArtifactSha256"])
+    if input_mismatch.any():
+        raise ValueError("semantic authority input SHA does not match normalized posting input SHA")
+    return result
+
+
 def build_export_frames(
     frames: Mapping[str, pd.DataFrame],
     ncs_candidates: pd.DataFrame | None = None,
     ncs_matches: pd.DataFrame | None = None,
 ) -> dict[str, pd.DataFrame]:
-    normalized = _provenance(frames["posting_normalized"].copy())
-    normalized["postingKind"] = "recruit"
+    normalized = _attach_posting_semantics(_provenance(frames["posting_normalized"].copy()), frames)
     for column in ("titleText", "companyName", "bodyText"):
         if column in normalized:
             normalized[column] = normalized[column].map(_mask_pii)
@@ -178,10 +256,7 @@ def build_export_frames(
     final = final.merge(req, on="trackId", how="left")
     final["sourcePostingId"] = final["sourcePostingId"].astype(str)
     final["jobTitle"] = final["titleText"]
-    final["companyKey"] = None
     final["companyNameMasked"] = final["companyName"]
-    final["canonicalPostedAt"] = None
-    final["periodMonth"] = None
     final["recruitmentScope"] = final["trackType"]
     final["boundaryResolvedFlag"] = final["boundaryResolvedFlag"].fillna(False)
     match_fields = matches[
@@ -288,6 +363,28 @@ def validate_export_bundle(frames: Mapping[str, pd.DataFrame], output_root: str 
     add("provenance", final["dataProvenance"].eq(DATA_PROVENANCE).all() and not final["empiricalAnalysisAllowed"].any() and not final["promotionAllowed"].any(), DATA_PROVENANCE)
     add("eligibility_name", "postingEligibleFlag" in final and "validPostingFlag" not in final, list(final.columns))
     add("high_demand_null", final["highDemandScore"].isna().all(), int(final["highDemandScore"].notna().sum()))
+    invalid_posting_kind = int((~final["postingKind"].isin(POSTING_KIND_ENUM)).sum())
+    add("posting_kind_canonical_enum", invalid_posting_kind == 0, invalid_posting_kind)
+    expected_period = final["canonicalPostedAt"].map(
+        lambda value: recover_authoritative_posted_at({"postedAtRaw": value}).period_month
+        if pd.notna(value) else None
+    )
+    period_mismatch = int(
+        sum(
+            pd.notna(actual) and str(actual) != str(expected)
+            for actual, expected in zip(final["periodMonth"], expected_period)
+        )
+    )
+    add("period_month_deterministic", period_mismatch == 0, period_mismatch)
+    company_without_key = int((final["companyNameMasked"].notna() & final["companyKey"].isna()).sum())
+    add("company_key_when_company_available", company_without_key == 0, company_without_key)
+    semantic_input_mismatch = int(
+        (
+            normalized["inputArtifactSha256"].notna()
+            & normalized["inputSha256"].ne(normalized["inputArtifactSha256"])
+        ).sum()
+    )
+    add("semantic_input_sha_binding", semantic_input_mismatch == 0, semantic_input_mismatch)
     add("enum_track_type", set(tracks["trackType"].dropna()).issubset({"entry", "intern", "experienced", "mixedUnresolved", "unknown"}), sorted(set(tracks["trackType"].dropna())))
     if not matches.empty:
         add("ncs_candidate_rows", len(candidates) == 128, len(candidates))

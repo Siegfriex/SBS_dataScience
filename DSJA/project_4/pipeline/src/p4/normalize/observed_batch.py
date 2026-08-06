@@ -10,12 +10,18 @@ from urllib.parse import urlparse
 import pandas as pd
 
 from p4.common.hashing import canonical_json_sha256
-from p4.common.keys import make_posting_id, make_raw_posting_id, make_section_id, make_track_id
+from p4.common.keys import make_company_key, make_posting_id, make_raw_posting_id, make_section_id, make_track_id
 from p4.common.manifest_cursor import advance_cursor, should_process_raw
 from p4.normalize.linkareer import adapt_linkareer_source
 from p4.parse.linkareer_apollo_cache import extract_activity, find_apollo_cache
 from p4.parse.linkareer_next_data import extract_next_data, extract_page_props
 from p4.parse.requirements import extract_requirements
+from p4.normalize.semantic_recovery import (
+    POSTING_KIND_ENUM,
+    SEMANTIC_RECOVERY_VERSION,
+    canonical_posting_kind,
+    recover_authoritative_posted_at,
+)
 
 
 PARSE_VERSION = "observed-dev-parse-20260806.1"
@@ -109,6 +115,7 @@ def build_observed_batch(release_root: str | Path, crawl_root: str | Path) -> di
 
     raw_rows: list[dict[str, Any]] = []
     normalized: list[dict[str, Any]] = []
+    posting_semantics: list[dict[str, Any]] = []
     tracks: list[dict[str, Any]] = []
     sections: list[dict[str, Any]] = []
     requirements: list[dict[str, Any]] = []
@@ -160,6 +167,36 @@ def build_observed_batch(release_root: str | Path, crawl_root: str | Path) -> di
             if item and item.casefold() in {"new", "intern", "experienced"}
         ]
         job_types = sorted(set(job_types))
+        timestamp = recover_authoritative_posted_at(activity)
+        posting_kind = canonical_posting_kind(
+            job_types=job_types,
+            activity_type_id=activity.get("activityTypeID", 5),
+            activity_group=activity.get("group", "recruit"),
+        )
+        if posting_kind not in POSTING_KIND_ENUM:
+            raise ValueError(f"invalid deterministic postingKind: {posting_kind}")
+        company_key = make_company_key(company) if company.strip() else None
+        posting_semantics.append(
+            {
+                "sourcePostingId": source_id,
+                "canonicalPostedAt": timestamp.canonical_posted_at,
+                "periodMonth": timestamp.period_month,
+                "canonicalPostedAtAuthoritySource": timestamp.source_field,
+                "canonicalPostedAtNullReason": None if timestamp.canonical_posted_at else "RAW_AUTHORITY_UNAVAILABLE",
+                "canonicalPostedAtValidationStatus": "VALIDATED" if timestamp.canonical_posted_at else "UNRESOLVED",
+                "companyKey": company_key,
+                "companyKeyAuthoritySource": "SSR_ACTIVITY.organizationName" if company_key else None,
+                "companyKeyNullReason": None if company_key else "COMPANY_NAME_UNAVAILABLE",
+                "companyKeyValidationStatus": "VALIDATED" if company_key else "UNRESOLVED",
+                "postingKind": posting_kind,
+                "postingKindAuthoritySource": "jobTypes+activityTypeID+group",
+                "postingKindNullReason": None,
+                "postingKindValidationStatus": "VALIDATED",
+                "inputArtifactSha256": input_sha,
+                "semanticRecoveryVersion": SEMANTIC_RECOVERY_VERSION,
+                "dataProvenance": DATA_PROVENANCE,
+            }
+        )
         raw_rows.append(
             {
                 "rawPostingId": raw_posting_id,
@@ -262,6 +299,7 @@ def build_observed_batch(release_root: str | Path, crawl_root: str | Path) -> di
     frames = {
         "raw_posting": pd.DataFrame(raw_rows),
         "posting_normalized": pd.DataFrame(normalized),
+        "posting_semantics": pd.DataFrame(posting_semantics),
         "posting_track": pd.DataFrame(tracks),
         "posting_section": pd.DataFrame(sections),
         "requirement_fact": pd.DataFrame(requirements),
