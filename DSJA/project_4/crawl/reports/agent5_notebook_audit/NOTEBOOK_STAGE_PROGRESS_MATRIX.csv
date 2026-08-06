@@ -1,0 +1,7 @@
+﻿stageId,status,functionalVerdict,evidence,runMode,productionReady
+A1-00-RECOVER,PASS_WITH_FINDINGS,RECOVERY_PARTIAL,"137 posting, 29 raw; remaining months only summarized, not enumerated",observed-dev,False
+A1-01-INDEX,PARTIAL,INDEX_IMPLEMENTATION_PARTIAL;INDEX_POLICY_BLOCKED,"fixture networkCalls=0; 21/79 complete, 58 unverified; no success-rate kill switch",observed-dev,False
+A1-02-DETAIL,PASS_WITH_FINDINGS,DETAIL_LOCAL_REPLAY_READY;DETAIL_LINEAGE_PARTIAL,29/29 local SSR replay and ActivityText; standalone ActivityText fallback absent in crawl parser,observed-dev,False
+A1-03-ASSET,NOT_EVALUATED,ASSET_LINEAGE_ONLY;ASSET_COLLECTION_NOT_EVALUATED,"59 metadata candidates, 30 OCR candidates, 0 fetched, 0 external ATS calls",observed-dev,False
+A1-04-RELEASE,BLOCKED,RELEASE_OBSERVED_VALIDATION_READY;RELEASE_PRODUCTION_BLOCKED,CRAWL_RELEASE_READY NOT_EVALUATED; validator execution failure incorrectly eligible for PASS,observed-dev,False
+A3-MASTER-ORCHESTRATION,PASS_WITH_FINDINGS,MASTER_EXECUTION_OBSERVED_READY;MASTER_PRODUCTION_BLOCKED,"24/24 execution, but dependency order and duplicate-manifest validation defects",observed-dev,False

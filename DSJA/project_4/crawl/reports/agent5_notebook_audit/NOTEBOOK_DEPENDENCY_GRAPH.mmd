@@ -1,0 +1,18 @@
+flowchart LR
+  N00[00 Recover] -->|resume/frontiers| N01[01 Index]
+  N01 -->|discovery index| N02[02 Detail]
+  N02 -->|detail replay + candidates| N03[03 Assets]
+  N03 -->|asset lineage NOT_EVALUATED| N04[04 Release validation]
+  N04 -->|observed input only| A200[A2-00 Contract]
+  A200 --> A205[A2-05 Requirements]
+  A205 --> A403[A4-03 NCS mapping]
+  A400[A4-00 NCS source] --> A208[A2-08 NCS load]
+  A401[A4-01 Code set] --> A208
+  A403 --> A209[A2-09 Accept mapping]
+  A404[A4-04 Export] --> A209
+  MASTER[Master] --> N00
+  MASTER --> A200
+  MASTER -. current wrong order: consumes before producer .-> A208
+  MASTER --> A400
+  classDef blocked fill:#fee2e2,stroke:#991b1b;
+  class N03,N04,A208,A209 blocked;

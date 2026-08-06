@@ -1,0 +1,41 @@
+{
+  "status": "USER_DECISION_REQUIRED",
+  "decisions": [
+    {
+      "decisionId": "D-A5-001",
+      "question": "현재 여섯 Notebook을 Crawl Notebook v1 source로 동결할지",
+      "evidence": "Source integrity/parity passes, but six P1 defects remain.",
+      "options": [
+        "Patch P1 then freeze",
+        "Freeze observed-dev-only now"
+      ],
+      "recommendation": "Patch P1 then freeze",
+      "impact": "Production lineage and order are trustworthy only after patch.",
+      "deferrable": false
+    },
+    {
+      "decisionId": "D-A5-002",
+      "question": "M1.5 의미적 QA를 production crawl 전에 수행할지",
+      "evidence": "Structural QA passes while full-corpus semantics and gold validation are NOT_EVALUATED.",
+      "options": [
+        "Run M1.5 before M2",
+        "Defer to post-crawl"
+      ],
+      "recommendation": "Run M1.5 before M2",
+      "impact": "Prevents structurally valid but semantically weak data from becoming production input.",
+      "deferrable": false
+    },
+    {
+      "decisionId": "D-A5-003",
+      "question": "asset 수집을 CRAWL_RELEASE_READY 필수조건으로 유지할지",
+      "evidence": "59 candidates/30 OCR candidates exist, but fetched assets=0 and gate is NOT_EVALUATED.",
+      "options": [
+        "Keep mandatory",
+        "Allow text-only release with explicit eligibility exclusion"
+      ],
+      "recommendation": "Keep mandatory for RQ2-B; permit a separately named text-only release only if needed",
+      "impact": "Determines whether image-only duties can enter RQ2-B.",
+      "deferrable": true
+    }
+  ]
+}

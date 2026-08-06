@@ -1,0 +1,7 @@
+﻿notebook,networkPathDisabled,sourceOverwriteRisk,allowedReplay,status,reason
+DSJA/project_4/crawl/notebooks/00RecoverSourceState.ipynb,True,False,True,CONTROLLED_REPLAY_PASS,fixture/local observed functions only; Linkareer transport absent or rejected before call
+DSJA/project_4/crawl/notebooks/01CollectLinkareerIndex.ipynb,True,False,True,CONTROLLED_REPLAY_PASS,fixture/local observed functions only; Linkareer transport absent or rejected before call
+DSJA/project_4/crawl/notebooks/02CollectPostingDetail.ipynb,True,False,True,CONTROLLED_REPLAY_PASS,fixture/local observed functions only; Linkareer transport absent or rejected before call
+DSJA/project_4/crawl/notebooks/03CollectPostingAssets.ipynb,True,False,True,CONTROLLED_REPLAY_PASS,fixture/local observed functions only; Linkareer transport absent or rejected before call
+DSJA/project_4/crawl/notebooks/04BuildCrawlRelease.ipynb,True,False,True,CONTROLLED_REPLAY_PASS,fixture/local observed functions only; Linkareer transport absent or rejected before call
+DSJA/project_4/crawl/notebooks/P4_Notebook_First_Master.ipynb,False,False,False,CONTROLLED_REPLAY_BLOCKED,Master executes 23 children and some pipeline/NCS stages write shared observed roots

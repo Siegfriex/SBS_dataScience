@@ -1,0 +1,147 @@
+{
+  "agentId": "P4-A5-NOTEBOOK-AUDIT",
+  "agentName": "P4 Crawl Notebook Forensic Auditor",
+  "role": "NOTEBOOK_INTEGRITY_DATA_LINEAGE_AND_EXECUTION_AUDITOR",
+  "generatedAt": "2026-08-06",
+  "verdict": "CRAWL_NOTEBOOK_SYSTEM_REQUIRES_PATCH",
+  "auditMode": "READ_ONLY_FORENSIC_AUDIT",
+  "git": {
+    "auditBranch": "agent/p4-notebook-audit-v1",
+    "auditBase": "b64270bd4ab839ec750a4ceceb08d57957c88782",
+    "sourceBranchHead": "3ad43c39dd01933575529e0c81d9809dc64c4e57",
+    "pipelineBranchHead": "9a0571dbcc0183960bda153baedcd0a2c9dc8248",
+    "ncsBranchHead": "7a9feccc7a2fc99b8b86b95bdb73699620bc7ff0",
+    "integrationBranchHead": "b64270bd4ab839ec750a4ceceb08d57957c88782",
+    "liveCheckoutHead": "71edc867a8e869b78340e4fe253ced9312894077",
+    "liveCrawlTracked": false
+  },
+  "notebooks": {
+    "count": 6,
+    "valid": 6,
+    "cells": 66,
+    "sourceOutputs": 0,
+    "sourceExecutedParity": {
+      "EXPECTED_PARAMETER_DRIFT": 6
+    }
+  },
+  "existingBuildRecalculation": {
+    "sourceNotebooks": 24,
+    "validSourceNotebooks": 24,
+    "sourceCells": 234,
+    "sourceOutputs": 0,
+    "executions": 24,
+    "executionPass": 24,
+    "moduleCallRows": 24,
+    "moduleCallPass": 24,
+    "artifactInventoryRows": 388,
+    "artifactMissing": 0,
+    "artifactHashMismatch": 0,
+    "childStageManifestFiles": 27,
+    "uniqueChildStageIds": 23,
+    "duplicateStageIds": {
+      "A1-01-INDEX": 2,
+      "A1-02-DETAIL": 2,
+      "A1-00-RECOVER": 2,
+      "A2-00-CONTRACT-AUDIT": 2
+    },
+    "childTerminationArtifacts": 108,
+    "stageStatuses": {
+      "SUCCEEDED": 25,
+      "NOT_EVALUATED": 1,
+      "FAILED": 1
+    },
+    "exportRows": {
+      "posting_ncs_matches": 28,
+      "posting_ncs_candidates": 128,
+      "posting_normalized": 137,
+      "posting_tracks": 137,
+      "requirement_facts": 35,
+      "preprocessed_posting_tracks": 137,
+      "posting_sections": 84,
+      "career_access_labels": 137
+    },
+    "plannedChildStageManifests": 23,
+    "plannedWithMasterStageManifests": 24,
+    "plannedWithMasterStatuses": {
+      "SUCCEEDED": 23,
+      "NOT_EVALUATED": 1
+    },
+    "ncsMatches": 28,
+    "ncsMapped": 27,
+    "ncsUnmapped": 1
+  },
+  "checksumAudit": {
+    "checksumFiles": 42,
+    "entriesPassed": 226,
+    "entriesFailed": 0,
+    "failedFiles": []
+  },
+  "observedData": {
+    "postingTracks": 137,
+    "rawSsr": 29,
+    "sections": 84,
+    "requirements": 35,
+    "ncsCandidates": 128,
+    "ncsMatches": 28,
+    "mapped": 27,
+    "unmapped": 1
+  },
+  "coverage": {
+    "targetMonths": 79,
+    "verifiedMonths": 21,
+    "unverifiedMonths": 58
+  },
+  "security": {
+    "trackedSecret": 0,
+    "stagedSecret": 0,
+    "notebookOutputSecret": 0,
+    "rawPiiGitTracked": 0,
+    "externalAtsFetch": 0,
+    "trackedFilesScanned": 162,
+    "executedNotebooksScanned": 29,
+    "executedNotebookEmailMatches": 0,
+    "executedNotebookPhoneMatches": 0,
+    "rawFilesVerified": 29,
+    "rawStorage": "GIT_IGNORED_RAW via runtime symlink",
+    "note": "No secret values are emitted by this audit."
+  },
+  "defects": {
+    "P1": 6,
+    "P2": 5,
+    "P3": 1
+  },
+  "readiness": {
+    "OBSERVED_DEV_CSV_READY": true,
+    "NOTEBOOK_SOURCE_READY": true,
+    "NOTEBOOK_EXECUTION_READY_OBSERVED_DEV": true,
+    "NOTEBOOK_BUNDLE_READY": true,
+    "CRAWL_RELEASE_READY": false,
+    "DATA_READY_RQ1_RQ2A": false,
+    "DATA_READY_RQ2B": false,
+    "ANALYSIS_READY": false
+  },
+  "qualitySeparation": {
+    "structuralQa": "PASS_WITH_FINDINGS",
+    "semanticQa": "NOT_EVALUATED"
+  },
+  "milestones": {
+    "M1 observed-development": "PASS_WITH_FINDINGS",
+    "M1.5 semantic QA": "NOT_STARTED",
+    "M2 production crawl": "BLOCKED"
+  },
+  "controlledReplay": {
+    "runRoot": "crawl/runs/notebooks/observed-dev/AGENT5_AUDIT_20260806_01",
+    "A1_00_to_A1_04": "5/5 PASS; fresh kernel; source SHA unchanged; networkCalls=0; externalAtsTransportCalls=0",
+    "checksums": "38/38 PASS",
+    "Master": "CONTROLLED_REPLAY_BLOCKED"
+  },
+  "testEvidence": {
+    "crawl": "22 passed",
+    "pipelineLiveDirty": "94 passed, 4 failed",
+    "pipelineCleanAuditBase": "80 passed"
+  },
+  "finalState": [
+    "AGENT5_NOTEBOOK_AUDIT_COMPLETE",
+    "USER_DECISION_REQUIRED"
+  ]
+}
