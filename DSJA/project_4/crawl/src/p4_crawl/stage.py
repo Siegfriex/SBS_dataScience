@@ -49,6 +49,7 @@ def write_stage_artifacts(
     metric_values: dict[str, Any], quality_rows: list[dict[str, Any]],
     persisted_files: list[Path], warnings: list[str] | None = None,
     errors: list[str] | None = None, branch: str | None = None,
+    status_override: str | None = None,
 ) -> dict:
     stage_root.mkdir(parents=True, exist_ok=True)
     warnings, errors = warnings or [], errors or []
@@ -93,9 +94,12 @@ def write_stage_artifacts(
             row_counts[path.stem] = rows
     gate_results = [{"gateId": row["gateId"], "status": row["status"], "evidencePath": row["evidencePath"]} for row in quality_rows]
     failed = any(row["status"] == "FAIL" for row in quality_rows)
+    status = status_override or ("FAILED" if failed else "SUCCEEDED")
+    if status not in {"SUCCEEDED", "FAILED", "NOT_EVALUATED"}:
+        raise ValueError(f"invalid stage status override: {status}")
     manifest = {
         "manifestVersion": "stage-manifest-v1", "runId": config.run_id, "runMode": config.run_mode,
-        "stageId": stage_id, "status": "FAILED" if failed else "SUCCEEDED", "agentId": AGENT_ID,
+        "stageId": stage_id, "status": status, "agentId": AGENT_ID,
         "branch": branch or subprocess.run(
             ["git", "branch", "--show-current"], cwd=config.project_root, check=True,
             capture_output=True, text=True,

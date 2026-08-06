@@ -242,14 +242,15 @@ input_audit'''
 
 FINALIZE = '''from p4_crawl.stage import write_stage_artifacts
 
+release_blocked = STAGE_ID == "A1-04-RELEASE" and not bool(metrics.get("crawlReleaseReady"))
 manifest = write_stage_artifacts(
     config=config, stage_id=STAGE_ID, schema_version=SCHEMA_VERSION,
     started_at=f"{AS_OF_DATE}T00:00:00+09:00", parameters=PARAMETERS,
     input_manifest_path=INPUT_MANIFEST, stage_root=STAGE_ROOT,
     metric_values=metrics, quality_rows=quality, persisted_files=persisted_files,
     warnings=[STAGE_WARNING],
+    status_override="NOT_EVALUATED" if release_blocked else None,
 )
-release_blocked = STAGE_ID == "A1-04-RELEASE" and not bool(metrics.get("crawlReleaseReady"))
 if FAIL_ON_GATE and (any(row["status"] == "FAIL" for row in quality) or release_blocked):
     raise RuntimeError(f"{STAGE_ID} quality gate failed")
 {"stageId": STAGE_ID, "status": manifest["status"], "metrics": metrics, "artifacts": manifest["terminationArtifacts"]}'''
