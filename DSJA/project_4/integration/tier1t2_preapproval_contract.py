@@ -229,9 +229,9 @@ def combined_approval_schema(proposal: dict[str, Any]) -> dict[str, Any]:
             "rateLimitPolicySha256": {"const": proposal["rateLimitPolicySha256"]},
             "killSwitchPolicyVersion": {"const": proposal["killSwitchPolicyVersion"]},
             "killSwitchPolicySha256": {"const": proposal["killSwitchPolicySha256"]},
-            "storagePlanSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
-            "approvedRateLimitRequestsPerMinute": {"type": "integer", "minimum": 1},
-            "approvedRetryBudget": {"type": "integer", "minimum": 0},
+            "storagePlanSha256": {"const": proposal["storagePlanSha256"]},
+            "approvedRateLimitRequestsPerMinute": {"const": proposal["proposedRateLimitRequestsPerMinute"]},
+            "approvedRetryBudget": {"const": proposal["proposedRetryBudget"]},
         },
     }
 

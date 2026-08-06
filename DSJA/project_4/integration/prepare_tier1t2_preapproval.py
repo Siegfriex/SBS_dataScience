@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import ast
 import csv
 import json
 import subprocess
@@ -46,6 +47,20 @@ def read_csv(path: Path) -> list[dict[str, str]]:
 def git_value(path: Path, *args: str) -> str:
     result = subprocess.run(["git", *args], cwd=path, text=True, capture_output=True, check=True)
     return result.stdout.strip()
+
+
+def source_policy_constants(path: Path) -> dict[str, Any]:
+    wanted = {"MAX_CONCURRENCY", "REQUESTS_PER_SECOND", "MAX_RETRIES"}
+    values: dict[str, Any] = {}
+    tree = ast.parse(path.read_text(encoding="utf-8"), filename=path.name)
+    for node in tree.body:
+        if isinstance(node, ast.Assign) and len(node.targets) == 1 and isinstance(node.targets[0], ast.Name):
+            name = node.targets[0].id
+            if name in wanted:
+                values[name] = ast.literal_eval(node.value)
+    if set(values) != wanted:
+        raise ValueError("source policy rate/retry constants incomplete")
+    return values
 
 
 def validate_git_binding(root: Path, submitted_head: str) -> list[str]:
@@ -265,6 +280,14 @@ def main() -> int:
         "rateLimitPolicySha256", "killSwitchPolicyVersion", "killSwitchPolicySha256",
     ):
         proposal[field] = tier1_proposal[field]
+    policy_source_path = project / "crawl/src/p4_crawl/policy.py"
+    if file_sha256(policy_source_path) != proposal["rateLimitPolicySha256"]:
+        raise SystemExit("Tier 1/Tier 2 proposal rejected: RATE_POLICY_SOURCE_SHA_MISMATCH")
+    policy_constants = source_policy_constants(policy_source_path)
+    proposal["proposedRateLimitRequestsPerMinute"] = int(policy_constants["REQUESTS_PER_SECOND"] * 60)
+    proposal["proposedRetryBudget"] = int(policy_constants["MAX_RETRIES"])
+    proposal["proposedMaxConcurrency"] = int(policy_constants["MAX_CONCURRENCY"])
+    proposal["storagePlanSha256"] = file_sha256(args.a1_root.resolve() / "P4_TIER1T2_STORAGE_ESTIMATE.json")
     policy = yaml.safe_load((project / "automation_policy.yaml").read_text(encoding="utf-8"))
     required_seed = ["canaryRunId", "tier1DiscoveryManifestSha256", "approvedScopeHash"]
     if policy["tier2"]["samplingSeedMaterial"] != required_seed:
@@ -286,6 +309,7 @@ def main() -> int:
         {**common, "checkId": "DETAIL_SAMPLE_CONTRACT", "expected": "10 deterministic without replacement; no terminal replacement", "observed": sample["contractStatus"], "status": "PASS", "evidence": "P4_TIER2_DETAIL_SAMPLE_CONTRACT.json"},
         {**common, "checkId": "ASSET_BUDGET_EVIDENCE", "expected": "checked-in metadata; Linkareer host only", "observed": f"observed={asset['linkareerHostedCandidateRows']}; max={asset['proposedMaxAssetRequests']}", "status": "PASS_WITH_FINDINGS", "evidence": asset["upperBoundMethod"]},
         {**common, "checkId": "SEQUENTIAL_APPROVAL_POLICY", "expected": "new approval artifact at each tier", "observed": "one combined decision packet; later tier activation remains gated", "status": "PASS_WITH_FINDINGS", "evidence": "automation_policy.yaml scopeEscalation.requiresNewApprovalArtifact=true"},
+        {**common, "checkId": "RATE_RETRY_POLICY", "expected": "SHA-bound source constants", "observed": f"{proposal['proposedRateLimitRequestsPerMinute']}/minute; concurrency={proposal['proposedMaxConcurrency']}; retries={proposal['proposedRetryBudget']}", "status": "PASS", "evidence": proposal["rateLimitPolicySha256"]},
         {**common, "checkId": "TRANSPORT_BOUNDARY", "expected": "network/detail/asset calls 0", "observed": "0/0/0", "status": "PASS", "evidence": "proposal-only bundle"},
         {**common, "checkId": "SOURCE_POLICY_HUMAN_APPROVAL", "expected": "user-issued record", "observed": "missing", "status": "BLOCKED", "evidence": "combined approval schema requires SHA"},
     ]
@@ -349,9 +373,12 @@ def main() -> int:
         "- Raw retention: immutable content-addressed external storage; Git raw bytes forbidden\n"
         "- OCR: queue, MIME, SHA and text-volume measurement only; extraction/mapping forbidden\n"
         "- Query/rate/kill/source-policy SHA: inherited exactly from the accepted Tier 1 proposal\n"
+        f"- Rate-limit proposal: `{proposal['proposedRateLimitRequestsPerMinute']}` requests/minute; max concurrency `{proposal['proposedMaxConcurrency']}`\n"
+        f"- Retry budget proposal: `{proposal['proposedRetryBudget']}` retries per request\n"
+        f"- Storage-plan SHA: `{proposal['storagePlanSha256']}`\n"
         "- Expiry suggestion: `PT2H_AFTER_APPROVAL`\n\n"
         "## User-owned values still required\n\n"
-        "The approval artifact must set the exact approved scope, index/detail/asset budgets, expiry, rate limit, retry budget, source-policy human approval record, and storage-plan SHA. This packet sets none of those values.\n\n"
+        "The approval artifact must affirm the exact proposed scope, index/detail/asset budgets, expiry, SHA-bound rate/retry limits, source-policy human approval record, and storage-plan SHA. This packet proposes those values but grants none of them.\n\n"
         "Under the current automation policy, this is one combined decision packet, not one reusable transport authorization: Tier 2 and Tier 3 still require newly bound approval artifacts and new run IDs after their upstream acceptance gates.\n\n"
         "## Impact\n\n"
         "- If approved: only the exact bounded index, detail-10, and Linkareer-hosted asset measurement may run.\n"

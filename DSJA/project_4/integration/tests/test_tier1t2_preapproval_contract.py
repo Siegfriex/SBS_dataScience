@@ -26,6 +26,9 @@ def proposal() -> dict:
         "rateLimitPolicySha256": "3" * 64,
         "killSwitchPolicyVersion": "kill-v1",
         "killSwitchPolicySha256": "4" * 64,
+        "storagePlanSha256": "7" * 64,
+        "proposedRateLimitRequestsPerMinute": 60,
+        "proposedRetryBudget": 3,
     }
 
 
@@ -61,8 +64,8 @@ def valid_approval() -> dict:
         "killSwitchPolicyVersion": "kill-v1",
         "killSwitchPolicySha256": "4" * 64,
         "storagePlanSha256": "7" * 64,
-        "approvedRateLimitRequestsPerMinute": 2,
-        "approvedRetryBudget": 1,
+        "approvedRateLimitRequestsPerMinute": 60,
+        "approvedRetryBudget": 3,
     }
 
 

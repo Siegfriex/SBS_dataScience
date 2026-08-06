@@ -30,11 +30,14 @@ Approve one bounded Linkareer index canary, a deterministic sample of 10 discove
 - Raw retention: immutable content-addressed external storage; Git raw bytes forbidden
 - OCR: queue, MIME, SHA and text-volume measurement only; extraction/mapping forbidden
 - Query/rate/kill/source-policy SHA: inherited exactly from the accepted Tier 1 proposal
+- Rate-limit proposal: `60` requests/minute; max concurrency `2`
+- Retry budget proposal: `3` retries per request
+- Storage-plan SHA: `bf19f7830893ece989134552a2693e7bdaa34076d7eda4bf9c92301620c2ca3c`
 - Expiry suggestion: `PT2H_AFTER_APPROVAL`
 
 ## User-owned values still required
 
-The approval artifact must set the exact approved scope, index/detail/asset budgets, expiry, rate limit, retry budget, source-policy human approval record, and storage-plan SHA. This packet sets none of those values.
+The approval artifact must affirm the exact proposed scope, index/detail/asset budgets, expiry, SHA-bound rate/retry limits, source-policy human approval record, and storage-plan SHA. This packet proposes those values but grants none of them.
 
 Under the current automation policy, this is one combined decision packet, not one reusable transport authorization: Tier 2 and Tier 3 still require newly bound approval artifacts and new run IDs after their upstream acceptance gates.
 

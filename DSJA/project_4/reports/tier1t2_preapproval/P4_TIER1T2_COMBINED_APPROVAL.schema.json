@@ -133,16 +133,13 @@
       "const": "0b197b71a0c46c8a2c49f716af5d0bdc2708fad3ce130e44ede6a3002e25300a"
     },
     "storagePlanSha256": {
-      "type": "string",
-      "pattern": "^[0-9a-f]{64}$"
+      "const": "bf19f7830893ece989134552a2693e7bdaa34076d7eda4bf9c92301620c2ca3c"
     },
     "approvedRateLimitRequestsPerMinute": {
-      "type": "integer",
-      "minimum": 1
+      "const": 60
     },
     "approvedRetryBudget": {
-      "type": "integer",
-      "minimum": 0
+      "const": 3
     }
   }
 }
