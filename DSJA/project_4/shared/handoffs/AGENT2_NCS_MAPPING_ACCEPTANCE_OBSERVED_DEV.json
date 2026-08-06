@@ -8,7 +8,7 @@
   "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
   "empiricalAnalysisAllowed": false,
   "promotionAllowed": false,
-  "sourceHandoffSha256": "8f9c0af8fdd3d5f54b68f8ad6361de63f57f6b5badeeefb8b120b1f604e16a56",
+  "sourceHandoffSha256": "99419f807056928bd7025f934c278ca772589a75d5a06e72a6bf3f2854f0cf9c",
   "candidateRows": 128,
   "matchRows": 28,
   "unmappedRows": 1,
@@ -16,5 +16,5 @@
   "codeSetStatus": "REVIEW_REQUIRED",
   "goldValidatedFlag": false,
   "denseScore": null,
-  "acceptanceSha256": "f69198deff2bb03caacba2323f170ab8e92a3d0a2dfe81301b0eba117d873561"
+  "acceptanceSha256": "e0be3a01894d72d419953ef7a3d3fc41653728f16ef4c7fb34c769be85645a03"
 }
