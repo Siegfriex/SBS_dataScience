@@ -1,30 +1,33 @@
 {
-  "handoffVersion": "p4-crawl-m1.5-owner-handoff-v1",
-  "codeHead": "a8c359cdcd39c799160730c2535f13531509b6a7",
+  "handoffVersion": "p4-crawl-post-implementation-audit-v1",
+  "agentId": "P4-CRAWL-LOCAL-ORCHESTRATOR",
+  "auditedHeadCommit": "f1fa16e5d4de097c39a35f89e23ffe29f781c3d8",
+  "runId": "POST_IMPL_AUDIT_20260806_01",
+  "dataVersion": "observed-dev-20260806.2",
+  "claimedStatus": "PARTIAL",
   "items": [
     {
-      "handoffId": "A2-HO-001",
-      "owner": "P4-A2-PIPELINE",
-      "status": "OPEN",
-      "request": "Adopt crawl/control/ACTIVITY_TEXT_FALLBACK_CONTRACT.json and emit the four evidence fields."
-    },
-    {
-      "handoffId": "A2-HO-002",
-      "owner": "P4-A2-PIPELINE",
-      "status": "OPEN",
-      "request": "Integrate audited validator and pipeline Notebook 10/11 sources into a clean integration branch without changing this crawl patch."
-    },
-    {
-      "handoffId": "A4-HO-001",
-      "owner": "P4-A4-NCS",
-      "status": "OPEN",
-      "request": "Integrate six audited NCS Notebook sources so the 23-child isolated replay can be independently run."
-    },
-    {
-      "handoffId": "A3-HO-001",
+      "defectId": "P1-CRAWL-003",
       "owner": "P4-A3-CONTROL",
       "status": "OPEN",
-      "request": "Run the full isolated 23-stage plan after A2/A4 source integration and require 23 exact-one current-run manifests."
+      "requiredAction": "Integrate missing A2/A4 Notebook sources and prove 23 exact-one current-run manifests."
+    },
+    {
+      "defectId": "P1-CRAWL-006",
+      "owner": "P4-A2-PIPELINE",
+      "status": "OPEN",
+      "requiredAction": "Adopt ACTIVITY_TEXT_FALLBACK_CONTRACT.json and prove ambiguous auto-selection remains zero."
+    },
+    {
+      "defectId": "P1-CRAWL-007",
+      "owner": "P4-A1-SOURCE",
+      "status": "OPEN",
+      "requiredAction": "Publish a new candidate HANDOFF with head, source Notebook, and validator artifact SHA provenance."
     }
+  ],
+  "forbiddenClaims": [
+    "CRAWL_RELEASE_READY",
+    "M2_PRODUCTION_CRAWL_READY",
+    "ANALYSIS_READY"
   ]
 }

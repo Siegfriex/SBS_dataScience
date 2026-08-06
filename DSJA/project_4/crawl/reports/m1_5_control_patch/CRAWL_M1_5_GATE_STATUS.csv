@@ -1,7 +1,9 @@
 ﻿gateId,status,evidence,blocksProduction
-CRAWL_CONTROL_PATCH_READY,PASS,58 tests; 28 dependency edges; fail-closed bindings,False
-CRAWL_OBSERVED_REPLAY_READY,PASS,00-03 PASS; 04 EXPECTED_BLOCKED; network 0,False
-SOURCE_POLICY_IMPLEMENTATION_READY,PASS,14/14 source-policy tests,False
-SOURCE_POLICY_PRODUCTION_APPROVED,BLOCKED,transparent-client and user approval absent,True
+CRAWL_CONTROL_PATCH_READY,PASS,64 tests; fail-closed controls,False
+CRAWL_OBSERVED_REPLAY_READY,PASS,00-03 PASS; 04 expected fail-closed; network=0,False
+SOURCE_POLICY_IMPLEMENTATION_READY,PASS,18 source-policy tests,False
+MASTER_FULL_CURRENT_RUN_AUTHORITY,EVIDENCE_INSUFFICIENT,5 A1 exact-one; Master blocked before 18 downstream children,True
+RELEASE_HANDOFF_PROVENANCE,FAIL,head/sourceNotebook/validator SHA null in immutable release HANDOFF,True
+SOURCE_POLICY_PRODUCTION_APPROVED,BLOCKED,no user production approval,True
 CRAWL_RELEASE_READY,BLOCKED,validator absent; 58 months; asset rows 0,True
-M2_PRODUCTION_CRAWL,BLOCKED,production network was not authorized or executed,True
+M2_PRODUCTION_CRAWL,BLOCKED,production network not authorized or executed,True
