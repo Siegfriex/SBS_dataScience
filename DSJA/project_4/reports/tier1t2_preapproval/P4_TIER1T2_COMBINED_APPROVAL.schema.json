@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:p4:canary:tier1t2-detail-asset-approval:v1",
+  "title": "P4 bounded index, detail-10 and Linkareer asset canary approval",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "approvalId",
+    "approvedBy",
+    "approvedAtUtc",
+    "expiresAtUtc",
+    "approvalStatus",
+    "approvedSource",
+    "approvedCanaryScope",
+    "approvedScopeHash",
+    "approvedMaxIndexRequests",
+    "approvedMaxDetailRequests",
+    "approvedMaxAssetRequests",
+    "detailSamplingMethod",
+    "detailSamplingSeedFormula",
+    "replaceTerminalFailures",
+    "linkareerHostedAssetAllowed",
+    "externalAtsTransportAllowed",
+    "browserAutomationAllowed",
+    "ocrMode",
+    "rawStorageMode",
+    "queryRegistrySha256",
+    "sourcePolicyAuditSha256",
+    "sourcePolicyHumanApprovalRecordSha256",
+    "rateLimitPolicyVersion",
+    "rateLimitPolicySha256",
+    "killSwitchPolicyVersion",
+    "killSwitchPolicySha256",
+    "storagePlanSha256",
+    "approvedRateLimitRequestsPerMinute",
+    "approvedRetryBudget"
+  ],
+  "properties": {
+    "approvalId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "approvedBy": {
+      "type": "string",
+      "minLength": 1
+    },
+    "approvedAtUtc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expiresAtUtc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "approvalStatus": {
+      "const": "APPROVED"
+    },
+    "approvedSource": {
+      "const": "LINKAREER"
+    },
+    "approvedCanaryScope": {
+      "const": {
+        "periodMonths": [
+          "2026-03"
+        ],
+        "queryOperations": [
+          "CalendarScreen_ActivityCalendarEntries",
+          "CalendarScreen_Activities"
+        ]
+      }
+    },
+    "approvedScopeHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "approvedMaxIndexRequests": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 28
+    },
+    "approvedMaxDetailRequests": {
+      "const": 10
+    },
+    "approvedMaxAssetRequests": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 30
+    },
+    "detailSamplingMethod": {
+      "const": "DETERMINISTIC_RANDOM_WITHOUT_REPLACEMENT"
+    },
+    "detailSamplingSeedFormula": {
+      "const": "SHA256(tier1CanaryRunId+tier1DiscoveryManifestSha256+approvedScopeHash)"
+    },
+    "replaceTerminalFailures": {
+      "const": false
+    },
+    "linkareerHostedAssetAllowed": {
+      "const": true
+    },
+    "externalAtsTransportAllowed": {
+      "const": false
+    },
+    "browserAutomationAllowed": {
+      "const": false
+    },
+    "ocrMode": {
+      "const": "QUEUE_MIME_SHA_TEXT_VOLUME_ONLY"
+    },
+    "rawStorageMode": {
+      "const": "IMMUTABLE_CONTENT_ADDRESSED_EXTERNAL_STORAGE"
+    },
+    "queryRegistrySha256": {
+      "const": "7715d7170ec4d033c6ec257aee4eebd34381b12cfc2be891a3b8d61f8655782e"
+    },
+    "sourcePolicyAuditSha256": {
+      "const": "e461f58e70bca86e4e16ddf1821829972cce77a7ab55ea7eeeea9a0d8e37bb3b"
+    },
+    "sourcePolicyHumanApprovalRecordSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "rateLimitPolicyVersion": {
+      "const": "p4-linkareer-production-rate-v1"
+    },
+    "rateLimitPolicySha256": {
+      "const": "0f64f948b875a38434b4a05af31a0d3dee6115f2d0251b94dfe4129af79cdf92"
+    },
+    "killSwitchPolicyVersion": {
+      "const": "p4-linkareer-kill-switch-v1"
+    },
+    "killSwitchPolicySha256": {
+      "const": "0b197b71a0c46c8a2c49f716af5d0bdc2708fad3ce130e44ede6a3002e25300a"
+    },
+    "storagePlanSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "approvedRateLimitRequestsPerMinute": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "approvedRetryBudget": {
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}

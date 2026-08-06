@@ -61,7 +61,7 @@ def complete_policy() -> dict:
             "detailSampleSize": 10,
             "sampleFrame": "TIER1_DISCOVERED_UNIQUE_POSTING_IDS",
             "samplingMethod": "deterministic_random_without_replacement",
-            "samplingSeedMaterial": ["canaryRunId", "approvedScopeHash", "tier1ManifestSha256"],
+            "samplingSeedMaterial": ["canaryRunId", "tier1DiscoveryManifestSha256", "approvedScopeHash"],
             "requireSelectionManifest": True,
             "selectionManifestName": "detail_canary_sample_manifest.json",
             "preserveTerminalStatuses": ["NOT_FOUND", "EXPIRED", "RETRY_EXHAUSTED", "PARSER_QUARANTINED"],

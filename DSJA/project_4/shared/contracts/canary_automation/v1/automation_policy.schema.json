@@ -118,7 +118,7 @@
         "sampleFrame": {"const": "TIER1_DISCOVERED_UNIQUE_POSTING_IDS"},
         "samplingMethod": {"const": "deterministic_random_without_replacement"},
         "samplingSeedMaterial": {
-          "const": ["canaryRunId", "approvedScopeHash", "tier1ManifestSha256"]
+          "const": ["canaryRunId", "tier1DiscoveryManifestSha256", "approvedScopeHash"]
         },
         "requireSelectionManifest": {"const": true},
         "selectionManifestName": {"const": "detail_canary_sample_manifest.json"},

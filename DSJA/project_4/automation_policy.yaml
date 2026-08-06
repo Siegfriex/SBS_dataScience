@@ -107,8 +107,8 @@ tier2:
   samplingMethod: deterministic_random_without_replacement
   samplingSeedMaterial:
     - canaryRunId
+    - tier1DiscoveryManifestSha256
     - approvedScopeHash
-    - tier1ManifestSha256
   requireSelectionManifest: true
   selectionManifestName: detail_canary_sample_manifest.json
   preserveTerminalStatuses:
