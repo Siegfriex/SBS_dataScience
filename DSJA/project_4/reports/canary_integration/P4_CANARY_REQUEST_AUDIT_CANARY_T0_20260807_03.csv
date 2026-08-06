@@ -1,0 +1,2 @@
+runId,dataVersion,approvalId,gitSha,requestCount,manifestSha256,command,exitCode,policyVersion,checkId,rows,conflicts,status
+CANARY_T0_20260807_03,NONE,NONE,85567ec86879e0e31ada4bcce3b2cbd03e171739,0,85e71de36428b1473187badcdd5cce153479f30658f202525bf43a995169a5bd,python3 integration/validate_canary_handoff.py [redacted portable arguments],2,NOT_EVALUATED,REQUEST_LEDGER,0,0,NOT_EVALUATED
