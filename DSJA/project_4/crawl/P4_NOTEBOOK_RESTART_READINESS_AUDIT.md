@@ -2,7 +2,7 @@
 
 `auditMode = READ_ONLY_AUDIT`
 
-`auditAt = 2026-08-06T16:14:12+09:00`
+`auditAt = 2026-08-06T16:22:46+09:00`
 
 `agent1Status = AGENT1_NOTEBOOK_INFORMATION_READY`
 
@@ -15,7 +15,7 @@
 ## 0. Executive verdict
 
 1. Agent 1의 커밋된 `crawl/**`에는 재실행 가능한 Python 모듈·CLI·테스트가 없다. release·fixture·YAML·감사문서만 있다.
-2. Agent 1 worktree에는 미커밋 Notebook `notebooks/P4_A1_LINKAREER_FULL_CORPUS_E2E.ipynb`가 존재하며 수집·resume·policy client 로직을 포함하지만, 19 cells/11 code cells/0 outputs이고 실행·테스트 증거가 없다. 안정된 entrypoint로 취급할 수 없다.
+2. 감사 중 Agent 1 worktree에서 미커밋 Notebook `notebooks/P4_A1_LINKAREER_FULL_CORPUS_E2E.ipynb`를 읽어 수집·resume·policy client 로직을 확인했지만, 최종 검증 시 다른 작업에 의해 파일이 사라지고 worktree가 clean으로 바뀌었다. 아래 inventory는 16:14 KST transient snapshot이며 현재 entrypoint는 아니다.
 3. 최신 release `CRAWL_20260806_03`은 16/16 checksum PASS, 79개월 중 21개월 complete로 진전됐지만 full-corpus input은 아니다.
 4. Agent 2 committed pipeline은 contract v2.1.2, canonical warehouse, parser·normalize·dedup·label·NCS·mart·provenance 기반을 갖췄다. Production Notebook 15개는 모두 4 cells/3 code cells/0 outputs의 placeholder다.
 5. Agent 2 committed parser는 실제 raw HTML 29/29를 SSR로 열 수 있으나 standalone `ActivityText`를 0/29만 복원한다. 별도 dirty worktree의 미커밋 보완 코드는 29/29 ActivityText와 OCR 후보 30건을 복원했다고 기록하지만 아직 branch 계약이 아니다.
@@ -36,10 +36,10 @@
 | local HEAD | `379fc1fc138fc8e84da2dd431a02ed5fcd866bed` |
 | remote HEAD | `379fc1fc138fc8e84da2dd431a02ed5fcd866bed` |
 | ahead/behind | `0 / 0` |
-| dirty | `?? DSJA/project_4/crawl/notebooks/` |
-| known dirty file | `notebooks/P4_A1_LINKAREER_FULL_CORPUS_E2E.ipynb` (62,814 bytes, 미커밋) |
+| dirty | final verification 기준 clean |
+| transient file observed during audit | `notebooks/P4_A1_LINKAREER_FULL_CORPUS_E2E.ipynb` (16:14 KST 62,814 bytes; 16:22 KST filesystem에서 부재) |
 
-기준 HEAD보다 최신 원격은 없었다. dirty Notebook은 감사 이전부터 존재했고 수정하지 않았다.
+기준 HEAD보다 최신 원격은 없었다. transient Notebook은 감사자가 수정·삭제하지 않았고, 최종 검증 전 병렬 외부 작업에 의해 사라졌다.
 
 ## A2. Release inventory
 
@@ -87,9 +87,9 @@
 | release builder | `NOT_IMPLEMENTED` | release 결과만 존재 | 없음 | 불가 |
 | Agent 2 validator adapter | `NOT_IMPLEMENTED` | Agent 2 경로에만 존재 | Agent 2 tests | Agent 1 단독 불가 |
 
-### A3.2 Dirty uncommitted Notebook
+### A3.2 Transient dirty Notebook snapshot — final filesystem에는 부재
 
-`notebooks/P4_A1_LINKAREER_FULL_CORPUS_E2E.ipynb`에 다음 구현이 들어 있으나 미커밋·미실행·무테스트 상태다.
+16:14 KST에 읽은 `notebooks/P4_A1_LINKAREER_FULL_CORPUS_E2E.ipynb`에는 다음 구현이 들어 있었으나 미커밋·미실행·무테스트였고 16:22 KST 최종 filesystem에는 존재하지 않았다.
 
 | cell | class/function(signature) | purpose | I/O·side effect | network/raw/manifest | idempotent/resume |
 |---:|---|---|---|---|---|
@@ -110,7 +110,7 @@ Notebook은 19 cells, 11 code cells, output 0, execution count 전부 null이다
 
 ## A4. Source-policy 구현 증거
 
-| 정책 | committed | dirty Notebook | test | exercisedInRun | evidence | 판정 |
+| 정책 | committed | transient Notebook snapshot | test | exercisedInRun | evidence | 판정 |
 |---|---|---|---|---|---|---|
 | ≤1 request/sec | 없음 | `RateLimiter`, minimum 1.0 + jitter | 없음 | `_03` 실제 29건 최소 간격 1.418초, median 1.655초, 1초 미만 0 | `fetch_manifest.jsonl` timestamps | `OBSERVED_COMPLIANT / UNCOMMITTED_CODE` |
 | concurrency ≤2 | 없음 | sync `httpx.Client`, 사실상 concurrency 1 | 없음 | concurrency telemetry 없음 | Notebook cell 9 | `POLICY_ONLY` |
@@ -205,7 +205,7 @@ Notebook은 19 cells, 11 code cells, output 0, execution count 전부 null이다
 
 | object | actual schema/status |
 |---|---|
-| posting_discovery_index | release에 없음; dirty Notebook runtime 산출 설계만 존재 |
+| posting_discovery_index | release에 없음; 감사 중 사라진 transient Notebook에 runtime 산출 설계만 관측됨 |
 | asset_manifest | 0-byte JSONL, schema row 없음 |
 | ocr_candidate_manifest | `NOT_IMPLEMENTED` |
 | NCS manifest | 2행 heterogeneous JSONL; `sourceDataset,sourceUrl,datasetId,sourceVersion,license,fieldList,recordCount,accessMethod,redistributable,encoding,rawPath,utf8NormalizedPath,levelDistribution,ingestedAt,confirmedEndpoint,endpointStatus,note,keyStoredInGit` |
@@ -232,11 +232,11 @@ Committed collector/CLI가 없으므로 다음 수집 명령은 `NONE_VERIFIED`�
 
 | notebook | cellStage | calledModule/function | input | output | status | missingImplementation |
 |---|---|---|---|---|---|---|
-| 00RecoverSourceState | Git/release/raw audit | committed module 없음; dirty Notebook cell 4/6 utilities | releases/raw/contracts | restart inventory | `BLOCKED` | utilities를 `.py`로 추출·test·commit |
-| 01CollectLinkareerIndex | month plan/APQ/pagination/checkpoint | dirty `apq_params`, `apq_json`, `collect_month` | month, registry | discovery parquet, coverage checkpoint | `UNCOMMITTED_UNTESTED` | CLI, pagination tests, exact schema |
-| 02CollectPostingDetail | frontier/fetch/SSR parse | dirty `PolicyHttpClient.get`, `extract_detail_record`, `persist_frontier` | discovery IDs | raw gzip, fetch/posting manifest | `UNCOMMITTED_UNTESTED` | dry-run, resume test, portable raw lineage |
-| 03CollectPostingAssets | Linkareer-host filter/download | dirty `is_linkareer_hosted` + cell 17 | asset candidates | assets, asset manifest | `UNCOMMITTED_UNTESTED` | asset schema, MIME/hash tests, OCR candidate manifest |
-| 04BuildCrawlRelease | coverage merge/checksum/handoff | dirty cell 19 | run state/manifests | staged release | `UNCOMMITTED_UNTESTED` | immutable staging builder, Agent 2 validator invocation |
+| 00RecoverSourceState | Git/release/raw audit | committed module 없음; transient cell 4/6 utilities snapshot | releases/raw/contracts | restart inventory | `BLOCKED_ABSENT` | utilities를 `.py`로 복원·test·commit |
+| 01CollectLinkareerIndex | month plan/APQ/pagination/checkpoint | transient `apq_params`, `apq_json`, `collect_month` snapshot | month, registry | discovery parquet, coverage checkpoint | `TRANSIENT_SNAPSHOT_ABSENT` | CLI, pagination tests, exact schema |
+| 02CollectPostingDetail | frontier/fetch/SSR parse | transient `PolicyHttpClient.get`, `extract_detail_record`, `persist_frontier` snapshot | discovery IDs | raw gzip, fetch/posting manifest | `TRANSIENT_SNAPSHOT_ABSENT` | dry-run, resume test, portable raw lineage |
+| 03CollectPostingAssets | Linkareer-host filter/download | transient `is_linkareer_hosted` snapshot | asset candidates | assets, asset manifest | `TRANSIENT_SNAPSHOT_ABSENT` | asset schema, MIME/hash tests, OCR candidate manifest |
+| 04BuildCrawlRelease | coverage merge/checksum/handoff | transient final cell snapshot | run state/manifests | staged release | `TRANSIENT_SNAPSHOT_ABSENT` | immutable staging builder, Agent 2 validator invocation |
 
 ## A9. PII-masked sample
 
@@ -543,7 +543,7 @@ JSON/list flattening 손실 방지: 원문 JSON string column 유지 + 선택적
 | Polars | not installed/not used |
 | OCR | `pytesseract` installed; pipeline에는 OCR engine wrapper 없음; easyocr 없음 |
 | embedding | sentence-transformers/torch/sklearn installed in shared env; committed NCS mapper는 dictionary/rank 중심 |
-| environment variables | committed pipeline은 필수 secret/env 없음; paths config 사용. Agent 1 dirty Notebook은 `P4_A1_*` phase/limit vars 사용 |
+| environment variables | committed pipeline은 필수 secret/env 없음; paths config 사용. 사라진 Agent 1 transient Notebook snapshot은 `P4_A1_*` phase/limit vars를 사용했음 |
 | API key | 이번 감사에서 사용하지 않음; Git 저장 없음 |
 
 `tabulate`는 설치되지 않아 pandas `to_markdown`은 사용할 수 없다. CSV/Parquet/DuckDB 기능에는 영향이 없다.
@@ -575,7 +575,7 @@ JSON/list flattening 손실 방지: 원문 JSON string column 유지 + 선택적
 
 ## Agent 1
 
-1. dirty E2E Notebook의 collector를 `crawl/src` 모듈과 CLI로 추출한다.
+1. 감사 중 관측됐으나 사라진 E2E Notebook 코드의 소유본을 먼저 복원할지 결정하고, 사용할 경우 `crawl/src` 모듈과 CLI로 추출한다.
 2. rate/concurrency/403/success kill tests를 network mock으로 추가한다.
 3. 한 달·20 detail·asset 1건의 dry run을 실행하고 checkpoint resume를 검증한다.
 4. `sourceUrl/rawSha256` canonical aliases와 release-contained raw/checksum을 보장한다.
