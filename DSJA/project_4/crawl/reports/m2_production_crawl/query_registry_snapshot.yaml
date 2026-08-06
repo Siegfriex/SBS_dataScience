@@ -1,0 +1,40 @@
+# raw.queryRegistry 초기 시드 (PROMPT 1 bootstrap이 이 파일을 읽어 INSERT 한다).
+# APQ(Persisted Query) sha256Hash는 프런트엔드 배포로 바뀔 수 있으므로 수집기 코드에
+# 하드코딩하지 않는다. 새 해시가 발견되면 이 파일을 갱신하고 lastVerifiedAt을 채운다.
+# 근거: docs/audit/P0_RECON_REPORT_FINAL.md (RECON_20260806_01)
+
+queries:
+  - operationName: CalendarScreen_ActivityCalendarEntries
+    sha256Hash: b13ef5935c32d80a0cbabc6c9aaf9cbc52c274d34f983a2b06d14056da8bedbf
+    transportType: apq_get
+    httpMethod: GET
+    frontendBuildId: linkareer-client-1785976285032
+    discoveredAt: "2026-08-06"
+    lastVerifiedAt: "2026-08-06"
+    responseSchemaVersion: "v1"
+    activeFlag: true
+    verificationStatus: verified
+    note: >
+      Primary listing source. Returns day-bucketed activity entries with a
+      hard cap of nodePagination.pageSize=6 per (day, side). MUST check
+      start.totalCount/end.totalCount per bucket and re-page (nodePagination.page=2,3,...)
+      whenever totalCount>6 to avoid silent truncation (see APQ_PAGINATION_AUDIT.csv —
+      naive single request only recovered 14.1% of a high-volume month).
+      status filter should be OMITTED (or null) rather than "OPEN" — passing
+      status="OPEN" measurably drops ~0.9% of results vs omitting it (APQ_DATE_SEMANTICS.md §1).
+
+  - operationName: CalendarScreen_Activities
+    sha256Hash: ea782afe3367f1e785516be02b6bd9dd4fee54f5c356fb6071fa08ffb4b0b78a
+    transportType: apq_get
+    httpMethod: GET
+    frontendBuildId: linkareer-client-1785976285032
+    discoveredAt: "2026-08-06"
+    lastVerifiedAt: "2026-08-06"
+    responseSchemaVersion: "v1"
+    activeFlag: true
+    verificationStatus: verified
+    note: >
+      totalCount-only aggregate for a filterBy/rangeBy combination. The two
+      recruitStartAt/recruitCloseAt windows use OR/union semantics, as recorded
+      in CRAWL_20260806_03/schema_snapshot.json. This aggregate is a secondary
+      cross-check; per-bucket exhaustion remains the completeness authority.

@@ -1,0 +1,43 @@
+{
+  "agentId": "P4-A1-M2-PRODUCTION-ORCHESTRATOR",
+  "generatedAtUtc": "2026-08-06T14:56:54.531022Z",
+  "branch": "agent/p4-crawl-m2-production-v1",
+  "headCommit": "c72f4e74dfbac23f56d97b12ebc5469f87895d4b",
+  "runId": "M2_PREFLIGHT_20260806_01",
+  "dataVersion": "m2-preflight-20260806.1",
+  "runMode": "production-preflight",
+  "authorityPromptSha256": "bac3b50a9f8aa7930a26c095cb5dbb1362c6e009a90a4eb47d58204ed90bff39",
+  "contractVersion": "2.1.2",
+  "baselineReleaseId": "CRAWL_20260806_03",
+  "targetMonths": 79,
+  "baselineCompleteMonths": 21,
+  "baselineUnverifiedMonths": 58,
+  "productionApprovalPresent": false,
+  "productionApprovalErrors": [
+    "PRODUCTION_APPROVAL_MISSING"
+  ],
+  "productionNetworkCalls": 0,
+  "externalAtsTransportCalls": 0,
+  "queryRegistryStatus": "PASS",
+  "killSwitchTests": {
+    "passed": 14,
+    "failed": 0
+  },
+  "fullRegressionTests": {
+    "passed": 52,
+    "failed": 0
+  },
+  "transparentClientEvidenceConflict": true,
+  "secretsIncluded": false,
+  "claimedStatus": "M2_CRAWL_READY_FOR_USER_APPROVAL",
+  "forbiddenClaims": [
+    "CRAWL_RELEASE_READY",
+    "DATA_READY_RQ1_RQ2A",
+    "DATA_READY_RQ2B",
+    "ANALYSIS_READY"
+  ],
+  "security": {
+    "trackedSecretFileCount": 0,
+    "trackedRawFileCount": 0
+  }
+}

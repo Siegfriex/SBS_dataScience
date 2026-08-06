@@ -1,0 +1,5 @@
+﻿defectId,priority,status,component,description,blocksNetwork,recommendedFix
+M2-P1-001,P1,USER_ACTION_REQUIRED,production approval,signed approval artifact absent,True,complete D-M2-001 approval artifact
+M2-P1-002,P1,EVIDENCE_REQUIRED,source policy,transparent-client production request evidence is not promoted to PASS,True,record transparent-client verification without impersonation or keep production blocked
+M2-P1-003,P1,EXPECTED_M2_WORK,monthly coverage,58/79 months require terminal pagination,False,execute approved resumable index plan
+M2-P2-001,P2,PLANNING_ASSUMPTION,storage,asset volume uses observed candidate rate and assumed mean bytes,False,recalculate quota after first approved checkpoint

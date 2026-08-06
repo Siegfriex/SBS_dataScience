@@ -1,0 +1,11 @@
+{
+  "state": {
+    "runId": "M2_PREFLIGHT_20260806_01",
+    "dataVersion": "m2-preflight-20260806.1",
+    "completedPeriods": [],
+    "nextPeriod": "2020-01",
+    "productionApproved": false,
+    "networkTransportCalls": 0
+  },
+  "stateSha256": "763e86058cf0362501cc22a2580e38adf21ba2bab4a765577c27bbf030a46f4f"
+}

@@ -1,0 +1,19 @@
+{
+  "estimationStatus": "PLANNING_ESTIMATE_NOT_QUOTA_RESERVATION",
+  "baselineRawRows": 29,
+  "baselineRawCompressedBytes": 922111,
+  "baselineRawDecompressedBytes": 4637898,
+  "targetPostingIdPlanningCount": 40551,
+  "estimatedIndexRequests": 1999,
+  "assumedMeanIndexResponseBytes": 250000,
+  "estimatedIndexBytes": 499750000,
+  "estimatedDetailRawCompressedBytes": 1289397351,
+  "observedAssetCandidateRate": 0.21897810218978103,
+  "estimatedAssetCandidates": 8880,
+  "assumedMeanAssetBytes": 1500000,
+  "estimatedAssetBytes": 13320000000,
+  "estimatedMachineArtifactBytes": 626201573,
+  "estimatedSubtotalBytes": 15735348924,
+  "requiredCapacityWith2xHeadroomBytes": 31470697848,
+  "rawRuntimeAuthority": "LOCAL_IGNORED_RUNTIME_ROOT_NOT_RECORDED"
+}

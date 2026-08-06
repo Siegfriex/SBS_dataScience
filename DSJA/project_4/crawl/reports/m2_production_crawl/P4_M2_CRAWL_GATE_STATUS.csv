@@ -1,0 +1,11 @@
+﻿gateId,status,observed,evidencePath
+PRODUCTION_PARAMETER_FROZEN,PASS,79 months; activityTypeID=5; status omitted,production_parameters.json
+QUERY_REGISTRY_FROZEN,PASS,queries=2; unresolved=0,query_registry_snapshot.yaml
+KILL_SWITCH_TESTED,PASS,14/14 tests,P4_M2_PREFLIGHT_TESTS.csv
+CRAWL_REGRESSION_TESTED,PASS,52/52 tests,P4_M2_FULL_REGRESSION_TESTS.csv
+CHECKPOINT_RESUME_TESTED,PASS,round-trip and corruption rejection,index_checkpoint_seed.json
+STORAGE_PLAN_READY,PASS,31470697848,storage_plan.json
+SOURCE_POLICY_APPROVED,NOT_EVALUATED,transparent-client production evidence and signed approval absent,P4_M2_CRAWL_SOURCE_POLICY_AUDIT.md
+PRODUCTION_USER_APPROVAL,NOT_EVALUATED,PRODUCTION_APPROVAL_MISSING,P4_M2_CRAWL_USER_DECISION_PACKET.md
+PREAPPROVAL_NETWORK_ZERO,PASS,0,M2_PREFLIGHT_MANIFEST.json
+CRAWL_RELEASE_READY,BLOCKED,baseline complete=21/79; approval missing,P4_M2_CRAWL_EXECUTION_REPORT.md

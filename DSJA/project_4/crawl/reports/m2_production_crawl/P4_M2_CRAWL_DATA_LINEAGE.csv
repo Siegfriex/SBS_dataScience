@@ -1,0 +1,5 @@
+﻿stage,inputPath,inputRows,outputPath,outputRows,status
+PREFLIGHT_MONTH_PLAN,crawl/releases/CRAWL_20260806_03/monthly_coverage.csv,85,crawl/reports/m2_production_crawl/month_plan.parquet,79,PASS
+QUERY_FREEZE,crawl/configs/queryRegistry.yaml,2,crawl/reports/m2_production_crawl/query_registry_snapshot.yaml,2,PASS
+CHECKPOINT_SEED,production_parameters.json,1,crawl/reports/m2_production_crawl/index_checkpoint_seed.json,1,PASS
+PRODUCTION_NETWORK,PRODUCTION_APPROVAL.json,0,NONE,0,BLOCKED_PREAPPROVAL
