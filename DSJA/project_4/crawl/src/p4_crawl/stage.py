@@ -72,7 +72,7 @@ def write_stage_artifacts(
             "status": "INFORMATIONAL",
         })
     atomic_write_json(stage_root / "stage_metrics.json", {
-        "metricsVersion": "stage-metrics-v1", "runId": config.data_version,
+        "metricsVersion": "stage-metrics-v1", "runId": config.run_id,
         "runMode": config.run_mode, "stageId": stage_id, "contractVersion": config.contract_version,
         "crawlReleaseId": config.crawl_release_id, "dataVersion": config.data_version,
         "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY", "empiricalAnalysisAllowed": False,
@@ -94,7 +94,7 @@ def write_stage_artifacts(
     gate_results = [{"gateId": row["gateId"], "status": row["status"], "evidencePath": row["evidencePath"]} for row in quality_rows]
     failed = any(row["status"] == "FAIL" for row in quality_rows)
     manifest = {
-        "manifestVersion": "stage-manifest-v1", "runId": config.data_version, "runMode": config.run_mode,
+        "manifestVersion": "stage-manifest-v1", "runId": config.run_id, "runMode": config.run_mode,
         "stageId": stage_id, "status": "FAILED" if failed else "SUCCEEDED", "agentId": AGENT_ID,
         "branch": branch, "gitHead": git_head(config.project_root), "contractVersion": config.contract_version,
         "schemaVersion": schema_version, "dataVersion": config.data_version, "crawlReleaseId": config.crawl_release_id,

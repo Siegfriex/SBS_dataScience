@@ -95,6 +95,73 @@ def git_head(project_root: str | Path) -> str:
     return result.stdout.strip()
 
 
+def git_branch(project_root: str | Path) -> str:
+    result = subprocess.run(
+        ["git", "branch", "--show-current"], cwd=Path(project_root), check=True,
+        text=True, capture_output=True,
+    )
+    return result.stdout.strip() or "DETACHED"
+
+
+def source_blob_provenance(
+    project_root: str | Path,
+    notebook_paths: Sequence[str] | None = None,
+) -> list[dict[str, Any]]:
+    """Bind every crawl source Notebook byte stream to a tracked Git blob."""
+
+    root = Path(project_root).resolve()
+    paths = list(notebook_paths or [
+        relative for _, _, relative in NOTEBOOK_INDEX if relative.startswith("crawl/notebooks/")
+    ])
+    rows: list[dict[str, Any]] = []
+    branch = git_branch(root)
+    head = git_head(root)
+    git_prefix = subprocess.run(
+        ["git", "rev-parse", "--show-prefix"], cwd=root, check=True,
+        text=True, capture_output=True,
+    ).stdout.strip()
+    for relative in paths:
+        path = root / relative
+        repo_relative = f"{git_prefix}{relative}"
+        exists = path.is_file()
+        tracked = subprocess.run(
+            ["git", "ls-files", "--error-unmatch", "--", relative],
+            cwd=root,
+            text=True,
+            capture_output=True,
+        ).returncode == 0
+        git_blob_id = ""
+        working_blob_id = ""
+        source_commit = ""
+        if exists:
+            working_blob_id = subprocess.run(
+                ["git", "hash-object", "--", relative], cwd=root, check=True,
+                text=True, capture_output=True,
+            ).stdout.strip()
+        if tracked:
+            result = subprocess.run(
+                ["git", "rev-parse", f"HEAD:{repo_relative}"], cwd=root,
+                text=True, capture_output=True,
+            )
+            if result.returncode == 0:
+                git_blob_id = result.stdout.strip()
+            source_commit = subprocess.run(
+                ["git", "log", "-1", "--format=%H", "--", relative], cwd=root,
+                check=True, text=True, capture_output=True,
+            ).stdout.strip()
+        rows.append({
+            "sourcePath": relative,
+            "sourceFileSha256": sha256_file(path) if exists else "",
+            "gitBlobId": git_blob_id,
+            "workingTreeBlobId": working_blob_id,
+            "sourceBranch": branch,
+            "sourceCommit": source_commit or head,
+            "tracked": tracked,
+            "workingTreeMatchesGitBlob": bool(tracked and git_blob_id == working_blob_id),
+        })
+    return rows
+
+
 def load_stage_registry(project_root: str | Path) -> dict[str, Any]:
     import yaml
 
@@ -385,17 +452,20 @@ def execute_notebook(
     stage_id = stage_lookup[relative.as_posix()]
     owner = next(item[0] for item in NOTEBOOK_INDEX if item[2] == relative.as_posix())
     parameter_output: Path | None
+    execution_run_id = ""
     kernel_cwd = root
     child_env: dict[str, str] = {}
     if owner == "P4-A1-SOURCE":
         agent_run = shared_run / "agent_runs" / "AGENT1"
         stage_output = agent_run / stage_id
         parameter_output = agent_run.relative_to(root)
+        execution_run_id = agent_run.relative_to(root / "crawl/runs").as_posix()
     elif owner == "P4-A2-PIPELINE":
-        agent_run = root / "pipeline/runs/notebooks/observed-dev/MASTER_20260806_01"
+        agent_run = shared_run / "external_runtime" / "AGENT2"
         stage_name = source.stem
         stage_output = shared_run / "agent_runs" / "AGENT2" / stage_name
         parameter_output = None
+        execution_run_id = _relative_portable_path(agent_run, root)
         child_env = {
             "P4_NOTEBOOK_RUN_ROOT": str(agent_run),
             "P4_CRAWL_ROOT": str(root / "crawl"),
@@ -406,6 +476,7 @@ def execute_notebook(
     elif owner == "P4-A4-NCS":
         stage_output = shared_run / "agent_runs" / "AGENT4" / stage_id
         parameter_output = None
+        execution_run_id = _relative_portable_path(shared_run / "external_runtime" / "AGENT4", root)
         kernel_cwd = root / "ncs_mapping"
         child_env = {
             "P4_A2_DUTY_HANDOFF": str(root / "shared/handoffs/AGENT2_TO_AGENT4_DUTY_INPUT_OBSERVED_DEV.json"),
@@ -445,7 +516,7 @@ def execute_notebook(
                 os.environ[name] = value
     if status == "PASS" and owner in {"P4-A2-PIPELINE", "P4-A4-NCS"}:
         if owner == "P4-A2-PIPELINE":
-            canonical_stage = root / "pipeline/runs/notebooks/observed-dev/MASTER_20260806_01/artifacts" / source.stem
+            canonical_stage = agent_run / "artifacts" / source.stem
         else:
             canonical_stage = root / "ncs_mapping/data/runs/observed-dev/NCS_MAPPING_OBSERVED_20260806_01" / stage_id
         if canonical_stage.is_dir():
@@ -463,8 +534,172 @@ def execute_notebook(
         "executedSha256": sha256_file(destination),
         "executedOutputs": outputs,
         "stageOutputRoot": stage_output.relative_to(root).as_posix() if stage_output.is_relative_to(root) else str(stage_output),
+        "executionRunId": execution_run_id,
         "error": error.replace("\n", " ")[:2000],
     }
+
+
+CURRENT_RUN_REQUIRED_FIELDS = (
+    "stageId",
+    "runId",
+    "sourceNotebookSha256",
+    "parameterSha256",
+    "inputManifestSha256",
+    "outputRoot",
+    "status",
+    "createdAt",
+)
+
+
+def _relative_portable_path(path: Path, project_root: Path) -> str:
+    resolved = path.resolve()
+    if not resolved.is_relative_to(project_root.resolve()):
+        raise ValueError(f"path escapes project root: {path}")
+    return resolved.relative_to(project_root.resolve()).as_posix()
+
+
+def validate_current_run_manifest(
+    payload: Mapping[str, Any],
+    *,
+    expected_stage_id: str,
+    expected_run_id: str,
+    expected_source_sha256: str,
+) -> list[str]:
+    errors = [f"missing:{field}" for field in CURRENT_RUN_REQUIRED_FIELDS if not payload.get(field)]
+    if payload.get("stageId") != expected_stage_id:
+        errors.append("stageId:mismatch")
+    if payload.get("runId") != expected_run_id:
+        errors.append("runId:mismatch")
+    if payload.get("sourceNotebookSha256") != expected_source_sha256:
+        errors.append("sourceNotebookSha256:mismatch")
+    for field in ("sourceNotebookSha256", "parameterSha256", "inputManifestSha256"):
+        value = str(payload.get(field, ""))
+        if len(value) != 64 or any(character not in "0123456789abcdef" for character in value):
+            errors.append(f"{field}:invalid")
+    output_root = Path(str(payload.get("outputRoot", "")))
+    if output_root.is_absolute() or ".." in output_root.parts:
+        errors.append("outputRoot:not-portable")
+    if payload.get("status") not in {"SUCCEEDED", "FAILED", "NOT_EVALUATED"}:
+        errors.append("status:invalid")
+    return sorted(set(errors))
+
+
+def quarantine_manifest(path: str | Path, quarantine_root: str | Path, *, reason: str) -> Path:
+    """Move stale/duplicate evidence without deleting its bytes."""
+
+    source = Path(path)
+    destination_root = Path(quarantine_root) / reason
+    destination_root.mkdir(parents=True, exist_ok=True)
+    digest = sha256_file(source)
+    destination = destination_root / f"{source.stem}.{digest[:16]}{source.suffix}"
+    if destination.exists() and sha256_file(destination) != digest:
+        raise ValueError(f"quarantine collision: {destination}")
+    if not destination.exists():
+        shutil.move(str(source), str(destination))
+    else:
+        source.unlink()
+    return destination
+
+
+def bind_current_run_manifests(
+    project_root: str | Path,
+    run_root: str | Path,
+    executions: Sequence[Mapping[str, Any]],
+    *,
+    run_id: str,
+) -> list[dict[str, Any]]:
+    """Create exactly one canonical current-run envelope per executed stage."""
+
+    root = Path(project_root).resolve()
+    run = Path(run_root).resolve()
+    canonical_root = run / "current_run_manifests"
+    superseded_root = run / "superseded_manifests"
+    rows: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for execution in executions:
+        stage_id = str(execution["stageId"])
+        if stage_id in seen:
+            raise ValueError(f"duplicate execution result for stage: {stage_id}")
+        seen.add(stage_id)
+        source_manifest = root / str(execution["stageOutputRoot"]) / "stage_manifest.json"
+        if not source_manifest.is_file():
+            raise FileNotFoundError(f"current-run source manifest missing: {source_manifest}")
+        source_payload = json.loads(source_manifest.read_text(encoding="utf-8"))
+        source_run_id = str(source_payload.get("runId", ""))
+        expected_source_run_id = str(execution.get("executionRunId") or run_id)
+        if source_run_id != expected_source_run_id:
+            raise ValueError(
+                f"stale manifest runId for {stage_id}: {source_run_id!r} != {expected_source_run_id!r}"
+            )
+        destination = canonical_root / stage_id / "stage_manifest.json"
+        if destination.exists():
+            quarantine_manifest(destination, superseded_root / stage_id, reason="duplicate")
+        payload = {
+            "stageId": stage_id,
+            "runId": run_id,
+            "sourceNotebookSha256": str(execution["sourceSha256"]),
+            "parameterSha256": str(source_payload.get("parameterSha256", "")),
+            "inputManifestSha256": str(source_payload.get("inputManifestSha256", "")),
+            "outputRoot": _relative_portable_path(root / str(execution["stageOutputRoot"]), root),
+            "status": str(source_payload.get("status", "NOT_EVALUATED")),
+            "createdAt": str(source_payload.get("completedAt") or source_payload.get("startedAt") or ""),
+            "sourceManifestPath": _relative_portable_path(source_manifest, root),
+            "sourceManifestSha256": sha256_file(source_manifest),
+            "sourceManifestRunId": source_run_id,
+        }
+        errors = validate_current_run_manifest(
+            payload,
+            expected_stage_id=stage_id,
+            expected_run_id=run_id,
+            expected_source_sha256=str(execution["sourceSha256"]),
+        )
+        if errors:
+            raise ValueError(f"invalid current-run manifest for {stage_id}: {errors}")
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        rows.append({**payload, "path": _relative_portable_path(destination, root), "sha256": sha256_file(destination)})
+    return rows
+
+
+def _normalized_code_cells(path: str | Path, *, executed: bool) -> list[tuple[str, str]]:
+    notebook = nbformat.read(path, as_version=4)
+    rows: list[tuple[str, str]] = []
+    marker = "# Injected into the executed copy by crawl.control.notebook_bundle"
+    for cell in notebook.cells:
+        if cell.cell_type != "code":
+            continue
+        source = cell.source
+        if executed and marker in source:
+            source = source.split(marker, 1)[0].rstrip() + "\n"
+        rows.append((cell.get("id", ""), source))
+    return rows
+
+
+def source_executed_parity_rows(
+    project_root: str | Path,
+    executions: Sequence[Mapping[str, Any]],
+) -> list[dict[str, Any]]:
+    root = Path(project_root).resolve()
+    provenance = {row["sourcePath"]: row for row in source_blob_provenance(root)}
+    rows: list[dict[str, Any]] = []
+    for execution in executions:
+        source_relative = str(execution["notebook"])
+        if source_relative not in provenance:
+            continue
+        executed_relative = str(execution["executedPath"])
+        source_path = root / source_relative
+        executed_path = root / executed_relative
+        code_parity = bool(
+            executed_path.is_file()
+            and _normalized_code_cells(source_path, executed=False)
+            == _normalized_code_cells(executed_path, executed=True)
+        )
+        rows.append({
+            **provenance[source_relative],
+            "executedPath": executed_relative,
+            "executedCodeParity": code_parity,
+        })
+    return rows
 
 
 def execute_notebook_plan(
