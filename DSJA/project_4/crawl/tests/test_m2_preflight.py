@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+import ast
 import json
 from pathlib import Path
 
 import pytest
+from jsonschema import Draft202012Validator
 
 from p4_crawl.m2_preflight import (
     M2PolicyConfig,
@@ -116,3 +118,25 @@ def test_query_registry_is_frozen_without_unresolved_semantics() -> None:
     result = validate_query_registry(CRAWL_ROOT / "configs/queryRegistry.yaml")
     assert result["status"] == "PASS"
     assert result["queryCount"] == 2
+
+
+def test_production_approval_schema_accepts_only_frozen_scope() -> None:
+    schema = json.loads((CRAWL_ROOT / "control/PRODUCTION_APPROVAL.schema.json").read_text())
+    Draft202012Validator(schema, format_checker=Draft202012Validator.FORMAT_CHECKER).validate(valid_approval())
+    invalid = valid_approval()
+    invalid["approvedPeriod"] = "2019-01~2026-07"
+    with pytest.raises(Exception):
+        Draft202012Validator(schema).validate(invalid)
+
+
+def test_preflight_modules_have_no_network_transport_import() -> None:
+    forbidden = {"requests", "httpx", "curl_cffi", "urllib.request", "aiohttp"}
+    for path in (CRAWL_ROOT / "src/p4_crawl/m2_preflight.py", CRAWL_ROOT / "scripts/build_m2_preflight.py"):
+        tree = ast.parse(path.read_text(encoding="utf-8"))
+        imports = set()
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Import):
+                imports.update(alias.name for alias in node.names)
+            elif isinstance(node, ast.ImportFrom) and node.module:
+                imports.add(node.module)
+        assert not imports.intersection(forbidden)
