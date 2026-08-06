@@ -18,7 +18,7 @@ The parser, eligibility, development warehouse, mart, provenance, and validation
 - Git root: `/home/sieg/projects-wsl/SBS_dataScience`
 - Branch: `agent/p4-pipeline-v2`
 - HEAD reference: `HEAD`
-- Implementation HEAD at generation: `f975192af5260bc681f8086d4d184eecb0b6f0d6`
+- HEAD resolution: resolve `HEAD` on this branch when consuming the handoff
 
 ## Contract and crawl input
 

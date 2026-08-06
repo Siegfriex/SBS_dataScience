@@ -5,22 +5,13 @@
   "contractStatus": "BLOCKED_BY_CONTRACT",
   "crawlInputStatus": "BLOCKED_BY_CRAWL_RELEASE",
   "empiricalAnalysisAllowed": false,
-  "generatedAt": "2026-08-06T14:09:53.899781+09:00",
+  "generatedAt": "2026-08-06T14:11:01.396073+09:00",
   "repository": {
     "gitRoot": "/home/sieg/projects-wsl/SBS_dataScience",
     "branch": "agent/p4-pipeline-v2",
     "headRef": "HEAD",
-    "implementationHeadAtGeneration": "f975192af5260bc681f8086d4d184eecb0b6f0d6",
-    "remote": "https://github.com/Siegfriex/SBS_dataScience.git",
-    "dirtyOwnedPathsAtGeneration": [
-      "M DSJA/project_4/pipeline/reports/agent2/AGENT2_FINAL_REPORT.json",
-      " M DSJA/project_4/pipeline/reports/agent2/AGENT2_FINAL_REPORT.md",
-      " M DSJA/project_4/pipeline/reports/agent2/ARTIFACT_MANIFEST.json",
-      " M DSJA/project_4/pipeline/scripts/build_reports.py",
-      " M DSJA/project_4/shared/handoffs/AGENT2_HANDOFF.json",
-      " M DSJA/project_4/shared/handoffs/AGENT2_TO_AGENT1_REQUESTS.json",
-      " M DSJA/project_4/shared/handoffs/AGENT2_TO_AGENT3_ISSUES.json"
-    ]
+    "headResolution": "Resolve HEAD in this branch when the handoff is consumed; a report cannot embed the hash of its own commit.",
+    "remote": "https://github.com/Siegfriex/SBS_dataScience.git"
   },
   "contracts": {
     "targetContractVersion": "2.1.2",

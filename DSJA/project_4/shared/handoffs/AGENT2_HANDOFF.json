@@ -6,7 +6,7 @@
   "crawlInputStatus": "BLOCKED_BY_CRAWL_RELEASE",
   "branch": "agent/p4-pipeline-v2",
   "headRef": "HEAD",
-  "implementationHeadAtGeneration": "f975192af5260bc681f8086d4d184eecb0b6f0d6",
+  "headResolution": "Resolve HEAD in this branch when the handoff is consumed; a report cannot embed the hash of its own commit.",
   "targetContractVersion": "2.1.2",
   "supportedContractVersion": null,
   "crawlReleaseId": null,

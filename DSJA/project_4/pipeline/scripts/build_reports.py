@@ -203,9 +203,8 @@ def build() -> dict[str, object]:
             "gitRoot": str(REPOSITORY_ROOT),
             "branch": git("branch", "--show-current"),
             "headRef": "HEAD",
-            "implementationHeadAtGeneration": git("rev-parse", "HEAD"),
+            "headResolution": "Resolve HEAD in this branch when the handoff is consumed; a report cannot embed the hash of its own commit.",
             "remote": git("remote", "get-url", "origin"),
-            "dirtyOwnedPathsAtGeneration": git("status", "--short", "--", "DSJA/project_4/pipeline", "DSJA/project_4/shared/handoffs/AGENT2_*").splitlines(),
         },
         "contracts": {
             "targetContractVersion": TARGET_CONTRACT,
@@ -313,7 +312,7 @@ The parser, eligibility, development warehouse, mart, provenance, and validation
 - Git root: `{REPOSITORY_ROOT}`
 - Branch: `{report['repository']['branch']}`
 - HEAD reference: `HEAD`
-- Implementation HEAD at generation: `{report['repository']['implementationHeadAtGeneration']}`
+- HEAD resolution: resolve `HEAD` on this branch when consuming the handoff
 
 ## Contract and crawl input
 
@@ -362,7 +361,7 @@ These fixture counts verify code paths only. They are not source coverage or emp
         "crawlInputStatus": "BLOCKED_BY_CRAWL_RELEASE",
         "branch": report["repository"]["branch"],
         "headRef": "HEAD",
-        "implementationHeadAtGeneration": report["repository"]["implementationHeadAtGeneration"],
+        "headResolution": report["repository"]["headResolution"],
         "targetContractVersion": TARGET_CONTRACT,
         "supportedContractVersion": None,
         "crawlReleaseId": None,
