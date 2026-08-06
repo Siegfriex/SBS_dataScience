@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import copy
+import os
 from pathlib import Path
 
 import pandas as pd
@@ -24,10 +25,8 @@ OBSERVED = CRAWL_ROOT / "observed_inputs/OBSERVED_INPUT_20260806_01"
 
 
 def _raw_mount() -> Path | None:
-    candidates = [
-        CRAWL_ROOT,
-        Path("/home/sieg/projects-wsl/worktrees/p4-agent1/DSJA/project_4/crawl"),
-    ]
+    configured = os.getenv("P4_CRAWL_RAW_SOURCE_ROOT")
+    candidates = [CRAWL_ROOT, *( [Path(configured)] if configured else [] )]
     for candidate in candidates:
         if (candidate / "data/raw/linkareer/detail").is_dir():
             return candidate

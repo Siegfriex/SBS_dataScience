@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 
 import pytest
@@ -13,7 +14,10 @@ CRAWL_ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_raw_object_manifest_schema_accepts_verified_objects() -> None:
-    raw_mount = Path("/home/sieg/projects-wsl/worktrees/p4-agent1/DSJA/project_4/crawl")
+    configured = os.getenv("P4_CRAWL_RAW_SOURCE_ROOT")
+    if not configured:
+        pytest.skip("external observed raw mount not configured")
+    raw_mount = Path(configured)
     if not (raw_mount / "data/raw/linkareer/detail").is_dir():
         pytest.skip("external observed raw mount unavailable")
     source = load_jsonl(

@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "p4-linkareer-canary-approval-v1",
+  "title": "P4 bounded Linkareer canary approval",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "canaryApprovalId",
+    "approvedBy",
+    "approvedAtUtc",
+    "expiresAtUtc",
+    "approvedSource",
+    "approvedCanaryScope",
+    "approvedMaxRequests",
+    "approvedMaxDetailRequests",
+    "approvedMaxAssetRequests",
+    "linkareerHostedAssetAllowed",
+    "externalAtsTransportAllowed",
+    "rateLimitPolicyVersion",
+    "killSwitchPolicyVersion",
+    "queryRegistrySha256",
+    "sourcePolicyAuditSha256"
+  ],
+  "properties": {
+    "canaryApprovalId": {"type": "string", "minLength": 1},
+    "approvedBy": {"type": "string", "minLength": 1},
+    "approvedAtUtc": {"type": "string", "format": "date-time", "pattern": "Z$"},
+    "expiresAtUtc": {"type": "string", "format": "date-time", "pattern": "Z$"},
+    "approvedSource": {"const": "LINKAREER"},
+    "approvedCanaryScope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["periodMonths", "queryOperations"],
+      "properties": {
+        "periodMonths": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$"}},
+        "queryOperations": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "postingIds": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}
+      }
+    },
+    "approvedMaxRequests": {"type": "integer", "minimum": 1},
+    "approvedMaxDetailRequests": {"type": "integer", "minimum": 0},
+    "approvedMaxAssetRequests": {"type": "integer", "minimum": 0},
+    "linkareerHostedAssetAllowed": {"const": true},
+    "externalAtsTransportAllowed": {"const": false},
+    "rateLimitPolicyVersion": {"type": "string", "minLength": 1},
+    "killSwitchPolicyVersion": {"type": "string", "minLength": 1},
+    "queryRegistrySha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "sourcePolicyAuditSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

@@ -9,3 +9,7 @@ runs/notebooks/observed-dev/M1_5_*/
 runs/notebooks/observed-dev/superseded/M1_5_*/
 runs/notebooks/observed-dev/POST_IMPL_AUDIT_*/
 runs/notebooks/observed-dev/POST_IMPL_MASTER_AUDIT_*/
+
+# Bounded canary runtime objects stay local. Only redacted report packets under
+# reports/canary_debug are tracked.
+runs/canary/
