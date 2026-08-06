@@ -1,0 +1,128 @@
+{
+  "acceptedAgentCommits": {},
+  "acceptedRawBytes": 0,
+  "agentId": "P4-A3-GLOBAL-INTEGRATION-RECONCILIATION-ORCHESTRATOR",
+  "baseCommit": "5508fce02ba5396b5d5a55870f1f879c1f32e8e0",
+  "claimedStatus": "BLOCKED_BY_EVIDENCE",
+  "consumedCandidateCommits": {
+    "A1": "2d3f48025352359acf5787efeb79c0111fdea9f7"
+  },
+  "contractVersion": "2.1.2",
+  "crawlHandoffBranch": "agent/p4-crawl-m1_5-control-patch-v4",
+  "crawlHandoffCommit": "2d3f48025352359acf5787efeb79c0111fdea9f7",
+  "crawlHandoffStatus": "REJECTED",
+  "dataVersion": "reconciliation-20260807.1",
+  "exactOneManifests": 0,
+  "executedStages": 0,
+  "externalAtsTransportCalls": 0,
+  "headCommit": "e903d3a1d5f919cf7a117d8e351750ab9dc840f2",
+  "integrationBranch": "integration/p4-m1_5-reconcile-for-m2-v1",
+  "m2PreflightBranch": "agent/p4-crawl-m2-production-v1",
+  "m2PreflightCommit": "007bc8e6fa0c0314aecd5b70f64640f6b6482873",
+  "plannedStages": 23,
+  "productionNetworkCalls": 0,
+  "rawBytesInclusionPolicy": "GIT_EXCLUDED_RUNTIME_MOUNT; manifests and hashes only",
+  "rawObjectManifestSha256": "f12680f1d598f70df576f0af4743c5e9c49df7caf16eccb1d898bded5eb3dfbe",
+  "reports": {
+    "P4_M1_5_A5_AUDIT_REQUEST.json": {
+      "rows": 81,
+      "sha256": "00a2818d3bebeb55aaa90127f053f591b0a442a9761808a551b7789fb3be2b02"
+    },
+    "P4_M1_5_AGENT_HANDOFF_ACCEPTANCE.csv": {
+      "rows": 3,
+      "sha256": "72d8d6bb2e10f6e0acd255c297d52cc2337df7149529618d3365480c480da40f"
+    },
+    "P4_M1_5_CANONICAL_LINEAGE_AUDIT.csv": {
+      "rows": 10,
+      "sha256": "0149ed1abcc799414fac6431f015119b756549ececa5b9679a9aa2ca9f0427c1"
+    },
+    "P4_M1_5_CURRENT_RUN_MANIFEST_AUDIT.csv": {
+      "rows": 23,
+      "sha256": "0c546eeef77257393e0e9f053017564e2509d8ff99599c4c7e590a1babf3ba7f"
+    },
+    "P4_M1_5_DEFECT_REGISTER.csv": {
+      "rows": 11,
+      "sha256": "c6d1034703b91a6ffabbd9a260600193548bf92c701bb37fa4bb192e42c4face"
+    },
+    "P4_M1_5_FULL_REPLAY_SUMMARY.csv": {
+      "rows": 23,
+      "sha256": "0c5c67e3bc216dee48d02313f1b7255dbccbff073b25b3a0a79cdda9ad10996c"
+    },
+    "P4_M1_5_GATE_STATUS.csv": {
+      "rows": 19,
+      "sha256": "04309ad0ccbf20ec23e671ba3b45153d40c6047d0d2049c2120aa6e1e0aee06b"
+    },
+    "P4_M1_5_NOTEBOOK_AUTHORITY.csv": {
+      "rows": 27,
+      "sha256": "8bcb90da73ba3968e8f8596af34fa22cb4802ba17e5660e6cbc5a0bd28043070"
+    },
+    "P4_M1_5_RAW_MOUNT_AUDIT.csv": {
+      "rows": 5,
+      "sha256": "54c39e4277901b70020e29005cce1675be61310289705be89e70a869a3ad195a"
+    },
+    "P4_M1_5_RECONCILIATION_REPORT.md": {
+      "rows": 70,
+      "sha256": "aec6eb6f2092606bbbbdd354d59ae0752700bfbbe7f8daba7b8543710a1632ab"
+    },
+    "P4_M1_5_STAGE_REGISTRY.yaml": {
+      "rows": 427,
+      "sha256": "dffc7a32e29fbfd641cfa6eec6d544684aa249cbacd25af6ec22e17bb1227dfa"
+    }
+  },
+  "runId": "M1_5_RECONCILIATION_20260807_01",
+  "secretsIncluded": false,
+  "sourceNotebookManifestSha256": "8bcb90da73ba3968e8f8596af34fa22cb4802ba17e5660e6cbc5a0bd28043070",
+  "tests": [
+    {
+      "command": "PYTHONPATH=src python -m pytest -q",
+      "exitCode": 0,
+      "passed": 116,
+      "scope": "pipeline"
+    },
+    {
+      "command": "PYTHONPATH=src python -m pytest -q",
+      "exitCode": 0,
+      "passed": 84,
+      "scope": "ncs_mapping"
+    },
+    {
+      "command": "python -m pytest -q integration/tests",
+      "exitCode": 0,
+      "passed": 12,
+      "scope": "integration"
+    },
+    {
+      "command": "python integration/validate_m1_5_control.py",
+      "exitCode": 0,
+      "passed": 1,
+      "scope": "control"
+    },
+    {
+      "command": "P4_CRAWL_RAW_SOURCE_ROOT=<mounted-crawl-root> ... pytest crawl",
+      "exitCode": 0,
+      "passed": 64,
+      "scope": "crawl handoff"
+    },
+    {
+      "command": "P4_CRAWL_RAW_SOURCE_ROOT=<mounted-crawl-root> ... pytest crawl",
+      "exitCode": 1,
+      "failed": 8,
+      "passed": 70,
+      "scope": "consumed integration crawl"
+    }
+  ],
+  "unresolvedDefects": [
+    "P1-RECON-001",
+    "P1-RECON-002",
+    "P1-RECON-003",
+    "P1-RECON-004",
+    "P1-RECON-005",
+    "P1-RECON-006",
+    "P1-RECON-007",
+    "P1-RECON-008",
+    "P1-RECON-009",
+    "P1-RECON-010",
+    "P1-RECON-011"
+  ],
+  "validatorReportSha256": "NOT_AVAILABLE_PRECONDITION_BLOCKED"
+}

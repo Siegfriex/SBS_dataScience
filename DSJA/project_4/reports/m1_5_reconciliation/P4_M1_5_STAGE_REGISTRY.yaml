@@ -1,0 +1,427 @@
+registryVersion: p4-m1.5-reconciliation-v1
+agentId: P4-A3-GLOBAL-INTEGRATION-RECONCILIATION-ORCHESTRATOR
+baseCommit: 5508fce02ba5396b5d5a55870f1f879c1f32e8e0
+headCommit: e903d3a1d5f919cf7a117d8e351750ab9dc840f2
+acceptedAgentCommits: NONE
+dataVersion: reconciliation-20260807.1
+runId: M1_5_RECONCILIATION_20260807_01
+contractVersion: 2.1.2
+sourceNotebookManifestSha256: SEE_EVIDENCE_MANIFEST
+rawObjectManifestSha256: f12680f1d598f70df576f0af4743c5e9c49df7caf16eccb1d898bded5eb3dfbe
+validatorReportSha256: NOT_AVAILABLE_PRECONDITION_BLOCKED
+reportSha256: SEE_EVIDENCE_MANIFEST
+policy:
+  plannedStages: 23
+  executeOnlyAfterHandoffsAccepted:
+  - A1
+  - A2
+  - A4
+  allHandoffsAccepted: false
+  networkAllowed: false
+  freshRunRequired: true
+  exactOneManifestRequired: true
+testEvidence:
+  pipeline:
+    command: PYTHONPATH=src python -m pytest -q
+    exitCode: 0
+    passed: 116
+  ncsMapping:
+    command: PYTHONPATH=src python -m pytest -q
+    exitCode: 0
+    passed: 84
+  integration:
+    command: python -m pytest -q integration/tests
+    exitCode: 0
+    passed: 12
+  consumedCrawlCandidate:
+    command: P4_CRAWL_RAW_SOURCE_ROOT=<mounted-crawl-root> ... pytest crawl
+    exitCode: 1
+    passed: 70
+    failed: 8
+stages:
+- stageId: A1-00-RECOVER
+  owner: P4-A1-SOURCE
+  sourceNotebookPath: crawl/notebooks/00RecoverSourceState.ipynb
+  sourceNotebookBlobSha256: c3fe68cf946e432df7610ba78452898c0fe62dfd5f9df8296d314a7990d1a257
+  moduleBlobSha256: 87b6809a8326a350dffc444774c1c7abb287fa65c613ef2042f952159ea6b793
+  inputSchemaSha256: d41e75c9c58210477062ea9d7e37ed6ca78a3aca49280d7b92ea5c7fad6bfd43
+  outputSchemaSha256: efac34f5bffccaeb838acb74ffd0d40cbf9ca80ebfbde1c563ccd4cbfd5df76b
+  inputContract:
+  - source-policy evidence
+  - baseline release
+  - checkpoints
+  outputContract:
+  - resume_state.json
+  - remaining_months.csv
+  - detail_frontier.csv
+  - asset_frontier.csv
+  dependencyStageIds: []
+  currentRunManifestSchema: source-policy-run-v1
+  validatorGate: SOURCE_POLICY_READY
+- stageId: A1-01-INDEX
+  owner: P4-A1-SOURCE
+  sourceNotebookPath: crawl/notebooks/01CollectLinkareerIndex.ipynb
+  sourceNotebookBlobSha256: ea3454cca50c8e50b3d18406006f1f4fc83a705ba84134009cd3b42a2e3a95a2
+  moduleBlobSha256: 87b6809a8326a350dffc444774c1c7abb287fa65c613ef2042f952159ea6b793
+  inputSchemaSha256: 0e7661c1f21ff8480ae01ab49f55b825582866b6b457104ba3fa4395114329db
+  outputSchemaSha256: 6a790b41347401c02876744c98a720ab311526eb26796371f7526311f0a55b6e
+  inputContract:
+  - queryRegistry
+  - coverage plan
+  outputContract:
+  - posting_discovery_index
+  - monthly_coverage
+  - index_fetch_manifest
+  dependencyStageIds:
+  - A1-00-RECOVER
+  currentRunManifestSchema: crawl-index-v1
+  validatorGate: CRAWL_INDEX_OBSERVED_READY
+- stageId: A1-02-DETAIL
+  owner: P4-A1-SOURCE
+  sourceNotebookPath: crawl/notebooks/02CollectPostingDetail.ipynb
+  sourceNotebookBlobSha256: ca713dc03c421ba9ea900fa72062ceba6ef32ac2d7642789c59194a8e8be3de3
+  moduleBlobSha256: 87b6809a8326a350dffc444774c1c7abb287fa65c613ef2042f952159ea6b793
+  inputSchemaSha256: 29f1dd494e9975ab0d324a4cd6a76fff94e4f28c77d40839a078cdded1b2cd37
+  outputSchemaSha256: d6ce6cee24bf1916787bec6b49d80c7a1238ee1791c38134ad6721dbc67509ca
+  inputContract:
+  - index raw
+  - detail frontier
+  outputContract:
+  - raw SSR
+  - posting manifest
+  - detail_fetch_manifest
+  dependencyStageIds:
+  - A1-01-INDEX
+  currentRunManifestSchema: posting-manifest-v1
+  validatorGate: CRAWL_OBSERVED_INPUT_READY
+- stageId: A1-03-ASSET
+  owner: P4-A1-SOURCE
+  sourceNotebookPath: crawl/notebooks/03CollectPostingAssets.ipynb
+  sourceNotebookBlobSha256: 6baf34bb0daefeb455b0da86e0eba3624a7016d11fb893ecaf46fabd8c2181f2
+  moduleBlobSha256: 87b6809a8326a350dffc444774c1c7abb287fa65c613ef2042f952159ea6b793
+  inputSchemaSha256: 728c107d2e6a55bcb89c5662dc3da1ce5b1f23d76329b86bde91ebdc1d9d0616
+  outputSchemaSha256: 066c0791cb89ee2924a2ad3d1d0ff56a2bcc7c40be1c238c98aa962765109894
+  inputContract:
+  - posting manifest
+  - asset candidates
+  outputContract:
+  - raw assets
+  - asset manifest
+  - ocr candidate manifest
+  dependencyStageIds:
+  - A1-02-DETAIL
+  currentRunManifestSchema: asset-manifest-v1
+  validatorGate: CRAWL_ASSET_LINEAGE_READY
+- stageId: A1-04-RELEASE
+  owner: P4-A1-SOURCE
+  sourceNotebookPath: crawl/notebooks/04BuildCrawlRelease.ipynb
+  sourceNotebookBlobSha256: 18b786aae98ceed86b1313bff143af7ea5d2ad023514fe9f5d0ab0159a04718c
+  moduleBlobSha256: 87b6809a8326a350dffc444774c1c7abb287fa65c613ef2042f952159ea6b793
+  inputSchemaSha256: 08cb19cb75fbe923dc08e0a374496b854a65ac19c0014f86ddc1852225b6bd8a
+  outputSchemaSha256: 3947181ecdb29abb9cf57215a11de962ec2f8ef1d3a4a3bc89b7b06034bcab43
+  inputContract:
+  - record raw lineage
+  - asset lineage
+  - monthly coverage
+  outputContract:
+  - immutable crawl release
+  dependencyStageIds:
+  - A1-03-ASSET
+  currentRunManifestSchema: crawl-release-v1
+  validatorGate: CRAWL_RELEASE_READY
+- stageId: A2-00-CONTRACT-AUDIT
+  owner: P4-A2-PIPELINE
+  sourceNotebookPath: pipeline/notebooks/00ContractAndInputAudit.ipynb
+  sourceNotebookBlobSha256: 86e599f6c822f0cb5da4a149443ea94393aefc29416ec965a3f5e443862e479d
+  moduleBlobSha256: 2cafaa0991dbefe2052fe41a2cd61c19d1cb82698c06a65971a5978b174936fd
+  inputSchemaSha256: bd7f19c122c3139c3e8b986d465bdbda96dc697017889b08b419d58df5250fc6
+  outputSchemaSha256: bc9446f56e07480f2ae9f844a911a73e4743c596eb1bf309b7d5c52d9fdfb2ad
+  inputContract:
+  - contract bundle
+  - input manifest
+  outputContract:
+  - contract audit
+  dependencyStageIds: []
+  currentRunManifestSchema: agent2-audit-v1
+  validatorGate: CONTRACT_LINKED
+- stageId: A2-01-LOAD
+  owner: P4-A2-PIPELINE
+  sourceNotebookPath: pipeline/notebooks/01LoadCrawlRelease.ipynb
+  sourceNotebookBlobSha256: 5fa8f23840d769cab3980665276b74f3aaa42306b58e299ac7eacac0d718221d
+  moduleBlobSha256: 2cafaa0991dbefe2052fe41a2cd61c19d1cb82698c06a65971a5978b174936fd
+  inputSchemaSha256: 09ddb63b822444f1ac2fa9f111a833b75af291b16abce8b05cca6a6449207236
+  outputSchemaSha256: b7277a7d9195b588a77c7fe1fdbe78abfbe042381a4f99d88a6ad4c1d2a016e1
+  inputContract:
+  - crawl manifest
+  outputContract:
+  - raw staging tables
+  dependencyStageIds:
+  - A2-00-CONTRACT-AUDIT
+  currentRunManifestSchema: p4-contract-2.1.2
+  validatorGate: INPUT_LOADED
+- stageId: A2-02-PARSE
+  owner: P4-A2-PIPELINE
+  sourceNotebookPath: pipeline/notebooks/02ParseAndNormalize.ipynb
+  sourceNotebookBlobSha256: b1cf625b99252b41fa808973ccfec38a53669c14fda3444ad0ee64512820ce31
+  moduleBlobSha256: 2cafaa0991dbefe2052fe41a2cd61c19d1cb82698c06a65971a5978b174936fd
+  inputSchemaSha256: b7277a7d9195b588a77c7fe1fdbe78abfbe042381a4f99d88a6ad4c1d2a016e1
+  outputSchemaSha256: 25cfb9747f881a6d3df2fd79079b43c19c9898a5a2e344680d5e3d86a33b865e
+  inputContract:
+  - raw staging tables
+  outputContract:
+  - postingNormalized
+  dependencyStageIds:
+  - A2-01-LOAD
+  currentRunManifestSchema: p4-contract-2.1.2
+  validatorGate: PARSE_READY
+- stageId: A2-03-OCR
+  owner: P4-A2-PIPELINE
+  sourceNotebookPath: pipeline/notebooks/03OcrAndSectionRecovery.ipynb
+  sourceNotebookBlobSha256: db5ca86e37c73f09097f7f740bcef633643439d24eb20a1bcfd24171d78f518a
+  moduleBlobSha256: 2cafaa0991dbefe2052fe41a2cd61c19d1cb82698c06a65971a5978b174936fd
+  inputSchemaSha256: 22c319b9aeb70b6d4ea80364f25fc85db2860a6f5eeafae86ef717bb3a007f79
+  outputSchemaSha256: 1b759c3e8f9a4bcbffb305de9faba01746c03c871208d3b90d5588e26a442084
+  inputContract:
+  - posting assets
+  - activityTextHtml
+  outputContract:
+  - ocrResult
+  - recovered sections
+  dependencyStageIds:
+  - A2-02-PARSE
+  currentRunManifestSchema: p4-contract-2.1.2
+  validatorGate: OCR_READY
+- stageId: A2-04-TRACK
+  owner: P4-A2-PIPELINE
+  sourceNotebookPath: pipeline/notebooks/04SplitTracks.ipynb
+  sourceNotebookBlobSha256: 3892d341ca93b999d459e4faabd250f622ae8d626e994d9ee11a563b3a0f6aca
+  moduleBlobSha256: 2cafaa0991dbefe2052fe41a2cd61c19d1cb82698c06a65971a5978b174936fd
+  inputSchemaSha256: 7f86a5138d22d28c4ae62370b5e5ddac79f361424d42437fe4c0064e098361fa
+  outputSchemaSha256: d2a6280cbfa22b579cf367c48f55fbe1d5f4b7e3fb9d9a0fae0539e9ac007dfe
+  inputContract:
+  - postingNormalized
+  - recovered sections
+  outputContract:
+  - postingTrack
+  dependencyStageIds:
+  - A2-03-OCR
+  currentRunManifestSchema: p4-contract-2.1.2
+  validatorGate: TRACK_READY
+- stageId: A2-05-REQUIREMENT
+  owner: P4-A2-PIPELINE
+  sourceNotebookPath: pipeline/notebooks/05ExtractRequirements.ipynb
+  sourceNotebookBlobSha256: 1a00c129bc3957ca878fcc75c17a71059b78a56fb34d3e38efc7ce8f341c012b
+  moduleBlobSha256: 2cafaa0991dbefe2052fe41a2cd61c19d1cb82698c06a65971a5978b174936fd
+  inputSchemaSha256: acabd6f1fd73c965f5a5d10b360854385fd234dc4d29e82144904d19e18c594c
+  outputSchemaSha256: a0585c232dec4993ade8339d225b9cf1182f10543d08f7a0b25a907254d49c3e
+  inputContract:
+  - postingTrack
+  - postingSection
+  outputContract:
+  - requirementFact
+  dependencyStageIds:
+  - A2-04-TRACK
+  currentRunManifestSchema: p4-contract-2.1.2
+  validatorGate: REQUIREMENT_READY
+- stageId: A2-06-DEDUP
+  owner: P4-A2-PIPELINE
+  sourceNotebookPath: pipeline/notebooks/06Deduplicate90Days.ipynb
+  sourceNotebookBlobSha256: 2516eb89f685e936ec4463dce6a541d53f0f3e2cd116c5b223e90e44977ebe18
+  moduleBlobSha256: 2cafaa0991dbefe2052fe41a2cd61c19d1cb82698c06a65971a5978b174936fd
+  inputSchemaSha256: 25cfb9747f881a6d3df2fd79079b43c19c9898a5a2e344680d5e3d86a33b865e
+  outputSchemaSha256: 09fcf861ecfa0f2a603bc1a2208c1eef9c6463ef42321690e93c955b2063a195
+  inputContract:
+  - postingNormalized
+  outputContract:
+  - canonicalRecordFlag
+  dependencyStageIds:
+  - A2-02-PARSE
+  currentRunManifestSchema: p4-contract-2.1.2
+  validatorGate: DEDUP_READY
+- stageId: A2-07-LABEL
+  owner: P4-A2-PIPELINE
+  sourceNotebookPath: pipeline/notebooks/07LabelCareerAccess.ipynb
+  sourceNotebookBlobSha256: 59eff99c960b89385ba19ccb6a0fb684c27524c976cfa5a0448975104e1ee7f2
+  moduleBlobSha256: 2cafaa0991dbefe2052fe41a2cd61c19d1cb82698c06a65971a5978b174936fd
+  inputSchemaSha256: c006d03ea3704626394d043df54ea74f48443258c2e24ca76d851698f4347511
+  outputSchemaSha256: d06ca1bc3e84833d9711254d97bb7d45406eb6582458fdb53032622ccba62ebe
+  inputContract:
+  - postingTrack
+  - requirementFact
+  outputContract:
+  - careerLabel
+  dependencyStageIds:
+  - A2-05-REQUIREMENT
+  currentRunManifestSchema: p4-contract-2.1.2
+  validatorGate: LABEL_DEV_READY_OR_LABEL_GOLD_READY
+- stageId: A2-08-NCS-LOAD
+  owner: P4-A2-PIPELINE
+  sourceNotebookPath: pipeline/notebooks/08LoadAndPrepareNcs.ipynb
+  sourceNotebookBlobSha256: a35971022aca8232e4d0d0e6511ea48e1736baf71599155e81fb33add9476768
+  moduleBlobSha256: 2cafaa0991dbefe2052fe41a2cd61c19d1cb82698c06a65971a5978b174936fd
+  inputSchemaSha256: 95eea177b1c3aff3bdcb215fec01e24ba508dc96dc5e031bdca5f28ad34cd04f
+  outputSchemaSha256: 8745feb832c528108f08d019166027a87544240156b5f9bb3088c17a32c424c8
+  inputContract:
+  - Agent 4 NCS source audit
+  - core AI IT code set
+  outputContract:
+  - validated NCS source tables
+  - code set acceptance
+  dependencyStageIds:
+  - A4-00-NCS-SOURCE
+  - A4-01-CODESET
+  currentRunManifestSchema: ncs-agent2-acceptance-v1
+  validatorGate: NCS_INPUT_ACCEPTED
+- stageId: A2-09-NCS-MAP
+  owner: P4-A2-PIPELINE
+  sourceNotebookPath: pipeline/notebooks/09MapPostingToNcs.ipynb
+  sourceNotebookBlobSha256: cf635979e88a12ccdddccad433bdfd990aac5fc098689549296948ab085dd46e
+  moduleBlobSha256: 2cafaa0991dbefe2052fe41a2cd61c19d1cb82698c06a65971a5978b174936fd
+  inputSchemaSha256: 49158636ff72722972355b1bf9176d4e227a2989d19cd89e5c6f70b945dd9d1a
+  outputSchemaSha256: 6eb3c949db5bc643bfa5ec9f9598e3f67fb0a732dead7cded106580bb9d22565
+  inputContract:
+  - Agent 4 candidates
+  - matches
+  - unmapped rows
+  outputContract:
+  - validated track NCS mapping tables
+  dependencyStageIds:
+  - A2-08-NCS-LOAD
+  - A4-03-MAP-OBSERVED
+  - A4-04-EXPORT
+  currentRunManifestSchema: ncs-agent2-mapping-v1
+  validatorGate: NCS_MAPPING_ACCEPTED
+- stageId: A4-00-NCS-SOURCE
+  owner: P4-A4-NCS
+  sourceNotebookPath: ncs_mapping/notebooks/00NcsSourceAudit.ipynb
+  sourceNotebookBlobSha256: 0186e062fb88c04bd5966a98b486eb9a0bd7963cd395b3f52c13533a82057ae2
+  moduleBlobSha256: 27c74156df6cb12bd4629e4104c48d562cf0a18c494afa618f73a9ee65b11088
+  inputSchemaSha256: 1a1529a369abe543dfd3e688a459795737516a4936527501d1e3ccd7b91fd198
+  outputSchemaSha256: e75840089fb505fe4a412096364708fa2d786762fcd9a062252db856c9e5fe25
+  inputContract:
+  - ncsUnit source release
+  outputContract:
+  - ncsUnit parquet
+  - source audit
+  dependencyStageIds:
+  - A2-00-CONTRACT-AUDIT
+  currentRunManifestSchema: ncs-base-v1
+  validatorGate: NCS_BASE_READY
+- stageId: A4-01-CODESET
+  owner: P4-A4-NCS
+  sourceNotebookPath: ncs_mapping/notebooks/01BuildCoreAiItCodeSet.ipynb
+  sourceNotebookBlobSha256: 6ce52c351f5f2e60f4b4226989d9ab48ae0fd157e83d7f987e08dc045c250816
+  moduleBlobSha256: 27c74156df6cb12bd4629e4104c48d562cf0a18c494afa618f73a9ee65b11088
+  inputSchemaSha256: b60f1f5969d9f723993fb1f0c3b6d6abd433bc37ea87c44568cb3d4e858b2045
+  outputSchemaSha256: 368bedd149162bd66cff4216c56cf666864b764cf29146426ed7700f29f2494a
+  inputContract:
+  - ncsUnit parquet
+  outputContract:
+  - core code set candidate
+  dependencyStageIds:
+  - A4-00-NCS-SOURCE
+  currentRunManifestSchema: core-ai-it-v0.1
+  validatorGate: NCS_CODESET_REVIEW_READY
+- stageId: A4-02-RETRIEVAL
+  owner: P4-A4-NCS
+  sourceNotebookPath: ncs_mapping/notebooks/02BuildNcsRetrievalIndex.ipynb
+  sourceNotebookBlobSha256: 743d5cb7939697e1dd504d5f77c40f8f7b3093de71966d6abe56cfd51cabe22a
+  moduleBlobSha256: 27c74156df6cb12bd4629e4104c48d562cf0a18c494afa618f73a9ee65b11088
+  inputSchemaSha256: 5127e056c442ff003ab7c29eb6b91431a8102f704a99a7496c0974011944c1e3
+  outputSchemaSha256: 1d57287c55f755adff0734dbc6713c695d6f0c61a2bd2cd813b951b956048deb
+  inputContract:
+  - core code set
+  - alias dictionary
+  outputContract:
+  - retrieval index manifest
+  dependencyStageIds:
+  - A4-01-CODESET
+  currentRunManifestSchema: ncs-retrieval-v1
+  validatorGate: NCS_RETRIEVAL_READY
+- stageId: A4-03-MAP-OBSERVED
+  owner: P4-A4-NCS
+  sourceNotebookPath: ncs_mapping/notebooks/03MapObservedDuties.ipynb
+  sourceNotebookBlobSha256: 69a5e625b98833909dc7e7c46a0ffa00c8ce34f81711b4e5f3997bcad6c3f893
+  moduleBlobSha256: 27c74156df6cb12bd4629e4104c48d562cf0a18c494afa618f73a9ee65b11088
+  inputSchemaSha256: 277e296c0fdbec02b871b92549dd6d5293285c5b35259c68ff57daa9dd13c94f
+  outputSchemaSha256: 260b53d5b18f1eccf874d316b49e3331b9a1b746b0bae8164bce9fd05b32cc2c
+  inputContract:
+  - observed duty manifest
+  - retrieval index
+  outputContract:
+  - posting NCS candidates
+  dependencyStageIds:
+  - A2-05-REQUIREMENT
+  - A4-02-RETRIEVAL
+  currentRunManifestSchema: posting-ncs-candidates-v1
+  validatorGate: NCS_MAPPING_DEV_READY
+- stageId: A4-04-EXPORT
+  owner: P4-A4-NCS
+  sourceNotebookPath: ncs_mapping/notebooks/04ExportNcsMappingCsv.ipynb
+  sourceNotebookBlobSha256: 352257e1e3338059eacd32360ef215066c2e2ac6eb474613f5e3151aac4546f2
+  moduleBlobSha256: 27c74156df6cb12bd4629e4104c48d562cf0a18c494afa618f73a9ee65b11088
+  inputSchemaSha256: 65e6a6f8cc84afe145d68e5f8ccb9738352e116279eabe0270cda2a4073ce7e7
+  outputSchemaSha256: 96bff51a7af2d608873447d618db4d15be0781f8ae85ab71e00d879e761f7c46
+  inputContract:
+  - posting NCS candidates
+  outputContract:
+  - inspection CSV
+  - export manifest
+  dependencyStageIds:
+  - A4-03-MAP-OBSERVED
+  currentRunManifestSchema: ncs-export-v1
+  validatorGate: NCS_MAPPING_EXPORT_READY
+- stageId: A4-05-EVALUATE
+  owner: P4-A4-NCS
+  sourceNotebookPath: ncs_mapping/notebooks/05EvaluateNcsMapping.ipynb
+  sourceNotebookBlobSha256: 75b32a6207569c86b0901080b567f62db7a26605ebc13c50ad70c054a3068d86
+  moduleBlobSha256: 27c74156df6cb12bd4629e4104c48d562cf0a18c494afa618f73a9ee65b11088
+  inputSchemaSha256: fe61b598a69585ce0ba551c2bf0ed578b45f47fde4a5095d03124caf3f245a88
+  outputSchemaSha256: 761f0f9d2600af3499fad5d884c30592f87e60f0615ad71cefcd434b42554a1f
+  inputContract:
+  - posting NCS candidates
+  - adjudicated gold
+  outputContract:
+  - precision coverage report
+  dependencyStageIds:
+  - A4-04-EXPORT
+  currentRunManifestSchema: ncs-evaluation-v1
+  validatorGate: NCS_MAPPING_GOLD_READY
+- stageId: A2-10-EXPORT
+  owner: P4-A2-PIPELINE
+  sourceNotebookPath: pipeline/notebooks/10ExportPreprocessedCsv.ipynb
+  sourceNotebookBlobSha256: c6d408361411d05bcc56f3611fbb19af365513f8cc7417189d11158955bcdee8
+  moduleBlobSha256: 2cafaa0991dbefe2052fe41a2cd61c19d1cb82698c06a65971a5978b174936fd
+  inputSchemaSha256: c254d2bb48a7043d81f56cf31440a9b6a7535647f55ea5bc02b95c506530d167
+  outputSchemaSha256: 5a134a2c1ea0da7176193b269de342209366825b64e3de84e419ffac9d555e9f
+  inputContract:
+  - parsed tracks requirements dedup labels NCS matches
+  outputContract:
+  - canonical parquet
+  - inspection CSV
+  - export manifest
+  dependencyStageIds:
+  - A2-05-REQUIREMENT
+  - A2-06-DEDUP
+  - A2-07-LABEL
+  - A2-09-NCS-MAP
+  currentRunManifestSchema: preprocessing-export-v1
+  validatorGate: PREPROCESSED_EXPORT_BUILT
+- stageId: A2-11-EXPORT-QA
+  owner: P4-A2-PIPELINE
+  sourceNotebookPath: pipeline/notebooks/11PreprocessedDataQa.ipynb
+  sourceNotebookBlobSha256: e83d52cc529a57b035ceae859f5d9d65171d867fc2e0016d620d09715d51a850
+  moduleBlobSha256: 2cafaa0991dbefe2052fe41a2cd61c19d1cb82698c06a65971a5978b174936fd
+  inputSchemaSha256: b92fd5930e1c11bc2ff1591df6fac3156da11fce7e0f88f7fa3310111184aa9b
+  outputSchemaSha256: 2c75523a9d9f794c04f287d9d35affef7eb3a17d73d82840eb7ecbd0496b585f
+  inputContract:
+  - canonical parquet
+  - inspection CSV
+  - export manifest
+  outputContract:
+  - stage quality
+  - checksums
+  dependencyStageIds:
+  - A2-10-EXPORT
+  currentRunManifestSchema: preprocessing-qa-v1
+  validatorGate: PREPROCESSED_CSV_READY

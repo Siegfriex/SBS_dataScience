@@ -1,0 +1,81 @@
+{
+  "acceptedAgentCommits": {},
+  "agentId": "P4-A3-GLOBAL-INTEGRATION-RECONCILIATION-ORCHESTRATOR",
+  "auditInstruction": "Confirm the blocker packet in a separate read-only worktree; do not promote M2.",
+  "baseCommit": "5508fce02ba5396b5d5a55870f1f879c1f32e8e0",
+  "canonicalLineageAuditSha256": "0149ed1abcc799414fac6431f015119b756549ececa5b9679a9aa2ca9f0427c1",
+  "claimedStatus": "BLOCKED_BY_EVIDENCE",
+  "consumedCandidateCommits": {
+    "A1": "2d3f48025352359acf5787efeb79c0111fdea9f7"
+  },
+  "contractVersion": "2.1.2",
+  "crawlHandoffStatus": "REJECTED",
+  "currentRunManifestAuditSha256": "0c546eeef77257393e0e9f053017564e2509d8ff99599c4c7e590a1babf3ba7f",
+  "dataVersion": "reconciliation-20260807.1",
+  "exactOneManifests": 0,
+  "executedStages": 0,
+  "externalAtsTransportCalls": 0,
+  "fullReplaySummarySha256": "0c5c67e3bc216dee48d02313f1b7255dbccbff073b25b3a0a79cdda9ad10996c",
+  "gateMatrixSha256": "04309ad0ccbf20ec23e671ba3b45153d40c6047d0d2049c2120aa6e1e0aee06b",
+  "headCommit": "e903d3a1d5f919cf7a117d8e351750ab9dc840f2",
+  "integrationBranch": "integration/p4-m1_5-reconcile-for-m2-v1",
+  "notebookAuthorityManifestSha256": "8bcb90da73ba3968e8f8596af34fa22cb4802ba17e5660e6cbc5a0bd28043070",
+  "plannedStages": 23,
+  "productionNetworkCalls": 0,
+  "rawMountPolicySha256": "54c39e4277901b70020e29005cce1675be61310289705be89e70a869a3ad195a",
+  "rawObjectManifestSha256": "f12680f1d598f70df576f0af4743c5e9c49df7caf16eccb1d898bded5eb3dfbe",
+  "rowCounts": {
+    "canonicalPostings": 137,
+    "ncsUnits": 13442,
+    "physicalNotebooks": 27,
+    "rawObjects": 29,
+    "reconciliationStages": 23
+  },
+  "runId": "M1_5_RECONCILIATION_20260807_01",
+  "submittedAgentCommits": {
+    "A1": "2d3f48025352359acf5787efeb79c0111fdea9f7",
+    "A2": "879b2c2e2cf3ba3f3cdc8f0847e607f045e2b839",
+    "A4": "3396eb66f6f9af80d0458ab8c5431b1c5ce6414c"
+  },
+  "testCommands": [
+    {
+      "command": "PYTHONPATH=src python -m pytest -q",
+      "exitCode": 0,
+      "passed": 116,
+      "scope": "pipeline"
+    },
+    {
+      "command": "PYTHONPATH=src python -m pytest -q",
+      "exitCode": 0,
+      "passed": 84,
+      "scope": "ncs_mapping"
+    },
+    {
+      "command": "python -m pytest -q integration/tests",
+      "exitCode": 0,
+      "passed": 12,
+      "scope": "integration"
+    },
+    {
+      "command": "P4_CRAWL_RAW_SOURCE_ROOT=<mounted-crawl-root> ... pytest crawl",
+      "exitCode": 1,
+      "failed": 8,
+      "passed": 70,
+      "scope": "consumed crawl candidate"
+    }
+  ],
+  "unresolvedDefects": [
+    "P1-RECON-001",
+    "P1-RECON-002",
+    "P1-RECON-003",
+    "P1-RECON-004",
+    "P1-RECON-005",
+    "P1-RECON-006",
+    "P1-RECON-007",
+    "P1-RECON-008",
+    "P1-RECON-009",
+    "P1-RECON-010",
+    "P1-RECON-011"
+  ],
+  "validatorReportSha256": "NOT_AVAILABLE_PRECONDITION_BLOCKED"
+}
