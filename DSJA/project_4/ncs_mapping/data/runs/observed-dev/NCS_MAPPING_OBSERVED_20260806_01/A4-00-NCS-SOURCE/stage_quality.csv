@@ -1,0 +1,4 @@
+﻿gateId,ruleId,severity,status,observedValue,threshold,evidencePath
+NCS_BASE_READY,NCS_UNIT_ROWS,INFO,PASS,13442,13442,ncs_mapping/data/processed/ncsUnit.parquet
+NCS_BASE_READY,NCS_UNIT_PK,INFO,PASS,13442,13442,ncs_mapping/data/processed/ncsUnit.parquet
+NCS_BASE_READY,NCS_LEVEL_DOMAIN,INFO,PASS,"[1, 2, 3, 4, 5, 6, 7, 8]",[1..8],ncs_mapping/data/processed/ncsUnit.parquet

@@ -1,0 +1,104 @@
+{
+  "manifestVersion": "stage-manifest-v1",
+  "runId": "NCS_MAPPING_OBSERVED_20260806_01",
+  "runMode": "observed-dev",
+  "stageId": "A4-03-MAP-OBSERVED",
+  "status": "SUCCEEDED",
+  "agentId": "P4-A4-NCS",
+  "branch": "agent/p4-ncs-mapping-v2",
+  "gitHead": "0b93d50893f76e51e24ca8328670c5aae59a2327",
+  "contractVersion": "2.1.2",
+  "schemaVersion": "posting-ncs-candidates-v1",
+  "dataVersion": "observed-dev-20260806.1",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+  "startedAt": "2026-08-06T07:54:58.216288Z",
+  "completedAt": "2026-08-06T07:54:58.219333Z",
+  "empiricalAnalysisAllowed": false,
+  "promotionAllowed": false,
+  "inputManifestSha256": "a305d2354a7437860dc947f4e537be76c6233cd26fe658da650d3bb07437bc30",
+  "parameterSha256": "ee2a95b4cf722fbc15def7f7c955eba2248f681ec2a54ffef33e1869c3836e36",
+  "rowCounts": {
+    "dutyInput": 28,
+    "postingNcsCandidates": 128,
+    "postingNcsMatches": 28
+  },
+  "gateResults": [
+    {
+      "gateId": "NCS_MAPPING_DEV_READY",
+      "status": "PASS",
+      "evidencePath": "ncs_mapping/data/processed/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/posting_ncs_matches.parquet"
+    },
+    {
+      "gateId": "NCS_MAPPING_DEV_READY",
+      "status": "PASS",
+      "evidencePath": "ncs_mapping/data/processed/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/posting_ncs_candidates.parquet"
+    },
+    {
+      "gateId": "NCS_MAPPING_DEV_READY",
+      "status": "PASS",
+      "evidencePath": "ncs_mapping/data/processed/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/posting_ncs_matches.parquet"
+    },
+    {
+      "gateId": "NCS_MAPPING_DEV_READY",
+      "status": "PASS",
+      "evidencePath": "ncs_mapping/data/processed/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/posting_ncs_candidates.parquet"
+    },
+    {
+      "gateId": "NCS_MAPPING_DEV_READY",
+      "status": "PASS",
+      "evidencePath": "shared/handoffs/AGENT2_TO_AGENT4_DUTY_INPUT_OBSERVED_DEV.json"
+    }
+  ],
+  "warnings": [],
+  "errors": [],
+  "files": [
+    {
+      "path": "ncs_mapping/data/processed/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/posting_ncs_candidates.parquet",
+      "sha256": "69e7509d8986c3a783826f589df3299c67eaecbcb0166cbc6ac9cbd427259f20",
+      "bytes": 24210,
+      "rows": 128,
+      "columns": 25,
+      "format": "parquet",
+      "grain": "sectionId plus candidateRank",
+      "nullablePolicy": "schema-defined nullable values preserved",
+      "sourceStage": "A4-03-MAP-OBSERVED",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "ncs_mapping/data/processed/observed-dev/NCS_MAPPING_OBSERVED_20260806_01/posting_ncs_matches.parquet",
+      "sha256": "2d21ebba955efa58c9acae98e07d5d48a04f47f94d5cd02396dbb41bf3006748",
+      "bytes": 21202,
+      "rows": 28,
+      "columns": 26,
+      "format": "parquet",
+      "grain": "sectionId",
+      "nullablePolicy": "schema-defined nullable values preserved",
+      "sourceStage": "A4-03-MAP-OBSERVED",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    }
+  ],
+  "terminationArtifacts": [
+    "stage_manifest.json",
+    "stage_metrics.json",
+    "stage_quality.csv",
+    "CHECKSUMS.sha256"
+  ],
+  "dataPolicies": {
+    "canonicalStorage": "DUCKDB_PARQUET",
+    "csvPurpose": "HUMAN_INSPECTION_EXPORT",
+    "eligibilityColumns": [
+      "postingEligibleFlag",
+      "rq1EligibleFlag",
+      "rq2EligibleFlag",
+      "ncsEligibleFlag"
+    ],
+    "highDemandScore": "ALL_NULL"
+  },
+  "mappingPolicy": {
+    "mappingMode": "LEXICAL_BASELINE",
+    "codeSetStatus": "REVIEW_REQUIRED",
+    "goldValidatedFlag": false,
+    "denseScore": null
+  }
+}

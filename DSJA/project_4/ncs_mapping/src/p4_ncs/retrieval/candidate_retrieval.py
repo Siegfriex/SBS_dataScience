@@ -1,11 +1,9 @@
 """Candidate NCS subCode retrieval for a piece of duty/evidence text.
 
 Pipeline per spec: alias/dictionary match first, then lexical retrieval over
-the included codeset, then (future) dense rerank, capped at top k=5. Dense
-rerank has no implementation yet -- it needs an embeddings model and real
-duty evidence text to validate against, neither of which exists before
-Agent 2 input arrives, so `dense_rerank` is a pass-through stub, not a fake
-model.
+the included codeset, capped at top k=5. The M1 workflow deliberately does
+not invoke ``dense_rerank``: denseScore remains null and the mapping mode is
+``LEXICAL_BASELINE``.
 """
 from __future__ import annotations
 
@@ -65,5 +63,4 @@ def retrieve_candidates(evidence_text: str, alias_df: pd.DataFrame, codeset_df: 
     alias_hits = alias_lookup(evidence_text, alias_df)
     if alias_hits:
         return alias_hits[:top_k]
-    lexical_hits = lexical_retrieve(evidence_text, codeset_df, top_k=top_k)
-    return dense_rerank(lexical_hits)
+    return lexical_retrieve(evidence_text, codeset_df, top_k=top_k)

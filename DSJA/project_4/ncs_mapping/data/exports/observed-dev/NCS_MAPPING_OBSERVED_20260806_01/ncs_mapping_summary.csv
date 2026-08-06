@@ -1,0 +1,2 @@
+﻿runId,dutyInputRows,candidateRows,mappedDevelopmentRows,unmappedRows,developmentMappedRatio,mappingMode,codeSetStatus,goldValidatedFlag,denseScore,dataProvenance,empiricalAnalysisAllowed,promotionAllowed,finalPrecisionEvaluated,finalCoverageEvaluated
+NCS_MAPPING_OBSERVED_20260806_01,28,128,27,1,0.9642857142857143,LEXICAL_BASELINE,REVIEW_REQUIRED,False,,OBSERVED_DEVELOPMENT_ONLY,False,False,False,False

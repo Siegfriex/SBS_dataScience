@@ -1,0 +1,75 @@
+{
+  "metricsVersion": "stage-metrics-v1",
+  "runId": "NCS_MAPPING_OBSERVED_20260806_01",
+  "runMode": "observed-dev",
+  "stageId": "A4-04-EXPORT",
+  "contractVersion": "2.1.2",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "dataVersion": "observed-dev-20260806.1",
+  "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+  "empiricalAnalysisAllowed": false,
+  "promotionAllowed": false,
+  "generatedAt": "2026-08-06T07:55:00.340895Z",
+  "metrics": [
+    {
+      "metricId": "ncs_unitsRows",
+      "value": 13442,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "ncs_units",
+      "unknownHandling": "unknown retained; no empirical inference",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "core_ai_it_codesRows",
+      "value": 120,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "core_ai_it_codes",
+      "unknownHandling": "unknown retained; no empirical inference",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "ncs_alias_dictionaryRows",
+      "value": 10,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "ncs_alias_dictionary",
+      "unknownHandling": "unknown retained; no empirical inference",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "posting_ncs_candidatesRows",
+      "value": 128,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "posting_ncs_candidates",
+      "unknownHandling": "unknown retained; no empirical inference",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "posting_ncs_matchesRows",
+      "value": 28,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "posting_ncs_matches",
+      "unknownHandling": "unknown retained; no empirical inference",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "ncs_mapping_summaryRows",
+      "value": 1,
+      "numerator": null,
+      "denominator": null,
+      "unit": "count",
+      "grain": "ncs_mapping_summary",
+      "unknownHandling": "unknown retained; no empirical inference",
+      "status": "INFORMATIONAL"
+    }
+  ]
+}

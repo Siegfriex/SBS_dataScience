@@ -1,0 +1,60 @@
+{
+  "agentId": "P4-A4-NCS",
+  "status": "NCS_MAPPING_DEV_READY",
+  "runId": "NCS_MAPPING_OBSERVED_20260806_01",
+  "runMode": "observed-dev",
+  "contractVersion": "2.1.2",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "dataVersion": "observed-dev-20260806.1",
+  "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+  "empiricalAnalysisAllowed": false,
+  "promotionAllowed": false,
+  "mappingPolicy": {
+    "mappingMode": "LEXICAL_BASELINE",
+    "codeSetStatus": "REVIEW_REQUIRED",
+    "goldValidatedFlag": false,
+    "denseScore": null,
+    "denseRerankCalled": false,
+    "ksaStatus": "OPTIONAL_ENRICHMENT_PROVISIONAL_D023"
+  },
+  "rowCounts": {
+    "ncsUnits": 13442,
+    "coreCodeSet": 120,
+    "includedDevelopmentCodes": 69,
+    "excludedDevelopmentCodes": 51,
+    "lexicalDocuments": 691,
+    "aliasRows": 10,
+    "observedDutyInput": 28,
+    "postingNcsCandidates": 128,
+    "postingNcsMatches": 28,
+    "explicitUnmapped": 1
+  },
+  "validation": {
+    "testsPassed": 32,
+    "preExistingTests": 22,
+    "newM1Tests": 10,
+    "freshKernelNotebooksPassed": 5,
+    "nbformatValid": true,
+    "cellAstValid": true,
+    "sourceNotebookOutputCount": 0,
+    "agent3StageSchemasValid": true,
+    "terminationArtifactCountPerStage": 4,
+    "csvParquetSemanticEquality": true,
+    "inputRowsSha256Verified": true,
+    "absolutePathScanHits": 0,
+    "secretPatternScanHits": 0
+  },
+  "outputs": {
+    "exportRoot": "ncs_mapping/data/exports/observed-dev/NCS_MAPPING_OBSERVED_20260806_01",
+    "runArtifactRoot": "ncs_mapping/data/runs/observed-dev/NCS_MAPPING_OBSERVED_20260806_01",
+    "handoff": "shared/handoffs/AGENT4_TO_AGENT2_NCS_MAPPING_OBSERVED_DEV.json"
+  },
+  "prohibitedClaims": [
+    "FINAL_PRECISION",
+    "FINAL_COVERAGE",
+    "LOW_CONFIDENCE_GATE_RESULT",
+    "RQ2_B",
+    "DATA_READY_RQ2B",
+    "GOLD_VALIDATED"
+  ]
+}
