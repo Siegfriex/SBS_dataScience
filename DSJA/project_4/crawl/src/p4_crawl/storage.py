@@ -53,6 +53,13 @@ def write_parquet_atomic(frame: Any, path: Path) -> None:
     os.replace(temporary, path)
 
 
+def write_csv_atomic(frame: Any, path: Path, *, encoding: str = "utf-8-sig") -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_name(f"{path.name}.tmp")
+    frame.to_csv(temporary, index=False, encoding=encoding)
+    os.replace(temporary, path)
+
+
 def write_gzip_content_addressed(raw_root: Path, entity: str, period: str, body: bytes) -> tuple[Path, str]:
     digest = sha256_bytes(body)
     year, month = period.split("-")

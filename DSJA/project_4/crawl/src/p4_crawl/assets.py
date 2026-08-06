@@ -23,6 +23,10 @@ def build_asset_frontier(posting_records: pd.DataFrame, completed_urls: set[str]
     for _, posting in posting_records.iterrows():
         for candidate in json.loads(posting.get("assetCandidatesJson") or "[]"):
             url = candidate.get("assetUrl")
+            period_month = posting.get("periodMonth") or posting.get("discoveryMonth")
+            if not isinstance(period_month, str) or len(period_month) != 7:
+                recruit_start = posting.get("recruitStartAt")
+                period_month = str(recruit_start)[:7] if recruit_start is not None and len(str(recruit_start)) >= 7 else None
             if url and is_linkareer_hosted(url) and url not in completed_urls:
                 rows.setdefault(
                     url,
@@ -31,6 +35,7 @@ def build_asset_frontier(posting_records: pd.DataFrame, completed_urls: set[str]
                         "assetUrl": url,
                         "assetType": candidate.get("assetType"),
                         "sourceField": candidate.get("sourceField"),
+                        "periodMonth": period_month,
                         "status": "PENDING",
                         "externalAtsAsset": False,
                     },
@@ -44,9 +49,12 @@ def collect_pending_assets(frontier: pd.DataFrame, http, manifest_path: Path, *,
     if max_items > 0:
         candidates = candidates.head(max_items)
     for _, candidate in candidates.iterrows():
+        period_month = candidate.get("periodMonth")
+        if not isinstance(period_month, str) or len(period_month) != 7:
+            raise ValueError(f"missing periodMonth for asset {candidate['assetUrl']}")
         response = http.get(
             candidate["assetUrl"],
-            _p4_context={"entityType": "asset", "period": "2021-03"},
+            _p4_context={"entityType": "asset", "period": period_month},
         )
         lineage = getattr(response, "p4_manifest")
         status = "FETCHED" if response.status_code == 200 else "DEAD" if response.status_code in {404, 410} else "RETRY"

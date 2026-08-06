@@ -68,16 +68,8 @@ not permitted in committed or exported artifacts.
   `--force` operations. The default operation never overwrites a differing
   source Notebook. `--check` is read-only and a render shows the diff before a
   forced replacement.
-- Interactive Jupyter and `nbclient` execution use the same parameter and
-  artifact contracts. `papermill` is not used and is explicitly
-  `NOT_REQUIRED` in `NOTEBOOK_RUNTIME_LOCK.json`.
-- Master child execution order is a deterministic topological sort of
-  `NOTEBOOK_STAGE_REGISTRY.yaml` `upstreamStages`. File/list order is not an
-  execution contract. In particular, A4 source, code-set, retrieval, mapping,
-  and export producers run before A2-08/A2-09 consumers.
-- Every source Notebook must be tracked at Git ref `HEAD`, and the working-tree
-  blob must equal the recorded `HEAD:<path>` blob. An untracked or modified
-  source cannot pass `NOTEBOOK_SOURCE_READY`.
+- Interactive Jupyter and parameterized `papermill`/`nbclient` execution use the
+  same parameter and artifact contracts.
 - Identical input hashes, parameter hash, code revision, contract version, and
   seed produce semantically identical canonical output.
 - The zero-byte `P4 Notebook-First.ipynb` is checksummed and archived as
@@ -95,13 +87,6 @@ stage_metrics.json
 stage_quality.csv
 CHECKSUMS.sha256
 ```
-
-The Master additionally writes exactly one `current_run_manifest.json` beside
-each planned child stage's artifacts. It binds `currentRunId`, stage, source
-Notebook SHA-256, source Git ref/blob, parameter SHA-256, executed copy, native
-stage manifest, and artifact root. Missing, duplicate, stale-run, source/blob,
-parameter, or artifact-root mismatch is a hard failure; historical manifests
-are never substitutes for the current run.
 
 Data outputs are first written to a temporary run location. A required gate
 failure, schema/checksum mismatch, duplicate primary key, missing lineage, or

@@ -34,19 +34,72 @@ def activity_for_id(cache: dict, source_id: str) -> dict | None:
     return matches[0] if matches else None
 
 
-def activity_text_for_activity(cache: dict, activity: dict) -> dict:
-    """Resolve ActivityText without guessing among ambiguous standalone entities."""
+def _activity_text_source_match(entity_key: str, entity: dict, source_id: str) -> bool:
+    for field in ("activityId", "sourcePostingId", "sourceId"):
+        if str(entity.get(field) or "") == source_id:
+            return True
+    suffix = entity_key.split(":", 1)[1] if ":" in entity_key else ""
+    if suffix == source_id:
+        return True
+    try:
+        decoded = json.loads(suffix)
+    except (json.JSONDecodeError, TypeError):
+        return False
+    return isinstance(decoded, dict) and str(decoded.get("id") or decoded.get("activityId") or "") == source_id
 
-    for field in ("detailText", "activityText", "ActivityText"):
-        value = resolve_ref(cache, activity.get(field))
-        if isinstance(value, dict) and value.get("text"):
-            return value
-    standalone = [
-        value
+
+def select_activity_text(cache: dict, activity: dict, source_id: str) -> tuple[dict | None, dict]:
+    """Select ActivityText with explicit evidence and no ambiguous fallback."""
+
+    candidates = [
+        (str(key), value)
         for key, value in cache.items()
-        if str(key).startswith("ActivityText:") and isinstance(value, dict) and value.get("text")
+        if str(key).startswith("ActivityText:") and isinstance(value, dict)
     ]
-    return standalone[0] if len(standalone) == 1 else {}
+    for field in ("detailText", "activityText", "ActivityText"):
+        value = activity.get(field)
+        if value is None:
+            continue
+        entity_key = value.get("__ref") if isinstance(value, dict) else None
+        resolved = resolve_ref(cache, value)
+        if isinstance(resolved, dict):
+            return resolved, {
+                "fallbackStatus": "EXPLICIT_ACTIVITY_REFERENCE",
+                "selectionBasis": f"activity.{field}",
+                "candidateCount": len(candidates),
+                "selectedEntityKey": entity_key or "INLINE",
+            }
+
+    matching = [(key, value) for key, value in candidates if _activity_text_source_match(key, value, source_id)]
+    if len(matching) == 1:
+        key, value = matching[0]
+        return value, {
+            "fallbackStatus": "STANDALONE_SOURCE_ID_MATCH",
+            "selectionBasis": "sourcePostingId",
+            "candidateCount": len(candidates),
+            "selectedEntityKey": key,
+        }
+    if len(matching) > 1 or len(candidates) > 1:
+        return None, {
+            "fallbackStatus": "AMBIGUOUS_STANDALONE",
+            "selectionBasis": "NO_AUTO_SELECTION",
+            "candidateCount": len(candidates),
+            "selectedEntityKey": None,
+        }
+    if len(candidates) == 1:
+        key, value = candidates[0]
+        return value, {
+            "fallbackStatus": "STANDALONE_UNAMBIGUOUS",
+            "selectionBasis": "singleCandidate",
+            "candidateCount": 1,
+            "selectedEntityKey": key,
+        }
+    return None, {
+        "fallbackStatus": "ACTIVITY_TEXT_MISSING",
+        "selectionBasis": "none",
+        "candidateCount": 0,
+        "selectedEntityKey": None,
+    }
 
 
 def extract_detail_record(source_id: str, body: bytes, lineage: dict) -> tuple[dict, list[dict]]:
@@ -59,13 +112,14 @@ def extract_detail_record(source_id: str, body: bytes, lineage: dict) -> tuple[d
     activity = activity_for_id(cache, source_id)
     if activity is None:
         raise ValueError("matching Activity entity not found")
-    detail_obj = activity_text_for_activity(cache, activity)
+    detail_obj, activity_text_evidence = select_activity_text(cache, activity, source_id)
+    detail_obj = detail_obj or {}
     activity_text = detail_obj.get("text") or ""
-    objects = [(value, "files") for value in refs_to_objects(cache, activity.get("files"))]
+    objects = [(value, "activity.files") for value in refs_to_objects(cache, activity.get("files"))]
     for key in ("thumbnailImage", "logoImage"):
         value = resolve_ref(cache, activity.get(key))
         if isinstance(value, dict):
-            objects.append((value, key))
+            objects.append((value, f"activity.{key}"))
     candidates = []
     seen_urls: set[str] = set()
     for value, source_field in objects:
@@ -74,9 +128,7 @@ def extract_detail_record(source_id: str, body: bytes, lineage: dict) -> tuple[d
             continue
         seen_urls.add(url)
         type_object = resolve_ref(cache, value.get("type")) or {}
-        candidates.append(
-            {"assetUrl": url, "assetType": type_object.get("name") or "file", "sourceField": source_field}
-        )
+        candidates.append({"assetUrl": url, "assetType": type_object.get("name") or "file", "sourceField": source_field})
     for image in BeautifulSoup(activity_text, "html.parser").find_all("img"):
         url = urljoin("https://linkareer.com/", image.get("src") or "")
         if url and url not in seen_urls:
@@ -103,6 +155,10 @@ def extract_detail_record(source_id: str, body: bytes, lineage: dict) -> tuple[d
         "activityTextSha256": sha256_bytes(activity_text.encode("utf-8")),
         "activityTextLength": len(activity_text),
         "activityTextAvailable": bool(activity_text),
+        "activityTextFallbackStatus": activity_text_evidence["fallbackStatus"],
+        "activityTextSelectionBasis": activity_text_evidence["selectionBasis"],
+        "activityTextCandidateCount": activity_text_evidence["candidateCount"],
+        "activityTextSelectedEntityKey": activity_text_evidence["selectedEntityKey"],
         "assetCandidateCount": len(candidates),
         "assetCandidatesJson": canonical_json(candidates),
         "managerPiiPersisted": False,
@@ -127,7 +183,7 @@ def collect_pending_details(frontier, http, state_root: Path, *, max_items: int 
         source_id = str(frame.at[index, "sourcePostingId"])
         period = frame.at[index, "discoveryMonth"]
         if not isinstance(period, str) or len(period) != 7:
-            period = "2021-03"
+            raise ValueError(f"missing discoveryMonth for detail {source_id}")
         frame.at[index, "status"] = "FETCHING"
         frame.at[index, "attempts"] = int(frame.at[index, "attempts"] or 0) + 1
         persist_frontier(frame, state_root / "detail_frontier.parquet")

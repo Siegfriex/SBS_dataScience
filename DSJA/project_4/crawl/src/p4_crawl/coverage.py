@@ -52,6 +52,8 @@ def collect_month(period: str, apq: APQClient, coverage_root: Path, *, page_cap:
         result = apq.fetch(ENTRIES_OPERATION, variables, period=period)
         request_count += 1
         nodes = result.payload["data"]["activityCalendarEntries"]["nodes"]
+        apq.http.health.observe_page(empty=not nodes, exhausted=False)
+        apq.http.kill_switch.check()
         parts = []
         for day in nodes:
             bucket_date = datetime.fromtimestamp(int(day["date"]) / 1000, tz=timezone.utc).date().isoformat()
@@ -91,7 +93,6 @@ def collect_month(period: str, apq: APQClient, coverage_root: Path, *, page_cap:
             break
         if not nodes:
             stopped_reason = "emptyPageBeforeExhaustion"
-            break
         if fingerprints[fingerprint] >= 2:
             stopped_reason = "repeatedPageBeforeExhaustion"
             break
@@ -144,7 +145,7 @@ def collect_month(period: str, apq: APQClient, coverage_root: Path, *, page_cap:
         "coverageReason": reason,
         "stoppedReason": stopped_reason,
         "aggregateError": aggregate_error,
-        "discoveryPath": str(discovery_path) if discovery_path.exists() else None,
+        "discoveryPath": discovery_path.relative_to(coverage_root).as_posix() if discovery_path.exists() else None,
     }
     atomic_write_json(coverage_root / period[:4] / f"{period}.json", checkpoint)
     return checkpoint

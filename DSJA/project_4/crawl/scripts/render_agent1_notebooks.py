@@ -27,14 +27,20 @@ SPECS = (
         "calls": "audit_input_manifest;recover_observed_input_state;validate_observed_package;write_stage_artifacts",
         "operation": '''from p4_crawl.observed import recover_observed_input_state, validate_observed_package
 
-recovery = recover_observed_input_state(INPUT_MANIFEST.parent, STAGE_ROOT)
+recovery = recover_observed_input_state(
+    INPUT_MANIFEST.parent,
+    STAGE_ROOT,
+    release_root=CRAWL_ROOT / "releases" / CRAWL_RELEASE_ID,
+)
 package = validate_observed_package(INPUT_MANIFEST.parent)
 metrics = {**recovery, "observedPackagePostingRows": package["postingRows"], "observedPackageRawHtmlRows": package["rawHtmlRows"]}
 quality = [
     quality_row("SOURCE_POLICY_READY", "RAW_LINEAGE", "ERROR", "PASS" if recovery["rawHtmlRows"] == 29 else "FAIL", recovery["rawHtmlRows"], 29, "resume_state.json"),
     quality_row("OBSERVED_PACKAGE_REFERENCE_ONLY", "NO_RAW_COPY", "ERROR", "PASS" if package["rawCopied"] is False else "FAIL", package["rawCopied"], False, "resume_state.json"),
+    quality_row("MONTH_GRAIN_RECOVERY", "REMAINING_MONTH_ROWS", "ERROR", "PASS" if recovery["remainingMonthRows"] == recovery["remainingMonths"] == 58 else "FAIL", recovery["remainingMonthRows"], 58, "remaining_months.csv"),
+    quality_row("RAW_FLAG_RECONCILED", "RAW_MANIFEST_AUTHORITY", "ERROR", "PASS" if recovery["rawFlagUnresolvedRows"] == 0 else "FAIL", recovery["rawFlagUnresolvedRows"], 0, "raw_lineage_audit.csv"),
 ]
-persisted_files = [STAGE_ROOT / name for name in ["resume_state.json", "remaining_months.csv", "detail_frontier.parquet", "detail_frontier.csv", "asset_frontier.parquet", "asset_frontier.csv"]]''',
+persisted_files = [STAGE_ROOT / name for name in ["resume_state.json", "remaining_months.csv", "detail_frontier.parquet", "detail_frontier.csv", "asset_frontier.parquet", "asset_frontier.csv", "raw_lineage_audit.parquet", "raw_lineage_audit.csv"]]''',
         "warning": "Observed input is partial and cannot be promoted to empirical analysis.",
     },
     {
@@ -43,15 +49,21 @@ persisted_files = [STAGE_ROOT / name for name in ["resume_state.json", "remainin
         "schema": "crawl-index-v1",
         "input": OBSERVED_HANDOFF,
         "title": "Exercise the registry-owned Linkareer APQ query in fixture dry-run mode",
-        "calls": "audit_input_manifest;run_fixture_apq_query;APQClient.fetch;QueryRegistry.load;write_stage_artifacts",
-        "operation": '''from p4_crawl.observed import run_fixture_apq_query
+        "calls": "audit_input_manifest;run_fixture_apq_query;production_index_plan;APQClient.fetch;QueryRegistry.load;write_stage_artifacts",
+        "operation": '''from p4_crawl.index_orchestrator import production_index_plan
+from p4_crawl.observed import run_fixture_apq_query
+from p4_crawl.storage import atomic_write_json
 
 metrics = run_fixture_apq_query(CRAWL_ROOT, STAGE_ROOT)
+production_plan = production_index_plan([])
+atomic_write_json(STAGE_ROOT / "production_source_policy_plan.json", production_plan)
+metrics["productionSourcePolicyControls"] = len([key for key in production_plan if key.isupper()])
 quality = [
     quality_row("INDEX_FIXTURE_APQ_READY", "REGISTRY_APQ", "ERROR", "PASS" if metrics["transportCalls"] == 1 else "FAIL", metrics["transportCalls"], 1, "fixture_apq_audit.json"),
     quality_row("NO_LIVE_CRAWL_M1", "NETWORK_ZERO", "ERROR", "PASS" if metrics["networkCalls"] == 0 else "FAIL", metrics["networkCalls"], 0, "fixture_apq_audit.json"),
+    quality_row("SOURCE_POLICY_IMPLEMENTATION_READY", "KILL_SWITCH_CONTROLS", "ERROR", "PASS" if metrics["productionSourcePolicyControls"] == 9 else "FAIL", metrics["productionSourcePolicyControls"], 9, "production_source_policy_plan.json"),
 ]
-persisted_files = [STAGE_ROOT / name for name in ["posting_discovery_index.parquet", "posting_discovery_index.csv", "fixture_apq_audit.json"]]''',
+persisted_files = [STAGE_ROOT / name for name in ["posting_discovery_index.parquet", "posting_discovery_index.csv", "fixture_apq_audit.json", "production_source_policy_plan.json"]]''',
         "warning": "Fixture APQ success is not monthly production coverage.",
     },
     {
@@ -64,11 +76,12 @@ persisted_files = [STAGE_ROOT / name for name in ["posting_discovery_index.parqu
         "operation": '''from p4_crawl.observed import replay_observed_raw
 
 OBSERVED_ROOT = INPUT_MANIFEST.parent
-metrics = replay_observed_raw(PROJECT_ROOT, OBSERVED_ROOT, STAGE_ROOT)
+metrics = replay_observed_raw(PROJECT_ROOT, OBSERVED_ROOT, STAGE_ROOT, raw_source_root=RAW_SOURCE_ROOT)
 quality = [
     quality_row("CRAWL_OBSERVED_INPUT_READY", "RAW_REPLAY", "ERROR", "PASS" if metrics["rawReplayPassed"] == 29 and metrics["rawReplayFailed"] == 0 else "FAIL", metrics["rawReplayPassed"], 29, "raw_replay_metrics.json"),
     quality_row("ACTIVITY_TEXT_RECOVERED", "SSR_APOLLO_PARSE", "ERROR", "PASS" if metrics["activityTextRecovered"] == 29 else "FAIL", metrics["activityTextRecovered"], 29, "posting_detail_replay.parquet"),
     quality_row("RAW_PII_NOT_PERSISTED", "PII_POLICY", "ERROR", "PASS" if not metrics["managerPiiPersisted"] else "FAIL", metrics["managerPiiPersisted"], False, "raw_replay_metrics.json"),
+    quality_row("ACTIVITY_TEXT_AMBIGUOUS_AUTO_SELECTION", "FALLBACK_POLICY", "ERROR", "PASS" if metrics["activityTextAmbiguousAutoSelected"] == 0 else "FAIL", metrics["activityTextAmbiguousAutoSelected"], 0, "raw_replay_metrics.json"),
 ]
 persisted_files = [STAGE_ROOT / name for name in ["posting_detail_replay.parquet", "posting_detail_replay.csv", "raw_replay_failures.json", "raw_replay_metrics.json"]]''',
         "warning": "Only the 29 observed raw pages are replayed; this is not full-corpus detail coverage.",
@@ -99,17 +112,28 @@ persisted_files = [STAGE_ROOT / name for name in ["asset_frontier.parquet", "ass
         "input": OBSERVED_HANDOFF,
         "title": "Validate the observed package and invoke the Agent 2 validator adapter without release promotion",
         "calls": "audit_input_manifest;validate_observed_package;invoke_agent2_validator;write_stage_artifacts",
-        "operation": '''from p4_crawl.observed import classify_agent2_validator_quality, invoke_agent2_validator, validate_observed_package
-from p4_crawl.storage import atomic_write_json
+        "operation": '''from p4_crawl.observed import invoke_agent2_validator, validate_observed_package
+from p4_crawl.storage import atomic_write_json, sha256_file
 
 observed_validation = validate_observed_package(INPUT_MANIFEST.parent)
-agent2_validation = invoke_agent2_validator(PROJECT_ROOT, CRAWL_ROOT / "releases" / CRAWL_RELEASE_ID / "HANDOFF.json")
+agent2_validation = invoke_agent2_validator(
+    PROJECT_ROOT,
+    CRAWL_ROOT / "releases" / CRAWL_RELEASE_ID / "HANDOFF.json",
+    run_id=config.run_id,
+    source_notebook_sha256=sha256_file(CRAWL_ROOT / "notebooks" / "04BuildCrawlRelease.ipynb"),
+)
 atomic_write_json(STAGE_ROOT / "observed_package_validation.json", observed_validation)
 atomic_write_json(STAGE_ROOT / "agent2_validator_result.json", agent2_validation)
-metrics = {**observed_validation, "agent2ValidatorStatus": agent2_validation["status"], "crawlReleaseReady": False}
+metrics = {
+    **observed_validation,
+    "agent2ValidatorStatus": agent2_validation["status"],
+    "agent2ValidatorGateStatus": agent2_validation["gateStatus"],
+    "agent2ValidatorProcessExitCode": agent2_validation["processExitCode"],
+    "crawlReleaseReady": agent2_validation["crawlReleaseReady"],
+}
 quality = [
     quality_row("CRAWL_OBSERVED_INPUT_READY", "OBSERVED_PACKAGE", "ERROR", "PASS" if observed_validation["observedInputReady"] else "FAIL", observed_validation["observedInputReady"], True, "observed_package_validation.json"),
-    quality_row("AGENT2_VALIDATOR", "CROSS_AGENT_VALIDATION", "WARNING", classify_agent2_validator_quality(agent2_validation), agent2_validation["status"], "integrated validator", "agent2_validator_result.json"),
+    quality_row("AGENT2_VALIDATOR", "CROSS_AGENT_VALIDATION", "ERROR", agent2_validation["gateStatus"], agent2_validation["reason"], "complete matching PASS evidence", "agent2_validator_result.json"),
     quality_row("CRAWL_RELEASE_READY", "PRODUCTION_PROMOTION", "ERROR", "NOT_EVALUATED", False, "full production corpus", "observed_package_validation.json"),
 ]
 persisted_files = [STAGE_ROOT / "observed_package_validation.json", STAGE_ROOT / "agent2_validator_result.json"]''',
@@ -159,7 +183,8 @@ RANDOM_SEED = 20260806
 FAIL_ON_GATE = True
 EMPIRICAL_ANALYSIS_ALLOWED = False'''
 
-ENVIRONMENT = '''from pathlib import Path
+ENVIRONMENT = '''import os
+from pathlib import Path
 import sys
 
 def locate_project_root(start: Path) -> Path:
@@ -185,6 +210,9 @@ require_repository_relative(INPUT_MANIFEST_PATH)
 require_repository_relative(OUTPUT_ROOT)
 
 CRAWL_ROOT = PROJECT_ROOT / "crawl"
+RAW_SOURCE_ROOT = Path(os.environ.get("P4_CRAWL_RAW_SOURCE_ROOT", str(CRAWL_ROOT))).resolve()
+if not (RAW_SOURCE_ROOT / "data/raw").is_dir():
+    RAW_SOURCE_ROOT = CRAWL_ROOT
 RUN_ROOT = PROJECT_ROOT / OUTPUT_ROOT
 STAGE_ROOT = RUN_ROOT / STAGE_ID
 INPUT_MANIFEST = PROJECT_ROOT / INPUT_MANIFEST_PATH
@@ -215,14 +243,16 @@ input_audit'''
 
 FINALIZE = '''from p4_crawl.stage import write_stage_artifacts
 
+release_blocked = STAGE_ID == "A1-04-RELEASE" and not bool(metrics.get("crawlReleaseReady"))
 manifest = write_stage_artifacts(
     config=config, stage_id=STAGE_ID, schema_version=SCHEMA_VERSION,
     started_at=f"{AS_OF_DATE}T00:00:00+09:00", parameters=PARAMETERS,
     input_manifest_path=INPUT_MANIFEST, stage_root=STAGE_ROOT,
     metric_values=metrics, quality_rows=quality, persisted_files=persisted_files,
-    warnings=[STAGE_WARNING], branch="agent/p4-crawl-release-v2",
+    warnings=[STAGE_WARNING],
+    status_override="NOT_EVALUATED" if release_blocked else None,
 )
-if FAIL_ON_GATE and any(row["status"] == "FAIL" for row in quality):
+if FAIL_ON_GATE and (any(row["status"] == "FAIL" for row in quality) or release_blocked):
     raise RuntimeError(f"{STAGE_ID} quality gate failed")
 {"stageId": STAGE_ID, "status": manifest["status"], "metrics": metrics, "artifacts": manifest["terminationArtifacts"]}'''
 

@@ -19,7 +19,8 @@ from .frontier import build_detail_frontier, persist_frontier
 from .manifests import load_jsonl, verify_checksum_file
 from .policy import PolicyHttpClient, RateLimiter, SourcePolicyBlocked
 from .query_registry import QueryRegistry
-from .storage import atomic_write_json, sha256_bytes, write_parquet_atomic
+from .storage import atomic_write_json, sha256_bytes, write_csv_atomic, write_parquet_atomic
+from .validator import evaluate_validator_artifact, file_sha256
 
 
 def _safe_url(url: str | None) -> str | None:
@@ -103,7 +104,7 @@ def run_fixture_apq_query(crawl_root: Path, output_root: Path) -> dict:
     discovery = pd.DataFrame(rows).drop_duplicates(["sourcePostingId", "discoverySide"])
     output_root.mkdir(parents=True, exist_ok=True)
     write_parquet_atomic(discovery, output_root / "posting_discovery_index.parquet")
-    discovery.to_csv(output_root / "posting_discovery_index.csv", index=False, encoding="utf-8-sig")
+    write_csv_atomic(discovery, output_root / "posting_discovery_index.csv")
     audit = {
         "mode": "DRY_RUN_FIXTURE",
         "operationName": operation,
@@ -118,7 +119,13 @@ def run_fixture_apq_query(crawl_root: Path, output_root: Path) -> dict:
     return audit
 
 
-def replay_observed_raw(project_root: Path, observed_root: Path, output_root: Path) -> dict:
+def replay_observed_raw(
+    project_root: Path,
+    observed_root: Path,
+    output_root: Path,
+    *,
+    raw_source_root: Path | None = None,
+) -> dict:
     """Parse all verified local raw SSR rows without persisting ActivityText or PII."""
 
     raw_rows = load_jsonl(observed_root / "raw_detail_manifest.jsonl")
@@ -126,7 +133,7 @@ def replay_observed_raw(project_root: Path, observed_root: Path, output_root: Pa
     failures = []
     for lineage in raw_rows:
         raw_path = require_repository_relative(lineage["rawPath"])
-        path = project_root / "crawl" / raw_path
+        path = (raw_source_root or (project_root / "crawl")) / raw_path
         try:
             body = gzip.open(path, "rb").read()
             if sha256_bytes(body) != lineage["rawSha256"] or len(body) != int(lineage["bytes"]):
@@ -147,13 +154,17 @@ def replay_observed_raw(project_root: Path, observed_root: Path, output_root: Pa
     output_root.mkdir(parents=True, exist_ok=True)
     frame = pd.DataFrame(records).sort_values("sourcePostingId") if records else pd.DataFrame()
     write_parquet_atomic(frame, output_root / "posting_detail_replay.parquet")
-    frame.to_csv(output_root / "posting_detail_replay.csv", index=False, encoding="utf-8-sig")
+    write_csv_atomic(frame, output_root / "posting_detail_replay.csv")
     atomic_write_json(output_root / "raw_replay_failures.json", failures)
     metrics = {
         "rawManifestRows": len(raw_rows),
         "rawReplayPassed": len(records),
         "rawReplayFailed": len(failures),
         "activityTextRecovered": int(frame.get("activityTextAvailable", pd.Series(dtype=bool)).fillna(False).sum()) if not frame.empty else 0,
+        "activityTextAmbiguousAutoSelected": int(
+            ((frame.get("activityTextFallbackStatus", pd.Series(dtype=str)) == "AMBIGUOUS_STANDALONE")
+             & frame.get("activityTextAvailable", pd.Series(dtype=bool)).fillna(False)).sum()
+        ) if not frame.empty else 0,
         "assetCandidateRows": int(frame.get("assetCandidateCount", pd.Series(dtype=int)).fillna(0).sum()) if not frame.empty else 0,
         "rawBodyPersisted": False,
         "managerPiiPersisted": False,
@@ -168,15 +179,15 @@ def route_observed_asset_metadata(detail_replay_path: Path, output_root: Path) -
     posting = pd.read_parquet(detail_replay_path)
     candidates = build_asset_frontier(posting)
     if candidates.empty:
-        candidates = pd.DataFrame(columns=["sourcePostingId", "assetUrl", "assetType", "sourceField", "status", "externalAtsAsset"])
+        candidates = pd.DataFrame(columns=["sourcePostingId", "assetUrl", "assetType", "sourceField", "periodMonth", "status", "externalAtsAsset"])
     else:
         candidates["assetUrl"] = candidates["assetUrl"].map(_safe_url)
     output_root.mkdir(parents=True, exist_ok=True)
     write_parquet_atomic(candidates, output_root / "asset_frontier.parquet")
-    candidates.to_csv(output_root / "asset_frontier.csv", index=False, encoding="utf-8-sig")
+    write_csv_atomic(candidates, output_root / "asset_frontier.csv")
     ocr = candidates[candidates["assetType"].astype(str).str.contains("image", case=False, na=False)].copy()
     write_parquet_atomic(ocr, output_root / "ocr_candidate_manifest.parquet")
-    ocr.to_csv(output_root / "ocr_candidate_manifest.csv", index=False, encoding="utf-8-sig")
+    write_csv_atomic(ocr, output_root / "ocr_candidate_manifest.csv")
     (output_root / "asset_manifest.jsonl").write_text("", encoding="utf-8")
     transport_calls = 0
 
@@ -219,7 +230,7 @@ def validate_observed_package(observed_root: Path) -> dict:
     }
 
 
-def recover_observed_input_state(observed_root: Path, output_root: Path) -> dict:
+def recover_observed_input_state(observed_root: Path, output_root: Path, *, release_root: Path) -> dict:
     """Recover the M1 frontier from the self-contained observed handoff."""
 
     posting = pd.read_parquet(observed_root / "posting_manifest.parquet")
@@ -235,15 +246,32 @@ def recover_observed_input_state(observed_root: Path, output_root: Path) -> dict
     output_root.mkdir(parents=True, exist_ok=True)
     frontier = build_detail_frontier(set(posting["sourcePostingId"].astype(str)), raw_by_id)
     persist_frontier(frontier, output_root / "detail_frontier.parquet")
-    asset_frontier = pd.DataFrame(columns=["sourcePostingId", "assetUrl", "assetType", "sourceField", "status", "externalAtsAsset"])
+    asset_frontier = pd.DataFrame(columns=["sourcePostingId", "assetUrl", "assetType", "sourceField", "periodMonth", "status", "externalAtsAsset"])
     write_parquet_atomic(asset_frontier, output_root / "asset_frontier.parquet")
-    asset_frontier.to_csv(output_root / "asset_frontier.csv", index=False, encoding="utf-8-sig")
-    remaining = pd.DataFrame([{
-        "coverageStatus": "unverified",
-        "remainingMonthCount": int(gaps["unverifiedMonthCount"]),
-        "detail": "Month identities require the production coverage manifest; count is preserved from known_gaps.json",
-    }])
-    remaining.to_csv(output_root / "remaining_months.csv", index=False, encoding="utf-8-sig")
+    write_csv_atomic(asset_frontier, output_root / "asset_frontier.csv")
+    coverage = pd.read_csv(release_root / "monthly_coverage.csv", encoding="utf-8-sig")
+    target = coverage[coverage["periodMonth"].astype(str).between("2020-01", "2026-07")].copy()
+    remaining = target[target["coverageReason"].eq("paginationUnverified")].copy()
+    if len(remaining) != int(gaps["unverifiedMonthCount"]):
+        raise ValueError(
+            f"month-grain gap mismatch: release={len(remaining)} handoff={gaps['unverifiedMonthCount']}"
+        )
+    remaining = remaining.sort_values("periodMonth")
+    write_csv_atomic(remaining, output_root / "remaining_months.csv")
+
+    actual_raw_ids = set(raw_by_id)
+    raw_flag = posting["hasDetailRawHtml"].fillna(False).astype(bool)
+    raw_lineage = pd.DataFrame({
+        "sourcePostingId": posting["sourcePostingId"].astype(str),
+        "declaredHasDetailRawHtml": raw_flag,
+    })
+    raw_lineage["actualRawManifest"] = raw_lineage["sourcePostingId"].isin(actual_raw_ids)
+    raw_lineage["hasDetailRawHtmlReconciled"] = raw_lineage["actualRawManifest"]
+    raw_lineage["baselineFlagMismatch"] = raw_lineage["declaredHasDetailRawHtml"] != raw_lineage["actualRawManifest"]
+    raw_lineage["resolution"] = "DERIVED_FROM_VERIFIED_RAW_MANIFEST_NO_SOURCE_MUTATION"
+    raw_lineage = raw_lineage.sort_values("sourcePostingId")
+    write_parquet_atomic(raw_lineage, output_root / "raw_lineage_audit.parquet")
+    write_csv_atomic(raw_lineage, output_root / "raw_lineage_audit.csv")
     state = {
         "status": "OBSERVED_INPUT_RECOVERED",
         "crawlReleaseId": "CRAWL_20260806_03",
@@ -251,6 +279,9 @@ def recover_observed_input_state(observed_root: Path, output_root: Path) -> dict
         "rawHtmlRows": len(raw_rows),
         "assetRows": int(gaps["assetRows"]),
         "remainingMonths": int(gaps["unverifiedMonthCount"]),
+        "remainingMonthRows": len(remaining),
+        "rawFlagBaselineMismatchRows": int(raw_lineage["baselineFlagMismatch"].sum()),
+        "rawFlagUnresolvedRows": 0,
         "detailFrontierStates": frontier["status"].value_counts().to_dict(),
         "source": "OBSERVED_INPUT_20260806_01",
     }
@@ -258,41 +289,76 @@ def recover_observed_input_state(observed_root: Path, output_root: Path) -> dict
     return state
 
 
-def invoke_agent2_validator(project_root: Path, release_handoff: Path) -> dict:
-    """Call Agent 2's validator when integrated; never infer release readiness."""
+def invoke_agent2_validator(
+    project_root: Path,
+    release_handoff: Path,
+    *,
+    run_id: str,
+    source_notebook_sha256: str,
+) -> dict:
+    """Call Agent 2's validator and validate its complete evidence envelope."""
 
     pipeline_src = project_root / "pipeline" / "src"
+    input_sha256 = file_sha256(release_handoff)
     if not (pipeline_src / "p4" / "contracts" / "release_validation.py").is_file():
+        evaluation = evaluate_validator_artifact(
+            None, expected_run_id=run_id, expected_input_sha256=input_sha256,
+            expected_source_notebook_sha256=source_notebook_sha256,
+        )
         return {
             "validator": "p4.contracts.release_validation.validate_release_gates",
-            "status": "NOT_AVAILABLE_IN_AGENT1_BRANCH",
+            "status": "NOT_EVALUATED",
             "executed": False,
-            "crawlReleaseReady": False,
+            "processExitCode": None,
+            "runId": run_id,
+            "inputSha256": input_sha256,
+            "sourceNotebookSha256": source_notebook_sha256,
+            **evaluation,
         }
     sys.path.insert(0, str(pipeline_src))
     try:
         module = importlib.import_module("p4.contracts.release_validation")
         validation = module.validate_release_gates(release_handoff, expected_contract_version="2.1.2")
-        return {
-            "validator": "p4.contracts.release_validation.validate_release_gates",
-            "status": "EXECUTED",
-            "executed": True,
-            "crawlReleaseReady": bool(validation.get("fullCorpusAcceptance", {}).get("status") == "PASS"),
+        full_status = validation.get("fullCorpusAcceptance")
+        if isinstance(full_status, dict):
+            full_status = full_status.get("status")
+        artifact = {
+            "processExitCode": 0,
+            "status": "PASS" if full_status == "PASS" else "FAIL",
+            "runId": run_id,
+            "inputSha256": input_sha256,
+            "sourceNotebookSha256": source_notebook_sha256,
             "validation": validation,
         }
-    except Exception as exc:
+        evaluation = evaluate_validator_artifact(
+            artifact, expected_run_id=run_id, expected_input_sha256=input_sha256,
+            expected_source_notebook_sha256=source_notebook_sha256,
+        )
         return {
             "validator": "p4.contracts.release_validation.validate_release_gates",
-            "status": "EXECUTION_FAILED",
+            "status": artifact["status"],
             "executed": True,
-            "crawlReleaseReady": False,
+            **artifact,
+            **evaluation,
+        }
+    except Exception as exc:
+        artifact = {
+            "processExitCode": 1,
+            "status": "FAIL",
+            "runId": run_id,
+            "inputSha256": input_sha256,
+            "sourceNotebookSha256": source_notebook_sha256,
+            "validation": {},
+        }
+        evaluation = evaluate_validator_artifact(
+            artifact, expected_run_id=run_id, expected_input_sha256=input_sha256,
+            expected_source_notebook_sha256=source_notebook_sha256,
+        )
+        return {
+            "validator": "p4.contracts.release_validation.validate_release_gates",
+            "status": "FAIL",
+            "executed": True,
+            **artifact,
+            **evaluation,
             "error": f"{type(exc).__name__}: {exc}",
         }
-
-
-def classify_agent2_validator_quality(result: dict) -> str:
-    """Return a fail-closed stage quality status for the validator adapter."""
-
-    if not result.get("executed"):
-        return "NOT_EVALUATED"
-    return "PASS" if result.get("status") == "EXECUTED" else "FAIL"

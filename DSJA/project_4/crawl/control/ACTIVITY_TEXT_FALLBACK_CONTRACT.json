@@ -1,0 +1,25 @@
+{
+  "contractId": "P4-ACTIVITY-TEXT-FALLBACK-v1",
+  "contractVersion": "1.0.0",
+  "crawlImplementation": "crawl/src/p4_crawl/detail.py::select_activity_text",
+  "consumerOwner": "P4-A2-PIPELINE",
+  "selectionOrder": [
+    "explicit activity.detailText/activityText/ActivityText Apollo reference",
+    "exact sourcePostingId match among standalone ActivityText entities",
+    "single unambiguous standalone ActivityText entity"
+  ],
+  "ambiguousPolicy": "NO_AUTO_SELECTION",
+  "requiredEvidenceFields": [
+    "activityTextFallbackStatus",
+    "activityTextSelectionBasis",
+    "activityTextCandidateCount",
+    "activityTextSelectedEntityKey"
+  ],
+  "statuses": [
+    "EXPLICIT_ACTIVITY_REFERENCE",
+    "STANDALONE_SOURCE_ID_MATCH",
+    "STANDALONE_UNAMBIGUOUS",
+    "AMBIGUOUS_STANDALONE",
+    "ACTIVITY_TEXT_MISSING"
+  ]
+}

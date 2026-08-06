@@ -6,7 +6,7 @@ from dataclasses import dataclass
 
 import pytest
 
-from p4_crawl.policy import PolicyHttpClient, RateLimiter, SourcePolicyBlocked
+from p4_crawl.policy import PolicyHttpClient, RateLimiter, SourcePolicyBlocked, SourcePolicyConfig
 
 
 class FakeClock:
@@ -26,6 +26,7 @@ class FakeClock:
 class Response:
     status_code: int = 200
     content: bytes = b"ok"
+    headers: dict | None = None
 
 
 def test_fake_clock_global_interval_is_at_least_one_second() -> None:
@@ -110,22 +111,62 @@ def test_external_ats_is_rejected_before_transport() -> None:
     assert calls == 0
 
 
-def test_recent_success_rate_trips_kill_switch() -> None:
-    statuses = iter([200, 500, 500, 500])
-
-    def transport(_url: str, **_kwargs) -> Response:
-        return Response(status_code=next(statuses), content=b"response")
-
-    limiter = RateLimiter(1.0, clock=lambda: 0.0, sleeper=lambda _seconds: None, random_uniform=lambda _a, _b: 0.0)
-    client = PolicyHttpClient(
-        transport,
-        limiter=limiter,
-        success_window=4,
-        success_minimum_observations=4,
-        minimum_success_rate=0.5,
+def no_wait_limiter() -> RateLimiter:
+    return RateLimiter(
+        1.0,
+        clock=lambda: 0.0,
+        sleeper=lambda _seconds: None,
+        random_uniform=lambda _a, _b: 0.0,
     )
-    for suffix in (1, 2, 3):
-        client.get(f"https://linkareer.com/activity/{suffix}")
-    with pytest.raises(SourcePolicyBlocked, match="recent success rate"):
-        client.get("https://linkareer.com/activity/4")
-    assert client.kill_switch.tripped
+
+
+def test_recent_success_rate_below_threshold_trips() -> None:
+    statuses = iter([200, 500, 500, 500, 500])
+    client = PolicyHttpClient(
+        lambda _url, **_kwargs: Response(next(statuses)),
+        limiter=no_wait_limiter(),
+        policy=SourcePolicyConfig(max_retries=0, minimum_success_samples=5, min_success_rate=0.8),
+        backoff_sleeper=lambda _seconds: None,
+    )
+    for number in range(4):
+        client.get(f"https://linkareer.com/activity/{number}")
+    with pytest.raises(SourcePolicyBlocked, match="MIN_SUCCESS_RATE"):
+        client.get("https://linkareer.com/activity/5")
+
+
+def test_consecutive_429_threshold_trips() -> None:
+    client = PolicyHttpClient(
+        lambda _url, **_kwargs: Response(429),
+        limiter=no_wait_limiter(),
+        policy=SourcePolicyConfig(max_retries=5, max_consecutive_429=3, minimum_success_samples=20),
+        backoff_sleeper=lambda _seconds: None,
+    )
+    with pytest.raises(SourcePolicyBlocked, match="MAX_CONSECUTIVE_429"):
+        client.get("https://linkareer.com/api/graphql")
+
+
+def test_unexpected_content_type_trips_before_parser() -> None:
+    client = PolicyHttpClient(
+        lambda _url, **_kwargs: Response(200, b"<html>login</html>", {"content-type": "text/html"}),
+        limiter=no_wait_limiter(),
+    )
+    with pytest.raises(SourcePolicyBlocked, match="UNEXPECTED_CONTENT_TYPE"):
+        client.get(
+            "https://linkareer.com/api/graphql",
+            _p4_context={"expectedContentTypes": ["application/json"]},
+        )
+
+
+def test_empty_page_streak_trips() -> None:
+    client = PolicyHttpClient(lambda _url, **_kwargs: Response(), limiter=no_wait_limiter())
+    client.health.observe_page(empty=True)
+    client.health.observe_page(empty=True)
+    with pytest.raises(SourcePolicyBlocked, match="MAX_EMPTY_PAGE_STREAK"):
+        client.kill_switch.check()
+
+
+def test_schema_drift_trips() -> None:
+    client = PolicyHttpClient(lambda _url, **_kwargs: Response(), limiter=no_wait_limiter())
+    client.health.schema_drift("missing nodes")
+    with pytest.raises(SourcePolicyBlocked, match="SCHEMA_DRIFT"):
+        client.kill_switch.check()
