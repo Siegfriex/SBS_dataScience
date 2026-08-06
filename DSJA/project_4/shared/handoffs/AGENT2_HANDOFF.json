@@ -1,19 +1,24 @@
 {
-  "agentId": "AGENT_2",
-  "status": "BLOCKED_BY_CONTRACT",
-  "secondaryBlockers": [
-    "BLOCKED_BY_CRAWL_RELEASE"
-  ],
+  "agentId": "P4-A2-PIPELINE",
+  "agentName": "P4 Contract-Driven Pipeline & Analysis Engineer",
+  "pipelineStatus": "PIPELINE_FOUNDATION_READY",
+  "contractStatus": "BLOCKED_BY_CONTRACT",
+  "crawlInputStatus": "BLOCKED_BY_CRAWL_RELEASE",
   "branch": "agent/p4-pipeline-v2",
-  "headAtGeneration": "cbd8b848a28201bac506a96797fc04cdb20b35e9",
-  "contractVersion": null,
+  "headRef": "HEAD",
+  "implementationHeadAtGeneration": "f975192af5260bc681f8086d4d184eecb0b6f0d6",
+  "targetContractVersion": "2.1.2",
+  "supportedContractVersion": null,
   "crawlReleaseId": null,
   "dataVersion": "synthetic-fixture-v1",
-  "dataProvenance": "generated_structural_fixture",
+  "dataProvenance": "SYNTHETIC",
   "empiricalAnalysisAllowed": false,
-  "warehousePath": "DSJA/project_4/pipeline/data/warehouse/p4.duckdb",
+  "canonicalWarehousePath": "DSJA/project_4/pipeline/data/warehouse/p4.duckdb",
+  "canonicalWarehouseExecuted": false,
+  "developmentWarehousePath": "DSJA/project_4/pipeline/data/warehouse/p4.development.duckdb",
   "postingMartPath": "DSJA/project_4/pipeline/data/marts/postingAnalysisMart.parquet",
   "timeSeriesMartPath": "DSJA/project_4/pipeline/data/marts/timeSeriesMart.parquet",
+  "martsEmpirical": false,
   "reportPaths": [
     "DSJA/project_4/pipeline/reports/agent2/AGENT2_FINAL_REPORT.md",
     "DSJA/project_4/pipeline/reports/agent2/AGENT2_FINAL_REPORT.json"
@@ -23,12 +28,22 @@
     {
       "gate": "unitAndIntegrationTests",
       "status": "PASS",
-      "observed": "61 passed"
+      "observed": "74 passed"
     },
     {
-      "gate": "notebookExecution",
+      "gate": "productionNotebookOutputs",
+      "status": "PASS",
+      "observed": 0
+    },
+    {
+      "gate": "fixtureNotebookExecution",
       "status": "PASS",
       "observed": "15 of 15 executed"
+    },
+    {
+      "gate": "notebookCellIds",
+      "status": "PASS",
+      "observed": 0
     },
     {
       "gate": "postingMartPrimaryKey",
@@ -60,5 +75,9 @@
       "status": "WARN",
       "observed": "not executed by design"
     }
+  ],
+  "remainingBlockers": [
+    "Agent 3 canonical P4_CONTRACT_v2.1.2 bundle is absent.",
+    "Agent 1 immutable crawl/releases/CRAWL_*/HANDOFF.json is absent."
   ]
 }
