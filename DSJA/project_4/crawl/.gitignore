@@ -1,0 +1,4 @@
+# raw HTML/JSON captures contain unmasked PII (manager name/phone/email) by nature
+# of being raw source. Never commit these. Only manifests (sourceUrl/rawPath/rawSha256/
+# bytes, no PII) and masked fixtures/samples are tracked.
+data/raw/
