@@ -25,7 +25,7 @@ endpoints:
     expectedContentTypes: [application/xml, text/xml]
     credentialEnv: NCS_API_SERVICE_KEY
     contractStatus: PROVISIONAL
-    probeStatus: NOT_STARTED
+    probeStatus: NOT_EVALUATED
     requiredProbeCases: [SUCCESS_MINIMAL, SUCCESS_PAGINATED, EMPTY_VALID, INVALID_PARAMETER, AUTH_MISSING, AUTH_INVALID, FORMAT_VARIANT]
   - apiContractId: NCS-ncsDutyInfo-v4.0
     provider: NCS_OPENAPI
@@ -36,7 +36,7 @@ endpoints:
     expectedContentTypes: [application/xml, text/xml]
     credentialEnv: NCS_API_SERVICE_KEY
     contractStatus: PROVISIONAL
-    probeStatus: NOT_STARTED
+    probeStatus: NOT_EVALUATED
     requiredProbeCases: [SUCCESS_MINIMAL, SUCCESS_PAGINATED, EMPTY_VALID, INVALID_PARAMETER, AUTH_MISSING, AUTH_INVALID, FORMAT_VARIANT]
   - apiContractId: NCS-ncsCompeUnitInfo-v4.0
     provider: NCS_OPENAPI
@@ -47,7 +47,7 @@ endpoints:
     expectedContentTypes: [application/xml, text/xml]
     credentialEnv: NCS_API_SERVICE_KEY
     contractStatus: PROVISIONAL
-    probeStatus: NOT_STARTED
+    probeStatus: NOT_EVALUATED
     requiredProbeCases: [SUCCESS_MINIMAL, SUCCESS_PAGINATED, EMPTY_VALID, INVALID_PARAMETER, AUTH_MISSING, AUTH_INVALID, FORMAT_VARIANT]
   - apiContractId: NCS-ncsCompeUnitFactrInfo-v4.0
     provider: NCS_OPENAPI
@@ -58,7 +58,7 @@ endpoints:
     expectedContentTypes: [application/xml, text/xml]
     credentialEnv: NCS_API_SERVICE_KEY
     contractStatus: PROVISIONAL
-    probeStatus: NOT_STARTED
+    probeStatus: NOT_EVALUATED
     requiredProbeCases: [SUCCESS_MINIMAL, SUCCESS_PAGINATED, EMPTY_VALID, INVALID_PARAMETER, AUTH_MISSING, AUTH_INVALID, FORMAT_VARIANT]
   - apiContractId: NCS-ncsKsaInfo-v4.0
     provider: NCS_OPENAPI
@@ -69,7 +69,7 @@ endpoints:
     expectedContentTypes: [application/xml, text/xml]
     credentialEnv: NCS_API_SERVICE_KEY
     contractStatus: PROVISIONAL
-    probeStatus: NOT_STARTED
+    probeStatus: NOT_EVALUATED
     requiredProbeCases: [SUCCESS_MINIMAL, SUCCESS_PAGINATED, EMPTY_VALID, INVALID_PARAMETER, AUTH_MISSING, AUTH_INVALID, FORMAT_VARIANT]
   - apiContractId: WORK24-job-dictionary-v4.0
     provider: WORK24
@@ -80,5 +80,5 @@ endpoints:
     expectedContentTypes: [application/xml, text/xml, application/json]
     credentialEnv: WORK24_API_AUTH_KEY
     contractStatus: PROVISIONAL
-    probeStatus: NOT_STARTED
+    probeStatus: NOT_EVALUATED
     requiredProbeCases: [SUCCESS_MINIMAL, SUCCESS_PAGINATED, EMPTY_VALID, INVALID_PARAMETER, AUTH_MISSING, AUTH_INVALID, FORMAT_VARIANT]
