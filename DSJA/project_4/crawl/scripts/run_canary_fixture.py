@@ -373,6 +373,7 @@ def main() -> int:
     metrics_path = report_root / f"P4_CANARY_CRAWL_METRICS_{suffix}.csv"
     defects_path = report_root / f"P4_CANARY_CRAWL_DEFECTS_{suffix}.csv"
     lineage_path = report_root / f"P4_CANARY_CRAWL_LINEAGE_{suffix}.csv"
+    tier0_checks_path = report_root / f"P4_CANARY_CRAWL_TIER0_CHECKS_{suffix}.csv"
     policy_report = report_root / f"P4_CANARY_CRAWL_POLICY_{suffix}.json"
     report_path = report_root / f"P4_CANARY_CRAWL_REPORT_{suffix}.md"
     evidence_path = report_root / f"EVIDENCE_MANIFEST_{suffix}.sha256"
@@ -391,6 +392,13 @@ def main() -> int:
         "gitTracked": False,
         "containsRawBytes": False,
     } for path in run_artifacts))
+    write_csv(tier0_checks_path, ({
+        "canaryRunId": args.canary_run_id,
+        "tier": 0,
+        **row,
+        "networkCalls": 0,
+        "externalAtsTransportCalls": 0,
+    } for row in checks))
     write_json(policy_report, {
         "agentId": AGENT_ID,
         "canaryRunId": args.canary_run_id,
@@ -432,7 +440,7 @@ Provide a new, unexpired approval matching `CANARY_APPROVAL.schema.json`, with a
 small period/query/request budget and hashes bound to the current query registry
 and source-policy audit. A new canaryRunId is required.
 """, encoding="utf-8")
-    evidence_files = [metrics_path, defects_path, lineage_path, policy_report, report_path]
+    evidence_files = [metrics_path, defects_path, lineage_path, tier0_checks_path, policy_report, report_path]
     evidence_path.write_text(
         "\n".join(f"{sha(path)}  {path.name}" for path in evidence_files) + "\n", encoding="utf-8"
     )
