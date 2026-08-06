@@ -57,6 +57,7 @@ def execute(args: argparse.Namespace) -> list[Path]:
     for name in names:
         source_path = root / name
         notebook = nbformat.read(source_path, as_version=4)
+        source_parameter_cell = notebook.cells[0].source
         source_output_count = sum(len(cell.get("outputs", [])) for cell in notebook.cells if cell.cell_type == "code")
         if source_output_count:
             raise ValueError(f"source notebook contains stored outputs: {source_path}")
@@ -69,6 +70,9 @@ def execute(args: argparse.Namespace) -> list[Path]:
         )
         client.execute()
         if args.save_executed:
+            # Runtime paths are injected only for execution.  Persist the clean,
+            # repository-portable parameter cell with the captured outputs.
+            notebook.cells[0].source = source_parameter_cell
             target = run_root / "executed" / f"{source_path.stem}.executed.ipynb"
             target.parent.mkdir(parents=True, exist_ok=True)
             nbformat.write(notebook, target)
@@ -99,6 +103,17 @@ def execute(args: argparse.Namespace) -> list[Path]:
                 ensure_ascii=False,
                 indent=2,
             ) + "\n",
+            encoding="utf-8",
+        )
+        checksum_targets = sorted(
+            path for path in run_root.rglob("*")
+            if path.is_file() and path.name != "CHECKSUMS.sha256"
+        )
+        (run_root / "CHECKSUMS.sha256").write_text(
+            "".join(
+                f"{sha256(path.read_bytes()).hexdigest()}  {path.relative_to(run_root)}\n"
+                for path in checksum_targets
+            ),
             encoding="utf-8",
         )
     return executed
