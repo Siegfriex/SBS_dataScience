@@ -288,3 +288,11 @@ def invoke_agent2_validator(project_root: Path, release_handoff: Path) -> dict:
             "crawlReleaseReady": False,
             "error": f"{type(exc).__name__}: {exc}",
         }
+
+
+def classify_agent2_validator_quality(result: dict) -> str:
+    """Return a fail-closed stage quality status for the validator adapter."""
+
+    if not result.get("executed"):
+        return "NOT_EVALUATED"
+    return "PASS" if result.get("status") == "EXECUTED" else "FAIL"

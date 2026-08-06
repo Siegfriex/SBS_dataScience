@@ -108,3 +108,24 @@ def test_external_ats_is_rejected_before_transport() -> None:
     with pytest.raises(SourcePolicyBlocked, match="EXTERNAL_ATS"):
         client.get("https://jobs.example.com/posting/1")
     assert calls == 0
+
+
+def test_recent_success_rate_trips_kill_switch() -> None:
+    statuses = iter([200, 500, 500, 500])
+
+    def transport(_url: str, **_kwargs) -> Response:
+        return Response(status_code=next(statuses), content=b"response")
+
+    limiter = RateLimiter(1.0, clock=lambda: 0.0, sleeper=lambda _seconds: None, random_uniform=lambda _a, _b: 0.0)
+    client = PolicyHttpClient(
+        transport,
+        limiter=limiter,
+        success_window=4,
+        success_minimum_observations=4,
+        minimum_success_rate=0.5,
+    )
+    for suffix in (1, 2, 3):
+        client.get(f"https://linkareer.com/activity/{suffix}")
+    with pytest.raises(SourcePolicyBlocked, match="recent success rate"):
+        client.get("https://linkareer.com/activity/4")
+    assert client.kill_switch.tripped
