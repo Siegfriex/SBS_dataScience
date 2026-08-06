@@ -13,7 +13,7 @@
   "metrics": [
     {
       "metricId": "status",
-      "value": "ONBOARDING_RECOVERED",
+      "value": "OBSERVED_INPUT_RECOVERED",
       "numerator": null,
       "denominator": null,
       "unit": "value",
@@ -24,16 +24,6 @@
     {
       "metricId": "crawlReleaseId",
       "value": "CRAWL_20260806_03",
-      "numerator": null,
-      "denominator": null,
-      "unit": "value",
-      "grain": "A1-00-RECOVER",
-      "unknownHandling": "preserve_unknown",
-      "status": "INFORMATIONAL"
-    },
-    {
-      "metricId": "contractVersion",
-      "value": "2.1.2",
       "numerator": null,
       "denominator": null,
       "unit": "value",
@@ -72,16 +62,6 @@
       "status": "INFORMATIONAL"
     },
     {
-      "metricId": "completeMonths",
-      "value": 21,
-      "numerator": 21,
-      "denominator": null,
-      "unit": "count",
-      "grain": "A1-00-RECOVER",
-      "unknownHandling": "preserve_unknown",
-      "status": "INFORMATIONAL"
-    },
-    {
       "metricId": "remainingMonths",
       "value": 58,
       "numerator": 58,
@@ -102,18 +82,8 @@
       "status": "INFORMATIONAL"
     },
     {
-      "metricId": "assetFrontierRows",
-      "value": 0,
-      "numerator": 0,
-      "denominator": null,
-      "unit": "count",
-      "grain": "A1-00-RECOVER",
-      "unknownHandling": "preserve_unknown",
-      "status": "INFORMATIONAL"
-    },
-    {
-      "metricId": "rejectedRawReferences",
-      "value": "[{\"rawPathClass\":\"NON_RAW_MASKED_FIXTURE_REFERENCE\",\"reason\":\"notRealRawDetailPath\",\"sourceUrl\":\"https://linkareer.com/activity/339673\"},{\"rawPathClass\":\"NON_RAW_MASKED_FIXTURE_REFERENCE\",\"reason\":\"notRealRawDetailPath\",\"sourceUrl\":\"https://linkareer.com/activity/339737\"},{\"rawPathClass\":\"NON_RAW_MASKED_FIXTURE_REFERENCE\",\"reason\":\"notRealRawDetailPath\",\"sourceUrl\":\"https://linkareer.com/activity/339821\"}]",
+      "metricId": "source",
+      "value": "OBSERVED_INPUT_20260806_01",
       "numerator": null,
       "denominator": null,
       "unit": "value",

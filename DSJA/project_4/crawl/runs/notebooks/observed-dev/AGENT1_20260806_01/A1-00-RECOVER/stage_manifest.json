@@ -6,7 +6,7 @@
   "status": "SUCCEEDED",
   "agentId": "P4-A1-SOURCE",
   "branch": "agent/p4-crawl-release-v2",
-  "gitHead": "0605a383b2e053212f2612cd63841ed7b660040a",
+  "gitHead": "1f60f1fd25a35f3c73ccd6a9e4162701b33126da",
   "contractVersion": "2.1.2",
   "schemaVersion": "source-policy-run-v1",
   "dataVersion": "observed-dev-20260806.1",
@@ -16,15 +16,12 @@
   "completedAt": "2026-08-06T00:00:00+09:00",
   "empiricalAnalysisAllowed": false,
   "promotionAllowed": false,
-  "inputManifestSha256": "404af678f9812678941d3fed5ab913949f364cc38e1f5005940a3aaac9e442eb",
-  "parameterSha256": "c27ae6b7017b718e1c634c20c2f2eb3e310286a63f4dfede01a6ef321f64ea4b",
+  "inputManifestSha256": "f58810b38bde7c7e1c69bf1f7000b3931cadf9d4d544f64b9c9c0d27a63bce8e",
+  "parameterSha256": "b238df7c7e75247c2bb8aaf10771ae3b0ca597d0daf3fefb9cb846528640809d",
   "rowCounts": {
     "asset_frontier": 0,
     "detail_frontier": 137,
-    "ncs_source_manifest": 2,
-    "posting_manifest": 137,
-    "raw_detail_manifest": 29,
-    "remaining_months": 58
+    "remaining_months": 1
   },
   "gateResults": [
     {
@@ -35,7 +32,7 @@
     {
       "gateId": "OBSERVED_PACKAGE_REFERENCE_ONLY",
       "status": "PASS",
-      "evidencePath": "crawl/runs/notebooks/observed-dev/AGENT1_20260806_01/A1-00-RECOVER/observed_package/HANDOFF.json"
+      "evidencePath": "crawl/runs/notebooks/observed-dev/AGENT1_20260806_01/A1-00-RECOVER/resume_state.json"
     }
   ],
   "warnings": [
@@ -69,7 +66,7 @@
     },
     {
       "path": "crawl/runs/notebooks/observed-dev/AGENT1_20260806_01/A1-00-RECOVER/detail_frontier.csv",
-      "sha256": "fb68cab622487c6c0b7c16dccc7778ad8eb72333ccd5cef8afec2f3c448da7c8",
+      "sha256": "b2a601b14f2b3c12427152dadb46ad98f99595b4cc6a449c129aa47e25767299",
       "bytes": 13019,
       "rows": 137,
       "columns": 10,
@@ -81,8 +78,8 @@
     },
     {
       "path": "crawl/runs/notebooks/observed-dev/AGENT1_20260806_01/A1-00-RECOVER/detail_frontier.parquet",
-      "sha256": "5c6964796755b822eb0ac601db134d10c8d915ed9273fac5a1f132e45e135491",
-      "bytes": 12730,
+      "sha256": "912fff84bbed57dd9f85b57027bbc0839340e7400cb569871326f309168c5a4f",
+      "bytes": 12785,
       "rows": 137,
       "columns": 10,
       "format": "parquet",
@@ -92,95 +89,11 @@
       "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
     },
     {
-      "path": "crawl/runs/notebooks/observed-dev/AGENT1_20260806_01/A1-00-RECOVER/observed_package/CHECKSUMS.sha256",
-      "sha256": "ba358539543cd88f5a2c1d44d1c250246f5aa636636516534892d7a7beaf5f0d",
-      "bytes": 523,
-      "rows": null,
-      "columns": null,
-      "format": "sha256",
-      "grain": "A1-00-RECOVER",
-      "nullablePolicy": "schema_defined",
-      "sourceStage": "A1-00-RECOVER",
-      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
-    },
-    {
-      "path": "crawl/runs/notebooks/observed-dev/AGENT1_20260806_01/A1-00-RECOVER/observed_package/HANDOFF.json",
-      "sha256": "f58810b38bde7c7e1c69bf1f7000b3931cadf9d4d544f64b9c9c0d27a63bce8e",
-      "bytes": 817,
-      "rows": null,
-      "columns": null,
-      "format": "json",
-      "grain": "A1-00-RECOVER",
-      "nullablePolicy": "schema_defined",
-      "sourceStage": "A1-00-RECOVER",
-      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
-    },
-    {
-      "path": "crawl/runs/notebooks/observed-dev/AGENT1_20260806_01/A1-00-RECOVER/observed_package/known_gaps.json",
-      "sha256": "98530e0affd4b80622b575a361a3372a372ba8f736288401e8f162b791c42e8d",
-      "bytes": 1170,
-      "rows": null,
-      "columns": null,
-      "format": "json",
-      "grain": "A1-00-RECOVER",
-      "nullablePolicy": "schema_defined",
-      "sourceStage": "A1-00-RECOVER",
-      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
-    },
-    {
-      "path": "crawl/runs/notebooks/observed-dev/AGENT1_20260806_01/A1-00-RECOVER/observed_package/ncs_source_manifest.jsonl",
-      "sha256": "6e2c99723252d2402a9d7c9e66f133f3dee01bcb203eb9b2f74e0bc513768031",
-      "bytes": 2454,
-      "rows": 2,
-      "columns": null,
-      "format": "jsonl",
-      "grain": "A1-00-RECOVER",
-      "nullablePolicy": "schema_defined",
-      "sourceStage": "A1-00-RECOVER",
-      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
-    },
-    {
-      "path": "crawl/runs/notebooks/observed-dev/AGENT1_20260806_01/A1-00-RECOVER/observed_package/posting_manifest.csv",
-      "sha256": "6ee09b3f1d7d10a7cdf10c4e2a7214b2e26029b3013b85a691e53630a6041981",
-      "bytes": 14082,
-      "rows": 137,
-      "columns": 12,
-      "format": "csv",
-      "grain": "A1-00-RECOVER",
-      "nullablePolicy": "schema_defined",
-      "sourceStage": "A1-00-RECOVER",
-      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
-    },
-    {
-      "path": "crawl/runs/notebooks/observed-dev/AGENT1_20260806_01/A1-00-RECOVER/observed_package/posting_manifest.parquet",
-      "sha256": "0515260b0f93f98440e68ed8211551b04ba17975b1654709d76ccbee6acda17b",
-      "bytes": 8510,
-      "rows": 137,
-      "columns": 12,
-      "format": "parquet",
-      "grain": "A1-00-RECOVER",
-      "nullablePolicy": "schema_defined",
-      "sourceStage": "A1-00-RECOVER",
-      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
-    },
-    {
-      "path": "crawl/runs/notebooks/observed-dev/AGENT1_20260806_01/A1-00-RECOVER/observed_package/raw_detail_manifest.jsonl",
-      "sha256": "f12680f1d598f70df576f0af4743c5e9c49df7caf16eccb1d898bded5eb3dfbe",
-      "bytes": 11774,
-      "rows": 29,
-      "columns": null,
-      "format": "jsonl",
-      "grain": "A1-00-RECOVER",
-      "nullablePolicy": "schema_defined",
-      "sourceStage": "A1-00-RECOVER",
-      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
-    },
-    {
       "path": "crawl/runs/notebooks/observed-dev/AGENT1_20260806_01/A1-00-RECOVER/remaining_months.csv",
-      "sha256": "ed5a387ac3320181437a3ab62c478a38dd0faa8c413786e1531e7391479b8f08",
-      "bytes": 9579,
-      "rows": 58,
-      "columns": 15,
+      "sha256": "ba5c51d1b96cb7136b4c5d4d8531cd355c0cfcd81b4056c3ff54c8540e6bddf1",
+      "bytes": 158,
+      "rows": 1,
+      "columns": 3,
       "format": "csv",
       "grain": "A1-00-RECOVER",
       "nullablePolicy": "schema_defined",
@@ -189,8 +102,8 @@
     },
     {
       "path": "crawl/runs/notebooks/observed-dev/AGENT1_20260806_01/A1-00-RECOVER/resume_state.json",
-      "sha256": "d15e510ecb5636a1c816f295df0019925620cb36d11472e4f129ddd9507a81fc",
-      "bytes": 860,
+      "sha256": "c9908491b8ae1d11b149f220ad601eb6c66b008d032d82369926e4e760c7181a",
+      "bytes": 283,
       "rows": null,
       "columns": null,
       "format": "json",

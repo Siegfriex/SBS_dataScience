@@ -1,5 +1,5 @@
 ﻿notebook,stageId,schemaVersion,inputManifest,moduleCalls,runMode,liveNetwork
-crawl/notebooks/00RecoverSourceState.ipynb,A1-00-RECOVER,source-policy-run-v1,crawl/releases/CRAWL_20260806_03/HANDOFF.json,audit_input_manifest;recover_source_state;build_observed_input_package;write_stage_artifacts,observed-dev,false
+crawl/notebooks/00RecoverSourceState.ipynb,A1-00-RECOVER,source-policy-run-v1,crawl/observed_inputs/OBSERVED_INPUT_20260806_01/HANDOFF.json,audit_input_manifest;recover_observed_input_state;validate_observed_package;write_stage_artifacts,observed-dev,false
 crawl/notebooks/01CollectLinkareerIndex.ipynb,A1-01-INDEX,crawl-index-v1,crawl/observed_inputs/OBSERVED_INPUT_20260806_01/HANDOFF.json,audit_input_manifest;run_fixture_apq_query;APQClient.fetch;QueryRegistry.load;write_stage_artifacts,observed-dev,false
 crawl/notebooks/02CollectPostingDetail.ipynb,A1-02-DETAIL,posting-manifest-v1,crawl/observed_inputs/OBSERVED_INPUT_20260806_01/HANDOFF.json,audit_input_manifest;replay_observed_raw;extract_detail_record;write_stage_artifacts,observed-dev,false
 crawl/notebooks/03CollectPostingAssets.ipynb,A1-03-ASSET,asset-manifest-v1,crawl/observed_inputs/OBSERVED_INPUT_20260806_01/HANDOFF.json,audit_input_manifest;route_observed_asset_metadata;build_asset_frontier;PolicyHttpClient.get;write_stage_artifacts,observed-dev,false

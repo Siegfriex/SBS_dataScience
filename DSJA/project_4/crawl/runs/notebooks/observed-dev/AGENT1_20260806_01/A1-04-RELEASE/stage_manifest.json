@@ -6,7 +6,7 @@
   "status": "SUCCEEDED",
   "agentId": "P4-A1-SOURCE",
   "branch": "agent/p4-crawl-release-v2",
-  "gitHead": "0605a383b2e053212f2612cd63841ed7b660040a",
+  "gitHead": "1f60f1fd25a35f3c73ccd6a9e4162701b33126da",
   "contractVersion": "2.1.2",
   "schemaVersion": "crawl-release-v1",
   "dataVersion": "observed-dev-20260806.1",
