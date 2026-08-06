@@ -7,9 +7,9 @@ from p4.marts.time_series import build_time_series_mart
 def fixture_frames():
     postings = pd.DataFrame(
         [
-            {"postingId": "P1", "canonicalPostingId": "P1", "periodMonth": pd.Timestamp("2026-01-01").date(), "postingEligibleFlag": True, "canonicalRecordFlag": True},
-            {"postingId": "P2", "canonicalPostingId": "P1", "periodMonth": pd.Timestamp("2026-01-01").date(), "postingEligibleFlag": True, "canonicalRecordFlag": False},
-            {"postingId": "P3", "canonicalPostingId": "P3", "periodMonth": pd.Timestamp("2026-01-01").date(), "postingEligibleFlag": True, "canonicalRecordFlag": True},
+            {"postingId": "P1", "canonicalPostingId": "P1", "periodMonth": pd.Timestamp("2026-01-01").date(), "postingEligibleFlag": True, "rq1EligibleFlag": True, "rq2EligibleFlag": True, "ncsEligibleFlag": True, "canonicalRecordFlag": True, "activityTextAvailableFlag": True, "externalDetailOnlyFlag": False, "jobTypeConflictFlag": False, "rq2ExclusionReason": None},
+            {"postingId": "P2", "canonicalPostingId": "P1", "periodMonth": pd.Timestamp("2026-01-01").date(), "postingEligibleFlag": True, "rq1EligibleFlag": True, "rq2EligibleFlag": True, "ncsEligibleFlag": True, "canonicalRecordFlag": False, "activityTextAvailableFlag": True, "externalDetailOnlyFlag": False, "jobTypeConflictFlag": False, "rq2ExclusionReason": None},
+            {"postingId": "P3", "canonicalPostingId": "P3", "periodMonth": pd.Timestamp("2026-01-01").date(), "postingEligibleFlag": True, "rq1EligibleFlag": True, "rq2EligibleFlag": True, "ncsEligibleFlag": True, "canonicalRecordFlag": True, "activityTextAvailableFlag": True, "externalDetailOnlyFlag": False, "jobTypeConflictFlag": False, "rq2ExclusionReason": None},
         ]
     )
     tracks = pd.DataFrame(
@@ -57,4 +57,6 @@ def test_experienced_intern_denominator_is_all_resolved_interns_not_ncs_mapped()
     assert result.loc[False, "experiencedInternShare"] == 0.5
     assert result.loc[False, "restrictedInternShare"] == 0.5
     assert result.loc[False, "ncsMappingCoverage"] == 2 / 3
-
+    assert result.loc[False, "rq1EligibilityRate"] == 1.0
+    assert result.loc[False, "rq2EligibilityRate"] == 1.0
+    assert result.loc[False, "activityTextAvailabilityRate"] == 1.0

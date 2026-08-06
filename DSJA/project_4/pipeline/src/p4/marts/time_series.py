@@ -36,13 +36,14 @@ def _posting_flags(group: pd.DataFrame, posting_key: str) -> pd.DataFrame:
 
 
 def _metrics(group: pd.DataFrame, dedup_applied: bool, low_confidence_threshold: float) -> dict[str, object]:
-    eligible = group.loc[group["postingEligibleFlag"].astype(bool)].copy()
+    base_eligible = group.loc[group["postingEligibleFlag"].astype(bool)].copy()
     if dedup_applied:
-        eligible = eligible.loc[eligible["canonicalRecordFlag"].astype(bool)]
+        base_eligible = base_eligible.loc[base_eligible["canonicalRecordFlag"].astype(bool)]
         posting_key = "canonicalPostingId"
     else:
         posting_key = "postingId"
-    flags = _posting_flags(eligible, posting_key) if len(eligible) else pd.DataFrame(
+    rq1_eligible = base_eligible.loc[base_eligible["rq1EligibleFlag"].astype(bool)].copy()
+    flags = _posting_flags(rq1_eligible, posting_key) if len(rq1_eligible) else pd.DataFrame(
         columns=["entry", "intern", "experienced", "mixed"]
     )
     total = len(flags)
@@ -53,11 +54,18 @@ def _metrics(group: pd.DataFrame, dedup_applied: bool, low_confidence_threshold:
     mixed = int(flags["mixed"].sum()) if total else 0
     experienced_only = int((flags["experienced"] & ~flags["entry"] & ~flags["intern"] & ~flags["mixed"]).sum()) if total else 0
 
-    entry_labels = eligible.loc[eligible["careerClass"].isin(["E0", "E1"]), "careerClass"]
-    intern_labels = eligible.loc[eligible["internAccessClass"].isin(["I0", "I1"])]
-    mapped = eligible["ncsLevel"].notna()
-    advanced = eligible["ncsLevel"].between(5, 8, inclusive="both")
-    low_confidence = mapped & (eligible["ncsMatchScore"] < low_confidence_threshold)
+    rq2_tracks = base_eligible.loc[base_eligible["rq2EligibleFlag"].astype(bool)]
+    ncs_tracks = base_eligible.loc[base_eligible["ncsEligibleFlag"].astype(bool)]
+    entry_labels = rq2_tracks.loc[rq2_tracks["careerClass"].isin(["E0", "E1"]), "careerClass"]
+    intern_labels = rq2_tracks.loc[rq2_tracks["internAccessClass"].isin(["I0", "I1"])]
+    mapped = ncs_tracks["ncsLevel"].notna()
+    advanced = ncs_tracks["ncsLevel"].between(5, 8, inclusive="both")
+    low_confidence = mapped & (ncs_tracks["ncsMatchScore"] < low_confidence_threshold)
+
+    base_posting_count = base_eligible[posting_key].nunique()
+    rq1_posting_count = rq1_eligible[posting_key].nunique()
+    external_posting_count = base_eligible.loc[base_eligible["externalDetailOnlyFlag"].astype(bool), posting_key].nunique()
+    activity_text_count = base_eligible.loc[base_eligible["activityTextAvailableFlag"].astype(bool), posting_key].nunique()
 
     return {
         "totalValidPostingCount": total,
@@ -75,8 +83,13 @@ def _metrics(group: pd.DataFrame, dedup_applied: bool, low_confidence_threshold:
         "restrictedInternShare": _safe_rate(int((intern_labels["internAccessClass"] == "I1").sum()), len(intern_labels)),
         "experiencedInternShare": _safe_rate(int(intern_labels["experiencedInternFlag"].fillna(False).sum()), len(intern_labels)),
         "advancedDutyShare": _safe_rate(int(advanced.sum()), int(mapped.sum())),
-        "ncsMappingCoverage": _safe_rate(int(mapped.sum()), len(eligible)),
+        "ncsMappingCoverage": _safe_rate(int(mapped.sum()), len(ncs_tracks)),
         "lowConfidenceNcsShare": _safe_rate(int(low_confidence.sum()), int(mapped.sum())),
+        "rq1EligibilityRate": _safe_rate(rq1_posting_count, base_posting_count),
+        "rq2EligibilityRate": _safe_rate(rq2_tracks["trackId"].nunique(), base_eligible["trackId"].nunique()),
+        "ncsEligibilityRate": _safe_rate(ncs_tracks["trackId"].nunique(), base_eligible["trackId"].nunique()),
+        "externalAtsOnlyShare": _safe_rate(external_posting_count, base_posting_count),
+        "activityTextAvailabilityRate": _safe_rate(activity_text_count, base_posting_count),
     }
 
 
@@ -102,4 +115,3 @@ def build_time_series_mart(posting_mart: pd.DataFrame, low_confidence_threshold:
     if result["metricId"].duplicated().any():
         raise ValueError("timeSeriesMart grain violation: duplicate metricId")
     return result
-
