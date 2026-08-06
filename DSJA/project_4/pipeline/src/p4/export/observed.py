@@ -22,7 +22,7 @@ from p4.normalize.observed_batch import (
 EXPORT_VERSION = "observed-dev-export-20260806.1"
 LABEL_VERSION = "observed-dev-label-20260806.1"
 DEDUP_VERSION = "observed-dev-dedup-20260806.1"
-NCS_MAP_VERSION = "lexical-baseline-pending-agent4"
+NCS_MAP_VERSION = "ncs-lexical-observed-v0.1"
 RUN_TIMESTAMP = "2026-08-06T00:00:00+09:00"
 
 _EMAIL = re.compile(r"(?i)\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b")
@@ -101,6 +101,7 @@ def _requirement_aggregate(frames: Mapping[str, pd.DataFrame]) -> pd.DataFrame:
 def build_export_frames(
     frames: Mapping[str, pd.DataFrame],
     ncs_candidates: pd.DataFrame | None = None,
+    ncs_matches: pd.DataFrame | None = None,
 ) -> dict[str, pd.DataFrame]:
     normalized = _provenance(frames["posting_normalized"].copy())
     normalized["postingKind"] = "recruit"
@@ -143,6 +144,23 @@ def build_export_frames(
         candidates["mappingMode"] = "LEXICAL_BASELINE"
     if "goldValidatedFlag" not in candidates:
         candidates["goldValidatedFlag"] = False
+    if ncs_matches is None:
+        ncs_matches = pd.DataFrame(
+            columns=[
+                "trackId", "sectionId", "candidateRank", "ncsSubCode", "lexicalScore", "denseScore",
+                "mappingMode", "codeSetStatus", "developmentConfidenceCategory", "unmappedReason",
+                "goldValidatedFlag", "ncsMapVersion",
+            ]
+        )
+    matches = _provenance(ncs_matches.copy())
+    if "denseScore" not in matches:
+        matches["denseScore"] = None
+    if "mappingMode" not in matches:
+        matches["mappingMode"] = "LEXICAL_BASELINE"
+    if "codeSetStatus" not in matches:
+        matches["codeSetStatus"] = "REVIEW_REQUIRED"
+    if "goldValidatedFlag" not in matches:
+        matches["goldValidatedFlag"] = False
 
     req = _requirement_aggregate(frames)
     final = tracks.merge(normalized, on=["postingId", "inputSha256"], how="left", suffixes=("", "_posting"))
@@ -156,11 +174,15 @@ def build_export_frames(
     final["periodMonth"] = None
     final["recruitmentScope"] = final["trackType"]
     final["boundaryResolvedFlag"] = final["boundaryResolvedFlag"].fillna(False)
-    final["ncsSubCode"] = None
+    match_fields = matches[
+        ["trackId", "ncsSubCode", "developmentConfidenceCategory", "ncsMapVersion", "unmappedReason"]
+    ].rename(columns={"developmentConfidenceCategory": "ncsMatchConfidence"})
+    final = final.merge(match_fields, on="trackId", how="left")
     final["ncsLevelWeightedMedian"] = None
     final["ncsBandPrimary"] = None
-    final["ncsMappingCoverage"] = None
-    final["ncsMatchConfidence"] = None
+    attempted = final["ncsMapVersion"].notna()
+    final["ncsMappingCoverage"] = pd.Series(pd.NA, index=final.index, dtype="Float64")
+    final.loc[attempted, "ncsMappingCoverage"] = final.loc[attempted, "ncsSubCode"].notna().astype(float)
     final["ncsMapVersion"] = NCS_MAP_VERSION
     final["extractorVersion"] = EXPORT_VERSION
     final["highDemandScore"] = None
@@ -191,6 +213,7 @@ def build_export_frames(
         "requirement_facts": requirements,
         "career_access_labels": labels,
         "posting_ncs_candidates": candidates,
+        "posting_ncs_matches": matches,
         "preprocessed_posting_tracks": final,
     }
 
@@ -239,6 +262,8 @@ def validate_export_bundle(frames: Mapping[str, pd.DataFrame], output_root: str 
     sections = frames["posting_sections"]
     requirements = frames["requirement_facts"]
     final = frames["preprocessed_posting_tracks"]
+    candidates = frames["posting_ncs_candidates"]
+    matches = frames["posting_ncs_matches"]
     add("posting_pk", not normalized["postingId"].duplicated().any(), int(normalized["postingId"].duplicated().sum()))
     add("track_pk", not tracks["trackId"].duplicated().any(), int(tracks["trackId"].duplicated().sum()))
     add("section_pk", not sections["sectionId"].duplicated().any(), int(sections["sectionId"].duplicated().sum()))
@@ -254,6 +279,15 @@ def validate_export_bundle(frames: Mapping[str, pd.DataFrame], output_root: str 
     add("eligibility_name", "postingEligibleFlag" in final and "validPostingFlag" not in final, list(final.columns))
     add("high_demand_null", final["highDemandScore"].isna().all(), int(final["highDemandScore"].notna().sum()))
     add("enum_track_type", set(tracks["trackType"].dropna()).issubset({"entry", "intern", "experienced", "mixedUnresolved", "unknown"}), sorted(set(tracks["trackType"].dropna())))
+    if not matches.empty:
+        add("ncs_candidate_rows", len(candidates) == 128, len(candidates))
+        add("ncs_match_rows", len(matches) == 28, len(matches))
+        add("ncs_unmapped_preserved", int(matches["unmappedReason"].notna().sum()) == 1, int(matches["unmappedReason"].notna().sum()))
+        add("ncs_dense_null", candidates["denseScore"].isna().all() and matches["denseScore"].isna().all(), int(candidates["denseScore"].notna().sum() + matches["denseScore"].notna().sum()))
+        add("ncs_policy", set(candidates["mappingMode"]) == {"LEXICAL_BASELINE"} and set(matches["codeSetStatus"]) == {"REVIEW_REQUIRED"} and not candidates["goldValidatedFlag"].any() and not matches["goldValidatedFlag"].any(), "LEXICAL_BASELINE/REVIEW_REQUIRED/gold=false")
+        add("ncs_track_fk", matches["trackId"].isin(tracks["trackId"]).all(), int((~matches["trackId"].isin(tracks["trackId"])).sum()))
+        mapped_final = final.loc[final["trackId"].isin(matches["trackId"])]
+        add("ncs_final_materialized", len(mapped_final) == 28 and mapped_final["ncsMatchConfidence"].notna().all() and mapped_final["ncsMapVersion"].eq(NCS_MAP_VERSION).all(), len(mapped_final))
     text_columns = {"titleText", "companyName", "bodyText", "sectionText", "requirementText", "jobTitle", "companyNameMasked"}
     text = "\n".join(
         str(value)

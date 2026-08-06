@@ -10,6 +10,7 @@ import pandas as pd
 
 from p4.common.hashing import canonical_json_sha256, sha256_file
 from p4.contracts.duty_input import validate_observed_duty_input_handoff
+from p4.contracts.ncs_handoff import validate_agent4_ncs_handoff
 from p4.contracts.release_validation import validate_release_gates
 from p4.export.observed import build_export_frames, export_observed_frames, validate_export_bundle
 from p4.export.observed import RUN_TIMESTAMP
@@ -34,6 +35,8 @@ OBSERVED_TABLES = (
     "eligibility",
     "ocr_queue",
     "manifest_cursor",
+    "posting_ncs_candidates",
+    "posting_ncs_matches",
 )
 
 STAGE_CONTRACT = {
@@ -115,10 +118,16 @@ def _write_duty_handoff(project_root: Path, frames: dict[str, pd.DataFrame]) -> 
 
 def _load_frames(database: Path) -> dict[str, pd.DataFrame]:
     with connect(database, read_only=True) as connection:
+        existing = {
+            row[0]
+            for row in connection.execute(
+                "SELECT table_name FROM information_schema.tables WHERE table_schema='observed'"
+            ).fetchall()
+        }
         return {
             name: connection.execute(f"SELECT * FROM observed.{name}").fetchdf()
             for name in OBSERVED_TABLES
-            if name != "manifest_cursor"
+            if name != "manifest_cursor" and name in existing
         }
 
 
@@ -383,6 +392,8 @@ def run_observed_stage(
     crawl_root: str | Path,
     output_root: str | Path | None = None,
     control_root: str | Path | None = None,
+    ncs_handoff_path: str | Path | None = None,
+    ncs_project_root: str | Path | None = None,
 ) -> dict[str, Any]:
     project = Path(project_root).resolve()
     pipeline = project / "pipeline"
@@ -391,6 +402,8 @@ def run_observed_stage(
     database = pipeline / "data/warehouse/p4.observed-dev.duckdb"
     output = Path(output_root).resolve() if output_root else pipeline / "data/exports/observed-dev/OBSERVED_DEV_20260806_01"
     control = Path(control_root).resolve() if control_root else project / "crawl/control"
+    ncs_handoff = Path(ncs_handoff_path).resolve() if ncs_handoff_path else project / "shared/handoffs/AGENT4_TO_AGENT2_NCS_MAPPING_OBSERVED_DEV.json"
+    ncs_project = Path(ncs_project_root).resolve() if ncs_project_root else project
     metrics: dict[str, Any] = {"stage": stage}
     quality: list[dict[str, Any]] = []
     outputs: list[Path] = []
@@ -420,11 +433,55 @@ def run_observed_stage(
         }[stage]
         quality.append({"check": f"{required}_available", "status": "PASS" if required in inventory else "FAIL", "observed": inventory.get(required)})
     elif stage in {"08LoadAndPrepareNcs", "09MapPostingToNcs"}:
-        metrics["acceptanceMode"] = "AGENT4_HANDOFF_REQUIRED"
-        quality.append({"check": "agent4_handoff", "status": "BLOCKED", "observed": "NCS_MAPPING_DEV_READY not yet integrated"})
+        accepted = validate_agent4_ncs_handoff(ncs_handoff, ncs_project)
+        duty_path = project / "shared/handoffs/AGENT2_TO_AGENT4_DUTY_INPUT_OBSERVED_DEV.json"
+        duty = validate_observed_duty_input_handoff(duty_path)
+        if accepted["payload"]["inputRowsSha256"] != duty["rowsSha256"]:
+            raise ValueError("Agent4 input rows SHA does not match the Agent2 duty handoff")
+        metrics.update(
+            {
+                "agent4HandoffSha256": accepted["handoffSha256"],
+                "candidateRows": accepted["candidateRows"],
+                "matchRows": accepted["matchRows"],
+                "unmappedRows": accepted["unmappedRows"],
+            }
+        )
+        quality.append({"check": "agent4_handoff_self_sha", "status": "PASS", "observed": accepted["handoffSha256"]})
+        quality.append({"check": "agent4_input_rows_sha", "status": "PASS", "observed": duty["rowsSha256"]})
+        if stage == "09MapPostingToNcs":
+            for name, frame in accepted["frames"].items():
+                replace_observed_table(database, name, frame)
+            inventory = observed_inventory(database)
+            metrics["warehouseInventory"] = inventory
+            acceptance_path = project / "shared/handoffs/AGENT2_NCS_MAPPING_ACCEPTANCE_OBSERVED_DEV.json"
+            acceptance_payload = {
+                "agentId": "P4-A2-PIPELINE",
+                "sourceAgentId": "P4-A4-NCS",
+                "status": "NCS_MAPPING_DEV_ACCEPTED",
+                "contractVersion": CONTRACT_VERSION,
+                "crawlReleaseId": CRAWL_RELEASE_ID,
+                "dataVersion": DATA_VERSION,
+                "dataProvenance": DATA_PROVENANCE,
+                "empiricalAnalysisAllowed": False,
+                "promotionAllowed": False,
+                "sourceHandoffSha256": accepted["handoffSha256"],
+                "candidateRows": accepted["candidateRows"],
+                "matchRows": accepted["matchRows"],
+                "unmappedRows": accepted["unmappedRows"],
+                "mappingMode": "LEXICAL_BASELINE",
+                "codeSetStatus": "REVIEW_REQUIRED",
+                "goldValidatedFlag": False,
+                "denseScore": None,
+            }
+            acceptance_payload["acceptanceSha256"] = canonical_json_sha256(acceptance_payload)
+            _write_json(acceptance_path, acceptance_payload)
+            outputs.append(acceptance_path)
+            quality.append({"check": "agent4_mapping_tables_loaded", "status": "PASS", "observed": {"candidates": inventory.get("posting_ncs_candidates"), "matches": inventory.get("posting_ncs_matches")}})
     elif stage == "10ExportPreprocessedCsv":
         source_frames = _load_frames(database)
-        export_frames = build_export_frames(source_frames)
+        candidates = source_frames.pop("posting_ncs_candidates", None)
+        matches = source_frames.pop("posting_ncs_matches", None)
+        export_frames = build_export_frames(source_frames, candidates, matches)
         export_meta = export_observed_frames(export_frames, output)
         metrics.update(export_meta)
         outputs.extend(sorted(output.glob("*.parquet")))

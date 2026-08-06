@@ -25,6 +25,8 @@ def _parameter_override(args: argparse.Namespace) -> str:
             f"CRAWL_ROOT = {str(args.crawl_root.resolve())!r}",
             f"OUTPUT_ROOT = {str(args.output_root.resolve())!r}",
             f"CONTROL_ROOT = {str(args.control_root.resolve())!r}" if args.control_root else "",
+            f"NCS_HANDOFF_PATH = {str(args.ncs_handoff_path.resolve())!r}" if args.ncs_handoff_path else "",
+            f"NCS_PROJECT_ROOT = {str(args.ncs_project_root.resolve())!r}" if args.ncs_project_root else "",
         ]
     )
 
@@ -67,6 +69,8 @@ def main() -> None:
     parser.add_argument("--crawl-root", type=Path)
     parser.add_argument("--output-root", type=Path)
     parser.add_argument("--control-root", type=Path)
+    parser.add_argument("--ncs-handoff-path", type=Path)
+    parser.add_argument("--ncs-project-root", type=Path)
     parser.add_argument("--kernel", default="python3")
     parser.add_argument("--timeout", type=int, default=180)
     parser.add_argument("--save-executed", action="store_true")

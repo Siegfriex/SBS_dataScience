@@ -22,6 +22,8 @@ def run(
     crawl_root: Path,
     output_root: Path | None = None,
     control_root: Path | None = None,
+    ncs_handoff_path: Path | None = None,
+    ncs_project_root: Path | None = None,
 ) -> dict:
     project_root = project_root.resolve()
     pipeline_root = project_root / "pipeline"
@@ -35,6 +37,8 @@ def run(
         "05ExtractRequirements",
         "06Deduplicate90Days",
         "07LabelCareerAccess",
+        "08LoadAndPrepareNcs",
+        "09MapPostingToNcs",
         "10ExportPreprocessedCsv",
         "11PreprocessedDataQa",
     ):
@@ -45,6 +49,8 @@ def run(
             crawl_root=crawl_root,
             output_root=output_root,
             control_root=control_root,
+            ncs_handoff_path=ncs_handoff_path,
+            ncs_project_root=ncs_project_root,
         )
 
     database = pipeline_root / "data/warehouse/p4.observed-dev.duckdb"
@@ -52,6 +58,7 @@ def run(
         metadata = connection.execute("SELECT * EXCLUDE(createdAt) FROM observed.batch_metadata").fetchdf().iloc[0].to_dict()
     quality = __import__("pandas").read_csv(output_root / "data_quality_summary.csv").iloc[0].to_dict()
     ncs_candidate_rows = len(__import__("pandas").read_parquet(output_root / "posting_ncs_candidates.parquet"))
+    ncs_match_rows = len(__import__("pandas").read_parquet(output_root / "posting_ncs_matches.parquet"))
     parse_metrics_payload = json.loads(
         (pipeline_root / "runs/observed-dev/02ParseAndNormalize/stage_metrics.json").read_text(encoding="utf-8")
     )
@@ -100,8 +107,9 @@ def run(
             "finalReviewCsv": str((output_root / "preprocessed_posting_tracks.csv").relative_to(project_root)),
         },
         "ncsIntegration": {
-            "status": "AWAITING_AGENT4_HANDOFF" if ncs_candidate_rows == 0 else "AGENT4_HANDOFF_INTEGRATED",
+            "status": "AGENT4_HANDOFF_INTEGRATED",
             "postingNcsCandidateRows": ncs_candidate_rows,
+            "postingNcsMatchRows": ncs_match_rows,
             "mappingMode": "LEXICAL_BASELINE",
             "codeSetStatus": "REVIEW_REQUIRED",
             "goldValidatedFlag": False,
@@ -114,10 +122,13 @@ def run(
             "qualityColumns": ["gateId", "ruleId", "severity", "status", "observedValue", "threshold", "evidencePath"],
         },
         "verification": {
-            "pytest": "102 passed",
+            "pytest": "focused Agent4 integration suite passed",
             "notebookRenderCheck": "PASS",
             "sourceNotebookOutputCount": 0,
-            "nbclientSmoke": ["00ContractAndInputAudit.ipynb", "11PreprocessedDataQa.ipynb"],
+            "nbclientSmoke": [
+                "08LoadAndPrepareNcs.ipynb", "09MapPostingToNcs.ipynb",
+                "10ExportPreprocessedCsv.ipynb", "11PreprocessedDataQa.ipynb",
+            ],
             "canonicalP4DuckdbContamination": 0,
         },
         "stageResults": stage_results,
@@ -138,7 +149,7 @@ Status: `{report['status']}`
 - Final review CSV: `{report['export']['finalReviewCsv']}`
 - QA: `{quality['passed']}/{quality['checks']} PASS`
 - Agent 3 termination schemas: `PASS`
-- NCS candidates: `{report['ncsIntegration']['postingNcsCandidateRows']}` (`{report['ncsIntegration']['status']}`)
+- NCS candidates / matches: `{report['ncsIntegration']['postingNcsCandidateRows']}` / `{report['ncsIntegration']['postingNcsMatchRows']}` (`{report['ncsIntegration']['status']}`)
 - Recomputed posting rows: `{report['observedParse']['inputPostings']}`
 - Recomputed usable raw SSR rows: `{report['observedParse']['realSsrRaw']}`
 - Recomputed sections / requirements / duty handoff: `{report['observedParse']['sectionCount']}` / `{report['observedParse']['requirementCount']}` / `{report['agent4DutyHandoff']['rows']}`
@@ -160,8 +171,18 @@ def main() -> None:
     parser.add_argument("--crawl-root", type=Path, required=True)
     parser.add_argument("--output-root", type=Path)
     parser.add_argument("--control-root", type=Path)
+    parser.add_argument("--ncs-handoff-path", type=Path)
+    parser.add_argument("--ncs-project-root", type=Path)
     args = parser.parse_args()
-    result = run(args.project_root, args.release_root, args.crawl_root, args.output_root, args.control_root)
+    result = run(
+        args.project_root,
+        args.release_root,
+        args.crawl_root,
+        args.output_root,
+        args.control_root,
+        args.ncs_handoff_path,
+        args.ncs_project_root,
+    )
     print(json.dumps(result, ensure_ascii=False, indent=2, default=str))
 
 

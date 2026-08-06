@@ -18,7 +18,9 @@ PROJECT_ROOT = None
 RELEASE_ROOT = None
 CRAWL_ROOT = None
 OUTPUT_ROOT = None
-CONTROL_ROOT = None'''
+CONTROL_ROOT = None
+NCS_HANDOFF_PATH = None
+NCS_PROJECT_ROOT = None'''
 
 BOOTSTRAP = '''from pathlib import Path
 import json, subprocess, sys
@@ -38,6 +40,8 @@ RELEASE_ROOT = Path(RELEASE_ROOT).resolve() if RELEASE_ROOT else PROJECT_ROOT / 
 CRAWL_ROOT = Path(CRAWL_ROOT).resolve() if CRAWL_ROOT else PROJECT_ROOT / "crawl"
 OUTPUT_ROOT = Path(OUTPUT_ROOT).resolve() if OUTPUT_ROOT else PIPELINE_ROOT / "data/exports/observed-dev/OBSERVED_DEV_20260806_01"
 CONTROL_ROOT = Path(CONTROL_ROOT).resolve() if CONTROL_ROOT else PROJECT_ROOT / "crawl/control"
+NCS_HANDOFF_PATH = Path(NCS_HANDOFF_PATH).resolve() if NCS_HANDOFF_PATH else PROJECT_ROOT / "shared/handoffs/AGENT4_TO_AGENT2_NCS_MAPPING_OBSERVED_DEV.json"
+NCS_PROJECT_ROOT = Path(NCS_PROJECT_ROOT).resolve() if NCS_PROJECT_ROOT else PROJECT_ROOT
 METADATA = {
     "agentId": "P4-A2-PIPELINE",
     "branch": BRANCH,
@@ -97,6 +101,8 @@ RESULT = run_observed_stage(
     crawl_root=CRAWL_ROOT,
     output_root=OUTPUT_ROOT,
     control_root=CONTROL_ROOT,
+    ncs_handoff_path=NCS_HANDOFF_PATH,
+    ncs_project_root=NCS_PROJECT_ROOT,
 )
 print(json.dumps(RESULT, ensure_ascii=False, indent=2))'''
     terminal = '''REQUIRED_TERMINATION_ARTIFACTS = (

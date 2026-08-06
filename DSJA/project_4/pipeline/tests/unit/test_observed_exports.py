@@ -63,3 +63,31 @@ def test_observed_export_uses_canonical_eligibility_and_passes_semantic_qa(tmp_p
     quality, summary = validate_export_bundle(frames, tmp_path)
     assert summary["status"] == "PASS", quality.loc[quality["status"] == "FAIL"].to_dict(orient="records")
     assert (tmp_path / "preprocessed_posting_tracks.csv").read_bytes().startswith(b"\xef\xbb\xbf")
+
+
+def test_observed_export_materializes_agent4_lexical_match_fields():
+    common = {
+        "trackId": "TRK_1",
+        "sectionId": "SEC_1",
+        "inputSha256": "a" * 64,
+        "parseVersion": "observed-dev-parse-20260806.1",
+        "ncsMapVersion": "ncs-lexical-observed-v0.1",
+        "mappingMode": "LEXICAL_BASELINE",
+        "codeSetStatus": "REVIEW_REQUIRED",
+        "goldValidatedFlag": False,
+        "denseScore": None,
+        "candidateRank": 1,
+        "ncsSubCode": "20010101",
+        "lexicalScore": 0.5,
+        "developmentConfidenceCategory": "HIGH_DEVELOPMENT",
+        "unmappedReason": None,
+    }
+    candidates = pd.DataFrame([common])
+    matches = pd.DataFrame([{**common, "selectedCandidateRank": 1}])
+    exported = build_export_frames(_frames(), candidates, matches)
+    final = exported["preprocessed_posting_tracks"].iloc[0]
+    assert final["ncsSubCode"] == "20010101"
+    assert final["ncsMappingCoverage"] == 1.0
+    assert final["ncsMatchConfidence"] == "HIGH_DEVELOPMENT"
+    assert final["ncsMapVersion"] == "ncs-lexical-observed-v0.1"
+    assert len(exported["posting_ncs_matches"]) == 1
