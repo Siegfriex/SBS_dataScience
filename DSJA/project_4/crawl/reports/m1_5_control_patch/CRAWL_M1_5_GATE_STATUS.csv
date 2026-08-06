@@ -1,0 +1,7 @@
+﻿gateId,status,evidence,blocksProduction
+CRAWL_CONTROL_PATCH_READY,PASS,58 tests; 28 dependency edges; fail-closed bindings,False
+CRAWL_OBSERVED_REPLAY_READY,PASS,00-03 PASS; 04 EXPECTED_BLOCKED; network 0,False
+SOURCE_POLICY_IMPLEMENTATION_READY,PASS,14/14 source-policy tests,False
+SOURCE_POLICY_PRODUCTION_APPROVED,BLOCKED,transparent-client and user approval absent,True
+CRAWL_RELEASE_READY,BLOCKED,validator absent; 58 months; asset rows 0,True
+M2_PRODUCTION_CRAWL,BLOCKED,production network was not authorized or executed,True

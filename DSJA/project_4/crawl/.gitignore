@@ -2,3 +2,8 @@
 # of being raw source. Never commit these. Only manifests (sourceUrl/rawPath/rawSha256/
 # bytes, no PII) and masked fixtures/samples are tracked.
 data/raw/
+
+# M1.5 controlled replay copies stay local; checksummed summaries are published
+# under reports/m1_5_control_patch.
+runs/notebooks/observed-dev/M1_5_*/
+runs/notebooks/observed-dev/superseded/M1_5_*/

@@ -1,0 +1,8 @@
+﻿category,testId,status,elapsedSeconds,commandEvidence
+VALIDATOR_NEGATIVE,tests.test_validator::test_validator_complete_matching_pass_evidence_promotes,PASS,0.000,crawl/runs/notebooks/observed-dev/M1_5_AGENT1_20260806_01/validator-negative.xml
+VALIDATOR_NEGATIVE,tests.test_validator::test_validator_nonzero_exit_fails_closed,PASS,0.000,crawl/runs/notebooks/observed-dev/M1_5_AGENT1_20260806_01/validator-negative.xml
+VALIDATOR_NEGATIVE,tests.test_validator::test_validator_non_pass_status_fails_closed,PASS,0.000,crawl/runs/notebooks/observed-dev/M1_5_AGENT1_20260806_01/validator-negative.xml
+VALIDATOR_NEGATIVE,tests.test_validator::test_validator_missing_artifact_is_not_evaluated,PASS,0.000,crawl/runs/notebooks/observed-dev/M1_5_AGENT1_20260806_01/validator-negative.xml
+VALIDATOR_NEGATIVE,tests.test_validator::test_validator_stale_run_id_fails_closed,PASS,0.000,crawl/runs/notebooks/observed-dev/M1_5_AGENT1_20260806_01/validator-negative.xml
+VALIDATOR_NEGATIVE,tests.test_validator::test_validator_input_sha_mismatch_fails_closed,PASS,0.000,crawl/runs/notebooks/observed-dev/M1_5_AGENT1_20260806_01/validator-negative.xml
+VALIDATOR_NEGATIVE,tests.test_validator::test_validator_full_corpus_must_also_pass,PASS,0.000,crawl/runs/notebooks/observed-dev/M1_5_AGENT1_20260806_01/validator-negative.xml

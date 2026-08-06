@@ -1,0 +1,13 @@
+﻿defectId,priority,status,component,evidence,owner
+P1-CRAWL-001,P1,RESOLVED,validator,7/7 fail-closed negative tests,P4-CRAWL-LOCAL-ORCHESTRATOR
+P1-CRAWL-002,P1,RESOLVED,Master topology,28/28 dependency edges PASS,P4-CRAWL-LOCAL-ORCHESTRATOR
+P1-CRAWL-003,P1,IMPLEMENTED_TESTED,current-run manifest,5/5 replay stages exact-one; full 23-stage replay handoff-blocked,P4-CRAWL-LOCAL-ORCHESTRATOR
+P1-CRAWL-004,P1,RESOLVED,Notebook blob provenance,6/6 tracked source blobs match working bytes,P4-CRAWL-LOCAL-ORCHESTRATOR
+P1-CRAWL-005,P1,RESOLVED,source policy,production-only plan plus 14/14 kill-switch tests,P4-CRAWL-LOCAL-ORCHESTRATOR
+P1-CRAWL-006,P1,IMPLEMENTED_WITH_HANDOFF,ActivityText fallback,29/29 replay; ambiguous auto-selection 0; adapter contract published,P4-A2-PIPELINE
+P2-CRAWL-001,P2,RESOLVED_DERIVED,raw flag,18 baseline mismatches; 0 unresolved in derived lineage,P4-CRAWL-LOCAL-ORCHESTRATOR
+P2-CRAWL-002,P2,RESOLVED,month frontier,58 month-grain rows,P4-CRAWL-LOCAL-ORCHESTRATOR
+P2-CRAWL-003,P2,RESOLVED,asset lineage,actual sourceField and derived periodMonth,P4-CRAWL-LOCAL-ORCHESTRATOR
+P2-CRAWL-004,P2,RESOLVED,path portability,absolute artifact path files 0,P4-CRAWL-LOCAL-ORCHESTRATOR
+P2-CRAWL-005,P2,RESOLVED,runtime lock,Python 3.12.3 and exact package pins,P4-CRAWL-LOCAL-ORCHESTRATOR
+P2-CRAWL-006,P2,RESOLVED,idempotency,two-run content SHA parity for 8/8 recovery artifacts,P4-CRAWL-LOCAL-ORCHESTRATOR

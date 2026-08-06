@@ -1,0 +1,45 @@
+{
+  "manifestVersion": "p4-crawl-m1.5-patch-v1",
+  "verdict": "CRAWL_M1_5_CONTROL_PATCH_READY_FOR_INDEPENDENT_AUDIT",
+  "branch": "agent/p4-crawl-m1_5-control-patch-v4",
+  "codeHead": "a8c359cdcd39c799160730c2535f13531509b6a7",
+  "integrationBaseline": "b64270bd4ab839ec750a4ceceb08d57957c88782",
+  "agent1SourceBaseline": "3ad43c39dd01933575529e0c81d9809dc64c4e57",
+  "runMode": "observed-dev",
+  "productionNetworkCalls": 0,
+  "notebookIntegrity": {
+    "valid": 6,
+    "total": 6,
+    "cells": 66,
+    "sourceOutputs": 0
+  },
+  "replay": {
+    "pass": 4,
+    "expectedBlocked": 1,
+    "checksumFailures": 0
+  },
+  "data": {
+    "postingRows": 137,
+    "rawRows": 29,
+    "remainingMonthRows": 58,
+    "assetFetchedRows": 0
+  },
+  "currentRunManifests": {
+    "bound": 5,
+    "unique": 5,
+    "fullPlan": 23
+  },
+  "security": {
+    "trackedSecretFiles": 0,
+    "trackedEnvFiles": 0,
+    "trackedRawFiles": 0,
+    "notebookOutputSecretFiles": 0,
+    "absoluteLocalPathArtifactFiles": 0,
+    "externalAtsTransportCalls": 0
+  },
+  "promotion": {
+    "crawlReleaseReady": false,
+    "m2ProductionCrawl": false,
+    "analysisReady": false
+  }
+}

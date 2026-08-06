@@ -1,0 +1,30 @@
+{
+  "handoffVersion": "p4-crawl-m1.5-owner-handoff-v1",
+  "codeHead": "a8c359cdcd39c799160730c2535f13531509b6a7",
+  "items": [
+    {
+      "handoffId": "A2-HO-001",
+      "owner": "P4-A2-PIPELINE",
+      "status": "OPEN",
+      "request": "Adopt crawl/control/ACTIVITY_TEXT_FALLBACK_CONTRACT.json and emit the four evidence fields."
+    },
+    {
+      "handoffId": "A2-HO-002",
+      "owner": "P4-A2-PIPELINE",
+      "status": "OPEN",
+      "request": "Integrate audited validator and pipeline Notebook 10/11 sources into a clean integration branch without changing this crawl patch."
+    },
+    {
+      "handoffId": "A4-HO-001",
+      "owner": "P4-A4-NCS",
+      "status": "OPEN",
+      "request": "Integrate six audited NCS Notebook sources so the 23-child isolated replay can be independently run."
+    },
+    {
+      "handoffId": "A3-HO-001",
+      "owner": "P4-A3-CONTROL",
+      "status": "OPEN",
+      "request": "Run the full isolated 23-stage plan after A2/A4 source integration and require 23 exact-one current-run manifests."
+    }
+  ]
+}
