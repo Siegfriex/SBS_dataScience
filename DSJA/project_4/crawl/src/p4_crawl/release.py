@@ -171,25 +171,26 @@ def build_observed_input_package(
     return handoff
 
 
-def recover_source_state(config: RunConfig) -> dict:
+def recover_source_state(config: RunConfig, output_root: Path | None = None) -> dict:
     """Materialize Notebook 00 outputs from the baseline and prior checkpoints."""
 
-    config.ensure_run_layout()
+    output_root = output_root or config.run_root / "state"
+    output_root.mkdir(parents=True, exist_ok=True)
     coverage = pd.read_csv(config.release_root / "monthly_coverage.csv", encoding="utf-8-sig", dtype={"periodMonth": str})
     target = coverage[coverage["periodMonth"].isin(TARGET_MONTHS)].copy()
     remaining = target[target["coverageStatus"].eq("unverified")].copy()
-    remaining.to_csv(config.run_root / "state" / "remaining_months.csv", index=False, encoding="utf-8-sig")
+    remaining.to_csv(output_root / "remaining_months.csv", index=False, encoding="utf-8-sig")
 
     posting = pd.read_parquet(config.release_root / "posting_manifest.parquet")
     raw_rows, rejected = _validated_raw_detail_rows(config)
     raw_by_id = {str(row["sourcePostingId"]): {"contentSha256": row["rawSha256"], **row} for row in raw_rows}
-    frontier_path = config.run_root / "state" / "detail_frontier.parquet"
+    frontier_path = output_root / "detail_frontier.parquet"
     previous = pd.read_parquet(frontier_path) if frontier_path.exists() else None
     frontier = build_detail_frontier(set(posting["sourcePostingId"].astype(str)), raw_by_id, previous=previous)
     persist_frontier(frontier, frontier_path)
 
     assets = build_asset_frontier(posting)
-    asset_path = config.run_root / "state" / "asset_frontier.parquet"
+    asset_path = output_root / "asset_frontier.parquet"
     if assets.empty:
         assets = pd.DataFrame(columns=["sourcePostingId", "assetUrl", "assetType", "sourceField", "status", "externalAtsAsset"])
     write_parquet_atomic(assets, asset_path)
@@ -207,7 +208,7 @@ def recover_source_state(config: RunConfig) -> dict:
         "assetFrontierRows": len(assets),
         "rejectedRawReferences": rejected,
     }
-    atomic_write_json(config.run_root / "state" / "resume_state.json", state)
+    atomic_write_json(output_root / "resume_state.json", state)
     return state
 
 
