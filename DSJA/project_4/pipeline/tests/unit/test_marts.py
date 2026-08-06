@@ -7,7 +7,7 @@ from p4.marts.time_series import build_time_series_mart
 
 def lineage():
     return {
-        "contractVersion": "UNCONTRACTED",
+        "contractVersion": "2.1.2",
         "crawlReleaseId": "NONE",
         "dataVersion": "fixture-v2",
         "parseVersion": "parse-v2",
@@ -67,7 +67,7 @@ def test_posting_mart_grain_reserved_score_and_lineage():
     assert check["passed"] is True
     assert len(mart) == 3
     assert mart["highDemandScore"].isna().all()
-    assert set(mart["contractVersion"]) == {"UNCONTRACTED"}
+    assert set(mart["contractVersion"]) == {"2.1.2"}
     assert set(mart["crawlReleaseId"]) == {"NONE"}
 
 
@@ -95,4 +95,3 @@ def test_experienced_intern_denominator_and_coverage_metrics():
     assert result.loc[False, "externalApplyShare"] == 2 / 3
     assert result.loc[False, "externalDetailOnlyShare"] == 0.0
     assert result.loc[False, "jobTypeConflictRate"] == 0.0
-

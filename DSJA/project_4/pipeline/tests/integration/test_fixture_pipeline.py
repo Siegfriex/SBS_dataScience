@@ -21,6 +21,9 @@ def test_fixture_pipeline_builds_valid_local_artifacts():
     posting = pd.read_parquet(PIPELINE_ROOT / "data/marts/postingAnalysisMart.parquet")
     time_series = pd.read_parquet(PIPELINE_ROOT / "data/marts/timeSeriesMart.parquet")
     assert posting["trackId"].duplicated().sum() == 0
+    assert posting["trackId"].str.fullmatch(r"TRK_[0-9a-f]{20}").all()
+    assert set(posting["contractVersion"]) == {"2.1.2"}
+    assert set(posting["crawlReleaseId"]) == {"NONE"}
     assert time_series["metricId"].duplicated().sum() == 0
     assert posting["highDemandScore"].isna().all()
     connection = duckdb.connect(str(PIPELINE_ROOT / "data/warehouse/p4.development.duckdb"), read_only=True)
