@@ -249,7 +249,8 @@ manifest = write_stage_artifacts(
     metric_values=metrics, quality_rows=quality, persisted_files=persisted_files,
     warnings=[STAGE_WARNING],
 )
-if FAIL_ON_GATE and any(row["status"] == "FAIL" for row in quality):
+release_blocked = STAGE_ID == "A1-04-RELEASE" and not bool(metrics.get("crawlReleaseReady"))
+if FAIL_ON_GATE and (any(row["status"] == "FAIL" for row in quality) or release_blocked):
     raise RuntimeError(f"{STAGE_ID} quality gate failed")
 {"stageId": STAGE_ID, "status": manifest["status"], "metrics": metrics, "artifacts": manifest["terminationArtifacts"]}'''
 
