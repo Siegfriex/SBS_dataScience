@@ -271,7 +271,7 @@ def _manifest_contract(
             "contractVersion": CONTRACT_VERSION,
             "crawlReleaseId": CRAWL_RELEASE_ID,
             "dataVersion": DATA_VERSION,
-            "randomSeed": 42,
+            "randomSeed": 20260806,
             "stageId": stage_id,
         }
     )

@@ -5,18 +5,24 @@ import hashlib
 import nbformat
 
 
-PARAMETERS = '''RUN_MODE = "observed-dev"  # observed-dev | production
+def parameters(stage_id: str, registry_stage_id: str, schema_version: str, input_manifest_path: str) -> str:
+    return f'''RUN_MODE = "observed-dev"
+AGENT_ID = "P4-A2-PIPELINE"
+STAGE_ID = {registry_stage_id!r}
 CONTRACT_VERSION = "2.1.2"
-CRAWL_RELEASE_ID = "CRAWL_20260806_03"
+SCHEMA_VERSION = {schema_version!r}
 DATA_VERSION = "observed-dev-20260806.1"
+CRAWL_RELEASE_ID = "CRAWL_20260806_03"
 AS_OF_DATE = "2026-08-06"
-RANDOM_SEED = 42
-DATA_PROVENANCE = "OBSERVED_DEVELOPMENT_ONLY"
+INPUT_MANIFEST_PATH = {input_manifest_path!r}
+OUTPUT_ROOT = "pipeline/data/exports/observed-dev/OBSERVED_DEV_20260806_01"
+RANDOM_SEED = 20260806
+FAIL_ON_GATE = True
 EMPIRICAL_ANALYSIS_ALLOWED = False
+DATA_PROVENANCE = "OBSERVED_DEVELOPMENT_ONLY"
 PROMOTION_ALLOWED = False
 PROJECT_ROOT = None
-RELEASE_ROOT = None
-OUTPUT_ROOT = None'''
+RELEASE_ROOT = None'''
 
 
 BOOTSTRAP = '''from pathlib import Path
@@ -37,7 +43,8 @@ PIPELINE_ROOT = PROJECT_ROOT / "pipeline"
 sys.path.insert(0, str(PIPELINE_ROOT / "src"))
 RELEASE_ROOT = Path(RELEASE_ROOT).resolve() if RELEASE_ROOT else PROJECT_ROOT / "crawl/observed_inputs/OBSERVED_INPUT_20260806_01"
 CRAWL_ROOT = Path(os.environ.get("P4_CRAWL_ROOT", PROJECT_ROOT / "crawl")).resolve()
-OUTPUT_ROOT = Path(OUTPUT_ROOT).resolve() if OUTPUT_ROOT else PIPELINE_ROOT / "data/exports/observed-dev/OBSERVED_DEV_20260806_01"
+OUTPUT_ROOT = Path(OUTPUT_ROOT)
+OUTPUT_ROOT = OUTPUT_ROOT.resolve() if OUTPUT_ROOT.is_absolute() else (PROJECT_ROOT / OUTPUT_ROOT).resolve()
 CONTROL_ROOT = Path(os.environ.get("P4_CONTROL_ROOT", PROJECT_ROOT / "crawl/control")).resolve()
 NCS_PROJECT_ROOT = Path(os.environ.get("P4_NCS_PROJECT_ROOT", PROJECT_ROOT)).resolve()
 NCS_HANDOFF_PATH = Path(os.environ.get("P4_NCS_HANDOFF_PATH", NCS_PROJECT_ROOT / "shared/handoffs/AGENT4_TO_AGENT2_NCS_MAPPING_OBSERVED_DEV.json")).resolve()
@@ -45,12 +52,12 @@ RUN_ROOT = Path(os.environ.get("P4_NOTEBOOK_RUN_ROOT", PIPELINE_ROOT / "runs/not
 BRANCH = subprocess.check_output(["git", "branch", "--show-current"], cwd=PROJECT_ROOT, text=True).strip()
 GIT_HEAD = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=PROJECT_ROOT, text=True).strip()
 METADATA = {
-    "agentId": "P4-A2-PIPELINE", "branch": BRANCH, "gitHead": GIT_HEAD,
+    "agentId": AGENT_ID, "branch": BRANCH, "gitHead": GIT_HEAD,
     "contractVersion": CONTRACT_VERSION, "crawlReleaseId": CRAWL_RELEASE_ID,
     "dataVersion": DATA_VERSION, "runMode": RUN_MODE, "dataProvenance": DATA_PROVENANCE,
     "asOfDate": AS_OF_DATE, "randomSeed": RANDOM_SEED,
     "startedAt": datetime.now(timezone.utc).isoformat(),
-    "inputManifestPath": "crawl/observed_inputs/OBSERVED_INPUT_20260806_01/HANDOFF.json",
+    "inputManifestPath": INPUT_MANIFEST_PATH,
     "outputRoot": "pipeline/data/exports/observed-dev/OBSERVED_DEV_20260806_01",
     "empiricalAnalysisAllowed": EMPIRICAL_ANALYSIS_ALLOWED, "promotionAllowed": PROMOTION_ALLOWED,
     "storagePolicy": {"canonical": "DUCKDB_PARQUET", "inspectionExport": "CSV_UTF8_SIG"},
@@ -60,6 +67,8 @@ METADATA = {
     "mappingPolicy": {"mappingMode": "LEXICAL_BASELINE", "codeSetStatus": "REVIEW_REQUIRED", "goldValidatedFlag": False, "denseScore": None},
 }
 assert RUN_MODE == "observed-dev"
+assert AGENT_ID == "P4-A2-PIPELINE" and STAGE_ID.startswith("A2-")
+assert RANDOM_SEED == 20260806 and FAIL_ON_GATE is True
 assert DATA_PROVENANCE == "OBSERVED_DEVELOPMENT_ONLY"
 assert EMPIRICAL_ANALYSIS_ALLOWED is False and PROMOTION_ALLOWED is False
 if (CONTROL_ROOT / "NOTEBOOK_EXECUTION_CONTRACT.schema.json").is_file():
@@ -96,6 +105,10 @@ def make_notebook(
     note: str,
     inputs: list[str],
     outputs: list[str],
+    schema_version: str,
+    input_manifest_path: str,
+    required_gate: str,
+    next_use: str,
 ) -> nbformat.NotebookNode:
     notebook = nbformat.v4.new_notebook()
     notebook.metadata.update(
@@ -109,15 +122,16 @@ def make_notebook(
 
 ## {title}
 
-| Field | Value |
+| 항목 | 명세 |
 |---|---|
-| Agent | `P4-A2-PIPELINE` |
-| Run mode | `observed-dev` |
-| Contract | `2.1.2` |
-| Provenance | `OBSERVED_DEVELOPMENT_ONLY` |
-| Empirical / promotion | `false / false` |
-
-{note}'''
+| 목적 | {note} |
+| 담당 Agent | `P4-A2-PIPELINE` |
+| Stage ID | `{registry_stage_id}` |
+| 입력 | {"<br>".join(f"`{value}`" for value in inputs)} |
+| 처리 | `p4.notebooks.observed_stages.{RUNNERS[stage_id]}` 호출 |
+| 출력 | {"<br>".join(f"`{value}`" for value in outputs)} |
+| 선행 Gate | `{required_gate}` |
+| 후속 활용 | {next_use} |'''
     io_cell = "## Stage contract\n\n**Inputs**\n\n" + "\n".join(f"- `{value}`" for value in inputs) + "\n\n**Outputs**\n\n" + "\n".join(f"- `{value}`" for value in outputs)
     audit = f'''from p4.notebooks.observed_stages import audit_observed_stage_inputs
 STAGE = {stage_id!r}
@@ -141,7 +155,8 @@ RESULT = {runner}(
     ncs_project_root=NCS_PROJECT_ROOT,
     run_root=RUN_ROOT,
 )
-assert RESULT["qualityStatus"] == "PASS", RESULT
+if FAIL_ON_GATE:
+    assert RESULT["qualityStatus"] == "PASS", RESULT
 print(json.dumps(RESULT, ensure_ascii=False, indent=2))'''
     summary = '''from IPython.display import display
 import pandas as pd
@@ -170,8 +185,8 @@ print(json.dumps({
     "promotionAllowed": False,
 }, ensure_ascii=False, indent=2))'''
     notebook.cells = [
-        nbformat.v4.new_code_cell(PARAMETERS, id=_cell_id(stage_id, "parameters"), metadata={"tags": ["parameters"]}),
         nbformat.v4.new_markdown_cell(title_cell, id=_cell_id(stage_id, "title")),
+        nbformat.v4.new_code_cell(parameters(stage_id, registry_stage_id, schema_version, input_manifest_path), id=_cell_id(stage_id, "parameters"), metadata={"tags": ["parameters"]}),
         nbformat.v4.new_code_cell(BOOTSTRAP, id=_cell_id(stage_id, "bootstrap")),
         nbformat.v4.new_markdown_cell(io_cell, id=_cell_id(stage_id, "contract")),
         nbformat.v4.new_code_cell(audit, id=_cell_id(stage_id, "input-audit")),

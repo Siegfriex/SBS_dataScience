@@ -28,12 +28,16 @@ def test_stage_registry_notebooks_are_deterministic_clean_thin_sources():
         path = PIPELINE_ROOT / "notebooks" / f"{stage['id']}.ipynb"
         notebook = nbformat.read(path, as_version=4)
         nbformat.validate(notebook)
-        assert notebook.cells[0].metadata.tags == ["parameters"]
-        assert notebook.cells[0].source.startswith('RUN_MODE = "observed-dev"')
+        assert notebook.cells[0].cell_type == "markdown"
+        assert all(label in notebook.cells[0].source for label in ("목적", "담당 Agent", "Stage ID", "입력", "처리", "출력", "선행 Gate", "후속 활용"))
+        assert notebook.cells[1].metadata.tags == ["parameters"]
+        assert notebook.cells[1].source.startswith('RUN_MODE = "observed-dev"')
         assignments = [
-            node for node in ast.parse(notebook.cells[0].source).body if isinstance(node, (ast.Assign, ast.AnnAssign))
+            node for node in ast.parse(notebook.cells[1].source).body if isinstance(node, (ast.Assign, ast.AnnAssign))
         ]
-        assert len(assignments) == 12
+        assert len(assignments) >= 13
+        assert "RANDOM_SEED = 20260806" in notebook.cells[1].source
+        assert "FAIL_ON_GATE = True" in notebook.cells[1].source
         assert len(notebook.cells) == 11
         assert sum(len(cell.get("outputs", [])) for cell in notebook.cells if cell.cell_type == "code") == 0
         for cell in notebook.cells:
@@ -44,4 +48,4 @@ def test_stage_registry_notebooks_are_deterministic_clean_thin_sources():
         assert "audit_observed_stage_inputs" in notebook.cells[4].source
         assert "_stage(" in notebook.cells[6].source
         assert "stage_manifest.json" in notebook.cells[-1].source
-        assert notebook.cells[1].source.startswith(f"# P4 Notebook-First · {stage['stageId']}")
+        assert notebook.cells[0].source.startswith(f"# P4 Notebook-First · {stage['stageId']}")

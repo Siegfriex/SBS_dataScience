@@ -38,6 +38,10 @@ def render(mode: str) -> list[Path]:
                 stage["note"],
                 stage["inputs"],
                 stage["outputs"],
+                stage["schemaVersion"],
+                stage["inputManifestPath"],
+                stage["requiredGate"],
+                stage["nextUse"],
             )
         )
         current = target.read_text(encoding="utf-8") if target.exists() else ""

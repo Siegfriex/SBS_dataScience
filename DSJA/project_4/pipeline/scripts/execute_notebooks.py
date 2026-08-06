@@ -57,11 +57,15 @@ def execute(args: argparse.Namespace) -> list[Path]:
     for name in names:
         source_path = root / name
         notebook = nbformat.read(source_path, as_version=4)
-        source_parameter_cell = notebook.cells[0].source
+        parameter_index = next(
+            index for index, cell in enumerate(notebook.cells)
+            if cell.cell_type == "code" and "parameters" in cell.metadata.get("tags", [])
+        )
+        source_parameter_cell = notebook.cells[parameter_index].source
         source_output_count = sum(len(cell.get("outputs", [])) for cell in notebook.cells if cell.cell_type == "code")
         if source_output_count:
             raise ValueError(f"source notebook contains stored outputs: {source_path}")
-        notebook.cells[0].source += _parameter_override(args)
+        notebook.cells[parameter_index].source += _parameter_override(args)
         client = NotebookClient(
             notebook,
             timeout=args.timeout,
@@ -72,7 +76,7 @@ def execute(args: argparse.Namespace) -> list[Path]:
         if args.save_executed:
             # Runtime paths are injected only for execution.  Persist the clean,
             # repository-portable parameter cell with the captured outputs.
-            notebook.cells[0].source = source_parameter_cell
+            notebook.cells[parameter_index].source = source_parameter_cell
             target = run_root / "executed" / f"{source_path.stem}.executed.ipynb"
             target.parent.mkdir(parents=True, exist_ok=True)
             nbformat.write(notebook, target)
