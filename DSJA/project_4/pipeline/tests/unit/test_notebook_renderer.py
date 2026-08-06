@@ -4,7 +4,8 @@ from pathlib import Path
 import nbformat
 import yaml
 
-from p4.notebooks.observed_stages import _git_identity
+from p4.notebooks.observed_stages import _canonical_database_inventory, _git_identity
+from p4.warehouse.connection import connect
 
 
 PIPELINE_ROOT = Path(__file__).resolve().parents[2]
@@ -16,6 +17,27 @@ def test_stage_artifact_git_identity_labels_detached_head(monkeypatch, tmp_path)
 
     monkeypatch.setattr("p4.notebooks.observed_stages.subprocess.check_output", fake_check_output)
     assert _git_identity(tmp_path) == ("DETACHED_HEAD", "a" * 40)
+
+
+def test_canonical_database_gate_counts_rows_not_schema_objects(tmp_path):
+    database = tmp_path / "p4.duckdb"
+    schemas = ("raw", "core", "ncs", "mart", "qa")
+    with connect(database) as connection:
+        for schema in schemas:
+            connection.execute(f"CREATE SCHEMA {schema}")
+        for index in range(26):
+            schema = schemas[index % len(schemas)]
+            connection.execute(f"CREATE TABLE {schema}.table_{index} (id INTEGER)")
+        for index in range(6):
+            connection.execute(f"CREATE VIEW raw.view_{index} AS SELECT * FROM raw.table_{index * 5}")
+    empty = _canonical_database_inventory(database)
+    assert empty == {"objectCount": 32, "tableCount": 26, "viewCount": 6, "totalRowCount": 0, "zeroRows": True}
+    with connect(database) as connection:
+        connection.execute("INSERT INTO core.table_1 VALUES (1)")
+    contaminated = _canonical_database_inventory(database)
+    assert contaminated["objectCount"] == 32
+    assert contaminated["totalRowCount"] == 1
+    assert contaminated["zeroRows"] is False
 
 
 def test_stage_registry_notebooks_are_deterministic_clean_thin_sources():

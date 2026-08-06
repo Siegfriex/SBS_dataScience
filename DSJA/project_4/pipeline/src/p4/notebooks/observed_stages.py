@@ -164,6 +164,33 @@ def _git_identity(project_root: Path) -> tuple[str, str]:
     return branch, head
 
 
+def _canonical_database_inventory(database: Path) -> dict[str, Any]:
+    """Count canonical objects and persisted rows without treating DDL as data."""
+    if not database.is_file():
+        return {"objectCount": 0, "tableCount": 0, "viewCount": 0, "totalRowCount": 0, "zeroRows": True}
+    canonical_schemas = {"raw", "core", "ncs", "mart", "qa"}
+    with connect(database, read_only=True) as connection:
+        objects = connection.execute(
+            "SELECT table_schema, table_name, table_type "
+            "FROM information_schema.tables "
+            "WHERE table_schema IN ('raw','core','ncs','mart','qa') "
+            "ORDER BY table_schema, table_name"
+        ).fetchall()
+        base_tables = [row for row in objects if str(row[2]).upper() == "BASE TABLE"]
+        total_rows = 0
+        for schema_name, table_name, _ in base_tables:
+            quoted_schema = '"' + str(schema_name).replace('"', '""') + '"'
+            quoted_table = '"' + str(table_name).replace('"', '""') + '"'
+            total_rows += int(connection.execute(f"SELECT COUNT(*) FROM {quoted_schema}.{quoted_table}").fetchone()[0])
+    return {
+        "objectCount": len(objects),
+        "tableCount": len(base_tables),
+        "viewCount": len(objects) - len(base_tables),
+        "totalRowCount": total_rows,
+        "zeroRows": total_rows == 0,
+    }
+
+
 def _quality_contract_rows(stage: str, rows: list[dict[str, Any]], evidence_path: str) -> pd.DataFrame:
     _, _, produced_gate = STAGE_CONTRACT[stage]
     contracted: list[dict[str, Any]] = []
@@ -423,19 +450,14 @@ def run_observed_stage(
         )
         metrics.update(validation)
         canonical_database = pipeline / "data/warehouse/p4.duckdb"
-        canonical_objects = 0
-        if canonical_database.is_file():
-            with connect(canonical_database, read_only=True) as connection:
-                canonical_objects = int(
-                    connection.execute(
-                        "SELECT COUNT(*) FROM information_schema.tables "
-                        "WHERE table_schema IN ('raw','core','ncs','mart','qa')"
-                    ).fetchone()[0]
-                )
-        metrics["canonicalDatabaseObjectCount"] = canonical_objects
+        canonical_inventory = _canonical_database_inventory(canonical_database)
+        metrics["canonicalDatabaseObjectCount"] = canonical_inventory["objectCount"]
+        metrics["canonicalDatabaseTableCount"] = canonical_inventory["tableCount"]
+        metrics["canonicalDatabaseViewCount"] = canonical_inventory["viewCount"]
+        metrics["canonicalDatabaseRowCount"] = canonical_inventory["totalRowCount"]
         quality.append({"check": "source_adapter_conformance", "status": validation["sourceAdapterConformance"], "observed": validation["sourceAdapterConformance"]})
         quality.append({"check": "empirical_analysis_disabled", "status": "PASS" if not validation["empiricalAnalysisAllowed"] else "FAIL", "observed": validation["empiricalAnalysisAllowed"]})
-        quality.append({"check": "canonical_database_zero", "status": "PASS" if canonical_objects == 0 else "FAIL", "observed": canonical_objects})
+        quality.append({"check": "canonical_database_zero", "status": "PASS" if canonical_inventory["zeroRows"] else "FAIL", "observed": canonical_inventory["totalRowCount"]})
     elif stage == "01LoadCrawlRelease":
         batch = build_observed_batch(release, crawl)
         frames = batch["frames"]
