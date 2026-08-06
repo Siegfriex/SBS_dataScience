@@ -1,0 +1,95 @@
+{
+  "manifestVersion": "stage-manifest-v1",
+  "runId": "observed-dev-20260806.1",
+  "runMode": "observed-dev",
+  "stageId": "A1-01-INDEX",
+  "status": "SUCCEEDED",
+  "agentId": "P4-A1-SOURCE",
+  "branch": "agent/p4-crawl-release-v2",
+  "gitHead": "0605a383b2e053212f2612cd63841ed7b660040a",
+  "contractVersion": "2.1.2",
+  "schemaVersion": "crawl-index-v1",
+  "dataVersion": "observed-dev-20260806.1",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+  "startedAt": "2026-08-06T00:00:00+09:00",
+  "completedAt": "2026-08-06T00:00:00+09:00",
+  "empiricalAnalysisAllowed": false,
+  "promotionAllowed": false,
+  "inputManifestSha256": "f58810b38bde7c7e1c69bf1f7000b3931cadf9d4d544f64b9c9c0d27a63bce8e",
+  "parameterSha256": "2b9a3bd26f8dc6c4a933efe783a76947472af8b402a2dff3b6a372fa0d12266b",
+  "rowCounts": {
+    "posting_discovery_index": 302
+  },
+  "gateResults": [
+    {
+      "gateId": "INDEX_FIXTURE_APQ_READY",
+      "status": "PASS",
+      "evidencePath": "crawl/runs/notebooks/observed-dev/AGENT1_20260806_01/A1-01-INDEX/fixture_apq_audit.json"
+    },
+    {
+      "gateId": "NO_LIVE_CRAWL_M1",
+      "status": "PASS",
+      "evidencePath": "crawl/runs/notebooks/observed-dev/AGENT1_20260806_01/A1-01-INDEX/fixture_apq_audit.json"
+    }
+  ],
+  "warnings": [
+    "Fixture APQ success is not monthly production coverage."
+  ],
+  "errors": [],
+  "files": [
+    {
+      "path": "crawl/runs/notebooks/observed-dev/AGENT1_20260806_01/A1-01-INDEX/fixture_apq_audit.json",
+      "sha256": "0d8cea7532f722e59bde7ea3bd6876a0f1205fa4563a5c9d4671d03d861950ac",
+      "bytes": 299,
+      "rows": null,
+      "columns": null,
+      "format": "json",
+      "grain": "A1-01-INDEX",
+      "nullablePolicy": "schema_defined",
+      "sourceStage": "A1-01-INDEX",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "crawl/runs/notebooks/observed-dev/AGENT1_20260806_01/A1-01-INDEX/posting_discovery_index.csv",
+      "sha256": "c9881a70c01cac83bca84e02a9e7ded21db196d59aee56c4d66fa593ffb7f4c7",
+      "bytes": 26326,
+      "rows": 302,
+      "columns": 5,
+      "format": "csv",
+      "grain": "A1-01-INDEX",
+      "nullablePolicy": "schema_defined",
+      "sourceStage": "A1-01-INDEX",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "crawl/runs/notebooks/observed-dev/AGENT1_20260806_01/A1-01-INDEX/posting_discovery_index.parquet",
+      "sha256": "c45f5f4c06ec8d4c645ab86b728747ed6303359c58846284027569fb1e584d29",
+      "bytes": 5803,
+      "rows": 302,
+      "columns": 5,
+      "format": "parquet",
+      "grain": "A1-01-INDEX",
+      "nullablePolicy": "schema_defined",
+      "sourceStage": "A1-01-INDEX",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    }
+  ],
+  "terminationArtifacts": [
+    "stage_manifest.json",
+    "stage_metrics.json",
+    "stage_quality.csv",
+    "CHECKSUMS.sha256"
+  ],
+  "dataPolicies": {
+    "canonicalStorage": "DUCKDB_PARQUET",
+    "csvPurpose": "HUMAN_INSPECTION_EXPORT",
+    "eligibilityColumns": [
+      "postingEligibleFlag",
+      "rq1EligibleFlag",
+      "rq2EligibleFlag",
+      "ncsEligibleFlag"
+    ],
+    "highDemandScore": "ALL_NULL"
+  }
+}

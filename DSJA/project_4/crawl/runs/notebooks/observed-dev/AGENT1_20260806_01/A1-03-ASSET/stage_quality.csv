@@ -1,0 +1,4 @@
+﻿gateId,ruleId,severity,status,observedValue,threshold,evidencePath
+EXTERNAL_ATS_ZERO_CALL,SOURCE_POLICY,ERROR,PASS,0,0,crawl/runs/notebooks/observed-dev/AGENT1_20260806_01/A1-03-ASSET/asset_routing_metrics.json
+M1_ASSET_METADATA_ONLY,NO_ASSET_DOWNLOAD,ERROR,PASS,0,0,crawl/runs/notebooks/observed-dev/AGENT1_20260806_01/A1-03-ASSET/asset_manifest.jsonl
+CRAWL_ASSET_LINEAGE_READY,FULL_ASSET_LINEAGE,WARNING,NOT_EVALUATED,0,full corpus,crawl/runs/notebooks/observed-dev/AGENT1_20260806_01/A1-03-ASSET/asset_routing_metrics.json

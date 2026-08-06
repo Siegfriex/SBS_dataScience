@@ -1,0 +1,32 @@
+{
+  "status": "ONBOARDING_RECOVERED",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "contractVersion": "2.1.2",
+  "postingRows": 137,
+  "rawHtmlRows": 29,
+  "assetRows": 0,
+  "completeMonths": 21,
+  "remainingMonths": 58,
+  "detailFrontierStates": {
+    "PENDING": 108,
+    "FETCHED": 29
+  },
+  "assetFrontierRows": 0,
+  "rejectedRawReferences": [
+    {
+      "sourceUrl": "https://linkareer.com/activity/339673",
+      "rawPathClass": "NON_RAW_MASKED_FIXTURE_REFERENCE",
+      "reason": "notRealRawDetailPath"
+    },
+    {
+      "sourceUrl": "https://linkareer.com/activity/339737",
+      "rawPathClass": "NON_RAW_MASKED_FIXTURE_REFERENCE",
+      "reason": "notRealRawDetailPath"
+    },
+    {
+      "sourceUrl": "https://linkareer.com/activity/339821",
+      "rawPathClass": "NON_RAW_MASKED_FIXTURE_REFERENCE",
+      "reason": "notRealRawDetailPath"
+    }
+  ]
+}

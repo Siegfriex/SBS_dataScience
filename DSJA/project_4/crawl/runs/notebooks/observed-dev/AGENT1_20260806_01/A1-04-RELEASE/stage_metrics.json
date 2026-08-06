@@ -1,0 +1,145 @@
+{
+  "metricsVersion": "stage-metrics-v1",
+  "runId": "observed-dev-20260806.1",
+  "runMode": "observed-dev",
+  "stageId": "A1-04-RELEASE",
+  "contractVersion": "2.1.2",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "dataVersion": "observed-dev-20260806.1",
+  "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+  "empiricalAnalysisAllowed": false,
+  "promotionAllowed": false,
+  "generatedAt": "2026-08-06T00:00:00+09:00",
+  "metrics": [
+    {
+      "metricId": "checksumPassed",
+      "value": true,
+      "numerator": null,
+      "denominator": null,
+      "unit": "value",
+      "grain": "A1-04-RELEASE",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "checksumCount",
+      "value": 6,
+      "numerator": 6,
+      "denominator": null,
+      "unit": "count",
+      "grain": "A1-04-RELEASE",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "postingRows",
+      "value": 137,
+      "numerator": 137,
+      "denominator": null,
+      "unit": "count",
+      "grain": "A1-04-RELEASE",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "rawHtmlRows",
+      "value": 29,
+      "numerator": 29,
+      "denominator": null,
+      "unit": "count",
+      "grain": "A1-04-RELEASE",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "assetRows",
+      "value": 0,
+      "numerator": 0,
+      "denominator": null,
+      "unit": "count",
+      "grain": "A1-04-RELEASE",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "ncsUnitRows",
+      "value": 13442,
+      "numerator": 13442,
+      "denominator": null,
+      "unit": "count",
+      "grain": "A1-04-RELEASE",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "rawCopied",
+      "value": false,
+      "numerator": null,
+      "denominator": null,
+      "unit": "value",
+      "grain": "A1-04-RELEASE",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "fullCorpus",
+      "value": false,
+      "numerator": null,
+      "denominator": null,
+      "unit": "value",
+      "grain": "A1-04-RELEASE",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "empiricalAnalysisAllowed",
+      "value": false,
+      "numerator": null,
+      "denominator": null,
+      "unit": "value",
+      "grain": "A1-04-RELEASE",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "promotionAllowed",
+      "value": false,
+      "numerator": null,
+      "denominator": null,
+      "unit": "value",
+      "grain": "A1-04-RELEASE",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "observedInputReady",
+      "value": true,
+      "numerator": null,
+      "denominator": null,
+      "unit": "value",
+      "grain": "A1-04-RELEASE",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "agent2ValidatorStatus",
+      "value": "NOT_AVAILABLE_IN_AGENT1_BRANCH",
+      "numerator": null,
+      "denominator": null,
+      "unit": "value",
+      "grain": "A1-04-RELEASE",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "crawlReleaseReady",
+      "value": false,
+      "numerator": null,
+      "denominator": null,
+      "unit": "value",
+      "grain": "A1-04-RELEASE",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    }
+  ]
+}

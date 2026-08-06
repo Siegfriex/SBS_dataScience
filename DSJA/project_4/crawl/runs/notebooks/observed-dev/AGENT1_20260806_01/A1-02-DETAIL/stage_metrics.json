@@ -1,0 +1,85 @@
+{
+  "metricsVersion": "stage-metrics-v1",
+  "runId": "observed-dev-20260806.1",
+  "runMode": "observed-dev",
+  "stageId": "A1-02-DETAIL",
+  "contractVersion": "2.1.2",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "dataVersion": "observed-dev-20260806.1",
+  "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+  "empiricalAnalysisAllowed": false,
+  "promotionAllowed": false,
+  "generatedAt": "2026-08-06T00:00:00+09:00",
+  "metrics": [
+    {
+      "metricId": "rawManifestRows",
+      "value": 29,
+      "numerator": 29,
+      "denominator": null,
+      "unit": "count",
+      "grain": "A1-02-DETAIL",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "rawReplayPassed",
+      "value": 29,
+      "numerator": 29,
+      "denominator": null,
+      "unit": "count",
+      "grain": "A1-02-DETAIL",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "rawReplayFailed",
+      "value": 0,
+      "numerator": 0,
+      "denominator": null,
+      "unit": "count",
+      "grain": "A1-02-DETAIL",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "activityTextRecovered",
+      "value": 29,
+      "numerator": 29,
+      "denominator": null,
+      "unit": "count",
+      "grain": "A1-02-DETAIL",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "assetCandidateRows",
+      "value": 59,
+      "numerator": 59,
+      "denominator": null,
+      "unit": "count",
+      "grain": "A1-02-DETAIL",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "rawBodyPersisted",
+      "value": false,
+      "numerator": null,
+      "denominator": null,
+      "unit": "value",
+      "grain": "A1-02-DETAIL",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "managerPiiPersisted",
+      "value": false,
+      "numerator": null,
+      "denominator": null,
+      "unit": "value",
+      "grain": "A1-02-DETAIL",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    }
+  ]
+}

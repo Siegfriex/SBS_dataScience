@@ -1,0 +1,138 @@
+{
+  "manifestVersion": "stage-manifest-v1",
+  "runId": "observed-dev-20260806.1",
+  "runMode": "observed-dev",
+  "stageId": "A1-03-ASSET",
+  "status": "SUCCEEDED",
+  "agentId": "P4-A1-SOURCE",
+  "branch": "agent/p4-crawl-release-v2",
+  "gitHead": "0605a383b2e053212f2612cd63841ed7b660040a",
+  "contractVersion": "2.1.2",
+  "schemaVersion": "asset-manifest-v1",
+  "dataVersion": "observed-dev-20260806.1",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+  "startedAt": "2026-08-06T00:00:00+09:00",
+  "completedAt": "2026-08-06T00:00:00+09:00",
+  "empiricalAnalysisAllowed": false,
+  "promotionAllowed": false,
+  "inputManifestSha256": "f58810b38bde7c7e1c69bf1f7000b3931cadf9d4d544f64b9c9c0d27a63bce8e",
+  "parameterSha256": "ff6326dd850ccc0a1cbf702ba8bfb71da15f1abf40271bfa534f34b7ddad2634",
+  "rowCounts": {
+    "asset_frontier": 59,
+    "asset_manifest": 0,
+    "ocr_candidate_manifest": 30
+  },
+  "gateResults": [
+    {
+      "gateId": "EXTERNAL_ATS_ZERO_CALL",
+      "status": "PASS",
+      "evidencePath": "crawl/runs/notebooks/observed-dev/AGENT1_20260806_01/A1-03-ASSET/asset_routing_metrics.json"
+    },
+    {
+      "gateId": "M1_ASSET_METADATA_ONLY",
+      "status": "PASS",
+      "evidencePath": "crawl/runs/notebooks/observed-dev/AGENT1_20260806_01/A1-03-ASSET/asset_manifest.jsonl"
+    },
+    {
+      "gateId": "CRAWL_ASSET_LINEAGE_READY",
+      "status": "NOT_EVALUATED",
+      "evidencePath": "crawl/runs/notebooks/observed-dev/AGENT1_20260806_01/A1-03-ASSET/asset_routing_metrics.json"
+    }
+  ],
+  "warnings": [
+    "Asset candidates are metadata-only; no Linkareer asset or external ATS URL is fetched."
+  ],
+  "errors": [],
+  "files": [
+    {
+      "path": "crawl/runs/notebooks/observed-dev/AGENT1_20260806_01/A1-03-ASSET/asset_frontier.csv",
+      "sha256": "b7bfd8baed1e57e5a1cba228b82333d63fc9b7ffe3004ea640ab1c5f10923861",
+      "bytes": 5634,
+      "rows": 59,
+      "columns": 6,
+      "format": "csv",
+      "grain": "A1-03-ASSET",
+      "nullablePolicy": "schema_defined",
+      "sourceStage": "A1-03-ASSET",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "crawl/runs/notebooks/observed-dev/AGENT1_20260806_01/A1-03-ASSET/asset_frontier.parquet",
+      "sha256": "00e0a795e8dc3111414404f1cd72ef33a5a571016ff441ba3f767fe49b8001b4",
+      "bytes": 4678,
+      "rows": 59,
+      "columns": 6,
+      "format": "parquet",
+      "grain": "A1-03-ASSET",
+      "nullablePolicy": "schema_defined",
+      "sourceStage": "A1-03-ASSET",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "crawl/runs/notebooks/observed-dev/AGENT1_20260806_01/A1-03-ASSET/asset_manifest.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "rows": 0,
+      "columns": null,
+      "format": "jsonl",
+      "grain": "A1-03-ASSET",
+      "nullablePolicy": "schema_defined",
+      "sourceStage": "A1-03-ASSET",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "crawl/runs/notebooks/observed-dev/AGENT1_20260806_01/A1-03-ASSET/asset_routing_metrics.json",
+      "sha256": "613d24e07179d483097019c9c8a07c55c7cae5477c2b14d4444d8556adfd4dd2",
+      "bytes": 144,
+      "rows": null,
+      "columns": null,
+      "format": "json",
+      "grain": "A1-03-ASSET",
+      "nullablePolicy": "schema_defined",
+      "sourceStage": "A1-03-ASSET",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "crawl/runs/notebooks/observed-dev/AGENT1_20260806_01/A1-03-ASSET/ocr_candidate_manifest.csv",
+      "sha256": "fc4815062fcf9b9daa5f2e1695606c54a00d6eece252f1b7b8473f51a7ea6ca2",
+      "bytes": 3314,
+      "rows": 30,
+      "columns": 6,
+      "format": "csv",
+      "grain": "A1-03-ASSET",
+      "nullablePolicy": "schema_defined",
+      "sourceStage": "A1-03-ASSET",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "crawl/runs/notebooks/observed-dev/AGENT1_20260806_01/A1-03-ASSET/ocr_candidate_manifest.parquet",
+      "sha256": "35e9504a78d1445874f296f455d36768a9d620345d12710a9e099a970d6ecca7",
+      "bytes": 4489,
+      "rows": 30,
+      "columns": 6,
+      "format": "parquet",
+      "grain": "A1-03-ASSET",
+      "nullablePolicy": "schema_defined",
+      "sourceStage": "A1-03-ASSET",
+      "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY"
+    }
+  ],
+  "terminationArtifacts": [
+    "stage_manifest.json",
+    "stage_metrics.json",
+    "stage_quality.csv",
+    "CHECKSUMS.sha256"
+  ],
+  "dataPolicies": {
+    "canonicalStorage": "DUCKDB_PARQUET",
+    "csvPurpose": "HUMAN_INSPECTION_EXPORT",
+    "eligibilityColumns": [
+      "postingEligibleFlag",
+      "rq1EligibleFlag",
+      "rq2EligibleFlag",
+      "ncsEligibleFlag"
+    ],
+    "highDemandScore": "ALL_NULL"
+  }
+}

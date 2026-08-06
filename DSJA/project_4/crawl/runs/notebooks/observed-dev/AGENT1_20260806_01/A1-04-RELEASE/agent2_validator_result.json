@@ -1,0 +1,6 @@
+{
+  "validator": "p4.contracts.release_validation.validate_release_gates",
+  "status": "NOT_AVAILABLE_IN_AGENT1_BRANCH",
+  "executed": false,
+  "crawlReleaseReady": false
+}

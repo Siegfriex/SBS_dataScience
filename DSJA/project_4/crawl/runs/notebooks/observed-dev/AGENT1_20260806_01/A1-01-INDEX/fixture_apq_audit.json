@@ -1,0 +1,10 @@
+{
+  "mode": "DRY_RUN_FIXTURE",
+  "operationName": "CalendarScreen_ActivityCalendarEntries",
+  "queryHash": "b13ef5935c32d80a0cbabc6c9aaf9cbc52c274d34f983a2b06d14056da8bedbf",
+  "transportCalls": 1,
+  "networkCalls": 0,
+  "fixtureDays": 28,
+  "discoveryRelations": 302,
+  "distinctPostingIds": 297
+}

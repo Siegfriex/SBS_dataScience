@@ -1,0 +1,145 @@
+{
+  "metricsVersion": "stage-metrics-v1",
+  "runId": "observed-dev-20260806.1",
+  "runMode": "observed-dev",
+  "stageId": "A1-00-RECOVER",
+  "contractVersion": "2.1.2",
+  "crawlReleaseId": "CRAWL_20260806_03",
+  "dataVersion": "observed-dev-20260806.1",
+  "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
+  "empiricalAnalysisAllowed": false,
+  "promotionAllowed": false,
+  "generatedAt": "2026-08-06T00:00:00+09:00",
+  "metrics": [
+    {
+      "metricId": "status",
+      "value": "ONBOARDING_RECOVERED",
+      "numerator": null,
+      "denominator": null,
+      "unit": "value",
+      "grain": "A1-00-RECOVER",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "crawlReleaseId",
+      "value": "CRAWL_20260806_03",
+      "numerator": null,
+      "denominator": null,
+      "unit": "value",
+      "grain": "A1-00-RECOVER",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "contractVersion",
+      "value": "2.1.2",
+      "numerator": null,
+      "denominator": null,
+      "unit": "value",
+      "grain": "A1-00-RECOVER",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "postingRows",
+      "value": 137,
+      "numerator": 137,
+      "denominator": null,
+      "unit": "count",
+      "grain": "A1-00-RECOVER",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "rawHtmlRows",
+      "value": 29,
+      "numerator": 29,
+      "denominator": null,
+      "unit": "count",
+      "grain": "A1-00-RECOVER",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "assetRows",
+      "value": 0,
+      "numerator": 0,
+      "denominator": null,
+      "unit": "count",
+      "grain": "A1-00-RECOVER",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "completeMonths",
+      "value": 21,
+      "numerator": 21,
+      "denominator": null,
+      "unit": "count",
+      "grain": "A1-00-RECOVER",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "remainingMonths",
+      "value": 58,
+      "numerator": 58,
+      "denominator": null,
+      "unit": "count",
+      "grain": "A1-00-RECOVER",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "detailFrontierStates",
+      "value": "{\"FETCHED\":29,\"PENDING\":108}",
+      "numerator": null,
+      "denominator": null,
+      "unit": "value",
+      "grain": "A1-00-RECOVER",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "assetFrontierRows",
+      "value": 0,
+      "numerator": 0,
+      "denominator": null,
+      "unit": "count",
+      "grain": "A1-00-RECOVER",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "rejectedRawReferences",
+      "value": "[{\"rawPathClass\":\"NON_RAW_MASKED_FIXTURE_REFERENCE\",\"reason\":\"notRealRawDetailPath\",\"sourceUrl\":\"https://linkareer.com/activity/339673\"},{\"rawPathClass\":\"NON_RAW_MASKED_FIXTURE_REFERENCE\",\"reason\":\"notRealRawDetailPath\",\"sourceUrl\":\"https://linkareer.com/activity/339737\"},{\"rawPathClass\":\"NON_RAW_MASKED_FIXTURE_REFERENCE\",\"reason\":\"notRealRawDetailPath\",\"sourceUrl\":\"https://linkareer.com/activity/339821\"}]",
+      "numerator": null,
+      "denominator": null,
+      "unit": "value",
+      "grain": "A1-00-RECOVER",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "observedPackagePostingRows",
+      "value": 137,
+      "numerator": 137,
+      "denominator": null,
+      "unit": "count",
+      "grain": "A1-00-RECOVER",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    },
+    {
+      "metricId": "observedPackageRawHtmlRows",
+      "value": 29,
+      "numerator": 29,
+      "denominator": null,
+      "unit": "count",
+      "grain": "A1-00-RECOVER",
+      "unknownHandling": "preserve_unknown",
+      "status": "INFORMATIONAL"
+    }
+  ]
+}
