@@ -1,0 +1,370 @@
+contractVersion: 2.1.2
+status: canonical
+defaultGrain:
+- periodMonth
+- cohortType
+- jobCodeLevel
+- jobCode
+- dedupApplied
+metrics:
+  totalValidPostingCount:
+    grain:
+    - periodMonth
+    - cohortType
+    - jobCodeLevel
+    - jobCode
+    - dedupApplied
+    numerator: countDistinct(canonicalPostingId where rq1EligibleFlag = true) when dedupApplied else countDistinct(postingId
+      where rq1EligibleFlag = true)
+    denominator: notApplicable (count metric)
+    eligiblePopulation: RQ1-eligible postings; canonicalRecordFlag = true only when dedupApplied
+    unknownHandling: posting type unknown is eligible only when confirmed as a recruitment posting
+    unit: count
+    interpretation: Count of eligible Linkareer postings observed in the period
+    prohibitedInterpretation: Hiring headcount or the complete Korean labor market
+    dedupApplied: parameterized; primary=true and sensitivity=false
+  entryPostingRate:
+    grain:
+    - periodMonth
+    - cohortType
+    - jobCodeLevel
+    - jobCode
+    - dedupApplied
+    numerator: countDistinct(canonicalPostingId where rq1EligibleFlag = true and hasEntryFlag = true)
+    denominator: countDistinct(canonicalPostingId where rq1EligibleFlag = true)
+    eligiblePopulation: canonical RQ1-eligible postings in the period
+    unknownHandling: unknown recruitment scope remains in the denominator
+    unit: ratio
+    interpretation: Share of eligible postings that include an entry track
+    prohibitedInterpretation: Share among entry plus intern postings only
+    dedupApplied: parameterized; primary=true and sensitivity=false
+  internPostingRate:
+    grain:
+    - periodMonth
+    - cohortType
+    - jobCodeLevel
+    - jobCode
+    - dedupApplied
+    numerator: countDistinct(canonicalPostingId where rq1EligibleFlag = true and hasInternFlag = true)
+    denominator: countDistinct(canonicalPostingId where rq1EligibleFlag = true)
+    eligiblePopulation: canonical RQ1-eligible postings in the period
+    unknownHandling: unknown recruitment scope remains in the denominator
+    unit: ratio
+    interpretation: Share of eligible postings that include an intern track
+    prohibitedInterpretation: Proof that interns replace entry hiring
+    dedupApplied: parameterized; primary=true and sensitivity=false
+  entryOnlyRate:
+    grain:
+    - periodMonth
+    - cohortType
+    - jobCodeLevel
+    - jobCode
+    - dedupApplied
+    numerator: countDistinct(canonicalPostingId where rq1EligibleFlag = true and recruitmentScope = entryOnly)
+    denominator: countDistinct(canonicalPostingId where rq1EligibleFlag = true)
+    eligiblePopulation: canonical RQ1-eligible postings in the period
+    unknownHandling: unknown remains in denominator only
+    unit: ratio
+    interpretation: Exclusive entry-posting share
+    prohibitedInterpretation: Entry headcount share
+    dedupApplied: parameterized; primary=true and sensitivity=false
+  internOnlyRate:
+    grain:
+    - periodMonth
+    - cohortType
+    - jobCodeLevel
+    - jobCode
+    - dedupApplied
+    numerator: countDistinct(canonicalPostingId where rq1EligibleFlag = true and recruitmentScope = internOnly)
+    denominator: countDistinct(canonicalPostingId where rq1EligibleFlag = true)
+    eligiblePopulation: canonical RQ1-eligible postings in the period
+    unknownHandling: unknown remains in denominator only
+    unit: ratio
+    interpretation: Exclusive intern-posting share
+    prohibitedInterpretation: Intern headcount share
+    dedupApplied: parameterized; primary=true and sensitivity=false
+  mixedRate:
+    grain:
+    - periodMonth
+    - cohortType
+    - jobCodeLevel
+    - jobCode
+    - dedupApplied
+    numerator: countDistinct(canonicalPostingId where rq1EligibleFlag = true and recruitmentScope is mixed)
+    denominator: countDistinct(canonicalPostingId where rq1EligibleFlag = true)
+    eligiblePopulation: canonical RQ1-eligible postings in the period
+    unknownHandling: mixedUnresolved is included as mixed
+    unit: ratio
+    interpretation: Share of postings that recruit multiple track types
+    prohibitedInterpretation: A forced allocation to entry or intern
+    dedupApplied: parameterized; primary=true and sensitivity=false
+  experiencedOnlyRate:
+    grain:
+    - periodMonth
+    - cohortType
+    - jobCodeLevel
+    - jobCode
+    - dedupApplied
+    numerator: countDistinct(canonicalPostingId where rq1EligibleFlag = true and recruitmentScope = experiencedOnly)
+    denominator: countDistinct(canonicalPostingId where rq1EligibleFlag = true)
+    eligiblePopulation: canonical RQ1-eligible postings in the period
+    unknownHandling: unknown remains in denominator only
+    unit: ratio
+    interpretation: Exclusive experienced-posting share
+    prohibitedInterpretation: Experienced-worker headcount share
+    dedupApplied: parameterized; primary=true and sensitivity=false
+  internRelativeIndex:
+    grain:
+    - periodMonth
+    - cohortType
+    - jobCodeLevel
+    - jobCode
+    - dedupApplied
+    numerator: log((internPostingCount + 0.5) / (totalValidPostingCount + 1))
+    denominator: log((entryPostingCount + 0.5) / (totalValidPostingCount + 1)) subtracted
+    eligiblePopulation: all eligible postings in the period
+    unknownHandling: zero counts use the preregistered 0.5 correction
+    unit: logRatio
+    interpretation: Intern posting prevalence relative to entry posting prevalence
+    prohibitedInterpretation: Causal labor substitution
+    dedupApplied: parameterized; primary=true and sensitivity=false
+  openEntryShare:
+    grain:
+    - periodMonth
+    - cohortType
+    - jobCodeLevel
+    - jobCode
+    - dedupApplied
+    numerator: count(careerClass = E0)
+    denominator: count(careerClass in [E0, E1])
+    eligiblePopulation: resolved non-intern nominal-entry tracks
+    unknownHandling: U excluded and separately reported
+    unit: ratio
+    interpretation: Open-entry share within resolved nominal entry
+    prohibitedInterpretation: Share of all postings
+    dedupApplied: parameterized; primary=true and sensitivity=false
+  restrictedEntryShare:
+    grain:
+    - periodMonth
+    - cohortType
+    - jobCodeLevel
+    - jobCode
+    - dedupApplied
+    numerator: count(careerClass = E1)
+    denominator: count(careerClass in [E0, E1])
+    eligiblePopulation: resolved non-intern nominal-entry tracks
+    unknownHandling: U excluded and separately reported
+    unit: ratio
+    interpretation: Restricted-entry share within resolved nominal entry
+    prohibitedInterpretation: Share of all postings
+    dedupApplied: parameterized; primary=true and sensitivity=false
+  unknownCareerShare:
+    grain:
+    - periodMonth
+    - cohortType
+    - jobCodeLevel
+    - jobCode
+    - dedupApplied
+    numerator: count(careerClass = U)
+    denominator: eligible non-intern tracks
+    eligiblePopulation: non-intern RQ2 tracks
+    unknownHandling: U is the numerator
+    unit: ratio
+    interpretation: Career-label uncertainty
+    prohibitedInterpretation: Evidence of open or restricted access
+    dedupApplied: parameterized; primary=true and sensitivity=false
+  restrictedInternShare:
+    grain:
+    - periodMonth
+    - cohortType
+    - jobCodeLevel
+    - jobCode
+    - dedupApplied
+    numerator: count(internAccessClass = I1 and rq2EligibleFlag = true)
+    denominator: count(internAccessClass in [I0, I1] and rq2EligibleFlag = true)
+    eligiblePopulation: RQ2-eligible resolved intern tracks
+    unknownHandling: IU excluded and separately reported
+    unit: ratio
+    interpretation: Restricted-intern share among resolved intern tracks
+    prohibitedInterpretation: NCS-mapped intern share
+    dedupApplied: parameterized; primary=true and sensitivity=false
+  experiencedInternShare:
+    grain:
+    - periodMonth
+    - cohortType
+    - jobCodeLevel
+    - jobCode
+    - dedupApplied
+    numerator: sum(experiencedInternFlag)
+    denominator: count(internAccessClass in [I0, I1])
+    eligiblePopulation: resolved intern tracks; NCS mapping is irrelevant
+    unknownHandling: IU excluded and separately reported
+    unit: ratio
+    interpretation: Strict prior-experience share among resolved intern tracks
+    prohibitedInterpretation: Portfolio-only or preferred-condition experience
+    dedupApplied: parameterized; primary=true and sensitivity=false
+  unknownInternShare:
+    grain:
+    - periodMonth
+    - cohortType
+    - jobCodeLevel
+    - jobCode
+    - dedupApplied
+    numerator: count(internAccessClass = IU)
+    denominator: all eligible intern tracks
+    eligiblePopulation: all intern RQ2 tracks
+    unknownHandling: IU is the numerator
+    unit: ratio
+    interpretation: Intern-access-label uncertainty
+    prohibitedInterpretation: Open or restricted intern access
+    dedupApplied: parameterized; primary=true and sensitivity=false
+  advancedDutyShare:
+    grain:
+    - periodMonth
+    - cohortType
+    - jobCodeLevel
+    - jobCode
+    - dedupApplied
+    numerator: tracks where ncsEligibleFlag = true and ncsBandPrimary in [level5to6, level7to8]
+    denominator: tracks where ncsEligibleFlag = true and ncsBandPrimary is confirmed
+    eligiblePopulation: NCS-eligible tracks with valid task-context mapping
+    unknownHandling: unmapped tracks excluded and covered by ncsMappingCoverage
+    unit: ratio
+    interpretation: Share of mapped duties at NCS level 5 to 8
+    prohibitedInterpretation: Skill level inferred from a tool name alone
+    dedupApplied: parameterized; primary=true and sensitivity=false
+  ncsMappingCoverage:
+    grain:
+    - periodMonth
+    - cohortType
+    - jobCodeLevel
+    - jobCode
+    - dedupApplied
+    numerator: RQ2-eligible tracks with ncsBandPrimary
+    denominator: all RQ2-eligible tracks
+    eligiblePopulation: mixed-unresolved and boundary-unresolved tracks excluded
+    unknownHandling: unmapped tracks remain in denominator
+    unit: ratio
+    interpretation: Coverage of defensible NCS task mapping
+    prohibitedInterpretation: Mapping precision
+    dedupApplied: parameterized; primary=true and sensitivity=false
+  lowConfidenceNcsShare:
+    grain:
+    - periodMonth
+    - cohortType
+    - jobCodeLevel
+    - jobCode
+    - dedupApplied
+    numerator: mapped tracks where ncsConfidenceTier = low
+    denominator: all NCS-mapped eligible tracks
+    eligiblePopulation: RQ2-eligible mapped tracks
+    unknownHandling: unmapped tracks excluded and covered by ncsMappingCoverage
+    unit: ratio
+    interpretation: Low-confidence share among mapped tracks
+    prohibitedInterpretation: Overall mapping failure rate
+    dedupApplied: parameterized; primary=true and sensitivity=false
+  rq1EligibilityRate:
+    grain:
+    - periodMonth
+    - cohortType
+    - jobCodeLevel
+    - jobCode
+    - dedupApplied
+    numerator: countDistinct(canonicalPostingId where rq1EligibleFlag = true)
+    denominator: countDistinct(canonicalPostingId where postingEligibleFlag = true and canonicalRecordFlag = true)
+    eligiblePopulation: canonical eligible recruitment postings
+    unknownHandling: unresolved entry/intern classification remains denominator-only
+    unit: ratio
+    interpretation: Share of canonical eligible postings usable for RQ1
+    prohibitedInterpretation: Source coverage or complete-market coverage
+    dedupApplied: parameterized; primary=true and sensitivity=false
+  rq2EligibilityRate:
+    grain:
+    - periodMonth
+    - cohortType
+    - jobCodeLevel
+    - jobCode
+    - dedupApplied
+    numerator: count(trackId where rq2EligibleFlag = true)
+    denominator: count(trackId from postingEligibleFlag postings)
+    eligiblePopulation: recruitment tracks in eligible postings
+    unknownHandling: mixedUnresolved and boundary-unresolved tracks remain denominator-only
+    unit: ratio
+    interpretation: Share of tracks usable for entry-barrier analysis
+    prohibitedInterpretation: Label precision
+    dedupApplied: parameterized; primary=true and sensitivity=false
+  ncsEligibilityRate:
+    grain:
+    - periodMonth
+    - cohortType
+    - jobCodeLevel
+    - jobCode
+    - dedupApplied
+    numerator: count(trackId where ncsEligibleFlag = true)
+    denominator: count(trackId where rq2EligibleFlag = true)
+    eligiblePopulation: RQ2-eligible tracks
+    unknownHandling: tracks without duty text or defensible task context remain denominator-only
+    unit: ratio
+    interpretation: Share of RQ2 tracks eligible for NCS mapping
+    prohibitedInterpretation: NCS mapping coverage or precision
+    dedupApplied: parameterized; primary=true and sensitivity=false
+  externalApplyShare:
+    grain:
+    - periodMonth
+    - cohortType
+    - jobCodeLevel
+    - jobCode
+    - dedupApplied
+    numerator: countDistinct(canonicalPostingId where externalApplyFlag = true and rq1EligibleFlag = true)
+    denominator: countDistinct(canonicalPostingId where rq1EligibleFlag = true)
+    eligiblePopulation: canonical RQ1-eligible postings
+    unknownHandling: unknown external apply status remains denominator-only
+    unit: ratio
+    interpretation: Share with an external application destination
+    prohibitedInterpretation: Share whose Linkareer detail is unavailable
+    dedupApplied: parameterized; primary=true and sensitivity=false
+  externalDetailOnlyShare:
+    grain:
+    - periodMonth
+    - cohortType
+    - jobCodeLevel
+    - jobCode
+    - dedupApplied
+    numerator: countDistinct(canonicalPostingId where externalDetailOnlyFlag = true and rq1EligibleFlag = true)
+    denominator: countDistinct(canonicalPostingId where rq1EligibleFlag = true)
+    eligiblePopulation: canonical RQ1-eligible postings
+    unknownHandling: unknown external detail status remains denominator-only
+    unit: ratio
+    interpretation: Share whose full detail is available only outside Linkareer
+    prohibitedInterpretation: Missing-at-random assumption
+    dedupApplied: parameterized; primary=true and sensitivity=false
+  activityTextAvailabilityRate:
+    grain:
+    - periodMonth
+    - cohortType
+    - jobCodeLevel
+    - jobCode
+    - dedupApplied
+    numerator: countDistinct(canonicalPostingId where activityTextAvailableFlag = true and postingEligibleFlag = true)
+    denominator: countDistinct(canonicalPostingId where postingEligibleFlag = true)
+    eligiblePopulation: canonical eligible postings
+    unknownHandling: unavailable or unknown ActivityText remains denominator-only
+    unit: ratio
+    interpretation: Availability of Linkareer ActivityText detail content
+    prohibitedInterpretation: OCR or parsing success rate
+    dedupApplied: parameterized; primary=true and sensitivity=false
+  jobTypeConflictRate:
+    grain:
+    - periodMonth
+    - cohortType
+    - jobCodeLevel
+    - jobCode
+    - dedupApplied
+    numerator: count(trackId where jobTypeConflictFlag = true and postingEligibleFlag = true)
+    denominator: count(trackId where postingEligibleFlag = true)
+    eligiblePopulation: tracks in eligible postings
+    unknownHandling: unresolved job type is reported separately and not a conflict
+    unit: ratio
+    interpretation: Conflict between listing and duty-level job-type evidence
+    prohibitedInterpretation: Career-label error rate
+    dedupApplied: parameterized; primary=true and sensitivity=false
