@@ -1,0 +1,74 @@
+{
+  "requestType": "P4_M1_5_A5_INDEPENDENT_AUDIT",
+  "agentId": "P4-A3-GLOBAL-RECONCILIATION-ORCHESTRATOR",
+  "integrationBranch": "integration/p4-m1_5-unified-reconciliation-v2",
+  "integrationEvidenceHead": "cb4f119fe447d151ecd70b6af534bda1a163d2ab",
+  "baseCommit": "5508fce02ba5396b5d5a55870f1f879c1f32e8e0",
+  "acceptedAgentCommits": {
+    "A1Evidence": "14ebe6beba530318dcedfd3471c7ba8565ee11f2",
+    "A1Code": "92207e8fe7cc445c7426218da06b0b064f9df941",
+    "A1Baseline": "2d3f48025352359acf5787efeb79c0111fdea9f7",
+    "A2Source": "879b2c2e2cf3ba3f3cdc8f0847e607f045e2b839",
+    "A4Source": "3396eb66f6f9af80d0458ab8c5431b1c5ce6414c"
+  },
+  "runId": "M1_5_RECONCILIATION_20260807_03",
+  "dataVersion": "reconciliation-20260807.3",
+  "contractVersion": "2.1.2",
+  "sourceNotebookAuthorityManifestSha256": "b9928cd72292b3355e826440efad23abfc9db467c550105f622de461b2c35d24",
+  "rawObjectManifestSha256": "7707f30b042238901326ba09024100b7f61a9565115d18fe2cbc33f195595a30",
+  "rawMountPolicySha256": "77778fc27aaa2d7e92997d177b844848e2fccc52bc0b3a2fddcf449bfcda34d9",
+  "fullReplaySummarySha256": "2ce704da57c338a3c2067d84fa9d3722e8c66ff89b24253edcd80092eca80f23",
+  "currentRunManifestAuditSha256": "1b9bf2f2dba678f4d52349e52cd978a6b677da66e36ade502ee92b59145ec31d",
+  "strictValidatorReportSha256": "78217548c59020b0f0b13018cab1c80e81cff87faa336aa9d277afb7cedea7ea",
+  "canonicalLineageAuditSha256": "77dff861cd1dbc1e65c52aadade56e590807149649592a1ced484cfdaf20324e",
+  "ncsMappingToMartContractSha256": "edc2296aed9813132047a344939dd6215dc2a30a8ef411562c9ea5bed7f18d86",
+  "gateStatusSha256": "b307358870b1cd76006fe94364569378adae525d4ad863b934a2ab1d64ca8990",
+  "defectRegisterSha256": "a2f45c0169aabe6166ccf8d8f228fdc1e3b645482bcae21a10f9c5d302c41bce",
+  "testCommands": [
+    {
+      "component": "crawl",
+      "command": "P4_CRAWL_RAW_SOURCE_ROOT=<mounted-root> PYTHONPATH=crawl/src:. python -m pytest crawl/tests crawl/control/tests -q",
+      "exitCode": 0,
+      "passed": 86
+    },
+    {
+      "component": "pipeline",
+      "command": "PYTHONPATH=pipeline/src:ncs_mapping/src python -m pytest pipeline/tests -q",
+      "exitCode": 0,
+      "passed": 120
+    },
+    {
+      "component": "ncs_mapping",
+      "command": "PYTHONPATH=ncs_mapping/src:pipeline/src python -m pytest ncs_mapping/tests -q",
+      "exitCode": 0,
+      "passed": 87
+    },
+    {
+      "component": "strict_validator",
+      "command": "python integration/validate_unified_reconciliation.py <SHA-bound args>",
+      "exitCode": 0,
+      "status": "SUCCEEDED"
+    }
+  ],
+  "productionNetworkCalls": 0,
+  "externalAtsTransportCalls": 0,
+  "credentialedApiCalls": 0,
+  "rawBytesIncluded": false,
+  "secretsIncluded": false,
+  "piiOriginalIncluded": false,
+  "claimedStatus": "M1_5_RECONCILIATION_READY_FOR_A5_AUDIT",
+  "prohibitedPromotions": [
+    "M2_CRAWL_READY_FOR_USER_APPROVAL",
+    "CRAWL_RELEASE_READY",
+    "NCS_MAPPING_GOLD_READY",
+    "ANALYSIS_READY"
+  ],
+  "unresolvedDefects": [
+    "P1-UNIFIED-001",
+    "P1-UNIFIED-002",
+    "P1-UNIFIED-003",
+    "P1-UNIFIED-004",
+    "P1-UNIFIED-005",
+    "P2-UNIFIED-001"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "metricsVersion": "p4-unified-current-run-metrics-v1",
+  "stageId": "A4-00-NCS-SOURCE",
+  "runId": "M1_5_RECONCILIATION_20260807_03",
+  "dataVersion": "reconciliation-20260807.3",
+  "status": "SUCCEEDED",
+  "executionMode": "DETERMINISTIC_READ_ONLY_STAGE_RUNNER",
+  "metrics": {
+    "input": "b5b02ea232295931f245c69c881046a813f04cfbc517a13bc40d9e82994277c1",
+    "rows": 13442,
+    "status": "SUCCEEDED"
+  }
+}

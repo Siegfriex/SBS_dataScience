@@ -1,0 +1,2 @@
+gateId,ruleId,severity,status,observedValue,threshold,evidencePath
+CURRENT_RUN_BINDING,EXACT_SOURCE_AND_RUN_BINDING,INFO,PASS,NOT_EVALUATED,bound,ncs_mapping/reports/reconciliation_a4/A4_STAGE_AUTHORITY_MANIFEST.csv

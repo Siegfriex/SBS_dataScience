@@ -1,0 +1,2 @@
+gateId,ruleId,severity,status,observedValue,threshold,evidencePath
+CURRENT_RUN_BINDING,EXACT_SOURCE_AND_RUN_BINDING,INFO,PASS,SUCCEEDED,bound,pipeline/runs/notebooks/observed-dev/M1_5_RECONCILIATION_20260807_03/artifacts/09MapPostingToNcs/stage_manifest.json

@@ -1,0 +1,13 @@
+{
+  "metricsVersion": "p4-unified-current-run-metrics-v1",
+  "stageId": "A2-03-OCR",
+  "runId": "M1_5_RECONCILIATION_20260807_03",
+  "dataVersion": "reconciliation-20260807.3",
+  "status": "SUCCEEDED",
+  "executionMode": "FRESH_KERNEL_NOTEBOOK",
+  "metrics": {
+    "sourceCells": 11,
+    "sourceCodeCells": 6,
+    "nativeStageId": "03OcrAndSectionRecovery"
+  }
+}

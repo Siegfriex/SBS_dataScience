@@ -1,0 +1,14 @@
+{
+  "metricsVersion": "p4-unified-current-run-metrics-v1",
+  "stageId": "A4-04-EXPORT",
+  "runId": "M1_5_RECONCILIATION_20260807_03",
+  "dataVersion": "reconciliation-20260807.3",
+  "status": "SUCCEEDED",
+  "executionMode": "DETERMINISTIC_READ_ONLY_STAGE_RUNNER",
+  "metrics": {
+    "input": "2ce6e8c4a9157303813512729ee9874c2c059f28ec558dd33578eabfdde39a05",
+    "rows": 28,
+    "structuralRows": 27,
+    "status": "SUCCEEDED"
+  }
+}

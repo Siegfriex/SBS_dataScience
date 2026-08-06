@@ -1,0 +1,5 @@
+sourceValue,canonicalValue,rows,mappingRule,invalidAfterMigration,quarantinedRows,status
+recruit (legacy invalid),recruitExperienced,4,jobTypes+activityTypeID+group,0,0,PASS
+recruit (legacy invalid),recruitIntern,35,jobTypes+activityTypeID+group,0,0,PASS
+recruit (legacy invalid),recruitNewGrad,46,jobTypes+activityTypeID+group,0,0,PASS
+recruit (legacy invalid),recruitUnknown,52,jobTypes+activityTypeID+group,0,0,PASS

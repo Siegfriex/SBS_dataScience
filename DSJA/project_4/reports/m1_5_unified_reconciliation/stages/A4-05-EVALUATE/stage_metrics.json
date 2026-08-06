@@ -1,0 +1,14 @@
+{
+  "metricsVersion": "p4-unified-current-run-metrics-v1",
+  "stageId": "A4-05-EVALUATE",
+  "runId": "M1_5_RECONCILIATION_20260807_03",
+  "dataVersion": "reconciliation-20260807.3",
+  "status": "NOT_EVALUATED",
+  "executionMode": "DETERMINISTIC_READ_ONLY_STAGE_RUNNER",
+  "metrics": {
+    "input": "c72ef16f5b80f38a1fb979e4b9720805034a8380538bddcd75b63331bbed0f2a",
+    "rows": 0,
+    "goldAuthority": "NONE",
+    "status": "NOT_EVALUATED"
+  }
+}

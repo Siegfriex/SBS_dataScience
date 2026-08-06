@@ -1,0 +1,201 @@
+{
+  "validatorVersion": "p4-strict-unified-reconciliation-v1",
+  "validatorInvoked": true,
+  "validatorProcessExitCode": 0,
+  "validatorStatus": "SUCCEEDED",
+  "validatorInputRunId": "M1_5_RECONCILIATION_20260807_03",
+  "validatorInputManifestSha256": "2ce704da57c338a3c2067d84fa9d3722e8c66ff89b24253edcd80092eca80f23",
+  "dataVersion": "reconciliation-20260807.3",
+  "generatedAtUtc": "2026-08-06T16:13:08.495681Z",
+  "plannedStages": 23,
+  "executedStages": 23,
+  "exactOneManifests": 23,
+  "staleConsumed": 0,
+  "foreignArtifactConsumed": 0,
+  "productionNetworkCalls": 0,
+  "externalAtsTransportCalls": 0,
+  "credentialedApiCalls": 0,
+  "checks": [
+    {
+      "checkId": "CURRENT_RUN_EXACT_ONE",
+      "status": "PASS",
+      "observed": 23,
+      "threshold": 23,
+      "evidence": "P4_CURRENT_RUN_MANIFEST_AUDIT.csv"
+    },
+    {
+      "checkId": "CSV_PARQUET_EQUALITY",
+      "status": "PASS",
+      "observed": {
+        "pairs": 13,
+        "failures": []
+      },
+      "threshold": {
+        "pairs": 13,
+        "failures": 0
+      },
+      "evidence": "pipeline_export"
+    },
+    {
+      "checkId": "DUCKDB_PARQUET_EQUALITY",
+      "status": "PASS",
+      "observed": [],
+      "threshold": [],
+      "evidence": "p4.observed-dev.duckdb"
+    },
+    {
+      "checkId": "PK_FK_ORPHAN_DUPLICATE",
+      "status": "PASS",
+      "observed": {
+        "pk": {
+          "postingId": 0,
+          "trackId": 0,
+          "sectionId": 0,
+          "requirementId": 0,
+          "sourceBlockId": 0,
+          "chunkId": 0
+        },
+        "fk": {
+          "trackPosting": 0,
+          "sectionTrack": 0,
+          "requirementSection": 0,
+          "requirementSourceBlock": 0,
+          "chunkSourceBlock": 0,
+          "roleChunk": 0,
+          "martTrack": 0
+        }
+      },
+      "threshold": 0,
+      "evidence": "pipeline_export"
+    },
+    {
+      "checkId": "SOURCEBLOCK_REQUIREMENT_LINEAGE",
+      "status": "PASS",
+      "observed": 41,
+      "threshold": 41,
+      "evidence": "requirement_facts.parquet"
+    },
+    {
+      "checkId": "CANONICAL_POSTING_KIND",
+      "status": "PASS",
+      "observed": 0,
+      "threshold": 0,
+      "evidence": "preprocessed_posting_tracks.parquet"
+    },
+    {
+      "checkId": "PERIOD_MONTH_DETERMINISTIC",
+      "status": "PASS",
+      "observed": 0,
+      "threshold": 0,
+      "evidence": "preprocessed_posting_tracks.parquet"
+    },
+    {
+      "checkId": "TIME_ENTITY_FAIL_CLOSED",
+      "status": "PASS",
+      "observed": {
+        "postedAt": 29,
+        "periodMonth": 29,
+        "companyKey": 29,
+        "unresolved": 108
+      },
+      "threshold": "29 authoritative plus 108 explicit unresolved",
+      "evidence": "posting_normalized.parquet"
+    },
+    {
+      "checkId": "HIGH_DEMAND_NULL",
+      "status": "PASS",
+      "observed": 0,
+      "threshold": 0,
+      "evidence": "preprocessed_posting_tracks.parquet"
+    },
+    {
+      "checkId": "RAW_MOUNT_CONTRACT",
+      "status": "PASS",
+      "observed": {
+        "manifestRows": 29,
+        "mountedAvailable": 29,
+        "unmountedFailClosed": true,
+        "wrongShaQuarantined": true,
+        "storageRootIds": [
+          "P4_RAW_OBSERVED_20260806_01"
+        ],
+        "manifestSha256": "7707f30b042238901326ba09024100b7f61a9565115d18fe2cbc33f195595a30"
+      },
+      "threshold": {
+        "mounted": 29,
+        "unmounted": "fail-closed",
+        "wrongSha": "quarantine"
+      },
+      "evidence": "A1_RAW_OBJECT_MANIFEST.jsonl"
+    },
+    {
+      "checkId": "RAW_POSTING_BINDING",
+      "status": "PASS",
+      "observed": {
+        "QUARANTINED": 18,
+        "MATCHED": 11
+      },
+      "threshold": {
+        "MATCHED": 11,
+        "QUARANTINED": 18
+      },
+      "evidence": "A1_RAW_POSTING_BINDING_AUDIT.csv"
+    },
+    {
+      "checkId": "OBSERVED_PRODUCTION_CONTAMINATION",
+      "status": "PASS",
+      "observed": {
+        "foreignCanonicalObjects": 0,
+        "observedRows": 137,
+        "database": "p4.observed-dev.duckdb"
+      },
+      "threshold": {
+        "foreign": 0,
+        "rows": 137
+      },
+      "evidence": "p4.observed-dev.duckdb"
+    },
+    {
+      "checkId": "CANONICAL_DB_UNTOUCHED",
+      "status": "PASS",
+      "observed": 0,
+      "threshold": 0,
+      "evidence": "pipeline/data/warehouse/p4.duckdb"
+    },
+    {
+      "checkId": "NCS_LEVEL_BAND_STRUCTURAL_BOUNDARY",
+      "status": "PASS",
+      "observed": {
+        "structural": 27,
+        "humanGold": 0
+      },
+      "threshold": {
+        "structural": 27,
+        "quality": "NOT_EVALUATED"
+      },
+      "evidence": "ncs_mapping_to_mart.parquet"
+    },
+    {
+      "checkId": "NCS_NOT_PROMOTED",
+      "status": "PASS",
+      "observed": 0,
+      "threshold": 0,
+      "evidence": "preprocessed_posting_tracks.parquet"
+    },
+    {
+      "checkId": "SECRET_COOKIE_SCAN",
+      "status": "PASS",
+      "observed": [],
+      "threshold": [],
+      "evidence": "tracked reports and exports"
+    },
+    {
+      "checkId": "ABSOLUTE_LOCAL_PATH_SCAN",
+      "status": "PASS",
+      "observed": [],
+      "threshold": [],
+      "evidence": "tracked reports and exports"
+    }
+  ],
+  "failures": []
+}
