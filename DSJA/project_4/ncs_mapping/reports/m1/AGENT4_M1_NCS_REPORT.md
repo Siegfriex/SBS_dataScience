@@ -6,7 +6,7 @@
 NCS_MAPPING_DEV_READY
 ```
 
-Final Notebook execution source Git HEAD: `cce6067e578cb8dc99aacaeb465439cb1ef0faa1`.
+Final Notebook execution source Git HEAD: `afac9fd9e1854715759c7d893440cbe89e04c150`.
 
 This status is limited to observed development. It is not a production code-set freeze, gold validation, final precision/coverage result, RQ2-B result, or `DATA_READY_RQ2B` declaration.
 
@@ -36,7 +36,7 @@ KSA = optional enrichment (D-023 provisional)
 - Batch top-5 materialization, bare-tool-only exclusion, explicit unmapped reason, and development-only confidence category.
 - Six canonical Parquet plus UTF-8-SIG inspection CSV exports and semantic round-trip equality checks.
 - Agent 2 handoff with relative paths, file SHA-256 values, observed-only policy, and prohibited-claim list.
-- Six executable source notebooks with deterministic cell IDs, a first 12-variable parameter cell, no stored outputs, stage-specific `src/p4_ncs` calls, input audits, and termination checks.
+- Six executable source notebooks with deterministic cell IDs, title/spec Markdown first and a first-code-cell 13-variable common parameter contract, no stored outputs, stage-specific `src/p4_ncs` calls, input audits, and termination checks.
 - Four termination artifacts for each stage, matching the Agent 3 manifest and metrics schemas. `stage_quality.csv` uses `gateId,ruleId,severity,status,observedValue,threshold,evidencePath`.
 
 ## Recomputed observed results

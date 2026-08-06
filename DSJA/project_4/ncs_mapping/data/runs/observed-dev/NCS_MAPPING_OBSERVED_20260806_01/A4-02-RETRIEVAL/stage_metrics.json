@@ -9,7 +9,7 @@
   "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
   "empiricalAnalysisAllowed": false,
   "promotionAllowed": false,
-  "generatedAt": "2026-08-06T08:38:43.872163Z",
+  "generatedAt": "2026-08-06T08:49:35.454611Z",
   "metrics": [
     {
       "metricId": "lexicalDocumentRows",

@@ -9,7 +9,7 @@
   "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
   "empiricalAnalysisAllowed": false,
   "promotionAllowed": false,
-  "generatedAt": "2026-08-06T08:38:40.894840Z",
+  "generatedAt": "2026-08-06T08:49:32.445753Z",
   "metrics": [
     {
       "metricId": "ncsUnitRows",

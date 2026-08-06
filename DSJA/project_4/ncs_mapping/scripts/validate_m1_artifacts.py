@@ -59,8 +59,9 @@ def main() -> int:
     for name in NOTEBOOKS:
         notebook = nbformat.read(ROOT / "notebooks" / name, as_version=4)
         nbformat.validate(notebook)
-        assert notebook.cells[0].cell_type == "code"
-        assert "parameters" in notebook.cells[0].metadata.get("tags", [])
+        assert notebook.cells[0].cell_type == "markdown"
+        assert notebook.cells[1].cell_type == "code"
+        assert "parameters" in notebook.cells[1].metadata.get("tags", [])
         for cell in notebook.cells:
             if cell.cell_type == "code":
                 ast.parse(cell.source)

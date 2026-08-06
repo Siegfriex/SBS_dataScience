@@ -9,7 +9,7 @@
   "dataProvenance": "OBSERVED_DEVELOPMENT_ONLY",
   "empiricalAnalysisAllowed": false,
   "promotionAllowed": false,
-  "generatedAt": "2026-08-06T08:38:46.036069Z",
+  "generatedAt": "2026-08-06T08:49:37.645496Z",
   "metrics": [
     {
       "metricId": "dutyInputRows",

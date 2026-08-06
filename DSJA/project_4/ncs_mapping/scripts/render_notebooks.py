@@ -9,7 +9,7 @@ from pathlib import Path
 import nbformat
 
 ROOT = Path(__file__).resolve().parents[1]
-EXECUTION_SOURCE_GIT_HEAD = "cce6067e578cb8dc99aacaeb465439cb1ef0faa1"
+EXECUTION_SOURCE_GIT_HEAD = "afac9fd9e1854715759c7d893440cbe89e04c150"
 STAGES = [
     ("00NcsSourceAudit.ipynb", "A4-00-NCS-SOURCE", "NCS Source Audit", "Audit 13,442 NCS units, checksum lineage, duplicates, levels, hierarchy codes, and documented name nulls."),
     ("01BuildCoreAiItCodeSet.ipynb", "A4-01-CODESET", "Core AI·IT Code Set", "Deterministically rebuild and review the 120-code set: 69 included and 51 excluded."),
