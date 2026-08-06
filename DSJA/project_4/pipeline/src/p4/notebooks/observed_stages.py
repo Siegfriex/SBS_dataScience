@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 import subprocess
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -16,7 +17,6 @@ from p4.contracts.ncs_mart_handoff import load_ncs_mart_handoff
 from p4.contracts.release_validation import validate_observed_input_package, validate_release_gates
 from p4.dedup.reposts import assign_observed_singleton_groups
 from p4.export.observed import build_export_frames, export_observed_frames, validate_export_bundle
-from p4.export.observed import RUN_TIMESTAMP
 from p4.normalize.observed_batch import (
     CONTRACT_VERSION,
     CRAWL_RELEASE_ID,
@@ -67,6 +67,10 @@ STAGE_CONTRACT = {
 
 QUALITY_COLUMNS = ["gateId", "ruleId", "severity", "status", "observedValue", "threshold", "evidencePath"]
 TERMINATION_ARTIFACTS = ["stage_manifest.json", "stage_metrics.json", "stage_quality.csv", "CHECKSUMS.sha256"]
+
+
+def _utc_now() -> str:
+    return datetime.now(UTC).isoformat().replace("+00:00", "Z")
 
 
 def _write_json(path: Path, payload: Any) -> None:
@@ -219,7 +223,7 @@ def _quality_contract_rows(stage: str, rows: list[dict[str, Any]], evidence_path
     return pd.DataFrame(contracted, columns=QUALITY_COLUMNS)
 
 
-def _metrics_contract(stage: str, metrics: dict[str, Any]) -> dict[str, Any]:
+def _metrics_contract(stage: str, metrics: dict[str, Any], generated_at_utc: str) -> dict[str, Any]:
     stage_id, _, _ = STAGE_CONTRACT[stage]
     records: list[dict[str, Any]] = []
 
@@ -259,7 +263,7 @@ def _metrics_contract(stage: str, metrics: dict[str, Any]) -> dict[str, Any]:
         "dataProvenance": DATA_PROVENANCE,
         "empiricalAnalysisAllowed": False,
         "promotionAllowed": False,
-        "generatedAt": RUN_TIMESTAMP,
+        "generatedAt": generated_at_utc,
         "metrics": records,
     }
 
@@ -295,6 +299,8 @@ def _manifest_contract(
     output_paths: list[Path],
     record_root: Path,
     row_counts: dict[str, int],
+    started_at_utc: str,
+    completed_at_utc: str,
 ) -> dict[str, Any]:
     stage_id, schema_version, produced_gate = STAGE_CONTRACT[stage]
     branch, head = _git_identity(project_root)
@@ -324,8 +330,8 @@ def _manifest_contract(
         "dataVersion": DATA_VERSION,
         "crawlReleaseId": CRAWL_RELEASE_ID,
         "dataProvenance": DATA_PROVENANCE,
-        "startedAt": RUN_TIMESTAMP,
-        "completedAt": RUN_TIMESTAMP,
+        "startedAt": started_at_utc,
+        "completedAt": completed_at_utc,
         "empiricalAnalysisAllowed": False,
         "promotionAllowed": False,
         "inputManifestSha256": sha256_file(release_root / "HANDOFF.json"),
@@ -383,14 +389,17 @@ def _stage_artifacts(
     quality_rows: list[dict[str, Any]],
     output_paths: list[Path],
     run_root: Path | None = None,
+    started_at_utc: str | None = None,
 ) -> dict[str, Any]:
+    actual_started_at_utc = started_at_utc or _utc_now()
     stage_root = (run_root or pipeline_root / "runs/notebooks/observed-dev/AGENT2_20260806_01") / "artifacts" / stage
     stage_root.mkdir(parents=True, exist_ok=True)
     quality = _quality_contract_rows(stage, quality_rows, "stage_quality.csv")
     quality_path = stage_root / "stage_quality.csv"
     quality.to_csv(quality_path, index=False, encoding="utf-8-sig")
     metrics_path = stage_root / "stage_metrics.json"
-    metrics_payload = _metrics_contract(stage, metrics)
+    completed_at_utc = _utc_now()
+    metrics_payload = _metrics_contract(stage, metrics, completed_at_utc)
     _write_json(metrics_path, metrics_payload)
     row_counts = {
         key: int(value)
@@ -405,6 +414,8 @@ def _stage_artifacts(
         output_paths,
         pipeline_root,
         row_counts,
+        actual_started_at_utc,
+        completed_at_utc,
     )
     manifest_path = stage_root / "stage_manifest.json"
     _write_json(manifest_path, manifest)
@@ -435,6 +446,7 @@ def run_observed_stage(
     ncs_project_root: str | Path | None = None,
     run_root: str | Path | None = None,
 ) -> dict[str, Any]:
+    stage_started_at_utc = _utc_now()
     project = Path(project_root).resolve()
     pipeline = project / "pipeline"
     release = Path(release_root).resolve()
@@ -630,7 +642,7 @@ def run_observed_stage(
         quality_contract.to_csv(quality_path, index=False, encoding="utf-8-sig")
         row_counts = {name: len(frame) for name, frame in export_frames.items()}
         bundle_metrics_path = output / "stage_metrics.json"
-        bundle_metrics = _metrics_contract(stage, {**summary, "rowCounts": row_counts})
+        bundle_metrics = _metrics_contract(stage, {**summary, "rowCounts": row_counts}, _utc_now())
         _write_json(bundle_metrics_path, bundle_metrics)
         data_artifacts = [
             path for path in sorted(output.iterdir())
@@ -645,6 +657,8 @@ def run_observed_stage(
             data_artifacts,
             output,
             row_counts,
+            stage_started_at_utc,
+            _utc_now(),
         )
         _write_json(bundle_manifest_path, bundle_manifest)
         _validate_control_artifacts(control, bundle_manifest, bundle_metrics, quality_contract)
@@ -661,7 +675,10 @@ def run_observed_stage(
         quality.extend(quality_frame.to_dict(orient="records"))
     else:
         raise ValueError(f"unknown observed stage: {stage}")
-    return _stage_artifacts(project, pipeline, release, control, stage, metrics, quality, outputs, notebook_run_root)
+    return _stage_artifacts(
+        project, pipeline, release, control, stage, metrics, quality, outputs,
+        notebook_run_root, started_at_utc=stage_started_at_utc,
+    )
 
 
 def audit_observed_stage_inputs(
