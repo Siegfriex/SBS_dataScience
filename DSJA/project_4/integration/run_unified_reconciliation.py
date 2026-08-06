@@ -12,6 +12,7 @@ import argparse
 import csv
 import hashlib
 import json
+import shutil
 import subprocess
 import sys
 from datetime import UTC, datetime
@@ -21,6 +22,13 @@ from typing import Any
 import nbformat
 import pandas as pd
 import yaml
+
+from unified_reconciliation_contract import (
+    EXECUTION_ORDER,
+    RUNTIME_REQUIRED_FIELDS,
+    STAGE_DEPENDENCIES,
+    validate_topology_and_runtime,
+)
 
 
 BASE_COMMIT = "5508fce02ba5396b5d5a55870f1f879c1f32e8e0"
@@ -178,7 +186,7 @@ def write_stage(report_root: Path, record: dict[str, Any]) -> str:
     stage_dir = report_root / "stages" / record["stageId"]
     stage_dir.mkdir(parents=True, exist_ok=True)
     manifest = {
-        "manifestVersion": "p4-unified-current-run-v1",
+        "manifestVersion": "p4-unified-current-run-v2",
         "stageId": record["stageId"],
         "owner": record["owner"],
         "runId": record["runId"],
@@ -190,8 +198,14 @@ def write_stage(report_root: Path, record: dict[str, Any]) -> str:
         "parameterSha256": record["parameterSha256"],
         "outputManifestSha256": record["outputManifestSha256"],
         "status": record["status"],
-        "createdAtUtc": record["createdAtUtc"],
+        "startedAtUtc": record["startedAtUtc"],
         "completedAtUtc": record["completedAtUtc"],
+        "executionHostOrRunnerId": record["executionHostOrRunnerId"],
+        "executionCommandSha256": record["executionCommandSha256"],
+        "executionOrder": record["executionOrder"],
+        "dependencyStageIds": record["dependencyStageIds"],
+        "timestampSource": record["timestampSource"],
+        "runtimeLedgerSha256": record["runtimeLedgerSha256"],
         "executionMode": record["executionMode"],
         "sourceNotebookPath": record["sourceNotebookPath"],
         "sourceNotebookBlobId": record["sourceNotebookBlobId"],
@@ -237,32 +251,49 @@ def main() -> int:
     parser.add_argument("--data-version", required=True)
     parser.add_argument("--a1-run-root", type=Path, required=True)
     parser.add_argument("--a2-run-root", type=Path, required=True)
+    parser.add_argument("--runtime-ledger", type=Path, required=True)
     parser.add_argument("--report-root", type=Path, required=True)
     args = parser.parse_args()
     project = args.project_root.resolve()
     report_root = args.report_root.resolve()
+    a1_run_root = args.a1_run_root.resolve()
+    a2_run_root = args.a2_run_root.resolve()
     report_root.mkdir(parents=True, exist_ok=True)
+    ledger_path = args.runtime_ledger.resolve()
+    ledger_payload = json.loads(ledger_path.read_text(encoding="utf-8"))
+    ledger_rows = {row["stageId"]: row for row in ledger_payload.get("stages", [])}
+    if ledger_payload.get("runId") != args.run_id or ledger_payload.get("dataVersion") != args.data_version:
+        raise ValueError("runtime ledger run/data binding mismatch")
+    topology_errors = validate_topology_and_runtime(ledger_rows)
+    if topology_errors:
+        raise ValueError(f"runtime ledger topology/timestamp invalid: {topology_errors}")
+    ledger_sha = sha_file(ledger_path)
+    shutil.copyfile(ledger_path, report_root / "P4_RUNTIME_EXECUTION_LEDGER.json")
     head = git(project, "rev-parse", "HEAD")
     modules = {owner: module_tree_sha(project, owner) for owner in ("A1", "A2", "A4")}
     parameters = canonical_sha({"runId": args.run_id, "dataVersion": args.data_version, "network": 0, "ats": 0})
     records: list[dict[str, Any]] = []
 
-    a1_rows = {row["stageId"]: row for row in read_csv(args.a1_run_root / "NOTEBOOK_EXECUTION_RESULTS.csv")}
+    a1_rows = {row["stageId"]: row for row in read_csv(a1_run_root / "NOTEBOOK_EXECUTION_RESULTS.csv")}
     for stage_id, source_rel in A1_STAGES:
         row = a1_rows[stage_id]
-        native = args.a1_run_root / stage_id / "stage_manifest.json"
+        native = a1_run_root / stage_id / "stage_manifest.json"
         native_payload = json.loads(native.read_text(encoding="utf-8"))
         source = project / source_rel
         executed = project / row["executedPath"]
         audit = source_audit(source)
         if audit["outputs"] or audit["executions"] or normalized_code(source) != normalized_code(executed, executed=True):
             raise ValueError(f"A1 Notebook authority/parity failed: {stage_id}")
+        runtime = ledger_rows[stage_id]
+        if runtime["sourceNotebookSha256"] != audit["sha256"] or runtime["moduleBlobSha256"] != modules["A1"]:
+            raise ValueError(f"A1 runtime ledger source/module mismatch: {stage_id}")
         records.append({
             "stageId": stage_id, "owner": "A1", "runId": args.run_id, "dataVersion": args.data_version,
             "inputManifestSha256": native_payload["inputManifestSha256"], "sourceNotebookSha256": audit["sha256"],
             "moduleBlobSha256": modules["A1"], "parameterSha256": parameters,
             "outputManifestSha256": sha_file(native), "status": native_payload["status"],
-            "createdAtUtc": row["runtimeStartedAtUtc"], "completedAtUtc": row["runtimeEndedAtUtc"],
+            **{key: runtime[key] for key in RUNTIME_REQUIRED_FIELDS},
+            "timestampSource": runtime["timestampSource"], "runtimeLedgerSha256": ledger_sha,
             "executionMode": "FRESH_KERNEL_NOTEBOOK", "sourceNotebookPath": source_rel,
             "sourceNotebookBlobId": git_blob(project, source), "sourceCommit": head,
             "nativeEvidencePath": native.relative_to(project).as_posix(), "nativeEvidenceSha256": sha_file(native),
@@ -271,41 +302,50 @@ def main() -> int:
 
     for stage_id, source_rel, native_id in A2_STAGES:
         source = project / source_rel
-        executed = args.a2_run_root / "executed" / f"{native_id}.executed.ipynb"
-        native = args.a2_run_root / "artifacts" / native_id / "stage_manifest.json"
+        executed = a2_run_root / "executed" / f"{native_id}.executed.ipynb"
+        native = a2_run_root / "artifacts" / native_id / "stage_manifest.json"
         if not executed.is_file() or not native.is_file():
             raise FileNotFoundError(f"missing A2 current-run evidence: {stage_id}")
         audit = source_audit(source)
         if audit["outputs"] or audit["executions"] or normalized_code(source) != normalized_code(executed):
             raise ValueError(f"A2 Notebook authority/parity failed: {stage_id}")
         payload = json.loads(native.read_text(encoding="utf-8"))
+        runtime = ledger_rows[stage_id]
+        if runtime["sourceNotebookSha256"] != audit["sha256"] or runtime["moduleBlobSha256"] != modules["A2"]:
+            raise ValueError(f"A2 runtime ledger source/module mismatch: {stage_id}")
+        if runtime["outputManifestSha256"] != sha_file(native):
+            raise ValueError(f"A2 runtime ledger output mismatch: {stage_id}")
         records.append({
             "stageId": stage_id, "owner": "A2", "runId": args.run_id, "dataVersion": args.data_version,
             "inputManifestSha256": payload["inputManifestSha256"], "sourceNotebookSha256": audit["sha256"],
             "moduleBlobSha256": modules["A2"], "parameterSha256": parameters,
             "outputManifestSha256": sha_file(native), "status": payload["status"],
-            "createdAtUtc": payload.get("startedAt", utc_now()), "completedAtUtc": payload.get("completedAt", utc_now()),
+            **{key: runtime[key] for key in RUNTIME_REQUIRED_FIELDS},
+            "timestampSource": runtime["timestampSource"], "runtimeLedgerSha256": ledger_sha,
             "executionMode": "FRESH_KERNEL_NOTEBOOK", "sourceNotebookPath": source_rel,
             "sourceNotebookBlobId": git_blob(project, source), "sourceCommit": head,
             "nativeEvidencePath": native.relative_to(project).as_posix(), "nativeEvidenceSha256": sha_file(native),
             "metrics": {"sourceCells": audit["cells"], "sourceCodeCells": audit["codeCells"], "nativeStageId": native_id},
         })
 
-    a4_checks = a4_read_only_checks(project)
     for stage_id, source_rel in A4_STAGES:
         source = project / source_rel
         audit = source_audit(source)
         if audit["outputs"] or audit["executions"]:
             raise ValueError(f"A4 source Notebook is not clean: {stage_id}")
-        result = a4_checks[stage_id]
-        now = utc_now()
+        runtime = ledger_rows[stage_id]
+        result = runtime["metrics"]
+        if runtime["sourceNotebookSha256"] != audit["sha256"] or runtime["moduleBlobSha256"] != modules["A4"]:
+            raise ValueError(f"A4 runtime ledger source/module mismatch: {stage_id}")
         authority_path = project / "ncs_mapping/reports/reconciliation_a4/A4_STAGE_AUTHORITY_MANIFEST.csv"
         records.append({
             "stageId": stage_id, "owner": "A4", "runId": args.run_id, "dataVersion": args.data_version,
             "inputManifestSha256": result["input"], "sourceNotebookSha256": audit["sha256"],
             "moduleBlobSha256": modules["A4"], "parameterSha256": parameters,
             "outputManifestSha256": canonical_sha(result), "status": result["status"],
-            "createdAtUtc": now, "completedAtUtc": now, "executionMode": "DETERMINISTIC_READ_ONLY_STAGE_RUNNER",
+            **{key: runtime[key] for key in RUNTIME_REQUIRED_FIELDS},
+            "timestampSource": runtime["timestampSource"], "runtimeLedgerSha256": ledger_sha,
+            "executionMode": "DETERMINISTIC_READ_ONLY_STAGE_RUNNER",
             "sourceNotebookPath": source_rel, "sourceNotebookBlobId": git_blob(project, source),
             "sourceCommit": head, "nativeEvidencePath": authority_path.relative_to(project).as_posix(),
             "nativeEvidenceSha256": sha_file(authority_path), "metrics": result,
@@ -313,6 +353,9 @@ def main() -> int:
 
     if len(records) != 23 or len({row["stageId"] for row in records}) != 23:
         raise AssertionError("unified stage registry must contain exactly 23 unique stages")
+    records.sort(key=lambda row: row["executionOrder"])
+    if [row["stageId"] for row in records] != list(EXECUTION_ORDER):
+        raise AssertionError("records are not in the canonical execution order")
     manifest_shas = {row["stageId"]: write_stage(report_root, row) for row in records}
     summary_rows = [{
         "stageId": row["stageId"], "owner": row["owner"], "executionMode": row["executionMode"],
@@ -321,6 +364,9 @@ def main() -> int:
         "status": row["status"], "manifestPath": f"reports/m1_5_unified_reconciliation/stages/{row['stageId']}/stage_manifest.json",
         "manifestSha256": manifest_shas[row["stageId"]], "exactOne": True, "staleConsumed": 0,
         "foreignArtifactConsumed": 0, "productionNetworkCalls": 0, "externalAtsTransportCalls": 0,
+        "executionOrder": row["executionOrder"], "dependencyStageIds": "+".join(row["dependencyStageIds"]),
+        "startedAtUtc": row["startedAtUtc"], "completedAtUtc": row["completedAtUtc"],
+        "executionHostOrRunnerId": row["executionHostOrRunnerId"],
     } for row in records]
     summary_path = report_root / "P4_23_STAGE_REPLAY_SUMMARY.csv"
     with summary_path.open("w", encoding="utf-8", newline="") as stream:
@@ -328,16 +374,18 @@ def main() -> int:
         writer.writeheader(); writer.writerows(summary_rows)
 
     registry = {
-        "registryVersion": "p4-unified-23-stage-v1", "baseCommit": BASE_COMMIT,
+        "registryVersion": "p4-unified-23-stage-v2", "baseCommit": BASE_COMMIT,
         "headCommitAtExecution": head, "runId": args.run_id, "dataVersion": args.data_version,
         "contractVersion": CONTRACT_VERSION, "productionNetworkCalls": 0, "externalAtsTransportCalls": 0,
         "stages": [{
             "stageId": row["stageId"], "owner": row["owner"], "sourceNotebookPath": row["sourceNotebookPath"],
             "sourceNotebookBlobSha256": row["sourceNotebookSha256"], "moduleBlobSha256": row["moduleBlobSha256"],
             "inputContract": "current-run SHA-bound input", "outputContract": "four termination artifacts",
-            "dependencyStageIds": [] if index == 0 else [records[index - 1]["stageId"]],
-            "currentRunManifestSchema": "p4-unified-current-run-v1", "validatorGate": "STRICT_CURRENT_RUN_BINDING",
-        } for index, row in enumerate(records)],
+            "dependencyStageIds": list(STAGE_DEPENDENCIES[row["stageId"]]),
+            "executionOrder": row["executionOrder"],
+            "currentRunManifestSchema": "p4-unified-current-run-v2",
+            "validatorGate": "STRICT_CURRENT_RUN_TOPOLOGY_AND_TIMESTAMP_BINDING",
+        } for row in records],
     }
     (report_root / "P4_23_STAGE_REGISTRY.yaml").write_text(yaml.safe_dump(registry, sort_keys=False, allow_unicode=True), encoding="utf-8")
     print(json.dumps({"plannedStages": 23, "executedStages": 23, "exactOneManifests": 23, "runId": args.run_id}, sort_keys=True))

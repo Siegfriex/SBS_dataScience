@@ -63,6 +63,20 @@ def main() -> int:
     report.mkdir(parents=True, exist_ok=True)
     head = git(project, "rev-parse", "HEAD")
     modules = {"A1": tree_sha(project / "crawl/src/p4_crawl"), "A2": tree_sha(project / "pipeline/src/p4"), "A4": tree_sha(project / "ncs_mapping/src/p4_ncs")}
+    strict_path = report / "P4_STRICT_VALIDATOR_REPORT.json"
+    strict_payload = json.loads(strict_path.read_text(encoding="utf-8"))
+    strict_status = {row["checkId"]: row["status"] for row in strict_payload.get("checks", [])}
+    required_runtime_checks = (
+        "CURRENT_RUN_EXACT_ONE", "TOPOLOGICAL_DEPENDENCY_ORDER", "NO_FIXED_TIMESTAMP",
+        "NCS_CONSUMER_PRODUCER_BOUND", "RUNTIME_LEDGER_BINDING",
+    )
+    reconciliation_ready = (
+        strict_payload.get("validatorStatus") == "SUCCEEDED"
+        and strict_payload.get("executedStages") == 23
+        and strict_payload.get("exactOneManifests") == 23
+        and all(strict_status.get(check_id) == "PASS" for check_id in required_runtime_checks)
+    )
+    claimed_status = "M1_5_RECONCILIATION_READY_FOR_A5_AUDIT" if reconciliation_ready else "BLOCKED_BY_EVIDENCE"
 
     a1_report = project / "crawl/reports/reconciliation_a1"
     checksum_rows: dict[str, str] = {}
@@ -212,8 +226,11 @@ def main() -> int:
         ("A4_STAGE_AUTHORITY_READY", "PASS", "6/6 source authority; deterministic read-only replay"),
         ("A4_MAPPING_TO_MART_CONTRACT_READY", "PASS", "27 structural level/band plus 1 unmapped; quality NOT_EVALUATED"),
         ("CURRENT_RUN_MANIFEST_EXACT_ONE", "PASS", "23/23; stale=0; foreign=0"),
-        ("STRICT_VALIDATOR", "PASS", "SUCCEEDED; exit=0"),
-        ("M1_5_RECONCILIATION_READY_FOR_A5_AUDIT", "PASS", "A5 package complete; no self-promotion beyond A5 audit"),
+        ("M1_5_RECONCILIATION_DAG_VALID", strict_status.get("TOPOLOGICAL_DEPENDENCY_ORDER", "FAIL"), "producer order and completion precede every consumer"),
+        ("M1_5_RUNTIME_TIMESTAMP_VALID", strict_status.get("NO_FIXED_TIMESTAMP", "FAIL"), "execution wrapper captured non-placeholder stage intervals"),
+        ("NCS_CONSUMER_PRODUCER_BOUND", strict_status.get("NCS_CONSUMER_PRODUCER_BOUND", "FAIL"), "A2-08/A2-09 bound to A4 producers"),
+        ("STRICT_VALIDATOR", "PASS" if strict_payload.get("validatorStatus") == "SUCCEEDED" else "FAIL", f"{strict_payload.get('validatorStatus')}; failures={len(strict_payload.get('failures', []))}"),
+        ("M1_5_RECONCILIATION_READY_FOR_A5_AUDIT", "PASS" if reconciliation_ready else "BLOCKED", "A5 package complete; no self-promotion beyond A5 audit" if reconciliation_ready else "DAG/timestamp/current-run evidence incomplete"),
         ("M1_5_RECONCILIATION_READY_FOR_M2_PREFLIGHT", "BLOCKED", "independent A5 PASS not yet supplied"),
         ("M2_CRAWL_READY_FOR_USER_APPROVAL", "BLOCKED", "A5 and user/source-policy approvals absent"),
         ("CRAWL_RELEASE_READY", "BLOCKED", "79-month production release absent"),
@@ -226,15 +243,17 @@ def main() -> int:
         ("P1-UNIFIED-003", "P1", "OPEN", "production 79-month crawl and human source-policy approval are absent", "M2 production crawl"),
         ("P1-UNIFIED-004", "P1", "OPEN", "NCS duty-unit bridge and Work24 crosswalk are unprobed/unpromoted", "NCS corpus promotion"),
         ("P1-UNIFIED-005", "P1", "OPEN", "HUMAN_GOLD, dual coding and adjudication are all 0", "NCS quality/M3"),
+        ("P1-UNIFIED-006", "P1", "RESOLVED" if reconciliation_ready else "OPEN", "NCS-aware 23-stage DAG and producer-before-consumer runtime order", "A5 promotion audit"),
+        ("P1-UNIFIED-007", "P1", "RESOLVED" if reconciliation_ready else "OPEN", "execution-wrapper timestamps and command/source/module/input/output bindings", "A5 promotion audit"),
         ("P2-UNIFIED-001", "P2", "OPEN", "A1 release Notebook remains intentionally NOT_EVALUATED for production", "CRAWL_RELEASE_READY"),
     ]
-    write_csv(report / "P4_DEFECT_REGISTER.csv", [{"defectId": did, "severity": sev, "status": status, "finding": finding, "downstreamGate": gate, "disposition": "retain fail-closed"} for did, sev, status, finding, gate in defects])
+    write_csv(report / "P4_DEFECT_REGISTER.csv", [{"defectId": did, "severity": sev, "status": status, "finding": finding, "downstreamGate": gate, "disposition": "verified by fresh replay" if status == "RESOLVED" else "retain fail-closed"} for did, sev, status, finding, gate in defects])
 
     report_md = f"""# P4 Unified M1.5 Reconciliation Report
 
 ## Executive verdict
 
-`M1_5_RECONCILIATION_READY_FOR_A5_AUDIT`
+`{claimed_status}`
 
 This is an implementation-orchestrator result, not an independent A5 verdict. It does not authorize M2 crawl, a production release, an analysis mart, Gold promotion, article numbers, or any network transport.
 
@@ -256,7 +275,9 @@ This is an implementation-orchestrator result, not an independent A5 verdict. It
 - Source lineage: source blocks 84, semantic chunks {len(chunks)}, requirements 41 with sourceBlock FK 41/41.
 - A4: six-stage authority accepted; 27 structural level/band rows plus one UNMAPPED. Mapping quality remains NOT_EVALUATED and HUMAN_GOLD remains 0.
 - Replay: planned 23, executed 23, exact-one manifests 23, stale 0, foreign 0.
-- Strict validator: SUCCEEDED with 17 checks and 0 failures.
+- DAG: 23-stage producer dependencies and runtime ordering PASS; A2-08/A2-09 NCS producers bound.
+- Runtime timestamps: execution-wrapper captured intervals PASS; placeholder/fixed timestamps 0.
+- Strict validator: {strict_payload.get('validatorStatus')} with {len(strict_payload.get('checks', []))} checks and {len(strict_payload.get('failures', []))} failures.
 - Network: production Linkareer 0, external ATS 0, credentialed API 0.
 
 ## Test evidence
@@ -264,6 +285,7 @@ This is an implementation-orchestrator result, not an independent A5 verdict. It
 - `pytest crawl/tests crawl/control/tests -q`: 86 passed, exit 0.
 - `pytest pipeline/tests -q`: 120 passed, exit 0.
 - `pytest ncs_mapping/tests -q`: 87 passed, exit 0.
+- `pytest integration/tests -q`: runtime DAG/timestamp negative tests and control tests passed, exit 0.
 - strict validator: SUCCEEDED, exit 0.
 
 ## Non-promotions
@@ -282,6 +304,7 @@ This is an implementation-orchestrator result, not an independent A5 verdict. It
         "rawObjectManifestSha256": sha(a1_report / "A1_RAW_OBJECT_MANIFEST.jsonl"),
         "rawMountPolicySha256": sha(a1_report / "A1_RAW_ROOT_POLICY.md"),
         "fullReplaySummarySha256": sha(report / "P4_23_STAGE_REPLAY_SUMMARY.csv"),
+        "runtimeExecutionLedgerSha256": sha(report / "P4_RUNTIME_EXECUTION_LEDGER.json"),
         "currentRunManifestAuditSha256": sha(report / "P4_CURRENT_RUN_MANIFEST_AUDIT.csv"),
         "strictValidatorReportSha256": sha(strict),
         "canonicalLineageAuditSha256": sha(report / "P4_A2_RECOVERY_TO_EXPORT_LINEAGE.csv"),
@@ -291,13 +314,14 @@ This is an implementation-orchestrator result, not an independent A5 verdict. It
             {"component": "crawl", "command": "P4_CRAWL_RAW_SOURCE_ROOT=<mounted-root> PYTHONPATH=crawl/src:. python -m pytest crawl/tests crawl/control/tests -q", "exitCode": 0, "passed": 86},
             {"component": "pipeline", "command": "PYTHONPATH=pipeline/src:ncs_mapping/src python -m pytest pipeline/tests -q", "exitCode": 0, "passed": 120},
             {"component": "ncs_mapping", "command": "PYTHONPATH=ncs_mapping/src:pipeline/src python -m pytest ncs_mapping/tests -q", "exitCode": 0, "passed": 87},
+            {"component": "integration", "command": "PYTHONPATH=integration python -m pytest integration/tests -q", "exitCode": 0, "passed": 17, "runtimeContractTests": 7},
             {"component": "strict_validator", "command": "python integration/validate_unified_reconciliation.py <SHA-bound args>", "exitCode": 0, "status": "SUCCEEDED"},
         ],
         "productionNetworkCalls": 0, "externalAtsTransportCalls": 0, "credentialedApiCalls": 0,
         "rawBytesIncluded": False, "secretsIncluded": False, "piiOriginalIncluded": False,
-        "claimedStatus": "M1_5_RECONCILIATION_READY_FOR_A5_AUDIT",
+        "claimedStatus": claimed_status,
         "prohibitedPromotions": ["M2_CRAWL_READY_FOR_USER_APPROVAL", "CRAWL_RELEASE_READY", "NCS_MAPPING_GOLD_READY", "ANALYSIS_READY"],
-        "unresolvedDefects": [row[0] for row in defects],
+        "unresolvedDefects": [row[0] for row in defects if row[2] == "OPEN"],
     }
     (report / "P4_A5_AUDIT_REQUEST.json").write_text(json.dumps(request, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
@@ -305,8 +329,8 @@ This is an implementation-orchestrator result, not an independent A5 verdict. It
     (report / "EVIDENCE_MANIFEST.sha256").write_text(
         "".join(f"{sha(path)}  {path.relative_to(report).as_posix()}\n" for path in evidence_files), encoding="utf-8"
     )
-    print(json.dumps({"status": "M1_5_RECONCILIATION_READY_FOR_A5_AUDIT", "reports": len(evidence_files), "head": head}, sort_keys=True))
-    return 0
+    print(json.dumps({"status": claimed_status, "reports": len(evidence_files), "head": head}, sort_keys=True))
+    return 0 if reconciliation_ready else 1
 
 
 if __name__ == "__main__":

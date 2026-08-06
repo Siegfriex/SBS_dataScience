@@ -15,7 +15,15 @@ from typing import Any
 
 import duckdb
 import pandas as pd
+import yaml
 from pandas.testing import assert_frame_equal
+
+from unified_reconciliation_contract import (
+    RUNTIME_REQUIRED_FIELDS,
+    ncs_binding_errors,
+    validate_registry_dependencies,
+    validate_topology_and_runtime,
+)
 
 
 EXPECTED_STAGES = 23
@@ -109,6 +117,39 @@ def main() -> int:
     add(checks, "CURRENT_RUN_EXACT_ONE", len(stage_dirs) == EXPECTED_STAGES and all(row["auditStatus"] == "PASS" for row in audit_rows), len(audit_rows), 23, "P4_CURRENT_RUN_MANIFEST_AUDIT.csv")
     with (report / "P4_CURRENT_RUN_MANIFEST_AUDIT.csv").open("w", encoding="utf-8", newline="") as stream:
         writer = csv.DictWriter(stream, fieldnames=list(audit_rows[0]), lineterminator="\n"); writer.writeheader(); writer.writerows(audit_rows)
+
+    manifest_by_stage = {str(row.get("stageId")): row for row in manifests}
+    registry_payload = yaml.safe_load((report / "P4_23_STAGE_REGISTRY.yaml").read_text(encoding="utf-8"))
+    registry_errors = validate_registry_dependencies(registry_payload.get("stages", []))
+    topology_errors = validate_topology_and_runtime(manifest_by_stage)
+    ncs_errors = ncs_binding_errors(manifest_by_stage)
+    timestamp_errors = [
+        error for error in topology_errors
+        if error.startswith(("FIXED_TIMESTAMP", "RUNTIME_TIMESTAMP_INVALID", "RUNTIME_TIMESTAMP_REVERSED", "TIMESTAMP_SOURCE_INVALID", "RUNTIME_FIELD_MISSING"))
+    ]
+    order_errors = [
+        error for error in topology_errors
+        if error.startswith(("TOPOLOGICAL_ORDER_VIOLATION", "RUNTIME_ORDER_VIOLATION", "RUNTIME_DEPENDENCY_MISMATCH", "RUNTIME_STAGE_SET_MISMATCH"))
+    ]
+    ledger_path = report / "P4_RUNTIME_EXECUTION_LEDGER.json"
+    ledger_payload = json.loads(ledger_path.read_text(encoding="utf-8")) if ledger_path.is_file() else {}
+    ledger_by_stage = {str(row.get("stageId")): row for row in ledger_payload.get("stages", [])}
+    ledger_errors: list[str] = []
+    if ledger_payload.get("runId") != args.run_id or ledger_payload.get("dataVersion") != args.data_version:
+        ledger_errors.append("LEDGER_RUN_DATA_MISMATCH")
+    if set(ledger_by_stage) != set(manifest_by_stage):
+        ledger_errors.append("LEDGER_STAGE_SET_MISMATCH")
+    for stage_id, manifest in manifest_by_stage.items():
+        ledger = ledger_by_stage.get(stage_id, {})
+        for field in RUNTIME_REQUIRED_FIELDS + ("timestampSource",):
+            if manifest.get(field) != ledger.get(field):
+                ledger_errors.append(f"LEDGER_FIELD_MISMATCH:{stage_id}:{field}")
+        if ledger_path.is_file() and manifest.get("runtimeLedgerSha256") != sha_file(ledger_path):
+            ledger_errors.append(f"LEDGER_SHA_MISMATCH:{stage_id}")
+    add(checks, "TOPOLOGICAL_DEPENDENCY_ORDER", not registry_errors and not order_errors, {"registry": registry_errors, "runtime": order_errors}, [], "P4_23_STAGE_REGISTRY.yaml + stage manifests")
+    add(checks, "NO_FIXED_TIMESTAMP", not timestamp_errors, timestamp_errors, [], "P4_RUNTIME_EXECUTION_LEDGER.json + stage manifests")
+    add(checks, "NCS_CONSUMER_PRODUCER_BOUND", not ncs_errors, ncs_errors, [], "A2-08/A2-09 dependencyStageIds")
+    add(checks, "RUNTIME_LEDGER_BINDING", not ledger_errors, ledger_errors, [], "P4_RUNTIME_EXECUTION_LEDGER.json")
 
     pairs = sorted(path.stem for path in export_root.glob("*.parquet") if (export_root / f"{path.stem}.csv").is_file())
     pair_failures: list[str] = []
@@ -204,7 +245,7 @@ def main() -> int:
     failures = [row["checkId"] for row in checks if row["status"] == "FAIL"]
     summary_sha = sha_file(report / "P4_23_STAGE_REPLAY_SUMMARY.csv")
     payload = {
-        "validatorVersion": "p4-strict-unified-reconciliation-v1", "validatorInvoked": True,
+        "validatorVersion": "p4-strict-unified-reconciliation-v2", "validatorInvoked": True,
         "validatorProcessExitCode": 0 if not failures else 1, "validatorStatus": "SUCCEEDED" if not failures else "FAILED",
         "validatorInputRunId": args.run_id, "validatorInputManifestSha256": summary_sha,
         "dataVersion": args.data_version, "generatedAtUtc": datetime.now(UTC).isoformat().replace("+00:00", "Z"),
