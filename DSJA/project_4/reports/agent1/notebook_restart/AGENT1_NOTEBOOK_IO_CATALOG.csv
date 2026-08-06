@@ -1,0 +1,20 @@
+﻿artifact,path,format,grain,rows,role,notebook,status,notes
+monthlyCoverageRowsAll,crawl/releases/CRAWL_20260806_03/monthly_coverage.csv,metric,rows,85,observed input/evidence,00RecoverSourceState.ipynb,AVAILABLE,includes six 2019 audit rows
+monthlyCoverageRowsTarget,crawl/releases/CRAWL_20260806_03/monthly_coverage.csv,metric,rows,79,observed input/evidence,00RecoverSourceState.ipynb,AVAILABLE,2020-01..2026-07
+targetMonths.complete,crawl/releases/CRAWL_20260806_03/monthly_coverage.csv,metric,months,21,observed input/evidence,00RecoverSourceState.ipynb,AVAILABLE,filesystem recalculation
+targetMonths.partial,crawl/releases/CRAWL_20260806_03/monthly_coverage.csv,metric,months,0,observed input/evidence,00RecoverSourceState.ipynb,AVAILABLE,filesystem recalculation
+targetMonths.insufficient,crawl/releases/CRAWL_20260806_03/monthly_coverage.csv,metric,months,0,observed input/evidence,00RecoverSourceState.ipynb,AVAILABLE,filesystem recalculation
+targetMonths.unverified,crawl/releases/CRAWL_20260806_03/monthly_coverage.csv,metric,months,58,observed input/evidence,00RecoverSourceState.ipynb,AVAILABLE,filesystem recalculation
+monthlyDistinctIdSumComplete,crawl/releases/CRAWL_20260806_03/monthly_coverage.csv,metric,month-distinct relations,40551,observed input/evidence,00RecoverSourceState.ipynb,AVAILABLE,not a global distinct count
+globalDistinctIds,NOT_IMPLEMENTED: posting_discovery_index,metric,postings,NOT_COMPUTABLE,observed input/evidence,00RecoverSourceState.ipynb,MISSING_LINEAGE,per-ID discovery corpus is absent
+postingManifestRows,crawl/releases/CRAWL_20260806_03/posting_manifest.csv,metric,rows,137,observed input/evidence,00RecoverSourceState.ipynb,AVAILABLE,137 unique sourcePostingId
+rawHtmlFiles,crawl/data/raw/linkareer/detail,metric,files,29,observed input/evidence,00RecoverSourceState.ipynb,AVAILABLE,filesystem count
+rawHtmlCompressedBytes,crawl/data/raw/linkareer/detail,metric,bytes,922111,observed input/evidence,00RecoverSourceState.ipynb,AVAILABLE,filesystem sum
+assetFiles,crawl/data/raw/linkareer/asset,metric,files,0,observed input/evidence,00RecoverSourceState.ipynb,AVAILABLE,filesystem count
+assetManifestRows,crawl/releases/CRAWL_20260806_03/asset_manifest.jsonl,metric,rows,0,observed input/evidence,00RecoverSourceState.ipynb,AVAILABLE,empty
+ocrCandidateRows,crawl/releases/CRAWL_20260806_03/stratified_detail_sample_n126.csv,metric,sample rows,113,observed input/evidence,00RecoverSourceState.ipynb,AVAILABLE,"ActivityText embedded image OR poster; sample-only, not a manifest"
+display-only inventory,NOT_IMPLEMENTED,planned,planned,,notebook output,00RecoverSourceState.ipynb,PLANNABLE_READ_ONLY,project-level recovery module and tests
+posting_discovery_index,NOT_IMPLEMENTED,planned,planned,,notebook output,01CollectLinkareerIndex.ipynb,BLOCKED,"APQ builder, httpx policy client, pagination, raw/index store, checkpoint"
+raw HTML + posting manifest,NOT_IMPLEMENTED,planned,planned,,notebook output,02CollectPostingDetail.ipynb,BLOCKED,"frontier, SSR fetch/parser, gzip/raw writer, request manifest"
+asset raw + asset manifest,NOT_IMPLEMENTED,planned,planned,,notebook output,03CollectPostingAssets.ipynb,BLOCKED,"host allowlist, asset classifier/downloader, idempotent manifest"
+new immutable release,NOT_IMPLEMENTED,planned,planned,,notebook output,04BuildCrawlRelease.ipynb,BLOCKED,"release builder, schema validator adapter, Agent 2 validator invocation"

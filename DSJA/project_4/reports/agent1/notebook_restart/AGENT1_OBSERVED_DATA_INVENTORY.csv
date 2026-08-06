@@ -1,0 +1,15 @@
+﻿metric,value,unit,evidencePath,note
+monthlyCoverageRowsAll,85,rows,crawl/releases/CRAWL_20260806_03/monthly_coverage.csv,includes six 2019 audit rows
+monthlyCoverageRowsTarget,79,rows,crawl/releases/CRAWL_20260806_03/monthly_coverage.csv,2020-01..2026-07
+targetMonths.complete,21,months,crawl/releases/CRAWL_20260806_03/monthly_coverage.csv,filesystem recalculation
+targetMonths.partial,0,months,crawl/releases/CRAWL_20260806_03/monthly_coverage.csv,filesystem recalculation
+targetMonths.insufficient,0,months,crawl/releases/CRAWL_20260806_03/monthly_coverage.csv,filesystem recalculation
+targetMonths.unverified,58,months,crawl/releases/CRAWL_20260806_03/monthly_coverage.csv,filesystem recalculation
+monthlyDistinctIdSumComplete,40551,month-distinct relations,crawl/releases/CRAWL_20260806_03/monthly_coverage.csv,not a global distinct count
+globalDistinctIds,NOT_COMPUTABLE,postings,NOT_IMPLEMENTED: posting_discovery_index,per-ID discovery corpus is absent
+postingManifestRows,137,rows,crawl/releases/CRAWL_20260806_03/posting_manifest.csv,137 unique sourcePostingId
+rawHtmlFiles,29,files,crawl/data/raw/linkareer/detail,filesystem count
+rawHtmlCompressedBytes,922111,bytes,crawl/data/raw/linkareer/detail,filesystem sum
+assetFiles,0,files,crawl/data/raw/linkareer/asset,filesystem count
+assetManifestRows,0,rows,crawl/releases/CRAWL_20260806_03/asset_manifest.jsonl,empty
+ocrCandidateRows,113,sample rows,crawl/releases/CRAWL_20260806_03/stratified_detail_sample_n126.csv,"ActivityText embedded image OR poster; sample-only, not a manifest"

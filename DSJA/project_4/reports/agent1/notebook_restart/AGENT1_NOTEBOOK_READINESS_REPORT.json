@@ -1,0 +1,1721 @@
+{
+  "agentId": "P4-A1-SOURCE",
+  "agentName": "P4 Source Acquisition & Coverage Engineer",
+  "status": "AGENT1_NOTEBOOK_INFORMATION_READY",
+  "auditMode": "READ_ONLY_AUDIT",
+  "repository": {
+    "repositoryRoot": "/home/sieg/projects-wsl/worktrees/p4-agent1",
+    "remote": "https://github.com/Siegfriex/SBS_dataScience.git",
+    "worktree": "/home/sieg/projects-wsl/worktrees/p4-agent1",
+    "branch": "agent/p4-crawl-release-v2",
+    "localHead": "6f5b44f18f286eca6507f20cae1a885ece30b6f2",
+    "remoteHead": "6f5b44f18f286eca6507f20cae1a885ece30b6f2",
+    "aheadBehind": [
+      "0",
+      "0"
+    ],
+    "dirty": false,
+    "statusPorcelain": []
+  },
+  "releases": [
+    {
+      "releaseId": "RECON_20260806_01",
+      "status": "NOT_DECLARED",
+      "contractVersion": null,
+      "sourcePeriod": [
+        null,
+        null
+      ],
+      "coverage": null,
+      "manifestPaths": [
+        "docs/audit/P0_RECON_REPORT_FINAL.md",
+        "docs/audit/robots_20260806.txt",
+        "docs/audit/APQ_PAGINATION_AUDIT.csv",
+        "docs/audit/APQ_DATE_SEMANTICS.md",
+        "docs/audit/APQ_STATUS_FILTER_AUDIT.csv",
+        "docs/audit/DETAIL_FIELD_COVERAGE.csv",
+        "docs/audit/EXTERNAL_ATS_COVERAGE.csv",
+        "docs/audit/SOURCE_POLICY_DECISION.md",
+        "schemas/linkareer_calendar_activities.json",
+        "configs/queryRegistry.yaml",
+        "configs/sources.yaml (updated)"
+      ],
+      "manifestRows": {},
+      "rawRecordsInManifest": 0,
+      "assetRows": 0,
+      "checksums": {
+        "status": "FAIL",
+        "passed": 11,
+        "failed": [
+          {
+            "path": "configs/sources.yaml",
+            "reason": "missing"
+          },
+          {
+            "path": "docs/ssot/P4_DATASET_SPEC_v2.0.md",
+            "reason": "missing"
+          },
+          {
+            "path": "docs/ssot/P4_WAREHOUSE_DDL_v2.0.sql",
+            "reason": "missing"
+          }
+        ]
+      },
+      "knownGaps": [
+        "Full 96-month pagination completeness audit",
+        "Wayback CDX survival-bias audit",
+        "NCS source (data.go.kr) field verification",
+        "Formal PROMPT 0 D stratified sample (n>=100)",
+        "recruitStartAt/recruitCloseAt rangeBy AND/OR semantics disambiguation"
+      ]
+    },
+    {
+      "releaseId": "CRAWL_20260806_01",
+      "status": "PARTIALLY_READY",
+      "contractVersion": null,
+      "sourcePeriod": [
+        "2020-01",
+        "2026-07"
+      ],
+      "coverage": {
+        "allRows": 85,
+        "targetRows": 79,
+        "targetStatusCounts": {
+          "unverified": 78,
+          "complete": 1
+        },
+        "monthlyDistinctSumComplete": 949
+      },
+      "manifestPaths": [
+        "crawl_manifest.jsonl",
+        "asset_manifest.jsonl",
+        "ncs_manifest.jsonl",
+        "monthly_coverage.parquet",
+        "monthly_coverage.csv",
+        "schema_snapshot.json",
+        "query_registry.yaml",
+        "fixtures/apq/CalendarScreen_ActivityCalendarEntries.2026-03.recruit.sample.json",
+        "fixtures/ssr/activity_339673.masked.json",
+        "fixtures/ssr/activity_339737.masked.json",
+        "fixtures/ssr/activity_339821.masked.json",
+        "README.md",
+        "CHECKSUMS.sha256"
+      ],
+      "manifestRows": {
+        "crawl_manifest.jsonl": 4,
+        "asset_manifest.jsonl": 0,
+        "ncs_manifest.jsonl": 0
+      },
+      "rawRecordsInManifest": 3,
+      "assetRows": 0,
+      "checksums": {
+        "status": "PASS",
+        "passed": 13,
+        "failed": []
+      },
+      "knownGaps": [
+        "78/79 target months (2020-01..2026-07) not yet pagination-audited",
+        "2019 recruit(activityTypeID=5) category appears effectively unlaunched (totalCount ~0 Jan-Sep, 23 in Dec) -- analysis start-year decision pending",
+        "Wayback CDX survival-bias audit not started",
+        "NCS source (data.go.kr) verification not started",
+        "Formal stratified sample (n>=100) not run -- current eligibility rates are from a pilot n=35 sample only",
+        "recruitStartAt/recruitCloseAt rangeBy AND/OR combination semantics unresolved",
+        "ActivityText may embed external-ATS screenshots as <img> rather than prose text -- OCR routing needs to account for this (see AGENT1_TO_AGENT3_ISSUES A1-A3-009)"
+      ]
+    },
+    {
+      "releaseId": "CRAWL_20260806_02",
+      "status": "PARTIALLY_READY",
+      "contractVersion": "2.1.2",
+      "sourcePeriod": [
+        "2020-01-01",
+        "2026-07-31"
+      ],
+      "coverage": {
+        "allRows": 85,
+        "targetRows": 79,
+        "targetStatusCounts": {
+          "unverified": 68,
+          "complete": 11
+        },
+        "monthlyDistinctSumComplete": 11825
+      },
+      "manifestPaths": [
+        "crawl_manifest.jsonl",
+        "asset_manifest.jsonl",
+        "ncs_manifest.jsonl",
+        "monthly_coverage.csv",
+        "monthly_coverage.parquet",
+        "wayback_survival_audit.csv",
+        "stratified_detail_sample_n126.csv",
+        "stratified_detail_sample_n126.json",
+        "schema_snapshot.json",
+        "query_registry.yaml",
+        "data/ncs/ncsUnit_20260806.csv",
+        "data/ncs/ncsUnit_20260806.utf8.csv",
+        "README.md",
+        "CHECKSUMS.sha256"
+      ],
+      "manifestRows": {
+        "crawl_manifest.jsonl": 6,
+        "asset_manifest.jsonl": 0,
+        "ncs_manifest.jsonl": 2
+      },
+      "rawRecordsInManifest": 4,
+      "assetRows": 0,
+      "checksums": {
+        "status": "PASS",
+        "passed": 14,
+        "failed": []
+      },
+      "knownGaps": [
+        "68/79 target months not yet pagination-audited (see monthly_coverage.csv coverageReason=paginationUnverified rows)",
+        "Detail collection for this release used derived-field capture only, not full raw HTML per-posting lineage (stratified_detail_sample_n126.json is the closest available lineage artifact)",
+        "NCS KSA source (data.go.kr/15157542) unverified -- requires a human-registered API key before RQ2-B/NCS-mapping pipeline design",
+        "recruitStartAt/recruitCloseAt rangeBy AND/OR combination semantics still unresolved",
+        "Wayback survival sample is small (15/year, 3 years) -- 100% survival observed but not yet a statistically robust estimate",
+        "2019 recruit(activityTypeID=5) confirmed effectively unlaunched -- excluded from primary analysis window per confirmed decision, retained as platformPreLaunch coverage rows"
+      ]
+    },
+    {
+      "releaseId": "CRAWL_20260806_03",
+      "status": "CRAWL_RELEASE_CANDIDATE",
+      "contractVersion": "2.1.2",
+      "sourcePeriod": [
+        "2020-01-01",
+        "2026-07-31"
+      ],
+      "coverage": {
+        "allRows": 85,
+        "targetRows": 79,
+        "targetStatusCounts": {
+          "unverified": 58,
+          "complete": 21
+        },
+        "monthlyDistinctSumComplete": 40551
+      },
+      "manifestPaths": [
+        "fetch_manifest.jsonl",
+        "posting_manifest.parquet",
+        "posting_manifest.csv",
+        "asset_manifest.jsonl",
+        "ncs_manifest.jsonl",
+        "monthly_coverage.csv",
+        "monthly_coverage.parquet",
+        "wayback_survival_audit.csv",
+        "stratified_detail_sample_n126.csv",
+        "stratified_detail_sample_n126.json",
+        "schema_snapshot.json",
+        "query_registry.yaml",
+        "data/ncs/ncsUnit_20260806.csv",
+        "data/ncs/ncsUnit_20260806.utf8.csv",
+        "README.md",
+        "CHECKSUMS.sha256"
+      ],
+      "manifestRows": {
+        "fetch_manifest.jsonl": 33,
+        "posting_manifest.csv": 137,
+        "asset_manifest.jsonl": 0,
+        "ncs_manifest.jsonl": 2
+      },
+      "rawRecordsInManifest": 32,
+      "assetRows": 0,
+      "checksums": {
+        "status": "PASS",
+        "passed": 16,
+        "failed": []
+      },
+      "knownGaps": [
+        "58/79 target months not yet pagination-audited (monthly_coverage.csv, coverageReason=paginationUnverified)",
+        "Of 40,551 distinct posting IDs discovered across the 21 complete months, only 137 have any captured detail data (126 derived-field samples + 29 real raw HTML captures with 8 overlapping) -- full-corpus detail collection was NOT attempted this pass (estimated 10+ hours minimum just for the 21 already-discovered months)",
+        "fetch_manifest.jsonl covers only requests where raw bytes were actually persisted to disk (33 rows) -- the several hundred pagination-audit list requests used to build monthly_coverage.csv were not persisted as raw artifacts, only their extracted id/count summaries were kept",
+        "No asset (image) collection performed this pass -- asset_manifest.jsonl is empty",
+        "Agent 2's actual validator/loader was NOT executed against this release (read-only verification step from the operating charter was not performed -- Agent 1 does not have located access to Agent 2's validator script this pass)",
+        "NCS KSA source (data.go.kr/15157542): endpoint and API key now CONFIRMED valid (openapi14, HTTP 200/code009), but the required request parameter schema remains unknown after 15+ attempts -- needs official documentation or HRD Korea support contact",
+        "2019 recruit(activityTypeID=5) confirmed effectively unlaunched -- excluded from primary analysis window, retained as platformPreLaunch rows"
+      ]
+    }
+  ],
+  "codeInventory": {
+    "pythonFiles": [],
+    "notebooks": [],
+    "executables": [],
+    "entrypoints": [
+      {
+        "component": "APQ query builder",
+        "filePath": "NOT_IMPLEMENTED",
+        "moduleName": "NOT_IMPLEMENTED",
+        "className": "NOT_IMPLEMENTED",
+        "functionName": "NOT_IMPLEMENTED",
+        "signature": "NOT_IMPLEMENTED",
+        "purpose": "Persisted query metadata exists; no callable builder.",
+        "input": "NOT_IMPLEMENTED",
+        "output": "NOT_IMPLEMENTED",
+        "sideEffect": "NOT_IMPLEMENTED",
+        "networkCall": "NOT_IMPLEMENTED",
+        "rawWrite": "NOT_IMPLEMENTED",
+        "manifestWrite": "NOT_IMPLEMENTED",
+        "idempotent": "NOT_PROVEN",
+        "resumeSupported": "NOT_PROVEN",
+        "tested": false,
+        "testPath": "NOT_IMPLEMENTED",
+        "status": "POLICY_ONLY",
+        "evidencePath": "crawl/releases/CRAWL_20260806_03/query_registry.yaml"
+      },
+      {
+        "component": "pagination loop",
+        "filePath": "NOT_IMPLEMENTED",
+        "moduleName": "NOT_IMPLEMENTED",
+        "className": "NOT_IMPLEMENTED",
+        "functionName": "NOT_IMPLEMENTED",
+        "signature": "NOT_IMPLEMENTED",
+        "purpose": "Observed behavior documented; executable loop absent.",
+        "input": "NOT_IMPLEMENTED",
+        "output": "NOT_IMPLEMENTED",
+        "sideEffect": "NOT_IMPLEMENTED",
+        "networkCall": "NOT_IMPLEMENTED",
+        "rawWrite": "NOT_IMPLEMENTED",
+        "manifestWrite": "NOT_IMPLEMENTED",
+        "idempotent": "NOT_PROVEN",
+        "resumeSupported": "NOT_PROVEN",
+        "tested": false,
+        "testPath": "NOT_IMPLEMENTED",
+        "status": "NOT_IMPLEMENTED",
+        "evidencePath": "crawl/docs/audit/APQ_PAGINATION_AUDIT.csv"
+      },
+      {
+        "component": "range semantics",
+        "filePath": "NOT_IMPLEMENTED",
+        "moduleName": "NOT_IMPLEMENTED",
+        "className": "NOT_IMPLEMENTED",
+        "functionName": "NOT_IMPLEMENTED",
+        "signature": "NOT_IMPLEMENTED",
+        "purpose": "OR semantics evidence exists; callable implementation absent.",
+        "input": "NOT_IMPLEMENTED",
+        "output": "NOT_IMPLEMENTED",
+        "sideEffect": "NOT_IMPLEMENTED",
+        "networkCall": "NOT_IMPLEMENTED",
+        "rawWrite": "NOT_IMPLEMENTED",
+        "manifestWrite": "NOT_IMPLEMENTED",
+        "idempotent": "NOT_PROVEN",
+        "resumeSupported": "NOT_PROVEN",
+        "tested": false,
+        "testPath": "NOT_IMPLEMENTED",
+        "status": "POLICY_ONLY",
+        "evidencePath": "crawl/docs/audit/APQ_RANGE_SEMANTICS_FINAL.md"
+      },
+      {
+        "component": "transparent httpx client",
+        "filePath": "NOT_IMPLEMENTED",
+        "moduleName": "NOT_IMPLEMENTED",
+        "className": "NOT_IMPLEMENTED",
+        "functionName": "NOT_IMPLEMENTED",
+        "signature": "NOT_IMPLEMENTED",
+        "purpose": "No committed httpx client.",
+        "input": "NOT_IMPLEMENTED",
+        "output": "NOT_IMPLEMENTED",
+        "sideEffect": "NOT_IMPLEMENTED",
+        "networkCall": "NOT_IMPLEMENTED",
+        "rawWrite": "NOT_IMPLEMENTED",
+        "manifestWrite": "NOT_IMPLEMENTED",
+        "idempotent": "NOT_PROVEN",
+        "resumeSupported": "NOT_PROVEN",
+        "tested": false,
+        "testPath": "NOT_IMPLEMENTED",
+        "status": "NOT_IMPLEMENTED",
+        "evidencePath": "crawl/docs/audit/SOURCE_POLICY_DECISION.md"
+      },
+      {
+        "component": "rate limiter",
+        "filePath": "NOT_IMPLEMENTED",
+        "moduleName": "NOT_IMPLEMENTED",
+        "className": "NOT_IMPLEMENTED",
+        "functionName": "NOT_IMPLEMENTED",
+        "signature": "NOT_IMPLEMENTED",
+        "purpose": "One request/sec is policy text only.",
+        "input": "NOT_IMPLEMENTED",
+        "output": "NOT_IMPLEMENTED",
+        "sideEffect": "NOT_IMPLEMENTED",
+        "networkCall": "NOT_IMPLEMENTED",
+        "rawWrite": "NOT_IMPLEMENTED",
+        "manifestWrite": "NOT_IMPLEMENTED",
+        "idempotent": "NOT_PROVEN",
+        "resumeSupported": "NOT_PROVEN",
+        "tested": false,
+        "testPath": "NOT_IMPLEMENTED",
+        "status": "POLICY_ONLY",
+        "evidencePath": "crawl/docs/audit/SOURCE_POLICY_DECISION.md"
+      },
+      {
+        "component": "concurrency limiter",
+        "filePath": "NOT_IMPLEMENTED",
+        "moduleName": "NOT_IMPLEMENTED",
+        "className": "NOT_IMPLEMENTED",
+        "functionName": "NOT_IMPLEMENTED",
+        "signature": "NOT_IMPLEMENTED",
+        "purpose": "No code or test.",
+        "input": "NOT_IMPLEMENTED",
+        "output": "NOT_IMPLEMENTED",
+        "sideEffect": "NOT_IMPLEMENTED",
+        "networkCall": "NOT_IMPLEMENTED",
+        "rawWrite": "NOT_IMPLEMENTED",
+        "manifestWrite": "NOT_IMPLEMENTED",
+        "idempotent": "NOT_PROVEN",
+        "resumeSupported": "NOT_PROVEN",
+        "tested": false,
+        "testPath": "NOT_IMPLEMENTED",
+        "status": "NOT_IMPLEMENTED",
+        "evidencePath": ""
+      },
+      {
+        "component": "HTTP 403 kill switch",
+        "filePath": "NOT_IMPLEMENTED",
+        "moduleName": "NOT_IMPLEMENTED",
+        "className": "NOT_IMPLEMENTED",
+        "functionName": "NOT_IMPLEMENTED",
+        "signature": "NOT_IMPLEMENTED",
+        "purpose": "No code or test.",
+        "input": "NOT_IMPLEMENTED",
+        "output": "NOT_IMPLEMENTED",
+        "sideEffect": "NOT_IMPLEMENTED",
+        "networkCall": "NOT_IMPLEMENTED",
+        "rawWrite": "NOT_IMPLEMENTED",
+        "manifestWrite": "NOT_IMPLEMENTED",
+        "idempotent": "NOT_PROVEN",
+        "resumeSupported": "NOT_PROVEN",
+        "tested": false,
+        "testPath": "NOT_IMPLEMENTED",
+        "status": "NOT_IMPLEMENTED",
+        "evidencePath": ""
+      },
+      {
+        "component": "success-rate kill switch",
+        "filePath": "NOT_IMPLEMENTED",
+        "moduleName": "NOT_IMPLEMENTED",
+        "className": "NOT_IMPLEMENTED",
+        "functionName": "NOT_IMPLEMENTED",
+        "signature": "NOT_IMPLEMENTED",
+        "purpose": "No code or test.",
+        "input": "NOT_IMPLEMENTED",
+        "output": "NOT_IMPLEMENTED",
+        "sideEffect": "NOT_IMPLEMENTED",
+        "networkCall": "NOT_IMPLEMENTED",
+        "rawWrite": "NOT_IMPLEMENTED",
+        "manifestWrite": "NOT_IMPLEMENTED",
+        "idempotent": "NOT_PROVEN",
+        "resumeSupported": "NOT_PROVEN",
+        "tested": false,
+        "testPath": "NOT_IMPLEMENTED",
+        "status": "NOT_IMPLEMENTED",
+        "evidencePath": ""
+      },
+      {
+        "component": "raw store",
+        "filePath": "NOT_IMPLEMENTED",
+        "moduleName": "NOT_IMPLEMENTED",
+        "className": "NOT_IMPLEMENTED",
+        "functionName": "NOT_IMPLEMENTED",
+        "signature": "NOT_IMPLEMENTED",
+        "purpose": "Raw files exist, writer is absent.",
+        "input": "NOT_IMPLEMENTED",
+        "output": "NOT_IMPLEMENTED",
+        "sideEffect": "NOT_IMPLEMENTED",
+        "networkCall": "NOT_IMPLEMENTED",
+        "rawWrite": "NOT_IMPLEMENTED",
+        "manifestWrite": "NOT_IMPLEMENTED",
+        "idempotent": "NOT_PROVEN",
+        "resumeSupported": "NOT_PROVEN",
+        "tested": false,
+        "testPath": "NOT_IMPLEMENTED",
+        "status": "NOT_IMPLEMENTED",
+        "evidencePath": "crawl/data/raw/"
+      },
+      {
+        "component": "gzip store",
+        "filePath": "NOT_IMPLEMENTED",
+        "moduleName": "NOT_IMPLEMENTED",
+        "className": "NOT_IMPLEMENTED",
+        "functionName": "NOT_IMPLEMENTED",
+        "signature": "NOT_IMPLEMENTED",
+        "purpose": "29 gzip files exist, writer is absent.",
+        "input": "NOT_IMPLEMENTED",
+        "output": "NOT_IMPLEMENTED",
+        "sideEffect": "NOT_IMPLEMENTED",
+        "networkCall": "NOT_IMPLEMENTED",
+        "rawWrite": "NOT_IMPLEMENTED",
+        "manifestWrite": "NOT_IMPLEMENTED",
+        "idempotent": "NOT_PROVEN",
+        "resumeSupported": "NOT_PROVEN",
+        "tested": false,
+        "testPath": "NOT_IMPLEMENTED",
+        "status": "NOT_IMPLEMENTED",
+        "evidencePath": "crawl/data/raw/linkareer/detail/"
+      },
+      {
+        "component": "SHA-256",
+        "filePath": "NOT_IMPLEMENTED",
+        "moduleName": "NOT_IMPLEMENTED",
+        "className": "NOT_IMPLEMENTED",
+        "functionName": "NOT_IMPLEMENTED",
+        "signature": "NOT_IMPLEMENTED",
+        "purpose": "Checksum artifact exists; project implementation absent.",
+        "input": "NOT_IMPLEMENTED",
+        "output": "NOT_IMPLEMENTED",
+        "sideEffect": "NOT_IMPLEMENTED",
+        "networkCall": "NOT_IMPLEMENTED",
+        "rawWrite": "NOT_IMPLEMENTED",
+        "manifestWrite": "NOT_IMPLEMENTED",
+        "idempotent": "NOT_PROVEN",
+        "resumeSupported": "NOT_PROVEN",
+        "tested": false,
+        "testPath": "NOT_IMPLEMENTED",
+        "status": "POLICY_ONLY",
+        "evidencePath": "crawl/releases/CRAWL_20260806_03/CHECKSUMS.sha256"
+      },
+      {
+        "component": "fetch manifest",
+        "filePath": "NOT_IMPLEMENTED",
+        "moduleName": "NOT_IMPLEMENTED",
+        "className": "NOT_IMPLEMENTED",
+        "functionName": "NOT_IMPLEMENTED",
+        "signature": "NOT_IMPLEMENTED",
+        "purpose": "33 output rows exist, writer is absent.",
+        "input": "NOT_IMPLEMENTED",
+        "output": "NOT_IMPLEMENTED",
+        "sideEffect": "NOT_IMPLEMENTED",
+        "networkCall": "NOT_IMPLEMENTED",
+        "rawWrite": "NOT_IMPLEMENTED",
+        "manifestWrite": "NOT_IMPLEMENTED",
+        "idempotent": "NOT_PROVEN",
+        "resumeSupported": "NOT_PROVEN",
+        "tested": false,
+        "testPath": "NOT_IMPLEMENTED",
+        "status": "NOT_IMPLEMENTED",
+        "evidencePath": "crawl/releases/CRAWL_20260806_03/fetch_manifest.jsonl"
+      },
+      {
+        "component": "posting manifest",
+        "filePath": "NOT_IMPLEMENTED",
+        "moduleName": "NOT_IMPLEMENTED",
+        "className": "NOT_IMPLEMENTED",
+        "functionName": "NOT_IMPLEMENTED",
+        "signature": "NOT_IMPLEMENTED",
+        "purpose": "137 output rows exist, writer is absent.",
+        "input": "NOT_IMPLEMENTED",
+        "output": "NOT_IMPLEMENTED",
+        "sideEffect": "NOT_IMPLEMENTED",
+        "networkCall": "NOT_IMPLEMENTED",
+        "rawWrite": "NOT_IMPLEMENTED",
+        "manifestWrite": "NOT_IMPLEMENTED",
+        "idempotent": "NOT_PROVEN",
+        "resumeSupported": "NOT_PROVEN",
+        "tested": false,
+        "testPath": "NOT_IMPLEMENTED",
+        "status": "NOT_IMPLEMENTED",
+        "evidencePath": "crawl/releases/CRAWL_20260806_03/posting_manifest.parquet"
+      },
+      {
+        "component": "asset collector",
+        "filePath": "NOT_IMPLEMENTED",
+        "moduleName": "NOT_IMPLEMENTED",
+        "className": "NOT_IMPLEMENTED",
+        "functionName": "NOT_IMPLEMENTED",
+        "signature": "NOT_IMPLEMENTED",
+        "purpose": "Manifest is empty; collector absent.",
+        "input": "NOT_IMPLEMENTED",
+        "output": "NOT_IMPLEMENTED",
+        "sideEffect": "NOT_IMPLEMENTED",
+        "networkCall": "NOT_IMPLEMENTED",
+        "rawWrite": "NOT_IMPLEMENTED",
+        "manifestWrite": "NOT_IMPLEMENTED",
+        "idempotent": "NOT_PROVEN",
+        "resumeSupported": "NOT_PROVEN",
+        "tested": false,
+        "testPath": "NOT_IMPLEMENTED",
+        "status": "NOT_IMPLEMENTED",
+        "evidencePath": "crawl/releases/CRAWL_20260806_03/asset_manifest.jsonl"
+      },
+      {
+        "component": "release builder",
+        "filePath": "NOT_IMPLEMENTED",
+        "moduleName": "NOT_IMPLEMENTED",
+        "className": "NOT_IMPLEMENTED",
+        "functionName": "NOT_IMPLEMENTED",
+        "signature": "NOT_IMPLEMENTED",
+        "purpose": "No reproducible builder or CLI.",
+        "input": "NOT_IMPLEMENTED",
+        "output": "NOT_IMPLEMENTED",
+        "sideEffect": "NOT_IMPLEMENTED",
+        "networkCall": "NOT_IMPLEMENTED",
+        "rawWrite": "NOT_IMPLEMENTED",
+        "manifestWrite": "NOT_IMPLEMENTED",
+        "idempotent": "NOT_PROVEN",
+        "resumeSupported": "NOT_PROVEN",
+        "tested": false,
+        "testPath": "NOT_IMPLEMENTED",
+        "status": "NOT_IMPLEMENTED",
+        "evidencePath": "crawl/releases/"
+      },
+      {
+        "component": "release validator adapter",
+        "filePath": "NOT_IMPLEMENTED",
+        "moduleName": "NOT_IMPLEMENTED",
+        "className": "NOT_IMPLEMENTED",
+        "functionName": "NOT_IMPLEMENTED",
+        "signature": "NOT_IMPLEMENTED",
+        "purpose": "No Agent 2 validator adapter under crawl.",
+        "input": "NOT_IMPLEMENTED",
+        "output": "NOT_IMPLEMENTED",
+        "sideEffect": "NOT_IMPLEMENTED",
+        "networkCall": "NOT_IMPLEMENTED",
+        "rawWrite": "NOT_IMPLEMENTED",
+        "manifestWrite": "NOT_IMPLEMENTED",
+        "idempotent": "NOT_PROVEN",
+        "resumeSupported": "NOT_PROVEN",
+        "tested": false,
+        "testPath": "NOT_IMPLEMENTED",
+        "status": "NOT_IMPLEMENTED",
+        "evidencePath": ""
+      }
+    ]
+  },
+  "sourcePolicyGate": {
+    "status": "REVIEW_REQUIRED",
+    "rules": [
+      {
+        "rule": "<=1 request/sec",
+        "classification": "POLICY_ONLY",
+        "implemented": false,
+        "implementationPath": "crawl/docs/audit/SOURCE_POLICY_DECISION.md",
+        "testPath": null,
+        "exercisedInRun": "output timestamps suggest throttling but executable code is absent",
+        "evidencePath": "crawl/releases/CRAWL_20260806_03/fetch_manifest.jsonl"
+      },
+      {
+        "rule": "concurrency <=2",
+        "classification": "POLICY_ONLY",
+        "implemented": false,
+        "implementationPath": "crawl/docs/audit/SOURCE_POLICY_DECISION.md",
+        "testPath": null,
+        "exercisedInRun": "NOT_PROVEN",
+        "evidencePath": null
+      },
+      {
+        "rule": "HTTP 403 immediate stop",
+        "classification": "NOT_IMPLEMENTED",
+        "implemented": false,
+        "implementationPath": null,
+        "testPath": null,
+        "exercisedInRun": "NOT_PROVEN",
+        "evidencePath": null
+      },
+      {
+        "rule": "external ATS not followed",
+        "classification": "OBSERVED_OUTPUT_ONLY",
+        "implemented": false,
+        "implementationPath": null,
+        "testPath": null,
+        "exercisedInRun": "all 33 fetch-manifest request URLs are Linkareer; asset manifest is empty",
+        "evidencePath": "crawl/releases/CRAWL_20260806_03/fetch_manifest.jsonl"
+      },
+      {
+        "rule": "no impersonation",
+        "classification": "REVIEW_REQUIRED",
+        "implemented": false,
+        "implementationPath": null,
+        "testPath": null,
+        "exercisedInRun": "Recon explicitly records curl_cffi impersonate=chrome, so transparent-httpx compliance is not established",
+        "evidencePath": "crawl/releases/RECON_20260806_01/HANDOFF.json"
+      }
+    ]
+  },
+  "dataInventory": [
+    {
+      "metric": "monthlyCoverageRowsAll",
+      "value": 85,
+      "unit": "rows",
+      "evidencePath": "crawl/releases/CRAWL_20260806_03/monthly_coverage.csv",
+      "note": "includes six 2019 audit rows"
+    },
+    {
+      "metric": "monthlyCoverageRowsTarget",
+      "value": 79,
+      "unit": "rows",
+      "evidencePath": "crawl/releases/CRAWL_20260806_03/monthly_coverage.csv",
+      "note": "2020-01..2026-07"
+    },
+    {
+      "metric": "targetMonths.complete",
+      "value": 21,
+      "unit": "months",
+      "evidencePath": "crawl/releases/CRAWL_20260806_03/monthly_coverage.csv",
+      "note": "filesystem recalculation"
+    },
+    {
+      "metric": "targetMonths.partial",
+      "value": 0,
+      "unit": "months",
+      "evidencePath": "crawl/releases/CRAWL_20260806_03/monthly_coverage.csv",
+      "note": "filesystem recalculation"
+    },
+    {
+      "metric": "targetMonths.insufficient",
+      "value": 0,
+      "unit": "months",
+      "evidencePath": "crawl/releases/CRAWL_20260806_03/monthly_coverage.csv",
+      "note": "filesystem recalculation"
+    },
+    {
+      "metric": "targetMonths.unverified",
+      "value": 58,
+      "unit": "months",
+      "evidencePath": "crawl/releases/CRAWL_20260806_03/monthly_coverage.csv",
+      "note": "filesystem recalculation"
+    },
+    {
+      "metric": "monthlyDistinctIdSumComplete",
+      "value": 40551,
+      "unit": "month-distinct relations",
+      "evidencePath": "crawl/releases/CRAWL_20260806_03/monthly_coverage.csv",
+      "note": "not a global distinct count"
+    },
+    {
+      "metric": "globalDistinctIds",
+      "value": "NOT_COMPUTABLE",
+      "unit": "postings",
+      "evidencePath": "NOT_IMPLEMENTED: posting_discovery_index",
+      "note": "per-ID discovery corpus is absent"
+    },
+    {
+      "metric": "postingManifestRows",
+      "value": 137,
+      "unit": "rows",
+      "evidencePath": "crawl/releases/CRAWL_20260806_03/posting_manifest.csv",
+      "note": "137 unique sourcePostingId"
+    },
+    {
+      "metric": "rawHtmlFiles",
+      "value": 29,
+      "unit": "files",
+      "evidencePath": "crawl/data/raw/linkareer/detail",
+      "note": "filesystem count"
+    },
+    {
+      "metric": "rawHtmlCompressedBytes",
+      "value": 922111,
+      "unit": "bytes",
+      "evidencePath": "crawl/data/raw/linkareer/detail",
+      "note": "filesystem sum"
+    },
+    {
+      "metric": "assetFiles",
+      "value": 0,
+      "unit": "files",
+      "evidencePath": "crawl/data/raw/linkareer/asset",
+      "note": "filesystem count"
+    },
+    {
+      "metric": "assetManifestRows",
+      "value": 0,
+      "unit": "rows",
+      "evidencePath": "crawl/releases/CRAWL_20260806_03/asset_manifest.jsonl",
+      "note": "empty"
+    },
+    {
+      "metric": "ocrCandidateRows",
+      "value": 113,
+      "unit": "sample rows",
+      "evidencePath": "crawl/releases/CRAWL_20260806_03/stratified_detail_sample_n126.csv",
+      "note": "ActivityText embedded image OR poster; sample-only, not a manifest"
+    }
+  ],
+  "schemaInventory": [
+    {
+      "dataset": "monthly_coverage",
+      "path": "crawl/releases/CRAWL_20260806_03/monthly_coverage.csv",
+      "name": "periodMonth",
+      "type": "str",
+      "nullable": false,
+      "definition": "calendar month",
+      "exampleMasked": "2019-01",
+      "contractField": "qa.monthlyCoverageAudit.periodMonth"
+    },
+    {
+      "dataset": "monthly_coverage",
+      "path": "crawl/releases/CRAWL_20260806_03/monthly_coverage.csv",
+      "name": "sourceName",
+      "type": "str",
+      "nullable": false,
+      "definition": "source platform",
+      "exampleMasked": "linkareer",
+      "contractField": "qa.monthlyCoverageAudit.sourceName"
+    },
+    {
+      "dataset": "monthly_coverage",
+      "path": "crawl/releases/CRAWL_20260806_03/monthly_coverage.csv",
+      "name": "activityTypeID",
+      "type": "int64",
+      "nullable": false,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "5",
+      "contractField": "qa.monthlyCoverageAudit.activityTypeID"
+    },
+    {
+      "dataset": "monthly_coverage",
+      "path": "crawl/releases/CRAWL_20260806_03/monthly_coverage.csv",
+      "name": "discoveredCount",
+      "type": "float64",
+      "nullable": true,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "254.0",
+      "contractField": "qa.monthlyCoverageAudit.discoveredCount"
+    },
+    {
+      "dataset": "monthly_coverage",
+      "path": "crawl/releases/CRAWL_20260806_03/monthly_coverage.csv",
+      "name": "returnedDistinctCount",
+      "type": "float64",
+      "nullable": true,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "254.0",
+      "contractField": "qa.monthlyCoverageAudit.returnedDistinctCount"
+    },
+    {
+      "dataset": "monthly_coverage",
+      "path": "crawl/releases/CRAWL_20260806_03/monthly_coverage.csv",
+      "name": "expectedTotalCount",
+      "type": "float64",
+      "nullable": true,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "0.0",
+      "contractField": "qa.monthlyCoverageAudit.expectedTotalCount"
+    },
+    {
+      "dataset": "monthly_coverage",
+      "path": "crawl/releases/CRAWL_20260806_03/monthly_coverage.csv",
+      "name": "paginationCompleteFlag",
+      "type": "bool",
+      "nullable": false,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "False",
+      "contractField": "qa.monthlyCoverageAudit.paginationCompleteFlag"
+    },
+    {
+      "dataset": "monthly_coverage",
+      "path": "crawl/releases/CRAWL_20260806_03/monthly_coverage.csv",
+      "name": "requestCount",
+      "type": "int64",
+      "nullable": false,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "1",
+      "contractField": "qa.monthlyCoverageAudit.requestCount"
+    },
+    {
+      "dataset": "monthly_coverage",
+      "path": "crawl/releases/CRAWL_20260806_03/monthly_coverage.csv",
+      "name": "firstPostingId",
+      "type": "float64",
+      "nullable": true,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "24563.0",
+      "contractField": "qa.monthlyCoverageAudit.firstPostingId"
+    },
+    {
+      "dataset": "monthly_coverage",
+      "path": "crawl/releases/CRAWL_20260806_03/monthly_coverage.csv",
+      "name": "lastPostingId",
+      "type": "float64",
+      "nullable": true,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "40878.0",
+      "contractField": "qa.monthlyCoverageAudit.lastPostingId"
+    },
+    {
+      "dataset": "monthly_coverage",
+      "path": "crawl/releases/CRAWL_20260806_03/monthly_coverage.csv",
+      "name": "errorCount",
+      "type": "int64",
+      "nullable": false,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "0",
+      "contractField": "qa.monthlyCoverageAudit.errorCount"
+    },
+    {
+      "dataset": "monthly_coverage",
+      "path": "crawl/releases/CRAWL_20260806_03/monthly_coverage.csv",
+      "name": "coverageStatus",
+      "type": "str",
+      "nullable": false,
+      "definition": "monthly coverage classification",
+      "exampleMasked": "insufficient",
+      "contractField": "qa.monthlyCoverageAudit.coverageStatus"
+    },
+    {
+      "dataset": "monthly_coverage",
+      "path": "crawl/releases/CRAWL_20260806_03/monthly_coverage.csv",
+      "name": "coverageReason",
+      "type": "str",
+      "nullable": false,
+      "definition": "coverage status reason",
+      "exampleMasked": "platformPreLaunch",
+      "contractField": "qa.monthlyCoverageAudit.coverageReason"
+    },
+    {
+      "dataset": "monthly_coverage",
+      "path": "crawl/releases/CRAWL_20260806_03/monthly_coverage.csv",
+      "name": "platformCoverageRegime",
+      "type": "str",
+      "nullable": false,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "preStableRecruitService",
+      "contractField": "qa.monthlyCoverageAudit.platformCoverageRegime"
+    },
+    {
+      "dataset": "monthly_coverage",
+      "path": "crawl/releases/CRAWL_20260806_03/monthly_coverage.csv",
+      "name": "note",
+      "type": "str",
+      "nullable": false,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "recruit(activityTypeID=5) category appears effectively unlaunched. Outside primary analysis window.",
+      "contractField": "qa.monthlyCoverageAudit.note"
+    },
+    {
+      "dataset": "posting_discovery_index",
+      "path": "NOT_IMPLEMENTED",
+      "name": "NOT_IMPLEMENTED",
+      "type": null,
+      "nullable": null,
+      "definition": "No file exists",
+      "exampleMasked": null,
+      "contractField": "NO_ARTIFACT"
+    },
+    {
+      "dataset": "fetch_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/fetch_manifest.jsonl",
+      "name": "crawlRunId",
+      "type": "str",
+      "nullable": false,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "CRAWL_20260806_03",
+      "contractField": "raw.rawPosting.crawlRunId"
+    },
+    {
+      "dataset": "fetch_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/fetch_manifest.jsonl",
+      "name": "entityType",
+      "type": "str",
+      "nullable": false,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "detail",
+      "contractField": "raw.rawPosting.entityType"
+    },
+    {
+      "dataset": "fetch_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/fetch_manifest.jsonl",
+      "name": "requestUrl",
+      "type": "str",
+      "nullable": false,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "https://linkareer.com/activity/57020",
+      "contractField": "raw.rawPosting.requestUrl"
+    },
+    {
+      "dataset": "fetch_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/fetch_manifest.jsonl",
+      "name": "operationName",
+      "type": "str",
+      "nullable": true,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "manualSeed",
+      "contractField": "raw.rawPosting.operationName"
+    },
+    {
+      "dataset": "fetch_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/fetch_manifest.jsonl",
+      "name": "variablesHash",
+      "type": "object",
+      "nullable": true,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": null,
+      "contractField": "raw.rawPosting.variablesHash"
+    },
+    {
+      "dataset": "fetch_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/fetch_manifest.jsonl",
+      "name": "httpStatus",
+      "type": "int64",
+      "nullable": false,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "200",
+      "contractField": "raw.rawPosting.httpStatus"
+    },
+    {
+      "dataset": "fetch_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/fetch_manifest.jsonl",
+      "name": "fetchedAt",
+      "type": "str",
+      "nullable": false,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "2026-08-06T14:56:56.190462+09:00",
+      "contractField": "raw.rawPosting.fetchedAt"
+    },
+    {
+      "dataset": "fetch_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/fetch_manifest.jsonl",
+      "name": "contentSha256",
+      "type": "str",
+      "nullable": false,
+      "definition": "SHA-256 of persisted response body",
+      "exampleMasked": "a0f7f6bfcd41b03c22c084e088cef880c070e50b43202e5825fe0df2c1ed44f5",
+      "contractField": "raw.rawPosting.contentSha256"
+    },
+    {
+      "dataset": "fetch_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/fetch_manifest.jsonl",
+      "name": "rawPath",
+      "type": "str",
+      "nullable": false,
+      "definition": "raw artifact path relative to crawl root",
+      "exampleMasked": "data/raw/linkareer/detail/2021/03/a0f7f6bfcd41b03c22c084e088cef880c070e50b43202e5825fe0df2c1ed44f5.html.gz",
+      "contractField": "raw.rawPosting.rawPath"
+    },
+    {
+      "dataset": "fetch_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/fetch_manifest.jsonl",
+      "name": "bytes",
+      "type": "float64",
+      "nullable": true,
+      "definition": "uncompressed HTTP response bytes",
+      "exampleMasked": "153615.0",
+      "contractField": "raw.rawPosting.bytes"
+    },
+    {
+      "dataset": "fetch_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/fetch_manifest.jsonl",
+      "name": "elapsedMs",
+      "type": "float64",
+      "nullable": true,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "475.0",
+      "contractField": "raw.rawPosting.elapsedMs"
+    },
+    {
+      "dataset": "fetch_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/fetch_manifest.jsonl",
+      "name": "collectorVersion",
+      "type": "str",
+      "nullable": false,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "0.3.0-crawl03",
+      "contractField": "raw.rawPosting.collectorVersion"
+    },
+    {
+      "dataset": "posting_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/posting_manifest.csv",
+      "name": "sourcePostingId",
+      "type": "str",
+      "nullable": false,
+      "definition": "source posting identifier",
+      "exampleMasked": "36491",
+      "contractField": "raw.rawPosting.sourcePostingId"
+    },
+    {
+      "dataset": "posting_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/posting_manifest.csv",
+      "name": "sourceName",
+      "type": "str",
+      "nullable": false,
+      "definition": "source platform",
+      "exampleMasked": "linkareer",
+      "contractField": "raw.rawPosting.sourceName"
+    },
+    {
+      "dataset": "posting_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/posting_manifest.csv",
+      "name": "discoverySource",
+      "type": "str",
+      "nullable": false,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "CRAWL_20260806_02_stratified_sample",
+      "contractField": "raw.rawPosting.discoverySource"
+    },
+    {
+      "dataset": "posting_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/posting_manifest.csv",
+      "name": "hasDetailRawHtml",
+      "type": "bool",
+      "nullable": false,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "False",
+      "contractField": "raw.rawPosting.hasDetailRawHtml"
+    },
+    {
+      "dataset": "posting_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/posting_manifest.csv",
+      "name": "hasDerivedFields",
+      "type": "bool",
+      "nullable": false,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "True",
+      "contractField": "raw.rawPosting.hasDerivedFields"
+    },
+    {
+      "dataset": "posting_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/posting_manifest.csv",
+      "name": "jobTypes",
+      "type": "str",
+      "nullable": true,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "NEW|EXPERIENCED",
+      "contractField": "raw.rawPosting.jobTypes"
+    },
+    {
+      "dataset": "posting_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/posting_manifest.csv",
+      "name": "activityTextAvailable",
+      "type": "object",
+      "nullable": true,
+      "definition": "ActivityText entity presence",
+      "exampleMasked": "True",
+      "contractField": "raw.rawPosting.activityTextAvailable"
+    },
+    {
+      "dataset": "posting_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/posting_manifest.csv",
+      "name": "externalApplyFlag",
+      "type": "object",
+      "nullable": true,
+      "definition": "external application URL present",
+      "exampleMasked": "True",
+      "contractField": "raw.rawPosting.externalApplyFlag"
+    },
+    {
+      "dataset": "posting_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/posting_manifest.csv",
+      "name": "externalDetailOnlyFlag",
+      "type": "object",
+      "nullable": true,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "False",
+      "contractField": "raw.rawPosting.externalDetailOnlyFlag"
+    },
+    {
+      "dataset": "posting_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/posting_manifest.csv",
+      "name": "rq1EligibleFlag",
+      "type": "object",
+      "nullable": true,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "True",
+      "contractField": "raw.rawPosting.rq1EligibleFlag"
+    },
+    {
+      "dataset": "posting_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/posting_manifest.csv",
+      "name": "rq2EligibleFlag",
+      "type": "object",
+      "nullable": true,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "True",
+      "contractField": "raw.rawPosting.rq2EligibleFlag"
+    },
+    {
+      "dataset": "posting_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/posting_manifest.csv",
+      "name": "ncsEligibleFlag",
+      "type": "object",
+      "nullable": true,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "False",
+      "contractField": "raw.rawPosting.ncsEligibleFlag"
+    },
+    {
+      "dataset": "asset_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/asset_manifest.jsonl",
+      "name": "NO_COLUMNS_OBSERVED",
+      "type": null,
+      "nullable": null,
+      "definition": "Zero-byte file; no header/schema artifact",
+      "exampleMasked": null,
+      "contractField": "raw.rawAsset"
+    },
+    {
+      "dataset": "ocr_candidate_manifest",
+      "path": "NOT_IMPLEMENTED",
+      "name": "NOT_IMPLEMENTED",
+      "type": null,
+      "nullable": null,
+      "definition": "No manifest exists; only sample flags exist",
+      "exampleMasked": null,
+      "contractField": "raw.rawAsset/raw.rawOcrResult"
+    },
+    {
+      "dataset": "ncs_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/ncs_manifest.jsonl",
+      "name": "sourceDataset",
+      "type": "str",
+      "nullable": false,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "한국산업인력공단_국가직무능력표준 정보_20251231",
+      "contractField": "ncs.ncsUnit.sourceDataset"
+    },
+    {
+      "dataset": "ncs_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/ncs_manifest.jsonl",
+      "name": "sourceUrl",
+      "type": "str",
+      "nullable": false,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "https://www.data.go.kr/data/15083321/fileData.do",
+      "contractField": "ncs.ncsUnit.sourceUrl"
+    },
+    {
+      "dataset": "ncs_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/ncs_manifest.jsonl",
+      "name": "datasetId",
+      "type": "str",
+      "nullable": false,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "15083321",
+      "contractField": "ncs.ncsUnit.datasetId"
+    },
+    {
+      "dataset": "ncs_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/ncs_manifest.jsonl",
+      "name": "sourceVersion",
+      "type": "str",
+      "nullable": false,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "2026-02-20",
+      "contractField": "ncs.ncsUnit.sourceVersion"
+    },
+    {
+      "dataset": "ncs_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/ncs_manifest.jsonl",
+      "name": "license",
+      "type": "str",
+      "nullable": false,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "공공저작물 자유이용허락 제1유형(출처표시)",
+      "contractField": "ncs.ncsUnit.license"
+    },
+    {
+      "dataset": "ncs_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/ncs_manifest.jsonl",
+      "name": "fieldList",
+      "type": "object",
+      "nullable": false,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "['분류번호', '명칭', '수준', '훈련시간']",
+      "contractField": "ncs.ncsUnit.fieldList"
+    },
+    {
+      "dataset": "ncs_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/ncs_manifest.jsonl",
+      "name": "recordCount",
+      "type": "float64",
+      "nullable": true,
+      "definition": "source row count",
+      "exampleMasked": "13442.0",
+      "contractField": "ncs.ncsUnit.recordCount"
+    },
+    {
+      "dataset": "ncs_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/ncs_manifest.jsonl",
+      "name": "accessMethod",
+      "type": "str",
+      "nullable": false,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "fileDownload",
+      "contractField": "ncs.ncsUnit.accessMethod"
+    },
+    {
+      "dataset": "ncs_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/ncs_manifest.jsonl",
+      "name": "redistributable",
+      "type": "object",
+      "nullable": true,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "True",
+      "contractField": "ncs.ncsUnit.redistributable"
+    },
+    {
+      "dataset": "ncs_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/ncs_manifest.jsonl",
+      "name": "encoding",
+      "type": "str",
+      "nullable": true,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "CP949",
+      "contractField": "ncs.ncsUnit.encoding"
+    },
+    {
+      "dataset": "ncs_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/ncs_manifest.jsonl",
+      "name": "rawPath",
+      "type": "str",
+      "nullable": true,
+      "definition": "raw artifact path relative to crawl root",
+      "exampleMasked": "data/ncs/ncsUnit_20260806.csv",
+      "contractField": "ncs.ncsUnit.rawPath"
+    },
+    {
+      "dataset": "ncs_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/ncs_manifest.jsonl",
+      "name": "utf8NormalizedPath",
+      "type": "str",
+      "nullable": true,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "data/ncs/ncsUnit_20260806.utf8.csv",
+      "contractField": "ncs.ncsUnit.utf8NormalizedPath"
+    },
+    {
+      "dataset": "ncs_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/ncs_manifest.jsonl",
+      "name": "levelDistribution",
+      "type": "object",
+      "nullable": true,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "{'1': 4, '2': 1411, '3': 3315, '4': 3318, '5': 3577, '6': 1278, '7': 475, '8': 64}",
+      "contractField": "ncs.ncsUnit.levelDistribution"
+    },
+    {
+      "dataset": "ncs_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/ncs_manifest.jsonl",
+      "name": "ingestedAt",
+      "type": "str",
+      "nullable": true,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "2026-08-06T14:36:00+09:00",
+      "contractField": "ncs.ncsUnit.ingestedAt"
+    },
+    {
+      "dataset": "ncs_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/ncs_manifest.jsonl",
+      "name": "confirmedEndpoint",
+      "type": "str",
+      "nullable": true,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "https://apis.data.go.kr/B490007/ncsSchoolInfo/openapi14",
+      "contractField": "ncs.ncsUnit.confirmedEndpoint"
+    },
+    {
+      "dataset": "ncs_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/ncs_manifest.jsonl",
+      "name": "endpointStatus",
+      "type": "str",
+      "nullable": true,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "EXISTS_VALID_KEY_HTTP200_BUT_REQUIRED_PARAM_SCHEMA_UNKNOWN",
+      "contractField": "ncs.ncsUnit.endpointStatus"
+    },
+    {
+      "dataset": "ncs_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/ncs_manifest.jsonl",
+      "name": "note",
+      "type": "str",
+      "nullable": true,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "A human-provided data.go.kr API key was live-tested against openapi1-30; only openapi14 responded with a real service er",
+      "contractField": "ncs.ncsUnit.note"
+    },
+    {
+      "dataset": "ncs_manifest",
+      "path": "crawl/releases/CRAWL_20260806_03/ncs_manifest.jsonl",
+      "name": "keyStoredInGit",
+      "type": "object",
+      "nullable": true,
+      "definition": "observed field; no committed producer definition",
+      "exampleMasked": "[MASKED]",
+      "contractField": "ncs.ncsUnit.keyStoredInGit"
+    }
+  ],
+  "workingCommands": [
+    {
+      "name": "Agent 1 branch audit",
+      "workingDirectory": "/home/sieg/projects-wsl/worktrees/p4-agent1",
+      "environment": "git",
+      "command": "git status --porcelain=v2 && git rev-parse HEAD && git rev-parse origin/agent/p4-crawl-release-v2",
+      "expectedOutput": "clean status and matching HEADs",
+      "runtime": "<1s",
+      "networkRequests": 0,
+      "resumeMethod": "rerun"
+    },
+    {
+      "name": "CRAWL_03 checksum",
+      "workingDirectory": "/home/sieg/projects-wsl/worktrees/p4-agent1/DSJA/project_4/crawl/releases/CRAWL_20260806_03",
+      "environment": "coreutils",
+      "command": "sha256sum -c CHECKSUMS.sha256",
+      "expectedOutput": "16 OK lines",
+      "runtime": "<1s",
+      "networkRequests": 0,
+      "resumeMethod": "rerun"
+    },
+    {
+      "name": "Contract checksum",
+      "workingDirectory": "/home/sieg/projects-wsl/worktrees/p4-agent1/DSJA/project_4/shared/contracts/P4_CONTRACT_v2.1.2",
+      "environment": "coreutils",
+      "command": "sha256sum -c CHECKSUMS.sha256",
+      "expectedOutput": "11 OK lines",
+      "runtime": "<1s",
+      "networkRequests": 0,
+      "resumeMethod": "rerun"
+    }
+  ],
+  "unsupportedCommands": [
+    "one-month index collection",
+    "year resume",
+    "20-detail dry run",
+    "detail batch",
+    "asset batch",
+    "release staging"
+  ],
+  "notebookPlan": [
+    {
+      "notebook": "00RecoverSourceState.ipynb",
+      "cellStage": "inventory",
+      "calledModule": "stdlib pathlib/json/hashlib + pandas",
+      "calledFunctionOrCli": "read-only file and checksum inspection",
+      "input": "existing releases/manifests/raw",
+      "output": "display-only inventory",
+      "status": "PLANNABLE_READ_ONLY",
+      "missingImplementation": "project-level recovery module and tests"
+    },
+    {
+      "notebook": "01CollectLinkareerIndex.ipynb",
+      "cellStage": "APQ/month resume",
+      "calledModule": "NOT_IMPLEMENTED",
+      "calledFunctionOrCli": "NOT_IMPLEMENTED",
+      "input": "query registry + month",
+      "output": "posting_discovery_index",
+      "status": "BLOCKED",
+      "missingImplementation": "APQ builder, httpx policy client, pagination, raw/index store, checkpoint"
+    },
+    {
+      "notebook": "02CollectPostingDetail.ipynb",
+      "cellStage": "detail frontier",
+      "calledModule": "NOT_IMPLEMENTED",
+      "calledFunctionOrCli": "NOT_IMPLEMENTED",
+      "input": "global distinct posting IDs",
+      "output": "raw HTML + posting manifest",
+      "status": "BLOCKED",
+      "missingImplementation": "frontier, SSR fetch/parser, gzip/raw writer, request manifest"
+    },
+    {
+      "notebook": "03CollectPostingAssets.ipynb",
+      "cellStage": "asset frontier",
+      "calledModule": "NOT_IMPLEMENTED",
+      "calledFunctionOrCli": "NOT_IMPLEMENTED",
+      "input": "detail-derived Linkareer asset URLs",
+      "output": "asset raw + asset manifest",
+      "status": "BLOCKED",
+      "missingImplementation": "host allowlist, asset classifier/downloader, idempotent manifest"
+    },
+    {
+      "notebook": "04BuildCrawlRelease.ipynb",
+      "cellStage": "validate/stage",
+      "calledModule": "NOT_IMPLEMENTED",
+      "calledFunctionOrCli": "sha256sum -c is the only working primitive",
+      "input": "final run manifests",
+      "output": "new immutable release",
+      "status": "BLOCKED",
+      "missingImplementation": "release builder, schema validator adapter, Agent 2 validator invocation"
+    }
+  ],
+  "maskedSamples": {
+    "monthly_coverage": [
+      {
+        "periodMonth": "2019-01",
+        "sourceName": "linkareer",
+        "activityTypeID": 5,
+        "discoveredCount": "",
+        "returnedDistinctCount": "",
+        "expectedTotalCount": 0.0,
+        "paginationCompleteFlag": false,
+        "requestCount": 1,
+        "firstPostingId": "",
+        "lastPostingId": "",
+        "errorCount": 0,
+        "coverageStatus": "insufficient",
+        "coverageReason": "platformPreLaunch",
+        "platformCoverageRegime": "preStableRecruitService",
+        "note": "recruit(activityTypeID=5) category appears effectively unlaunched. Outside primary analysis window."
+      },
+      {
+        "periodMonth": "2019-03",
+        "sourceName": "linkareer",
+        "activityTypeID": 5,
+        "discoveredCount": "",
+        "returnedDistinctCount": "",
+        "expectedTotalCount": 0.0,
+        "paginationCompleteFlag": false,
+        "requestCount": 1,
+        "firstPostingId": "",
+        "lastPostingId": "",
+        "errorCount": 0,
+        "coverageStatus": "insufficient",
+        "coverageReason": "platformPreLaunch",
+        "platformCoverageRegime": "preStableRecruitService",
+        "note": "recruit(activityTypeID=5) category appears effectively unlaunched. Outside primary analysis window."
+      },
+      {
+        "periodMonth": "2019-06",
+        "sourceName": "linkareer",
+        "activityTypeID": 5,
+        "discoveredCount": "",
+        "returnedDistinctCount": "",
+        "expectedTotalCount": 1.0,
+        "paginationCompleteFlag": false,
+        "requestCount": 1,
+        "firstPostingId": "",
+        "lastPostingId": "",
+        "errorCount": 0,
+        "coverageStatus": "insufficient",
+        "coverageReason": "platformPreLaunch",
+        "platformCoverageRegime": "preStableRecruitService",
+        "note": "recruit(activityTypeID=5) category appears effectively unlaunched. Outside primary analysis window."
+      },
+      {
+        "periodMonth": "2019-09",
+        "sourceName": "linkareer",
+        "activityTypeID": 5,
+        "discoveredCount": "",
+        "returnedDistinctCount": "",
+        "expectedTotalCount": 0.0,
+        "paginationCompleteFlag": false,
+        "requestCount": 1,
+        "firstPostingId": "",
+        "lastPostingId": "",
+        "errorCount": 0,
+        "coverageStatus": "insufficient",
+        "coverageReason": "platformPreLaunch",
+        "platformCoverageRegime": "preStableRecruitService",
+        "note": "recruit(activityTypeID=5) category appears effectively unlaunched. Outside primary analysis window."
+      },
+      {
+        "periodMonth": "2019-12",
+        "sourceName": "linkareer",
+        "activityTypeID": 5,
+        "discoveredCount": "",
+        "returnedDistinctCount": "",
+        "expectedTotalCount": 23.0,
+        "paginationCompleteFlag": false,
+        "requestCount": 1,
+        "firstPostingId": "",
+        "lastPostingId": "",
+        "errorCount": 0,
+        "coverageStatus": "insufficient",
+        "coverageReason": "platformPreLaunch",
+        "platformCoverageRegime": "preStableRecruitService",
+        "note": "recruit(activityTypeID=5) category appears effectively unlaunched. Outside primary analysis window."
+      }
+    ],
+    "posting_manifest": [
+      {
+        "sourcePostingId": "36491",
+        "sourceName": "linkareer",
+        "discoverySource": "CRAWL_20260806_02_stratified_sample",
+        "hasDetailRawHtml": false,
+        "hasDerivedFields": true,
+        "jobTypes": "NEW|EXPERIENCED",
+        "activityTextAvailable": true,
+        "externalApplyFlag": true,
+        "externalDetailOnlyFlag": false,
+        "rq1EligibleFlag": true,
+        "rq2EligibleFlag": true,
+        "ncsEligibleFlag": false
+      },
+      {
+        "sourcePostingId": "34617",
+        "sourceName": "linkareer",
+        "discoverySource": "CRAWL_20260806_02_stratified_sample",
+        "hasDetailRawHtml": false,
+        "hasDerivedFields": true,
+        "jobTypes": "NEW",
+        "activityTextAvailable": true,
+        "externalApplyFlag": true,
+        "externalDetailOnlyFlag": false,
+        "rq1EligibleFlag": true,
+        "rq2EligibleFlag": true,
+        "ncsEligibleFlag": false
+      },
+      {
+        "sourcePostingId": "34460",
+        "sourceName": "linkareer",
+        "discoverySource": "CRAWL_20260806_02_stratified_sample",
+        "hasDetailRawHtml": false,
+        "hasDerivedFields": true,
+        "jobTypes": "NEW|EXPERIENCED|CONTRACT",
+        "activityTextAvailable": true,
+        "externalApplyFlag": true,
+        "externalDetailOnlyFlag": false,
+        "rq1EligibleFlag": true,
+        "rq2EligibleFlag": true,
+        "ncsEligibleFlag": false
+      },
+      {
+        "sourcePostingId": "34465",
+        "sourceName": "linkareer",
+        "discoverySource": "CRAWL_20260806_02_stratified_sample",
+        "hasDetailRawHtml": false,
+        "hasDerivedFields": true,
+        "jobTypes": "INTERN|NEW|CONTRACT",
+        "activityTextAvailable": true,
+        "externalApplyFlag": true,
+        "externalDetailOnlyFlag": false,
+        "rq1EligibleFlag": true,
+        "rq2EligibleFlag": true,
+        "ncsEligibleFlag": false
+      },
+      {
+        "sourcePostingId": "34469",
+        "sourceName": "linkareer",
+        "discoverySource": "CRAWL_20260806_02_stratified_sample",
+        "hasDetailRawHtml": false,
+        "hasDerivedFields": true,
+        "jobTypes": "INTERN",
+        "activityTextAvailable": true,
+        "externalApplyFlag": true,
+        "externalDetailOnlyFlag": false,
+        "rq1EligibleFlag": true,
+        "rq2EligibleFlag": true,
+        "ncsEligibleFlag": false
+      }
+    ],
+    "fetch_manifest": [
+      {
+        "crawlRunId": "CRAWL_20260806_03",
+        "entityType": "detail",
+        "requestUrl": "https://linkareer.com/activity/57020",
+        "operationName": null,
+        "variablesHash": null,
+        "httpStatus": 200,
+        "fetchedAt": "2026-08-06T14:56:56.190462+09:00",
+        "contentSha256": "a0f7f6bfcd41b03c22c084e088cef880c070e50b43202e5825fe0df2c1ed44f5",
+        "rawPath": "data/raw/linkareer/detail/2021/03/a0f7f6bfcd41b03c22c084e088cef880c070e50b43202e5825fe0df2c1ed44f5.html.gz",
+        "bytes": 153615,
+        "elapsedMs": 475,
+        "collectorVersion": "0.3.0-crawl03"
+      },
+      {
+        "crawlRunId": "CRAWL_20260806_03",
+        "entityType": "detail",
+        "requestUrl": "https://linkareer.com/activity/57035",
+        "operationName": null,
+        "variablesHash": null,
+        "httpStatus": 200,
+        "fetchedAt": "2026-08-06T14:56:58.030517+09:00",
+        "contentSha256": "8ff4fe824127a32632db38de0ca0d70133a47688dafab770fabacc49266f1dc2",
+        "rawPath": "data/raw/linkareer/detail/2021/03/8ff4fe824127a32632db38de0ca0d70133a47688dafab770fabacc49266f1dc2.html.gz",
+        "bytes": 169284,
+        "elapsedMs": 784,
+        "collectorVersion": "0.3.0-crawl03"
+      },
+      {
+        "crawlRunId": "CRAWL_20260806_03",
+        "entityType": "detail",
+        "requestUrl": "https://linkareer.com/activity/57076",
+        "operationName": null,
+        "variablesHash": null,
+        "httpStatus": 200,
+        "fetchedAt": "2026-08-06T14:56:59.488381+09:00",
+        "contentSha256": "ee961629b7cb1352379fb838b0c8923da1edc3fe21f116fa96bb852d1371ef58",
+        "rawPath": "data/raw/linkareer/detail/2021/03/ee961629b7cb1352379fb838b0c8923da1edc3fe21f116fa96bb852d1371ef58.html.gz",
+        "bytes": 167152,
+        "elapsedMs": 402,
+        "collectorVersion": "0.3.0-crawl03"
+      },
+      {
+        "crawlRunId": "CRAWL_20260806_03",
+        "entityType": "detail",
+        "requestUrl": "https://linkareer.com/activity/57112",
+        "operationName": null,
+        "variablesHash": null,
+        "httpStatus": 200,
+        "fetchedAt": "2026-08-06T14:57:01.106193+09:00",
+        "contentSha256": "7db73da84d23a74e52678c65d425473d9cc20ef2cf61c450034dbb0d56e5e23a",
+        "rawPath": "data/raw/linkareer/detail/2021/03/7db73da84d23a74e52678c65d425473d9cc20ef2cf61c450034dbb0d56e5e23a.html.gz",
+        "bytes": 153948,
+        "elapsedMs": 562,
+        "collectorVersion": "0.3.0-crawl03"
+      },
+      {
+        "crawlRunId": "CRAWL_20260806_03",
+        "entityType": "detail",
+        "requestUrl": "https://linkareer.com/activity/57113",
+        "operationName": null,
+        "variablesHash": null,
+        "httpStatus": 200,
+        "fetchedAt": "2026-08-06T14:57:02.535769+09:00",
+        "contentSha256": "d08c890ca45f916f6a478e8e18b7aa99734b06056bf3e3c4ec3f55ee2dabf79a",
+        "rawPath": "data/raw/linkareer/detail/2021/03/d08c890ca45f916f6a478e8e18b7aa99734b06056bf3e3c4ec3f55ee2dabf79a.html.gz",
+        "bytes": 164519,
+        "elapsedMs": 372,
+        "collectorVersion": "0.3.0-crawl03"
+      }
+    ],
+    "rawParsedMetadata": [
+      {
+        "sourcePostingId": "57306",
+        "activityTypeId": 5,
+        "jobTypes": [
+          "NEW",
+          "EXPERIENCED"
+        ],
+        "activityTextLength": 544,
+        "rawSha256": "024b8ce6b7b2eb9d8c05f4aa05b95af611d8f1ab8732ce01cdd0d2ea31d7f842",
+        "manager": "[MASKED_AND_OMITTED]"
+      },
+      {
+        "sourcePostingId": "57409",
+        "activityTypeId": 5,
+        "jobTypes": [
+          "NEW"
+        ],
+        "activityTextLength": 491,
+        "rawSha256": "1076179905311c9952bf529fdea2218707afe5f0154573423c981492cbd077e3",
+        "manager": "[MASKED_AND_OMITTED]"
+      },
+      {
+        "sourcePostingId": "57408",
+        "activityTypeId": 5,
+        "jobTypes": [
+          "NEW",
+          "EXPERIENCED"
+        ],
+        "activityTextLength": 525,
+        "rawSha256": "12e0924a97fe7285d589855275772931a5ffca47c569b633d19fae18953ebb74",
+        "manager": "[MASKED_AND_OMITTED]"
+      },
+      {
+        "sourcePostingId": "57465",
+        "activityTypeId": 5,
+        "jobTypes": [
+          "NEW",
+          "EXPERIENCED"
+        ],
+        "activityTextLength": 780,
+        "rawSha256": "1c85f79dca27d8560c9a93913b8a9cde3fdadd6c0087e1e53c152b3261d0da87",
+        "manager": "[MASKED_AND_OMITTED]"
+      },
+      {
+        "sourcePostingId": "57585",
+        "activityTypeId": 5,
+        "jobTypes": [
+          "INTERN"
+        ],
+        "activityTextLength": 482,
+        "rawSha256": "21f527cc8400414969d11addc767ca96fb751fb6bdeb968e4935c05a130cf1c9",
+        "manager": "[MASKED_AND_OMITTED]"
+      }
+    ]
+  },
+  "criticalFindings": [
+    "crawl/** contains no committed Python, CLI, or notebook implementation.",
+    "40,551 is a sum of monthly distinct counts, not a reproducible global-distinct ID corpus.",
+    "29 raw HTML files exist; three of 32 detail fetch-manifest paths are missing.",
+    "RECON_20260806_01 checksum fails for three missing legacy paths; CRAWL_01..03 pass.",
+    "No asset or OCR-candidate manifest exists; OCR candidate count 113 is sample-derived only."
+  ]
+}
