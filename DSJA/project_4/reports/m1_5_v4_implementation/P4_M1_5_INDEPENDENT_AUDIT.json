@@ -1,0 +1,28 @@
+{
+  "auditStatus": "PASS_WITH_FINDINGS",
+  "auditedCandidateHead": "2b8a8ce",
+  "worktreeIsolation": true,
+  "networkCallCount": 0,
+  "productionCrawlCount": 0,
+  "articleNumberGenerationCount": 0,
+  "checks": {
+    "evidenceManifest": "PASS",
+    "stageChecksums": "PASS",
+    "controlValidator": {"status": "PASS", "schemas": 12, "endpoints": 6, "stages": 6, "gates": 26, "dependencyEdges": 11},
+    "integrationControlTests": {"passed": 32, "failed": 0},
+    "pipelineTests": {"passed": 116, "failed": 0},
+    "ncsTests": {"passed": 84, "failed": 0},
+    "crawlPortableTests": {"passed": 15, "failed": 1, "reason": "29 ignored local raw SSR files absent from independent worktree"},
+    "highDemandScoreNonNull": 0,
+    "canonicalDbTableCount": 0,
+    "newBundleSecretFindings": 0,
+    "newBundleAbsolutePathFindings": 0
+  },
+  "findings": [
+    {"severity": "P2", "status": "PASS_WITH_FINDINGS", "code": "RAW_AUTHORITY_NOT_GIT_PORTABLE"},
+    {"severity": "P2", "status": "PASS_WITH_FINDINGS", "code": "EVIDENCE_MANIFEST_REGEN_REQUIRED"},
+    {"severity": "P1", "status": "NOT_EVALUATED", "code": "LIVE_AND_REFERENCE_GATES_HAVE_NO_EVIDENCE"}
+  ],
+  "productionPromotionAllowed": false,
+  "analysisReady": false
+}
