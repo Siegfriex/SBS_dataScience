@@ -11,15 +11,19 @@
 - Project root: `DSJA/project_4`
 - SSOT: `shared/ssot/v4.0/P4_final_design_v4.0.md`
 - SSOT SHA-256: `409866c166ce3874ce587ad3b1230bc530c036e9682be01bf3466aa1fd37a05a`
-- Implementation evidence Git HEAD: `a2fe4fe61e1e9cda578e36ddb5ec0452850a5501`
+- Implementation evidence Git HEAD: `71d5c7642a59d0d5b764d7fa837224e79c90381e`
 - Run ID: `M1_5_V4_IMPLEMENTATION_20260806_01`
 
 ## Verified implementation
 
+- Legacy baselines after fetch: A1 remote `3ad43c39` (local `00b2e6b`, ahead 2/behind 10), A2 `9a0571db`, A3 `b64270bd`, A4 `7a9feccc`, A5 audit baseline `3a5bd066`.
+- M1.5 component heads: A1 `5a78cac2`, A2 `879b2c2e`, A3 `b20bdf5`, A4 `3396eb66`; each component branch was pushed with 0/0 remote divergence.
+- Documentation authority branch: `docs/p4-final-design-v4` at `9a5e49d7`, remote parity 0/0.
 - Control: 12 schemas, 6 stages, 26 gates, 11 dependency edges; validator PASS.
 - Crawl: fail-closed validator, topology/current-run binding, ActivityText fallback, source-policy kill switches; 38 tests PASS.
 - Pipeline: deterministic semantic/OCR/structure/RQ2-B contract; 116 tests PASS.
 - NCS: API/corpus/retrieval/reference/temporal/calibration implementation; 84 tests PASS.
+- Independent Agent 5 audit: PASS_WITH_FINDINGS; tracked manifests/checksums PASS, with ignored raw-byte portability recorded.
 - API fixtures: 8 synthetic success/empty/auth/parameter fixtures. Live calls 0; live probe NOT_EVALUATED.
 - NCS candidate corpus: 13,442 units, 14,930 nodes, 14,906 edges; bridge/crosswalk 0; promotionAllowed=false.
 

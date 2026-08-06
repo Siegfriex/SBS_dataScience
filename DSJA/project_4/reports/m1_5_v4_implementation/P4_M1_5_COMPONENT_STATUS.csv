@@ -1,6 +1,6 @@
-component,ownerAgent,implementationStatus,promotionStatus,commit,tests,evidence
-crawl,P4-A1-SOURCE,PASS,BLOCKED,d548b7f,38 PASS,crawl/control/tests; crawl/tests
-pipeline,P4-A2-PIPELINE,PASS,BLOCKED,a2fe4fe,116 PASS,pipeline/tests; observed_replay
-control,P4-A3-CONTROL,PASS,PASS_WITH_FINDINGS,80231b9,10 PASS; validator PASS,integration/validate_m1_5_control.py
-ncs_mapping,P4-A4-NCS,PASS,BLOCKED,d147880,84 PASS,ncs_mapping/tests; NCS_CORPUS_CANDIDATE_MANIFEST.json
-independent_audit,P4-A5-AUDIT,NOT_STARTED,NOT_EVALUATED,,pending,independent worktree required
+component,ownerAgent,implementationStatus,promotionStatus,componentHead,integrationCommit,tests,evidence
+crawl,P4-A1-SOURCE,PASS,BLOCKED,5a78cac2158ec6b62b28af0a8970ced66812225d,d548b7f,38 PASS,crawl/control/tests; crawl/tests
+pipeline,P4-A2-PIPELINE,PASS,BLOCKED,879b2c2e2cf3ba3f3cdc8f0847e607f045e2b839,a2fe4fe,116 PASS,pipeline/tests; observed_replay
+control,P4-A3-CONTROL,PASS,PASS_WITH_FINDINGS,b20bdf5,1b5bc1c,10 PASS; validator PASS,integration/validate_m1_5_control.py
+ncs_mapping,P4-A4-NCS,PASS,BLOCKED,3396eb66f6f9af80d0458ab8c5431b1c5ce6414c,d147880,84 PASS,ncs_mapping/tests; NCS_CORPUS_CANDIDATE_MANIFEST.json
+independent_audit,P4-A5-AUDIT,PASS_WITH_FINDINGS,NOT_EVALUATED,179fd9d,71d5c76,32 control + 116 pipeline + 84 NCS PASS; crawl 15/16 (raw portability),P4_M1_5_INDEPENDENT_AUDIT.md

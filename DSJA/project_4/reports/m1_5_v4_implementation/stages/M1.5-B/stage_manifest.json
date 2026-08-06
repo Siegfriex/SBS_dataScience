@@ -2,8 +2,11 @@
   "articleNumbersGenerated": 0,
   "authoritySsotSha256": "409866c166ce3874ce587ad3b1230bc530c036e9682be01bf3466aa1fd37a05a",
   "currentRunManifestCount": 1,
-  "evidencePaths": [],
-  "implementationGitHead": "a2fe4fe61e1e9cda578e36ddb5ec0452850a5501",
+  "evidencePaths": [
+    "evidence/observed_replay/OBSERVED_OCR_OFFLINE_PILOT.csv",
+    "evidence/observed_replay/OBSERVED_SOURCE_BLOCKS.csv"
+  ],
+  "implementationGitHead": "71d5c7642a59d0d5b764d7fa837224e79c90381e",
   "liveApiProbeCalls": 0,
   "productionLinkareerNetworkCalls": 0,
   "runId": "M1_5_V4_IMPLEMENTATION_20260806_01",

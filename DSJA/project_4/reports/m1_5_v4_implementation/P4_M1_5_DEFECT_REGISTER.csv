@@ -7,3 +7,4 @@ M15-P1-005,P1,NOT_EVALUATED,"human reference, pinned dense model, 2025 calibrati
 M15-P1-006,P1,BLOCKED,58 of 79 production pagination months remain unverified,shared/ssot/PROJECT4_DEFECT_REGISTER.csv
 M15-P2-001,P2,PASS_WITH_FINDINGS,standalone local LLM/NCS blueprint v2.0 file not found; content is integrated into v4 SSOT,shared/ssot/v4.0/P4_final_design_v4.0.md
 M15-P2-002,P2,PASS_WITH_FINDINGS,historical executed bundle contains an absolute path; new bundle uses repository-relative paths,reports/orchestrator/NOTEBOOK_RUNTIME_INVENTORY.csv
+M15-P2-003,P2,PASS_WITH_FINDINGS,ignored raw SSR bytes are local authority and are not portable in Git; tracked replay outputs remain checksum-verifiable,crawl/observed_inputs/OBSERVED_INPUT_20260806_01/raw_detail_manifest.jsonl

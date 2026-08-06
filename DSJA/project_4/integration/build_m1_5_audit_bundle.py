@@ -5,6 +5,7 @@ from __future__ import annotations
 import csv
 import hashlib
 import json
+import os
 import shutil
 import subprocess
 from pathlib import Path
@@ -69,11 +70,11 @@ def main() -> int:
     corpus = json.loads((PROJECT / "ncs_mapping" / "reports" / "v4" / "NCS_CORPUS_CANDIDATE_MANIFEST.json").read_text())
 
     components = [
-        {"component": "crawl", "ownerAgent": "P4-A1-SOURCE", "implementationStatus": "PASS", "promotionStatus": "BLOCKED", "commit": "d548b7f", "tests": "38 PASS", "evidence": "crawl/control/tests; crawl/tests"},
-        {"component": "pipeline", "ownerAgent": "P4-A2-PIPELINE", "implementationStatus": "PASS", "promotionStatus": "BLOCKED", "commit": "a2fe4fe", "tests": "116 PASS", "evidence": "pipeline/tests; observed_replay"},
-        {"component": "control", "ownerAgent": "P4-A3-CONTROL", "implementationStatus": "PASS", "promotionStatus": "PASS_WITH_FINDINGS", "commit": "80231b9", "tests": "10 PASS; validator PASS", "evidence": "integration/validate_m1_5_control.py"},
-        {"component": "ncs_mapping", "ownerAgent": "P4-A4-NCS", "implementationStatus": "PASS", "promotionStatus": "BLOCKED", "commit": "d147880", "tests": "84 PASS", "evidence": "ncs_mapping/tests; NCS_CORPUS_CANDIDATE_MANIFEST.json"},
-        {"component": "independent_audit", "ownerAgent": "P4-A5-AUDIT", "implementationStatus": "NOT_STARTED", "promotionStatus": "NOT_EVALUATED", "commit": "", "tests": "pending", "evidence": "independent worktree required"},
+        {"component": "crawl", "ownerAgent": "P4-A1-SOURCE", "implementationStatus": "PASS", "promotionStatus": "BLOCKED", "componentHead": "5a78cac2158ec6b62b28af0a8970ced66812225d", "integrationCommit": "d548b7f", "tests": "38 PASS", "evidence": "crawl/control/tests; crawl/tests"},
+        {"component": "pipeline", "ownerAgent": "P4-A2-PIPELINE", "implementationStatus": "PASS", "promotionStatus": "BLOCKED", "componentHead": "879b2c2e2cf3ba3f3cdc8f0847e607f045e2b839", "integrationCommit": "a2fe4fe", "tests": "116 PASS", "evidence": "pipeline/tests; observed_replay"},
+        {"component": "control", "ownerAgent": "P4-A3-CONTROL", "implementationStatus": "PASS", "promotionStatus": "PASS_WITH_FINDINGS", "componentHead": "b20bdf5", "integrationCommit": "1b5bc1c", "tests": "10 PASS; validator PASS", "evidence": "integration/validate_m1_5_control.py"},
+        {"component": "ncs_mapping", "ownerAgent": "P4-A4-NCS", "implementationStatus": "PASS", "promotionStatus": "BLOCKED", "componentHead": "3396eb66f6f9af80d0458ab8c5431b1c5ce6414c", "integrationCommit": "d147880", "tests": "84 PASS", "evidence": "ncs_mapping/tests; NCS_CORPUS_CANDIDATE_MANIFEST.json"},
+        {"component": "independent_audit", "ownerAgent": "P4-A5-AUDIT", "implementationStatus": "PASS_WITH_FINDINGS", "promotionStatus": "NOT_EVALUATED", "componentHead": "179fd9d", "integrationCommit": "71d5c76", "tests": "32 control + 116 pipeline + 84 NCS PASS; crawl 15/16 (raw portability)", "evidence": "P4_M1_5_INDEPENDENT_AUDIT.md"},
     ]
     write_csv(REPORT / "P4_M1_5_COMPONENT_STATUS.csv", components)
 
@@ -122,6 +123,7 @@ def main() -> int:
         {"defectId": "M15-P1-006", "severity": "P1", "status": "BLOCKED", "finding": "58 of 79 production pagination months remain unverified", "evidence": "shared/ssot/PROJECT4_DEFECT_REGISTER.csv"},
         {"defectId": "M15-P2-001", "severity": "P2", "status": "PASS_WITH_FINDINGS", "finding": "standalone local LLM/NCS blueprint v2.0 file not found; content is integrated into v4 SSOT", "evidence": "shared/ssot/v4.0/P4_final_design_v4.0.md"},
         {"defectId": "M15-P2-002", "severity": "P2", "status": "PASS_WITH_FINDINGS", "finding": "historical executed bundle contains an absolute path; new bundle uses repository-relative paths", "evidence": "reports/orchestrator/NOTEBOOK_RUNTIME_INVENTORY.csv"},
+        {"defectId": "M15-P2-003", "severity": "P2", "status": "PASS_WITH_FINDINGS", "finding": "ignored raw SSR bytes are local authority and are not portable in Git; tracked replay outputs remain checksum-verifiable", "evidence": "crawl/observed_inputs/OBSERVED_INPUT_20260806_01/raw_detail_manifest.jsonl"},
     ]
     write_csv(REPORT / "P4_M1_5_DEFECT_REGISTER.csv", defects)
 
@@ -168,12 +170,20 @@ def main() -> int:
     ])
 
     stage_status = {"M1.5-P": "PARTIAL", "M1.5-0": "PASS_WITH_FINDINGS", "M1.5-A": "BLOCKED", "M1.5-B": "BLOCKED", "M1.5-C": "BLOCKED", "M1.5-D": "BLOCKED"}
+    stage_evidence = {
+        "M1.5-P": ["P4_M1_5_API_CONTRACT_STATUS.csv", "../../ncs_mapping/reports/api_probe"],
+        "M1.5-0": ["P4_M1_5_GATE_STATUS.csv", "../../integration/SEMANTIC_STAGE_REGISTRY.yaml"],
+        "M1.5-A": ["evidence/observed_replay/OBSERVED_M1_5_SUMMARY.json", "evidence/observed_replay/OBSERVED_SEMANTIC_POSTINGS.csv"],
+        "M1.5-B": ["evidence/observed_replay/OBSERVED_OCR_OFFLINE_PILOT.csv", "evidence/observed_replay/OBSERVED_SOURCE_BLOCKS.csv"],
+        "M1.5-C": ["P4_M1_5_REFERENCE_STATUS.csv"],
+        "M1.5-D": ["P4_M1_5_NCS_CORPUS_DIFF.csv", "P4_M1_5_TEMPORAL_SPLIT_AUDIT.csv", "P4_M1_5_RQ2B_AGGREGATION_AUDIT.csv"],
+    }
     for stage in registry["stages"]:
         stage_id = stage["stageId"]
         root = REPORT / "stages" / stage_id
         root.mkdir(parents=True, exist_ok=True)
         stage_gates = [row for row in gates if row["stageId"] == stage_id]
-        manifest = {"runId": RUN_ID, "stageId": stage_id, "stageName": stage["name"], "runMode": "OFFLINE_OBSERVED_IMPLEMENTATION_AUDIT", "status": stage_status[stage_id], "implementationGitHead": implementation_head, "authoritySsotSha256": SSOT_SHA, "productionLinkareerNetworkCalls": 0, "liveApiProbeCalls": 0, "articleNumbersGenerated": 0, "currentRunManifestCount": 1, "evidencePaths": [f"reports/m1_5_v4_implementation/{Path(row['evidence']).as_posix()}" if str(row["evidence"]).startswith("evidence/") else str(row["evidence"]) for row in []]}
+        manifest = {"runId": RUN_ID, "stageId": stage_id, "stageName": stage["name"], "runMode": "OFFLINE_OBSERVED_IMPLEMENTATION_AUDIT", "status": stage_status[stage_id], "implementationGitHead": implementation_head, "authoritySsotSha256": SSOT_SHA, "productionLinkareerNetworkCalls": 0, "liveApiProbeCalls": 0, "articleNumbersGenerated": 0, "currentRunManifestCount": 1, "evidencePaths": stage_evidence[stage_id]}
         write_json(root / "stage_manifest.json", manifest)
         write_json(root / "stage_metrics.json", {"runId": RUN_ID, "stageId": stage_id, "gateCount": len(stage_gates), "statusCounts": {status: sum(row["status"] == status for row in stage_gates) for status in sorted({row["status"] for row in stage_gates})}, "observedPostingRows": 137 if stage_id in {"M1.5-A", "M1.5-B"} else 0})
         write_csv(root / "stage_quality.csv", stage_gates)
@@ -211,10 +221,14 @@ def main() -> int:
 
 ## Verified implementation
 
+- Legacy baselines after fetch: A1 remote `3ad43c39` (local `00b2e6b`, ahead 2/behind 10), A2 `9a0571db`, A3 `b64270bd`, A4 `7a9feccc`, A5 audit baseline `3a5bd066`.
+- M1.5 component heads: A1 `5a78cac2`, A2 `879b2c2e`, A3 `b20bdf5`, A4 `3396eb66`; each component branch was pushed with 0/0 remote divergence.
+- Documentation authority branch: `docs/p4-final-design-v4` at `9a5e49d7`, remote parity 0/0.
 - Control: 12 schemas, 6 stages, 26 gates, 11 dependency edges; validator PASS.
 - Crawl: fail-closed validator, topology/current-run binding, ActivityText fallback, source-policy kill switches; 38 tests PASS.
 - Pipeline: deterministic semantic/OCR/structure/RQ2-B contract; 116 tests PASS.
 - NCS: API/corpus/retrieval/reference/temporal/calibration implementation; 84 tests PASS.
+- Independent Agent 5 audit: PASS_WITH_FINDINGS; tracked manifests/checksums PASS, with ignored raw-byte portability recorded.
 - API fixtures: 8 synthetic success/empty/auth/parameter fixtures. Live calls 0; live probe NOT_EVALUATED.
 - NCS candidate corpus: 13,442 units, 14,930 nodes, 14,906 edges; bridge/crosswalk 0; promotionAllowed=false.
 
@@ -250,7 +264,17 @@ M1 snapshot freeze → M1.5 semantic QA → M2 full crawl → production preproc
     (REPORT / "P4_M1_5_IMPLEMENTATION_REPORT.md").write_text(report_md, encoding="utf-8")
 
     evidence_files = sorted(path for path in REPORT.rglob("*") if path.is_file() and path.name != "EVIDENCE_MANIFEST.sha256")
-    (REPORT / "EVIDENCE_MANIFEST.sha256").write_text("".join(f"{sha(path)}  {path.relative_to(REPORT).as_posix()}\n" for path in evidence_files), encoding="utf-8")
+    external_evidence = [
+        PROJECT / "integration" / "API_CONTRACT_REGISTRY.yaml",
+        PROJECT / "integration" / "SEMANTIC_STAGE_REGISTRY.yaml",
+        PROJECT / "shared" / "contracts" / "api_contract" / "v4.0" / "AUTHORITY.json",
+        PROJECT / "ncs_mapping" / "reports" / "api_probe" / "NCS_OFFLINE_PROBE_STATUS.json",
+        PROJECT / "ncs_mapping" / "reports" / "api_probe" / "WORK24_OFFLINE_PROBE_STATUS.json",
+        PROJECT / "ncs_mapping" / "reports" / "v4" / "NCS_CORPUS_CANDIDATE_MANIFEST.json",
+    ]
+    manifest_lines = [f"{sha(path)}  {path.relative_to(REPORT).as_posix()}\n" for path in evidence_files]
+    manifest_lines += [f"{sha(path)}  {os.path.relpath(path, REPORT)}\n" for path in external_evidence]
+    (REPORT / "EVIDENCE_MANIFEST.sha256").write_text("".join(manifest_lines), encoding="utf-8")
     print(json.dumps({"status": "PASS", "reportFiles": len(evidence_files) + 1, "implementationHead": implementation_head}, sort_keys=True))
     return 0
 
