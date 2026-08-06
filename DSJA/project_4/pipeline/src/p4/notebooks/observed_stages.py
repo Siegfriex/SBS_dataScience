@@ -35,6 +35,10 @@ OBSERVED_TABLES = (
     "posting_semantics",
     "posting_track",
     "posting_section",
+    "source_block",
+    "section_source_block",
+    "semantic_chunk",
+    "chunk_role",
     "requirement_fact",
     "eligibility",
     "posting_dedup",
@@ -500,8 +504,12 @@ def run_observed_stage(
         batch = build_observed_batch(release, crawl)
         frames = batch["frames"]
         replace_observed_table(database, "posting_section", frames["posting_section"])
+        replace_observed_table(database, "source_block", frames["source_block"])
+        replace_observed_table(database, "section_source_block", frames["section_source_block"])
+        replace_observed_table(database, "semantic_chunk", frames["semantic_chunk"])
+        replace_observed_table(database, "chunk_role", frames["chunk_role"])
         replace_observed_table(database, "ocr_queue", frames["ocr_queue"])
-        metrics.update({"sectionRows": len(frames["posting_section"]), "ocrQueueRows": len(frames["ocr_queue"]), "ocrAssetsFetched": 0, "ocrMode": "ROUTING_ONLY", "warehouseInventory": observed_inventory(database)})
+        metrics.update({"sectionRows": len(frames["posting_section"]), "sourceBlockRows": len(frames["source_block"]), "semanticChunkRows": len(frames["semantic_chunk"]), "ocrQueueRows": len(frames["ocr_queue"]), "ocrAssetsFetched": 0, "ocrMode": "ROUTING_ONLY", "warehouseInventory": observed_inventory(database)})
         quality.append({"check": "ocr_routing_only", "status": "PASS" if frames["ocr_queue"].get("queueStatus", pd.Series(dtype=str)).eq("ASSET_NOT_FETCHED").all() else "FAIL", "observed": "ROUTING_ONLY"})
         quality.append({"check": "section_materialized", "status": "PASS" if len(frames["posting_section"]) == 84 else "FAIL", "observed": len(frames["posting_section"])})
     elif stage == "04SplitTracks":
@@ -518,7 +526,7 @@ def run_observed_stage(
         duty = validate_observed_duty_input_handoff(duty_path)
         outputs.append(duty_path)
         metrics.update({"requirementRows": len(frames["requirement_fact"]), "dutyRows": duty["rowCount"], "dutyRowsSha256": duty["rowsSha256"], "warehouseInventory": observed_inventory(database)})
-        quality.append({"check": "requirement_evidence", "status": "PASS" if frames["requirement_fact"]["sectionId"].notna().all() else "FAIL", "observed": len(frames["requirement_fact"])})
+        quality.append({"check": "requirement_evidence", "status": "PASS" if frames["requirement_fact"][["sectionId", "sourceBlockId"]].notna().all().all() else "FAIL", "observed": len(frames["requirement_fact"])})
         quality.append({"check": "duty_handoff", "status": "PASS" if duty["rowCount"] == 28 else "FAIL", "observed": duty["rowCount"]})
     elif stage == "06Deduplicate90Days":
         source = _load_frames(database)

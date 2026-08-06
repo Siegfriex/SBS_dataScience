@@ -262,6 +262,10 @@ def build_export_frames(
             ]
         )
     )
+    source_blocks = _provenance(frames.get("source_block", pd.DataFrame()).copy())
+    section_source_blocks = _provenance(frames.get("section_source_block", pd.DataFrame()).copy())
+    semantic_chunks = _provenance(frames.get("semantic_chunk", pd.DataFrame()).copy())
+    chunk_roles = _provenance(frames.get("chunk_role", pd.DataFrame()).copy())
 
     req = _requirement_aggregate(frames)
     final = tracks.merge(normalized, on=["postingId", "inputSha256"], how="left", suffixes=("", "_posting"))
@@ -309,6 +313,10 @@ def build_export_frames(
         "posting_tracks": tracks,
         "posting_sections": sections,
         "requirement_facts": requirements,
+        "source_blocks": source_blocks,
+        "section_source_blocks": section_source_blocks,
+        "semantic_chunks": semantic_chunks,
+        "chunk_roles": chunk_roles,
         "career_access_labels": labels,
         "posting_ncs_candidates": candidates,
         "posting_ncs_matches": matches,
@@ -360,6 +368,10 @@ def validate_export_bundle(frames: Mapping[str, pd.DataFrame], output_root: str 
     tracks = frames["posting_tracks"]
     sections = frames["posting_sections"]
     requirements = frames["requirement_facts"]
+    source_blocks = frames.get("source_blocks", pd.DataFrame())
+    section_source_blocks = frames.get("section_source_blocks", pd.DataFrame())
+    semantic_chunks = frames.get("semantic_chunks", pd.DataFrame())
+    chunk_roles = frames.get("chunk_roles", pd.DataFrame())
     final = frames["preprocessed_posting_tracks"]
     candidates = frames["posting_ncs_candidates"]
     matches = frames["posting_ncs_matches"]
@@ -370,6 +382,15 @@ def validate_export_bundle(frames: Mapping[str, pd.DataFrame], output_root: str 
     add("track_fk", tracks["postingId"].isin(normalized["postingId"]).all(), int((~tracks["postingId"].isin(normalized["postingId"])).sum()))
     add("section_fk", sections["trackId"].isin(tracks["trackId"]).all(), int((~sections["trackId"].isin(tracks["trackId"])).sum()))
     add("requirement_fk", requirements["sectionId"].isin(sections["sectionId"]).all(), int((~requirements["sectionId"].isin(sections["sectionId"])).sum()))
+    if not source_blocks.empty:
+        add("source_block_pk", not source_blocks["sourceBlockId"].duplicated().any(), int(source_blocks["sourceBlockId"].duplicated().sum()))
+        add("source_block_posting_fk", source_blocks["postingId"].isin(normalized["postingId"]).all(), int((~source_blocks["postingId"].isin(normalized["postingId"])).sum()))
+        add("section_source_block_fk", section_source_blocks["sectionId"].isin(sections["sectionId"]).all() and section_source_blocks["sourceBlockId"].isin(source_blocks["sourceBlockId"]).all(), int((~section_source_blocks["sourceBlockId"].isin(source_blocks["sourceBlockId"])).sum()))
+        add("requirement_source_block_fk", requirements["sourceBlockId"].notna().all() and requirements["sourceBlockId"].isin(source_blocks["sourceBlockId"]).all(), int(requirements["sourceBlockId"].isna().sum() + (~requirements["sourceBlockId"].isin(source_blocks["sourceBlockId"])).sum()))
+    if not semantic_chunks.empty:
+        add("semantic_chunk_pk", not semantic_chunks["chunkId"].duplicated().any(), int(semantic_chunks["chunkId"].duplicated().sum()))
+        add("semantic_chunk_source_block_fk", semantic_chunks["sourceBlockId"].isin(source_blocks["sourceBlockId"]).all(), int((~semantic_chunks["sourceBlockId"].isin(source_blocks["sourceBlockId"])).sum()))
+        add("chunk_role_fk", chunk_roles["chunkId"].isin(semantic_chunks["chunkId"]).all(), int((~chunk_roles["chunkId"].isin(semantic_chunks["chunkId"])).sum()))
     add("raw_sha_lineage", final["rawSha256"].fillna("").str.fullmatch(r"[0-9a-f]{64}").all(), int(final["rawSha256"].isna().sum()))
     required_non_null = ["trackId", "postingId", "sourcePostingId", "sourceUrl", "postingEligibleFlag", "rawSha256"]
     null_counts = {column: int(final[column].isna().sum()) for column in required_non_null}

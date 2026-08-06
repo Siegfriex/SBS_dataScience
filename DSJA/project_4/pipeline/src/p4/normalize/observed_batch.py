@@ -16,6 +16,8 @@ from p4.normalize.linkareer import adapt_linkareer_source
 from p4.parse.linkareer_apollo_cache import extract_activity, find_apollo_cache
 from p4.parse.linkareer_next_data import extract_next_data, extract_page_props
 from p4.parse.requirements import extract_requirements
+from p4.source_blocks.build import build_source_block_bundle
+from p4.chunking.semantic import build_semantic_chunk_bundle
 from p4.normalize.semantic_recovery import (
     POSTING_KIND_ENUM,
     SEMANTIC_RECOVERY_VERSION,
@@ -307,6 +309,26 @@ def build_observed_batch(release_root: str | Path, crawl_root: str | Path) -> di
         "ocr_queue": pd.DataFrame(ocr_queue),
         "manifest_cursor": pd.DataFrame(cursors),
     }
+    source_blocks, section_source_blocks = build_source_block_bundle(
+        frames["posting_normalized"], frames["posting_track"], frames["posting_section"]
+    )
+    semantic_chunks, chunk_roles = build_semantic_chunk_bundle(
+        frames["posting_section"], section_source_blocks
+    )
+    if len(frames["requirement_fact"]):
+        frames["requirement_fact"] = frames["requirement_fact"].merge(
+            section_source_blocks, on="sectionId", how="left", validate="many_to_one"
+        )
+        if frames["requirement_fact"]["sourceBlockId"].isna().any():
+            raise ValueError("every requirement fact requires sourceBlock lineage")
+    frames.update(
+        {
+            "source_block": source_blocks,
+            "section_source_block": section_source_blocks,
+            "semantic_chunk": semantic_chunks,
+            "chunk_role": chunk_roles,
+        }
+    )
     metrics = {
         "inputPostings": len(manifest),
         "parseSuccess": len(manifest) - len(parse_failures),
@@ -333,6 +355,9 @@ def build_observed_batch(release_root: str | Path, crawl_root: str | Path) -> di
         "ocrQueueRows": len(ocr_queue),
         "ocrAssetsFetched": 0,
         "ocrBenchmarkEligible": False,
+        "sourceBlockCount": len(source_blocks),
+        "semanticChunkCount": len(semantic_chunks),
+        "requirementSourceBlockCoverage": int(frames["requirement_fact"]["sourceBlockId"].notna().sum()),
     }
     return {"frames": frames, "metrics": metrics, "parseFailures": parse_failures}
 
