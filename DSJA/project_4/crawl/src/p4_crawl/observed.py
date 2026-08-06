@@ -119,7 +119,13 @@ def run_fixture_apq_query(crawl_root: Path, output_root: Path) -> dict:
     return audit
 
 
-def replay_observed_raw(project_root: Path, observed_root: Path, output_root: Path) -> dict:
+def replay_observed_raw(
+    project_root: Path,
+    observed_root: Path,
+    output_root: Path,
+    *,
+    raw_source_root: Path | None = None,
+) -> dict:
     """Parse all verified local raw SSR rows without persisting ActivityText or PII."""
 
     raw_rows = load_jsonl(observed_root / "raw_detail_manifest.jsonl")
@@ -127,7 +133,7 @@ def replay_observed_raw(project_root: Path, observed_root: Path, output_root: Pa
     failures = []
     for lineage in raw_rows:
         raw_path = require_repository_relative(lineage["rawPath"])
-        path = project_root / "crawl" / raw_path
+        path = (raw_source_root or (project_root / "crawl")) / raw_path
         try:
             body = gzip.open(path, "rb").read()
             if sha256_bytes(body) != lineage["rawSha256"] or len(body) != int(lineage["bytes"]):
@@ -155,6 +161,10 @@ def replay_observed_raw(project_root: Path, observed_root: Path, output_root: Pa
         "rawReplayPassed": len(records),
         "rawReplayFailed": len(failures),
         "activityTextRecovered": int(frame.get("activityTextAvailable", pd.Series(dtype=bool)).fillna(False).sum()) if not frame.empty else 0,
+        "activityTextAmbiguousAutoSelected": int(
+            ((frame.get("activityTextFallbackStatus", pd.Series(dtype=str)) == "AMBIGUOUS_STANDALONE")
+             & frame.get("activityTextAvailable", pd.Series(dtype=bool)).fillna(False)).sum()
+        ) if not frame.empty else 0,
         "assetCandidateRows": int(frame.get("assetCandidateCount", pd.Series(dtype=int)).fillna(0).sum()) if not frame.empty else 0,
         "rawBodyPersisted": False,
         "managerPiiPersisted": False,

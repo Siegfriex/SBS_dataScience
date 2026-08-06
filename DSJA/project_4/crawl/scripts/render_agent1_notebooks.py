@@ -70,11 +70,12 @@ persisted_files = [STAGE_ROOT / name for name in ["posting_discovery_index.parqu
         "operation": '''from p4_crawl.observed import replay_observed_raw
 
 OBSERVED_ROOT = INPUT_MANIFEST.parent
-metrics = replay_observed_raw(PROJECT_ROOT, OBSERVED_ROOT, STAGE_ROOT)
+metrics = replay_observed_raw(PROJECT_ROOT, OBSERVED_ROOT, STAGE_ROOT, raw_source_root=RAW_SOURCE_ROOT)
 quality = [
     quality_row("CRAWL_OBSERVED_INPUT_READY", "RAW_REPLAY", "ERROR", "PASS" if metrics["rawReplayPassed"] == 29 and metrics["rawReplayFailed"] == 0 else "FAIL", metrics["rawReplayPassed"], 29, "raw_replay_metrics.json"),
     quality_row("ACTIVITY_TEXT_RECOVERED", "SSR_APOLLO_PARSE", "ERROR", "PASS" if metrics["activityTextRecovered"] == 29 else "FAIL", metrics["activityTextRecovered"], 29, "posting_detail_replay.parquet"),
     quality_row("RAW_PII_NOT_PERSISTED", "PII_POLICY", "ERROR", "PASS" if not metrics["managerPiiPersisted"] else "FAIL", metrics["managerPiiPersisted"], False, "raw_replay_metrics.json"),
+    quality_row("ACTIVITY_TEXT_AMBIGUOUS_AUTO_SELECTION", "FALLBACK_POLICY", "ERROR", "PASS" if metrics["activityTextAmbiguousAutoSelected"] == 0 else "FAIL", metrics["activityTextAmbiguousAutoSelected"], 0, "raw_replay_metrics.json"),
 ]
 persisted_files = [STAGE_ROOT / name for name in ["posting_detail_replay.parquet", "posting_detail_replay.csv", "raw_replay_failures.json", "raw_replay_metrics.json"]]''',
         "warning": "Only the 29 observed raw pages are replayed; this is not full-corpus detail coverage.",
@@ -112,7 +113,7 @@ observed_validation = validate_observed_package(INPUT_MANIFEST.parent)
 agent2_validation = invoke_agent2_validator(
     PROJECT_ROOT,
     CRAWL_ROOT / "releases" / CRAWL_RELEASE_ID / "HANDOFF.json",
-    run_id=config.data_version,
+    run_id=config.run_id,
 )
 atomic_write_json(STAGE_ROOT / "observed_package_validation.json", observed_validation)
 atomic_write_json(STAGE_ROOT / "agent2_validator_result.json", agent2_validation)
@@ -175,7 +176,8 @@ RANDOM_SEED = 20260806
 FAIL_ON_GATE = True
 EMPIRICAL_ANALYSIS_ALLOWED = False'''
 
-ENVIRONMENT = '''from pathlib import Path
+ENVIRONMENT = '''import os
+from pathlib import Path
 import sys
 
 def locate_project_root(start: Path) -> Path:
@@ -201,6 +203,9 @@ require_repository_relative(INPUT_MANIFEST_PATH)
 require_repository_relative(OUTPUT_ROOT)
 
 CRAWL_ROOT = PROJECT_ROOT / "crawl"
+RAW_SOURCE_ROOT = Path(os.environ.get("P4_CRAWL_RAW_SOURCE_ROOT", str(CRAWL_ROOT))).resolve()
+if not (RAW_SOURCE_ROOT / "data/raw").is_dir():
+    RAW_SOURCE_ROOT = CRAWL_ROOT
 RUN_ROOT = PROJECT_ROOT / OUTPUT_ROOT
 STAGE_ROOT = RUN_ROOT / STAGE_ID
 INPUT_MANIFEST = PROJECT_ROOT / INPUT_MANIFEST_PATH
