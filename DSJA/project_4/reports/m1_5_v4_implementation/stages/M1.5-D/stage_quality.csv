@@ -1,0 +1,6 @@
+stageId,gateId,status,evidence,runId
+M1.5-D,NCS_CANONICAL_CORPUS_READY,BLOCKED,candidate manifest built; bridge/crosswalk absent; dependencies blocked,M1_5_V4_IMPLEMENTATION_20260806_01
+M1.5-D,NCS_RETRIEVAL_BENCHMARK_READY,BLOCKED,implementation tests PASS; no fixed real benchmark/reference,M1_5_V4_IMPLEMENTATION_20260806_01
+M1.5-D,CALIBRATION_READY,BLOCKED,no 2025 reference labels; zero-row artifact is NOT_EVALUATED,M1_5_V4_IMPLEMENTATION_20260806_01
+M1.5-D,SELECTIVE_PREDICTION_READY,BLOCKED,implementation tests PASS; no fitted calibration model,M1_5_V4_IMPLEMENTATION_20260806_01
+M1.5-D,TEMPORAL_AUDIT_FRAME_READY,BLOCKED,split policy tests PASS; no reference rows,M1_5_V4_IMPLEMENTATION_20260806_01

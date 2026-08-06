@@ -1,0 +1,2 @@
+splitPolicy,rowCount,leakageCount,status,reason
+development=2020-2024;validation=2025;audit=2026YTD,0,0,NOT_EVALUATED,NO_REFERENCE_ROWS; 2026 not used for tuning

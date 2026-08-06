@@ -1,0 +1,278 @@
+sourceBlockId,postingId,rawPostingId,assetId,sourceMode,sourceText,startChar,endChar,pageNo,bboxJson,rawSha256,parserVersion
+SBK_f0f75a9c99ad3d78f1d335e0,PST_76616932d1f2d20dc518,RAW_4e22b9e9d294a59efb4c,,ACTIVITY_TEXT,"[SH에너지화학] 생산본부 환경안전팀(관리직) 신입 채용(~3/9)
+​
+- 서류전형 > 인성검사/필기시험 > 1차면접 > 2차면접 > 최종합격",0,79,,,7db73da84d23a74e52678c65d425473d9cc20ef2cf61c450034dbb0d56e5e23a,observed-dev-parse-20260806.1
+SBK_b40e4a11db134f6000e2a62d,PST_76616932d1f2d20dc518,RAW_4e22b9e9d294a59efb4c,,ACTIVITY_TEXT,"- 환경안전
+- 공장 내 점검활동을 통해 유해위험요소의 발굴에 따른 개선
+- 보완업무 진행 및 각종 공사관련 사항에 대한 검토 및 관리업무",80,157,,,7db73da84d23a74e52678c65d425473d9cc20ef2cf61c450034dbb0d56e5e23a,observed-dev-parse-20260806.1
+SBK_dcb5e06987fc239d116fe9c4,PST_76616932d1f2d20dc518,RAW_4e22b9e9d294a59efb4c,,ACTIVITY_TEXT,- 4년제 대학 졸업예정 또는 졸업자,158,178,,,7db73da84d23a74e52678c65d425473d9cc20ef2cf61c450034dbb0d56e5e23a,observed-dev-parse-20260806.1
+SBK_449bd7343f86e5f455678612,PST_11dcd85fd4fd1bf1511c,RAW_9fc2c439e367eed8f8cc,,ACTIVITY_TEXT,"[한국임업진흥원] 각 부문별 신입 및 경력 채용(~3/14)
+​
+- 서류전형 > 필기전형 > 면접전형 > 최종합격",0,63,,,252071e38ccf4dc50b8b8f870adb8c90a47c1aa85261b92e0d02f1869adf0706,observed-dev-parse-20260806.1
+SBK_a3980bdab8a4cc461aa4efd1,PST_11dcd85fd4fd1bf1511c,RAW_9fc2c439e367eed8f8cc,,ACTIVITY_TEXT,"- 일반직
+- 공무직
+- 임업소득지원
+- 산림자원보호
+- 기관 정보화 업무
+- IT인프라
+- 일반사무 사업수행지원 등",64,129,,,252071e38ccf4dc50b8b8f870adb8c90a47c1aa85261b92e0d02f1869adf0706,observed-dev-parse-20260806.1
+SBK_7a64588fccdd65ecbb5591ab,PST_11dcd85fd4fd1bf1511c,RAW_9fc2c439e367eed8f8cc,,ACTIVITY_TEXT,- 공고참조,130,136,,,252071e38ccf4dc50b8b8f870adb8c90a47c1aa85261b92e0d02f1869adf0706,observed-dev-parse-20260806.1
+SBK_f4c586b3b40bf6ef86851e63,PST_6ce18a38beccb829de31,RAW_6e4d07d621ddbb05e1e5,,ACTIVITY_TEXT,"[코오롱아우토] Audi 공식딜러! AS본부 직무별 신입/경력 채용(~채용시 마감)
+​
+- 서류전형 > 1차면접 > 최종면접 > 채용검진 > 최종합격",0,83,,,024b8ce6b7b2eb9d8c05f4aa05b95af611d8f1ab8732ce01cdd0d2ea31d7f842,observed-dev-parse-20260806.1
+SBK_2f2f0c87c4fa2756a5806d87,PST_6ce18a38beccb829de31,RAW_6e4d07d621ddbb05e1e5,,ACTIVITY_TEXT,"- 일반정비
+- 어드바이저
+- 차량점검 및 수리
+- 정비차량 접수/견적
+- 고객관리",84,130,,,024b8ce6b7b2eb9d8c05f4aa05b95af611d8f1ab8732ce01cdd0d2ea31d7f842,observed-dev-parse-20260806.1
+SBK_fcce4d840c4639fd2b46ad95,PST_6ce18a38beccb829de31,RAW_6e4d07d621ddbb05e1e5,,ACTIVITY_TEXT,- 운전가능자,131,138,,,024b8ce6b7b2eb9d8c05f4aa05b95af611d8f1ab8732ce01cdd0d2ea31d7f842,observed-dev-parse-20260806.1
+SBK_de0e5337afc859df0c973050,PST_7404b3b92cd76bc70a0f,RAW_be08d539bcd7486bdac9,,ACTIVITY_TEXT,"[NICE정보통신] 다양한 복리후생! 2021년 상반기 수시 채용(~3/15)
+​
+- 서류전형 > 실무면접 > 임원면접 > 신체검사 > 최종합격",0,80,,,3920d98d42e92c2f8a3065c652f5c6aa0af998c44cb1eea704ed4b0c4f76e029,observed-dev-parse-20260806.1
+SBK_0618d848ff59bd628ace3537,PST_7404b3b92cd76bc70a0f,RAW_be08d539bcd7486bdac9,,ACTIVITY_TEXT,"- 원가 기획 및 전략
+- 인사/총무
+- 영업/마케팅
+- 서비스 개발
+- 정보보호
+- 시스템 개발
+- 네트워크
+- 정산
+- 인바운드
+- 원가분석,관리회계,손익 및 정산관리
+- 고정자산/비품/계약 관리
+- 지역화폐 신규영업 및 고객사 관리
+- 입찰 제안서 작성
+- 정보보호시스템 구축 및 운영
+- 중계시스템 개발/운영
+- 네트워크 관련 업무 등",81,272,,,3920d98d42e92c2f8a3065c652f5c6aa0af998c44cb1eea704ed4b0c4f76e029,observed-dev-parse-20260806.1
+SBK_7ea5e1cec488fccfbf0a5d61,PST_7404b3b92cd76bc70a0f,RAW_be08d539bcd7486bdac9,,ACTIVITY_TEXT,- 공고참조,273,279,,,3920d98d42e92c2f8a3065c652f5c6aa0af998c44cb1eea704ed4b0c4f76e029,observed-dev-parse-20260806.1
+SBK_b74895d874b2ab87b8a34553,PST_4110b3e7191a4276286a,RAW_79c1c4cf4cb53c495ff0,,ACTIVITY_TEXT,"[대원제약] 다양한 복리후생! DNA 상반기 공개 채용(~3/14)
+​
+- 서류전형 > 인적성검사 > 1차면접 > 2차면접 > 최종합격",0,75,,,8217c0cb258250ceb09e6d832b2dfaa9d6a179da984b0ee3f77b7ba680111219,observed-dev-parse-20260806.1
+SBK_9ea4dd9c40fc103e9b0fe398,PST_4110b3e7191a4276286a,RAW_79c1c4cf4cb53c495ff0,,ACTIVITY_TEXT,"- 영업
+- OTC
+- 컨슈어 헬스케어
+- 해외 사업
+- 마케팅
+- 연구 등
+- ETC MR
+- 온라인 영업
+- 제품개발
+- 연구기획
+- 디지털 마케팅 등",76,162,,,8217c0cb258250ceb09e6d832b2dfaa9d6a179da984b0ee3f77b7ba680111219,observed-dev-parse-20260806.1
+SBK_c5403c5c7ad2d8e9aeb7c88c,PST_4110b3e7191a4276286a,RAW_79c1c4cf4cb53c495ff0,,ACTIVITY_TEXT,- 공고참조,163,169,,,8217c0cb258250ceb09e6d832b2dfaa9d6a179da984b0ee3f77b7ba680111219,observed-dev-parse-20260806.1
+SBK_d365efdfdf99a79798a4f760,PST_985496360bec63bea5c4,RAW_23e7471aebfcd49a7603,,ACTIVITY_TEXT,"[귀뚜라미그룹] 자녀학자금 지원! 각 부문 신입/경력사원 채용(~3/13)
+​
+- 서류전형 > 면접전형 > 신체검사 > 최종합격",0,71,,,12e0924a97fe7285d589855275772931a5ffca47c569b633d19fae18953ebb74,observed-dev-parse-20260806.1
+SBK_d1b9bd7b8e68df2404bfea5c,PST_985496360bec63bea5c4,RAW_23e7471aebfcd49a7603,,ACTIVITY_TEXT,"- 기술영업
+- 웹디자인
+- 전산개발
+- 경영기획
+- 구매/회계
+- 공고참조",72,114,,,12e0924a97fe7285d589855275772931a5ffca47c569b633d19fae18953ebb74,observed-dev-parse-20260806.1
+SBK_027d834c44b241bb6e8f4308,PST_985496360bec63bea5c4,RAW_23e7471aebfcd49a7603,,ACTIVITY_TEXT,- 직무별 상이,115,123,,,12e0924a97fe7285d589855275772931a5ffca47c569b633d19fae18953ebb74,observed-dev-parse-20260806.1
+SBK_68d4def50d0a40b5cdbaf268,PST_3d446f5f6ba04b3b58a4,RAW_b66ac732f3714cf8b4b6,,ACTIVITY_TEXT,"[판토스] 창원센터 환경/안전 관리자(기능직, 사무직) 채용(~3/15)
+​
+- 서류전형 > 1차면접 > 2차면접 > 건강검진 > 최종합격",0,77,,,9c8a94dc686d9d0037d302eca6e393627e7b1979ead256a246d357bca39bedf8,observed-dev-parse-20260806.1
+SBK_9a8761f8c9bba68942b066a6,PST_3d446f5f6ba04b3b58a4,RAW_b66ac732f3714cf8b4b6,,ACTIVITY_TEXT,"- 안전환경
+- 관리 계획 수립 및 활동 지원
+- 인원 육성 및 교육 관리
+- 센터 내 안전 관련 정기 점검 등",78,140,,,9c8a94dc686d9d0037d302eca6e393627e7b1979ead256a246d357bca39bedf8,observed-dev-parse-20260806.1
+SBK_c1c16b7a43d948fbae1871f3,PST_3d446f5f6ba04b3b58a4,RAW_b66ac732f3714cf8b4b6,,ACTIVITY_TEXT,- 전공무관,141,147,,,9c8a94dc686d9d0037d302eca6e393627e7b1979ead256a246d357bca39bedf8,observed-dev-parse-20260806.1
+SBK_94c207d340939d95a3d6a007,PST_617452578aac6fdfa98a,RAW_acf5aadb4f222a52424c,,ACTIVITY_TEXT,"[동부엔지니어링] 2021년 상반기 대졸 신입사원 채용(~3/10)
+​
+- 서류전형 > 면접전형 > 최종합격",0,60,,,ce884e1d66cb468009f39e1abc88965ff7b027789ba8f56722201c7deb2be441,observed-dev-parse-20260806.1
+SBK_2fe3d951236f253f4903078a,PST_617452578aac6fdfa98a,RAW_acf5aadb4f222a52424c,,ACTIVITY_TEXT,"- 도로공항설계
+- 구조설계
+- 지반설계
+- 교통설계
+- GIS S/W개발",61,102,,,ce884e1d66cb468009f39e1abc88965ff7b027789ba8f56722201c7deb2be441,observed-dev-parse-20260806.1
+SBK_d2cb6a2874c707b64a775cdd,PST_617452578aac6fdfa98a,RAW_acf5aadb4f222a52424c,,ACTIVITY_TEXT,- 4년제 대학 졸업 또는 2월 졸업자,103,124,,,ce884e1d66cb468009f39e1abc88965ff7b027789ba8f56722201c7deb2be441,observed-dev-parse-20260806.1
+SBK_148113300bda32b25342ffac,PST_249007188d9e248139d3,RAW_eceea4e5038258513ec2,,ACTIVITY_TEXT,"[울산문화재단] 신입 및 경력 직원 정기 채용(~3/10)
+​
+- 서류전형 > 필기심사 > 면접심사 > 최종합격",0,62,,,2a61d0d2fa856c8d1a53d3858581e08c01c6d4411f77c304469b1eafccd9ef8e,observed-dev-parse-20260806.1
+SBK_f6d97cbcc549739464e1381d,PST_249007188d9e248139d3,RAW_eceea4e5038258513ec2,,ACTIVITY_TEXT,"- 일반직
+- 재단 행정 업무 전반
+- 예술지원팀 사업 운영",63,96,,,2a61d0d2fa856c8d1a53d3858581e08c01c6d4411f77c304469b1eafccd9ef8e,observed-dev-parse-20260806.1
+SBK_f410da7a1709386f33865748,PST_249007188d9e248139d3,RAW_eceea4e5038258513ec2,,ACTIVITY_TEXT,- 18세 이상인 자,97,108,,,2a61d0d2fa856c8d1a53d3858581e08c01c6d4411f77c304469b1eafccd9ef8e,observed-dev-parse-20260806.1
+SBK_391bcfd82b52918e1dd048dd,PST_e6edebcc42bcfd107433,RAW_ef43e59924c13d7e535b,,ACTIVITY_TEXT,"[국제방송교류재단] 총 7명! 아리랑국제방송 신입 및 경력 채용(~3/21)
+​
+- 서류전형 > 필기시험 > 카메라테스트 및 실무면접 > 종합면접 > 최종합격",0,88,,,62ec91d3ebd44086bc1a1fe18d28f96e6e7637c3e5ede7f736058126db4ff836,observed-dev-parse-20260806.1
+SBK_710681c1a70725e96672c7bd,PST_e6edebcc42bcfd107433,RAW_ef43e59924c13d7e535b,,ACTIVITY_TEXT,"- 보도기자
+- TV제작PD
+- 재무회계
+- 산업안전보건
+- 정보화
+- 공고참조",89,133,,,62ec91d3ebd44086bc1a1fe18d28f96e6e7637c3e5ede7f736058126db4ff836,observed-dev-parse-20260806.1
+SBK_c25c0bf09b6378a71f4f5d1d,PST_e6edebcc42bcfd107433,RAW_ef43e59924c13d7e535b,,ACTIVITY_TEXT,- 직무기술서 상의 능력을 보유한 자,134,154,,,62ec91d3ebd44086bc1a1fe18d28f96e6e7637c3e5ede7f736058126db4ff836,observed-dev-parse-20260806.1
+SBK_7174215a1622afe8d1964dc2,PST_293b7ed0870eeca06d1e,RAW_0c378addd25ff4f2118e,,ACTIVITY_TEXT,"[현대제철] 주거지원! 생산기술/품질부문 신입 채용(~3/16)
+​
+- 서류전형/온라인 AI 역량검사 > 온라인 인성검사 > 1차면접 > 2차면접/신체검사 > 최종합격",0,93,,,c2299f7e64e79925acf706cfbb45fb02e26a58a42f89d9b5608c6e11cd019a5c,observed-dev-parse-20260806.1
+SBK_c3f5ce9b5f05cd501294d060,PST_293b7ed0870eeca06d1e,RAW_0c378addd25ff4f2118e,,ACTIVITY_TEXT,"- 생산기술
+- 수요산업 및 제품/기술동향 조사
+- 소재/강관제품 개발 및 시생산/평가 등",94,144,,,c2299f7e64e79925acf706cfbb45fb02e26a58a42f89d9b5608c6e11cd019a5c,observed-dev-parse-20260806.1
+SBK_db62f424254e1845b95066f1,PST_293b7ed0870eeca06d1e,RAW_0c378addd25ff4f2118e,,ACTIVITY_TEXT,- 국내외 4년제 대학교(원) 졸업자,145,165,,,c2299f7e64e79925acf706cfbb45fb02e26a58a42f89d9b5608c6e11cd019a5c,observed-dev-parse-20260806.1
+SBK_a7f36b47b8d4ef15364dc37e,PST_ab3ac38f124940380eba,RAW_281354fc5603af4cc5c0,,ACTIVITY_TEXT,"[금강주택] 총 00명! 각 부문 신입 및 경력 채용(~3/14)
+​
+- 서류전형 > 인적성검사 > 1차면접 > 2차면접 > 채용검진 > 최종합격",0,81,,,8ff4fe824127a32632db38de0ca0d70133a47688dafab770fabacc49266f1dc2,observed-dev-parse-20260806.1
+SBK_d1d0770b4ced2e9267c4ee15,PST_ab3ac38f124940380eba,RAW_281354fc5603af4cc5c0,,ACTIVITY_TEXT,"- 건축
+- 전기
+- 안전/보건
+- 개발사업
+- 인사총무
+- 법무
+- 자재 등
+- 건축시공,품질관리 및 하도급 관리
+- 건축현장 설비 시공 및 관리
+- 프로젝트별 설계 및 공법 적용 검토
+- 인사/교육/총무/홍보/전산
+- 건설 관련 자재 구매 및 관리 등",82,224,,,8ff4fe824127a32632db38de0ca0d70133a47688dafab770fabacc49266f1dc2,observed-dev-parse-20260806.1
+SBK_6ca9d7722cf79329aa476105,PST_ab3ac38f124940380eba,RAW_281354fc5603af4cc5c0,,ACTIVITY_TEXT,"- 4년제 대학교 졸업자 및 2월 졸업예정자
+- 각 직무별 관련학과 전공 및 관련 자격증 소지자",225,278,,,8ff4fe824127a32632db38de0ca0d70133a47688dafab770fabacc49266f1dc2,observed-dev-parse-20260806.1
+SBK_5e162699a71204dcece5e245,PST_8be4d7ea13dbb88c9849,RAW_228390d75740551dbe06,,ACTIVITY_TEXT,"[아이디어키] 야근강요 없음! 각 부문별 신입 및 경력 채용(~3/31)
+​
+- 서류전형 > 1차면접 > 2차면접 > 최종합격",0,70,,,66556ee2be76f35e9e8fc26e6b80160f38ea1dd8d15da21ffd6e90db29904030,observed-dev-parse-20260806.1
+SBK_930d9704da9e8185b9c33e73,PST_8be4d7ea13dbb88c9849,RAW_228390d75740551dbe06,,ACTIVITY_TEXT,"- 브랜드 마케팅
+- 이커머스 영업AE
+- 광고영업AE
+- 마케팅
+- 브랜드 바이럴 마케팅 기획 및 실행
+- 광고주 광고 연구 및 솔루션 분석
+- 디지털광고 제안 및 수주
+- 광고효과 분석 및 관리 등",71,183,,,66556ee2be76f35e9e8fc26e6b80160f38ea1dd8d15da21ffd6e90db29904030,observed-dev-parse-20260806.1
+SBK_d28dadc7e610cc58b0b89181,PST_8be4d7ea13dbb88c9849,RAW_228390d75740551dbe06,,ACTIVITY_TEXT,- 직무별 상이,184,192,,,66556ee2be76f35e9e8fc26e6b80160f38ea1dd8d15da21ffd6e90db29904030,observed-dev-parse-20260806.1
+SBK_029452c61ae72e8b7fdae580,PST_d781b57bb3519796f126,RAW_9f276c93524b80a4567b,,ACTIVITY_TEXT,"[태양금속공업] 기숙사 운영! 경영정보팀 신입사원 채용(~3/17)
+​
+- 서류전형 > 면접 > 심층면접 > 신체검사 > 최종합격",0,72,,,1076179905311c9952bf529fdea2218707afe5f0154573423c981492cbd077e3,observed-dev-parse-20260806.1
+SBK_f5e26527676e8642e83b4c41,PST_d781b57bb3519796f126,RAW_9f276c93524b80a4567b,,ACTIVITY_TEXT,"- 경영정보
+- ERP프로그램 개발/운영",73,95,,,1076179905311c9952bf529fdea2218707afe5f0154573423c981492cbd077e3,observed-dev-parse-20260806.1
+SBK_5acb92d13c6fa1ffa4aed693,PST_d781b57bb3519796f126,RAW_9f276c93524b80a4567b,,ACTIVITY_TEXT,"- 컴퓨터/전산관력학과 전공자
+- 정보처리기사 자격증",96,125,,,1076179905311c9952bf529fdea2218707afe5f0154573423c981492cbd077e3,observed-dev-parse-20260806.1
+SBK_d4a9353671aabb953ff750ee,PST_6b9fb7923e6b71c2db08,RAW_16ff7db80d0fe9de0bf9,,ACTIVITY_TEXT,"[ABC마트코리아] 재경부(재무팀 및 회계팀) 신입 및 경력 채용(~3/10)
+​
+- 온라인접수 > 면접전형 > 최종합격",0,67,,,da0b99ea90071cd7b506bc6ee3da0aeaf5050ff318927c31de1892217550ff97,observed-dev-parse-20260806.1
+SBK_3a996c9b6a181aa8b67f3520,PST_6b9fb7923e6b71c2db08,RAW_16ff7db80d0fe9de0bf9,,ACTIVITY_TEXT,"- 회계
+- 재무
+- 전표입력 및 계정명세 작성
+- 기타 서류 및 증빙 정리
+- 수수료 정산업무
+- 입출금 관리 및 은행업무 등",68,139,,,da0b99ea90071cd7b506bc6ee3da0aeaf5050ff318927c31de1892217550ff97,observed-dev-parse-20260806.1
+SBK_59745ec4503f1757b35c42d3,PST_6b9fb7923e6b71c2db08,RAW_16ff7db80d0fe9de0bf9,,ACTIVITY_TEXT,- 초대졸 이상,140,148,,,da0b99ea90071cd7b506bc6ee3da0aeaf5050ff318927c31de1892217550ff97,observed-dev-parse-20260806.1
+SBK_bcae45619e5f9b6cf8c6805d,PST_8d81a23c9ae9f4117f63,RAW_672daa63a3335d1d2c2b,,ACTIVITY_TEXT,"[신코] 자녀학자금 지원! 2021년 신입사원 채용(~4/30)
+​
+- 서류전형 > 인성검사 > 면접전형 > 최종합격",0,65,,,e0d1a377e43a3b198ea384d2221fd318dc2af5bb659434b08f953cc3d7283232,observed-dev-parse-20260806.1
+SBK_4d7c377eca30c1403790b416,PST_8d81a23c9ae9f4117f63,RAW_672daa63a3335d1d2c2b,,ACTIVITY_TEXT,"- 기술지원
+- 영업지원
+- 기술영업
+- 과학/분석 기기 엔지니어 업무
+- 입/출고 및 납품 등 영업지원 업무
+- 연구기자재 기술영업 업무 등",66,145,,,e0d1a377e43a3b198ea384d2221fd318dc2af5bb659434b08f953cc3d7283232,observed-dev-parse-20260806.1
+SBK_a0bce462986da3f0a8e9ee60,PST_8d81a23c9ae9f4117f63,RAW_672daa63a3335d1d2c2b,,ACTIVITY_TEXT,- 공고참조,146,152,,,e0d1a377e43a3b198ea384d2221fd318dc2af5bb659434b08f953cc3d7283232,observed-dev-parse-20260806.1
+SBK_a580eb010f20b340ac712d84,PST_7fe1ea5eea01fa31d636,RAW_475013aa52d4a59f6a3d,,ACTIVITY_TEXT,"[현대홈쇼핑] 현대백화점 계열사! 방송FD 전문직 채용(~3/11)
+​
+- 서류전형 > AI역량검사 > 실무면접 > 건강검진 > 최종합격",0,76,,,99f405607ec50d6c024257f59aec7fbcd1b590dabb26efb833a1ec0fd79e8709,observed-dev-parse-20260806.1
+SBK_d587f52c6a75678e67a20905,PST_7fe1ea5eea01fa31d636,RAW_475013aa52d4a59f6a3d,,ACTIVITY_TEXT,"- 방송FD
+- Live 방송 진행보조
+- 방송관련 업무지원",77,110,,,99f405607ec50d6c024257f59aec7fbcd1b590dabb26efb833a1ec0fd79e8709,observed-dev-parse-20260806.1
+SBK_2ead04f2d6589534dcf08f38,PST_7fe1ea5eea01fa31d636,RAW_475013aa52d4a59f6a3d,,ACTIVITY_TEXT,"-학력무관
+- 스케줄 근무 가능자",111,129,,,99f405607ec50d6c024257f59aec7fbcd1b590dabb26efb833a1ec0fd79e8709,observed-dev-parse-20260806.1
+SBK_c5a2e5941919635c82a5e32f,PST_9f20db26e566977eba4e,RAW_2a42e7174c12cd3e71d1,,ACTIVITY_TEXT,"[한섬] 현대백화점 계열사! 생산팀 사무행정 직원 채용(~채용시 마감)
+​
+- 서류전형 > 인적성 검사 > 면접 전형 > 최종 입사",0,73,,,9729485d93c130d3d69d3000dd665cafb0351553afce27affc1aba099ed9da2c,observed-dev-parse-20260806.1
+SBK_df619e8036581c518b883c97,PST_9f20db26e566977eba4e,RAW_2a42e7174c12cd3e71d1,,ACTIVITY_TEXT,"- 타임생산/악세사리 생산
+- 작업지시서 입력/원가입력/수정사항 및 행정 업무
+- 택/라벨 및 포장 부자재 발주 및 수불업무
+- 마감 업무 등",74,153,,,9729485d93c130d3d69d3000dd665cafb0351553afce27affc1aba099ed9da2c,observed-dev-parse-20260806.1
+SBK_630bb5f7ca7d046770b54ddb,PST_9f20db26e566977eba4e,RAW_2a42e7174c12cd3e71d1,,ACTIVITY_TEXT,- 초대졸,154,159,,,9729485d93c130d3d69d3000dd665cafb0351553afce27affc1aba099ed9da2c,observed-dev-parse-20260806.1
+SBK_44ad302b0ac16686e8471555,PST_da406f2484cf78d595ff,RAW_9aa06bbc1001bb3dc324,,ACTIVITY_TEXT,"[케이아이디비채권중개] 월 200만원! 채용조건부 인턴 채용(~3/14)
+​
+- 서류전형 > 1차면접 > 2차면접 > 최종합격",0,70,,,a0f7f6bfcd41b03c22c084e088cef880c070e50b43202e5825fe0df2c1ed44f5,observed-dev-parse-20260806.1
+SBK_98949d5d043810416ab56d70,PST_da406f2484cf78d595ff,RAW_9aa06bbc1001bb3dc324,,ACTIVITY_TEXT,"- 채권시장 중개
+- 태양관 발전사업 영업
+- 금융기관 간 채권 중개",71,109,,,a0f7f6bfcd41b03c22c084e088cef880c070e50b43202e5825fe0df2c1ed44f5,observed-dev-parse-20260806.1
+SBK_bb7d2f720eaf38766b990baf,PST_da406f2484cf78d595ff,RAW_9aa06bbc1001bb3dc324,,ACTIVITY_TEXT,"- 4년제 대졸 이상 또는 9월 졸업예정자
+- 전공무관 등",110,142,,,a0f7f6bfcd41b03c22c084e088cef880c070e50b43202e5825fe0df2c1ed44f5,observed-dev-parse-20260806.1
+SBK_65a19d1285ea2ad2bd4d6d6b,PST_e0d677971f5f82c7437a,RAW_f00bf56c83f7900ce45b,,ACTIVITY_TEXT,"[종근당] 유연근무제 시행! 2021년 수시 채용(~3/14)
+​
+- 서류전형 및 AI면접 > 1차면접 > 2차면접 > 채용검진 > 최종합격",0,78,,,48bfccdccf17ae2e62d7148a276de80d02ed4543a959a293e0a9561bc722a109,observed-dev-parse-20260806.1
+SBK_e04598a367f91569b505237d,PST_e0d677971f5f82c7437a,RAW_f00bf56c83f7900ce45b,,ACTIVITY_TEXT,"- 의약품 관리약사
+- 의약품 생산
+- 회의약품 제조관리, 생상공정관리 및 변경관리 업무
+- 내용고형제 포장공정설비 운영지원
+- 의약품 생산 업무 등",79,162,,,48bfccdccf17ae2e62d7148a276de80d02ed4543a959a293e0a9561bc722a109,observed-dev-parse-20260806.1
+SBK_7975fb0b124ab3052f6ffac5,PST_e0d677971f5f82c7437a,RAW_f00bf56c83f7900ce45b,,ACTIVITY_TEXT,- 기졸업자 및 졸업예정자 지원 가능,163,183,,,48bfccdccf17ae2e62d7148a276de80d02ed4543a959a293e0a9561bc722a109,observed-dev-parse-20260806.1
+SBK_d35edac3c09bd536d30b95a4,PST_84b7cda3e95e48adceb0,RAW_f79d9c43a86542602139,,ACTIVITY_TEXT,"[한국국제협력단] KOICA 해외사무소/재외공관 영프로페셔널(청년인턴) 채용(~3/18)
+​
+- 서류전형 > 적합도검사, 면접전형 > 최종합격",0,79,,,c4d68db9d9cce3e798276d64c22765f5bfa71b5acf665740661e525f32a2490d,observed-dev-parse-20260806.1
+SBK_3d6997e4f33d5cf069c041bd,PST_84b7cda3e95e48adceb0,RAW_f79d9c43a86542602139,,ACTIVITY_TEXT,"- ODA사업
+- 공고참조",80,94,,,c4d68db9d9cce3e798276d64c22765f5bfa71b5acf665740661e525f32a2490d,observed-dev-parse-20260806.1
+SBK_7e04dfd2abf544393c2be5f8,PST_84b7cda3e95e48adceb0,RAW_f79d9c43a86542602139,,ACTIVITY_TEXT,"- 만 19세 이상 만 34세 이하
+- 공인영어성적",95,123,,,c4d68db9d9cce3e798276d64c22765f5bfa71b5acf665740661e525f32a2490d,observed-dev-parse-20260806.1
+SBK_3aac0b8d0486175dd75dd380,PST_4929fbbc810b91347270,RAW_6ad9861cc00472c53352,,ACTIVITY_TEXT,"[비상교육] 금연정책 시행기업! 각 부문별 신입 및 경력 채용(~3/10)
+​
+- 서류전형 및 1차면접 > 인적성검사 > 2차면접 > 최종합격",0,79,,,ee961629b7cb1352379fb838b0c8923da1edc3fe21f116fa96bb852d1371ef58,observed-dev-parse-20260806.1
+SBK_1b6f1f76acb9cce9b69f352d,PST_4929fbbc810b91347270,RAW_6ad9861cc00472c53352,,ACTIVITY_TEXT,"- IT
+- 마케팅
+- 기획
+- 교과서/교재개발 등
+- 웹/앱 개발 및 기획
+- 브랜드 마케팅
+- 회계
+- 물류관리
+- 교과서 개발 등",80,155,,,ee961629b7cb1352379fb838b0c8923da1edc3fe21f116fa96bb852d1371ef58,observed-dev-parse-20260806.1
+SBK_2873e72b8df20546fffd3d85,PST_4929fbbc810b91347270,RAW_6ad9861cc00472c53352,,ACTIVITY_TEXT,- 공고참조,156,162,,,ee961629b7cb1352379fb838b0c8923da1edc3fe21f116fa96bb852d1371ef58,observed-dev-parse-20260806.1
+SBK_c7798f7974dac84b556e426d,PST_389b366916928ce059a1,RAW_8347b74715562b04405a,,ACTIVITY_TEXT,"[현대리바트] 현대백화점 계열사! 기계설비 생산전문직 채용(~3/9)
+​
+- 서류전형 > 면접전형 > 신체검사 > 최종합격",0,68,,,81c58897baaa45ac4d54f1f5bd8461f520cf987eb6e4b65b4ddef50e06af00ae,observed-dev-parse-20260806.1
+SBK_d04e8616b2eefa7f86c9a9c1,PST_389b366916928ce059a1,RAW_8347b74715562b04405a,,ACTIVITY_TEXT,"- 기계설비
+- 자동화 기계",69,84,,,81c58897baaa45ac4d54f1f5bd8461f520cf987eb6e4b65b4ddef50e06af00ae,observed-dev-parse-20260806.1
+SBK_ec175f6ffb57d3ed7a8dd2e9,PST_389b366916928ce059a1,RAW_8347b74715562b04405a,,ACTIVITY_TEXT,- 초대졸 이상,85,93,,,81c58897baaa45ac4d54f1f5bd8461f520cf987eb6e4b65b4ddef50e06af00ae,observed-dev-parse-20260806.1
+SBK_29d2ecd897e63afd2f53c3b9,PST_7e8cd135230f013dffce,RAW_d92d34b2086d81b18226,,ACTIVITY_TEXT,"[CS홀딩스] 초봉 3,600만원! 신입/경력 채용(~3/15)
+​
+- 서류전형 > 인적성검사(온라인) > 실무진 면접 > 심층(PT)면접 > 임원진면접 > 채용검진 > 최종합격",0,99,,,d08c890ca45f916f6a478e8e18b7aa99734b06056bf3e3c4ec3f55ee2dabf79a,observed-dev-parse-20260806.1
+SBK_2da3517eee1312ecbfbce7a5,PST_7e8cd135230f013dffce,RAW_d92d34b2086d81b18226,,ACTIVITY_TEXT,"- 경영관리
+- 해외영업
+- 기술연구소
+- 사업계획 수립 및 KPI관리
+- 제품 해외영업
+- 용접재료 개발/개선 등",100,164,,,d08c890ca45f916f6a478e8e18b7aa99734b06056bf3e3c4ec3f55ee2dabf79a,observed-dev-parse-20260806.1
+SBK_5f8f4857ee1839c3bd919ed3,PST_7e8cd135230f013dffce,RAW_d92d34b2086d81b18226,,ACTIVITY_TEXT,- 공고참조,165,171,,,d08c890ca45f916f6a478e8e18b7aa99734b06056bf3e3c4ec3f55ee2dabf79a,observed-dev-parse-20260806.1
+SBK_8301c81c59d9e4965d50c38b,PST_bd774f58cc33ba2b7644,RAW_13562d87bb6d53003ac5,,ACTIVITY_TEXT,"[경향신문사] 나이/학력제한 없음! 57기 수습기자 채용(~3/8)
+​
+- 서류전형 > 필기시험(종합교양, 논술) > 실무능력평가/실무면접 > 최종면접",0,84,,,3aa417eef672a56fcce159a0176393dc4df1cafbb86b5d5a9e827ad8a3e15c3c,observed-dev-parse-20260806.1
+SBK_2740c94f6cb6be64b874e95d,PST_bd774f58cc33ba2b7644,RAW_13562d87bb6d53003ac5,,ACTIVITY_TEXT,"- 수습기자
+- 취재
+- 지역주재
+- 사진",85,108,,,3aa417eef672a56fcce159a0176393dc4df1cafbb86b5d5a9e827ad8a3e15c3c,observed-dev-parse-20260806.1
+SBK_61bf675087667be9eb5a8626,PST_bd774f58cc33ba2b7644,RAW_13562d87bb6d53003ac5,,ACTIVITY_TEXT,"- 나이/학력 제한 없음
+- 공인 영어성적
+- 공인 국어성적",109,142,,,3aa417eef672a56fcce159a0176393dc4df1cafbb86b5d5a9e827ad8a3e15c3c,observed-dev-parse-20260806.1
+SBK_d54c2ffa002052030cfb0f25,PST_cc9007db559c58121210,RAW_17636a91434950772c27,,ACTIVITY_TEXT,"[이베스트투자증권] 자녀학자금 지원! 채권영업 인턴 채용(~3/14)
+​
+- 서류전형 > 1차면접 > 2차면접 > 신체검사 > 최종합격",0,75,,,21f527cc8400414969d11addc767ca96fb751fb6bdeb968e4935c05a130cf1c9,observed-dev-parse-20260806.1
+SBK_467f8e2f9cc4f721fcd0f815,PST_cc9007db559c58121210,RAW_17636a91434950772c27,,ACTIVITY_TEXT,- 채권영업,76,82,,,21f527cc8400414969d11addc767ca96fb751fb6bdeb968e4935c05a130cf1c9,observed-dev-parse-20260806.1
+SBK_cd76df34a6ce3954c7a23d0d,PST_cc9007db559c58121210,RAW_17636a91434950772c27,,ACTIVITY_TEXT,- 금융투자업 전반에 대한 이해가 풍부한 자,83,107,,,21f527cc8400414969d11addc767ca96fb751fb6bdeb968e4935c05a130cf1c9,observed-dev-parse-20260806.1
+SBK_8cc03f4853bc0b5f6c6885f8,PST_38610d26f66ea5e672ce,RAW_68e30c2681907d7e551b,,ACTIVITY_TEXT,"[APR] 월 250만원! 자사몰 MD 인턴 채용(~3/11)
+​
+- 서류전형 > 인성검사 > 1차면접 > 인턴십",0,63,,,e3f52a11f77022683614769c0324bfa12cf1da362e3d981d329069a5c39a9586,observed-dev-parse-20260806.1
+SBK_d47c3a5dea022a48f3a24e70,PST_38610d26f66ea5e672ce,RAW_68e30c2681907d7e551b,,ACTIVITY_TEXT,"- 자사몰 MD
+- 자사몰 판매 분석에 따른 주차별 판매 프로모션 기획 및 분석
+- 상품관리
+- 고객관리
+- 자사몰 UI/UX 관리 및 개선 등",64,144,,,e3f52a11f77022683614769c0324bfa12cf1da362e3d981d329069a5c39a9586,observed-dev-parse-20260806.1
+SBK_ccc87552f4ad7833577b840e,PST_38610d26f66ea5e672ce,RAW_68e30c2681907d7e551b,,ACTIVITY_TEXT,- 대졸 또는 8월 졸업예정자 등,145,163,,,e3f52a11f77022683614769c0324bfa12cf1da362e3d981d329069a5c39a9586,observed-dev-parse-20260806.1
+SBK_f6e66dcaf12c720e4eb1f825,PST_2d8b2c511b01ca35b4ae,RAW_925269e1133d6fd38cae,,ACTIVITY_TEXT,"[태경농산] 농심그룹 계열사! 각 부문별 신입 및 경력 채용(~3/21)
+​
+- 서류전형 > 인적성검사 > 실무면접 > 임원면접 > 최종합격",0,78,,,1c85f79dca27d8560c9a93913b8a9cde3fdadd6c0087e1e53c152b3261d0da87,observed-dev-parse-20260806.1
+SBK_25868a19f46bc1878da78ac0,PST_2d8b2c511b01ca35b4ae,RAW_925269e1133d6fd38cae,,ACTIVITY_TEXT,"- 경영관리
+- 연구개발
+- 생산기획
+- 생산관리
+- 기계/설비관리
+- 산업안전 관리
+- 기획업무
+- 식품가공기술연구
+- 공장관리업무
+- 포장관련 설비 관리
+- 사업장 안전 관리 등",79,180,,,1c85f79dca27d8560c9a93913b8a9cde3fdadd6c0087e1e53c152b3261d0da87,observed-dev-parse-20260806.1
+SBK_c06ee6ffe64f120c74b2d2dc,PST_2d8b2c511b01ca35b4ae,RAW_925269e1133d6fd38cae,,ACTIVITY_TEXT,- 정규 4년제 대학졸업 이상 학력 소지자,181,204,,,1c85f79dca27d8560c9a93913b8a9cde3fdadd6c0087e1e53c152b3261d0da87,observed-dev-parse-20260806.1

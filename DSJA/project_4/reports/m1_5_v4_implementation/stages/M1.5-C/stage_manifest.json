@@ -1,0 +1,14 @@
+{
+  "articleNumbersGenerated": 0,
+  "authoritySsotSha256": "409866c166ce3874ce587ad3b1230bc530c036e9682be01bf3466aa1fd37a05a",
+  "currentRunManifestCount": 1,
+  "evidencePaths": [],
+  "implementationGitHead": "a2fe4fe61e1e9cda578e36ddb5ec0452850a5501",
+  "liveApiProbeCalls": 0,
+  "productionLinkareerNetworkCalls": 0,
+  "runId": "M1_5_V4_IMPLEMENTATION_20260806_01",
+  "runMode": "OFFLINE_OBSERVED_IMPLEMENTATION_AUDIT",
+  "stageId": "M1.5-C",
+  "stageName": "Reference Infrastructure",
+  "status": "BLOCKED"
+}

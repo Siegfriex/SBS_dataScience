@@ -1,0 +1,7 @@
+apiContractId,provider,endpointPath,registryStatus,fixtureCases,fixtureClass,parserTest,liveProbeStatus,credentialLogged,fixtureRoot
+NCS-ncsCdInfo-v4.0,NCS_OPENAPI,/ncsCdInfo,PROVISIONAL,4,SYNTHETIC_CONTRACT_FIXTURE,PASS,NOT_EVALUATED,0,ncs_mapping/data/raw/api_fixtures/ncs
+NCS-ncsDutyInfo-v4.0,NCS_OPENAPI,/ncsDutyInfo,PROVISIONAL,4,SYNTHETIC_CONTRACT_FIXTURE,PASS,NOT_EVALUATED,0,ncs_mapping/data/raw/api_fixtures/ncs
+NCS-ncsCompeUnitInfo-v4.0,NCS_OPENAPI,/ncsCompeUnitInfo,PROVISIONAL,4,SYNTHETIC_CONTRACT_FIXTURE,PASS,NOT_EVALUATED,0,ncs_mapping/data/raw/api_fixtures/ncs
+NCS-ncsCompeUnitFactrInfo-v4.0,NCS_OPENAPI,/ncsCompeUnitFactrInfo,PROVISIONAL,4,SYNTHETIC_CONTRACT_FIXTURE,PASS,NOT_EVALUATED,0,ncs_mapping/data/raw/api_fixtures/ncs
+NCS-ncsKsaInfo-v4.0,NCS_OPENAPI,/ncsKsaInfo,PROVISIONAL,4,SYNTHETIC_CONTRACT_FIXTURE,PASS,NOT_EVALUATED,0,ncs_mapping/data/raw/api_fixtures/ncs
+WORK24-job-dictionary-v4.0,WORK24,/cm/openApi/call/wk/callOpenApiSvcInfo215L11.do,PROVISIONAL,4,SYNTHETIC_CONTRACT_FIXTURE,PASS,NOT_EVALUATED,0,ncs_mapping/data/raw/api_fixtures/work24

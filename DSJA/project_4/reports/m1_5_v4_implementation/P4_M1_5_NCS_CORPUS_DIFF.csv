@@ -1,0 +1,2 @@
+fromVersion,toVersion,status,reason,abilityUnitRows,nodeRows,edgeRows,bridgeRows,crosswalkRows,promotionAllowed
+NONE,ncs-candidate-2026-02-20-v4.0,NOT_EVALUATED,NO_COMPARABLE_PRIOR_V4_CORPUS_RELEASE,13442,14930,14906,0,0,False

@@ -1,0 +1,5 @@
+stageId,gateId,status,evidence,runId
+M1.5-P,NCS_API_CONTRACT_PROBED,NOT_EVALUATED,credential/network not used; synthetic fixtures only,M1_5_V4_IMPLEMENTATION_20260806_01
+M1.5-P,WORK24_API_CONTRACT_PROBED,NOT_EVALUATED,credential/network not used; synthetic fixtures only,M1_5_V4_IMPLEMENTATION_20260806_01
+M1.5-P,API_ERROR_CONTRACT_READY,PASS,8 success/empty/auth/parameter fixtures; parser tests PASS,M1_5_V4_IMPLEMENTATION_20260806_01
+M1.5-P,API_SECRET_LOGGING_ZERO,PASS,redaction and negative-path tests PASS,M1_5_V4_IMPLEMENTATION_20260806_01

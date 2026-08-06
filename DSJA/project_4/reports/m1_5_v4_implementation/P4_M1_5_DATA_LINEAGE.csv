@@ -1,0 +1,8 @@
+layer,authority,artifact,rows,sha256,status
+SSOT,Markdown bytes + SHA,shared/ssot/v4.0/P4_final_design_v4.0.md,1725,409866c166ce3874ce587ad3b1230bc530c036e9682be01bf3466aa1fd37a05a,PASS
+raw,raw bytes + manifest,crawl/data/raw,29,per-file manifest,PASS_WITH_FINDINGS
+observed semantic,DuckDB/Parquet processing contract; CSV inspection,reports/m1_5_v4_implementation/evidence/observed_replay/OBSERVED_SEMANTIC_POSTINGS.csv,137,6f821de23145856e13c9d6067be2ddff023c2e0e76934d2b3c41cc4b65f643a8,BLOCKED
+source block,deterministic replay,reports/m1_5_v4_implementation/evidence/observed_replay/OBSERVED_SOURCE_BLOCKS.csv,84,9b27c8f76b22b592f99673169a59c04ea9f4752482d2f74f80a9bea497bace44,PASS
+NCS corpus candidate,reference manifest,ncs_mapping/reports/v4/NCS_CORPUS_CANDIDATE_MANIFEST.json,13442,1402aa86a10b507b3e3045f7163c2d09fe0a25e52071d812c43ed5d8f1122d4d,PASS_WITH_FINDINGS
+calibration,model registry,reports/m1_5_v4_implementation/evidence/temporal/calibration_models.parquet,0,d7686334b78bdf366b667bb95885ceb84f29ebcd8be87233c4b14213ac1431f8,NOT_EVALUATED
+RQ2-B mart,DuckDB/Parquet,pipeline/src/p4/marts/rq2b.py,0,db314acf1c999775e1ee0a2f70b92824fc84168e62a36bb8fb750eb6ea6f0062,NOT_EVALUATED

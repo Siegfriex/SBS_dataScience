@@ -1,0 +1,7 @@
+rule,status,observed,productionRows
+Python-SQL equality,PASS,targeted test PASS,0
+DUTY main; sourceRole separated,PASS,unit test PASS,0
+multi-label 1/k,PASS,unit test PASS,0
+trackId x ncsUnitCode primary dedup,PASS,unit test PASS,0
+ABSTAIN/UNMAPPED/OUT_OF_SCOPE denominator,PASS,unit test PASS,0
+production mart promotion,NOT_EVALUATED,no accepted production mappings,0

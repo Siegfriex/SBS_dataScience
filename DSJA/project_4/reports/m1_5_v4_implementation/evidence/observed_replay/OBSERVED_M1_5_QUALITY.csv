@@ -1,0 +1,12 @@
+gateId,ruleId,status,observedValue,threshold
+TIME_SEMANTICS_READY,canonical_posted_at_coverage,BLOCKED,0.2116788321167883,>=0.98
+TIME_SEMANTICS_READY,period_month_mismatch,PASS,0.0,0
+CANONICAL_ENUM_READY,invalid_posting_kind,PASS,0.0,0
+CANONICAL_ENUM_READY,invalid_requirement_type,PASS,0.0,0
+CANONICAL_ENUM_READY,invalid_obligation,PASS,0.0,0
+RAW_LINEAGE_READY,raw_existence_mismatch,BLOCKED,18.0,0
+RAW_LINEAGE_READY,raw_sha_mismatch,PASS,0.0,0
+OCR_PILOT_READY,ocr_asset_bytes_available,NOT_EVALUATED,0.0,>0
+SOURCE_BLOCK_READY,source_block_pk_fk,PASS,84.0,>0 and unique
+SECTION_STRUCTURE_PILOT_READY,semantic_chunk_source_block_fk,PASS,0.0,0
+OCR_MAPPING_ELIGIBILITY_READY,ineligible_accepted_mapping,PASS,0.0,0

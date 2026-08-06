@@ -1,0 +1,11 @@
+{
+  "gateCount": 4,
+  "observedPostingRows": 137,
+  "runId": "M1_5_V4_IMPLEMENTATION_20260806_01",
+  "stageId": "M1.5-A",
+  "statusCounts": {
+    "BLOCKED": 2,
+    "PASS": 1,
+    "PASS_WITH_FINDINGS": 1
+  }
+}

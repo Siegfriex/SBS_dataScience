@@ -1,0 +1,278 @@
+chunkId,trackId,sectionId,sourceBlockId,chunkType,chunkText,normalizedText,ncsMappableFlag,chunkingVersion
+CHK_bc2eb63a59cc1d4da5a26f12,TRK_0fbef660a7427af45a36,SEC_96d9b3732d503ae9c618,SBK_f0f75a9c99ad3d78f1d335e0,OTHER,[SH에너지화학] 생산본부 환경안전팀(관리직) 신입 채용(~3/9),[sh에너지화학] 생산본부 환경안전팀(관리직) 신입 채용(~3/9),False,p4-semantic-chunk-v4.0.0
+CHK_35310bcdc1b3f26607d18d5c,TRK_0fbef660a7427af45a36,SEC_96d9b3732d503ae9c618,SBK_f0f75a9c99ad3d78f1d335e0,OTHER,​,​,False,p4-semantic-chunk-v4.0.0
+CHK_c6e7ffaacf9e33ef8135f8ca,TRK_0fbef660a7427af45a36,SEC_96d9b3732d503ae9c618,SBK_f0f75a9c99ad3d78f1d335e0,OTHER,서류전형 > 인성검사/필기시험 > 1차면접 > 2차면접 > 최종합격,서류전형 > 인성검사/필기시험 > 1차면접 > 2차면접 > 최종합격,False,p4-semantic-chunk-v4.0.0
+CHK_3a6f59e8a478d379c2b952f1,TRK_0fbef660a7427af45a36,SEC_77a924f282cb1491f706,SBK_b40e4a11db134f6000e2a62d,DUTY,환경안전,환경안전,True,p4-semantic-chunk-v4.0.0
+CHK_8ccd91f75448ca0d74b639ac,TRK_0fbef660a7427af45a36,SEC_77a924f282cb1491f706,SBK_b40e4a11db134f6000e2a62d,DUTY,공장 내 점검활동을 통해 유해위험요소의 발굴에 따른 개선,공장 내 점검활동을 통해 유해위험요소의 발굴에 따른 개선,True,p4-semantic-chunk-v4.0.0
+CHK_192f6596e24ff983c245385a,TRK_0fbef660a7427af45a36,SEC_77a924f282cb1491f706,SBK_b40e4a11db134f6000e2a62d,DUTY,보완업무 진행 및 각종 공사관련 사항에 대한 검토 및 관리업무,보완업무 진행 및 각종 공사관련 사항에 대한 검토 및 관리업무,True,p4-semantic-chunk-v4.0.0
+CHK_4c3b48031ea421ea6323f81e,TRK_0fbef660a7427af45a36,SEC_aaf7855617f162661a3e,SBK_dcb5e06987fc239d116fe9c4,REQUIREMENT,4년제 대학 졸업예정 또는 졸업자,4년제 대학 졸업예정 또는 졸업자,True,p4-semantic-chunk-v4.0.0
+CHK_a7c90587a91cc01f760d2215,TRK_259d13ca83163482aa5a,SEC_980f8f52d8c0ada19daf,SBK_449bd7343f86e5f455678612,OTHER,[한국임업진흥원] 각 부문별 신입 및 경력 채용(~3/14),[한국임업진흥원] 각 부문별 신입 및 경력 채용(~3/14),False,p4-semantic-chunk-v4.0.0
+CHK_3c93c7d2438c4c233c737399,TRK_259d13ca83163482aa5a,SEC_980f8f52d8c0ada19daf,SBK_449bd7343f86e5f455678612,OTHER,​,​,False,p4-semantic-chunk-v4.0.0
+CHK_99be5aeed33e7ff22a4666bb,TRK_259d13ca83163482aa5a,SEC_980f8f52d8c0ada19daf,SBK_449bd7343f86e5f455678612,OTHER,서류전형 > 필기전형 > 면접전형 > 최종합격,서류전형 > 필기전형 > 면접전형 > 최종합격,False,p4-semantic-chunk-v4.0.0
+CHK_faf23a11e3f670a95a523d20,TRK_259d13ca83163482aa5a,SEC_9d24734bc8d3e1b708fa,SBK_a3980bdab8a4cc461aa4efd1,DUTY,일반직,일반직,True,p4-semantic-chunk-v4.0.0
+CHK_9d06ed3b517f7f0cb6b6508f,TRK_259d13ca83163482aa5a,SEC_9d24734bc8d3e1b708fa,SBK_a3980bdab8a4cc461aa4efd1,DUTY,공무직,공무직,True,p4-semantic-chunk-v4.0.0
+CHK_15410b5fa7f07f3c4e088deb,TRK_259d13ca83163482aa5a,SEC_9d24734bc8d3e1b708fa,SBK_a3980bdab8a4cc461aa4efd1,DUTY,임업소득지원,임업소득지원,True,p4-semantic-chunk-v4.0.0
+CHK_245f97ea76d5cf0a91e33a81,TRK_259d13ca83163482aa5a,SEC_9d24734bc8d3e1b708fa,SBK_a3980bdab8a4cc461aa4efd1,DUTY,산림자원보호,산림자원보호,True,p4-semantic-chunk-v4.0.0
+CHK_67c41f6cdf4eb4661c734473,TRK_259d13ca83163482aa5a,SEC_9d24734bc8d3e1b708fa,SBK_a3980bdab8a4cc461aa4efd1,DUTY,기관 정보화 업무,기관 정보화 업무,True,p4-semantic-chunk-v4.0.0
+CHK_3a73bf4d573895d3c1b1dacc,TRK_259d13ca83163482aa5a,SEC_9d24734bc8d3e1b708fa,SBK_a3980bdab8a4cc461aa4efd1,DUTY,IT인프라,it인프라,True,p4-semantic-chunk-v4.0.0
+CHK_db079b3c5941cfe776475495,TRK_259d13ca83163482aa5a,SEC_9d24734bc8d3e1b708fa,SBK_a3980bdab8a4cc461aa4efd1,DUTY,일반사무 사업수행지원 등,일반사무 사업수행지원 등,True,p4-semantic-chunk-v4.0.0
+CHK_6796ca51644d0c771e86d168,TRK_259d13ca83163482aa5a,SEC_7087eff46bb577d1b6a4,SBK_7a64588fccdd65ecbb5591ab,REQUIREMENT,공고참조,공고참조,True,p4-semantic-chunk-v4.0.0
+CHK_ceb81a7ddb833a97ec807c75,TRK_2ddedb22530187d8d297,SEC_dbc1e63deae06ff6ba02,SBK_f4c586b3b40bf6ef86851e63,OTHER,[코오롱아우토] Audi 공식딜러! AS본부 직무별 신입/경력 채용(~채용시 마감),[코오롱아우토] audi 공식딜러! as본부 직무별 신입/경력 채용(~채용시 마감),False,p4-semantic-chunk-v4.0.0
+CHK_c50d786cdb1df02aa59e88c8,TRK_2ddedb22530187d8d297,SEC_dbc1e63deae06ff6ba02,SBK_f4c586b3b40bf6ef86851e63,OTHER,​,​,False,p4-semantic-chunk-v4.0.0
+CHK_eafb2a665cb9365b818de304,TRK_2ddedb22530187d8d297,SEC_dbc1e63deae06ff6ba02,SBK_f4c586b3b40bf6ef86851e63,OTHER,서류전형 > 1차면접 > 최종면접 > 채용검진 > 최종합격,서류전형 > 1차면접 > 최종면접 > 채용검진 > 최종합격,False,p4-semantic-chunk-v4.0.0
+CHK_880f0fda7056fbf1d41d1426,TRK_2ddedb22530187d8d297,SEC_7982c0d796b4962e88d1,SBK_2f2f0c87c4fa2756a5806d87,DUTY,일반정비,일반정비,True,p4-semantic-chunk-v4.0.0
+CHK_a05720b69a82689565946591,TRK_2ddedb22530187d8d297,SEC_7982c0d796b4962e88d1,SBK_2f2f0c87c4fa2756a5806d87,DUTY,어드바이저,어드바이저,True,p4-semantic-chunk-v4.0.0
+CHK_b7fb56772bb15efa0fe2d54c,TRK_2ddedb22530187d8d297,SEC_7982c0d796b4962e88d1,SBK_2f2f0c87c4fa2756a5806d87,DUTY,차량점검 및 수리,차량점검 및 수리,True,p4-semantic-chunk-v4.0.0
+CHK_6ee6f59e8a139634ef832af0,TRK_2ddedb22530187d8d297,SEC_7982c0d796b4962e88d1,SBK_2f2f0c87c4fa2756a5806d87,DUTY,정비차량 접수/견적,정비차량 접수/견적,True,p4-semantic-chunk-v4.0.0
+CHK_0ba4e5eb5da154ac1972a5c3,TRK_2ddedb22530187d8d297,SEC_7982c0d796b4962e88d1,SBK_2f2f0c87c4fa2756a5806d87,DUTY,고객관리,고객관리,True,p4-semantic-chunk-v4.0.0
+CHK_422fa1df815017d79c153463,TRK_2ddedb22530187d8d297,SEC_bdeb3330864cdcc2c698,SBK_fcce4d840c4639fd2b46ad95,REQUIREMENT,운전가능자,운전가능자,True,p4-semantic-chunk-v4.0.0
+CHK_6875c253f7a47c65b28ebcb3,TRK_3f50dd638caea148e77d,SEC_77bdfbd591e7325683a2,SBK_de0e5337afc859df0c973050,OTHER,[NICE정보통신] 다양한 복리후생! 2021년 상반기 수시 채용(~3/15),[nice정보통신] 다양한 복리후생! 2021년 상반기 수시 채용(~3/15),False,p4-semantic-chunk-v4.0.0
+CHK_61666c18bdc1f68b150202b4,TRK_3f50dd638caea148e77d,SEC_77bdfbd591e7325683a2,SBK_de0e5337afc859df0c973050,OTHER,​,​,False,p4-semantic-chunk-v4.0.0
+CHK_74075aab62e5acc1550631e0,TRK_3f50dd638caea148e77d,SEC_77bdfbd591e7325683a2,SBK_de0e5337afc859df0c973050,OTHER,서류전형 > 실무면접 > 임원면접 > 신체검사 > 최종합격,서류전형 > 실무면접 > 임원면접 > 신체검사 > 최종합격,False,p4-semantic-chunk-v4.0.0
+CHK_faa7b8cad68b884898aba92e,TRK_3f50dd638caea148e77d,SEC_84b71500c959dfd0eeb7,SBK_0618d848ff59bd628ace3537,DUTY,원가 기획 및 전략,원가 기획 및 전략,True,p4-semantic-chunk-v4.0.0
+CHK_256051dac4b55208e4e88de4,TRK_3f50dd638caea148e77d,SEC_84b71500c959dfd0eeb7,SBK_0618d848ff59bd628ace3537,DUTY,인사/총무,인사/총무,True,p4-semantic-chunk-v4.0.0
+CHK_a3ba9ebeab2b942422adf626,TRK_3f50dd638caea148e77d,SEC_84b71500c959dfd0eeb7,SBK_0618d848ff59bd628ace3537,DUTY,영업/마케팅,영업/마케팅,True,p4-semantic-chunk-v4.0.0
+CHK_f332950d01367a942afe020b,TRK_3f50dd638caea148e77d,SEC_84b71500c959dfd0eeb7,SBK_0618d848ff59bd628ace3537,DUTY,서비스 개발,서비스 개발,True,p4-semantic-chunk-v4.0.0
+CHK_fae274cff99d408894c9fa7f,TRK_3f50dd638caea148e77d,SEC_84b71500c959dfd0eeb7,SBK_0618d848ff59bd628ace3537,DUTY,정보보호,정보보호,True,p4-semantic-chunk-v4.0.0
+CHK_f79f61c5b2aed16c4cc8312d,TRK_3f50dd638caea148e77d,SEC_84b71500c959dfd0eeb7,SBK_0618d848ff59bd628ace3537,DUTY,시스템 개발,시스템 개발,True,p4-semantic-chunk-v4.0.0
+CHK_4bc3477af84f90131068d74a,TRK_3f50dd638caea148e77d,SEC_84b71500c959dfd0eeb7,SBK_0618d848ff59bd628ace3537,DUTY,네트워크,네트워크,True,p4-semantic-chunk-v4.0.0
+CHK_4b16c9894262adc74c655754,TRK_3f50dd638caea148e77d,SEC_84b71500c959dfd0eeb7,SBK_0618d848ff59bd628ace3537,DUTY,정산,정산,True,p4-semantic-chunk-v4.0.0
+CHK_ba2358e079973650cd3689c4,TRK_3f50dd638caea148e77d,SEC_84b71500c959dfd0eeb7,SBK_0618d848ff59bd628ace3537,DUTY,인바운드,인바운드,True,p4-semantic-chunk-v4.0.0
+CHK_232bf50baef3103907cd6459,TRK_3f50dd638caea148e77d,SEC_84b71500c959dfd0eeb7,SBK_0618d848ff59bd628ace3537,DUTY,"원가분석,관리회계,손익 및 정산관리","원가분석,관리회계,손익 및 정산관리",True,p4-semantic-chunk-v4.0.0
+CHK_2db79e43d4f3e8d676ef3588,TRK_3f50dd638caea148e77d,SEC_84b71500c959dfd0eeb7,SBK_0618d848ff59bd628ace3537,DUTY,고정자산/비품/계약 관리,고정자산/비품/계약 관리,True,p4-semantic-chunk-v4.0.0
+CHK_31dab996f8a3243ada309267,TRK_3f50dd638caea148e77d,SEC_84b71500c959dfd0eeb7,SBK_0618d848ff59bd628ace3537,DUTY,지역화폐 신규영업 및 고객사 관리,지역화폐 신규영업 및 고객사 관리,True,p4-semantic-chunk-v4.0.0
+CHK_30cc84d8ce28d84117d27216,TRK_3f50dd638caea148e77d,SEC_84b71500c959dfd0eeb7,SBK_0618d848ff59bd628ace3537,DUTY,입찰 제안서 작성,입찰 제안서 작성,True,p4-semantic-chunk-v4.0.0
+CHK_f2d9b9faa3eca8ab1cd99d33,TRK_3f50dd638caea148e77d,SEC_84b71500c959dfd0eeb7,SBK_0618d848ff59bd628ace3537,DUTY,정보보호시스템 구축 및 운영,정보보호시스템 구축 및 운영,True,p4-semantic-chunk-v4.0.0
+CHK_cfc380ef6714395fec166960,TRK_3f50dd638caea148e77d,SEC_84b71500c959dfd0eeb7,SBK_0618d848ff59bd628ace3537,DUTY,중계시스템 개발/운영,중계시스템 개발/운영,True,p4-semantic-chunk-v4.0.0
+CHK_29c0e6abcbd5db561262e123,TRK_3f50dd638caea148e77d,SEC_84b71500c959dfd0eeb7,SBK_0618d848ff59bd628ace3537,DUTY,네트워크 관련 업무 등,네트워크 관련 업무 등,True,p4-semantic-chunk-v4.0.0
+CHK_da28d2343ee969bc8c309a2c,TRK_3f50dd638caea148e77d,SEC_52fabb709209eba1d34d,SBK_7ea5e1cec488fccfbf0a5d61,REQUIREMENT,공고참조,공고참조,True,p4-semantic-chunk-v4.0.0
+CHK_72bc5c614ca14f9fc9498683,TRK_4a691677b74374297bf3,SEC_16ac4e5822a26f0de5a9,SBK_b74895d874b2ab87b8a34553,OTHER,[대원제약] 다양한 복리후생! DNA 상반기 공개 채용(~3/14),[대원제약] 다양한 복리후생! dna 상반기 공개 채용(~3/14),False,p4-semantic-chunk-v4.0.0
+CHK_19f55ecc638ae0453797f042,TRK_4a691677b74374297bf3,SEC_16ac4e5822a26f0de5a9,SBK_b74895d874b2ab87b8a34553,OTHER,​,​,False,p4-semantic-chunk-v4.0.0
+CHK_38a91b7548392476cbc16c41,TRK_4a691677b74374297bf3,SEC_16ac4e5822a26f0de5a9,SBK_b74895d874b2ab87b8a34553,OTHER,서류전형 > 인적성검사 > 1차면접 > 2차면접 > 최종합격,서류전형 > 인적성검사 > 1차면접 > 2차면접 > 최종합격,False,p4-semantic-chunk-v4.0.0
+CHK_431b398877db08f42321c76f,TRK_4a691677b74374297bf3,SEC_ffb68e42ec3a7ea9714d,SBK_9ea4dd9c40fc103e9b0fe398,DUTY,영업,영업,True,p4-semantic-chunk-v4.0.0
+CHK_02a0f1b2570187950ed41350,TRK_4a691677b74374297bf3,SEC_ffb68e42ec3a7ea9714d,SBK_9ea4dd9c40fc103e9b0fe398,DUTY,OTC,otc,True,p4-semantic-chunk-v4.0.0
+CHK_97d282254488db0955b2368e,TRK_4a691677b74374297bf3,SEC_ffb68e42ec3a7ea9714d,SBK_9ea4dd9c40fc103e9b0fe398,DUTY,컨슈어 헬스케어,컨슈어 헬스케어,True,p4-semantic-chunk-v4.0.0
+CHK_b05243bb3c23edb8613e520a,TRK_4a691677b74374297bf3,SEC_ffb68e42ec3a7ea9714d,SBK_9ea4dd9c40fc103e9b0fe398,DUTY,해외 사업,해외 사업,True,p4-semantic-chunk-v4.0.0
+CHK_b39ba301d71fa6be0e766c12,TRK_4a691677b74374297bf3,SEC_ffb68e42ec3a7ea9714d,SBK_9ea4dd9c40fc103e9b0fe398,DUTY,마케팅,마케팅,True,p4-semantic-chunk-v4.0.0
+CHK_e17443a3d471c29c7c0cb6d0,TRK_4a691677b74374297bf3,SEC_ffb68e42ec3a7ea9714d,SBK_9ea4dd9c40fc103e9b0fe398,DUTY,연구 등,연구 등,True,p4-semantic-chunk-v4.0.0
+CHK_b3ae747d0e9ade0b8ac84345,TRK_4a691677b74374297bf3,SEC_ffb68e42ec3a7ea9714d,SBK_9ea4dd9c40fc103e9b0fe398,DUTY,ETC MR,etc mr,True,p4-semantic-chunk-v4.0.0
+CHK_f34622fe9bda611e03c8e24d,TRK_4a691677b74374297bf3,SEC_ffb68e42ec3a7ea9714d,SBK_9ea4dd9c40fc103e9b0fe398,DUTY,온라인 영업,온라인 영업,True,p4-semantic-chunk-v4.0.0
+CHK_380ec5227a4d33a0bb844398,TRK_4a691677b74374297bf3,SEC_ffb68e42ec3a7ea9714d,SBK_9ea4dd9c40fc103e9b0fe398,DUTY,제품개발,제품개발,True,p4-semantic-chunk-v4.0.0
+CHK_554f5a745c844b34556924af,TRK_4a691677b74374297bf3,SEC_ffb68e42ec3a7ea9714d,SBK_9ea4dd9c40fc103e9b0fe398,DUTY,연구기획,연구기획,True,p4-semantic-chunk-v4.0.0
+CHK_f4e368758d6150d7cf78ed7a,TRK_4a691677b74374297bf3,SEC_ffb68e42ec3a7ea9714d,SBK_9ea4dd9c40fc103e9b0fe398,DUTY,디지털 마케팅 등,디지털 마케팅 등,True,p4-semantic-chunk-v4.0.0
+CHK_84c1278100f961e6339047fb,TRK_4a691677b74374297bf3,SEC_33c114a8072397b2adfd,SBK_c5403c5c7ad2d8e9aeb7c88c,REQUIREMENT,공고참조,공고참조,True,p4-semantic-chunk-v4.0.0
+CHK_60b27c0c106ede59b7a2b2fc,TRK_4eb7124fc1480d242435,SEC_71a960c684cf972e6f8e,SBK_d365efdfdf99a79798a4f760,OTHER,[귀뚜라미그룹] 자녀학자금 지원! 각 부문 신입/경력사원 채용(~3/13),[귀뚜라미그룹] 자녀학자금 지원! 각 부문 신입/경력사원 채용(~3/13),False,p4-semantic-chunk-v4.0.0
+CHK_c2e781ade947a61dbda0de31,TRK_4eb7124fc1480d242435,SEC_71a960c684cf972e6f8e,SBK_d365efdfdf99a79798a4f760,OTHER,​,​,False,p4-semantic-chunk-v4.0.0
+CHK_fccc6ff77b439ad4c7aad7a3,TRK_4eb7124fc1480d242435,SEC_71a960c684cf972e6f8e,SBK_d365efdfdf99a79798a4f760,OTHER,서류전형 > 면접전형 > 신체검사 > 최종합격,서류전형 > 면접전형 > 신체검사 > 최종합격,False,p4-semantic-chunk-v4.0.0
+CHK_2921f4bba1119044a7c79e3c,TRK_4eb7124fc1480d242435,SEC_0cd6d84f752758b94fc0,SBK_d1b9bd7b8e68df2404bfea5c,DUTY,기술영업,기술영업,True,p4-semantic-chunk-v4.0.0
+CHK_97a22bfcc50e67658fa9a708,TRK_4eb7124fc1480d242435,SEC_0cd6d84f752758b94fc0,SBK_d1b9bd7b8e68df2404bfea5c,DUTY,웹디자인,웹디자인,True,p4-semantic-chunk-v4.0.0
+CHK_5e068ded3a07103081f2f3f0,TRK_4eb7124fc1480d242435,SEC_0cd6d84f752758b94fc0,SBK_d1b9bd7b8e68df2404bfea5c,DUTY,전산개발,전산개발,True,p4-semantic-chunk-v4.0.0
+CHK_9659ed34f28ba763aeb2b270,TRK_4eb7124fc1480d242435,SEC_0cd6d84f752758b94fc0,SBK_d1b9bd7b8e68df2404bfea5c,DUTY,경영기획,경영기획,True,p4-semantic-chunk-v4.0.0
+CHK_ce485cb4b3d414398dbb27ce,TRK_4eb7124fc1480d242435,SEC_0cd6d84f752758b94fc0,SBK_d1b9bd7b8e68df2404bfea5c,DUTY,구매/회계,구매/회계,True,p4-semantic-chunk-v4.0.0
+CHK_791dae6e8f73904add595821,TRK_4eb7124fc1480d242435,SEC_0cd6d84f752758b94fc0,SBK_d1b9bd7b8e68df2404bfea5c,DUTY,공고참조,공고참조,True,p4-semantic-chunk-v4.0.0
+CHK_cdcd2ac4ebe421e6559a486d,TRK_4eb7124fc1480d242435,SEC_74734b66d27e60f31446,SBK_027d834c44b241bb6e8f4308,REQUIREMENT,직무별 상이,직무별 상이,True,p4-semantic-chunk-v4.0.0
+CHK_87562e2726c37caee3e33c68,TRK_4f3c49340f5c8deb6f87,SEC_665cc734e05cbf175538,SBK_68d4def50d0a40b5cdbaf268,OTHER,"[판토스] 창원센터 환경/안전 관리자(기능직, 사무직) 채용(~3/15)","[판토스] 창원센터 환경/안전 관리자(기능직, 사무직) 채용(~3/15)",False,p4-semantic-chunk-v4.0.0
+CHK_cd0e8ed01d54c9b7cba0119c,TRK_4f3c49340f5c8deb6f87,SEC_665cc734e05cbf175538,SBK_68d4def50d0a40b5cdbaf268,OTHER,​,​,False,p4-semantic-chunk-v4.0.0
+CHK_964b7e7df7d32ef6c250dfb8,TRK_4f3c49340f5c8deb6f87,SEC_665cc734e05cbf175538,SBK_68d4def50d0a40b5cdbaf268,OTHER,서류전형 > 1차면접 > 2차면접 > 건강검진 > 최종합격,서류전형 > 1차면접 > 2차면접 > 건강검진 > 최종합격,False,p4-semantic-chunk-v4.0.0
+CHK_9afc49a149a575c87a8228cb,TRK_4f3c49340f5c8deb6f87,SEC_679598872421b8d738cd,SBK_9a8761f8c9bba68942b066a6,DUTY,안전환경,안전환경,True,p4-semantic-chunk-v4.0.0
+CHK_2878078995f4dc163a58f9d4,TRK_4f3c49340f5c8deb6f87,SEC_679598872421b8d738cd,SBK_9a8761f8c9bba68942b066a6,DUTY,관리 계획 수립 및 활동 지원,관리 계획 수립 및 활동 지원,True,p4-semantic-chunk-v4.0.0
+CHK_b42818d6fad7601905c5115c,TRK_4f3c49340f5c8deb6f87,SEC_679598872421b8d738cd,SBK_9a8761f8c9bba68942b066a6,DUTY,인원 육성 및 교육 관리,인원 육성 및 교육 관리,True,p4-semantic-chunk-v4.0.0
+CHK_8a87a9fd9ce4ceb475735e82,TRK_4f3c49340f5c8deb6f87,SEC_679598872421b8d738cd,SBK_9a8761f8c9bba68942b066a6,DUTY,센터 내 안전 관련 정기 점검 등,센터 내 안전 관련 정기 점검 등,True,p4-semantic-chunk-v4.0.0
+CHK_4bd96560b45c8547e88aea61,TRK_4f3c49340f5c8deb6f87,SEC_b1ff57102769e3ea9fd5,SBK_c1c16b7a43d948fbae1871f3,REQUIREMENT,전공무관,전공무관,True,p4-semantic-chunk-v4.0.0
+CHK_eb6d8483b6c0f04736eafa01,TRK_5299e51ae112f77a0ff2,SEC_9a316f8c58934c9f94d7,SBK_94c207d340939d95a3d6a007,OTHER,[동부엔지니어링] 2021년 상반기 대졸 신입사원 채용(~3/10),[동부엔지니어링] 2021년 상반기 대졸 신입사원 채용(~3/10),False,p4-semantic-chunk-v4.0.0
+CHK_816e15147d736c55390b4b09,TRK_5299e51ae112f77a0ff2,SEC_9a316f8c58934c9f94d7,SBK_94c207d340939d95a3d6a007,OTHER,​,​,False,p4-semantic-chunk-v4.0.0
+CHK_62995e9516449cd0f1c5eff7,TRK_5299e51ae112f77a0ff2,SEC_9a316f8c58934c9f94d7,SBK_94c207d340939d95a3d6a007,OTHER,서류전형 > 면접전형 > 최종합격,서류전형 > 면접전형 > 최종합격,False,p4-semantic-chunk-v4.0.0
+CHK_efb95c232dd0087aab9ed3a4,TRK_5299e51ae112f77a0ff2,SEC_63be9f7d68657a37c44d,SBK_2fe3d951236f253f4903078a,DUTY,도로공항설계,도로공항설계,True,p4-semantic-chunk-v4.0.0
+CHK_7e612a3d265792b69ca08474,TRK_5299e51ae112f77a0ff2,SEC_63be9f7d68657a37c44d,SBK_2fe3d951236f253f4903078a,DUTY,구조설계,구조설계,True,p4-semantic-chunk-v4.0.0
+CHK_c1eedbb8a688f82adbe1db31,TRK_5299e51ae112f77a0ff2,SEC_63be9f7d68657a37c44d,SBK_2fe3d951236f253f4903078a,DUTY,지반설계,지반설계,True,p4-semantic-chunk-v4.0.0
+CHK_7fc89d7049257c41730d6430,TRK_5299e51ae112f77a0ff2,SEC_63be9f7d68657a37c44d,SBK_2fe3d951236f253f4903078a,DUTY,교통설계,교통설계,True,p4-semantic-chunk-v4.0.0
+CHK_d5bba041a5b8d6d6757d7664,TRK_5299e51ae112f77a0ff2,SEC_63be9f7d68657a37c44d,SBK_2fe3d951236f253f4903078a,DUTY,GIS S/W개발,gis s/w개발,True,p4-semantic-chunk-v4.0.0
+CHK_c974131cff7e8458b8c5b8b7,TRK_5299e51ae112f77a0ff2,SEC_43f47449164033cebc1a,SBK_d2cb6a2874c707b64a775cdd,REQUIREMENT,4년제 대학 졸업 또는 2월 졸업자,4년제 대학 졸업 또는 2월 졸업자,True,p4-semantic-chunk-v4.0.0
+CHK_6eac2832188cb47e1d76b7c3,TRK_647016b0681d490e2fc5,SEC_46c360039d4fa6fdaa6f,SBK_148113300bda32b25342ffac,OTHER,[울산문화재단] 신입 및 경력 직원 정기 채용(~3/10),[울산문화재단] 신입 및 경력 직원 정기 채용(~3/10),False,p4-semantic-chunk-v4.0.0
+CHK_14fdc469ad9a3982f51982d9,TRK_647016b0681d490e2fc5,SEC_46c360039d4fa6fdaa6f,SBK_148113300bda32b25342ffac,OTHER,​,​,False,p4-semantic-chunk-v4.0.0
+CHK_721c64165e3e2951bcb60a62,TRK_647016b0681d490e2fc5,SEC_46c360039d4fa6fdaa6f,SBK_148113300bda32b25342ffac,OTHER,서류전형 > 필기심사 > 면접심사 > 최종합격,서류전형 > 필기심사 > 면접심사 > 최종합격,False,p4-semantic-chunk-v4.0.0
+CHK_77d0b5393253b71cae95da52,TRK_647016b0681d490e2fc5,SEC_211ced36e950f669382d,SBK_f6d97cbcc549739464e1381d,DUTY,일반직,일반직,True,p4-semantic-chunk-v4.0.0
+CHK_d19eeb7dc96c51673405aa1a,TRK_647016b0681d490e2fc5,SEC_211ced36e950f669382d,SBK_f6d97cbcc549739464e1381d,DUTY,재단 행정 업무 전반,재단 행정 업무 전반,True,p4-semantic-chunk-v4.0.0
+CHK_d9e82cf5b07d4b270930af70,TRK_647016b0681d490e2fc5,SEC_211ced36e950f669382d,SBK_f6d97cbcc549739464e1381d,DUTY,예술지원팀 사업 운영,예술지원팀 사업 운영,True,p4-semantic-chunk-v4.0.0
+CHK_1297f17d08d46df9dcc99bda,TRK_647016b0681d490e2fc5,SEC_8247b93cf6166c67dcd7,SBK_f410da7a1709386f33865748,REQUIREMENT,18세 이상인 자,18세 이상인 자,True,p4-semantic-chunk-v4.0.0
+CHK_08063b9ff290d675a4047b88,TRK_6c305d39802dc37309f1,SEC_8c227afe1d53500505b7,SBK_391bcfd82b52918e1dd048dd,OTHER,[국제방송교류재단] 총 7명! 아리랑국제방송 신입 및 경력 채용(~3/21),[국제방송교류재단] 총 7명! 아리랑국제방송 신입 및 경력 채용(~3/21),False,p4-semantic-chunk-v4.0.0
+CHK_ad1e7d7f9226f6542d3094eb,TRK_6c305d39802dc37309f1,SEC_8c227afe1d53500505b7,SBK_391bcfd82b52918e1dd048dd,OTHER,​,​,False,p4-semantic-chunk-v4.0.0
+CHK_0d7c3c491e436f3776f48523,TRK_6c305d39802dc37309f1,SEC_8c227afe1d53500505b7,SBK_391bcfd82b52918e1dd048dd,OTHER,서류전형 > 필기시험 > 카메라테스트 및 실무면접 > 종합면접 > 최종합격,서류전형 > 필기시험 > 카메라테스트 및 실무면접 > 종합면접 > 최종합격,False,p4-semantic-chunk-v4.0.0
+CHK_cfb80e50578b26f99660add2,TRK_6c305d39802dc37309f1,SEC_b196fd79b40053b76337,SBK_710681c1a70725e96672c7bd,DUTY,보도기자,보도기자,True,p4-semantic-chunk-v4.0.0
+CHK_e500f18a053063998d3d6ad5,TRK_6c305d39802dc37309f1,SEC_b196fd79b40053b76337,SBK_710681c1a70725e96672c7bd,DUTY,TV제작PD,tv제작pd,True,p4-semantic-chunk-v4.0.0
+CHK_d93f5c8a85363a162a9bf1a4,TRK_6c305d39802dc37309f1,SEC_b196fd79b40053b76337,SBK_710681c1a70725e96672c7bd,DUTY,재무회계,재무회계,True,p4-semantic-chunk-v4.0.0
+CHK_bd4eb8eb4385851e9cb6b4e4,TRK_6c305d39802dc37309f1,SEC_b196fd79b40053b76337,SBK_710681c1a70725e96672c7bd,DUTY,산업안전보건,산업안전보건,True,p4-semantic-chunk-v4.0.0
+CHK_2079faa1a4bb9dd5505ff114,TRK_6c305d39802dc37309f1,SEC_b196fd79b40053b76337,SBK_710681c1a70725e96672c7bd,DUTY,정보화,정보화,True,p4-semantic-chunk-v4.0.0
+CHK_c137ae93d92c3618ea9a62d2,TRK_6c305d39802dc37309f1,SEC_b196fd79b40053b76337,SBK_710681c1a70725e96672c7bd,DUTY,공고참조,공고참조,True,p4-semantic-chunk-v4.0.0
+CHK_def9abb10c86327ce6fbcf5a,TRK_6c305d39802dc37309f1,SEC_cd38b76ee04c2e2c2add,SBK_c25c0bf09b6378a71f4f5d1d,SKILL,직무기술서 상의 능력을 보유한 자,직무기술서 상의 능력을 보유한 자,True,p4-semantic-chunk-v4.0.0
+CHK_c84a8dd451c00d07f63b3724,TRK_73bb2b6a2af1a7b7ff4f,SEC_7a3db49251eeb69abef6,SBK_7174215a1622afe8d1964dc2,OTHER,[현대제철] 주거지원! 생산기술/품질부문 신입 채용(~3/16),[현대제철] 주거지원! 생산기술/품질부문 신입 채용(~3/16),False,p4-semantic-chunk-v4.0.0
+CHK_3b0e268f1e53076ba4c90308,TRK_73bb2b6a2af1a7b7ff4f,SEC_7a3db49251eeb69abef6,SBK_7174215a1622afe8d1964dc2,OTHER,​,​,False,p4-semantic-chunk-v4.0.0
+CHK_c68d09c015dc725928c03b72,TRK_73bb2b6a2af1a7b7ff4f,SEC_7a3db49251eeb69abef6,SBK_7174215a1622afe8d1964dc2,OTHER,서류전형/온라인 AI 역량검사 > 온라인 인성검사 > 1차면접 > 2차면접/신체검사 > 최종합격,서류전형/온라인 ai 역량검사 > 온라인 인성검사 > 1차면접 > 2차면접/신체검사 > 최종합격,False,p4-semantic-chunk-v4.0.0
+CHK_e7d4b10eb5727c59e6701bd8,TRK_73bb2b6a2af1a7b7ff4f,SEC_f24d99680668f2395489,SBK_c3f5ce9b5f05cd501294d060,DUTY,생산기술,생산기술,True,p4-semantic-chunk-v4.0.0
+CHK_bf1722059a57fd3e7bf72e87,TRK_73bb2b6a2af1a7b7ff4f,SEC_f24d99680668f2395489,SBK_c3f5ce9b5f05cd501294d060,DUTY,수요산업 및 제품/기술동향 조사,수요산업 및 제품/기술동향 조사,True,p4-semantic-chunk-v4.0.0
+CHK_946dd875eaf87ae1abe6aacf,TRK_73bb2b6a2af1a7b7ff4f,SEC_f24d99680668f2395489,SBK_c3f5ce9b5f05cd501294d060,DUTY,소재/강관제품 개발 및 시생산/평가 등,소재/강관제품 개발 및 시생산/평가 등,True,p4-semantic-chunk-v4.0.0
+CHK_ae1908e76bf62282b7ce1c0b,TRK_73bb2b6a2af1a7b7ff4f,SEC_bb787d85d61510fa980c,SBK_db62f424254e1845b95066f1,REQUIREMENT,국내외 4년제 대학교(원) 졸업자,국내외 4년제 대학교(원) 졸업자,True,p4-semantic-chunk-v4.0.0
+CHK_aea9e09341937510577d7744,TRK_8283fc98f06a9fdb44ca,SEC_acf109400d23d023cbf8,SBK_a7f36b47b8d4ef15364dc37e,OTHER,[금강주택] 총 00명! 각 부문 신입 및 경력 채용(~3/14),[금강주택] 총 00명! 각 부문 신입 및 경력 채용(~3/14),False,p4-semantic-chunk-v4.0.0
+CHK_23b115c480488dd7254dd4b8,TRK_8283fc98f06a9fdb44ca,SEC_acf109400d23d023cbf8,SBK_a7f36b47b8d4ef15364dc37e,OTHER,​,​,False,p4-semantic-chunk-v4.0.0
+CHK_9ee8a9796af72e88c9a83ee0,TRK_8283fc98f06a9fdb44ca,SEC_acf109400d23d023cbf8,SBK_a7f36b47b8d4ef15364dc37e,OTHER,서류전형 > 인적성검사 > 1차면접 > 2차면접 > 채용검진 > 최종합격,서류전형 > 인적성검사 > 1차면접 > 2차면접 > 채용검진 > 최종합격,False,p4-semantic-chunk-v4.0.0
+CHK_d53038c1001437e10eb4b408,TRK_8283fc98f06a9fdb44ca,SEC_850fea27f1bde64e77d0,SBK_d1d0770b4ced2e9267c4ee15,DUTY,건축,건축,True,p4-semantic-chunk-v4.0.0
+CHK_42ee0737fa17fb081c70e0a5,TRK_8283fc98f06a9fdb44ca,SEC_850fea27f1bde64e77d0,SBK_d1d0770b4ced2e9267c4ee15,DUTY,전기,전기,True,p4-semantic-chunk-v4.0.0
+CHK_faa4c29dff9e1239ed6698c8,TRK_8283fc98f06a9fdb44ca,SEC_850fea27f1bde64e77d0,SBK_d1d0770b4ced2e9267c4ee15,DUTY,안전/보건,안전/보건,True,p4-semantic-chunk-v4.0.0
+CHK_e804787ed22b20a685123fd3,TRK_8283fc98f06a9fdb44ca,SEC_850fea27f1bde64e77d0,SBK_d1d0770b4ced2e9267c4ee15,DUTY,개발사업,개발사업,True,p4-semantic-chunk-v4.0.0
+CHK_70973ff894b16c3bab61fbd3,TRK_8283fc98f06a9fdb44ca,SEC_850fea27f1bde64e77d0,SBK_d1d0770b4ced2e9267c4ee15,DUTY,인사총무,인사총무,True,p4-semantic-chunk-v4.0.0
+CHK_f06f37456a58c80ff445e64f,TRK_8283fc98f06a9fdb44ca,SEC_850fea27f1bde64e77d0,SBK_d1d0770b4ced2e9267c4ee15,DUTY,법무,법무,True,p4-semantic-chunk-v4.0.0
+CHK_f803825dbb127a0d113c82cf,TRK_8283fc98f06a9fdb44ca,SEC_850fea27f1bde64e77d0,SBK_d1d0770b4ced2e9267c4ee15,DUTY,자재 등,자재 등,True,p4-semantic-chunk-v4.0.0
+CHK_d9f022f19ce4038a68a33238,TRK_8283fc98f06a9fdb44ca,SEC_850fea27f1bde64e77d0,SBK_d1d0770b4ced2e9267c4ee15,DUTY,"건축시공,품질관리 및 하도급 관리","건축시공,품질관리 및 하도급 관리",True,p4-semantic-chunk-v4.0.0
+CHK_417afd0e71c922083ead92fd,TRK_8283fc98f06a9fdb44ca,SEC_850fea27f1bde64e77d0,SBK_d1d0770b4ced2e9267c4ee15,DUTY,건축현장 설비 시공 및 관리,건축현장 설비 시공 및 관리,True,p4-semantic-chunk-v4.0.0
+CHK_61161e6f050cd79697e82367,TRK_8283fc98f06a9fdb44ca,SEC_850fea27f1bde64e77d0,SBK_d1d0770b4ced2e9267c4ee15,DUTY,프로젝트별 설계 및 공법 적용 검토,프로젝트별 설계 및 공법 적용 검토,True,p4-semantic-chunk-v4.0.0
+CHK_38b1d4c60644c3a440e87889,TRK_8283fc98f06a9fdb44ca,SEC_850fea27f1bde64e77d0,SBK_d1d0770b4ced2e9267c4ee15,DUTY,인사/교육/총무/홍보/전산,인사/교육/총무/홍보/전산,True,p4-semantic-chunk-v4.0.0
+CHK_53e27846f8fcae26dab290c0,TRK_8283fc98f06a9fdb44ca,SEC_850fea27f1bde64e77d0,SBK_d1d0770b4ced2e9267c4ee15,DUTY,건설 관련 자재 구매 및 관리 등,건설 관련 자재 구매 및 관리 등,True,p4-semantic-chunk-v4.0.0
+CHK_a2ad45356ed0fbeead24a8fb,TRK_8283fc98f06a9fdb44ca,SEC_6c210c38fb4e74abbb99,SBK_6ca9d7722cf79329aa476105,REQUIREMENT,4년제 대학교 졸업자 및 2월 졸업예정자,4년제 대학교 졸업자 및 2월 졸업예정자,True,p4-semantic-chunk-v4.0.0
+CHK_d8ebfc175ba1fc350604fb62,TRK_8283fc98f06a9fdb44ca,SEC_6c210c38fb4e74abbb99,SBK_6ca9d7722cf79329aa476105,COMPETENCY_EXPERIENCE,각 직무별 관련학과 전공 및 관련 자격증 소지자,각 직무별 관련학과 전공 및 관련 자격증 소지자,True,p4-semantic-chunk-v4.0.0
+CHK_ff35ed7e74e1ac983f3f9435,TRK_8dc918e2b1feb037f653,SEC_cfef86d690c93b350f83,SBK_5e162699a71204dcece5e245,OTHER,[아이디어키] 야근강요 없음! 각 부문별 신입 및 경력 채용(~3/31),[아이디어키] 야근강요 없음! 각 부문별 신입 및 경력 채용(~3/31),False,p4-semantic-chunk-v4.0.0
+CHK_c370cf9b93d8c6ce8ce00bed,TRK_8dc918e2b1feb037f653,SEC_cfef86d690c93b350f83,SBK_5e162699a71204dcece5e245,OTHER,​,​,False,p4-semantic-chunk-v4.0.0
+CHK_72c5901c651a32e722ecf47e,TRK_8dc918e2b1feb037f653,SEC_cfef86d690c93b350f83,SBK_5e162699a71204dcece5e245,OTHER,서류전형 > 1차면접 > 2차면접 > 최종합격,서류전형 > 1차면접 > 2차면접 > 최종합격,False,p4-semantic-chunk-v4.0.0
+CHK_fbbaa0b95f810cd9cc8aa3dc,TRK_8dc918e2b1feb037f653,SEC_3549519967896730d018,SBK_930d9704da9e8185b9c33e73,DUTY,브랜드 마케팅,브랜드 마케팅,True,p4-semantic-chunk-v4.0.0
+CHK_f745ee9142a2d1926cd3d908,TRK_8dc918e2b1feb037f653,SEC_3549519967896730d018,SBK_930d9704da9e8185b9c33e73,DUTY,이커머스 영업AE,이커머스 영업ae,True,p4-semantic-chunk-v4.0.0
+CHK_4abf67767f9271dec214324b,TRK_8dc918e2b1feb037f653,SEC_3549519967896730d018,SBK_930d9704da9e8185b9c33e73,DUTY,광고영업AE,광고영업ae,True,p4-semantic-chunk-v4.0.0
+CHK_e2291cb248fc12e860817aba,TRK_8dc918e2b1feb037f653,SEC_3549519967896730d018,SBK_930d9704da9e8185b9c33e73,DUTY,마케팅,마케팅,True,p4-semantic-chunk-v4.0.0
+CHK_47e260b1aa3da859fd37a276,TRK_8dc918e2b1feb037f653,SEC_3549519967896730d018,SBK_930d9704da9e8185b9c33e73,DUTY,브랜드 바이럴 마케팅 기획 및 실행,브랜드 바이럴 마케팅 기획 및 실행,True,p4-semantic-chunk-v4.0.0
+CHK_d3f7937382cf15f3f0e0ff2a,TRK_8dc918e2b1feb037f653,SEC_3549519967896730d018,SBK_930d9704da9e8185b9c33e73,DUTY,광고주 광고 연구 및 솔루션 분석,광고주 광고 연구 및 솔루션 분석,True,p4-semantic-chunk-v4.0.0
+CHK_bc7262032dd9e64ea0fc83a5,TRK_8dc918e2b1feb037f653,SEC_3549519967896730d018,SBK_930d9704da9e8185b9c33e73,DUTY,디지털광고 제안 및 수주,디지털광고 제안 및 수주,True,p4-semantic-chunk-v4.0.0
+CHK_3ec83a7283d96ecae0902b52,TRK_8dc918e2b1feb037f653,SEC_3549519967896730d018,SBK_930d9704da9e8185b9c33e73,DUTY,광고효과 분석 및 관리 등,광고효과 분석 및 관리 등,True,p4-semantic-chunk-v4.0.0
+CHK_5ddf629a4c65a0fc9bf869ff,TRK_8dc918e2b1feb037f653,SEC_41d2173751f8f4f622c3,SBK_d28dadc7e610cc58b0b89181,REQUIREMENT,직무별 상이,직무별 상이,True,p4-semantic-chunk-v4.0.0
+CHK_49720ab746c2e0c99e285eff,TRK_942cf9403ccba789c3d1,SEC_5f63aad2edf0c37c64d6,SBK_029452c61ae72e8b7fdae580,OTHER,[태양금속공업] 기숙사 운영! 경영정보팀 신입사원 채용(~3/17),[태양금속공업] 기숙사 운영! 경영정보팀 신입사원 채용(~3/17),False,p4-semantic-chunk-v4.0.0
+CHK_4d3ed76a2e512344a8f88f82,TRK_942cf9403ccba789c3d1,SEC_5f63aad2edf0c37c64d6,SBK_029452c61ae72e8b7fdae580,OTHER,​,​,False,p4-semantic-chunk-v4.0.0
+CHK_519e4dfaf7de22f6c53aae42,TRK_942cf9403ccba789c3d1,SEC_5f63aad2edf0c37c64d6,SBK_029452c61ae72e8b7fdae580,OTHER,서류전형 > 면접 > 심층면접 > 신체검사 > 최종합격,서류전형 > 면접 > 심층면접 > 신체검사 > 최종합격,False,p4-semantic-chunk-v4.0.0
+CHK_bdc3ca237810862732fb46c6,TRK_942cf9403ccba789c3d1,SEC_ad8746ec23a628f52965,SBK_f5e26527676e8642e83b4c41,DUTY,경영정보,경영정보,True,p4-semantic-chunk-v4.0.0
+CHK_5f997f3ce5d6f3bdb376f39d,TRK_942cf9403ccba789c3d1,SEC_ad8746ec23a628f52965,SBK_f5e26527676e8642e83b4c41,DUTY,ERP프로그램 개발/운영,erp프로그램 개발/운영,True,p4-semantic-chunk-v4.0.0
+CHK_5459d5b1a3e43fb1ecd7eaa2,TRK_942cf9403ccba789c3d1,SEC_adc5846fb631a8b2cca7,SBK_5acb92d13c6fa1ffa4aed693,REQUIREMENT,컴퓨터/전산관력학과 전공자,컴퓨터/전산관력학과 전공자,True,p4-semantic-chunk-v4.0.0
+CHK_3661778da030b61922dafe17,TRK_942cf9403ccba789c3d1,SEC_adc5846fb631a8b2cca7,SBK_5acb92d13c6fa1ffa4aed693,COMPETENCY_EXPERIENCE,정보처리기사 자격증,정보처리기사 자격증,True,p4-semantic-chunk-v4.0.0
+CHK_f9e3e39cf7916bfd89837294,TRK_a9cbe040acfe75141aa9,SEC_3c1074a25d83370ed9d9,SBK_d4a9353671aabb953ff750ee,OTHER,[ABC마트코리아] 재경부(재무팀 및 회계팀) 신입 및 경력 채용(~3/10),[abc마트코리아] 재경부(재무팀 및 회계팀) 신입 및 경력 채용(~3/10),False,p4-semantic-chunk-v4.0.0
+CHK_f3b4c71342b7b082c96d001d,TRK_a9cbe040acfe75141aa9,SEC_3c1074a25d83370ed9d9,SBK_d4a9353671aabb953ff750ee,OTHER,​,​,False,p4-semantic-chunk-v4.0.0
+CHK_63425577c03f8319c240eb8c,TRK_a9cbe040acfe75141aa9,SEC_3c1074a25d83370ed9d9,SBK_d4a9353671aabb953ff750ee,OTHER,온라인접수 > 면접전형 > 최종합격,온라인접수 > 면접전형 > 최종합격,False,p4-semantic-chunk-v4.0.0
+CHK_5b5b61602fb8548d973f973e,TRK_a9cbe040acfe75141aa9,SEC_cc745927eec5019f0c45,SBK_3a996c9b6a181aa8b67f3520,DUTY,회계,회계,True,p4-semantic-chunk-v4.0.0
+CHK_fbb1ea384b2faf0a2feec565,TRK_a9cbe040acfe75141aa9,SEC_cc745927eec5019f0c45,SBK_3a996c9b6a181aa8b67f3520,DUTY,재무,재무,True,p4-semantic-chunk-v4.0.0
+CHK_3b1a1165020dc24c76d75d52,TRK_a9cbe040acfe75141aa9,SEC_cc745927eec5019f0c45,SBK_3a996c9b6a181aa8b67f3520,DUTY,전표입력 및 계정명세 작성,전표입력 및 계정명세 작성,True,p4-semantic-chunk-v4.0.0
+CHK_fe13abcc33526dd26801ac9c,TRK_a9cbe040acfe75141aa9,SEC_cc745927eec5019f0c45,SBK_3a996c9b6a181aa8b67f3520,DUTY,기타 서류 및 증빙 정리,기타 서류 및 증빙 정리,True,p4-semantic-chunk-v4.0.0
+CHK_384508dd33328076fe4e0c33,TRK_a9cbe040acfe75141aa9,SEC_cc745927eec5019f0c45,SBK_3a996c9b6a181aa8b67f3520,DUTY,수수료 정산업무,수수료 정산업무,True,p4-semantic-chunk-v4.0.0
+CHK_c5862b95e9425016ffa8ec1b,TRK_a9cbe040acfe75141aa9,SEC_cc745927eec5019f0c45,SBK_3a996c9b6a181aa8b67f3520,DUTY,입출금 관리 및 은행업무 등,입출금 관리 및 은행업무 등,True,p4-semantic-chunk-v4.0.0
+CHK_a02c1f524ca2a85feb7d64c7,TRK_a9cbe040acfe75141aa9,SEC_bd60fad7fdff98c0aec4,SBK_59745ec4503f1757b35c42d3,REQUIREMENT,초대졸 이상,초대졸 이상,True,p4-semantic-chunk-v4.0.0
+CHK_1b39e5a3bbc80d18c52c6796,TRK_ace100936d896bc81753,SEC_285175397ac41df74fbd,SBK_bcae45619e5f9b6cf8c6805d,OTHER,[신코] 자녀학자금 지원! 2021년 신입사원 채용(~4/30),[신코] 자녀학자금 지원! 2021년 신입사원 채용(~4/30),False,p4-semantic-chunk-v4.0.0
+CHK_49acbf018ef1022bcf68d46f,TRK_ace100936d896bc81753,SEC_285175397ac41df74fbd,SBK_bcae45619e5f9b6cf8c6805d,OTHER,​,​,False,p4-semantic-chunk-v4.0.0
+CHK_213eaa77e77019f4e6427f27,TRK_ace100936d896bc81753,SEC_285175397ac41df74fbd,SBK_bcae45619e5f9b6cf8c6805d,OTHER,서류전형 > 인성검사 > 면접전형 > 최종합격,서류전형 > 인성검사 > 면접전형 > 최종합격,False,p4-semantic-chunk-v4.0.0
+CHK_015ebcf4c52219396d8f691a,TRK_ace100936d896bc81753,SEC_c36dbd484a03613a3406,SBK_4d7c377eca30c1403790b416,DUTY,기술지원,기술지원,True,p4-semantic-chunk-v4.0.0
+CHK_ee88fea7a76a42a636295cd0,TRK_ace100936d896bc81753,SEC_c36dbd484a03613a3406,SBK_4d7c377eca30c1403790b416,DUTY,영업지원,영업지원,True,p4-semantic-chunk-v4.0.0
+CHK_c8ec9890a03f6d9925e68c19,TRK_ace100936d896bc81753,SEC_c36dbd484a03613a3406,SBK_4d7c377eca30c1403790b416,DUTY,기술영업,기술영업,True,p4-semantic-chunk-v4.0.0
+CHK_e6729108c7b0038e54cc31d1,TRK_ace100936d896bc81753,SEC_c36dbd484a03613a3406,SBK_4d7c377eca30c1403790b416,DUTY,과학/분석 기기 엔지니어 업무,과학/분석 기기 엔지니어 업무,True,p4-semantic-chunk-v4.0.0
+CHK_74e700eb5f4d631b6164dd5a,TRK_ace100936d896bc81753,SEC_c36dbd484a03613a3406,SBK_4d7c377eca30c1403790b416,DUTY,입/출고 및 납품 등 영업지원 업무,입/출고 및 납품 등 영업지원 업무,True,p4-semantic-chunk-v4.0.0
+CHK_21a2032317b65c3bab8ba0b6,TRK_ace100936d896bc81753,SEC_c36dbd484a03613a3406,SBK_4d7c377eca30c1403790b416,DUTY,연구기자재 기술영업 업무 등,연구기자재 기술영업 업무 등,True,p4-semantic-chunk-v4.0.0
+CHK_560d7a7432a56c2b43732993,TRK_ace100936d896bc81753,SEC_2d717ac94ccc64b620c5,SBK_a0bce462986da3f0a8e9ee60,REQUIREMENT,공고참조,공고참조,True,p4-semantic-chunk-v4.0.0
+CHK_d281899fd984acb147cc7dd5,TRK_aff9d96ee2bfd0786c43,SEC_a68b8b195c8542eca30c,SBK_a580eb010f20b340ac712d84,OTHER,[현대홈쇼핑] 현대백화점 계열사! 방송FD 전문직 채용(~3/11),[현대홈쇼핑] 현대백화점 계열사! 방송fd 전문직 채용(~3/11),False,p4-semantic-chunk-v4.0.0
+CHK_712980e15f30928f482af297,TRK_aff9d96ee2bfd0786c43,SEC_a68b8b195c8542eca30c,SBK_a580eb010f20b340ac712d84,OTHER,​,​,False,p4-semantic-chunk-v4.0.0
+CHK_e69e4e3d52f229817d7b4ba0,TRK_aff9d96ee2bfd0786c43,SEC_a68b8b195c8542eca30c,SBK_a580eb010f20b340ac712d84,OTHER,서류전형 > AI역량검사 > 실무면접 > 건강검진 > 최종합격,서류전형 > ai역량검사 > 실무면접 > 건강검진 > 최종합격,False,p4-semantic-chunk-v4.0.0
+CHK_a12c5fff566cfa718b8c1f83,TRK_aff9d96ee2bfd0786c43,SEC_7f11837dae3b40cf5657,SBK_d587f52c6a75678e67a20905,DUTY,방송FD,방송fd,True,p4-semantic-chunk-v4.0.0
+CHK_66d80727c6c82360bea578a0,TRK_aff9d96ee2bfd0786c43,SEC_7f11837dae3b40cf5657,SBK_d587f52c6a75678e67a20905,DUTY,Live 방송 진행보조,live 방송 진행보조,True,p4-semantic-chunk-v4.0.0
+CHK_0f85717694003202e8279e89,TRK_aff9d96ee2bfd0786c43,SEC_7f11837dae3b40cf5657,SBK_d587f52c6a75678e67a20905,DUTY,방송관련 업무지원,방송관련 업무지원,True,p4-semantic-chunk-v4.0.0
+CHK_512c2930c031e8dc36855adf,TRK_aff9d96ee2bfd0786c43,SEC_2114946a1b601c085bd6,SBK_2ead04f2d6589534dcf08f38,COMPETENCY_EXPERIENCE,학력무관,학력무관,True,p4-semantic-chunk-v4.0.0
+CHK_8d99e383b942bd2e67ca0118,TRK_aff9d96ee2bfd0786c43,SEC_2114946a1b601c085bd6,SBK_2ead04f2d6589534dcf08f38,REQUIREMENT,스케줄 근무 가능자,스케줄 근무 가능자,True,p4-semantic-chunk-v4.0.0
+CHK_a0cdb225d1d11fe60192a83d,TRK_b238b36c1eeccb5f127c,SEC_0649ec75af40d77b5d7e,SBK_c5a2e5941919635c82a5e32f,OTHER,[한섬] 현대백화점 계열사! 생산팀 사무행정 직원 채용(~채용시 마감),[한섬] 현대백화점 계열사! 생산팀 사무행정 직원 채용(~채용시 마감),False,p4-semantic-chunk-v4.0.0
+CHK_ae31730152aac70fd576a479,TRK_b238b36c1eeccb5f127c,SEC_0649ec75af40d77b5d7e,SBK_c5a2e5941919635c82a5e32f,OTHER,​,​,False,p4-semantic-chunk-v4.0.0
+CHK_314b389796001bfdebba4489,TRK_b238b36c1eeccb5f127c,SEC_0649ec75af40d77b5d7e,SBK_c5a2e5941919635c82a5e32f,OTHER,서류전형 > 인적성 검사 > 면접 전형 > 최종 입사,서류전형 > 인적성 검사 > 면접 전형 > 최종 입사,False,p4-semantic-chunk-v4.0.0
+CHK_455a94e9588406afa4c34b62,TRK_b238b36c1eeccb5f127c,SEC_734a9aa090bd6824155c,SBK_df619e8036581c518b883c97,DUTY,타임생산/악세사리 생산,타임생산/악세사리 생산,True,p4-semantic-chunk-v4.0.0
+CHK_8c04d9d84d3a49fd7cebe37f,TRK_b238b36c1eeccb5f127c,SEC_734a9aa090bd6824155c,SBK_df619e8036581c518b883c97,DUTY,작업지시서 입력/원가입력/수정사항 및 행정 업무,작업지시서 입력/원가입력/수정사항 및 행정 업무,True,p4-semantic-chunk-v4.0.0
+CHK_57e60936f3a7a84f2352006f,TRK_b238b36c1eeccb5f127c,SEC_734a9aa090bd6824155c,SBK_df619e8036581c518b883c97,DUTY,택/라벨 및 포장 부자재 발주 및 수불업무,택/라벨 및 포장 부자재 발주 및 수불업무,True,p4-semantic-chunk-v4.0.0
+CHK_8900be1ca2bb3c9e22381971,TRK_b238b36c1eeccb5f127c,SEC_734a9aa090bd6824155c,SBK_df619e8036581c518b883c97,DUTY,마감 업무 등,마감 업무 등,True,p4-semantic-chunk-v4.0.0
+CHK_6c2fab88426bb12102fce845,TRK_b238b36c1eeccb5f127c,SEC_9b0f5cd7bc679d484fe6,SBK_630bb5f7ca7d046770b54ddb,REQUIREMENT,초대졸,초대졸,True,p4-semantic-chunk-v4.0.0
+CHK_db4b0e0e7957ff2dc3d1703e,TRK_b4494691aae0b80c691c,SEC_a1064da548a8d5f91e57,SBK_44ad302b0ac16686e8471555,OTHER,[케이아이디비채권중개] 월 200만원! 채용조건부 인턴 채용(~3/14),[케이아이디비채권중개] 월 200만원! 채용조건부 인턴 채용(~3/14),False,p4-semantic-chunk-v4.0.0
+CHK_240e65de5c859db0454188e1,TRK_b4494691aae0b80c691c,SEC_a1064da548a8d5f91e57,SBK_44ad302b0ac16686e8471555,OTHER,​,​,False,p4-semantic-chunk-v4.0.0
+CHK_f1b32ff06bf648e6489eb48c,TRK_b4494691aae0b80c691c,SEC_a1064da548a8d5f91e57,SBK_44ad302b0ac16686e8471555,OTHER,서류전형 > 1차면접 > 2차면접 > 최종합격,서류전형 > 1차면접 > 2차면접 > 최종합격,False,p4-semantic-chunk-v4.0.0
+CHK_0fcfa079782ebf88228e3adb,TRK_b4494691aae0b80c691c,SEC_d4216f15e80be7367dc8,SBK_98949d5d043810416ab56d70,DUTY,채권시장 중개,채권시장 중개,True,p4-semantic-chunk-v4.0.0
+CHK_5a7649b2265cc8eedf13778d,TRK_b4494691aae0b80c691c,SEC_d4216f15e80be7367dc8,SBK_98949d5d043810416ab56d70,DUTY,태양관 발전사업 영업,태양관 발전사업 영업,True,p4-semantic-chunk-v4.0.0
+CHK_edcde3e76f9e0869498be5b4,TRK_b4494691aae0b80c691c,SEC_d4216f15e80be7367dc8,SBK_98949d5d043810416ab56d70,DUTY,금융기관 간 채권 중개,금융기관 간 채권 중개,True,p4-semantic-chunk-v4.0.0
+CHK_5c83e3bc6c98ae5312d80d0a,TRK_b4494691aae0b80c691c,SEC_c646bd6836221ed03763,SBK_bb7d2f720eaf38766b990baf,REQUIREMENT,4년제 대졸 이상 또는 9월 졸업예정자,4년제 대졸 이상 또는 9월 졸업예정자,True,p4-semantic-chunk-v4.0.0
+CHK_bd7446766aca58b30818822b,TRK_b4494691aae0b80c691c,SEC_c646bd6836221ed03763,SBK_bb7d2f720eaf38766b990baf,REQUIREMENT,전공무관 등,전공무관 등,True,p4-semantic-chunk-v4.0.0
+CHK_6c764b717c35aa1e01347cfb,TRK_b5820bfc908bbaac5398,SEC_4bc92087bfa1d77ee3d8,SBK_65a19d1285ea2ad2bd4d6d6b,OTHER,[종근당] 유연근무제 시행! 2021년 수시 채용(~3/14),[종근당] 유연근무제 시행! 2021년 수시 채용(~3/14),False,p4-semantic-chunk-v4.0.0
+CHK_39415b03f5bf921c32f282d6,TRK_b5820bfc908bbaac5398,SEC_4bc92087bfa1d77ee3d8,SBK_65a19d1285ea2ad2bd4d6d6b,OTHER,​,​,False,p4-semantic-chunk-v4.0.0
+CHK_f27d52aee8440421f515cc35,TRK_b5820bfc908bbaac5398,SEC_4bc92087bfa1d77ee3d8,SBK_65a19d1285ea2ad2bd4d6d6b,OTHER,서류전형 및 AI면접 > 1차면접 > 2차면접 > 채용검진 > 최종합격,서류전형 및 ai면접 > 1차면접 > 2차면접 > 채용검진 > 최종합격,False,p4-semantic-chunk-v4.0.0
+CHK_52c220475b0423e115fb6df4,TRK_b5820bfc908bbaac5398,SEC_23400c1d3429b3ab5be4,SBK_e04598a367f91569b505237d,DUTY,의약품 관리약사,의약품 관리약사,True,p4-semantic-chunk-v4.0.0
+CHK_39de59bd58f31a690727fa9b,TRK_b5820bfc908bbaac5398,SEC_23400c1d3429b3ab5be4,SBK_e04598a367f91569b505237d,DUTY,의약품 생산,의약품 생산,True,p4-semantic-chunk-v4.0.0
+CHK_183fc4f73f34ace0bbcc2ec8,TRK_b5820bfc908bbaac5398,SEC_23400c1d3429b3ab5be4,SBK_e04598a367f91569b505237d,DUTY,"회의약품 제조관리, 생상공정관리 및 변경관리 업무","회의약품 제조관리, 생상공정관리 및 변경관리 업무",True,p4-semantic-chunk-v4.0.0
+CHK_f4187ad7568cb4a727822b87,TRK_b5820bfc908bbaac5398,SEC_23400c1d3429b3ab5be4,SBK_e04598a367f91569b505237d,DUTY,내용고형제 포장공정설비 운영지원,내용고형제 포장공정설비 운영지원,True,p4-semantic-chunk-v4.0.0
+CHK_b8dac6493afa6f16930d801d,TRK_b5820bfc908bbaac5398,SEC_23400c1d3429b3ab5be4,SBK_e04598a367f91569b505237d,DUTY,의약품 생산 업무 등,의약품 생산 업무 등,True,p4-semantic-chunk-v4.0.0
+CHK_69485623c31ccd9e8c7381e5,TRK_b5820bfc908bbaac5398,SEC_ae85abdad34cf37b3b22,SBK_7975fb0b124ab3052f6ffac5,REQUIREMENT,기졸업자 및 졸업예정자 지원 가능,기졸업자 및 졸업예정자 지원 가능,True,p4-semantic-chunk-v4.0.0
+CHK_b3faef8a8f1768c7fd785265,TRK_b76f96d639c2d408d90f,SEC_2ea333d4f1bc47a34865,SBK_d35edac3c09bd536d30b95a4,OTHER,[한국국제협력단] KOICA 해외사무소/재외공관 영프로페셔널(청년인턴) 채용(~3/18),[한국국제협력단] koica 해외사무소/재외공관 영프로페셔널(청년인턴) 채용(~3/18),False,p4-semantic-chunk-v4.0.0
+CHK_758630c60bb4f48acfe3b1ae,TRK_b76f96d639c2d408d90f,SEC_2ea333d4f1bc47a34865,SBK_d35edac3c09bd536d30b95a4,OTHER,​,​,False,p4-semantic-chunk-v4.0.0
+CHK_ae916f03348ace51255ecbdd,TRK_b76f96d639c2d408d90f,SEC_2ea333d4f1bc47a34865,SBK_d35edac3c09bd536d30b95a4,OTHER,"서류전형 > 적합도검사, 면접전형 > 최종합격","서류전형 > 적합도검사, 면접전형 > 최종합격",False,p4-semantic-chunk-v4.0.0
+CHK_1a5b0bb99f6bf56c2d7a8e76,TRK_b76f96d639c2d408d90f,SEC_d033becb7794aa31fc22,SBK_3d6997e4f33d5cf069c041bd,DUTY,ODA사업,oda사업,True,p4-semantic-chunk-v4.0.0
+CHK_9196cc9069e52f861dba5a0d,TRK_b76f96d639c2d408d90f,SEC_d033becb7794aa31fc22,SBK_3d6997e4f33d5cf069c041bd,DUTY,공고참조,공고참조,True,p4-semantic-chunk-v4.0.0
+CHK_2a1a9529b2166e2e006826bb,TRK_b76f96d639c2d408d90f,SEC_343ba5b27d73c4d2bc58,SBK_7e04dfd2abf544393c2be5f8,REQUIREMENT,만 19세 이상 만 34세 이하,만 19세 이상 만 34세 이하,True,p4-semantic-chunk-v4.0.0
+CHK_2496fd45e0afe2ac3add9e97,TRK_b76f96d639c2d408d90f,SEC_343ba5b27d73c4d2bc58,SBK_7e04dfd2abf544393c2be5f8,REQUIREMENT,공인영어성적,공인영어성적,True,p4-semantic-chunk-v4.0.0
+CHK_9b9166dfb7d6570cf7111e9b,TRK_bc6016b33aeaa17ea1cd,SEC_5b076fe391822c9f3437,SBK_3aac0b8d0486175dd75dd380,OTHER,[비상교육] 금연정책 시행기업! 각 부문별 신입 및 경력 채용(~3/10),[비상교육] 금연정책 시행기업! 각 부문별 신입 및 경력 채용(~3/10),False,p4-semantic-chunk-v4.0.0
+CHK_0d9e3a0d98a62c787526d68a,TRK_bc6016b33aeaa17ea1cd,SEC_5b076fe391822c9f3437,SBK_3aac0b8d0486175dd75dd380,OTHER,​,​,False,p4-semantic-chunk-v4.0.0
+CHK_1522fd3bccd4f280b19fa2f0,TRK_bc6016b33aeaa17ea1cd,SEC_5b076fe391822c9f3437,SBK_3aac0b8d0486175dd75dd380,OTHER,서류전형 및 1차면접 > 인적성검사 > 2차면접 > 최종합격,서류전형 및 1차면접 > 인적성검사 > 2차면접 > 최종합격,False,p4-semantic-chunk-v4.0.0
+CHK_e9ae4a2852b57fb7d3f3f1fe,TRK_bc6016b33aeaa17ea1cd,SEC_63b29cd8057be37d2a72,SBK_1b6f1f76acb9cce9b69f352d,DUTY,IT,it,True,p4-semantic-chunk-v4.0.0
+CHK_9e7a09ccd0c5bd44f0c5d58b,TRK_bc6016b33aeaa17ea1cd,SEC_63b29cd8057be37d2a72,SBK_1b6f1f76acb9cce9b69f352d,DUTY,마케팅,마케팅,True,p4-semantic-chunk-v4.0.0
+CHK_ff194a0bf9311dd5a88175b8,TRK_bc6016b33aeaa17ea1cd,SEC_63b29cd8057be37d2a72,SBK_1b6f1f76acb9cce9b69f352d,DUTY,기획,기획,True,p4-semantic-chunk-v4.0.0
+CHK_271de89c1e3b815bdd805909,TRK_bc6016b33aeaa17ea1cd,SEC_63b29cd8057be37d2a72,SBK_1b6f1f76acb9cce9b69f352d,DUTY,교과서/교재개발 등,교과서/교재개발 등,True,p4-semantic-chunk-v4.0.0
+CHK_66547a1ca2e97c50a1b378ca,TRK_bc6016b33aeaa17ea1cd,SEC_63b29cd8057be37d2a72,SBK_1b6f1f76acb9cce9b69f352d,DUTY,웹/앱 개발 및 기획,웹/앱 개발 및 기획,True,p4-semantic-chunk-v4.0.0
+CHK_1a58a841a4675f00a1df1fc0,TRK_bc6016b33aeaa17ea1cd,SEC_63b29cd8057be37d2a72,SBK_1b6f1f76acb9cce9b69f352d,DUTY,브랜드 마케팅,브랜드 마케팅,True,p4-semantic-chunk-v4.0.0
+CHK_d7e96886a06d391843236151,TRK_bc6016b33aeaa17ea1cd,SEC_63b29cd8057be37d2a72,SBK_1b6f1f76acb9cce9b69f352d,DUTY,회계,회계,True,p4-semantic-chunk-v4.0.0
+CHK_e69ad38baf7ac6b96ed0937c,TRK_bc6016b33aeaa17ea1cd,SEC_63b29cd8057be37d2a72,SBK_1b6f1f76acb9cce9b69f352d,DUTY,물류관리,물류관리,True,p4-semantic-chunk-v4.0.0
+CHK_e334de0fc1f695d5cd18d84b,TRK_bc6016b33aeaa17ea1cd,SEC_63b29cd8057be37d2a72,SBK_1b6f1f76acb9cce9b69f352d,DUTY,교과서 개발 등,교과서 개발 등,True,p4-semantic-chunk-v4.0.0
+CHK_4dcaacc54256d4302b4e8e91,TRK_bc6016b33aeaa17ea1cd,SEC_fcd191cf037a6573baff,SBK_2873e72b8df20546fffd3d85,REQUIREMENT,공고참조,공고참조,True,p4-semantic-chunk-v4.0.0
+CHK_26d079cd4857c75b7d48d6aa,TRK_c1da746d84ef4231384b,SEC_e4e3dfdf28c690868833,SBK_c7798f7974dac84b556e426d,OTHER,[현대리바트] 현대백화점 계열사! 기계설비 생산전문직 채용(~3/9),[현대리바트] 현대백화점 계열사! 기계설비 생산전문직 채용(~3/9),False,p4-semantic-chunk-v4.0.0
+CHK_6c6c7cd2883c6d78f0d543f0,TRK_c1da746d84ef4231384b,SEC_e4e3dfdf28c690868833,SBK_c7798f7974dac84b556e426d,OTHER,​,​,False,p4-semantic-chunk-v4.0.0
+CHK_78d97306c7c5dd16ab4c36ea,TRK_c1da746d84ef4231384b,SEC_e4e3dfdf28c690868833,SBK_c7798f7974dac84b556e426d,OTHER,서류전형 > 면접전형 > 신체검사 > 최종합격,서류전형 > 면접전형 > 신체검사 > 최종합격,False,p4-semantic-chunk-v4.0.0
+CHK_427ac91b742526eb15fca43e,TRK_c1da746d84ef4231384b,SEC_65158d9326ac4276a845,SBK_d04e8616b2eefa7f86c9a9c1,DUTY,기계설비,기계설비,True,p4-semantic-chunk-v4.0.0
+CHK_e4790bc0c13213ab8752e363,TRK_c1da746d84ef4231384b,SEC_65158d9326ac4276a845,SBK_d04e8616b2eefa7f86c9a9c1,DUTY,자동화 기계,자동화 기계,True,p4-semantic-chunk-v4.0.0
+CHK_e6ec04873b1d1a3ca46b087c,TRK_c1da746d84ef4231384b,SEC_f1b6df863cff7450cc5b,SBK_ec175f6ffb57d3ed7a8dd2e9,REQUIREMENT,초대졸 이상,초대졸 이상,True,p4-semantic-chunk-v4.0.0
+CHK_b37f75eb94a04dce67f662e1,TRK_c21cda7468e777f299d4,SEC_d86c2251eb6e0d3fb8fd,SBK_29d2ecd897e63afd2f53c3b9,OTHER,"[CS홀딩스] 초봉 3,600만원! 신입/경력 채용(~3/15)","[cs홀딩스] 초봉 3,600만원! 신입/경력 채용(~3/15)",False,p4-semantic-chunk-v4.0.0
+CHK_cb6c7db64772cb1514334e2f,TRK_c21cda7468e777f299d4,SEC_d86c2251eb6e0d3fb8fd,SBK_29d2ecd897e63afd2f53c3b9,OTHER,​,​,False,p4-semantic-chunk-v4.0.0
+CHK_60cd192c62bc9900d303f7f5,TRK_c21cda7468e777f299d4,SEC_d86c2251eb6e0d3fb8fd,SBK_29d2ecd897e63afd2f53c3b9,OTHER,서류전형 > 인적성검사(온라인) > 실무진 면접 > 심층(PT)면접 > 임원진면접 > 채용검진 > 최종합격,서류전형 > 인적성검사(온라인) > 실무진 면접 > 심층(pt)면접 > 임원진면접 > 채용검진 > 최종합격,False,p4-semantic-chunk-v4.0.0
+CHK_cf97d0b3561dcc24ecc06447,TRK_c21cda7468e777f299d4,SEC_f6920dc3319cd44f494a,SBK_2da3517eee1312ecbfbce7a5,DUTY,경영관리,경영관리,True,p4-semantic-chunk-v4.0.0
+CHK_d6e96582471522f67b7fad3e,TRK_c21cda7468e777f299d4,SEC_f6920dc3319cd44f494a,SBK_2da3517eee1312ecbfbce7a5,DUTY,해외영업,해외영업,True,p4-semantic-chunk-v4.0.0
+CHK_07ec2af0fdf3d32acf22ff28,TRK_c21cda7468e777f299d4,SEC_f6920dc3319cd44f494a,SBK_2da3517eee1312ecbfbce7a5,DUTY,기술연구소,기술연구소,True,p4-semantic-chunk-v4.0.0
+CHK_b96ecfd87ed02c8159ab34e9,TRK_c21cda7468e777f299d4,SEC_f6920dc3319cd44f494a,SBK_2da3517eee1312ecbfbce7a5,DUTY,사업계획 수립 및 KPI관리,사업계획 수립 및 kpi관리,True,p4-semantic-chunk-v4.0.0
+CHK_a6278eb627b871ef1597d2ea,TRK_c21cda7468e777f299d4,SEC_f6920dc3319cd44f494a,SBK_2da3517eee1312ecbfbce7a5,DUTY,제품 해외영업,제품 해외영업,True,p4-semantic-chunk-v4.0.0
+CHK_4d070a8b3ac170a59a75b9c7,TRK_c21cda7468e777f299d4,SEC_f6920dc3319cd44f494a,SBK_2da3517eee1312ecbfbce7a5,DUTY,용접재료 개발/개선 등,용접재료 개발/개선 등,True,p4-semantic-chunk-v4.0.0
+CHK_1cc0f7a1bacc78ac3be49f4c,TRK_c21cda7468e777f299d4,SEC_a5a9c994ec6705ca8140,SBK_5f8f4857ee1839c3bd919ed3,REQUIREMENT,공고참조,공고참조,True,p4-semantic-chunk-v4.0.0
+CHK_58b3164f263b727cfc85cfbe,TRK_de3fb766e375c22e345f,SEC_560a2a051cf90f4557a4,SBK_8301c81c59d9e4965d50c38b,OTHER,[경향신문사] 나이/학력제한 없음! 57기 수습기자 채용(~3/8),[경향신문사] 나이/학력제한 없음! 57기 수습기자 채용(~3/8),False,p4-semantic-chunk-v4.0.0
+CHK_c3132648beffa284e79a16df,TRK_de3fb766e375c22e345f,SEC_560a2a051cf90f4557a4,SBK_8301c81c59d9e4965d50c38b,OTHER,​,​,False,p4-semantic-chunk-v4.0.0
+CHK_15bc5bf5393583ca1255b47e,TRK_de3fb766e375c22e345f,SEC_560a2a051cf90f4557a4,SBK_8301c81c59d9e4965d50c38b,OTHER,"서류전형 > 필기시험(종합교양, 논술) > 실무능력평가/실무면접 > 최종면접","서류전형 > 필기시험(종합교양, 논술) > 실무능력평가/실무면접 > 최종면접",False,p4-semantic-chunk-v4.0.0
+CHK_4095a1ff0e036b3512d54354,TRK_de3fb766e375c22e345f,SEC_69437a39999599d75aa7,SBK_2740c94f6cb6be64b874e95d,DUTY,수습기자,수습기자,True,p4-semantic-chunk-v4.0.0
+CHK_f9f133a961bde563cf6c2861,TRK_de3fb766e375c22e345f,SEC_69437a39999599d75aa7,SBK_2740c94f6cb6be64b874e95d,DUTY,취재,취재,True,p4-semantic-chunk-v4.0.0
+CHK_418756133ce56746d64524f3,TRK_de3fb766e375c22e345f,SEC_69437a39999599d75aa7,SBK_2740c94f6cb6be64b874e95d,DUTY,지역주재,지역주재,True,p4-semantic-chunk-v4.0.0
+CHK_f78f3741d2923c92818b9448,TRK_de3fb766e375c22e345f,SEC_69437a39999599d75aa7,SBK_2740c94f6cb6be64b874e95d,DUTY,사진,사진,True,p4-semantic-chunk-v4.0.0
+CHK_abd8ebe2d1213d69a9dcc4e6,TRK_de3fb766e375c22e345f,SEC_96a65da635a05c6e61f6,SBK_61bf675087667be9eb5a8626,COMPETENCY_EXPERIENCE,나이/학력 제한 없음,나이/학력 제한 없음,True,p4-semantic-chunk-v4.0.0
+CHK_cf7d33a9f4bf2a4ae089b2d2,TRK_de3fb766e375c22e345f,SEC_96a65da635a05c6e61f6,SBK_61bf675087667be9eb5a8626,REQUIREMENT,공인 영어성적,공인 영어성적,True,p4-semantic-chunk-v4.0.0
+CHK_0cd1a3ae38ddea26a1ae03f4,TRK_de3fb766e375c22e345f,SEC_96a65da635a05c6e61f6,SBK_61bf675087667be9eb5a8626,REQUIREMENT,공인 국어성적,공인 국어성적,True,p4-semantic-chunk-v4.0.0
+CHK_88df0bad66667d64423caea6,TRK_dfc31037f1a7dd9b37bc,SEC_6711cfb433b34e65170a,SBK_d54c2ffa002052030cfb0f25,OTHER,[이베스트투자증권] 자녀학자금 지원! 채권영업 인턴 채용(~3/14),[이베스트투자증권] 자녀학자금 지원! 채권영업 인턴 채용(~3/14),False,p4-semantic-chunk-v4.0.0
+CHK_b40127d4a62218461e286b32,TRK_dfc31037f1a7dd9b37bc,SEC_6711cfb433b34e65170a,SBK_d54c2ffa002052030cfb0f25,OTHER,​,​,False,p4-semantic-chunk-v4.0.0
+CHK_db95b3e65f6b23bb6bee013c,TRK_dfc31037f1a7dd9b37bc,SEC_6711cfb433b34e65170a,SBK_d54c2ffa002052030cfb0f25,OTHER,서류전형 > 1차면접 > 2차면접 > 신체검사 > 최종합격,서류전형 > 1차면접 > 2차면접 > 신체검사 > 최종합격,False,p4-semantic-chunk-v4.0.0
+CHK_21c9af9293f71ccec19c4816,TRK_dfc31037f1a7dd9b37bc,SEC_9eb119402aa7e67125c3,SBK_467f8e2f9cc4f721fcd0f815,DUTY,채권영업,채권영업,True,p4-semantic-chunk-v4.0.0
+CHK_3cf404da48a2389265fabde3,TRK_dfc31037f1a7dd9b37bc,SEC_46c1ffc038723b98c44a,SBK_cd76df34a6ce3954c7a23d0d,KNOWLEDGE,금융투자업 전반에 대한 이해가 풍부한 자,금융투자업 전반에 대한 이해가 풍부한 자,True,p4-semantic-chunk-v4.0.0
+CHK_0d54c03548bf4fc09aab8021,TRK_ebe5f522856a185f1960,SEC_5119e0e65ab7bfc09221,SBK_8cc03f4853bc0b5f6c6885f8,OTHER,[APR] 월 250만원! 자사몰 MD 인턴 채용(~3/11),[apr] 월 250만원! 자사몰 md 인턴 채용(~3/11),False,p4-semantic-chunk-v4.0.0
+CHK_48d2b978c3a7944bdffaa644,TRK_ebe5f522856a185f1960,SEC_5119e0e65ab7bfc09221,SBK_8cc03f4853bc0b5f6c6885f8,OTHER,​,​,False,p4-semantic-chunk-v4.0.0
+CHK_5834f4cfce41b8f7e9be8d18,TRK_ebe5f522856a185f1960,SEC_5119e0e65ab7bfc09221,SBK_8cc03f4853bc0b5f6c6885f8,OTHER,서류전형 > 인성검사 > 1차면접 > 인턴십,서류전형 > 인성검사 > 1차면접 > 인턴십,False,p4-semantic-chunk-v4.0.0
+CHK_92fd70260accbccc95f01991,TRK_ebe5f522856a185f1960,SEC_fca42ceab34cde9a4394,SBK_d47c3a5dea022a48f3a24e70,DUTY,자사몰 MD,자사몰 md,True,p4-semantic-chunk-v4.0.0
+CHK_4df8e89e52a649c1109e24da,TRK_ebe5f522856a185f1960,SEC_fca42ceab34cde9a4394,SBK_d47c3a5dea022a48f3a24e70,DUTY,자사몰 판매 분석에 따른 주차별 판매 프로모션 기획 및 분석,자사몰 판매 분석에 따른 주차별 판매 프로모션 기획 및 분석,True,p4-semantic-chunk-v4.0.0
+CHK_fd388d832d6cc53bc71d225d,TRK_ebe5f522856a185f1960,SEC_fca42ceab34cde9a4394,SBK_d47c3a5dea022a48f3a24e70,DUTY,상품관리,상품관리,True,p4-semantic-chunk-v4.0.0
+CHK_64a6e6a83308fb9e6957ed2f,TRK_ebe5f522856a185f1960,SEC_fca42ceab34cde9a4394,SBK_d47c3a5dea022a48f3a24e70,DUTY,고객관리,고객관리,True,p4-semantic-chunk-v4.0.0
+CHK_9460621ce582f17648493b4e,TRK_ebe5f522856a185f1960,SEC_fca42ceab34cde9a4394,SBK_d47c3a5dea022a48f3a24e70,DUTY,자사몰 UI/UX 관리 및 개선 등,자사몰 ui/ux 관리 및 개선 등,True,p4-semantic-chunk-v4.0.0
+CHK_85fb1833d75041c35df9fed8,TRK_ebe5f522856a185f1960,SEC_1753062d8751c098b8f6,SBK_ccc87552f4ad7833577b840e,REQUIREMENT,대졸 또는 8월 졸업예정자 등,대졸 또는 8월 졸업예정자 등,True,p4-semantic-chunk-v4.0.0
+CHK_eb079901644a03c8c150a9dc,TRK_f67b37ae319c520a7b4f,SEC_26697cfcad977b60c1b6,SBK_f6e66dcaf12c720e4eb1f825,OTHER,[태경농산] 농심그룹 계열사! 각 부문별 신입 및 경력 채용(~3/21),[태경농산] 농심그룹 계열사! 각 부문별 신입 및 경력 채용(~3/21),False,p4-semantic-chunk-v4.0.0
+CHK_7a515320b7a78cbeed5e0219,TRK_f67b37ae319c520a7b4f,SEC_26697cfcad977b60c1b6,SBK_f6e66dcaf12c720e4eb1f825,OTHER,​,​,False,p4-semantic-chunk-v4.0.0
+CHK_ef61fd23670295b1343e1d15,TRK_f67b37ae319c520a7b4f,SEC_26697cfcad977b60c1b6,SBK_f6e66dcaf12c720e4eb1f825,OTHER,서류전형 > 인적성검사 > 실무면접 > 임원면접 > 최종합격,서류전형 > 인적성검사 > 실무면접 > 임원면접 > 최종합격,False,p4-semantic-chunk-v4.0.0
+CHK_e50798167b3d40a2b603d0a1,TRK_f67b37ae319c520a7b4f,SEC_d89bfc1323e3937512f9,SBK_25868a19f46bc1878da78ac0,DUTY,경영관리,경영관리,True,p4-semantic-chunk-v4.0.0
+CHK_38a97bd42b51e646db8331ab,TRK_f67b37ae319c520a7b4f,SEC_d89bfc1323e3937512f9,SBK_25868a19f46bc1878da78ac0,DUTY,연구개발,연구개발,True,p4-semantic-chunk-v4.0.0
+CHK_3dcfed7c15089eb12712ce59,TRK_f67b37ae319c520a7b4f,SEC_d89bfc1323e3937512f9,SBK_25868a19f46bc1878da78ac0,DUTY,생산기획,생산기획,True,p4-semantic-chunk-v4.0.0
+CHK_5649499f2ca324b73d7e0dd7,TRK_f67b37ae319c520a7b4f,SEC_d89bfc1323e3937512f9,SBK_25868a19f46bc1878da78ac0,DUTY,생산관리,생산관리,True,p4-semantic-chunk-v4.0.0
+CHK_e4f20cf5302925491d5d1ae2,TRK_f67b37ae319c520a7b4f,SEC_d89bfc1323e3937512f9,SBK_25868a19f46bc1878da78ac0,DUTY,기계/설비관리,기계/설비관리,True,p4-semantic-chunk-v4.0.0
+CHK_64be4b08d2f77d661981272d,TRK_f67b37ae319c520a7b4f,SEC_d89bfc1323e3937512f9,SBK_25868a19f46bc1878da78ac0,DUTY,산업안전 관리,산업안전 관리,True,p4-semantic-chunk-v4.0.0
+CHK_e83e8daab12d8f540ed3e4c9,TRK_f67b37ae319c520a7b4f,SEC_d89bfc1323e3937512f9,SBK_25868a19f46bc1878da78ac0,DUTY,기획업무,기획업무,True,p4-semantic-chunk-v4.0.0
+CHK_8f4414339cefd9007dad42fb,TRK_f67b37ae319c520a7b4f,SEC_d89bfc1323e3937512f9,SBK_25868a19f46bc1878da78ac0,DUTY,식품가공기술연구,식품가공기술연구,True,p4-semantic-chunk-v4.0.0
+CHK_0f20f7a37024ef67b5e74e9d,TRK_f67b37ae319c520a7b4f,SEC_d89bfc1323e3937512f9,SBK_25868a19f46bc1878da78ac0,DUTY,공장관리업무,공장관리업무,True,p4-semantic-chunk-v4.0.0
+CHK_02e970eb0656edca4e30551d,TRK_f67b37ae319c520a7b4f,SEC_d89bfc1323e3937512f9,SBK_25868a19f46bc1878da78ac0,DUTY,포장관련 설비 관리,포장관련 설비 관리,True,p4-semantic-chunk-v4.0.0
+CHK_30cd39c37d2ea938797f7793,TRK_f67b37ae319c520a7b4f,SEC_d89bfc1323e3937512f9,SBK_25868a19f46bc1878da78ac0,DUTY,사업장 안전 관리 등,사업장 안전 관리 등,True,p4-semantic-chunk-v4.0.0
+CHK_8b2086827b1862bb906369a1,TRK_f67b37ae319c520a7b4f,SEC_69d2942a3b681d042141,SBK_c06ee6ffe64f120c74b2d2dc,COMPETENCY_EXPERIENCE,정규 4년제 대학졸업 이상 학력 소지자,정규 4년제 대학졸업 이상 학력 소지자,True,p4-semantic-chunk-v4.0.0

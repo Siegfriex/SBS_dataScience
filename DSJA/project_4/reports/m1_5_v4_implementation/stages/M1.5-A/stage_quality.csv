@@ -1,0 +1,5 @@
+stageId,gateId,status,evidence,runId
+M1.5-A,TIME_SEMANTICS_READY,BLOCKED,authoritative coverage 29/137 < 0.98,M1_5_V4_IMPLEMENTATION_20260806_01
+M1.5-A,CANONICAL_ENUM_READY,PASS,invalid postingKind/requirementType/obligation = 0,M1_5_V4_IMPLEMENTATION_20260806_01
+M1.5-A,RAW_LINEAGE_READY,BLOCKED,declared/physical raw mismatch = 18,M1_5_V4_IMPLEMENTATION_20260806_01
+M1.5-A,DETERMINISTIC_SEMANTIC_BASE_READY,PASS_WITH_FINDINGS,deterministic no-imputation implementation and replay complete,M1_5_V4_IMPLEMENTATION_20260806_01

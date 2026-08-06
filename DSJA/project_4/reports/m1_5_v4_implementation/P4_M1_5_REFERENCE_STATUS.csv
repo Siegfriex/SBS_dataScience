@@ -1,0 +1,4 @@
+artifact,implementationStatus,executionStatus,rows,authority
+reference output schema,PASS,NOT_EVALUATED,0,LLM_REFERENCE_FROZEN only after independent human validation
+Labeler/Critic/Adjudicator,PASS,NOT_EVALUATED,0,MODEL_ACCEPTED never auto-promoted
+prompt/model registry,PARTIAL,NOT_EVALUATED,0,pinned artifacts absent

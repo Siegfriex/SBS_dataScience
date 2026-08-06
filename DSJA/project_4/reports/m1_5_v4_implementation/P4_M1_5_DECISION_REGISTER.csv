@@ -1,0 +1,6 @@
+decisionId,phase,status,question,recommendation
+D-M2-001,M2,USER_DECISION_REQUIRED,production Linkareer crawl을 실행할 것인가,현재 보류; source-policy 승인과 key custody 후 실행
+D-M2-002,M2,USER_DECISION_REQUIRED,source-policy human approval record를 확정할 것인가,승인자/시각/범위/kill switch를 서명 기록으로 동결
+D-SEC-001,M2,USER_DECISION_REQUIRED,API key 회전·보관·runtime injection 책임자를 정할 것인가,회전 후 secret store 단일 주입; 로그/manifest 저장 금지
+D-M3-001,M3,USER_DECISION_REQUIRED,core AI·IT cohort와 통신/방송 포함 범위를 동결할 것인가,69 included/51 excluded를 검토하고 별도 signed release로 동결
+D-DISC-001,article,USER_DECISION_REQUIRED,LLM_REFERENCE 사용 사실과 한계를 기사에 공개할 것인가,HUMAN_GOLD와 구분해 방법론/한계에 명시
