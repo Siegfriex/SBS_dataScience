@@ -3,7 +3,6 @@ import json
 from pathlib import Path
 
 import pytest
-import yaml
 
 from p4.contracts.loader import (
     CANONICAL_SCHEMA_FILENAME,
@@ -11,6 +10,7 @@ from p4.contracts.loader import (
     contract_bundle_status,
     latest_contract_bundle,
     load_crawl_release,
+    assess_crawl_release,
     validate_crawl_release,
 )
 from p4.contracts.validators import audit_contract_bundle, assert_duckdb_executable_ddl, find_cross_schema_foreign_keys
@@ -114,53 +114,73 @@ def test_contract_bundle_status_and_latest_are_version_agnostic(tmp_path):
     assert status["ready"] is False
     assert status["contractVersion"] == "2.1.12"
     assert CANONICAL_SCHEMA_FILENAME in status["missingFiles"]
-    assert len(status["missingFiles"]) == 6
+    assert len(status["missingFiles"]) == 10
 
 
-def test_contract_audit_verifies_version_schema_manifest_ddl_and_reserved_field(tmp_path):
-    root = tmp_path / "P4_CONTRACT_v2.1.2"
-    root.mkdir()
-    contract = {
-        "contractVersion": "2.1.2",
-        "duckdbVersion": "1.0.0",
-        "requiredTables": ["mart.postingAnalysisMart"],
-        "requiredFields": {"mart.postingAnalysisMart": ["trackId", "highDemandScore"]},
-        "reservedFields": {"highDemandScore": {"mustBeNull": True}},
-        "tables": [
-            {
-                "name": "mart.postingAnalysisMart",
-                "columns": [{"name": "trackId"}, {"name": "highDemandScore"}],
-            }
-        ],
-    }
-    (root / "p4_contract.yaml").write_text(yaml.safe_dump(contract), encoding="utf-8")
-    schema = {
-        "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "type": "object",
-        "required": ["contractVersion"],
-        "properties": {"contractVersion": {"const": "2.1.2"}},
-        "additionalProperties": True,
-    }
-    (root / CANONICAL_SCHEMA_FILENAME).write_text(json.dumps(schema), encoding="utf-8")
-    ddl = "CREATE SCHEMA IF NOT EXISTS mart; CREATE TABLE mart.postingAnalysisMart(trackId VARCHAR, highDemandScore DOUBLE);"
-    (root / "warehouse_duckdb.sql").write_text(ddl, encoding="utf-8")
-    manifest = {"contractVersion": "2.1.2", "ddlSha256": _sha(root / "warehouse_duckdb.sql"), "duckdbVersion": "1.0.0"}
-    (root / "CONTRACT_MANIFEST.json").write_text(json.dumps(manifest), encoding="utf-8")
-    (root / "AGENT3_TO_AGENT2_HANDOFF.json").write_text(json.dumps({"contractVersion": "2.1.2"}), encoding="utf-8")
-    checksum_names = [
-        "p4_contract.yaml",
-        CANONICAL_SCHEMA_FILENAME,
-        "warehouse_duckdb.sql",
-        "CONTRACT_MANIFEST.json",
-        "AGENT3_TO_AGENT2_HANDOFF.json",
-    ]
-    (root / "CHECKSUMS.sha256").write_text(
-        "".join(f"{_sha(root / name)}  {name}\n" for name in checksum_names), encoding="utf-8"
-    )
+def test_contract_audit_verifies_published_v212_bundle():
+    root = Path(__file__).resolve().parents[3] / "shared/contracts/P4_CONTRACT_v2.1.2"
     audit = audit_contract_bundle(root)
     assert audit["passed"] is True
     assert audit["contractVersion"] == "2.1.2"
     assert audit["schemaFilename"] == CANONICAL_SCHEMA_FILENAME
+    assert audit["contractSha256"] == "f92380cdfc16967f1e363800cd9a575e44532f18a86b2f28f8c3e2404ed675e9"
+    assert audit["ddlSha256"] == "956986874eae5686a20a52721dc303f1913c7391b2ee27da6d582a762f73ad58"
+    assert (audit["schemaCount"], audit["tableCount"], audit["viewCount"]) == (5, 26, 6)
+    assert audit["ddlStatementCount"] >= 36
+    assert audit["crossSchemaForeignKeyCount"] == 0
+    assert audit["keyContract"]["algorithm"] == "SHA-256"
+    assert audit["metricMetadata"]["metricCount"] == 24
+    assert audit["fieldLineageCount"] == 418
+
+
+def _assessment_release(tmp_path: Path, *, contract_version, status: str, pagination_verified: bool) -> Path:
+    root = tmp_path / "CRAWL_TEST"
+    root.mkdir()
+    files = {
+        "manifest.jsonl": json.dumps({"sourceUrl": "https://fixture.invalid/1", "rawPath": "raw/1", "rawSha256": "a" * 64}) + "\n",
+        "coverage.csv": "periodMonth,coverageStatus\n2026-01,partial\n",
+        "query.yaml": "query: fixture\n",
+        "schema.json": "{}\n",
+    }
+    for name, content in files.items():
+        (root / name).write_text(content, encoding="utf-8")
+    handoff = {
+        "release_id": "CRAWL_TEST",
+        "contract_version": contract_version,
+        "manifest_paths": ["manifest.jsonl"],
+        "coverage_path": "coverage.csv",
+        "checksum_path": "CHECKSUMS.sha256",
+        "query_registry_path": "query.yaml",
+        "schema_snapshot_path": "schema.json",
+        "status": status,
+        "pagination_verified": pagination_verified,
+    }
+    (root / "HANDOFF.json").write_text(json.dumps(handoff), encoding="utf-8")
+    checksum_names = [*files, "HANDOFF.json"]
+    (root / "CHECKSUMS.sha256").write_text(
+        "".join(f"{_sha(root / name)}  {name}\n" for name in checksum_names), encoding="utf-8"
+    )
+    return root / "HANDOFF.json"
+
+
+def test_partial_release_is_accepted_only_for_source_adapter_conformance(tmp_path):
+    result = assess_crawl_release(
+        _assessment_release(tmp_path, contract_version=None, status="PARTIALLY_READY", pagination_verified=False)
+    )
+    assert result["sourceAdapterConformanceStatus"] == "SOURCE_ADAPTER_CONFORMANCE_ACCEPTED"
+    assert result["empiricalCorpusStatus"] == "EMPIRICAL_CORPUS_REJECTED"
+    assert set(result["empiricalRejectionReasons"]) == {
+        "contractVersionMismatchOrMissing",
+        "paginationUnverified",
+        "releaseStatusNotReady",
+    }
+
+
+def test_full_release_is_accepted_when_contract_and_pagination_are_ready(tmp_path):
+    result = assess_crawl_release(
+        _assessment_release(tmp_path, contract_version="2.1.2", status="CRAWL_READY", pagination_verified=True)
+    )
+    assert result["empiricalCorpusStatus"] == "EMPIRICAL_CORPUS_ACCEPTED"
 
 
 def test_cross_schema_foreign_keys_are_rejected():
@@ -169,4 +189,3 @@ def test_cross_schema_foreign_keys_are_rejected():
     with pytest.raises(ValueError, match="CONTRACT_NOT_EXECUTABLE"):
         assert_duckdb_executable_ddl(ddl)
     assert_duckdb_executable_ddl("CREATE TABLE core.child(id INT);")
-

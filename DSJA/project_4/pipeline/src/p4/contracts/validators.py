@@ -7,6 +7,7 @@ from typing import Any, Iterable
 
 import duckdb
 import jsonschema
+import yaml
 
 from p4.common.hashing import sha256_file
 from p4.contracts.loader import CANONICAL_SCHEMA_FILENAME, ContractBundle, load_contract_yaml
@@ -71,6 +72,13 @@ def validate_contract_manifest(bundle: str | Path) -> dict[str, Any]:
     return manifest
 
 
+def _manifest_hash(manifest: dict[str, Any], filename: str) -> str | None:
+    for item in manifest.get("files", []):
+        if isinstance(item, dict) and item.get("path") == filename:
+            return item.get("sha256")
+    return None
+
+
 def find_cross_schema_foreign_keys(ddl: str) -> list[str]:
     return [f"{schema}.{table}" for schema, table in _CROSS_SCHEMA_FK.findall(ddl)]
 
@@ -119,6 +127,43 @@ def _required_fields(contract: dict[str, Any]) -> Iterable[str]:
         yield from (str(value) for value in required)
 
 
+def _column_specs(table: dict[str, Any]) -> Iterable[tuple[str, dict[str, Any]]]:
+    columns = table.get("columns", {})
+    if isinstance(columns, dict):
+        yield from ((name, spec or {}) for name, spec in columns.items())
+    else:
+        for column in columns:
+            if isinstance(column, dict) and column.get("name"):
+                yield str(column["name"]), column
+
+
+def validate_metric_metadata(bundle: str | Path, contract_version: str) -> dict[str, Any]:
+    path = Path(bundle) / "metrics.yaml"
+    registry = yaml.safe_load(path.read_text(encoding="utf-8"))
+    if registry.get("contractVersion") != contract_version:
+        raise ValueError("metrics.yaml contractVersion mismatch")
+    required = {
+        "grain",
+        "numerator",
+        "denominator",
+        "eligiblePopulation",
+        "unknownHandling",
+        "dedupApplied",
+        "unit",
+        "interpretation",
+        "prohibitedInterpretation",
+    }
+    metrics = registry.get("metrics", {})
+    missing = {
+        metric: sorted(required - set(spec))
+        for metric, spec in metrics.items()
+        if isinstance(spec, dict) and required - set(spec)
+    }
+    if not metrics or missing:
+        raise ValueError(f"metric metadata is incomplete: {missing}")
+    return {"metricCount": len(metrics), "requiredMetadata": sorted(required)}
+
+
 def audit_contract_bundle(bundle_path: str | Path) -> dict[str, Any]:
     bundle = ContractBundle.from_path(bundle_path)
     checksums = verify_checksums(bundle.root)
@@ -129,26 +174,73 @@ def audit_contract_bundle(bundle_path: str | Path) -> dict[str, Any]:
     contract_version = str(contract.get("contractVersion") or "")
     if contract_version != bundle.contract_version or str(manifest["contractVersion"]) != bundle.contract_version:
         raise ValueError("contractVersion mismatch between directory, contract, and manifest")
+    contract_sha256 = sha256_file(bundle.root / "p4_contract.yaml")
+    manifest_contract_hash = manifest.get("sourceContractSha256") or _manifest_hash(manifest, "p4_contract.yaml")
+    if manifest_contract_hash != contract_sha256:
+        raise ValueError("contract hash does not match CONTRACT_MANIFEST.json")
     if "CONTRACT_MANIFEST.json" not in checksums["checked"]:
         raise ValueError("CHECKSUMS.sha256 must include CONTRACT_MANIFEST.json")
 
     ddl_path = bundle.root / "warehouse_duckdb.sql"
     ddl = ddl_path.read_text(encoding="utf-8")
     assert_duckdb_executable_ddl(ddl)
-    manifest_ddl_hash = manifest.get("ddlSha256")
+    manifest_ddl_hash = manifest.get("ddlSha256") or _manifest_hash(manifest, "warehouse_duckdb.sql")
     if manifest_ddl_hash and manifest_ddl_hash != sha256_file(ddl_path):
         raise ValueError("DDL hash does not match CONTRACT_MANIFEST.json")
     conformance = compare_contract_to_ddl(contract, ddl)
-    required_tables = set(contract.get("requiredTables", []))
+    required_tables = set(contract.get("requiredTables", [])) or set(contract.get("tables", {}))
     ddl_lower = ddl.casefold()
     missing_required_tables = sorted(name for name in required_tables if str(name).casefold() not in ddl_lower)
-    missing_required_fields = sorted(field for field in _required_fields(contract) if field.split(".")[-1].casefold() not in ddl_lower)
+    configured_required_fields = list(_required_fields(contract))
+    if not configured_required_fields:
+        configured_required_fields = [
+            f"{table_name}.{column_name}"
+            for table_name, table in contract.get("tables", {}).items()
+            for column_name, _ in _column_specs(table)
+        ]
+    missing_required_fields = sorted(
+        field for field in configured_required_fields if field.split(".")[-1].casefold() not in ddl_lower
+    )
 
-    reserved = contract.get("reservedFields", {})
+    reserved = contract.get("reservedFields") or contract.get("rules", {}).get("reservedFields", {})
     if isinstance(reserved, list):
         reserved = {name: {} for name in reserved}
     if "highDemandScore" not in reserved:
         raise ValueError("reservedFields must declare highDemandScore")
+
+    expected_schemas = set(contract.get("schemas", []))
+    table_count = len(contract.get("tables", {}))
+    view_names = re.findall(r"CREATE\s+OR\s+REPLACE\s+VIEW\s+([\w.]+)", ddl, re.IGNORECASE)
+    statement_count = len([statement for statement in ddl.split(";") if statement.strip()])
+    if expected_schemas != {"raw", "core", "ncs", "mart", "qa"} or table_count != 26 or len(view_names) != 6:
+        raise ValueError(
+            f"canonical object counts mismatch: schemas={sorted(expected_schemas)}, tables={table_count}, views={len(view_names)}"
+        )
+    manifest_counts = (manifest.get("schemaCount"), manifest.get("tableCount"), manifest.get("viewCount"))
+    if manifest_counts != (len(expected_schemas), table_count, len(view_names)):
+        raise ValueError(f"manifest object counts mismatch: {manifest_counts}")
+    if statement_count < 36:
+        raise ValueError(f"canonical DDL has too few statements: {statement_count}")
+
+    key_contract = contract.get("rules", {}).get("keyContract", {})
+    expected_keys = {
+        "algorithm": "SHA-256",
+        "encoding": "UTF-8",
+        "separator": "|",
+        "truncationHexChars": 20,
+    }
+    if any(key_contract.get(key) != value for key, value in expected_keys.items()):
+        raise ValueError(f"canonical key contract mismatch: {key_contract}")
+
+    lineage_missing = [
+        f"{table_name}.{column_name}"
+        for table_name, table in contract.get("tables", {}).items()
+        for column_name, spec in _column_specs(table)
+        if not all(spec.get(field) for field in ("source", "derivation", "qualityRule"))
+    ]
+    if lineage_missing:
+        raise ValueError(f"field lineage metadata missing: {lineage_missing[:10]}")
+    metrics = validate_metric_metadata(bundle.root, bundle.contract_version)
 
     required_duckdb = str(manifest.get("duckdbVersion") or contract.get("duckdbVersion") or "")
     if required_duckdb and _version_tuple(duckdb.__version__) < _version_tuple(required_duckdb):
@@ -167,15 +259,24 @@ def audit_contract_bundle(bundle_path: str | Path) -> dict[str, Any]:
         )
     return {
         "contractVersion": bundle.contract_version,
-        "contractSha256": sha256_file(bundle.root / "p4_contract.yaml"),
+        "contractSha256": contract_sha256,
         "manifestSha256": sha256_file(bundle.root / "CONTRACT_MANIFEST.json"),
         "ddlSha256": sha256_file(ddl_path),
         "schemaFilename": CANONICAL_SCHEMA_FILENAME,
         "duckdbRuntimeVersion": duckdb.__version__,
         "checksums": checksums,
+        "schemaCount": len(expected_schemas),
+        "tableCount": table_count,
+        "viewCount": len(view_names),
+        "ddlStatementCount": statement_count,
+        "crossSchemaForeignKeyCount": len(find_cross_schema_foreign_keys(ddl)),
+        "keyContract": key_contract,
+        "fieldLineageCount": sum(
+            1 for table in contract.get("tables", {}).values() for _ in _column_specs(table)
+        ),
+        "metricMetadata": metrics,
         "requiredTables": sorted(required_tables),
-        "requiredFields": sorted(_required_fields(contract)),
+        "requiredFields": sorted(configured_required_fields),
         "reservedFields": sorted(reserved),
         "passed": True,
     }
-

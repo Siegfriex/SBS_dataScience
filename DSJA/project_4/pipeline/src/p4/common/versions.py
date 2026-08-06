@@ -5,7 +5,7 @@ from dataclasses import dataclass
 
 PIPELINE_VERSION = "0.1.0"
 TARGET_CONTRACT_VERSION = "2.1.2"
-SUPPORTED_CONTRACT_VERSION = None
+SUPPORTED_CONTRACT_VERSION = "2.1.2"
 
 
 @dataclass(frozen=True)
