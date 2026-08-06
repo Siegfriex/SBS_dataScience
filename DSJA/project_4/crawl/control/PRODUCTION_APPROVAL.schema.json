@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "p4-crawl-production-approval-v1",
+  "title": "P4 Linkareer production crawl approval",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "productionApprovalId",
+    "approvedBy",
+    "approvedAt",
+    "approvedPeriod",
+    "approvedSource",
+    "externalAtsTransportAllowed",
+    "linkareerHostedAssetAllowed",
+    "rateLimitPolicyVersion",
+    "killSwitchPolicyVersion"
+  ],
+  "properties": {
+    "productionApprovalId": {"type": "string", "minLength": 1},
+    "approvedBy": {"type": "string", "minLength": 1},
+    "approvedAt": {"type": "string", "format": "date-time"},
+    "approvedPeriod": {"const": "2020-01~2026-07"},
+    "approvedSource": {"const": "Linkareer"},
+    "externalAtsTransportAllowed": {"const": false},
+    "linkareerHostedAssetAllowed": {"const": true},
+    "rateLimitPolicyVersion": {"const": "p4-linkareer-production-rate-v1"},
+    "killSwitchPolicyVersion": {"const": "p4-linkareer-kill-switch-v1"}
+  }
+}
