@@ -1,0 +1,15 @@
+{
+  "agentId": "P4-A1-CANARY-CRAWL-ORCHESTRATOR",
+  "approvalErrors": [
+    "CANARY_APPROVAL_MISSING"
+  ],
+  "approvalId": "NONE",
+  "canaryRunId": "CANARY_T0_20260807_03",
+  "externalAtsTransportCalls": 0,
+  "killSwitchPolicyVersion": "p4-linkareer-kill-switch-v1",
+  "networkCalls": 0,
+  "queryRegistrySha256": "7715d7170ec4d033c6ec257aee4eebd34381b12cfc2be891a3b8d61f8655782e",
+  "rateLimitPolicyVersion": "p4-linkareer-production-rate-v1",
+  "sourcePolicyAuditSha256": "e461f58e70bca86e4e16ddf1821829972cce77a7ab55ea7eeeea9a0d8e37bb3b",
+  "status": "CANARY_BLOCKED_BY_POLICY"
+}
