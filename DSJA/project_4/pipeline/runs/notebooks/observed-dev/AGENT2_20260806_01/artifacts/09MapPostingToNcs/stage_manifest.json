@@ -6,7 +6,7 @@
   "status": "SUCCEEDED",
   "agentId": "P4-A2-PIPELINE",
   "branch": "agent/p4-pipeline-v2",
-  "gitHead": "90d120d2a40913b69e53a2f2db79b3abbef86ee3",
+  "gitHead": "17a905514e28ee762c46a9e8410a15cab02c7560",
   "contractVersion": "2.1.2",
   "schemaVersion": "ncs-agent4-acceptance-v1",
   "dataVersion": "observed-dev-20260806.1",
@@ -17,7 +17,7 @@
   "empiricalAnalysisAllowed": false,
   "promotionAllowed": false,
   "inputManifestSha256": "1ac072923722cb61d6ea011aba2d824774710bae677bc10a1a9427b1df842bf1",
-  "parameterSha256": "ba323708d009fb8ca32d1ff653dfafcd19a0c23f9458906998f40764d3a2a776",
+  "parameterSha256": "daeec0a0b309ff76b47e50113730132edeb759b7ce8945eab4fdfa7c28746781",
   "rowCounts": {
     "ncsUnitRows": 13442,
     "coreCodeRows": 120,

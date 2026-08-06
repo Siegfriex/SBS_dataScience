@@ -6,7 +6,7 @@
   "status": "SUCCEEDED",
   "agentId": "P4-A2-PIPELINE",
   "branch": "agent/p4-pipeline-v2",
-  "gitHead": "90d120d2a40913b69e53a2f2db79b3abbef86ee3",
+  "gitHead": "17a905514e28ee762c46a9e8410a15cab02c7560",
   "contractVersion": "2.1.2",
   "schemaVersion": "preprocessing-qa-v1",
   "dataVersion": "observed-dev-20260806.1",
@@ -17,7 +17,7 @@
   "empiricalAnalysisAllowed": false,
   "promotionAllowed": false,
   "inputManifestSha256": "1ac072923722cb61d6ea011aba2d824774710bae677bc10a1a9427b1df842bf1",
-  "parameterSha256": "1785d58b11fc8d1e421e8b102918830a2fd69bc5abd023c5fea60d37a3428932",
+  "parameterSha256": "6dd8b820f43161cca4c161a4e6c9bbed28d2c7e572921a9b232b8336e8fa532b",
   "rowCounts": {
     "posting_ncs_matches": 28,
     "posting_ncs_candidates": 128,
