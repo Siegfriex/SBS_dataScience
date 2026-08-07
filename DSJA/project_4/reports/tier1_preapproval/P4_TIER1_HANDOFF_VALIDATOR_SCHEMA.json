@@ -1,0 +1,249 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:p4:canary:tier1-index-handoff:v1",
+  "title": "P4 Tier 1 index canary handoff summary",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "runId",
+    "dataVersion",
+    "approvalId",
+    "approvalArtifactSha256",
+    "logicalRequestType",
+    "approvedScopeHash",
+    "requestCount",
+    "detailRequestCount",
+    "assetRequestCount",
+    "externalAtsTransportCalls",
+    "browserAutomationCalls",
+    "requestManifestSha256",
+    "checkpointManifestSha256",
+    "terminalPageEvidenceSha256",
+    "requestAttempts",
+    "terminalPages",
+    "checkpoint",
+    "requestsAfterKillSwitchStop",
+    "status"
+  ],
+  "properties": {
+    "runId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "dataVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "approvalId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "approvalArtifactSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "logicalRequestType": {
+      "const": "INDEX"
+    },
+    "approvedScopeHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "requestCount": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 28
+    },
+    "detailRequestCount": {
+      "const": 0
+    },
+    "assetRequestCount": {
+      "const": 0
+    },
+    "externalAtsTransportCalls": {
+      "const": 0
+    },
+    "browserAutomationCalls": {
+      "const": 0
+    },
+    "requestManifestSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "checkpointManifestSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "terminalPageEvidenceSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "requestAttempts": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 28,
+      "items": {
+        "$ref": "#/$defs/requestAttempt"
+      }
+    },
+    "terminalPages": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/terminalPage"
+      }
+    },
+    "checkpoint": {
+      "$ref": "#/$defs/checkpoint"
+    },
+    "requestsAfterKillSwitchStop": {
+      "const": 0
+    },
+    "status": {
+      "enum": [
+        "CANARY_VALIDATION",
+        "CANARY_READY_FOR_NEXT_SCOPE",
+        "CANARY_STOPPED_BY_KILL_SWITCH",
+        "CANARY_STOPPED_BY_SCOPE_LIMIT",
+        "CANARY_QUARANTINED",
+        "CANARY_FAILED"
+      ]
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "requestAttempt": {
+      "type": "object",
+      "required": [
+        "requestAttemptId",
+        "requestKey",
+        "logicalRequestType",
+        "periodMonth",
+        "pageOrCursor",
+        "startedAtUtc",
+        "completedAtUtc",
+        "responseSha256",
+        "checkpointId",
+        "terminalStatus"
+      ],
+      "properties": {
+        "requestAttemptId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "requestKey": {
+          "$ref": "#/$defs/sha256"
+        },
+        "logicalRequestType": {
+          "const": "INDEX"
+        },
+        "periodMonth": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}$"
+        },
+        "pageOrCursor": {
+          "type": [
+            "string",
+            "integer"
+          ]
+        },
+        "startedAtUtc": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "completedAtUtc": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "responseSha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "checkpointId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "terminalStatus": {
+          "enum": [
+            "FETCHED_VALID",
+            "FETCHED_EMPTY_VALID",
+            "POLICY_BLOCKED",
+            "RETRY_EXHAUSTED",
+            "PARSER_QUARANTINED"
+          ]
+        }
+      }
+    },
+    "terminalPage": {
+      "type": "object",
+      "required": [
+        "periodMonth",
+        "pageOrCursor",
+        "terminal",
+        "cursorLoopDetected",
+        "evidenceSha256"
+      ],
+      "properties": {
+        "periodMonth": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}$"
+        },
+        "pageOrCursor": {
+          "type": [
+            "string",
+            "integer"
+          ]
+        },
+        "terminal": {
+          "const": true
+        },
+        "cursorLoopDetected": {
+          "const": false
+        },
+        "evidenceSha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "checkpoint": {
+      "type": "object",
+      "required": [
+        "checkpointId",
+        "runId",
+        "completedRequestKeys",
+        "requestLedgerOffset",
+        "rawObjectManifestSha256",
+        "coverageSnapshotSha256"
+      ],
+      "properties": {
+        "checkpointId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "runId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "completedRequestKeys": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/sha256"
+          }
+        },
+        "requestLedgerOffset": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "rawObjectManifestSha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "coverageSnapshotSha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    }
+  }
+}

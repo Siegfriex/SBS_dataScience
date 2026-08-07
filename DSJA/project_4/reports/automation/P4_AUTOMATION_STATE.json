@@ -1,0 +1,89 @@
+{
+  "agentId": "P4-RECURSIVE-CANARY-M2-ORCHESTRATOR",
+  "state": "AWAIT_TIER1_APPROVAL",
+  "tier": "TIER1",
+  "iterationId": "P4_AUTO_T1T2_PREAPPROVAL_20260807_01",
+  "updatedAtUtc": "2026-08-06T23:49:59.338148Z",
+  "automationPolicyPath": "automation_policy.yaml",
+  "automationPolicySha256": "60967dfc992d8362adce30ddaf3bf1f49ff6d83c391c25e334ff9fee677b0458",
+  "automationPolicyStatus": "PASS",
+  "maxAutoRepairIterationsPerTier": 3,
+  "maxCanaryRunsPerScope": 2,
+  "a1CanonicalHandoff": {
+    "branch": "agent/p4-a1-canary-crawl-v1",
+    "headCommit": "13205c11e7de3dfc7b005b0fde16197281eb857f",
+    "runId": "CANARY_T0_20260807_03",
+    "artifactCount": 16,
+    "manifestSha256": "6162d3aea6ff3646d4d9cb7ff09d09acf91bbde81a815896096bca82b6f63c42",
+    "status": "ACCEPTED"
+  },
+  "a3Acceptance": {
+    "branch": "integration/p4-canary-acceptance-v1",
+    "headCommitBeforeAutomationReport": "b9b8a0b86a10a08e6f1f06e930100ed8ea6eb54e",
+    "status": "CANARY_ACCEPTED_FOR_NEXT_DEBUG_SCOPE"
+  },
+  "a5Status": "NOT_REQUIRED",
+  "approvalStatus": "TIER1T2_APPROVAL_MISSING",
+  "networkCalls": 0,
+  "externalAtsTransportCalls": 0,
+  "credentialedApiCalls": 0,
+  "acceptedScope": "TIER0_FIXTURE_ONLY",
+  "nextRequiredAction": "USER_TIER1T2_DETAIL_ASSET_CANARY_APPROVAL_ARTIFACT",
+  "fixedDefects": [
+    "CANARY-P1-EVIDENCE-BUNDLE",
+    "AUTOMATION-P1-POLICY-INCOMPLETE"
+  ],
+  "openDefects": [
+    "P1-UNIFIED-001",
+    "P1-UNIFIED-002",
+    "P1-UNIFIED-003",
+    "P1-UNIFIED-004",
+    "P1-UNIFIED-005",
+    "P2-TIER1-PREEXISTING-ABSOLUTE-PATH-LITERALS"
+  ],
+  "m2FullCrawlEligible": false,
+  "crawlReleaseEligible": false,
+  "analysisEligible": false,
+  "a1Status": "TIER1T2_COMBINED_APPROVAL_PACKET_READY",
+  "a3Status": "TIER1T2_CANARY_ACCEPTANCE_READY",
+  "tier1Proposal": {
+    "proposalStatus": "PROPOSED_NOT_APPROVED",
+    "candidateScopeId": "T1-INDEX-2026-03-APQ-V1",
+    "candidatePeriodOrQuery": {
+      "periodMonths": [
+        "2026-03"
+      ],
+      "queryOperations": [
+        "CalendarScreen_ActivityCalendarEntries",
+        "CalendarScreen_Activities"
+      ]
+    },
+    "proposedMaxIndexRequests": 28,
+    "estimatedStorageBytes": 8772876,
+    "approvalExpiryRecommendation": "PT2H_AFTER_APPROVAL",
+    "a1Branch": "agent/p4-a1-canary-tier1-preapproval-v1",
+    "a1Head": "c17c7f5bc8c3eb1a9c1d12efb1eeb801f074f61c",
+    "a3HeadBeforeReportCommit": "f9a4c7e7125671e765359f27d237bc284e3fccae",
+    "a3EvidenceManifestSha256": "e8f49d9b72b4f9168da4e7a3c085cbe65130584a5e32c40f6c9941a994312532"
+  },
+  "tier1t2Proposal": {
+    "proposalStatus": "PROPOSED_NOT_APPROVED",
+    "candidateScopeId": "T1-INDEX-2026-03-APQ-V1",
+    "candidatePeriodOrQuery": {
+      "periodMonths": [
+        "2026-03"
+      ],
+      "queryOperations": [
+        "CalendarScreen_ActivityCalendarEntries",
+        "CalendarScreen_Activities"
+      ]
+    },
+    "proposedMaxIndexRequests": 28,
+    "detailSampleSize": 10,
+    "proposedMaxAssetRequests": 30,
+    "approvalExpiryRecommendation": "PT2H_AFTER_APPROVAL",
+    "a1Branch": "agent/p4-a1-canary-tier1t2-preapproval-v1",
+    "a1Head": "d17927b5b50b7b7a6ed403b66ef840ef26b13fb3",
+    "a3HeadBeforeReportCommit": "18d5f9d08c57d60ca185c58b98521277fc4fe02d"
+  }
+}

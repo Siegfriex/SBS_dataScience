@@ -1,0 +1,97 @@
+{
+  "schemaVersion": "p4-tier1t2-measurement-contract-v1",
+  "purpose": "SOURCE_RECOVERY_AND_LINKAREER_HOSTED_ASSET_AVAILABILITY_MEASUREMENT",
+  "detailRowFields": [
+    "postingId",
+    "terminalStatus",
+    "ssrRawByteCount",
+    "ssrDecodedCharacterCount",
+    "apolloTextCharacterCount",
+    "activityTextCharacterCount",
+    "mergedSourceTextCharacterCount",
+    "sourceBlockCount",
+    "sectionCount",
+    "semanticChunkCount",
+    "requirementFactCount",
+    "koreanCharacterRatio",
+    "emptyTextFlag",
+    "parserQuarantineFlag"
+  ],
+  "detailAggregateFields": [
+    "detailRequestedCount",
+    "detailFetchedValidCount",
+    "detailTerminalCoverage",
+    "totalSsrBytes",
+    "totalSsrCharacters",
+    "totalApolloCharacters",
+    "totalActivityTextCharacters",
+    "totalMergedTextCharacters",
+    "meanTextCharacters",
+    "medianTextCharacters",
+    "zeroTextPostingCount",
+    "sourceModeDistribution"
+  ],
+  "assetRowFields": [
+    "postingId",
+    "assetCandidateId",
+    "sourceField",
+    "host",
+    "mime",
+    "contentLength",
+    "assetSha256",
+    "terminalStatus",
+    "duplicateContent",
+    "ocrCandidateFlag"
+  ],
+  "assetAggregateFields": [
+    "selectedPostingCount",
+    "assetCandidateCount",
+    "linkareerHostedAssetCount",
+    "fetchedValidAssetCount",
+    "duplicateContentCount",
+    "unsupportedMimeCount",
+    "notFoundAssetCount",
+    "policyBlockedAssetCount",
+    "uniqueAssetShaCount",
+    "totalAssetBytes",
+    "mimeDistribution",
+    "postingWithAtLeastOneAssetCount"
+  ],
+  "detailTerminalStatus": [
+    "FETCHED_VALID",
+    "FETCHED_EMPTY_VALID",
+    "NOT_FOUND",
+    "EXPIRED",
+    "POLICY_BLOCKED",
+    "RETRY_EXHAUSTED",
+    "PARSER_QUARANTINED"
+  ],
+  "assetTerminalStatus": [
+    "FETCHED_VALID",
+    "DUPLICATE_CONTENT",
+    "UNSUPPORTED_MIME",
+    "NOT_FOUND",
+    "POLICY_BLOCKED",
+    "RETRY_EXHAUSTED"
+  ],
+  "fallback": {
+    "exactSourceIdOrApolloReferenceAllowed": true,
+    "ambiguousStandaloneAutoSelectionAllowed": false,
+    "terminalStatusOverwriteAllowed": false
+  },
+  "assetPolicy": {
+    "linkareerHostedOnly": true,
+    "externalAtsTransportAllowed": false,
+    "redirectToUnapprovedHostAllowed": false
+  },
+  "ocr": {
+    "mode": "QUEUE_MIME_SHA_TEXT_VOLUME_ONLY",
+    "textExtractionAllowed": false,
+    "ncsMappingAllowed": false
+  },
+  "promotion": {
+    "productionReleaseAllowed": false,
+    "analysisPromotionAllowed": false,
+    "goldPromotionAllowed": false
+  }
+}

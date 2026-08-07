@@ -1,0 +1,7 @@
+a1Branch,a1Head,a3HeadBeforeReportCommit,candidateScopeId,networkCalls,externalAtsTransportCalls,checkId,expected,observed,status
+agent/p4-a1-canary-tier1t2-preapproval-v1,d17927b5b50b7b7a6ed403b66ef840ef26b13fb3,18d5f9d08c57d60ca185c58b98521277fc4fe02d,T1-INDEX-2026-03-APQ-V1,0,0,INDEX_SCOPE,one proposed period/query scope,"{""periodMonths"": [""2026-03""], ""queryOperations"": [""CalendarScreen_ActivityCalendarEntries"", ""CalendarScreen_Activities""]}",PASS
+agent/p4-a1-canary-tier1t2-preapproval-v1,d17927b5b50b7b7a6ed403b66ef840ef26b13fb3,18d5f9d08c57d60ca185c58b98521277fc4fe02d,T1-INDEX-2026-03-APQ-V1,0,0,INDEX_MAX,proposal only,28,PASS
+agent/p4-a1-canary-tier1t2-preapproval-v1,d17927b5b50b7b7a6ed403b66ef840ef26b13fb3,18d5f9d08c57d60ca185c58b98521277fc4fe02d,T1-INDEX-2026-03-APQ-V1,0,0,DETAIL_MAX,10,10,PASS
+agent/p4-a1-canary-tier1t2-preapproval-v1,d17927b5b50b7b7a6ed403b66ef840ef26b13fb3,18d5f9d08c57d60ca185c58b98521277fc4fe02d,T1-INDEX-2026-03-APQ-V1,0,0,DETAIL_SELECTION,await Tier 1 discovery,NOT_EVALUATED_AWAITING_TIER1_DISCOVERY,NOT_EVALUATED
+agent/p4-a1-canary-tier1t2-preapproval-v1,d17927b5b50b7b7a6ed403b66ef840ef26b13fb3,18d5f9d08c57d60ca185c58b98521277fc4fe02d,T1-INDEX-2026-03-APQ-V1,0,0,ASSET_MAX,evidence-based proposed cap,30,PASS_WITH_FINDINGS
+agent/p4-a1-canary-tier1t2-preapproval-v1,d17927b5b50b7b7a6ed403b66ef840ef26b13fb3,18d5f9d08c57d60ca185c58b98521277fc4fe02d,T1-INDEX-2026-03-APQ-V1,0,0,EXTERNAL_ATS_BROWSER,0/0,0/0,PASS

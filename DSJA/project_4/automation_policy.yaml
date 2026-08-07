@@ -1,0 +1,167 @@
+schemaVersion: p4-canary-automation-v1
+
+maxAutoRepairIterationsPerTier: 3
+maxCanaryRunsPerScope: 2
+
+allowedBranchPrefixes:
+  - agent/p4-a1-canary-
+  - integration/p4-canary-
+
+allowedWriteRoots:
+  - crawl/
+  - integration/
+  - shared/contracts/canary_automation/
+  - reports/
+
+requiredA1HandoffArtifacts:
+  - canary_plan.json
+  - approval_binding.json
+  - request_attempt.jsonl
+  - request_response_manifest.jsonl
+  - checkpoint_manifest.json
+  - raw_object_manifest.jsonl
+  - index_results.parquet
+  - detail_results.parquet
+  - asset_results.parquet
+  - canary_coverage.csv
+  - kill_switch_events.jsonl
+  - quarantine_manifest.jsonl
+  - stage_manifest.json
+  - stage_metrics.json
+  - stage_quality.csv
+  - CHECKSUMS.sha256
+
+requiredA3AcceptanceArtifacts:
+  - P4_CANARY_ACCEPTANCE_*.md
+  - P4_CANARY_GATE_STATUS_*.csv
+  - P4_CANARY_SCOPE_ESCALATION_DECISION_*.json
+
+requiredA5AuditArtifacts:
+  - P4_A5_CANARY_AUDIT_*.md
+  - P4_A5_CANARY_GATE_STATUS_*.csv
+  - EVIDENCE_MANIFEST_*.sha256
+
+canaryTierDefinitions:
+  TIER0:
+    executionMode: FIXTURE_ONLY
+    networkAllowed: false
+    approvalArtifactRequired: false
+    nextGate: TIER1_USER_APPROVAL
+  TIER1:
+    executionMode: INDEX_CANARY
+    networkAllowedOnlyWithApproval: true
+    detailAllowed: false
+    assetAllowed: false
+    nextGate: TIER2_USER_APPROVAL
+  TIER2:
+    executionMode: DETAIL_CANARY
+    networkAllowedOnlyWithApproval: true
+    assetAllowed: false
+    externalAtsAllowed: false
+    nextGate: TIER3_USER_APPROVAL
+  TIER3:
+    executionMode: LINKAREER_ASSET_CANARY
+    networkAllowedOnlyWithApproval: true
+    externalAtsAllowed: false
+    nextGate: TIER4_USER_APPROVAL
+  TIER4:
+    executionMode: REPRESENTATIVE_CANARY
+    networkAllowedOnlyWithApproval: true
+    approvedStrataRequired: true
+    a5AuditRequired: true
+    nextGate: M2_FULL_USER_APPROVAL
+
+approvalSchemaVersion: p4-canary-approval-v1
+sourcePolicySchemaVersion: p4-linkareer-source-policy-v1
+
+networkPolicy:
+  allowNetworkWithoutApproval: false
+  allowExternalAts: false
+  allowBrowserAutomation: false
+  allowFullM2Automation: false
+
+scopeEscalation:
+  requiresNewApprovalArtifact: true
+  requiresA5ForTier4: true
+  requiresA5ForM2: true
+
+budgetExhaustionPolicy:
+  stopAutomaticPatch: true
+  stopScopeEscalation: true
+  requireHumanDecision: true
+
+tier1:
+  executionMode: INDEX_ONLY
+  scopeEscalationMode: CONTROLLER_PROPOSES_USER_APPROVES
+  requiresRequestConflictCountZero: true
+  requiresCursorLoopCountZero: true
+  requiresCheckpointResumePass: true
+  requiresTerminalPageEvidenceComplete: true
+  requiresKillSwitchPass: true
+  requiresExternalAtsCallsZero: true
+  a5BeforeRepetitionOrEscalation: CONDITIONAL
+
+tier2:
+  detailSampleSize: 10
+  sampleFrame: TIER1_DISCOVERED_UNIQUE_POSTING_IDS
+  samplingMethod: deterministic_random_without_replacement
+  samplingSeedMaterial:
+    - canaryRunId
+    - tier1DiscoveryManifestSha256
+    - approvedScopeHash
+  requireSelectionManifest: true
+  selectionManifestName: detail_canary_sample_manifest.json
+  preserveTerminalStatuses:
+    - NOT_FOUND
+    - EXPIRED
+    - RETRY_EXHAUSTED
+    - PARSER_QUARANTINED
+
+fallback:
+  autoPatchLowRisk: true
+  autoPatchMediumRisk: true
+  autoNetworkRerunMediumRisk: false
+  highRiskAction: QUARANTINE_AND_USER_DECISION
+  ambiguousAutoSelectionAllowed: false
+  overwriteRawOrTerminalStatusAllowed: false
+
+rawStorage:
+  immutable: true
+  contentAddressed: true
+  gitRawBytesAllowed: false
+  automatedWriteWithinApprovedScope: true
+  automatedDeletionAllowed: false
+
+tier3:
+  linkareerHostedAssetsOnly: true
+  allowedAssetTypes:
+    - poster
+    - thumbnail
+    - activitytext_embedded_image
+    - attachment
+  externalAssetHostDefaultDeny: true
+  agentCanPrepareExceptionPacket: true
+  agentCanSelfApproveExternalHost: false
+  ocrMode: COLLECT_QUEUE_QUALITY_ONLY
+  acceptedNcsMappingFromOcrAllowed: false
+  requiredOcrScenarios:
+    - poster_layout
+    - table_layout
+    - bullet_layout
+    - mixed_layout
+    - low_resolution_image
+    - unsupported_mime
+    - duplicate_asset_sha
+    - html_ocr_overlap
+    - external_host_rejection
+
+tier4:
+  representativeStrata:
+    - EARLY
+    - MIDDLE
+    - RECENT
+  actualPeriodsRequireUserApproval: true
+  requestBudgetRequiresUserApproval: true
+  checkpointRestartSimulationAllowed: true
+  requiresA5Audit: true
+  scopeExpansionMode: CONTROLLER_PROPOSES_USER_APPROVES
